@@ -17,8 +17,8 @@
   · Dual-signature seal — ECDSA-P384 primary +
     Ed25519 witness over one SHA3-384 digest; Ch.9 truth table (one layer
     valid → INDETERMINATE); Ch.6 domain-separated content addressing and
-    key fingerprints · OAA admissibility composer, Lean 4 model machine-checked
-    (11 theorems, zero sorry, Lean 4.15.0) · light/dark theme · ISO 8601
+    key fingerprints · claim-status composition with a downloadable formal
+    (Lean) model · light/dark theme · ISO 8601
     timestamps · proof checker accepts RFC 6962 / CT audit paths and
     hex/base64/b64u hashes
 
@@ -1090,14 +1090,12 @@ nav button { white-space: nowrap; }
 
 
   <div class="card" style="margin-bottom:14px">
-    <div class="card-title">Admissibility composition (OAA)
-      <button class="btn btn-secondary btn-sm" onclick="downloadOAALean()">Download Lean model</button>
+    <div class="card-title">Overall status
+      <button class="btn btn-secondary btn-sm" onclick="downloadOAALean()">Download formal model</button>
     </div>
-    <div class="card-desc">Status of the composed claim set under the ranking
-      (excluded &lt; quarantined &lt; conjectural &lt; declared &lt; implementation-support &lt; bounded-check &lt; replay &lt; supporting &lt; released).
-      Composition is min-rank: the weakest member governs. The Lean 4 model machine-checks commutativity, associativity,
-      idempotence, absorption ('excluded'), identity ('released'), monotonicity, and the meet-semilattice law —
-      11 theorems, all by exhaustive <span class="mono">decide</span>, typechecked under Lean 4.15.0, zero <span class="mono">sorry</span>.</div>
+    <div class="card-desc">When several claims are made about the same bundle, the overall status is
+      the <em>weakest</em> one — a set of claims is only as strong as its least-supported member.
+      Claim strength runs from excluded (rejected) up to released (fully supported).</div>
     <div id="adm-derived" style="margin-top:8px"></div>
   </div>
   <div id="claims-list">
@@ -4882,9 +4880,9 @@ function renderAdmissibility() {
   const counts = {};
   standings.forEach(s => counts[s] = (counts[s] || 0) + 1);
   el.innerHTML = `<span class="badge ${derived === 'released' ? 'badge-green' : STANDING_RANK[derived] <= 1 ? 'badge-red' : 'badge-orange'}">${esc(derived.toUpperCase())}</span>
-    derived standing of the composed claim set (min-rank over ${standings.length} claim(s):
-    ${Object.entries(counts).map(([s, n]) => `${n}×${esc(s)}`).join(' · ')})
-    <div class="algo-note" style="margin-top:4px">Composition law: standing(A∪B) = min(standing A, standing B). Weakest link governs; 'excluded' absorbs; 'released' is identity. Machine-checked in the Lean model.</div>`;
+    overall status across ${standings.length} claim(s):
+    ${Object.entries(counts).map(([s, n]) => `${n}×${esc(s)}`).join(' · ')}
+    <div class="algo-note" style="margin-top:4px">The overall status is the weakest of all claims made about this bundle.</div>`;
 }
 
 /* ── OAA.lean — embedded formal model ───────────────────────────── */

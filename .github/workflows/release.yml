@@ -1,0 +1,58 @@
+name: Release (signed)
+
+# Cuts a signed release when a version tag is pushed, e.g.  git tag v1.0.0 && git push --tags
+#
+# Requires two repository secrets (set by the maintainer in
+# Settings → Secrets and variables → Actions):
+#   COSIGN_PRIVATE_KEY  — the cosign private key (generated locally, never committed)
+#   COSIGN_PASSWORD     — the password protecting that key
+#
+# The matching public key must be committed as cosign.pub so anyone can verify.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify self-test before releasing
+        env:
+          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+        run: |
+          npm ci || npm install
+          out="$(node cli/proofbundle-cli.mjs selftest)"
+          echo "$out"
+          echo "$out" | grep -Eq 'self-test: ([0-9]+)/\1 pass'
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign the release artifact
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          cosign sign-blob --yes --key env://COSIGN_PRIVATE_KEY \
+            --output-signature proofbundle.html.sig \
+            proofbundle.html
+
+      - name: Publish release with signed artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            proofbundle.html
+            proofbundle.html.sig
+            cosign.pub
+          generate_release_notes: true

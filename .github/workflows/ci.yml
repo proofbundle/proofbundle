@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  self-test:
+    name: 65/65 self-test (headless)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run built-in self-test against the shipped engine
+        env:
+          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+        run: node cli/proofbundle-cli.mjs selftest
+
+      - name: Fail if self-test did not report a full pass
+        env:
+          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+        run: |
+          out="$(node cli/proofbundle-cli.mjs selftest)"
+          echo "$out"
+          echo "$out" | grep -Eq 'self-test: ([0-9]+)/\1 pass' || {
+            echo "::error::self-test did not report an all-pass result"; exit 1; }

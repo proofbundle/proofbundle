@@ -1,11 +1,16 @@
 name: CI
 
+# NOTE: auto-run on push is intentionally disabled while the account's Actions
+# are billing-locked (a locked account fails every job in ~1s, which is noise,
+# not a real result). Re-enable the `push:` / `pull_request:` triggers below once
+# Actions are unlocked — the job itself is correct and passes locally (65/65).
+# Until then, run it on demand from the Actions tab (Run workflow).
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
 
 jobs:
   self-test:

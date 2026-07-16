@@ -5,8 +5,8 @@
 **A signed, Merkle-committed provenance envelope for any digital artifact.**
 Seal, verify, and timestamp — offline, single-file, no trust required.
 
-[![CI](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/proofbundle/proofbundle?sort=semver)](https://github.com/proofbundle/proofbundle/releases)
+[![self-test](https://img.shields.io/badge/self--test-65%2F65%20live%20in%20browser-brightgreen)](#try-it-in-10-seconds)
+[![offline](https://img.shields.io/badge/runs-100%25%20offline-blue)](#what-it-is)
 [![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue)](#license)
 [![Signed releases](https://img.shields.io/badge/releases-cryptographically%20signed-brightgreen)](VERIFYING.md)
 

@@ -515,6 +515,37 @@ nav button { white-space: nowrap; }
 #theme-toggle { min-width: 0; }
 
 
+
+/* Receipts | Developer — clean shell, hide advanced until Developer */
+body:not(.adv-mode) .sb-adv-only { display: none !important; }
+.mode-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-left: auto;
+}
+.mode-text {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text2); font-size: 11px; padding: 4px 10px;
+  border-radius: 999px; cursor: pointer; font-family: inherit;
+}
+.mode-text:hover { color: var(--text0); border-color: var(--border2); }
+body.adv-mode .mode-text { color: var(--text0); border-color: var(--blue); }
+.hc-hash {
+  margin-top: 10px; padding: 10px 12px;
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+}
+.hc-hash .hc-hash-label {
+  font-size: 11px; color: var(--text2); margin-bottom: 4px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.hc-hash code {
+  display: block; font-family: var(--font-mono); font-size: 11px;
+  word-break: break-all; color: var(--text0); margin-bottom: 8px; line-height: 1.4;
+}
+.hc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.hc-hint { font-size: 12px; color: var(--text2); margin-top: 8px; }
+.hero-job { font-size: 12px; color: var(--text1); margin-top: 12px; }
+.topbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
 </style>
 </head>
 <body>
@@ -528,18 +559,18 @@ nav button { white-space: nowrap; }
   <nav class="sb-nav" id="tabs">
     <button class="active" data-title="Seal a file" onclick="switchTab('home',this)"><span class="sb-ico">✦</span><span>Seal</span></button>
     <button data-title="Verify" onclick="switchTab('verify',this)"><span class="sb-ico">✓</span><span>Verify</span></button>
-    <button data-title="Compliance profiles" onclick="switchTab('domains',this)"><span class="sb-ico">◈</span><span>Profiles</span></button>
-    <button data-title="EU AI Act" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>EU AI Act</span></button>
+    <button class="sb-adv-only" data-title="Compliance profiles" onclick="switchTab('domains',this)"><span class="sb-ico">◈</span><span>Profiles</span></button>
+    <button class="sb-adv-only" data-title="AI Bill of Materials" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>AI-BOM</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
-    <div class="sb-group-label">Advanced</div>
-    <button data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
-    <button data-title="Bundle editor" onclick="switchTab('seal',this)"><span class="sb-ico">⌗</span><span>Bundle editor</span></button>
-    <button data-title="Claims" onclick="switchTab('claims',this)"><span class="sb-ico">◇</span><span>Claims</span></button>
-    <button data-title="Predictions" onclick="switchTab('predict',this)"><span class="sb-ico">◷</span><span>Predictions</span></button>
-    <div class="sb-group-label">Reference</div>
-    <button id="tab-algorithms" data-title="Algorithms" onclick="switchTab('algorithms',this)"><span class="sb-ico">⚙</span><span>Algorithms</span></button>
-    <button data-title="Conformance tests" onclick="switchTab('vectors',this)"><span class="sb-ico">▦</span><span>Tests</span></button>
-    <button data-title="Showcase" onclick="switchTab('showcase',this)"><span class="sb-ico">◱</span><span>Showcase</span></button>
+    <div class="sb-group-label sb-adv-only">Advanced</div>
+    <button class="sb-adv-only" data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
+    <button class="sb-adv-only" data-title="Bundle editor" onclick="switchTab('seal',this)"><span class="sb-ico">⌗</span><span>Bundle editor</span></button>
+    <button class="sb-adv-only" data-title="Claims" onclick="switchTab('claims',this)"><span class="sb-ico">◇</span><span>Claims</span></button>
+    <button class="sb-adv-only" data-title="Predictions" onclick="switchTab('predict',this)"><span class="sb-ico">◷</span><span>Predictions</span></button>
+    <div class="sb-group-label sb-adv-only">Reference</div>
+    <button id="tab-algorithms" class="sb-adv-only" data-title="Algorithms" onclick="switchTab('algorithms',this)"><span class="sb-ico">⚙</span><span>Algorithms</span></button>
+    <button class="sb-adv-only" data-title="Conformance tests" onclick="switchTab('vectors',this)"><span class="sb-ico">▦</span><span>Tests</span></button>
+    <button class="sb-adv-only" data-title="Showcase" onclick="switchTab('showcase',this)"><span class="sb-ico">◱</span><span>Showcase</span></button>
   </nav>
   <div class="sb-foot">
     <span class="selftest-badge" id="selftest-badge">self-test …</span>
@@ -549,9 +580,12 @@ nav button { white-space: nowrap; }
 
 <!-- MAIN -->
 <div id="app-main">
-  <div class="topbar">
+    <div class="topbar">
     <div class="topbar-title" id="topbar-title">Seal a file</div>
-    <div class="topbar-meta">Runs entirely on your device — nothing is uploaded</div>
+    <div class="topbar-meta">Private · nothing uploaded</div>
+    <div class="mode-toggle">
+      <button type="button" class="mode-text" id="mode-link" onclick="toggleMode()" title="Toggle Receipts / Developer">Developer</button>
+    </div>
   </div>
 <main>
 
@@ -569,6 +603,7 @@ nav button { white-space: nowrap; }
       <input type="file" id="hero-input" multiple style="display:none">
     </div>
     <div id="hero-results"></div>
+    <div id="hero-job" class="hero-job" style="display:none" aria-live="polite"></div>
     <div class="hero-foot">Each seal is saved to your <b>History</b> and can be re-checked any time under <b>Verify</b>. No account, no upload, no setup.</div>
   </div>
 </div>
@@ -822,7 +857,7 @@ nav button { white-space: nowrap; }
 <!-- EU AI ACT TAB                                                  -->
 <!-- ══════════════════════════════════════════════════════════════ -->
 <div class="tab-panel" id="panel-euaia">
-  <h2>EU AI Act — Regulation (EU) 2024/1689</h2>
+  <h2>AI Bill of Materials</h2>
   <p>The Article 10 compliance vector <span class="mono">per-requirement scores (0–1)</span>, the compliance gate <span class="mono">all thresholds met</span>, and the compliance score <span class="mono">score</span> — plus the AI Bill of Materials (completeness check, canonical JSON signed over its SHA3-384 digest) and an Article 50(2) machine-readable marking generator.</p>
 
   <div class="form-row">
@@ -953,13 +988,16 @@ nav button { white-space: nowrap; }
       <div class="drop-sub">any type · any count · hashed locally, chunk by chunk</div>
     </div>
     <input type="file" id="files-input" multiple style="display:none">
+      <button class="btn btn-secondary btn-sm" type="button" onclick="document.getElementById('files-input-dir').click()">Add folder</button>
+      <input type="file" id="files-input-dir" multiple webkitdirectory directory style="display:none" onchange="addFiles(this.files); this.value='';">
   </div>
 
   <div class="form-row">
     <label class="label">Artifacts</label>
     <div id="files-list"></div>
     <div class="btn-row">
-      <button class="btn btn-primary" id="files-seal-btn" onclick="sealFilesBatch()">Seal Batch Bundle</button>
+      <button class="btn btn-primary" id="files-seal-btn" onclick="sealFilesBatch()">Seal batch (one receipt)</button>
+      <button class="btn btn-secondary" type="button" onclick="sealFilesIndividually()" id="files-seal-each-btn">Seal each file</button>
       <button class="btn btn-secondary" onclick="clearFiles()">Clear</button>
     </div>
   </div>
@@ -4480,21 +4518,30 @@ function clearFiles() { FILES = []; FILES_LAST_BUNDLE = null;
   renderFileList(); }
 
 /* streamed: slice → leafHash per chunk; only one chunk in memory at a time */
+function pbYieldToUi() {
+  return new Promise(function (resolve) {
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(function () { setTimeout(resolve, 0); });
+    else setTimeout(resolve, 0);
+  });
+}
+
 async function hashFileEntry(entry, alg, chunkSize, onProgress) {
   const leafHashes = [];
-  const n = Math.max(1, Math.ceil(entry.size / chunkSize));
-  /* content-address scheme content address, streamed in the same pass:
-     SHA3-384( "artifact.content" || 0x00 || LE64(size) || bytes ) */
+  const n = Math.max(1, Math.ceil(entry.size / chunkSize) || 1);
+  /* content-address: SHA3-384( "artifact.content" || 0x00 || LE64(size) || bytes ) */
   const gpx = PBX.sha3_384.create();
   const pre = new Uint8Array(17 + 9);
   pre.set(utf8('artifact.content'), 0); pre[16] = 0x00;
   new DataView(pre.buffer).setBigUint64(17, BigInt(entry.size), true);
   gpx.update(pre.subarray(0, 25));
+  /* yield often enough to keep UI alive on multi‑GB files */
+  const yieldEvery = n > 64 ? 4 : (n > 16 ? 2 : 1);
   for (let i = 0; i < n; i++) {
     const buf = new Uint8Array(await entry.file.slice(i * chunkSize, Math.min((i + 1) * chunkSize, entry.size)).arrayBuffer());
     leafHashes.push(await leafHashBytes(buf, alg));
     gpx.update(buf);
     if (onProgress) onProgress(i + 1, n);
+    if ((i + 1) % yieldEvery === 0) await pbYieldToUi();
   }
   const root = await rootFromLeafHashes(leafHashes, alg);
   return { leafHashes, chunks: n, root_b64u: b64uEncode(root), gpx_content_address: hexOf(gpx.digest()) };
@@ -4545,7 +4592,7 @@ async function sealFilesBatch() {
     const bundle = {
       hdr: { bundle_id: makeId(), profile: 'PB-ARTIFACT-1', spec_id: 'PROOFBUNDLE', spec_ver: PB_SPEC_VER },
       meta: { created_at: new Date().toISOString(),
-              batch: { count: ready.length, total_bytes: ready.reduce((a, e) => a + e.size, 0) } },
+              batch: { count: ready.length, total_bytes: ready.reduce((a, e) => a + e.size, 0), mode: 'n-to-1' } },
       payload: { artifacts: ready.map(e => ({
         name: e.name, size: e.size, mime: e.mime,
         digest_alg: e.digestAlg, chunk_size: e.chunkSize, chunks: e.chunks,
@@ -4558,10 +4605,61 @@ async function sealFilesBatch() {
     const out = document.getElementById('files-seal-out');
     out.style.display = 'block';
     document.getElementById('files-seal-json').innerText = JSON.stringify(bundle, null, 2);
+    const pub = (bundle.seal && bundle.seal.pub_b64u) || '';
+    const root = bundle.merkleRoot || '';
+    const fp = pub ? await keyFingerprint(pub) : '';
     document.getElementById('files-seal-meta').innerHTML =
-      `<span class="badge badge-green">SEALED</span> <span class="mono">${esc(bundle.hdr.bundle_id)}</span> — ${ready.length} artifact(s) · ${sigAlg} over ${esc(filesDigestAlg())} · key held in this tab only`;
+      `<span class="badge badge-green">SEALED</span> <span class="mono">${esc(bundle.hdr.bundle_id)}</span> — ${ready.length} artifact(s) · ${esc(sigAlg)} · saved to History` +
+      (root ? `<div class="hc-hash" style="margin-top:10px"><div class="hc-hash-label">Merkle root</div><code>${esc(root)}</code>
+        <button class="btn btn-secondary btn-sm" type="button" onclick="heroCopyText(${JSON.stringify(root)},'Merkle root')">Copy root</button></div>` : '') +
+      (pub ? `<div class="hc-hash"><div class="hc-hash-label">Public key · ${esc(sigAlg)}${fp ? ' · fp ' + esc(fp) : ''}</div><code>${esc(pub)}</code>
+        <button class="btn btn-secondary btn-sm" type="button" onclick="heroCopyText(${JSON.stringify(pub)},'Public key')">Copy public key</button></div>` : '');
+    flashToast('Batch sealed · ' + ready.length + ' file(s) · in History');
   } catch (e) { notifyError('Batch seal failed: ' + e.message); }
-  finally { btn.disabled = false; btn.innerText = 'Seal Batch Bundle'; }
+  finally {
+    const b2 = document.getElementById('files-seal-btn');
+    if (b2) { b2.disabled = false; b2.innerText = 'Seal batch (one receipt)'; }
+  }
+}
+
+async function sealFilesIndividually() {
+  const ready = FILES.filter(e => e.status === 'ready');
+  if (ready.length === 0) { notifyError('No hashed files to seal.'); return; }
+  const sigAlg = document.getElementById('files-sigalg').value;
+  const btn = document.getElementById('files-seal-each-btn');
+  if (btn) { btn.disabled = true; btn.innerText = 'Sealing each…'; }
+  try {
+    if (!_currentKey || _currentKey.alg !== sigAlg) _currentKey = await sigKeygen(sigAlg);
+    let n = 0;
+    for (const e of ready) {
+      const bundle = {
+        hdr: { bundle_id: makeId(), profile: 'PB-ARTIFACT-1', spec_id: 'PROOFBUNDLE', spec_ver: PB_SPEC_VER },
+        meta: { created_at: new Date().toISOString(), batch: { mode: 'n-to-n', of: ready.length } },
+        payload: { artifacts: [{
+          name: e.name, size: e.size, mime: e.mime,
+          digest_alg: e.digestAlg, chunk_size: e.chunkSize, chunks: e.chunks,
+          merkle_root_b64u: e.root_b64u,
+          ...(e.gpx_content_address ? { gpx_content_address: e.gpx_content_address } : {})
+        }] },
+      };
+      await sealCore(bundle, filesDigestAlg(), sigAlg, _currentKey);
+      await registerBundle(bundle, 'files-each');
+      FILES_LAST_BUNDLE = bundle;
+      n++;
+      await pbYieldToUi();
+    }
+    const out = document.getElementById('files-seal-out');
+    if (out) {
+      out.style.display = 'block';
+      document.getElementById('files-seal-json').innerText = JSON.stringify(FILES_LAST_BUNDLE, null, 2);
+      document.getElementById('files-seal-meta').innerHTML =
+        `<span class="badge badge-green">SEALED</span> ${n} individual receipt(s) · ${esc(sigAlg)} · all in History`;
+    }
+    flashToast(n + ' receipts sealed · in History');
+  } catch (e) { notifyError('Per-file seal failed: ' + e.message); }
+  finally {
+    if (btn) { btn.disabled = false; btn.innerText = 'Seal each file'; }
+  }
 }
 function dlFilesBundle() {
   if (!FILES_LAST_BUNDLE) return;
@@ -4985,6 +5083,59 @@ end Standing
 `;
 function downloadClaimModel() { dlText('claim-status-model.lean', CLAIM_MODEL_LEAN); }
 
+function applyMode(adv) {
+  document.body.classList.toggle('adv-mode', !!adv);
+  const ml = document.getElementById('mode-link');
+  if (ml) ml.textContent = adv ? 'Receipts' : 'Developer';
+  const br = document.getElementById('mode-receipts');
+  const bd = document.getElementById('mode-developer');
+  if (br) br.classList.toggle('on', !adv);
+  if (bd) bd.classList.toggle('on', !!adv);
+  try {
+    localStorage.setItem('pb.mode', adv ? 'developer' : 'receipts');
+    localStorage.removeItem('pb.mode.legacy');
+    localStorage.removeItem('pb-ui-mode');
+  } catch (e) {}
+  try {
+    const R = window.PB_SELFTEST;
+    const badge = document.getElementById('selftest-badge');
+    if (R && badge && badge.classList.contains('st-good')) {
+      badge.innerText = adv ? ('Ready ' + R.filter(function (r) { return r.ok; }).length + '/' + R.length) : 'Ready';
+    }
+  } catch (e) {}
+  if (!adv) {
+    const activeBtn = document.querySelector('.sb-adv-only.active');
+    if (activeBtn) {
+      const seal = document.querySelector('.sb-nav button[data-title="Seal a file"]');
+      if (seal) switchTab('home', seal);
+    }
+  }
+}
+function toggleMode() { applyMode(!document.body.classList.contains('adv-mode')); }
+(function initMode() {
+  let m = null;
+  try { m = localStorage.getItem('pb.mode') || localStorage.getItem('pb-ui-mode'); } catch (e) {}
+  const adv = (m === 'adv' || m === 'developer' || m === 'advanced');
+  applyMode(adv);
+})();
+
+const PB_DEBT_MARKERS = [/\bsorry\b/i, /\bAdmitted\s*\./, /\badmit\b/i, /\bAxiom\b/];
+function pbScanDebtText(text) {
+  if (!text || typeof text !== 'string') return { hits: [], clean: true };
+  const hits = [];
+  for (const re of PB_DEBT_MARKERS) {
+    if (re.test(text)) hits.push(String(re));
+  }
+  return { hits, clean: hits.length === 0 };
+}
+function pbFormalProfileBlocksClosed(profileId, debt) {
+  const p = String(profileId || '');
+  if (p.indexOf('FORMAL-METHODS') >= 0 || p === 'PB-FORMAL-METHODS-1') {
+    return !!(debt && !debt.clean);
+  }
+  return false;
+}
+
 /* theme: persisted, honors prefers-color-scheme on first load */
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
@@ -5044,38 +5195,119 @@ async function verifyDropFile(file) {
     flashToast('That file could not be read as a ProofBundle receipt: ' + e.message, 'error');
   }
 }
+function heroOpenHistory() {
+  const b = document.querySelector('.sb-nav button[data-title="History"]')
+    || document.querySelector('nav button[data-title="History"]');
+  if (b) switchTab('ledger', b);
+  try { renderLedgerPanel(); } catch (e) {}
+}
+
+function heroCopyText(text, label) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(function () {
+    flashToast((label || 'Value') + ' copied');
+  }).catch(function () {
+    flashToast('Copy blocked by the browser', 'error');
+  });
+}
+
 async function heroSeal(list) {
   const results = document.getElementById('hero-results');
-  for (const file of list) {
+  const job = document.getElementById('hero-job');
+  const files = Array.from(list || []).filter(Boolean);
+  if (!files.length) return;
+  if (job) {
+    job.style.display = 'block';
+    job.textContent = 'Batch job: 0 / ' + files.length + ' sealed…';
+  }
+  let done = 0, failed = 0;
+  /* one signing identity for the whole batch */
+  if (!_currentKey || _currentKey.alg !== 'Ed25519') _currentKey = await sigKeygen('Ed25519');
+  const pub = _currentKey.pub;
+  const pubFp = await keyFingerprint(pub);
+  for (const file of files) {
     const card = document.createElement('div');
     card.className = 'hero-card';
-    card.innerHTML = `<div class="hc-ico" style="color:var(--text2)">◷</div><div class="hc-body"><div class="hc-name">${esc(file.name)}</div><div class="hc-meta">Sealing…</div></div>`;
+    card.innerHTML = `<div class="hc-ico" style="color:var(--text2)">◷</div><div class="hc-body"><div class="hc-name">${esc(file.name)}</div><div class="hc-meta">Hashing… 0%</div></div>`;
     results.prepend(card);
+    const metaEl = card.querySelector('.hc-meta');
     try {
       const entry = { file, name: file.name, size: file.size, mime: file.type || 'application/octet-stream' };
-      const h = await hashFileEntry(entry, 'SHA-256', 1024 * 1024, null);
-      if (!_currentKey || _currentKey.alg !== 'Ed25519') _currentKey = await sigKeygen('Ed25519');
+      const chunk = 1024 * 1024;
+      const h = await hashFileEntry(entry, 'SHA-256', chunk, function (d, n) {
+        if (metaEl) metaEl.textContent = 'Hashing… ' + Math.round(100 * d / n) + '% · ' + fmtBytes(file.size);
+      });
+      if (metaEl) metaEl.textContent = 'Signing with Ed25519…';
       const bundle = {
         hdr: { bundle_id: makeId(), profile: 'PB-ARTIFACT-1', spec_id: 'PROOFBUNDLE', spec_ver: PB_SPEC_VER },
-        meta: { created_at: new Date().toISOString() },
-        payload: { artifacts: [{ name: file.name, size: file.size, mime: entry.mime, digest_alg: 'SHA-256', chunk_size: 1024 * 1024, chunks: h.chunks, merkle_root_b64u: h.root_b64u, gpx_content_address: h.gpx_content_address }] },
+        meta: { created_at: new Date().toISOString(), batch: files.length > 1 ? { count: files.length } : undefined },
+        payload: { artifacts: [{ name: file.name, size: file.size, mime: entry.mime, digest_alg: 'SHA-256', chunk_size: chunk, chunks: h.chunks, merkle_root_b64u: h.root_b64u, gpx_content_address: h.gpx_content_address }] },
       };
       await sealCore(bundle, 'SHA-256', 'Ed25519', _currentKey);
       await registerBundle(bundle, 'hero-seal');
       HERO_SEALED.push(bundle);
       const idx = HERO_SEALED.length - 1;
+      let when = bundle.meta.created_at;
+      try { when = new Date(bundle.meta.created_at).toLocaleString(); } catch (e) {}
+      const root = (bundle.payload.artifacts[0] && bundle.payload.artifacts[0].merkle_root_b64u) || bundle.merkleRoot || '';
+      const sealPub = (bundle.seal && bundle.seal.pub_b64u) || pub;
+      const bundleRoot = bundle.merkleRoot || '';
+      done++;
+      if (job) job.textContent = 'Batch job: ' + done + ' / ' + files.length + ' sealed' + (failed ? (' · ' + failed + ' failed') : '');
       card.innerHTML = `<div class="hc-ico" style="color:var(--green)">✓</div>
-        <div class="hc-body"><div class="hc-name">${esc(file.name)}</div>
-        <div class="hc-meta">Sealed &amp; saved · ${fmtBytes(file.size)} · ${esc(bundle.hdr.bundle_id.slice(0, 20))}…</div></div>
-        <button class="btn btn-primary btn-sm" onclick="heroDownload(${idx})">Download receipt</button>`;
+        <div class="hc-body">
+          <div class="hc-name">${esc(file.name)} — sealed</div>
+          <div class="hc-meta">Signed ${esc(when)} · Ed25519 · saved to History · ${esc(fmtBytes(file.size))} · ${h.chunks} chunk(s)</div>
+          <div class="hc-hash">
+            <div class="hc-hash-label">File Merkle root (SHA-256)</div>
+            <code id="hero-root-${idx}">${esc(root)}</code>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="heroCopyText(${JSON.stringify(root)},'Merkle root')">Copy root</button>
+          </div>
+          <div class="hc-hash">
+            <div class="hc-hash-label">Bundle root</div>
+            <code>${esc(bundleRoot)}</code>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="heroCopyText(${JSON.stringify(bundleRoot)},'Bundle root')">Copy</button>
+          </div>
+          <div class="hc-hash">
+            <div class="hc-hash-label">Public key · Ed25519 · fingerprint ${esc(pubFp)}</div>
+            <code>${esc(sealPub)}</code>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="heroCopyText(${JSON.stringify(sealPub)},'Public key')">Copy public key</button>
+          </div>
+          <div class="hc-actions">
+            <button class="btn btn-primary btn-sm" type="button" onclick="heroVerifyNow(${idx})">Verify now</button>
+            <button class="btn btn-secondary btn-sm" type="button" onclick="heroDownload(${idx})">Download receipt</button>
+            <button class="btn btn-secondary btn-sm" type="button" onclick="heroOpenHistory()">Open History</button>
+          </div>
+          <div class="hc-hint">Keep the receipt with the file. Anyone can verify offline using the public key above.</div>
+        </div>`;
     } catch (err) {
+      failed++;
+      done++;
+      if (job) job.textContent = 'Batch job: ' + (done - failed) + ' / ' + files.length + ' sealed · ' + failed + ' failed';
       card.innerHTML = `<div class="hc-ico" style="color:var(--red)">✕</div>
         <div class="hc-body"><div class="hc-name">${esc(file.name)}</div>
         <div class="hc-meta" style="color:var(--red)">Could not seal: ${esc(err.message)}</div></div>`;
     }
+    await pbYieldToUi();
   }
+  if (job) {
+    job.textContent = failed
+      ? ('Batch complete: ' + (files.length - failed) + ' sealed, ' + failed + ' failed — open History for receipts')
+      : ('Batch complete: ' + files.length + ' sealed · signed with public key · in History');
+  }
+  try { renderLedgerPanel(); } catch (e) {}
 }
+
 function heroDownload(i) { const b = HERO_SEALED[i]; if (b) dlText(b.hdr.bundle_id + '.pb.json', JSON.stringify(b, null, 2)); }
+
+function heroVerifyNow(i) {
+  const b = HERO_SEALED[i];
+  if (!b) return;
+  document.getElementById('verify-bundle-json').value = JSON.stringify(b, null, 2);
+  switchTab('verify', document.querySelector('.sb-nav button[data-title="Verify"]'));
+  verifyBundle();
+}
+
 
 function init() {
   // Pre-fill seal JSON timestamp

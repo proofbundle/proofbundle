@@ -18,7 +18,9 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ENGINE_PATH = process.env.PROOFBUNDLE_ENGINE || join(__dirname, '..', 'pwa', 'proofbundle.html');
+const ENGINE_PATH = process.env.PROOFBUNDLE_ENGINE
+  || (existsSync(join(__dirname, '..', 'proofbundle.html')) && join(__dirname, '..', 'proofbundle.html'))
+  || join(__dirname, '..', 'pwa', 'proofbundle.html');
 
 function parseArgs(argv) {
   const args = { _: [] };

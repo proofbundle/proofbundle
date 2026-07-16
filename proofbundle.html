@@ -15,8 +15,8 @@
   · Consumer edition interop: the standalone Sealed page (receipts for files)
     emits and consumes this same PB-ARTIFACT-1 envelope
   · Dual-signature seal — ECDSA-P384 primary +
-    Ed25519 witness over one SHA3-384 digest; Ch.9 truth table (one layer
-    valid → INDETERMINATE); Ch.6 domain-separated content addressing and
+    Ed25519 witness over one SHA3-384 digest; one signature
+    valid → INDETERMINATE); domain-separated content addressing and
     key fingerprints · claim-status composition with a downloadable formal
     (Lean) model · light/dark theme · ISO 8601
     timestamps · proof checker accepts RFC 6962 / CT audit paths and
@@ -658,11 +658,10 @@ nav button { white-space: nowrap; }
 
   <div class="card" style="margin-top:14px">
     <div class="card-title">Dual-signature seal
-      <button class="btn btn-primary btn-sm" id="gpx-seal-btn" onclick="gpxSealUI()">Dual-seal (GPX)</button>
+      <button class="btn btn-primary btn-sm" id="gpx-seal-btn" onclick="gpxSealUI()">Create dual-signature seal</button>
     </div>
-    <div class="card-desc">dual-signature profile: seals the payload of the bundle above under profile <span class="mono">PB-GENO-1</span> —
-      ECDSA-P384 primary + Ed25519 witness, both over one SHA3-384 digest of the canonical bundle.
-      Verify applies the truth table: both valid → VERIFIED · exactly one → INDETERMINATE (requires investigation) · both invalid → INVALID-SIGNATURE.</div>
+    <div class="card-desc">Seals the bundle above with two independent signatures — an ECDSA-P384 primary and an Ed25519 witness — both over one SHA3-384 digest of the canonical bundle.
+      On verify: both valid → VERIFIED · exactly one valid → INDETERMINATE (needs investigation) · both invalid → INVALID-SIGNATURE.</div>
     <div id="gpx-seal-out" style="display:none">
       <div id="gpx-seal-meta" style="margin:8px 0"></div>
       <pre class="mono" id="gpx-seal-json" style="max-height:260px;overflow:auto;word-break:break-all;white-space:pre-wrap"></pre>
@@ -1091,7 +1090,7 @@ nav button { white-space: nowrap; }
 
   <div class="card" style="margin-bottom:14px">
     <div class="card-title">Overall status
-      <button class="btn btn-secondary btn-sm" onclick="downloadOAALean()">Download formal model</button>
+      <button class="btn btn-secondary btn-sm" onclick="downloadClaimModel()">Download formal model</button>
     </div>
     <div class="card-desc">When several claims are made about the same bundle, the overall status is
       the <em>weakest</em> one — a set of claims is only as strong as its least-supported member.
@@ -1160,7 +1159,7 @@ nav button { white-space: nowrap; }
       <input type="text" id="claim-type" placeholder="e.g. integrity-violation, provenance-gap, bias-finding">
     </div>
     <div class="form-row">
-      <label class="label">Standing (Open Admissibility Architecture Ω)</label>
+      <label class="label">Claim strength</label>
       <select id="claim-standing">
         <option>declared</option><option>conjectural</option><option>supporting</option>
         <option>replay</option><option>bounded-check</option><option>implementation-support</option>
@@ -2500,10 +2499,10 @@ async function gpxHash(context, data) {
 async function gpxContentAddress(data) { return hexOf(await gpxHash('artifact.content', data)); }
 async function gpxKeyFingerprint(pubB64u) { return hexOf(await gpxHash('key.fingerprint', b64uDecode(pubB64u))); }
 
-/* GPX Ch. 9 dual-seal: ECDSA-P384 primary + Ed25519 witness over one SHA3-384 digest */
+/* Dual-signature seal: ECDSA-P384 primary + Ed25519 witness over one SHA3-384 digest */
 async function sealGeno(bundle, primaryKey, witnessKey) {
-  if (primaryKey.alg !== 'ECDSA-P384') throw new Error('GPX primary layer must be ECDSA-P384 (Ch. 7)');
-  if (witnessKey.alg !== 'Ed25519') throw new Error('GPX witness layer must be Ed25519 (Ch. 9)');
+  if (primaryKey.alg !== 'ECDSA-P384') throw new Error('Primary layer must be ECDSA-P384 (Ch. 7)');
+  if (witnessKey.alg !== 'Ed25519') throw new Error('Witness layer must be Ed25519 (Ch. 9)');
   bundle.hdr = bundle.hdr || {};
   bundle.hdr.profile = 'PB-GENO-1';
   await sealCore(bundle, 'SHA3-384', 'ECDSA-P384', primaryKey);
@@ -2809,18 +2808,18 @@ async function verifyCore(bundle, opts) {
       const pub = o.pubOverride || bundle.seal.pub_b64u;
       const ok = await sigVerify(sigAlg, digest, b64uDecode(bundle.seal.signature_b64u), pub);
       if (bundle.seal.witness) {
-        /* dual-signature truth table */
+        /* dual-signature logic */
         const w = bundle.seal.witness;
         const witnessOk = await sigVerify(w.sig_alg, digest, b64uDecode(w.signature_b64u), w.pub_b64u);
         if (ok && witnessOk)
-          step('Dual signature verified (GPX Ch.9)', `${sigAlg} primary ✓ + ${w.sig_alg} witness ✓ over one ${digestAlg} digest`);
+          step('Dual signature verified', `${sigAlg} primary ✓ + ${w.sig_alg} witness ✓ over one ${digestAlg} digest`);
         else if (ok !== witnessOk)
-          return fail('INDETERMINATE', 'Dual signature (GPX Ch.9)',
+          return fail('INDETERMINATE', 'Dual signature',
             `${ok ? 'primary valid, witness INVALID' : 'primary INVALID, witness valid'} — requires investigation: partial key compromise, implementation mismatch, or targeted algorithm attack`);
         else
-          return fail('INVALID-SIGNATURE', 'Dual signature (GPX Ch.9)', 'both layers invalid');
+          return fail('INVALID-SIGNATURE', 'Dual signature', 'both layers invalid');
       } else if (bundle.hdr.profile === 'PB-GENO-1') {
-        return fail('POLICY-DENIED', 'GPX dual-signature requirement',
+        return fail('POLICY-DENIED', 'Dual-signature requirement',
           'PB-GENO-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
       } else {
         if (!ok) return fail('INVALID-SIGNATURE', 'Signature verification', `${sigAlg} signature over ${digestAlg} digest does not verify`);
@@ -3857,20 +3856,20 @@ async function runSelfTests() {
     T('report binds subject root', eq(rep.payload.subject_root, sealed.merkleRoot));
 
     /* dual-signature spec */
-    T('GPX domain hash KAT — artifact.content("sample-artifact-payload")',
+    T('content-address hash KAT — artifact.content("sample-artifact-payload")',
       eq(hexOf(await gpxHash('artifact.content', 'sample-artifact-payload')),
          '98c038ac27085416de3b557d16836d355963fb3897a2d34e6d3c007bbb971d260e4e1f049e46d3eddbc60bad75239207'));
     const gpxPri = await sigKeygen('ECDSA-P384'), gpxWit = await sigKeygen('Ed25519');
     const gpxB = await sealGeno({ hdr: {}, meta: {}, payload: { r: 'gpx' } }, gpxPri, gpxWit);
-    T('GPX dual-seal → VERIFIED (valid+valid)', eq((await verifyCore(gpxB, {})).outcome, 'VERIFIED'));
+    T('dual-signature seal → VERIFIED (valid+valid)', eq((await verifyCore(gpxB, {})).outcome, 'VERIFIED'));
     const gpxFlip = (b, which) => { const t2 = JSON.parse(JSON.stringify(b));
       const tgt = which === 'p' ? t2.seal : t2.seal.witness;
       const sg = b64uDecode(tgt.signature_b64u); sg[0] ^= 0xff; tgt.signature_b64u = b64uEncode(sg); return t2; };
-    T('GPX truth table: witness flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'w'), {})).outcome, 'INDETERMINATE'));
-    T('GPX truth table: primary flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'p'), {})).outcome, 'INDETERMINATE'));
-    T('GPX truth table: both flipped → INVALID-SIGNATURE', eq((await verifyCore(gpxFlip(gpxFlip(gpxB, 'p'), 'w'), {})).outcome, 'INVALID-SIGNATURE'));
+    T('dual-signature: witness flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'w'), {})).outcome, 'INDETERMINATE'));
+    T('dual-signature: primary flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'p'), {})).outcome, 'INDETERMINATE'));
+    T('dual-signature: both flipped → INVALID-SIGNATURE', eq((await verifyCore(gpxFlip(gpxFlip(gpxB, 'p'), 'w'), {})).outcome, 'INVALID-SIGNATURE'));
     const gpxNoW = JSON.parse(JSON.stringify(gpxB)); delete gpxNoW.seal.witness;
-    T('GPX policy: PB-GENO-1 without witness → POLICY-DENIED', eq((await verifyCore(gpxNoW, {})).outcome, 'POLICY-DENIED'));
+    T('dual-signature policy: PB-GENO-1 without witness → POLICY-DENIED', eq((await verifyCore(gpxNoW, {})).outcome, 'POLICY-DENIED'));
 
   /* baseline digest sanity check (post-registry, pre-render) */
     T('SHA-256 sanity check — reproducible on neutral payload',
@@ -4526,7 +4525,7 @@ function renderFileList() {
     FILES.map((e, i) => `<tr>
       <td class="mono">${esc(e.name)}</td><td>${fmtBytes(e.size)}</td><td>${esc(e.mime)}</td>
       <td>${e.status === 'hashing' ? `<span id="fprog-${i}" class="vec-running">0%</span>` : e.chunks || '—'}</td>
-      <td class="mono vec-hash" style="word-break:break-all">${e.root_b64u ? esc(e.root_b64u) : esc(e.status)}${e.gpx_content_address ? `<div class="algo-note mono" style="margin-top:2px" title="content-address scheme — SHA3-384(&quot;artifact.content&quot; ‖ 0x00 ‖ LE64(len) ‖ bytes)">gpx ${esc(e.gpx_content_address.slice(0, 32))}…</div>` : ''}</td>
+      <td class="mono vec-hash" style="word-break:break-all">${e.root_b64u ? esc(e.root_b64u) : esc(e.status)}${e.gpx_content_address ? `<div class="algo-note mono" style="margin-top:2px" title="content address — SHA3-384(&quot;artifact.content&quot; ‖ 0x00 ‖ LE64(len) ‖ bytes)">addr ${esc(e.gpx_content_address.slice(0, 32))}…</div>` : ''}</td>
       <td style="white-space:nowrap">
         ${e.status === 'ready' && e.chunks > 1 ? `<button class="btn btn-secondary btn-sm" onclick="exportProof(${i})">Proof</button> ` : ''}
         <button class="btn btn-secondary btn-sm" onclick="removeFile(${i})">✕</button></td>
@@ -4822,9 +4821,9 @@ function renderPredictions() {
 
 
 'use strict';
-/* ══ Dual-signature seal UI + OAA admissibility composer ══════════ */
+/* ══ Dual-signature seal UI + claim-status composer ══════════ */
 
-/* ── GPX dual-seal (Seal tab) ───────────────────────────────────── */
+/* ── Dual-signature seal (Seal tab) ───────────────────────────────────── */
 let _gpxKeys = null; /* { primary: ECDSA-P384, witness: Ed25519 } — this tab only */
 
 async function gpxSealUI() {
@@ -4850,11 +4849,11 @@ async function gpxSealUI() {
        <div class="algo-note mono" style="margin-top:4px">primary key.fingerprint&nbsp; ${esc(fpP.slice(0, 32))}…<br>
        witness key.fingerprint ${esc(fpW.slice(0, 32))}…&nbsp;&nbsp;<span style="opacity:.7">(SHA3-384, domain "key.fingerprint")</span></div>
        <div class="algo-note" style="margin-top:4px">Truth table: both valid → VERIFIED · exactly one valid → INDETERMINATE (investigate) · both invalid → INVALID-SIGNATURE. Paste into Verify to watch it evaluate.</div>`;
-  } finally { btn.disabled = false; btn.innerText = 'Dual-seal (GPX)'; }
+  } finally { btn.disabled = false; btn.innerText = 'Create dual-signature seal'; }
 }
 
-/* ── OAA admissibility model ────────────────────────────────────── */
-/* Operational composition rank over the standing vocabulary Ω.
+/* ── claim-status model ────────────────────────────────────── */
+/* Operational composition rank over the standing vocabulary Status.
    compose(A) = the minimum-rank standing among A's members: evidence
    composes at its weakest link. The Lean model below carries the proofs. */
 const STANDING_RANK = {
@@ -4885,14 +4884,15 @@ function renderAdmissibility() {
     <div class="algo-note" style="margin-top:4px">The overall status is the weakest of all claims made about this bundle.</div>`;
 }
 
-/* ── OAA.lean — embedded formal model ───────────────────────────── */
-const OAA_LEAN = `/-
-  OAA.lean — Orthogonal Admissibility Architecture: standing composition.
+/* ── claim-status-model.lean — embedded formal model ───────────────────────────── */
+const CLAIM_MODEL_LEAN = `/-
+  claim-status-model.lean — how claim strengths combine.
 
-  The standing vocabulary Ω as an inductive type, its operational
-  composition rank, compose = min-rank, and the algebraic laws:
-  commutativity, associativity, idempotence, the absorbing element
-  (excluded), the identity (released), and monotonicity.
+  The claim-strength vocabulary as an inductive type, its ordering,
+  and the rule that combining claims takes the weakest one. The
+  algebraic laws checked: commutativity, associativity, idempotence,
+  the absorbing element (excluded), the identity (released), and
+  monotonicity.
 
   All theorems close by 'decide' over the finite type: they are
   machine-checked exhaustively, not argued.
@@ -4975,7 +4975,7 @@ theorem compose_mono :
     ∀ a ∈ all, ∀ a' ∈ all, ∀ b ∈ all, ∀ b' ∈ all,
       a ≤ a' → b ≤ b' → compose a b ≤ compose a' b' := by decide
 
-/-- compose is greatest-lower-bound: (Ω, ≤, compose) is a meet-semilattice
+/-- compose is greatest-lower-bound: (Status, ≤, compose): combining always takes the weakest
     (a bounded chain, hence a lattice, with ⊥ = excluded and ⊤ = released). -/
 theorem compose_glb :
     ∀ a ∈ all, ∀ b ∈ all, ∀ c ∈ all,
@@ -4983,7 +4983,7 @@ theorem compose_glb :
 
 end Standing
 `;
-function downloadOAALean() { dlText('OAA.lean', OAA_LEAN); }
+function downloadClaimModel() { dlText('claim-status-model.lean', CLAIM_MODEL_LEAN); }
 
 /* theme: persisted, honors prefers-color-scheme on first load */
 function applyTheme(t) {
@@ -5000,7 +5000,7 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', t);
 })();
 
-/* admissibility composer refresh piggybacks every claims render */
+/* claim-status composer refresh piggybacks every claims render */
 (function hookAdm() {
   if (typeof renderClaims === 'function') {
     const _rc = renderClaims;

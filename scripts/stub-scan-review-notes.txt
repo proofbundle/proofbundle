@@ -1,0 +1,30 @@
+Reviewed categories of placeholder/stub-scan hits (this file is plain text,
+not .mjs, specifically so it is not itself scanned by check-placeholders.mjs
+— an earlier version embedded this explanation as a string literal inside
+audit.mjs, a .mjs file, which caused the explanation's own trigger words to
+be picked up as new findings on the next run. Moved here to close that
+self-reference loop rather than hide it.)
+
+Every hit that has ever appeared in this scan falls into one of these
+categories. There is no category left uncovered by this list; if a future
+run produces a hit that doesn't fit one of these, treat it as unreviewed
+and investigate before dismissing it.
+
+1. THE SCANNER MATCHING ITS OWN PATTERN DEFINITIONS.
+   scripts/check-placeholders.mjs necessarily contains the literal words
+   sorry / admit / TODO / FIXME / placeholder / "not implemented" as its
+   own regex source — it has to, to look for them. When it scans itself,
+   or when any other script in scripts/ quotes those words while
+   describing a finding, it re-matches. Not a finding about the codebase.
+
+2. HONEST NOT_IMPLEMENTED DOCUMENTATION.
+   Registry entries (src/registry/algorithm-registry.mjs), the CLI's
+   explicit-refusal message for unimplemented commands (bin/proofbundle.mjs),
+   and test comments explaining why an assertion expects a NOT_IMPLEMENTED
+   status (e.g. test/unit/digest.test.mjs re: BLAKE3) all legitimately
+   contain the phrase "not implemented" as accurate, disclosed status —
+   not as a hidden stub standing in for real code.
+
+None of the above is a sorry, admit, bare axiom, or an undisclosed stub.
+A hit that is neither category 1 nor category 2 has not been reviewed and
+must not be waved through.

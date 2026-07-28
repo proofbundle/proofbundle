@@ -7,7 +7,8 @@
   "type": "module",
   "bin": { "proofbundle": "cli/proofbundle-cli.mjs" },
   "scripts": {
-    "selftest": "node cli/proofbundle-cli.mjs selftest"
+    "selftest": "node cli/proofbundle-cli.mjs selftest",
+    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs"
   },
   "dependencies": { "jsdom": "^24.0.0" },
   "engines": { "node": ">=18" }

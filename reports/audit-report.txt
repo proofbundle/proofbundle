@@ -64,247 +64,247 @@ TAP version 13
 # Subtest: concatBytes joins in order
 ok 1 - concatBytes joins in order
   ---
-  duration_ms: 2.204293
+  duration_ms: 3.470373
   type: 'test'
   ...
 # Subtest: equalBytes true for identical content, false for length or content mismatch
 ok 2 - equalBytes true for identical content, false for length or content mismatch
   ---
-  duration_ms: 0.26737
+  duration_ms: 0.468489
   type: 'test'
   ...
 # Subtest: constantTimeEqual agrees with equalBytes on all test cases
 ok 3 - constantTimeEqual agrees with equalBytes on all test cases
   ---
-  duration_ms: 0.155629
+  duration_ms: 0.351516
   type: 'test'
   ...
 # Subtest: assertLength / assertMaxLength enforce bounds
 ok 4 - assertLength / assertMaxLength enforce bounds
   ---
-  duration_ms: 0.415071
+  duration_ms: 0.565146
   type: 'test'
   ...
 # Subtest: varint round-trips across boundary values
 ok 5 - varint round-trips across boundary values
   ---
-  duration_ms: 0.392635
+  duration_ms: 0.740638
   type: 'test'
   ...
 # Subtest: varint rejects negative and non-integer
 ok 6 - varint rejects negative and non-integer
   ---
-  duration_ms: 0.155909
+  duration_ms: 0.254034
   type: 'test'
   ...
 # Subtest: varint decode rejects overlong (non-minimal) encoding
 ok 7 - varint decode rejects overlong (non-minimal) encoding
   ---
-  duration_ms: 0.189953
+  duration_ms: 0.363189
   type: 'test'
   ...
 # Subtest: varint decode rejects truncated input
 ok 8 - varint decode rejects truncated input
   ---
-  duration_ms: 0.112197
+  duration_ms: 0.186231
   type: 'test'
   ...
 # Subtest: utf8 round-trips ASCII and multi-byte text
 ok 9 - utf8 round-trips ASCII and multi-byte text
   ---
-  duration_ms: 0.40846
+  duration_ms: 0.648999
   type: 'test'
   ...
 # Subtest: utf8Decode rejects invalid byte sequences (fatal mode)
 ok 10 - utf8Decode rejects invalid byte sequences (fatal mode)
   ---
-  duration_ms: 0.462565
+  duration_ms: 0.681005
   type: 'test'
   ...
 # Subtest: hasLoneSurrogate detects unpaired surrogates, not valid pairs
 ok 11 - hasLoneSurrogate detects unpaired surrogates, not valid pairs
   ---
-  duration_ms: 0.196589
+  duration_ms: 0.296013
   type: 'test'
   ...
 # Subtest: hex round-trips and rejects non-canonical input
 ok 12 - hex round-trips and rejects non-canonical input
   ---
-  duration_ms: 0.408187
+  duration_ms: 0.593308
   type: 'test'
   ...
 # Subtest: base64 round-trips and rejects non-canonical padding
 ok 13 - base64 round-trips and rejects non-canonical padding
   ---
-  duration_ms: 0.293581
+  duration_ms: 0.464895
   type: 'test'
   ...
 # Subtest: base64url round-trips and rejects standard-alphabet characters
 ok 14 - base64url round-trips and rejects standard-alphabet characters
   ---
-  duration_ms: 0.292031
+  duration_ms: 0.527727
   type: 'test'
   ...
 # Subtest: object keys are sorted regardless of input order
 ok 15 - object keys are sorted regardless of input order
   ---
-  duration_ms: 3.292748
+  duration_ms: 3.492384
   type: 'test'
   ...
 # Subtest: idempotence: canonicalizing canonical output reproduces it byte-for-byte
 ok 16 - idempotence: canonicalizing canonical output reproduces it byte-for-byte
   ---
-  duration_ms: 0.646169
+  duration_ms: 0.6401
   type: 'test'
   ...
 # Subtest: determinism: same semantic input always yields identical bytes
 ok 17 - determinism: same semantic input always yields identical bytes
   ---
-  duration_ms: 0.355934
+  duration_ms: 0.194161
   type: 'test'
   ...
 # Subtest: whitespace is insignificant to the canonical form
 ok 18 - whitespace is insignificant to the canonical form
   ---
-  duration_ms: 0.187088
+  duration_ms: 0.20495
   type: 'test'
   ...
 # Subtest: duplicate object keys are rejected, not silently resolved to the last value
 ok 19 - duplicate object keys are rejected, not silently resolved to the last value
   ---
-  duration_ms: 0.510454
+  duration_ms: 0.57044
   type: 'test'
   ...
 # Subtest: nested duplicate keys are rejected
 ok 20 - nested duplicate keys are rejected
   ---
-  duration_ms: 0.228982
+  duration_ms: 0.17853
   type: 'test'
   ...
 # Subtest: non-finite number literals are rejected by the grammar itself
 ok 21 - non-finite number literals are rejected by the grammar itself
   ---
-  duration_ms: 0.241513
+  duration_ms: 0.222094
   type: 'test'
   ...
 # Subtest: leading zeros in numbers are rejected (not valid JSON grammar)
 ok 22 - leading zeros in numbers are rejected (not valid JSON grammar)
   ---
-  duration_ms: 0.14013
+  duration_ms: 0.144635
   type: 'test'
   ...
 # Subtest: negative zero canonicalizes to "0"
 ok 23 - negative zero canonicalizes to "0"
   ---
-  duration_ms: 0.397016
+  duration_ms: 0.499981
   type: 'test'
   ...
 # Subtest: minimal integer encoding: no trailing .0 for integral values
 ok 24 - minimal integer encoding: no trailing .0 for integral values
   ---
-  duration_ms: 0.43914
+  duration_ms: 0.457603
   type: 'test'
   ...
 # Subtest: trailing data after a JSON value is rejected
 ok 25 - trailing data after a JSON value is rejected
   ---
-  duration_ms: 0.222232
+  duration_ms: 0.281084
   type: 'test'
   ...
 # Subtest: unpaired surrogate in a string is rejected
 ok 26 - unpaired surrogate in a string is rejected
   ---
-  duration_ms: 0.271408
+  duration_ms: 0.19873
   type: 'test'
   ...
 # Subtest: empty object and empty array canonicalize correctly
 ok 27 - empty object and empty array canonicalize correctly
   ---
-  duration_ms: 0.155457
+  duration_ms: 0.195292
   type: 'test'
   ...
 # Subtest: string escaping round-trips through parse and canonicalize
 ok 28 - string escaping round-trips through parse and canonicalize
   ---
-  duration_ms: 0.100041
+  duration_ms: 0.123067
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects plain objects (Map is required for the object domain)
 ok 29 - canonicalizeValue rejects plain objects (Map is required for the object domain)
   ---
-  duration_ms: 0.136711
+  duration_ms: 0.158992
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects undefined and non-finite numbers directly
 ok 30 - canonicalizeValue rejects undefined and non-finite numbers directly
   ---
-  duration_ms: 0.137106
+  duration_ms: 0.192378
   type: 'test'
   ...
 # Subtest: array order is preserved (arrays are not sorted, only object keys are)
 ok 31 - array order is preserved (arrays are not sorted, only object keys are)
   ---
-  duration_ms: 0.093363
+  duration_ms: 0.157467
   type: 'test'
   ...
 # Subtest: SHA-256 empty-string known-answer value matches FIPS 180-4
 ok 32 - SHA-256 empty-string known-answer value matches FIPS 180-4
   ---
-  duration_ms: 1.505532
+  duration_ms: 1.6045
   type: 'test'
   ...
 # Subtest: SHA-224 empty-string known-answer value matches FIPS 180-4
 ok 33 - SHA-224 empty-string known-answer value matches FIPS 180-4
   ---
-  duration_ms: 0.313638
+  duration_ms: 0.459353
   type: 'test'
   ...
 # Subtest: SHA3-256 empty-string known-answer value matches FIPS 202
 ok 34 - SHA3-256 empty-string known-answer value matches FIPS 202
   ---
-  duration_ms: 1.762118
+  duration_ms: 2.397515
   type: 'test'
   ...
 # Subtest: every wired SHA-2 variant agrees with node:crypto across message lengths
 ok 35 - every wired SHA-2 variant agrees with node:crypto across message lengths
   ---
-  duration_ms: 2.843297
+  duration_ms: 1.640107
   type: 'test'
   ...
 # Subtest: SHA3-256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL)
 ok 36 - SHA3-256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL)
   ---
-  duration_ms: 18.727006
+  duration_ms: 18.171518
   type: 'test'
   ...
 # Subtest: SHAKE128/256 produce the requested output length and agree with node:crypto
 ok 37 - SHAKE128/256 produce the requested output length and agree with node:crypto
   ---
-  duration_ms: 2.85939
+  duration_ms: 2.435082
   type: 'test'
   ...
 # Subtest: digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback
 ok 38 - digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback
   ---
-  duration_ms: 0.66073
+  duration_ms: 0.610189
   type: 'test'
   ...
 # Subtest: digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched
 ok 39 - digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched
   ---
-  duration_ms: 0.267277
+  duration_ms: 0.205531
   type: 'test'
   ...
 # Subtest: isImplementedDigest correctly reports only the wired fixed-length algorithms
 ok 40 - isImplementedDigest correctly reports only the wired fixed-length algorithms
   ---
-  duration_ms: 0.325693
+  duration_ms: 0.374434
   type: 'test'
   ...
 # Subtest: digestBytes rejects non-Uint8Array input rather than coercing it
 ok 41 - digestBytes rejects non-Uint8Array input rather than coercing it
   ---
-  duration_ms: 0.458105
+  duration_ms: 0.386328
   type: 'test'
   ...
 1..41
@@ -315,7 +315,7 @@ ok 41 - digestBytes rejects non-Uint8Array input rather than coercing it
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 137.324152
+# duration_ms 150.692735
 
 
 ===== negative tests =====
@@ -326,115 +326,115 @@ TAP version 13
 # Subtest: rejects: duplicate top-level key
 ok 1 - rejects: duplicate top-level key
   ---
-  duration_ms: 1.867317
+  duration_ms: 1.807978
   type: 'test'
   ...
 # Subtest: rejects: duplicate key differing only in later value
 ok 2 - rejects: duplicate key differing only in later value
   ---
-  duration_ms: 0.361378
+  duration_ms: 0.377679
   type: 'test'
   ...
 # Subtest: rejects: trailing comma in object
 ok 3 - rejects: trailing comma in object
   ---
-  duration_ms: 0.136793
+  duration_ms: 0.124069
   type: 'test'
   ...
 # Subtest: rejects: trailing comma in array
 ok 4 - rejects: trailing comma in array
   ---
-  duration_ms: 0.224249
+  duration_ms: 0.256268
   type: 'test'
   ...
 # Subtest: rejects: unquoted key
 ok 5 - rejects: unquoted key
   ---
-  duration_ms: 0.116866
+  duration_ms: 0.131004
   type: 'test'
   ...
 # Subtest: rejects: single-quoted string
 ok 6 - rejects: single-quoted string
   ---
-  duration_ms: 0.098628
+  duration_ms: 0.185106
   type: 'test'
   ...
 # Subtest: rejects: leading zero integer
 ok 7 - rejects: leading zero integer
   ---
-  duration_ms: 0.211892
+  duration_ms: 0.23656
   type: 'test'
   ...
 # Subtest: rejects: leading zero in fraction position is fine but leading zero in int is not
 ok 8 - rejects: leading zero in fraction position is fine but leading zero in int is not
   ---
-  duration_ms: 0.167928
+  duration_ms: 0.131668
   type: 'test'
   ...
 # Subtest: rejects: leading zero rejected inside a container, via the container's own trailing-token check
 ok 9 - rejects: leading zero rejected inside a container, via the container's own trailing-token check
   ---
-  duration_ms: 0.421233
+  duration_ms: 0.512085
   type: 'test'
   ...
 # Subtest: rejects: bare NaN
 ok 10 - rejects: bare NaN
   ---
-  duration_ms: 0.375964
+  duration_ms: 0.451057
   type: 'test'
   ...
 # Subtest: rejects: bare Infinity
 ok 11 - rejects: bare Infinity
   ---
-  duration_ms: 0.154056
+  duration_ms: 0.263105
   type: 'test'
   ...
 # Subtest: rejects: unterminated string
 ok 12 - rejects: unterminated string
   ---
-  duration_ms: 0.088894
+  duration_ms: 0.131662
   type: 'test'
   ...
 # Subtest: rejects: unescaped control character in string
 ok 13 - rejects: unescaped control character in string
   ---
-  duration_ms: 0.073613
+  duration_ms: 0.095003
   type: 'test'
   ...
 # Subtest: rejects: invalid escape
 ok 14 - rejects: invalid escape
   ---
-  duration_ms: 0.151082
+  duration_ms: 0.150417
   type: 'test'
   ...
 # Subtest: rejects: trailing garbage after valid value
 ok 15 - rejects: trailing garbage after valid value
   ---
-  duration_ms: 0.078274
+  duration_ms: 0.076899
   type: 'test'
   ...
 # Subtest: rejects: empty input
 ok 16 - rejects: empty input
   ---
-  duration_ms: 0.06675
+  duration_ms: 0.067345
   type: 'test'
   ...
 # Subtest: rejects: unpaired high surrogate via \\u escape
 ok 17 - rejects: unpaired high surrogate via \\u escape
   ---
-  duration_ms: 0.223383
+  duration_ms: 0.125461
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects a plain object even if structurally value-like
 ok 18 - canonicalizeValue rejects a plain object even if structurally value-like
   ---
-  duration_ms: 0.255331
+  duration_ms: 1.352677
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects a function, symbol, and bigint
 ok 19 - canonicalizeValue rejects a function, symbol, and bigint
   ---
-  duration_ms: 0.234982
+  duration_ms: 0.153007
   type: 'test'
   ...
 1..19
@@ -445,7 +445,7 @@ ok 19 - canonicalizeValue rejects a function, symbol, and bigint
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 113.587885
+# duration_ms 119.524236
 
 
 ===== hostile-input tests =====
@@ -456,85 +456,85 @@ TAP version 13
 # Subtest: hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack
 ok 1 - hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack
   ---
-  duration_ms: 2.232918
+  duration_ms: 2.12196
   type: 'test'
   ...
 # Subtest: hostile: nesting just at the default depth bound is accepted
 ok 2 - hostile: nesting just at the default depth bound is accepted
   ---
-  duration_ms: 2.230292
+  duration_ms: 1.953005
   type: 'test'
   ...
 # Subtest: hostile: a custom maxDepth is honored
 ok 3 - hostile: a custom maxDepth is honored
   ---
-  duration_ms: 0.2998
+  duration_ms: 0.310436
   type: 'test'
   ...
 # Subtest: hostile: very large flat array parses and canonicalizes correctly (no silent truncation)
 ok 4 - hostile: very large flat array parses and canonicalizes correctly (no silent truncation)
   ---
-  duration_ms: 42.315331
+  duration_ms: 42.321606
   type: 'test'
   ...
 # Subtest: hostile: object with many keys — no key silently dropped, no silent cap
 ok 5 - hostile: object with many keys — no key silently dropped, no silent cap
   ---
-  duration_ms: 23.281349
+  duration_ms: 19.249198
   type: 'test'
   ...
 # Subtest: hostile: negative-zero and positive-zero canonicalize to the identical byte sequence
 ok 6 - hostile: negative-zero and positive-zero canonicalize to the identical byte sequence
   ---
-  duration_ms: 0.351592
+  duration_ms: 0.257571
   type: 'test'
   ...
 # Subtest: hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds
 ok 7 - hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds
   ---
-  duration_ms: 0.407551
+  duration_ms: 0.404547
   type: 'test'
   ...
 # Subtest: hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded
 ok 8 - hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded
   ---
-  duration_ms: 0.169028
+  duration_ms: 0.17037
   type: 'test'
   ...
 # Subtest: hostile: hex input with embedded null byte or control character is rejected, not silently stripped
 ok 9 - hostile: hex input with embedded null byte or control character is rejected, not silently stripped
   ---
-  duration_ms: 0.914746
+  duration_ms: 0.425269
   type: 'test'
   ...
 # Subtest: hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted
 ok 10 - hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted
   ---
-  duration_ms: 0.721411
+  duration_ms: 0.473858
   type: 'test'
   ...
 # Subtest: hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown
 ok 11 - hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown
   ---
-  duration_ms: 0.53446
+  duration_ms: 0.286633
   type: 'test'
   ...
 # Subtest: hostile: string with maximum-codepoint characters round-trips through canonicalization
 ok 12 - hostile: string with maximum-codepoint characters round-trips through canonicalization
   ---
-  duration_ms: 0.598574
+  duration_ms: 0.474923
   type: 'test'
   ...
 # Subtest: hostile: repeated backslash-quote sequences do not desynchronize the string scanner
 ok 13 - hostile: repeated backslash-quote sequences do not desynchronize the string scanner
   ---
-  duration_ms: 0.188543
+  duration_ms: 0.166322
   type: 'test'
   ...
 # Subtest: hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution
 ok 14 - hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution
   ---
-  duration_ms: 0.207918
+  duration_ms: 0.148865
   type: 'test'
   ...
 1..14
@@ -545,7 +545,7 @@ ok 14 - hostile: object key that is itself the string "__proto__" is treated as 
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 185.757966
+# duration_ms 182.392924
 
 
 ===== Reviewed findings from the stub-marker scan =====

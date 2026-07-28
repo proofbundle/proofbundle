@@ -5,7 +5,8 @@
 **A signed, Merkle-committed provenance envelope for any digital artifact.**
 Seal, verify, and timestamp — offline, single-file, no trust required.
 
-[![self-test](https://img.shields.io/badge/self--test-65%2F65%20live%20in%20browser-brightgreen)](#try-it-in-10-seconds)
+[![ci](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
+[![coq](https://img.shields.io/badge/coq%208.18.0-83%20theorems%2C%200%20axioms-brightgreen)](coq/)
 [![offline](https://img.shields.io/badge/runs-100%25%20offline-blue)](#what-it-is)
 [![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue)](#license)
 [![Signed releases](https://img.shields.io/badge/releases-cryptographically%20signed-brightgreen)](VERIFYING.md)
@@ -14,9 +15,11 @@ Seal, verify, and timestamp — offline, single-file, no trust required.
 
 </div>
 
-> **Status: public preview (v0.9).** The engine is verified (65/65 self-test) and the
-> app is fully usable. Final polish is in progress; the signed **v1.0.0** release will be
-> cut when it is ready. Nothing here is overstated — see [Honest limitations](#honest-limitations).
+> **Status: v1.0.0.** The engine passes its own suites (65/65 self-test, 660/660
+> conformance), the CLI round-trips, and the Coq proofs close — 83 theorems, zero
+> axioms. Nothing here is overstated — see [Honest limitations](#honest-limitations)
+> and [AUDIT.md](AUDIT.md), which logs every defect found in this codebase including
+> the ones found against outside reference implementations.
 
 ---
 
@@ -41,8 +44,14 @@ Nothing is uploaded. No account. No server. Your private key never leaves the pa
 - **Compliance profiles** — ready-made rule sets for regulated verticals (healthcare,
   finance, autonomous systems, and more), each expressed as plain-language requirements.
 - **EU AI Act Article 50** machine-readable transparency marking.
-- **65/65 self-test** that runs live in your own browser on load, plus a
-  **1,097-case conformance suite** you can run yourself.
+- **65/65 self-test** that runs live in your own browser on load.
+- **660/660 conformance cases** across 9 digest algorithms and 10 signature
+  schemes, classical and post-quantum.
+- A legacy fixture file of 1,097 vectors is included. **436 pass under the
+  current schema**, and all 108 vectors of kind `verified` pass cleanly. The
+  remainder is documented schema drift from `spec_ver 1.0.0` — missing
+  `bundle.seal.pub_b64u` and `bundle.merkleRoot`, and SPKI-wrapped keys where
+  the engine expects raw. See [AUDIT.md](AUDIT.md) entry PB-2026-07-15-002.
 
 Every claim above is verifiable in the app or in this repo. See [Honest limitations](#honest-limitations).
 

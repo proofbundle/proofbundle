@@ -1,0 +1,26 @@
+{
+  "hdr": {
+    "profile": "PB-ARTIFACT-1",
+    "bundle_id": "LScw1U_OEubv9dkBPLIXwkOPCZwGST1I4tXkdZDR7uc",
+    "spec_id": "PROOFBUNDLE",
+    "spec_ver": "2.1.0"
+  },
+  "artifact": "proofbundle.html",
+  "version": "v1.0.0",
+  "sha256": "bef99a8cba879ef022d4e46a9aed933ba1bb1277c7691d1883e4c35479e044ae",
+  "bytes": 540383,
+  "meta": {
+    "created_at": "2026-07-28T15:09:29.740Z",
+    "canonical_encoding": "PB-CANON-JSON-1",
+    "digest_alg": "SHA-256",
+    "sig_alg": "Ed25519"
+  },
+  "merkleRoot": "XwiGCMpe6Mm0GF66Lvf_akw_l8s_ZNokguJFO3qdSdU",
+  "seal": {
+    "digest_alg": "SHA-256",
+    "digest_b64u": "K-5Y9a-APdjBEBb2bGwM2A5mPsXNLEMamUWqWgzk8j8",
+    "sig_alg": "Ed25519",
+    "pub_b64u": "xUzeecfwpBxbYz5RxDpQLRpOxuWJoWlCT3o5e2mbwI8",
+    "signature_b64u": "2ySVmkIrz6AVcfW1IRQXtsWkjbmcMjTOjYAkJecUKgMhUeK_9YNPni1TPSONzsa2hMMoyDBDfOEECrqyHqg7Cw"
+  }
+}

@@ -1,0 +1,28 @@
+===== environment =====
+date: 2026-07-28T16:00:50Z
+node: v22.22.2
+npm: 10.9.7
+platform: Linux vm 6.18.5 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64 x86_64 GNU/Linux
+
+===== lean/lake =====
+$ command -v lake
+not found — Lean 4 toolchain is not installed in this environment
+$ command -v lean
+not found
+
+===== coq (relevant to existing corpus claims elsewhere in this repo) =====
+not found — consistent with docs/CORPUS-STATE.md's stated assumption all session
+
+===== attempted commands =====
+$ lake --version
+lake: not found
+
+$ cd lean && lake build
+not attempted — lake is not on PATH; running it would only reproduce the
+same "not found" failure already recorded above.
+
+===== what this means =====
+Zero Lean files in lean/ have been compiled or type-checked in this
+session. THEOREM_INDEX.json is empty by design. FEATURE_COVERAGE.json and
+CRYPTOGRAPHIC_SURFACE.csv both record lean_compile_status as
+"NOT_RUN — toolchain unavailable in this environment" for every row.

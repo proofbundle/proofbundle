@@ -1,0 +1,162 @@
+[
+  {
+    "label": "empty-len16",
+    "input_hex": "",
+    "algorithm": "SHAKE128",
+    "output_length": 16,
+    "expected_output_hex": "7f9c2ba4e88f827d616045507605853e",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "single-byte-len16",
+    "input_hex": "61",
+    "algorithm": "SHAKE128",
+    "output_length": 16,
+    "expected_output_hex": "85c8de88d28866bf0868090b3961162b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "abc-len16",
+    "input_hex": "616263",
+    "algorithm": "SHAKE128",
+    "output_length": 16,
+    "expected_output_hex": "5881092dd818bf5cf8a3ddb793fbcba7",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-55-len16",
+    "input_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 16,
+    "expected_output_hex": "a90b43013a4fa402b4ee8a89d2db6955",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-56-len16",
+    "input_hex": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 16,
+    "expected_output_hex": "6c9a414d76fce3ba5bd979e7abd385c0",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "empty-len32",
+    "input_hex": "",
+    "algorithm": "SHAKE128",
+    "output_length": 32,
+    "expected_output_hex": "7f9c2ba4e88f827d616045507605853ed73b8093f6efbc88eb1a6eacfa66ef26",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "single-byte-len32",
+    "input_hex": "61",
+    "algorithm": "SHAKE128",
+    "output_length": 32,
+    "expected_output_hex": "85c8de88d28866bf0868090b3961162bf82392f690d9e4730910f4af7c6ab3ee",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "abc-len32",
+    "input_hex": "616263",
+    "algorithm": "SHAKE128",
+    "output_length": 32,
+    "expected_output_hex": "5881092dd818bf5cf8a3ddb793fbcba74097d5c526a6d35f97b83351940f2cc8",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-55-len32",
+    "input_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 32,
+    "expected_output_hex": "a90b43013a4fa402b4ee8a89d2db69555e7d6f28a1ade2cc49b62ce7265606be",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-56-len32",
+    "input_hex": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 32,
+    "expected_output_hex": "6c9a414d76fce3ba5bd979e7abd385c07ae88e45d5ca29d030ba2869ebaecb3f",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "empty-len64",
+    "input_hex": "",
+    "algorithm": "SHAKE128",
+    "output_length": 64,
+    "expected_output_hex": "7f9c2ba4e88f827d616045507605853ed73b8093f6efbc88eb1a6eacfa66ef263cb1eea988004b93103cfb0aeefd2a686e01fa4a58e8a3639ca8a1e3f9ae57e2",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "single-byte-len64",
+    "input_hex": "61",
+    "algorithm": "SHAKE128",
+    "output_length": 64,
+    "expected_output_hex": "85c8de88d28866bf0868090b3961162bf82392f690d9e4730910f4af7c6ab3ee4354b49ca729eb356ee3f5b0fbd29b66769383e5e401b1f85e044c92bb5231aa",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "abc-len64",
+    "input_hex": "616263",
+    "algorithm": "SHAKE128",
+    "output_length": 64,
+    "expected_output_hex": "5881092dd818bf5cf8a3ddb793fbcba74097d5c526a6d35f97b83351940f2cc844c50af32acd3f2cdd066568706f509bc1bdde58295dae3f891a9a0fca578378",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-55-len64",
+    "input_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 64,
+    "expected_output_hex": "a90b43013a4fa402b4ee8a89d2db69555e7d6f28a1ade2cc49b62ce7265606be8e98c5ef41a49eee46085fa1a412605c06eb52d63969626775703b174bf6f1eb",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-56-len64",
+    "input_hex": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 64,
+    "expected_output_hex": "6c9a414d76fce3ba5bd979e7abd385c07ae88e45d5ca29d030ba2869ebaecb3fa8e1e1817e8ab1b593925ee4da4966a6d3fe881a55595975c011bbf72b2361f9",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "empty-len200",
+    "input_hex": "",
+    "algorithm": "SHAKE128",
+    "output_length": 200,
+    "expected_output_hex": "7f9c2ba4e88f827d616045507605853ed73b8093f6efbc88eb1a6eacfa66ef263cb1eea988004b93103cfb0aeefd2a686e01fa4a58e8a3639ca8a1e3f9ae57e235b8cc873c23dc62b8d260169afa2f75ab916a58d974918835d25e6a435085b2badfd6dfaac359a5efbb7bcc4b59d538df9a04302e10c8bc1cbf1a0b3a5120ea17cda7cfad765f5623474d368ccca8af0007cd9f5e4c849f167a580b14aabdefaee7eef47cb0fca9767be1fda69419dfb927e9df07348b196691abaeb580b32def58538b8d23f877",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "single-byte-len200",
+    "input_hex": "61",
+    "algorithm": "SHAKE128",
+    "output_length": 200,
+    "expected_output_hex": "85c8de88d28866bf0868090b3961162bf82392f690d9e4730910f4af7c6ab3ee4354b49ca729eb356ee3f5b0fbd29b66769383e5e401b1f85e044c92bb5231aa4dee1799af7a7cee213a23adcd03c4806c9a8b0d8a2eead8ea7a6134c13e523ccf93ad39d227d3e7d022d9654f3b49413788758a6417e42d41957cb30cf04da37f26897c2cf2f80055846293fde02331cf4a269aaf2d47eb27aba0faba4a678ec002bc0d3064ead0a3f2e0d8a7fa404af54ebf4f5b183562a8dad73b9a55bf1c066e0007e7ab8a89",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "abc-len200",
+    "input_hex": "616263",
+    "algorithm": "SHAKE128",
+    "output_length": 200,
+    "expected_output_hex": "5881092dd818bf5cf8a3ddb793fbcba74097d5c526a6d35f97b83351940f2cc844c50af32acd3f2cdd066568706f509bc1bdde58295dae3f891a9a0fca5783789a41f8611214ce612394df286a62d1a2252aa94db9c538956c717dc2bed4f232a0294c857c730aa16067ac1062f1201fb0d377cfb9cde4c63599b27f3462bba4a0ed296c801f9ff7f57302bb3076ee145f97a32ae68e76ab66c48d51675bd49acc29082f5647584e6aa01b3f5af057805f973ff8ecb8b226ac32ada6f01c1fcd4818cb006aa5b4cd",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-55-len200",
+    "input_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 200,
+    "expected_output_hex": "a90b43013a4fa402b4ee8a89d2db69555e7d6f28a1ade2cc49b62ce7265606be8e98c5ef41a49eee46085fa1a412605c06eb52d63969626775703b174bf6f1eb4491bdbdfe0528332f48cfdd15fa06b405054861f17a6aff81976c43d1b227b50ecdb322b0aff637883140ed5f6843bcd24006a175578db656b235a0626d86bd81c73b4af41c402fc5bb7bce3429c032e12933a5a7e644bd16d6a68fc25b63f0922a432be53a7c0d6f0a11e14ed041968efd66736e050d60b1ee7c75a498262f0fa1bc26c59ab91e",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "boundary-56-len200",
+    "input_hex": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "algorithm": "SHAKE128",
+    "output_length": 200,
+    "expected_output_hex": "6c9a414d76fce3ba5bd979e7abd385c07ae88e45d5ca29d030ba2869ebaecb3fa8e1e1817e8ab1b593925ee4da4966a6d3fe881a55595975c011bbf72b2361f9e79f134ff6f7294b6a3c3589bbfaf887fdab9aad055e9562eb788bf19dabc3f30dd4d7be63c616907fecd092f5749c990b69d1c27b196394331dac4654e223390ad8b098c43656fee4079bf870bf1929b44bb13075983cf6cebf44f65acbc1eddbe69cf0c59188f59e4679b362a205b57bc8bbba280a810303bdf617d1ffcf07436aabcd81a825ee",
+    "expected_verdict": "VERIFIED"
+  }
+]

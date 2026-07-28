@@ -1,0 +1,34 @@
+===== CLI end-to-end capture =====
+$ node bin/proofbundle.mjs hash /tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json --alg SHA-256
+637af96cf894e07f889551890573c9efb846f95c093fe6d9f307daa173dcfd0f  /tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json  (SHA-256)
+exit: 0
+
+$ node bin/proofbundle.mjs hash /tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json --alg SHA3-256 --json
+{
+  "algorithm": "SHA3-256",
+  "file": "/tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json",
+  "digest": "1bc4e6910651f8fabbac0d37e8907a8fb040ac2c8c007e2789ddbdf8ef1506c0"
+}
+exit: 0
+
+$ node bin/proofbundle.mjs canonicalize /tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json
+{"a":1,"b":2,"nested":{"y":null,"z":true}}
+canonicalize: 42 bytes, sha256-ready hex-inspectable via 'proofbundle hash'
+exit: 0
+
+$ node bin/proofbundle.mjs hash /tmp/claude-0/-home-user-proofbundle/dd604290-2d3b-5d0e-975f-814f52be03e3/scratchpad/cli-test.json --alg MD5   (must be refused)
+hash: digestBytes: "MD5" is RECOGNIZE_AND_REJECT — no digest is ever produced
+exit: 2
+
+$ node bin/proofbundle.mjs sign ...   (unimplemented command, must refuse explicitly)
+proofbundle: 'sign' is defined in the specification but not implemented in this pass. Implemented: hash, canonicalize
+exit: 2
+registry: 95 entries, 0 validation errors
+by implementation_status: {
+  "COMPLETE": 11,
+  "NOT_IMPLEMENTED": 65,
+  "RECOGNIZE_ONLY": 2,
+  "BLOCKED": 17
+}
+CRYPTOGRAPHIC_SURFACE.csv: 95 rows written
+rows with a critical-issue flag: 0

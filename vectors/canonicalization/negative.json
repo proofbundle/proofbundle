@@ -1,0 +1,32 @@
+[
+  {
+    "label": "duplicate-key",
+    "input_text": "{\"a\":1,\"a\":2}",
+    "expected_verdict": "NONCANONICAL",
+    "observed_error": "canonical-json parse error at offset 12: duplicate object key \"a\""
+  },
+  {
+    "label": "leading-zero",
+    "input_text": "01",
+    "expected_verdict": "MALFORMED",
+    "observed_error": "canonical-json parse error at offset 1: trailing data after JSON value"
+  },
+  {
+    "label": "trailing-garbage",
+    "input_text": "{} x",
+    "expected_verdict": "MALFORMED",
+    "observed_error": "canonical-json parse error at offset 3: trailing data after JSON value"
+  },
+  {
+    "label": "unpaired-surrogate",
+    "input_text": "\"\\ud800\"",
+    "expected_verdict": "MALFORMED",
+    "observed_error": "canonical-json parse error at offset 8: string contains an unpaired surrogate"
+  },
+  {
+    "label": "non-finite-literal",
+    "input_text": "NaN",
+    "expected_verdict": "MALFORMED",
+    "observed_error": "canonical-json parse error at offset 0: unexpected character \"N\""
+  }
+]

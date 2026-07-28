@@ -1,0 +1,8 @@
+{
+  "generated_utc": "2026-07-28T16:00:00Z",
+  "generated_by": "manual, this session — no automated extractor exists yet",
+  "lean_toolchain_status": "UNAVAILABLE — lake and lean are not installed in this environment; see reports/lean-build-report.txt",
+  "compiled_substantive_theorems": [],
+  "support_lemmas": [],
+  "note": "This index is empty by design, not by omission. lean/ProofBundle/Bytes.lean and lean/ProofBundle/SemanticValue.lean contain real Lean 4 source written to the same discipline the specification's theorem-acceptance rules require, but the toolchain to compile and check them is not present in this environment. Per the specification's own rule ('a theorem counts only when it is a compiled Lean declaration'), zero entries belong here until that compilation actually happens. Do not populate this file by reading source and asserting what a human believes would compile — that is exactly the failure mode this file exists to prevent."
+}

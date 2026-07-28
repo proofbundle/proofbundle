@@ -78,6 +78,24 @@ it was sealed, and who sealed it. It does **not**:
 
 Temporal checks trust the local clock. See [SECURITY.md](SECURITY.md) for the full model.
 
+## Formal verification and the proof corpus
+
+The formal-methods work behind this project lives in a separate corpus. Its verified
+state — which numbers are checked, which are relayed, and which are in circulation but
+should not be published — is recorded in **[docs/CORPUS-STATE.md](docs/CORPUS-STATE.md)**.
+Read that first before quoting any theorem count.
+
+[`crypto/`](crypto/) holds the from-scratch FIPS 202 (SHA-3/SHAKE) and FIPS 203 (ML-KEM)
+implementations, written from the specifications with no external crypto library:
+
+```bash
+npm run test:crypto     # 173 pass — incl. 45 byte-exact checks vs an independent FIPS 203 impl
+```
+
+Note that *zero dependencies* is not yet true of the project as a whole. Accurate today:
+every hash and the KEM are ours and verified against independent implementations;
+the signature schemes still use `noble`/WebCrypto. See [crypto/README.md](crypto/README.md).
+
 ## License
 
 Dual-licensed under **Apache-2.0 OR MIT** — your choice. See

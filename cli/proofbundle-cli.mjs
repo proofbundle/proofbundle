@@ -82,11 +82,25 @@ async function cmdKeygen(args) {
 
 async function cmdSeal(args) {
   const inputPath = args._[0];
-  if (!inputPath) { console.error('usage: proofbundle seal <input.json> --digest SHA-256 --sig Ed25519 [--key keyfile.json] [--out sealed.json]'); process.exit(2); }
+  if (!inputPath) { console.error('usage: proofbundle seal <input.json> --digest SHA-256 --sig Ed25519 [--profile PB-INTEGRITY-1] [--key keyfile.json] [--out sealed.json]'); process.exit(2); }
   const digestAlg = args.digest || 'SHA-256';
   const sigAlg = args.sig || 'Ed25519';
   const bundleJson = readFileSync(inputPath, 'utf-8');
   const win = await bootEngine();
+
+  // verifyCore rejects a bundle with no hdr.profile as MALFORMED, and sealCore
+  // does not supply one. Without this, `seal` then `verify` — the sequence this
+  // CLI's own usage string documents — produces an unverifiable bundle and no
+  // error at seal time. Default to the base integrity profile and say so.
+  const parsedBundle = JSON.parse(bundleJson);
+  parsedBundle.hdr = parsedBundle.hdr || {};
+  if (args.profile) {
+    parsedBundle.hdr.profile = args.profile;
+  } else if (!parsedBundle.hdr.profile) {
+    parsedBundle.hdr.profile = 'PB-INTEGRITY-1';
+    console.error('No hdr.profile in input — defaulting to PB-INTEGRITY-1. ' +
+                  'Override with --profile (e.g. --profile PB-EUAIA-A50-1).');
+  }
 
   let key;
   if (args.key && existsSync(args.key)) {
@@ -98,7 +112,7 @@ async function cmdSeal(args) {
     console.error(`No key supplied — generated new ${sigAlg} keypair, saved to ${keyOut}`);
   }
 
-  win.__PB_CLI_BUNDLE__ = JSON.parse(bundleJson);
+  win.__PB_CLI_BUNDLE__ = parsedBundle;
   win.__PB_CLI_KEY__ = key;
   const sealed = await win.eval(`sealCore(window.__PB_CLI_BUNDLE__, ${JSON.stringify(digestAlg)}, ${JSON.stringify(sigAlg)}, window.__PB_CLI_KEY__)`);
   const out = JSON.stringify(sealed, null, 2);

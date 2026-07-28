@@ -5,10 +5,17 @@
   "description": "Signed, Merkle-committed provenance envelope for any digital artifact — offline, single-file, no trust required.",
   "license": "Apache-2.0 OR MIT",
   "type": "module",
-  "bin": { "proofbundle": "cli/proofbundle-cli.mjs" },
-  "scripts": {
-    "selftest": "node cli/proofbundle-cli.mjs selftest"
+  "bin": {
+    "proofbundle": "cli/proofbundle-cli.mjs"
   },
-  "dependencies": { "jsdom": "^24.0.0" },
-  "engines": { "node": ">=18" }
+  "scripts": {
+    "selftest": "node cli/proofbundle-cli.mjs selftest",
+    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs"
+  },
+  "dependencies": {
+    "jsdom": "^24.1.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }

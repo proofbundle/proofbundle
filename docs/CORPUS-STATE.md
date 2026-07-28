@@ -32,7 +32,29 @@ not survive checking. These do.
 | GPX Coq theorems kernel-closed | **65 of 83** | [relayed, logs attached] |
 | Crypto core self-tests | **173 pass / 0 fail** | [verified here] |
 
-**Do not publish 551.** See section 3.2 — it is wrong in both directions.
+Two figures in circulation are **not** safe to publish:
+
+- **551** kernel-verified theorems — wrong in both directions at once (§3.2).
+- **23 files with zero axioms** — over-claims on four files; the checked value is
+  19 of 23 (§3.3).
+
+### What the corpus does and does not establish
+
+Worth keeping attached to any external count, because it is the honest frame and it
+is easy to lose. **[relayed, custody ledger]** Corpus authored by C. Tajia Russell.
+
+Established as formal theorems: the attribution criterion's grammar; spoof-resistance
+under biconditional matching; architecture-exclusion for named architectures; custody
+infrastructure (append-only lineage, non-dilutable corruption with witness, Merkle
+tamper-evidence, verifier totality / determinism / termination); the liability
+convergence inequality. Most are axiom-free; the conservation laws are conditional on
+declared axioms. The set includes machine-checked *refutations* — theorems named
+`*_IS_FALSE` / `*_false` — sitting beside the positive results, which is a mark in its
+favour, not against it.
+
+Not established: any real-world or consciousness conclusion. The criterion states
+**when the question is warranted, not whether any system satisfies it.** That
+distinction should survive into every summary.
 
 ---
 
@@ -99,13 +121,22 @@ index gives **533 distinct names, 325 with at least one compiling home, 208 with
 none.** The 208 are the real recovery surface. This reproduces an earlier independent
 count exactly.
 
-### Why the denominator is 88 and not 108
+### Why the denominator is 88 and not 108 — and why those 20 are not repairable
 
 **[verified here]** The sweep scanned `f001`–`f108`, all 108 present. Twenty —
 `f001`–`f018`, `f070`, `f071` — fail with `Syntax Error: Lexer: Undefined token` at
-line 1, character 0: not recoverable text at all, consistent with a byte-order mark or
-smart quote at the first byte. `108 − 20 = 88`. The contiguous `f001`–`f018` block
-points at one transfer event rather than eighteen separate problems.
+line 1, character 0. `108 − 20 = 88`, and `40 + 48 = 88` closes the arithmetic.
+
+**These twenty are AppleDouble metadata sidecars with no data fork.** **[relayed,
+custody ledger]** They carry Finder metadata only; the source they describe is not in
+the bundle at all. This matters because the failure *looks* identical to a byte-order
+mark or smart quote at the first byte, and a BOM/smart-quote repair pass was proposed
+on exactly that reading. **It cannot work on these files** — there is nothing to
+repair. The source has to be re-supplied from origin.
+
+Keep a BOM/CRLF check in the tooling anyway (`tools/axaudit.sh` reports it as a
+distinct `ENCODING:` state) so a genuine encoding fault is never again mistaken for
+proof damage, or vice versa.
 
 ### `f035` — move it to OK
 
@@ -114,12 +145,15 @@ the independent audit, isolated directory, byte-identical to the hash-pinned cop
 **Treat as OK.** The ledger was *under*-claiming. That releases 8 theorems including
 `full_independence` and `condition_independence_C1..C5`. **[relayed]**
 
-### Exactly one genuine incomplete proof
+### One genuinely incomplete proof, in three copies
 
-Of the 68 non-compiling files, the failures are dominated by missing load paths and
+Of the 48 real compile failures, the causes are dominated by missing load paths and
 unresolved identifiers — dependency ordering, not false theorems. **[verified here]**
-The error taxonomy shows exactly one `Attempt to save an incomplete proof`:
-`corruption_transitive`, in the `f055` architecture-exclusion family.
+Only one error is an incomplete proof rather than an environment problem:
+`Attempt to save an incomplete proof (in proof corruption_transitive)`. It appears in
+**three** files — `f055`, `f074`, `f099` — which are all copies of the same
+architecture-exclusion family. So it is one distinct unfinished theorem, not three,
+but no copy of that family compiles with it finished.
 
 ---
 
@@ -166,7 +200,29 @@ carry the cap. A reconstruction that removes the cap, discovers files from disk,
 counts declarations without double-matching is now tracked at
 [`tools/axaudit.sh`](../tools/axaudit.sh).
 
-### 3.3 The independent per-module logs — clean
+### 3.3 The custody ledger (2026-07-02) — superseded on four files
+
+The custody status ledger groups the 40 compiling files as **23 zero-axiom**, 10
+axiom-bearing, and 7 whose axiom audit did not complete. The later independent run
+contradicts it on four of the 23. **[verified here]**
+
+    f023    1 statement    0 closed    1 axiom-dependent
+    f034    8 statements   6 closed    2 axiom-dependent
+    f106   15 statements  13 closed    2 axiom-dependent
+    f107    1 statement    0 closed    1 axiom-dependent
+
+Plus `f019` (2 axiom-dependent), which appears in *neither* of the ledger's lists
+because the 07-02 sweep never audited it. The ledger's 10-file axiom-bearing list is
+confirmed exactly — all ten are axiom-dependent in the later run — so the
+disagreement is one-directional: **the ledger over-claims zero-axiom status for four
+files and is silent on a fifth.**
+
+Direction matters here. The `f035` correction has the ledger *under*-claiming, which
+is the safe direction. This one runs the other way, so **do not publish the
+"23 files, zero axioms" figure** — the checked value is 19 of those 23, and the
+statement-level totals in section 2 are the ones to quote.
+
+### 3.4 The independent per-module logs — clean
 
 The seven `*_print_assumptions_INDEPENDENT.log` files in [`docs/logs/`](logs/):
 **161 statements** across Structural, TrackB, Hardening, Phronesis, Dimensional,
@@ -181,7 +237,18 @@ set are byte-identical to each other.
 Three different quantities get called "the axiom count". They are all correct and
 they are not the same number:
 
-- **11 distinct axiom names** in the whole surface — **9 bespoke, 2 Coq stdlib**.
+- **27 names are *declared*** as `Axiom`/`Parameter` across the axiom-bearing files:
+  `byte`, `canonical_minus_seal`, `cost`, `d_i`, `delta_p`, `digest_alg`,
+  `digest_eq_dec`, `digest_t`, `drift`, `encode_header`, `encode_prim`,
+  `encode_state`, `eps_i`, `eval_core`, `hdr_bundle_id`, `n_features`, `n_flags`,
+  `pr_parent_digest`, `pr_parent_id`, `rec_op_Op`, `rec_op_apply`, `rec_op_eps`,
+  `rec_op_eps_nonneg`, `sha256`, `uncertainty`, `z_max`, `z_min`. **[relayed]**
+  Most are uninterpreted *function* parameters (`sha256`, `encode_header`,
+  `encode_prim`, `digest_t`, `cost`, `d_i`) rather than assumed propositions — a
+  contract on an implementation, not a mathematical assumption. Declaring is not the
+  same as being reached.
+- **11 distinct axiom names** are actually reached by `Print Assumptions` —
+  **9 bespoke, 2 Coq stdlib**.
   The stdlib pair (`ClassicalDedekindReals.sig_forall_dec`, `functional_extensionality_dep`)
   arrive the moment you `Require Import Reals`; neither is an assumption about the
   subject matter. **Split stdlib from bespoke wherever a count is published** — it

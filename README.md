@@ -105,6 +105,15 @@ Note that *zero dependencies* is not yet true of the project as a whole. Accurat
 every hash and the KEM are ours and verified against independent implementations;
 the signature schemes still use `noble`/WebCrypto. See [crypto/README.md](crypto/README.md).
 
+**"Runs 100% offline" is a guarantee about the core seal/verify path, not a ceiling
+on the whole project.** The app never *requires* a network to produce or check a
+receipt — that promise doesn't change. It does not mean the project refuses network
+features. [`src/timestamp/opentimestamps.mjs`](src/timestamp/opentimestamps.mjs)
+submits digests to a live OpenTimestamps calendar over HTTPS and is tested against
+the real service (`test/integration/opentimestamps.integration.test.mjs`). Offline
+stays the default and the fallback; connected features are additive, explicit, and
+opt-in — never a silent requirement.
+
 ## License
 
 Dual-licensed under **Apache-2.0 OR MIT** — your choice. See

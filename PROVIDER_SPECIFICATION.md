@@ -37,3 +37,14 @@ The one exception worth building next is `src/providers/offline-provider.mjs`
 since both are fully exercisable in this environment with Node's own
 `crypto.generateKeyPair`/`sign`/`verify` — the natural next step once
 `src/signature/ed25519.mjs` etc. are wired (see `IMPLEMENTATION_STATUS.md`).
+
+**Do not extend this "genuinely unavailable" reasoning to timestamping.**
+Every provider named above is unavailable because it needs *hardware this
+machine doesn't have* or *a credential nobody granted*. A remote
+timestamping calendar needs neither — only network reachability, which
+this environment has (verified live; see `src/timestamp/`). An earlier
+draft of `IMPLEMENTATION_STATUS.md` conflated the two categories and
+asserted timestamping was blocked without testing it. It wasn't. Keep
+these two kinds of "not done" separate: hardware/credential absence is a
+hard environmental wall; network-service integration not yet attempted is
+just unstarted work.

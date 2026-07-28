@@ -3,11 +3,26 @@
 **This is an honest first installment, not the completed specification.** The
 full spec (`ALGORITHM_REGISTRY.json` lists 95 algorithm/profile entries; the
 originating request additionally specifies ~150 source modules, a parallel
-Lean 4 formal-verification tree, hardware/HSM providers, and external
-timestamping services) is not achievable in one pass, for three concrete,
-stated reasons — see below. Nothing in this repository claims otherwise.
+Lean 4 formal-verification tree, and hardware/HSM providers) is not
+achievable in one pass. Nothing in this repository claims otherwise.
 
-## What is genuinely COMPLETE (11 of 95 registry entries)
+**Correction, made after this file's first version asserted something that
+was never tested:** an earlier revision stated OpenTimestamps and RFC 3161
+timestamping were blocked for the same reason as TPM/Secure-Enclave/cloud-KMS
+hardware access — "requires... credentials this session does not have."
+That was false and unverified. This environment has real outbound network
+access via a configured proxy. Asked directly why timestamping was marked
+unreachable, the claim was tested live rather than defended: a real digest
+was submitted to `https://alice.btc.calendar.opentimestamps.org`, a real
+172-byte proof came back, and it now parses byte-exact against the actual
+python-opentimestamps reference implementation's wire format (fetched from
+GitHub for ground truth, not reconstructed from memory). See
+`src/timestamp/opentimestamps.mjs` and
+`test/integration/opentimestamps.integration.test.mjs`, which hits the live
+calendar. This is now a real, tested, working part of the COMPLETE set
+below, not a blocked row.
+
+## What is genuinely COMPLETE (11 of 95 registry entries, plus timestamping)
 
 Real module, real vectors, real passing tests, all captured under `reports/`:
 
@@ -27,6 +42,28 @@ structurally-enforced single-terminal-code Result type, an algorithm
 registry with a real validator, a coverage-matrix generator, and two CLI
 commands (`hash`, `canonicalize`) wired end-to-end.
 
+**`src/timestamp/opentimestamps.mjs` — real, network-tested, not counted in
+the 95-row algorithm registry** (timestamping isn't a cryptographic
+algorithm, so it has no natural row in that schema; it's documented here
+instead). Submits a SHA-256 digest to a live OpenTimestamps calendar over
+HTTPS and parses the response — a real recursive tree of append/prepend/hash
+operations terminating in a `PendingAttestation`, matching the exact wire
+grammar of the reference implementation. Submits to two calendars in
+parallel and accepts either succeeding, because a single calendar was
+observed, live, to return an intermittent `HTTP 503` (the calendar's own
+edge proxy failing an upstream TLS handshake to its origin — real
+third-party infrastructure flakiness, not a bug here, and exactly the
+failure mode calendar redundancy exists to cover).
+
+**Honest scope limit on this:** submission and parsing are real and tested.
+*Upgrading* a pending timestamp to a full Bitcoin attestation — polling the
+calendar again after it has had time (up to ~24h) to get the commitment
+into a mined block, then verifying a real Bitcoin block header — is not
+implemented. `BitcoinBlockHeaderAttestation` bytes are recognized and
+decoded structurally (`parseTimestampResponse` reports the tag and height)
+but never verified against actual Bitcoin blockchain data. That is real,
+separately-scoped, buildable work, not attempted in this pass.
+
 **RECOGNIZE_ONLY (2):** MD5, SHA-1 — recognized, deterministically rejected,
 never dispatched to any implementation.
 
@@ -36,13 +73,24 @@ Every one of the other 82 rows in `CRYPTOGRAPHIC_SURFACE.csv` carries an
 honest reason in its registry entry's `interoperabilityNotes` field. They
 fall into three categories, not one generic "not done":
 
-1. **Provider-unavailable in this environment (hardware/credentials/network).**
-   TPM 2.0, Secure Enclave, PKCS#11, Android Keystore, Windows CNG, cloud
-   KMS, RFC 3161 TSAs, OpenTimestamps calendars, Bitcoin anchor verification.
-   No amount of additional coding time fixes this from inside this sandbox —
-   it requires hardware or credentials this session does not have and should
-   not silently invent. The spec's own `PROVIDER_UNAVAILABLE` verdict exists
-   for exactly this case.
+1. **Provider-unavailable in this environment — hardware or credentials
+   genuinely absent, actually checked, not assumed.** TPM 2.0, Secure
+   Enclave, PKCS#11, Android Keystore, Windows CNG, cloud KMS: these need
+   physical hardware or provisioned account credentials this sandbox does
+   not have, which no amount of coding time changes. Bitcoin block-header
+   verification (the *upgrade* half of OpenTimestamps, not the submission
+   half — see above) needs either a full node or a trusted block-explorer
+   API this session has not been given a credential for. The spec's own
+   `PROVIDER_UNAVAILABLE` verdict exists for exactly this case.
+
+   **OpenTimestamps calendar submission and RFC 3161 TSA requests do NOT
+   belong in this category and should never have been placed in it.**
+   Neither needs hardware or credentials — both need only network
+   reachability, which this environment has. OpenTimestamps is now
+   implemented (above). RFC 3161 remains unimplemented, but for the
+   category-2 reason below, not this one: it needs a correctly-constructed
+   ASN.1 DER `TimeStampReq`, which is real encoding work, not a blocked
+   provider.
 
 2. **Real, buildable, not yet attempted.** HMAC-*, HKDF, PBKDF2, Ed25519,
    ECDSA, RSA-PSS, X25519, AES-*-GCM, ChaCha20-Poly1305 are all available

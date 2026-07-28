@@ -26,7 +26,7 @@ not survive checking. These do.
 | …with no compiling copy anywhere | **208** | [verified here] |
 | Statements across the 40 compiling files | **685** | [verified here] |
 | …closed under the global context | **473** | [verified here, twice] |
-| …axiom-dependent | **212** (149 of them `f036` alone) | [verified here] |
+| …axiom-dependent | **212** (149 in the consolidated-corpus file alone, §2) | [verified here] |
 | Distinct axiom names in the surface | **11** (9 bespoke + 2 Coq stdlib) | [relayed] |
 | Independent `Print Assumptions` logs | **161**, all closed | [verified here] |
 | GPX Coq theorems kernel-closed | **83 of 83** | [verified here] |
@@ -51,10 +51,10 @@ quoted interchangeably, which is how the record keeps coming apart.
 | **685** | statements across the 40 compiling files, measured from source | **[verified here]** |
 | **551** | `Closed` lines in the archived sweep | **unusable** — capped *and* double-matched (§3.2) |
 | **533** | distinct theorem *names* across the whole corpus | **[verified here]** |
-| **528** | superseded — the same count with `f036`/`f089`/`f091` unmeasured | superseded by 685 (§2) |
+| **528** | superseded — the same count with three files unmeasured (§2) | superseded by 685 (§2) |
 | **473** | closed under the global context | **[verified here, twice]** |
 | **325** | distinct names with at least one compiling home | **[verified here]** |
-| **212** | axiom-dependent, of which 149 is `f036` alone | **[verified here]** |
+| **212** | axiom-dependent, of which 149 is the consolidated-corpus file alone | **[verified here]** |
 | **208** | distinct names with no compiling copy anywhere | **[verified here]** |
 | **161** | statements in the independent per-module logs, all closed | **[verified here]** |
 | **83 / 83** | GPX Coq theorems kernel-closed | **[verified here]** |
@@ -182,22 +182,42 @@ than from a summary. `473 + 212 = 685` with no residue.
 
 ### The earlier "55 axiom-dependent" was measured with three files missing
 
+`f019`, `f036`, `f089`, `f091` etc. are **pre-rename ledger ordinals** — ordinals
+assigned during intake, not theorem names and not descriptive of content. That is
+the entire reason the rename maps (`mc108_RENAME_MAP.md`, `_v2.md`) and the canonical
+corpus in `corpus/` exist. `corpus/RENAME.tsv` is the ordinal → canonical-name lookup;
+treat any `fNNN` below as a file handle to look up there, never as a name in itself.
+
 The 2026-07-06 audit reported 528 statements and 55 axiom-dependent. That run's
-assumption sweep **failed on `f036`, `f089` and `f091`**, which therefore contributed
-zero. Measuring them closes the gap exactly:
+assumption sweep **failed on the files at ordinals `f036`, `f089` and `f091`**, which
+therefore contributed zero. Measuring them closes the gap exactly:
 
      55   previously measured
-    +149   f036, now measured
-    +  4   f089
-    +  4   f091
+    +149   ordinal f036, now measured
+    +  4   ordinal f089
+    +  4   ordinal f091
     ────
      212   the current total
 
-**`f036` is the finding.** It is the consolidated-corpus file the property index
-celebrates as "the largest single compiling unit" — and it has **149 statements, of
-which zero are closed.** Every one is axiom-dependent. It is 70% of the entire axiom
-surface on its own, and the earlier figures never saw it because the audit crashed on
-it. Excluding `f036`, the corpus reads 535 statements / 473 closed / 63
+**The file at ordinal `f036` is the finding**, and it does not have one name — it is
+the **consolidated-corpus union file** (`full_consolidated_corpus.v` /
+`consolidated_corpus.v` in the two rename maps), a merge of the attribution core,
+transformation/recovery, DAG/ledger invariants, and dimensional-independence families,
+celebrated by the property index as "the largest single compiling unit." It has
+**149 statements, of which zero are closed.** Every one is axiom-dependent — 70% of
+the entire axiom surface in one file — and the earlier figures never saw it because
+the audit crashed on it.
+
+Its canonical location is
+`corpus/mc108_canonical_20260728.tar.gz` →
+`02_axiom_dependent/recovery/recovery__t15_failure_meet_localized__51fbd51b.v`.
+**That filename is itself a partial answer, not the full one:** the canonical
+tooling's naming scheme picks one `principal_theorem` per file
+(`t15_failure_meet_localized`, one statement among the ~149), which fits a file with
+a single focus but understates a union file with none. Read the canonical name as
+"where to find it," not as "what it is about."
+
+Excluding this file, the corpus reads 535 statements / 473 closed / 63
 axiom-dependent, which is close to what was published.
 
 **473 is the robust number.** Two independent sweeps, run four days apart with

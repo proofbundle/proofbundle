@@ -38,6 +38,53 @@ Two figures in circulation are **not** safe to publish:
 - **23 files with zero axioms** — over-claims on four files; the checked value is
   19 of 23 (§3.3).
 
+### Every theorem count in circulation, and what each one counts
+
+At least eight different totals appear across the artifacts. They are mostly *not*
+contradictory — they count different things over different scopes — but they get
+quoted interchangeably, which is how the record keeps coming apart.
+
+| number | what it actually counts | status |
+|---:|---|---|
+| **1,221** | every named statement in the index, all files, duplicates included | inflated by duplicate ordinals |
+| **895** | theorems in the "verified-clean core" tree, deduped by content hash | **[relayed]** — scope not reconciled with the 528 below |
+| **551** | `Closed` lines in the archived sweep | **unusable** — capped *and* double-matched (§3.2) |
+| **533** | distinct theorem *names* across the whole corpus | **[verified here]** |
+| **528** | statements across the 41 compiling files (2026-07-06 audit) | **[verified here]** |
+| **473** | of those 528, closed under the global context | **[verified here]** |
+| **325** | distinct names with at least one compiling home | **[verified here]** |
+| **208** | distinct names with no compiling copy anywhere | **[verified here]** |
+| **161** | statements in the independent per-module logs, all closed | **[verified here]** |
+| **65 / 83** | GPX Coq theorems kernel-closed after two one-line repairs | **[relayed]** |
+
+The **895** figure needs reconciling before it is used anywhere. It comes from a
+"verified-clean core" tree of 23 files, and it exceeds the 528 statements the
+independent audit found across *41* files — so it is counting a broader category
+(likely definitions and instances alongside theorems), or counting pre-dedup. Until
+someone re-derives it, quote 473 or 533.
+
+### The strongest verification claim in the corpus is `coqchk`, and it is barely recorded
+
+**[relayed]** The verified-clean core is described as recompiling under coqc 8.18.0
+reporting **0 axioms, 0 admits, 0 sorry**, verified per-file by `Print Assumptions`
+*and* **cross-checked with `coqchk` over the whole library**.
+
+That is a stronger statement than anything else in the record. `coqchk` re-checks
+compiled objects with an independent kernel, so it catches things `coqc` plus
+`Print Assumptions` can miss. It appears in one README and nowhere else. If the
+`.coqchk.log` files still exist they are the single most valuable artifact to mirror
+into this repository — worth more than the source tarball.
+
+Two internal inconsistencies in that same README, flagged so they are not inherited:
+its per-framework counts sum to **24** (authorization 3, consciousness 8,
+crypto_provenance 6, lineage_dag 1, operator_algebra 2, recovery 4) against a stated
+**23** files; and it puts the non-compiling count at **47** where the custody ledger
+says **48**.
+
+Content-hash deduplication found exactly two byte-identical pairs — `f093`≡`f097` and
+`f089`≡`f091` — which independently confirms the duplicate-family reading of the
+rename maps.
+
 ### What the corpus does and does not establish
 
 Worth keeping attached to any external count, because it is the honest frame and it
@@ -413,6 +460,9 @@ hash check with no tools, `cosign verify-blob` with identity pinned to the repo,
 
 Not yet mirrored here, and worth pulling in first:
 
+- **The `.coqchk.log` files from the verified-clean core.** Highest value of anything
+  listed here — an independent-kernel result is stronger than every other verification
+  claim in the corpus, and it currently exists as one sentence in one README.
 - `mc108_compiled_proofs_20260627.tar.gz` — the `.v` sources. Without them no compile
   claim can be independently re-derived and the `SRCHOLE` question cannot be settled.
 - The three motion-root files (section 6) — highest value, unrecoverable from anything

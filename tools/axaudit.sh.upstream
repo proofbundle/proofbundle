@@ -1,0 +1,22 @@
+#!/bin/bash
+cd ~/mc108
+# RC:0 files to audit for axioms
+for n in 021 023 026 027 029 030 034 036 037 039 041 042 046 047 049 053 058 060 061 062 065 066 073 076 077 078 079 080 085 089 091 093 094 095 096 097 104 106 107; do
+  f="f$n.v"
+  echo "===== $f ====="
+  # collect theorem/lemma/corollary/example/fact/property/remark/definition names
+  names=$(grep -oiE '^\s*(Theorem|Lemma|Corollary|Example|Fact|Property|Remark|Proposition)\s+[A-Za-z0-9_'"'"']+' "$f" | sed -E 's/^\s*\w+\s+//' | sort -u)
+  tmp="aud_$n.v"
+  cp "$f" "$tmp"
+  echo "" >> "$tmp"
+  for nm in $names; do
+    echo "Print Assumptions $nm." >> "$tmp"
+  done
+  out=$(timeout 60 coqc -q "$tmp" 2>&1)
+  rc=$?
+  echo "AUDRC: $rc"
+  # show non-warning assumption-relevant lines
+  echo "$out" | grep -viE 'Warning|deprecated|locality|qualification|recommended|attributes|Instance Foo|For example|i\.e\.|release|specifying|^section|the time being|opaque|extraction|accessed' | grep -vE '^\s*$' 
+  echo "===== END $f ====="
+done
+echo "AUDDONE"

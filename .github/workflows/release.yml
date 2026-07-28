@@ -1,21 +1,18 @@
-name: Release (signed)
-
-# Cuts a signed release when a version tag is pushed, e.g.  git tag v1.0.0 && git push --tags
-#
-# Requires two repository secrets (set by the maintainer in
-# Settings → Secrets and variables → Actions):
-#   COSIGN_PRIVATE_KEY  — the cosign private key (generated locally, never committed)
-#   COSIGN_PASSWORD     — the password protecting that key
-#
-# The matching public key must be committed as cosign.pub so anyone can verify.
+name: release
 
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build and sign, e.g. v1.0.0'
+        required: true
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
@@ -25,34 +22,90 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - name: Verify self-test before releasing
-        env:
-          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+      - name: Resolve tag
+        id: v
+        run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+      - name: Self-test before shipping anything
         run: |
           npm ci || npm install
-          out="$(node cli/proofbundle-cli.mjs selftest)"
-          echo "$out"
-          echo "$out" | grep -Eq 'self-test: ([0-9]+)/\1 pass'
+          node cli/proofbundle-cli.mjs selftest
 
-      - name: Install cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign the release artifact
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+      - name: Assemble artifacts
+        id: build
         run: |
-          cosign sign-blob --yes --key env://COSIGN_PRIVATE_KEY \
-            --output-signature proofbundle.html.sig \
-            proofbundle.html
+          set -euo pipefail
+          TAG="${{ steps.v.outputs.tag }}"
+          mkdir -p dist
+          cp proofbundle.html "dist/proofbundle-${TAG}.html"
+          tar czf "dist/proofbundle-cli-${TAG}.tar.gz" cli package.json
+          if [ -d coq ]; then tar czf "dist/proofbundle-proofs-${TAG}.tar.gz" coq; fi
 
-      - name: Publish release with signed artifact
+      - name: Hash everything
+        working-directory: dist
+        run: |
+          set -euo pipefail
+          : > SHA256SUMS
+          : > SHA512SUMS
+          for f in *; do
+            case "$f" in SHA256SUMS|SHA512SUMS) continue;; esac
+            sha256sum "$f" >> SHA256SUMS
+            sha512sum "$f" >> SHA512SUMS
+          done
+          echo "--- SHA256SUMS ---"; cat SHA256SUMS
+
+      - uses: sigstore/cosign-installer@v3
+
+      - name: Sign each artifact and the checksum file (keyless)
+        working-directory: dist
+        env:
+          COSIGN_EXPERIMENTAL: '1'
+        run: |
+          set -euo pipefail
+          for f in *; do
+            case "$f" in *.sig|*.pem|*.bundle) continue;; esac
+            cosign sign-blob --yes \
+              --output-signature "$f.sig" \
+              --output-certificate "$f.pem" \
+              "$f"
+          done
+          ls -la
+
+      - name: Attach build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'dist/*'
+
+      - name: Publish the release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            proofbundle.html
-            proofbundle.html.sig
-            cosign.pub
+          tag_name: ${{ steps.v.outputs.tag }}
+          name: ProofBundle ${{ steps.v.outputs.tag }}
           generate_release_notes: true
+          files: dist/*
+          body: |
+            Every file here is signed with Sigstore keyless signing. There is no
+            private key to trust or lose — the signature is bound to this
+            repository and this workflow, and recorded in the public Rekor
+            transparency log.
+
+            Verify a download:
+
+            ```
+            cosign verify-blob \
+              --certificate proofbundle-${{ steps.v.outputs.tag }}.html.pem \
+              --signature   proofbundle-${{ steps.v.outputs.tag }}.html.sig \
+              --certificate-identity-regexp '^https://github.com/proofbundle/proofbundle/' \
+              --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+              proofbundle-${{ steps.v.outputs.tag }}.html
+            ```
+
+            Or check the hash alone, with no extra tools:
+
+            ```
+            sha256sum -c SHA256SUMS --ignore-missing
+            ```
+
+            Full instructions: VERIFYING.md

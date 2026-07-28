@@ -22,15 +22,23 @@ not survive checking. These do.
 | claim | value | basis |
 |---|---|---|
 | Distinct theorem names in the corpus | **533** | [verified here] |
-| …with at least one compiling home | **325** | [verified here] |
-| …with no compiling copy anywhere | **208** | [verified here] |
-| Statements across the 40 compiling files | **685** | [verified here] |
-| …closed under the global context | **473** | [verified here, twice] |
+| …with at least one compiling home | **364** | [verified here] |
+| …with no compiling copy anywhere | **169** | [verified here] |
+| Files that compile | **44 of 88** | [verified here] |
+| Statements across the 44 compiling files | **726** | [verified here] |
+| …closed under the global context | **514** | [verified here] |
 | …axiom-dependent | **212** (149 in the consolidated-corpus file alone, §2) | [verified here] |
 | Distinct axiom names in the surface | **11** (9 bespoke + 2 Coq stdlib) | [relayed] |
 | Independent `Print Assumptions` logs | **161**, all closed | [verified here] |
 | GPX Coq theorems kernel-closed | **83 of 83** | [verified here] |
+| Motion-operator algebra (§6) | **41 of 41, 0 axioms** | [verified here] |
 | Crypto core self-tests | **269 pass / 0 fail** | [verified here] |
+
+**726 / 514 / 44 is the current state, after the motion-root repair recorded in
+`corpus/mc108_canonical/REPAIR_LOG.md`.** An earlier baseline of 473 closed / 40
+compiling appears throughout this file's history and in artifacts still in
+`corpus/` — that baseline was correct for its time and is superseded here, not
+contradicted. See §2 and §6.
 
 Two figures in circulation are **not** safe to publish:
 
@@ -48,22 +56,33 @@ quoted interchangeably, which is how the record keeps coming apart.
 |---:|---|---|
 | **1,221** | every named statement in the index, all files, duplicates included | inflated by duplicate ordinals |
 | **895** | theorems in the "verified-clean core" tree, deduped by content hash | **[relayed]** — scope still unreconciled |
-| **685** | statements across the 40 compiling files, measured from source | **[verified here]** |
+| **726** | statements across the 44 compiling files, current, post-repair | **[verified here]** |
+| **685** | the same count before the motion-root repair (§6) | superseded by 726 |
 | **551** | `Closed` lines in the archived sweep | **unusable** — capped *and* double-matched (§3.2) |
 | **533** | distinct theorem *names* across the whole corpus | **[verified here]** |
-| **528** | superseded — the same count with three files unmeasured (§2) | superseded by 685 (§2) |
-| **473** | closed under the global context | **[verified here, twice]** |
-| **325** | distinct names with at least one compiling home | **[verified here]** |
+| **528** | superseded — the same count with three files unmeasured (§2) | superseded by 726 (§2) |
+| **514** | closed under the global context, current, post-repair | **[verified here]** |
+| **473** | the same count before the motion-root repair (§6) | superseded by 514 |
+| **364** | distinct names with at least one compiling home, current | **[verified here]** |
+| **325** | the same count before the motion-root repair | superseded by 364 |
 | **212** | axiom-dependent, of which 149 is the consolidated-corpus file alone | **[verified here]** |
-| **208** | distinct names with no compiling copy anywhere | **[verified here]** |
+| **208** | distinct names with no compiling copy, before the motion-root repair | superseded by 169 |
+| **169** | distinct names with no compiling copy, current | **[verified here]** |
 | **161** | statements in the independent per-module logs, all closed | **[verified here]** |
 | **83 / 83** | GPX Coq theorems kernel-closed | **[verified here]** |
+| **41 / 41** | motion-operator algebra statements, current — see §6 | **[verified here]** |
 
 The **895** figure still needs reconciling before it is used anywhere. It comes from a
-"verified-clean core" tree of 23 files and exceeds even the 685 statements now
-measured across all 40 compiling files — so it is counting a broader category (likely
+"verified-clean core" tree of 23 files and exceeds even the 726 statements now
+measured across all 44 compiling files — so it is counting a broader category (likely
 definitions and instances alongside theorems), or counting pre-dedup. Until someone
-re-derives it, quote 473 or 533.
+re-derives it, quote 514 or 533.
+
+**The 685/473/325/208 row is not an error to hunt down** — it is the true count as of
+the 2026-07-06 audit, before three specific files were repaired on 2026-07-28. Both
+sets of numbers are real measurements of real states. Use 726/514/364/169 for the
+corpus as it stands today; cite the earlier set only when discussing history, and say
+so when you do.
 
 ### The strongest verification claim in the corpus is `coqchk`, and it is barely recorded
 
@@ -168,24 +187,45 @@ there.
 
 ## 2. mc108 Coq corpus — authoritative numbers
 
-The governing artifact is the **independent re-verification of 2026-07-06T02:45:10Z**
-(Coq 8.18.0 / OCaml 4.14.1, fresh container) with its per-file table.
+Two governing artifacts, in chronological order, both correct for their time:
+the **independent re-verification of 2026-07-06T02:45:10Z** (Coq 8.18.0 / OCaml
+4.14.1, fresh container), and the **motion-root repair of 2026-07-28**, which fixed
+three files that account for the only substantive numeric change between them.
 
     CUSTODY      anchor 173d23e8… verified; 99/99 hashes match MANIFEST.sha256   [relayed]
-    COMPILE      40 / 88 compile (22 proved · 18 axiom-dependent · 1 empty)      [verified here]
-    ASSUMPTIONS  685 statements → 473 closed, 212 axiom-dependent                [verified here]
+    COMPILE      44 / 88 compile  (was 40/88 before the 2026-07-28 repair)       [verified here]
+    ASSUMPTIONS  726 statements → 514 closed, 212 axiom-dependent                [verified here]
 
-**[verified here]** Computed from `corpus/RENAME.tsv`, which carries per-file
-statement / closed / axiom counts alongside the SHA-256 of each source. All 88
-sources are now in `corpus/`, so this is derived from the files themselves rather
-than from a summary. `473 + 212 = 685` with no residue.
+**[verified here]** Computed directly from the real, named `.v` files now in
+`corpus/mc108_canonical/`, cross-checked against `corpus/mc108_canonical/MANIFEST.json`
+(198 of 199 tracked files hash-verified — see the `RENAME.tsv` note below for the one
+exception) and against the individual `Print Assumptions` logs in `00_logs/` for the
+three repaired files specifically. `514 + 212 = 726` with no residue, and the
+axiom-dependent count is unchanged from the pre-repair total — the three newly-fixed
+files contribute 41 statements, all 41 closed, 0 axioms, which is why `514 = 473 + 41`
+while `212` does not move.
+
+### `corpus/mc108_canonical/RENAME.tsv` is stale — it predates the repair
+
+The `RENAME.tsv` shipped in the canonical corpus **fails its own manifest's SHA-256
+check** — the only file in the tree that does. Its own status column shows 22 proved
+/ 18 axiom-dependent / 1 empty / 47 broken (88 compiling as 41), while the actual
+directory placement — which the manifest hashes do verify — has 25 / 18 / 1 / 44
+(compiling as 44). The 3-file gap in both columns is exactly the three motion-root
+files: `RENAME.tsv` was generated before they were repaired and moved into
+`01_proved/operator_algebra/`, and a fresh copy was not regenerated afterward.
+`corpus/mc108_canonical/REPAIR_LOG.md` and `MANIFEST.json`'s own `totals` /
+`after_motion_root_repair` fields are the later, correct values — this is the same
+"manifest chronology and current source can diverge" pattern flagged elsewhere in
+this corpus's own audit culture, now confirmed a second time, in the file whose
+entire purpose is to prevent it.
 
 ### The earlier "55 axiom-dependent" was measured with three files missing
 
 `f019`, `f036`, `f089`, `f091` etc. are **pre-rename ledger ordinals** — ordinals
 assigned during intake, not theorem names and not descriptive of content. That is
 the entire reason the rename maps (`mc108_RENAME_MAP.md`, `_v2.md`) and the canonical
-corpus in `corpus/` exist. `corpus/RENAME.tsv` is the ordinal → canonical-name lookup;
+corpus in `corpus/` exist. `corpus/mc108_canonical/RENAME.tsv` is the ordinal → canonical-name lookup;
 treat any `fNNN` below as a file handle to look up there, never as a name in itself.
 
 The 2026-07-06 audit reported 528 statements and 55 axiom-dependent. That run's
@@ -229,9 +269,13 @@ entirely about statements that had not been measured at all.
 
 File-level counts mislead, because `_b`/`_c`/`_d` families are the same theorems under
 different ordinals. **[verified here]** Deduplicating by theorem name across the whole
-index gives **533 distinct names, 325 with at least one compiling home, 208 with
-none.** The 208 are the real recovery surface. This reproduces an earlier independent
-count exactly.
+index gives **533 distinct names**. Before the motion-root repair, 325 had at least
+one compiling home and 208 had none — that 208 figure reproduced an earlier
+independent count exactly. After the repair, the three motion-root files' 39
+distinct names (of their 41 statements — two are refutation pairs sharing a base
+name, `demo20_morph_attested` / `demo20_morph_attested_ORIGINAL_IS_FALSE`, matching
+the pattern documented in §0) move across: **364 now have a compiling home, 169 do
+not.** The 169 are the current recovery surface.
 
 ### Why the denominator is 88 and not 108 — and why those 20 are not repairable
 
@@ -437,27 +481,75 @@ audit's list was right.
 the word anywhere, comments included. It flagged **18 of the 40** compiling files
 where only **6** contain a real one, and 44 across the corpus where 26 do. Every `+A`
 mark in the rename maps inherits from that grep. They are now superseded by
-`corpus/RENAME.tsv`, which carries measured counts and a SHA-256 per file.
+`corpus/mc108_canonical/RENAME.tsv`, which carries measured counts and a SHA-256 per file.
 
 ---
 
-## 6. Highest-value damaged set — the motion-operator algebra
+## 6. The motion-operator algebra — was the highest-value gap, now solved
 
 Three files are the **only** formalization of the operator algebra anywhere in the
-corpus, and **none compiles**: **[relayed]**
+corpus. As of 2026-07-28 **all three compile, and all 41 statements close with zero
+axioms.** This was open in every audit up to and including an earlier revision of
+this document — the repair arrived in the same archive that also supplied the
+canonical corpus, and was missed on first pass here. **[verified here]** — checked
+directly against the `.v` sources and their individual `Print Assumptions` logs, not
+relayed from a summary.
 
-    f022.v  motion_root_attestation     11 stmts   46 core operator IDs
-    f048.v  registry_wellformedness     14 stmts   tier system, support/clarity/drift
-    f056.v  gress_core_eligible         15 stmts   8 operators, per-root support
+    corpus/mc108_canonical/01_proved/operator_algebra/
+      operator_algebra__demo20_gress_attested__151e2051.v      12/12 closed, 0 axioms
+      operator_algebra__gress_is_core_candidate__dad99b43.v    14/14 closed, 0 axioms
+      operator_algebra__gress_core_eligible_demo__3dc49949.v   15/15 closed, 0 axioms
 
-Roots attested: gress · scend · mit · morph · vert · struct. Reported cause is
-transfer-level syntax corruption — mechanical to repair, and no compiling copy exists
-to fall back on.
+These were `f022.v`, `f048.v`, `f056.v` under the pre-rename ordinals. Verified
+content: 46 core operator IDs, 20 demo IDs, a 1,232-entry ledger, the tier system
+with support/clarity/drift thresholds, collision pairs, an idempotent projection, and
+attestation for gress · scend · mit · morph.
 
-Other families with no compiling survivor: `canonicalize_idempotent` (`f072 f090
-f102`), `verify_profile_terminates` (`f075 f092 f103`), `admissibility_closure`
-(`f045 f057`). Everywhere else a `FAIL` twin has an `OK` sibling, so recovery is a
-copy, not proof work.
+### The reported cause of the failures was wrong
+
+Every prior ledger in this corpus attributes the failures to "iPhone-transfer syntax
+corruption." True for exactly one defect in one file. The rest were ordinary Coq
+errors nobody had diagnosed because nobody had run the compiler on them — full
+account in `corpus/mc108_canonical/REPAIR_LOG.md`:
+
+- `String` imported after `List` shadowed `length`, so 13 list-length call sites
+  resolved to `String.length` and failed on a type mismatch. Not corruption.
+- Eight conjunctions had `/\` flattened to `/` — this one *is* the transfer damage,
+  confined to eight lines across two files.
+- `ge` is not a registered reflexive relation, so a `lia || reflexivity` combinator
+  sent `reflexivity` at a `>=` goal after `lia` declined it.
+- One `contradiction` call couldn't bridge a symmetric hypothesis; needed `congruence`.
+- `simpl` was too weak to reduce `support_count` for two side conditions; needed
+  `vm_compute` first.
+
+No statement was weakened to make it compile.
+
+### One genuine, unresolved disagreement — recorded, not silently fixed
+
+`demo20_morph_attested` originally claimed `attested_count_o8 R020 = 6`. The shipped
+ledger data yields **7**. The other three demo attestations check out as written
+(R001 = 8, R002 = 5, R009 = 6) — only morph disagrees. Rather than edit the claim to
+match the data, both facts are now machine-checked and committed side by side,
+following the precedent this corpus already set with
+`possibility_preserved_ORIGINAL_IS_FALSE`:
+
+    Example demo20_morph_attested_ORIGINAL_IS_FALSE : attested_count_o8 R020 <> 6.
+    Proof. vm_compute. discriminate. Qed.
+
+    Example demo20_morph_attested : attested_count_o8 R020 = 7.
+    Proof. vm_compute. reflexivity. Qed.
+
+Either `ledgerO8` gained an entry since the original claim was written, or the
+expected count was always stale. **That is a data question for whoever maintains the
+ledger, not a proof question** — it is verified true in both directions and does not
+resolve itself. Do not silently pick one when summarizing this file.
+
+### Other families with no compiling survivor
+
+`canonicalize_idempotent` (`f072 f090 f102`), `verify_profile_terminates`
+(`f075 f092 f103`), `admissibility_closure` (`f045 f057`) remain unrepaired.
+Everywhere else a `FAIL` twin has an `OK` sibling, so recovery is a copy, not proof
+work.
 
 ---
 
@@ -560,24 +652,41 @@ Most of this list has now been recovered. What remains:
 
 **Recovered and now tracked in this repository:**
 
-    corpus/mc108_canonical_20260728.tar.gz   all 88 .v sources, content-addressed
-    corpus/RENAME.tsv                        per-file counts + SHA-256 (authoritative)
-    corpus/REPAIR_LOG.md · HYGIENE.md        what was repaired and how
+    corpus/mc108_canonical/                  all 88 .v sources as real, named files —
+                                              <status>/<framework>/<framework>__
+                                              <principal_theorem>__<sha8>.v — browsable
+                                              directly, not locked inside an archive
+    corpus/mc108_canonical/00_logs/          raw coqc + Print Assumptions output, all 88
+    corpus/mc108_canonical/MANIFEST.json     per-file SHA-256/512/BLAKE3 + the totals
+                                              this document's numbers are checked against
+    corpus/mc108_canonical/REPAIR_LOG.md     the motion-root repair, in full (§6)
+    corpus/mc108_canonical_20260728.tar.gz   the same tree, archived — for bulk download
     coq/                                     GPX sources + kernel logs, 83/83
-    crypto/                                  FIPS 202 + FIPS 203, 173 tests
+    crypto/                                  FIPS 202 + FIPS 203 + confidential
+                                              provenance, 269 tests
     tools/fix_bom.sh · apply_rename.sh       recovered tooling
     docs/RECONCILED.md · DEVELOPMENT-LOG.md  prior reconciliation + full history
 
-The three motion-root files remain non-compiling (section 6), but their **sources are
-now present** in the canonical tarball under `04_uncompiled/`, so the repair is
-workable rather than blocked.
+The three motion-root files are **solved** (§6) — this list no longer needs to say
+otherwise.
 
 ---
 
 ## 11. Layout
 
-    crypto/                  from-scratch FIPS 202 / FIPS 203 + tests + manifest
-    docs/CORPUS-STATE.md     this file
+    crypto/                    from-scratch FIPS 202 / FIPS 203 / confidential + tests
+    corpus/mc108_canonical/    all 88 sources, real canonical names, browsable directly
+    coq/                       GPX sources + kernel logs, 83/83
+    docs/CORPUS-STATE.md       this file
     docs/aud_047_axiom_discharged.v
-    docs/logs/               independent Print Assumptions logs (161 statements, all closed)
-    tools/axaudit.sh         reconstructed assumption sweep — no cap, no double-count
+    docs/logs/                 independent Print Assumptions logs (161 statements, all closed)
+    tools/axaudit.sh           reconstructed assumption sweep — no cap, no double-count
+
+**On names:** every source file in this repository has a real name — either its own
+(`keccak.mjs`, `GPXBoundary.v`) or, for the mc108 corpus, the
+`<framework>__<principal_theorem>__<hash8>.v` scheme in `corpus/mc108_canonical/`. A
+bare `fNNN` appearing anywhere in this document is a **pre-rename ledger ordinal**,
+kept only because the historical artifact being described (an old audit log, a
+compile sweep) used that ordinal natively and cannot be rewritten after the fact.
+It is never asserted as a name in itself — `corpus/mc108_canonical/RENAME.tsv` is
+the ordinal-to-name lookup, with the staleness caveat in §2.

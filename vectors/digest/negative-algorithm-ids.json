@@ -1,0 +1,17 @@
+[
+  {
+    "label": "unknown-algorithm",
+    "algorithm": "NOT-A-REAL-ALG",
+    "expected_verdict": "UNKNOWN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-md5",
+    "algorithm": "MD5",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-sha1",
+    "algorithm": "SHA-1",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  }
+]

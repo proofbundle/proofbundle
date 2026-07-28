@@ -10,7 +10,8 @@
   },
   "scripts": {
     "selftest": "node cli/proofbundle-cli.mjs selftest",
-    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs"
+    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs",
+    "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs"
   },
   "dependencies": {
     "jsdom": "^24.1.3"

@@ -1,0 +1,65 @@
+[
+  {
+    "label": "key-reordering",
+    "input_text": "{\"b\":1,\"a\":2}",
+    "canonical_bytes_hex": "7b2261223a322c2262223a317d",
+    "canonical_text": "{\"a\":2,\"b\":1}",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "whitespace-insignificant",
+    "input_text": "[ 1 , 2 , 3 ]",
+    "canonical_bytes_hex": "5b312c322c335d",
+    "canonical_text": "[1,2,3]",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "nested-object",
+    "input_text": "{\"z\":{\"y\":{\"x\":1}}}",
+    "canonical_bytes_hex": "7b227a223a7b2279223a7b2278223a317d7d7d",
+    "canonical_text": "{\"z\":{\"y\":{\"x\":1}}}",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "negative-zero",
+    "input_text": "-0",
+    "canonical_bytes_hex": "30",
+    "canonical_text": "0",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "integer-no-trailing-zero",
+    "input_text": "5.0",
+    "canonical_bytes_hex": "35",
+    "canonical_text": "5",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "empty-object",
+    "input_text": "{}",
+    "canonical_bytes_hex": "7b7d",
+    "canonical_text": "{}",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "empty-array",
+    "input_text": "[]",
+    "canonical_bytes_hex": "5b5d",
+    "canonical_text": "[]",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "unicode-string",
+    "input_text": "\"日本語 🔥\"",
+    "canonical_bytes_hex": "22e697a5e69cace8aa9e20f09f94a522",
+    "canonical_text": "\"日本語 🔥\"",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "escaped-characters",
+    "input_text": "\"line1\\nline2\\ttab\\\"quote\\\\backslash\"",
+    "canonical_bytes_hex": "226c696e65315c6e6c696e65325c747461625c2271756f74655c5c6261636b736c61736822",
+    "canonical_text": "\"line1\\nline2\\ttab\\\"quote\\\\backslash\"",
+    "expected_verdict": "VERIFIED"
+  }
+]

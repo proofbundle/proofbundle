@@ -30,7 +30,7 @@ not survive checking. These do.
 | Distinct axiom names in the surface | **11** (9 bespoke + 2 Coq stdlib) | [relayed] |
 | Independent `Print Assumptions` logs | **161**, all closed | [verified here] |
 | GPX Coq theorems kernel-closed | **83 of 83** | [verified here] |
-| Crypto core self-tests | **173 pass / 0 fail** | [verified here] |
+| Crypto core self-tests | **269 pass / 0 fail** | [verified here] |
 
 Two figures in circulation are **not** safe to publish:
 
@@ -47,21 +47,23 @@ quoted interchangeably, which is how the record keeps coming apart.
 | number | what it actually counts | status |
 |---:|---|---|
 | **1,221** | every named statement in the index, all files, duplicates included | inflated by duplicate ordinals |
-| **895** | theorems in the "verified-clean core" tree, deduped by content hash | **[relayed]** — scope not reconciled with the 528 below |
+| **895** | theorems in the "verified-clean core" tree, deduped by content hash | **[relayed]** — scope still unreconciled |
+| **685** | statements across the 40 compiling files, measured from source | **[verified here]** |
 | **551** | `Closed` lines in the archived sweep | **unusable** — capped *and* double-matched (§3.2) |
 | **533** | distinct theorem *names* across the whole corpus | **[verified here]** |
-| **528** | statements across the 41 compiling files (2026-07-06 audit) | **[verified here]** |
-| **473** | of those 528, closed under the global context | **[verified here]** |
+| **528** | superseded — the same count with `f036`/`f089`/`f091` unmeasured | superseded by 685 (§2) |
+| **473** | closed under the global context | **[verified here, twice]** |
 | **325** | distinct names with at least one compiling home | **[verified here]** |
+| **212** | axiom-dependent, of which 149 is `f036` alone | **[verified here]** |
 | **208** | distinct names with no compiling copy anywhere | **[verified here]** |
 | **161** | statements in the independent per-module logs, all closed | **[verified here]** |
-| **65 / 83** | GPX Coq theorems kernel-closed after two one-line repairs | **[relayed]** |
+| **83 / 83** | GPX Coq theorems kernel-closed | **[verified here]** |
 
-The **895** figure needs reconciling before it is used anywhere. It comes from a
-"verified-clean core" tree of 23 files, and it exceeds the 528 statements the
-independent audit found across *41* files — so it is counting a broader category
-(likely definitions and instances alongside theorems), or counting pre-dedup. Until
-someone re-derives it, quote 473 or 533.
+The **895** figure still needs reconciling before it is used anywhere. It comes from a
+"verified-clean core" tree of 23 files and exceeds even the 685 statements now
+measured across all 40 compiling files — so it is counting a broader category (likely
+definitions and instances alongside theorems), or counting pre-dedup. Until someone
+re-derives it, quote 473 or 533.
 
 ### The strongest verification claim in the corpus is `coqchk`, and it is barely recorded
 

@@ -24,12 +24,12 @@ not survive checking. These do.
 | Distinct theorem names in the corpus | **533** | [verified here] |
 | …with at least one compiling home | **325** | [verified here] |
 | …with no compiling copy anywhere | **208** | [verified here] |
-| Statements across the 41 compiling files | **528** | [verified here] |
-| …closed under the global context | **473** | [verified here] |
-| …axiom-dependent | **55** | [verified here] |
+| Statements across the 40 compiling files | **685** | [verified here] |
+| …closed under the global context | **473** | [verified here, twice] |
+| …axiom-dependent | **212** (149 of them `f036` alone) | [verified here] |
 | Distinct axiom names in the surface | **11** (9 bespoke + 2 Coq stdlib) | [relayed] |
 | Independent `Print Assumptions` logs | **161**, all closed | [verified here] |
-| GPX Coq theorems kernel-closed | **65 of 83** | [relayed, logs attached] |
+| GPX Coq theorems kernel-closed | **83 of 83** | [verified here] |
 | Crypto core self-tests | **173 pass / 0 fail** | [verified here] |
 
 Two figures in circulation are **not** safe to publish:
@@ -132,6 +132,22 @@ it survives someone reading the imports:
 Publishable form: *every hash and the KEM are ours, verified against independent
 implementations.*
 
+**SHA-3 is now wired into the shipped app.** `proofbundle.html` previously routed
+`SHA3-256/384/512` to the bundled noble blob; it now calls `PBKECCAK`, our
+implementation, and the digest registry reports `engine:'proofbundle'`.
+**[verified here]** The swap is behaviour-preserving — our output was checked
+byte-for-byte against the previously bundled SHA-3 across 13 message lengths
+including every rate boundary (39/39 identical) before the change, and the app's
+`digestBytes` was checked against `node:crypto` after it (30/30). Self-test remains
+65/65.
+
+ML-KEM is committed and verified but **not yet wired into the app**. It is a key
+encapsulation mechanism, not a signature, so it backs none of the existing
+post-quantum claims — those are ML-DSA, Falcon and SLH-DSA, which come from noble and
+are already present. Integrating ML-KEM means building the Confidential Provenance
+surface (encapsulate a record to a recipient's key), which is feature work, not
+wiring. Nothing published is wrong while it waits.
+
 ### Next primitive: SLH-DSA
 
 It is hash-based and nothing else — SHA-2 and SHAKE are its entire primitive base,
@@ -154,11 +170,38 @@ The governing artifact is the **independent re-verification of 2026-07-06T02:45:
 (Coq 8.18.0 / OCaml 4.14.1, fresh container) with its per-file table.
 
     CUSTODY      anchor 173d23e8… verified; 99/99 hashes match MANIFEST.sha256   [relayed]
-    COMPILE      41 / 88 RC0   (generated ledger said 40/88)                     [relayed]
-    ASSUMPTIONS  528 statements → 473 closed, 55 axiom-dependent                 [verified here]
+    COMPILE      40 / 88 compile (22 proved · 18 axiom-dependent · 1 empty)      [verified here]
+    ASSUMPTIONS  685 statements → 473 closed, 212 axiom-dependent                [verified here]
 
-**[verified here]** The totals reconcile exactly against the per-file table: 41 files,
-528 statements, 473 closed, 55 axiom-dependent, `473 + 55 = 528` with no residue.
+**[verified here]** Computed from `corpus/RENAME.tsv`, which carries per-file
+statement / closed / axiom counts alongside the SHA-256 of each source. All 88
+sources are now in `corpus/`, so this is derived from the files themselves rather
+than from a summary. `473 + 212 = 685` with no residue.
+
+### The earlier "55 axiom-dependent" was measured with three files missing
+
+The 2026-07-06 audit reported 528 statements and 55 axiom-dependent. That run's
+assumption sweep **failed on `f036`, `f089` and `f091`**, which therefore contributed
+zero. Measuring them closes the gap exactly:
+
+     55   previously measured
+    +149   f036, now measured
+    +  4   f089
+    +  4   f091
+    ────
+     212   the current total
+
+**`f036` is the finding.** It is the consolidated-corpus file the property index
+celebrates as "the largest single compiling unit" — and it has **149 statements, of
+which zero are closed.** Every one is axiom-dependent. It is 70% of the entire axiom
+surface on its own, and the earlier figures never saw it because the audit crashed on
+it. Excluding `f036`, the corpus reads 535 statements / 473 closed / 63
+axiom-dependent, which is close to what was published.
+
+**473 is the robust number.** Two independent sweeps, run four days apart with
+different tooling and different scope, both put the closed count at exactly 473.
+Nothing that was ever measured as closed has been retracted — the correction is
+entirely about statements that had not been measured at all.
 
 ### Count distinct names, not files
 
@@ -349,20 +392,30 @@ already closes all six.
 
 ---
 
-## 5. Compile-clean is not proof-clean — and the grep is not the test
+## 5. Compile-clean is not proof-clean — now settled against source
 
-Six RC0 files carry `Admitted` despite compiling: `f023 f049 f053 f061 f066 f073`.
-**[relayed]** Do not flatten that distinction in any summary.
+This was an open question while only summaries were available. The 88 sources are now
+in `corpus/`, so it is answered directly. **[verified here]** — parsed with comments
+stripped, counting only real `Admitted.` / `admit.` / `sorry` at declaration
+position.
 
-But the `SRCHOLE` column that produced the `+A` marks is a case-insensitive grep for
-`admit|admitted|sorry|oops|postulate` — it fires on the word appearing anywhere,
-comments included. **[verified here]** It flags **18 of the 40** RC0 files, not 6,
-including `f019 f026 f027 f036 f037 f042 f058 f060 f065 f079 f080 f104`. Across the
-whole corpus it flagged 44 files where `Print Assumptions` finds 11.
+    01_proved            25 files    0 with a real Admitted   ← the claim HOLDS
+    02_axiom_dependent   18 files    6 with a real Admitted
+    04_uncompiled        44 files   20 with a real Admitted
 
-**Every `+A` mark in the rename maps inherits from that grep and should be
-re-derived** from `Print Assumptions`. Same direction of error as the `f035` note:
-the ledger under-claims.
+**The "zero axioms, zero admits, zero sorry" claim for the proved set is true.** All
+25 files are clean when checked against the source itself, not against a grep.
+
+The six in the axiom-dependent set are exactly the six the audit named — `f023`
+(`unique_normal_form`), `f049` and `f066` (`closure_under_composition`), `f053` and
+`f061` (`event_horizon_sufficient_for_recovery`), `f073` (`cycle_rejected`). The
+audit's list was right.
+
+**The `SRCHOLE` grep was wrong, as suspected.** It is case-insensitive and fires on
+the word anywhere, comments included. It flagged **18 of the 40** compiling files
+where only **6** contain a real one, and 44 across the corpus where 26 do. Every `+A`
+mark in the rename maps inherits from that grep. They are now superseded by
+`corpus/RENAME.tsv`, which carries measured counts and a SHA-256 per file.
 
 ---
 
@@ -386,7 +439,24 @@ copy, not proof work.
 
 ---
 
-## 7. GPX bundle — 65 of 83
+## 7. GPX bundle — 83 of 83, complete
+
+**[verified here]** All three Coq sources and their kernel logs are now in
+[`coq/`](../coq/). `GPXGrace.v` — the file that could not be repaired and left 18
+theorems `source_only` — has been **superseded by `GPXDiachronic.v`, which closes all
+18.**
+
+    GPXBoundary.coq.log     42 lines   42 closed   nothing else in the file
+    GPXTemporal.coq.log     23 lines   23 closed   nothing else in the file
+    GPXDiachronic.coq.log   18 lines   18 closed   nothing else in the file
+    ────────────────────────────────────────────
+                            83 statements, 83 closed
+
+Each log contains **only** `Closed under the global context` lines — no axioms, no
+admits, no warnings, no other output. The three sources contain zero real `Admitted`.
+This supersedes the earlier 65-of-83 figure.
+
+### How it got there
 
 **[relayed]** Coq 8.18.0 was installed and run against the GPX bundle — the first
 time a kernel touched those files. Both Coq files failed *as shipped*, with the same
@@ -458,17 +528,27 @@ hash check with no tools, `cosign verify-blob` with identity pinned to the repo,
 
 ## 10. What is still only in one place
 
-Not yet mirrored here, and worth pulling in first:
+Most of this list has now been recovered. What remains:
 
-- **The `.coqchk.log` files from the verified-clean core.** Highest value of anything
-  listed here — an independent-kernel result is stronger than every other verification
-  claim in the corpus, and it currently exists as one sentence in one README.
-- `mc108_compiled_proofs_20260627.tar.gz` — the `.v` sources. Without them no compile
-  claim can be independently re-derived and the `SRCHOLE` question cannot be settled.
-- The three motion-root files (section 6) — highest value, unrecoverable from anything
-  tracked here.
+- **The `.coqchk.log` files from the verified-clean core.** Still the highest-value
+  missing artifact — an independent-kernel result is stronger than every other
+  verification claim in the corpus, and it exists as one sentence in one README.
 - SMT proof objects for T1/T2 and unsat records for T5–T8.
 - The lost signature work. If it is rebuilt, do **SLH-DSA first** (section 1).
+
+**Recovered and now tracked in this repository:**
+
+    corpus/mc108_canonical_20260728.tar.gz   all 88 .v sources, content-addressed
+    corpus/RENAME.tsv                        per-file counts + SHA-256 (authoritative)
+    corpus/REPAIR_LOG.md · HYGIENE.md        what was repaired and how
+    coq/                                     GPX sources + kernel logs, 83/83
+    crypto/                                  FIPS 202 + FIPS 203, 173 tests
+    tools/fix_bom.sh · apply_rename.sh       recovered tooling
+    docs/RECONCILED.md · DEVELOPMENT-LOG.md  prior reconciliation + full history
+
+The three motion-root files remain non-compiling (section 6), but their **sources are
+now present** in the canonical tarball under `04_uncompiled/`, so the repair is
+workable rather than blocked.
 
 ---
 

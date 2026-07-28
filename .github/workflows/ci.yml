@@ -1,41 +1,83 @@
-name: CI
+name: ci
 
-# NOTE: auto-run on push is intentionally disabled while the account's Actions
-# are billing-locked (a locked account fails every job in ~1s, which is noise,
-# not a real result). Re-enable the `push:` / `pull_request:` triggers below once
-# Actions are unlocked — the job itself is correct and passes locally (65/65).
-# Until then, run it on demand from the Actions tab (Run workflow).
 on:
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
-  # push:
-  #   branches: [main]
-  # pull_request:
-  #   branches: [main]
 
 jobs:
-  self-test:
-    name: 65/65 self-test (headless)
+  selftest:
+    name: engine self-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Install dependencies
+          node-version: '22'
+      - name: install
         run: npm ci || npm install
-
-      - name: Run built-in self-test against the shipped engine
-        env:
-          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+      - name: self-test
         run: node cli/proofbundle-cli.mjs selftest
-
-      - name: Fail if self-test did not report a full pass
-        env:
-          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+      - name: seal / verify round trip
         run: |
-          out="$(node cli/proofbundle-cli.mjs selftest)"
-          echo "$out"
-          echo "$out" | grep -Eq 'self-test: ([0-9]+)/\1 pass' || {
-            echo "::error::self-test did not report an all-pass result"; exit 1; }
+          node cli/proofbundle-cli.mjs keygen > /tmp/keys.json
+          echo '{"hello":"world"}' > /tmp/payload.json
+          node cli/proofbundle-cli.mjs seal /tmp/payload.json --keys /tmp/keys.json > /tmp/receipt.pb.json
+          node cli/proofbundle-cli.mjs verify /tmp/receipt.pb.json
+
+  tamper:
+    name: tamper detection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci || npm install
+      - name: a flipped byte must fail verification
+        run: |
+          node cli/proofbundle-cli.mjs keygen > /tmp/keys.json
+          echo '{"hello":"world"}' > /tmp/payload.json
+          node cli/proofbundle-cli.mjs seal /tmp/payload.json --keys /tmp/keys.json > /tmp/receipt.pb.json
+          sed 's/world/w0rld/' /tmp/receipt.pb.json > /tmp/tampered.pb.json
+          if node cli/proofbundle-cli.mjs verify /tmp/tampered.pb.json; then
+            echo "tampered receipt verified — this is a failure"; exit 1
+          else
+            echo "tampered receipt rejected as expected"
+          fi
+
+  coq:
+    name: coq proofs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install coq 8.18.0
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq coq
+      - name: build and check
+        working-directory: coq
+        run: make check
+      - name: assert exact closed counts
+        working-directory: coq
+        run: |
+          set -e
+          check() {
+            n=$(grep -c "Closed under the global context" "$1.coq.log")
+            m=$(grep -vc "Closed under the global context" "$1.coq.log")
+            echo "$1: closed=$n non-closed=$m (expected $2 / 0)"
+            [ "$n" = "$2" ] && [ "$m" = "0" ]
+          }
+          check GPXBoundary   42
+          check GPXTemporal   23
+          check GPXDiachronic 18
+      - name: no non-constructive axioms
+        working-directory: coq
+        run: |
+          if grep -hE "propositional_extensionality|functional_extensionality|classic|proof_irrelevance" *.coq.log; then
+            echo "forbidden axiom present"; exit 1
+          fi
+          echo "none"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coq-logs
+          path: coq/*.coq.log

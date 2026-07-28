@@ -10,7 +10,7 @@
   },
   "scripts": {
     "selftest": "node cli/proofbundle-cli.mjs selftest",
-    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs"
+    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs"
   },
   "dependencies": {
     "jsdom": "^24.1.3"

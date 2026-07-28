@@ -6,6 +6,7 @@ pure JavaScript. No external crypto library, no WebCrypto, no `noble-*`.
 ```
 keccak.mjs        SHA3-256/384/512, SHAKE128/256           FIPS 202
 mlkem.mjs         ML-KEM-512/768/1024                      FIPS 203
+confidential.mjs  encrypted-but-verifiable provenance      built on the two above
 ```
 
 `mlkem.mjs` takes its hashing from `keccak.mjs`, so the two together are a closed
@@ -52,6 +53,50 @@ encapsulate and decapsulate paths — the class of bug the structural tests are 
 The zeta and gamma tables in `mlkem.mjs` are derived at load time from the primitive
 root, not transcribed, so a typo in a constant table cannot silently corrupt the
 transform. The same applies to the FIPS 180-4 constants elsewhere in the project.
+
+## Confidential provenance (`confidential.mjs`)
+
+Encrypt a payload to a recipient and keep it verifiable. The integrity guarantee
+does **not** come from the KEM — it comes from the digests, which the existing seal
+signs. ML-KEM only decides who can read the plaintext.
+
+Because the envelope commits to **both** the plaintext digest and the ciphertext
+digest, there are two verification tiers:
+
+| tier | needs | proves |
+|---|---|---|
+| 1 | nothing | this is the exact sealed ciphertext, untampered — **without disclosing anything** |
+| 2 | the decapsulation key | the decrypted content is what was sealed |
+
+Tier 1 is the reason to commit to the ciphertext digest as well. Sealing only the
+plaintext digest would leave a third party unable to check that the envelope they
+were handed is the one that was signed.
+
+```bash
+node t_confidential.mjs   # 96 pass
+```
+
+Covers all three parameter sets across seven payload lengths: round-trip, digest
+agreement, tier-1 acceptance, tamper rejection at both tiers, forged tags, wrong
+recipient, substituted digests, determinism under a fixed nonce, and divergence
+under a changed one.
+
+### One caveat, and it is a real one
+
+The symmetric layer is a **bespoke** construction: a SHAKE256 keystream with
+encrypt-then-MAC, chosen so the whole path depends on `keccak.mjs` and nothing else.
+It is not a standardized AEAD. The construction is conservative — independent
+labelled subkeys, tag covering both ciphertexts, constant-time comparison, and a
+single-use KEM-derived key — but "we rolled our own AEAD" is a sentence a reviewer
+will stop on, and they are not wrong to.
+
+If you would rather not defend it, swapping the two `shake256` calls for WebCrypto
+`AES-GCM` is a small change. It costs the from-scratch property for this path only;
+the KEM and all hashing stay ours. **That trade is a judgement call, not a defect —
+decide it before this ships in anything adversarial.**
+
+Nonces must be 16 bytes and must never repeat for a given recipient key. Reuse
+collapses the keystream, which is the usual failure mode for any stream construction.
 
 ## Integrity
 

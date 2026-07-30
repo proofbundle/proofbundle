@@ -1,0 +1,235 @@
+/* ============================================================================
+   ProofBundle — appearance pass
+   ----------------------------------------------------------------------------
+   Additive. Paste this as a NEW <style> block immediately before </head> in
+   proofbundle.html, after the existing stylesheet. It overrides design tokens
+   and adds rules; it renames nothing and removes nothing, so it cannot break
+   existing markup or scripts. To undo it, delete the block.
+
+   It brings the app into the same visual language as proofbundle.org: a
+   document surface rather than a dashboard, one accent (seal red) reserved for
+   things that need attention, and monospace for every value a person might
+   copy, compare, or read aloud.
+   ========================================================================== */
+
+/* ---- tokens: light, the document surface ------------------------------- */
+:root[data-theme="light"], :root:not([data-theme="dark"]) {
+  --bg0:#f4f5f2;          /* page */
+  --bg1:#ffffff;          /* cards, panels */
+  --bg2:#eceee9;          /* inset, table stripe, code wells */
+  --bg3:#e3e6df;          /* pressed / active */
+  --border:#d5d8d0;
+  --border2:#bcc0b6;
+  --text0:#14161a;
+  --text1:#4b5058;
+  --text2:#6b7079;
+
+  --blue:#8b2635;         /* the single accent: seal red */
+  --blue2:#6f1e2a;
+  --green:#1f6f43;
+  --red:#a02020;
+  --orange:#8a6212;
+  --yellow:#8a6212;
+  --purple:#4a3b7a;
+  --cyan:#1f6266;
+
+  --radius:3px;
+  --radius-sm:2px;
+}
+
+/* ---- tokens: dark, the same palette at night --------------------------- */
+:root[data-theme="dark"] {
+  --bg0:#12140f;
+  --bg1:#191b16;
+  --bg2:#20231c;
+  --bg3:#292d24;
+  --border:#333830;
+  --border2:#474d42;
+  --text0:#eceee7;
+  --text1:#a8ada2;
+  --text2:#7d8378;
+
+  --blue:#d4707d;
+  --blue2:#b8515f;
+  --green:#5fb37f;
+  --red:#e0736b;
+  --orange:#d0a34a;
+  --yellow:#c9a227;
+  --purple:#a48fd6;
+  --cyan:#5fb0b3;
+
+  --radius:3px;
+  --radius-sm:2px;
+}
+
+/* ---- type: two roles, one superfamily ---------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font-ui:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+body { font-family:var(--font-ui); font-size:15px; line-height:1.6; }
+
+h1,h2,h3 { letter-spacing:-.015em; }
+h1 { font-family:var(--font-mono); font-weight:600; letter-spacing:-.03em; }
+h2 { font-size:19px; font-weight:600; }
+h3 { font-size:15px; font-weight:600; }
+
+/* Anything a person might copy, compare, or read aloud is monospace. */
+code, pre, input, textarea, select,
+.hash, .digest, .mono, .algo-note, .badge, .verdict, .kv, .hex
+{ font-family:var(--font-mono); }
+
+/* ---- structure: hairlines, not shadows --------------------------------- */
+.card, .panel, .modal, .box, .well, .tab-panel > .card {
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:none;
+}
+
+/* ---- tabs: a rule that moves, not a pill ------------------------------- */
+nav#tabs, #tabs {
+  border-bottom:1px solid var(--border);
+  gap:0;
+}
+nav#tabs button, #tabs button {
+  background:transparent;
+  border:0;
+  border-bottom:2px solid transparent;
+  border-radius:0;
+  padding:10px 16px;
+  font-family:var(--font-mono);
+  font-size:13px;
+  letter-spacing:.01em;
+  color:var(--text2);
+}
+nav#tabs button:hover, #tabs button:hover { color:var(--text0); }
+nav#tabs button.active, #tabs button.active,
+nav#tabs button[aria-selected="true"], #tabs button[aria-selected="true"] {
+  color:var(--text0);
+  border-bottom-color:var(--blue);
+  background:transparent;
+}
+
+/* ---- buttons: one solid, one quiet ------------------------------------- */
+.btn {
+  font-family:var(--font-mono);
+  font-size:13px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--text0);
+  background:var(--text0);
+  color:var(--bg1);
+  padding:9px 15px;
+  box-shadow:none;
+  transition:background .12s ease, border-color .12s ease;
+}
+.btn:hover { background:var(--blue); border-color:var(--blue); }
+.btn-secondary, .btn.ghost {
+  background:transparent;
+  color:var(--text0);
+  border-color:var(--border2);
+}
+.btn-secondary:hover, .btn.ghost:hover {
+  background:transparent;
+  border-color:var(--text0);
+  color:var(--text0);
+}
+.btn-sm { padding:6px 11px; font-size:12px; }
+
+/* ---- badges: a verdict is a state, not a decoration -------------------- */
+.badge {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:var(--bg1);
+  color:var(--text1);
+  padding:3px 8px;
+  box-shadow:none;
+  text-shadow:none;
+}
+.badge-green  { color:var(--green);  border-color:color-mix(in srgb,var(--green) 45%,transparent); }
+.badge-red    { color:var(--red);    border-color:color-mix(in srgb,var(--red) 45%,transparent); }
+.badge-orange { color:var(--orange); border-color:color-mix(in srgb,var(--orange) 45%,transparent); }
+.badge-blue   { color:var(--blue);   border-color:color-mix(in srgb,var(--blue) 45%,transparent); }
+
+/* ---- fields ------------------------------------------------------------ */
+input, textarea, select {
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  color:var(--text0);
+  font-size:13px;
+  padding:8px 10px;
+}
+input:focus, textarea:focus, select:focus {
+  outline:0;
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 14%,transparent);
+}
+::placeholder { color:var(--text2); opacity:1; }
+
+/* ---- hashes and other long values: readable, wrappable, selectable ----- */
+.hash, .digest, .hex, code.hash, .mono-wrap {
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  line-height:1.75;
+  word-break:break-all;
+  letter-spacing:.01em;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:9px 11px;
+  display:block;
+}
+
+pre { background:var(--bg2); border:1px solid var(--border);
+      border-radius:var(--radius-sm); padding:12px; overflow-x:auto; }
+
+/* ---- tables ------------------------------------------------------------ */
+table { border-collapse:collapse; width:100%; font-size:14px; }
+th {
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--text2);
+  text-align:left; padding:9px 10px; border-bottom:1px solid var(--border);
+}
+td { padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+tbody tr:hover { background:var(--bg2); }
+
+/* ---- modal: a sheet on the document, no blur --------------------------- */
+.modal-overlay { background:color-mix(in srgb,var(--text0) 42%,transparent); backdrop-filter:none; }
+.modal { border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 12px 32px rgba(0,0,0,.16); }
+.modal-close { color:var(--text2); background:transparent; border:0; font-size:20px; }
+.modal-close:hover { color:var(--text0); }
+
+/* ---- profile list: rows, not tiles ------------------------------------- */
+.domain-list { display:block; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.domain-btn {
+  display:block; width:100%; text-align:left;
+  padding:12px 14px; background:var(--bg1); color:var(--text0);
+  border:0; border-bottom:1px solid var(--border); border-radius:0;
+  font-family:var(--font-ui); font-size:14px;
+}
+.domain-btn:last-child { border-bottom:0; }
+.domain-btn:hover { background:var(--bg2); }
+
+/* ---- small print ------------------------------------------------------- */
+.algo-note, .hint, .note, small {
+  font-family:var(--font-mono); font-size:11.5px; color:var(--text2);
+  letter-spacing:.005em;
+}
+
+/* ---- quality floor ----------------------------------------------------- */
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+::selection { background:color-mix(in srgb,var(--blue) 22%,transparent); }
+@media (prefers-reduced-motion:reduce) { * { transition:none !important; animation:none !important; } }
+@media (max-width:640px) {
+  body { font-size:14px; }
+  nav#tabs button, #tabs button { padding:9px 11px; font-size:12px; }
+  .hash, .digest, .hex { font-size:11.5px; }
+}

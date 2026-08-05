@@ -1,0 +1,40 @@
+ProofBundle interoperability report
+date_utc: 2026-08-05T04:18:27Z
+
+RESULT: NOT RUN for cross-implementation interoperability.
+
+Interoperability in the sense the specification means it — the same bundle
+verified by a second, independently written implementation — requires a
+second implementation. None is available in this environment, so every
+interop_status cell in CRYPTOGRAPHIC_SURFACE.csv reads NOT_RUN.
+
+WHAT WAS CHECKED INSTEAD, and what it is worth:
+
+  a) External authoritative vectors. HMAC-SHA-256 against RFC 4231 TC1 and
+     HKDF-SHA-256 against RFC 5869 A.1. These ARE cross-implementation
+     checks: the expected bytes come from the RFC, not from this code.
+     BLAKE2b-512 and BLAKE2s-256 are checked against published digests.
+     cSHAKE128/256, KMAC128/256, TupleHash128 and ParallelHash128 are
+     checked against the NIST SP 800-185 sample vectors, and AES-128-KW
+     against the RFC 3394 section 4.1 known-answer vector — 14 values in
+     total, none of them this implementation's own output.
+  b) node:crypto as a second implementation for SHA3/SHAKE. crypto/keccak.mjs
+     (PURE_MJS) was previously cross-checked against node's OpenSSL-backed
+     SHA3 — two independent implementations agreeing.
+  c) CLI-to-library round trip. Keys and signatures produced through the CLI
+     verify through the library and vice versa (test/integration/cli.test.mjs).
+     This is a self-consistency check, NOT interoperability.
+  d) Byte-format constants checked against reference source, not memory.
+     src/timestamp/opentimestamps.mjs's header magic, version, attestation
+     tags, op tags, and the varuint/varbytes/0xff-framing algorithm were
+     fetched from opentimestamps/python-opentimestamps (core/timestamp.py,
+     core/notary.py, core/op.py, core/serialize.py) before being coded, so
+     the wire format itself matches the reference implementation. What was
+     NOT checked: an actual calendar-issued .ots file or a real TSA
+     response, because this environment has no outbound network to obtain
+     one. The rfc3161.json and opentimestamps.json vectors under
+     vectors/timestamp/ are this run's own build/parse round trips —
+     self-consistency, like (c), not third-party interop like (a).
+
+NOT CHECKED: whether any other ProofBundle implementation, or any third-party
+tool, accepts artifacts produced here. That claim is not made.

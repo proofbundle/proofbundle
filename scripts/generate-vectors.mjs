@@ -76,10 +76,21 @@ for (const algId of ['SHAKE128', 'SHAKE256']) {
 }
 
 // wrong-algorithm / unknown-algorithm / forbidden-algorithm vectors
+// SHA-1 is deliberately NOT in this list any more. It moved from
+// RECOGNIZE_AND_REJECT to LEGACY_VERIFY_ONLY when the legacy digest path was
+// added: digestBytes() now computes it so historical artifacts can be checked,
+// and digestForGeneration() refuses it. Its refusal vector lives in
+// vectors/digest/legacy-national.json under 'SHA-1/generation-refused'.
+// This checker caught the stale expectation when the change landed.
 writeFileSync('vectors/digest/negative-algorithm-ids.json', JSON.stringify([
   { label: 'unknown-algorithm', algorithm: 'NOT-A-REAL-ALG', expected_verdict: 'UNKNOWN_ALGORITHM' },
   { label: 'forbidden-md5', algorithm: 'MD5', expected_verdict: 'FORBIDDEN_ALGORITHM' },
-  { label: 'forbidden-sha1', algorithm: 'SHA-1', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-md4', algorithm: 'MD4', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-md2', algorithm: 'MD2', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-whirlpool', algorithm: 'Whirlpool', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-ripemd-128', algorithm: 'RIPEMD-128', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-ripemd-256', algorithm: 'RIPEMD-256', expected_verdict: 'FORBIDDEN_ALGORITHM' },
+  { label: 'forbidden-ripemd-320', algorithm: 'RIPEMD-320', expected_verdict: 'FORBIDDEN_ALGORITHM' },
 ], null, 2) + '\n');
 
 // ---- canonicalization vectors: positive, boundary, and negative (rejected)

@@ -1,0 +1,56 @@
+[
+  {
+    "label": "ots/append-then-sha256-branches-to-pending-and-bitcoin",
+    "digest_hex": "268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d93241396",
+    "proof_hex": "004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d93241396f008090807060504030208ff0083dfe30d2ef90c8e2e2d68747470733a2f2f616c6963652e6274632e63616c656e6461722e6f70656e74696d657374616d70732e6f7267000588960d73d719010390a936",
+    "expected_hash_alg": "SHA256",
+    "expected_commitment_hex": "68bb375ecdb47d2d0d789bbc361ae5e505283d59b84bde4425bf5e4b89a8436e",
+    "expected_attestations": [
+      {
+        "name": "PENDING",
+        "uri": "https://alice.btc.calendar.opentimestamps.org"
+      },
+      {
+        "name": "BITCOIN",
+        "height": 890000
+      }
+    ],
+    "expected_bitcoin_attested": true,
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ots/direct-pending-attestation-no-ops",
+    "digest_hex": "268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d93241396",
+    "proof_hex": "004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d932413960083dfe30d2ef90c8e222168747470733a2f2f622e706f6f6c2e6f70656e74696d657374616d70732e6f7267",
+    "expected_hash_alg": "SHA256",
+    "expected_commitment_hex": "268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d93241396",
+    "expected_attestations": [
+      {
+        "name": "PENDING",
+        "uri": "https://b.pool.opentimestamps.org"
+      }
+    ],
+    "expected_bitcoin_attested": false,
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ots/bad-magic",
+    "proof_hex": "004f70656e55696d657374616d7073000050726f6f6600bf89e2e884e892940108268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d932413960083dfe30d2ef90c8e222168747470733a2f2f622e706f6f6c2e6f70656e74696d657374616d70732e6f7267",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "ots/truncated",
+    "proof_hex": "004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108268b",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "ots/unsupported-major-version",
+    "proof_hex": "004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940208268b30df46fcded35eedce5db68c17b0d4e57a33d72246cd306f736d932413960083dfe30d2ef90c8e222168747470733a2f2f622e706f6f6c2e6f70656e74696d657374616d70732e6f7267",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "ots/empty",
+    "proof_hex": "",
+    "expected_verdict": "MALFORMED"
+  }
+]

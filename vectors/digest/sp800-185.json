@@ -1,0 +1,181 @@
+[
+  {
+    "label": "cSHAKE128/NIST-Sample-1",
+    "source": "external — NIST SP 800-185 cSHAKE128 Sample 1",
+    "algorithm": "cSHAKE128",
+    "input_hex": "00010203",
+    "function_name": "",
+    "customization": "Email Signature",
+    "output_length": 32,
+    "expected_output_hex": "c1c36925b6409a04f1b504fcbca9d82b4017277cb5ed2b2065fc1d3814d5aaf5",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "cSHAKE128/NIST-Sample-2",
+    "source": "external — NIST SP 800-185 cSHAKE128 Sample 2",
+    "algorithm": "cSHAKE128",
+    "input_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7",
+    "function_name": "",
+    "customization": "Email Signature",
+    "output_length": 32,
+    "expected_output_hex": "c5221d50e4f822d96a2e8881a961420f294b7b24fe3d2094baed2c6524cc166b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "cSHAKE256/NIST-Sample-3",
+    "source": "external — NIST SP 800-185 cSHAKE256 Sample 3",
+    "algorithm": "cSHAKE256",
+    "input_hex": "00010203",
+    "function_name": "",
+    "customization": "Email Signature",
+    "output_length": 64,
+    "expected_output_hex": "d008828e2b80ac9d2218ffee1d070c48b8e4c87bff32c9699d5b6896eee0edd164020e2be0560858d9c00c037e34a96937c561a74c412bb4c746469527281c8c",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "KMAC128/NIST-Sample-1",
+    "source": "external — NIST SP 800-185 KMAC128 Sample 1",
+    "algorithm": "KMAC128",
+    "key_hex": "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
+    "message_hex": "00010203",
+    "output_length": 32,
+    "customization": "",
+    "expected_tag_hex": "e5780b0d3ea6f7d3a429c5706aa43a00fadbd7d49628839e3187243f456ee14e",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "KMAC128/NIST-Sample-2",
+    "source": "external — NIST SP 800-185 KMAC128 Sample 2",
+    "algorithm": "KMAC128",
+    "key_hex": "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
+    "message_hex": "00010203",
+    "output_length": 32,
+    "customization": "My Tagged Application",
+    "expected_tag_hex": "3b1fba963cd8b0b59e8c1a6d71888b7143651af8ba0a7070c0979e2811324aa5",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "KMAC256/NIST-Sample-4",
+    "source": "external — NIST SP 800-185 KMAC256 Sample 4",
+    "algorithm": "KMAC256",
+    "key_hex": "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
+    "message_hex": "00010203",
+    "output_length": 64,
+    "customization": "My Tagged Application",
+    "expected_tag_hex": "20c570c31346f703c9ac36c61c03cb64c3970d0cfc787e9b79599d273a68d2f7f69d4cc3de9d104a351689f27cf6f5951f0103f33f4f24871024d9c27773a8dd",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "TupleHash128/NIST-Sample-1",
+    "source": "external — NIST SP 800-185 TupleHash128 Sample 1",
+    "algorithm": "TupleHash128",
+    "tuple_hex": [
+      "000102",
+      "101112131415"
+    ],
+    "output_length": 32,
+    "customization": "",
+    "expected_output_hex": "c5d8786c1afb9b82111ab34b65b2c0048fa64e6d48e263264ce1707d3ffc8ed1",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ParallelHash128/NIST-Sample-1",
+    "source": "external — NIST SP 800-185 ParallelHash128 Sample 1",
+    "algorithm": "ParallelHash128",
+    "input_hex": "000102030405060710111213141516172021222324252627",
+    "block_size": 8,
+    "output_length": 32,
+    "customization": "",
+    "expected_output_hex": "ba8dc1d1d979331d3f813603c67f72609ab5e44b94a0b8f9af46514454a2b4f5",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "TupleHash256/generated",
+    "algorithm": "TupleHash256",
+    "tuple_hex": [
+      "000102",
+      "101112131415"
+    ],
+    "output_length": 64,
+    "customization": "",
+    "expected_output_hex": "cfb7058caca5e668f81a12a20a2195ce97a925f1dba3e7449a56f82201ec607311ac2696b1ab5ea2352df1423bde7bd4bb78c9aed1a853c78672f9eb23bbe194",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ParallelHash256/generated",
+    "algorithm": "ParallelHash256",
+    "input_hex": "000102030405060710111213141516172021222324252627",
+    "block_size": 8,
+    "output_length": 64,
+    "customization": "",
+    "expected_output_hex": "bc1ef124da34495e948ead207dd9842235da432d2bbc54b4c110e64c451105531b7f2a3e0ce055c02805e7c2de1fb746af97a1dd01f43b824e31b87612410429",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "cSHAKE128/empty-N-and-S-equals-SHAKE128",
+    "algorithm": "cSHAKE128",
+    "input_hex": "00010203",
+    "function_name": "",
+    "customization": "",
+    "output_length": 32,
+    "expected_output_hex": "0b0cc28e60e37698b411234b1158a5d42636440432a28e8b8df5be04208878f9",
+    "expected_verdict": "VERIFIED",
+    "note": "SP 800-185 defines cSHAKE with empty N and S to BE SHAKE, not merely to resemble it."
+  },
+  {
+    "label": "TupleHash/reassociation-differs",
+    "algorithm": "TupleHash128",
+    "tuple_a_hex": [
+      "6162",
+      "63"
+    ],
+    "tuple_b_hex": [
+      "61",
+      "6263"
+    ],
+    "a_hex": "f8c5296b7c295eac175621ece2fe037436b6f8e9486730b251162f6880affab5",
+    "b_hex": "9acf82beafc1200881fb7f49f43c85dc78b5abdd0a23838cd1ccb215e1de879a",
+    "expected_verdict": "DIGEST_MISMATCH",
+    "note": "[\"ab\",\"c\"] and [\"a\",\"bc\"] must differ; plain concatenation could not distinguish them."
+  },
+  {
+    "label": "KMAC/customization-changes-tag",
+    "algorithm": "KMAC128",
+    "key_hex": "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
+    "message_hex": "00010203",
+    "a_hex": "e5780b0d3ea6f7d3a429c5706aa43a00fadbd7d49628839e3187243f456ee14e",
+    "b_hex": "a2813eb6683c63d51461cd110b8bc27708a57ba7dd62dba360685e4573fbbab3",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "KMAC/output-length-is-bound",
+    "algorithm": "KMAC128",
+    "key_hex": "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f",
+    "message_hex": "00010203",
+    "tag32_prefix16_hex": "e5780b0d3ea6f7d3a429c5706aa43a00",
+    "tag16_hex": "a23543cf6ade5db704d2c30f154bc63d",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "note": "Truncating a 32-byte KMAC does NOT produce the valid 16-byte KMAC: L is bound into the input via right_encode."
+  },
+  {
+    "label": "KMAC/wrong-key",
+    "algorithm": "KMAC128",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "00010203",
+    "expected_tag_hex": "e5780b0d3ea6f7d3a429c5706aa43a00fadbd7d49628839e3187243f456ee14e",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "cSHAKE/customization-changes-output",
+    "algorithm": "cSHAKE128",
+    "input_hex": "00010203",
+    "a_hex": "dc1bff751b994fb181430b6f667c205279a1fc40744d83385f88423fad9893e2",
+    "b_hex": "9cc7870c458299ccf68613fbbfbec91996059d606c95791b82642f31c87c7af8",
+    "expected_verdict": "DIGEST_MISMATCH"
+  },
+  {
+    "label": "unknown-sp800-185-algorithm",
+    "algorithm": "cSHAKE999",
+    "expected_verdict": "UNKNOWN_ALGORITHM"
+  }
+]

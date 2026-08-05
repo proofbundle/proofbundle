@@ -1,0 +1,26 @@
+$ node scripts/check-registry.mjs
+registry: 390 entries, 0 validation errors
+by implementation_status: {
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
+  "COMPLETE_PROVIDER_UNAVAILABLE": 1,
+  "PARTIAL": 1,
+  "BLOCKED": 32
+}
+exit=0
+
+$ node scripts/check-coverage.mjs
+CRYPTOGRAPHIC_SURFACE.csv: 390 rows written
+by implementation_status: {
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
+  "COMPLETE_PROVIDER_UNAVAILABLE": 1,
+  "PARTIAL": 1,
+  "BLOCKED": 32
+}
+rows with a critical-issue flag: 0
+exit=0

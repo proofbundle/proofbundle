@@ -1,62 +1,115 @@
-# Implementation status — slice 1 of the full cryptographic/evidentiary spec
+# Implementation status — slice 3 of the full cryptographic/evidentiary spec
 
-**This is an honest first installment, not the completed specification.** The
-full spec (`ALGORITHM_REGISTRY.json` lists 95 algorithm/profile entries; the
-originating request additionally specifies ~150 source modules, a parallel
-Lean 4 formal-verification tree, hardware/HSM providers, and external
-timestamping services) is not achievable in one pass, for three concrete,
-stated reasons — see below. Nothing in this repository claims otherwise.
+**This is an honest third installment, not the completed specification.** The
+algorithm registry now carries the exhaustive enumeration: **390 rows**, every
+algorithm and parameter set named in the specification, including the ones this
+build cannot perform. A row exists so its status can be stated — an algorithm
+absent from the registry is an algorithm whose absence nobody recorded.
 
-## What is genuinely COMPLETE (11 of 95 registry entries)
+## Closure rule: NOT PASSED
 
-Real module, real vectors, real passing tests, all captured under `reports/`:
+The closure rule requires every substantive theorem to compile. **Zero theorems
+compile, because the Lean toolchain is not installed in this environment**
+(`lake`, `lean`, `elan` all exit 127 — see `reports/lean-build-report.txt`).
+The rule cannot pass here and is reported as not passed rather than
+reinterpreted.
 
-    SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256   (NODE_NATIVE)
-    SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256                (PURE_MJS,
-                                                                      re-exports
-                                                                      crypto/keccak.mjs,
-                                                                      already verified
-                                                                      88/88 earlier
-                                                                      this session)
+What *is* closed is narrower and stated exactly: every row marked COMPLETE has
+a source module, generated positive vectors, a negative-vector file, a
+unit-test file and a hostile-input test file; `scripts/check-coverage.mjs`
+fails the build if any COMPLETE row lacks one; and
+`test/unit/registry-consistency.test.mjs` fails if any COMPLETE row is not
+actually reachable through a dispatcher.
 
-Plus the foundational layer these depend on and that the rest of the spec
-will need: immutable byte helpers, constant-time comparison, varints, strict
-UTF-8, strict hex/base64/base64url, a from-scratch canonical-JSON
-parser+serializer with duplicate-key rejection, the full verdict enum with a
-structurally-enforced single-terminal-code Result type, an algorithm
-registry with a real validator, a coverage-matrix generator, and two CLI
-commands (`hash`, `canonicalize`) wired end-to-end.
+## Surface status (390 registry entries)
 
-**RECOGNIZE_ONLY (2):** MD5, SHA-1 — recognized, deterministically rejected,
-never dispatched to any implementation.
+| status | count | meaning |
+|---|---|---|
+| COMPLETE | 97 | implemented here, with vectors and tests |
+| LEGACY_VERIFY_ONLY | 12 | computable for historical verification; generation refused |
+| COMPLETE_PROVIDER_UNAVAILABLE | 1 | interface + deterministic refusal implemented and tested; provider absent |
+| PARTIAL | 1 | implemented but missing a required artifact |
+| RECOGNIZE_ONLY | 97 | recognized so rejection is deterministic; never computed |
+| BLOCKED | 32 | waits on another row in this registry |
+| NOT_IMPLEMENTED | 150 | not built; each row names its specific blocker |
 
-## What is NOT_IMPLEMENTED (65) and BLOCKED (17), and why
+By family: DIGEST 46, MAC 24, KDF 36, SIGNATURE 118, KEM 79, AEAD 52,
+HYBRID_SIGNATURE 19, HYBRID_KEM 16.
 
-Every one of the other 82 rows in `CRYPTOGRAPHIC_SURFACE.csv` carries an
-honest reason in its registry entry's `interoperabilityNotes` field. They
-fall into three categories, not one generic "not done":
+### What became COMPLETE this pass (42 → 97)
 
-1. **Provider-unavailable in this environment (hardware/credentials/network).**
-   TPM 2.0, Secure Enclave, PKCS#11, Android Keystore, Windows CNG, cloud
-   KMS, RFC 3161 TSAs, OpenTimestamps calendars, Bitcoin anchor verification.
-   No amount of additional coding time fixes this from inside this sandbox —
-   it requires hardware or credentials this session does not have and should
-   not silently invent. The spec's own `PROVIDER_UNAVAILABLE` verdict exists
-   for exactly this case.
+    digests    SHA3-224, Keccak-224/256/384/512, SM3
+               (SHA3-224 and Keccak were unblocked by exporting the sponge
+               from crypto/keccak.mjs — the blocker the registry had recorded)
+    SP 800-185 cSHAKE128/256, KMAC128/256, TupleHash128/256,
+               ParallelHash128/256 — all checked against NIST sample vectors
+    MAC        HMAC over SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SM3
+    KDF        HKDF over 11 digests; PBKDF2 over SHA-224/384
+    signature  ECDSA P-224, ECDSA secp256k1, RSA-PSS-SHA-224
+    KEM        ECDH P-224, ECDH secp256k1
+    AEAD       AES-CCM (128/192/256 and the 8-byte-tag variants),
+               AES-OCB (128/192/256), ARIA-GCM and ARIA-CCM (128/192/256)
+    key wrap   AES-KW and AES-KWP (128/192/256), RFC 3394 + RFC 5649
 
-2. **Real, buildable, not yet attempted.** HMAC-*, HKDF, PBKDF2, Ed25519,
-   ECDSA, RSA-PSS, X25519, AES-*-GCM, ChaCha20-Poly1305 are all available
-   `NODE_NATIVE` in principle — Node's own crypto module supports every one
-   of them. These are the natural next slice and are flagged as such in
-   their registry notes, not conflated with the provider-blocked rows.
+### The three special statuses
 
-3. **Already exists elsewhere in this repository, not yet re-registered
-   here.** ML-KEM (`crypto/mlkem.mjs`, 40+45 tests), the confidential-envelope
-   construction (`crypto/confidential.mjs`, 96 tests), and the post-quantum
-   signature schemes ML-DSA/SLH-DSA/Falcon (bundled in `proofbundle.html` via
-   noble) are real and tested — just not yet wired through *this* new
-   registry/dispatcher layer. Marking them `NOT_IMPLEMENTED` here means "not
-   registered in src/", not "does not exist."
+**COMPLETE_PROVIDER_UNAVAILABLE (1) — keyed-BLAKE2.** `node:crypto` accepts
+`createHash(alg, { key })` and *silently ignores the key*, returning an unkeyed
+digest. Shipping that as a MAC would authenticate nothing, so
+`src/digest/blake2.mjs` detects it and raises `PROVIDER_UNAVAILABLE`.
+
+**LEGACY_VERIFY_ONLY (12).** SHA-1, RIPEMD-160, HMAC-SHA-1, HMAC-RIPEMD-160,
+PBKDF2-HMAC-SHA-1, ECDSA-P-192, and the six RSA-PKCS1v1.5 digest bindings.
+All are computable so historical artifacts stay checkable; every generation
+entry point refuses them.
+
+**PARTIAL (1) — scrypt.** Implemented with parameter validation and a memory
+ceiling, unit-tested for both rejection paths, but no positive RFC 7914
+known-answer vector is recorded — so it does not meet the vector requirement.
+
+## Blocking dependencies, by category
+
+Each NOT_IMPLEMENTED and BLOCKED row carries its own blocker string in
+`ALGORITHM_REGISTRY.json`. These are not collapsed into one generic
+limitation. The categories:
+
+1. **Absent formal toolchain.** Lean and Coq are not installed. Blocks every
+   theorem, the refinement bridge, and the Rocq cross-check.
+2. **Absent post-quantum provider.** ML-DSA, SLH-DSA, Falcon, XMSS, LMS, HSS,
+   Classic McEliece, NTRU, NTRU Prime, BIKE, HQC, FrodoKEM. No vetted
+   liboqs-class provider is bundled or configured.
+3. **Stateful signatures, independently.** XMSS/LMS/HSS carry a *second*
+   blocker beyond provider availability: signing consumes a one-time key and
+   reusing an index is catastrophic. ProofBundle has no state-management story
+   for stateful signatures.
+4. **OpenSSL build limits.** Camellia and SM4 are present but only in
+   CBC/CFB/CTR/ECB/OFB — no GCM or CCM mode. BLAKE2 truncated digest lengths
+   are not exposed. GOST/Streebog needs an engine this build lacks. Each was
+   verified by inspecting `getCiphers()`/`getHashes()` during this build.
+5. **Blocked on a missing component.** All 19 hybrid signature profiles and
+   13 hybrid KEM profiles: the classical half is COMPLETE, the PQ half is not,
+   and a `BOTH_REQUIRED` profile with a missing component must reject rather
+   than degrade.
+6. **Broken or superseded, recognized for rejection.** 97 rows: SIKE and
+   Rainbow (practically broken), Kyber/Dilithium/SPHINCS+ round-3 identifiers
+   (superseded by the FIPS versions and not bit-compatible), MD2/MD4/MD5,
+   DSA, the NIST Round-1 KEM candidates.
+7. **Real buildable work not done.** CMAC and GMAC, SP 800-108 and SP 800-56C
+   KDFs, XChaCha20-Poly1305, RSA-OAEP, encrypt-then-MAC compositions. Each
+   says so plainly rather than blaming a missing dependency.
+
+## Layers with NO implementation in this repository
+
+Stated plainly so their absence is not mistaken for oversight: bundle data
+model and parser, selective disclosure and redaction, supersession and
+revocation records, policy engine, certificates and revocation checking, RFC
+3161 and OpenTimestamps timestamping, blockchain anchoring, content-addressed
+storage, multi-agent orchestration, the verifier loop, Kolmogorov retrieval,
+the EU AI Act mapping, the browser application, the Firefox extension, the
+bridge, and the swarm protocol.
+
+The verdict enum (46 codes) and the single-terminal-verdict `Result` type
+exist and are used throughout, but no bundle-level verifier consumes them yet.
 
 ## Why Lean 4 was not compiled
 
@@ -76,45 +129,83 @@ Coq is equally absent here, and every claim about that corpus is already
 labeled `[relayed]` rather than `[verified here]` for that reason. The same
 standard applies to this new Lean tree.
 
-## Closure rule: not passed, and this file says so on purpose
-
-Per the originating specification's own closure rule, the project is
-complete only when every registry entry validates, every implemented
-algorithm has vectors, every substantive theorem compiles, and no row is
-silently blocked. `node scripts/check-registry.mjs` and
-`node scripts/check-coverage.mjs` both pass **for the 11 rows claimed
-COMPLETE** — that check is real and enforced (see `scripts/check-coverage.mjs`,
-which fails the build if any `COMPLETE` row lacks a module path or a vector
-path). The closure rule for the **full 95-row surface** has not passed, and
-won't be described as having passed.
-
 ## Numbers, exactly as run
 
-    registry entries               95
-    COMPLETE                       11
-    RECOGNIZE_ONLY                  2
-    BLOCKED                        17
-    NOT_IMPLEMENTED                65
-    unit tests                     41  (41 pass, 0 fail)
-    negative tests                 18  (18 pass, 0 fail)
-    hostile-input tests            15  (15 pass, 0 fail)
-    vector conformance checks     219  (219 pass, 0 fail)
-    compiled substantive theorems    0  (Lean toolchain unavailable — see above)
+    registry entries                        390
+      COMPLETE                               97
+      LEGACY_VERIFY_ONLY                     12
+      COMPLETE_PROVIDER_UNAVAILABLE           1
+      PARTIAL                                 1
+      RECOGNIZE_ONLY                         97
+      BLOCKED                                32
+      NOT_IMPLEMENTED                       150
+
+    unit tests                              318  (318 pass, 0 fail)
+    negative tests                           19  ( 19 pass, 0 fail)
+    hostile-input tests                      46  ( 46 pass, 0 fail)
+    integration (CLI subprocess) tests       15  ( 15 pass, 0 fail)
+    total node --test                       398  (398 pass, 0 fail)
+
+    vector files                             29
+    positive vectors                        371
+    negative vectors                        315
+    vector conformance checks               751  (751 pass, 0 fail)
+      scripts/verify-vectors.mjs            235
+      scripts/verify-surface-vectors.mjs    431
+      scripts/verify-extended-vectors.mjs    85
+    of which checked against an external
+      NIST/RFC published value               14
+
+    compiled substantive theorems             0  (Lean toolchain absent, exit 127)
+    support lemmas                            0
+    providers available                       1  (node:crypto)
+    providers unavailable                    19  (each with a distinct reason)
 
 All of the above were executed in this session; raw output is in `reports/`.
 
-## Two things caught and fixed while building this, kept in the record
+## Things caught and fixed while building this, kept in the record
 
-Both are exactly the kind of gap this file exists to disclose rather than
-paper over, and both were fixed rather than only flagged:
+These are exactly the gaps this file exists to disclose rather than paper
+over. All were fixed rather than only flagged.
 
-1. **`KMAC128`/`KMAC256` were registered twice** — once under the "Digests"
-   heading and once under "MAC", both present in the originating
-   specification's own algorithm list. `scripts/check-registry.mjs`'s
-   duplicate-id check caught this on its first real run. Fixed by keeping
-   one canonical entry (see `src/registry/algorithm-registry.mjs`).
+1. **`KMAC128`/`KMAC256` were registered twice** — once under "Digests" and
+   once under "MAC", both present in the originating specification's own
+   algorithm list. `scripts/check-registry.mjs`'s duplicate-id check caught
+   it. Fixed by keeping one canonical entry.
 2. **The canonical-JSON parser had no explicit recursion-depth bound**,
-   relying on the host engine's call stack. Found while writing
-   `ASSUMPTIONS.md`, fixed in the same pass with an explicit `maxDepth`
-   parameter (default 512) — see `ASSUMPTIONS.md` and
-   `test/hostile/hostile-input.test.mjs`.
+   relying on the host engine's call stack. Fixed with an explicit `maxDepth`
+   (default 512).
+3. **`node:crypto` silently ignores the `key` option on `createHash`.**
+   Passing `{ key }` to `createHash('blake2b512', …)` returns the *unkeyed*
+   digest. Had this gone unnoticed, keyed-BLAKE2 would have shipped as a MAC
+   that authenticates nothing. `src/digest/blake2.mjs` now compares against
+   the unkeyed digest and raises `PROVIDER_UNAVAILABLE`; the row is
+   `COMPLETE_PROVIDER_UNAVAILABLE`, not `COMPLETE`.
+4. **The registry marked BLAKE2b-512 COMPLETE while the central digest
+   dispatcher had no entry for it.** The coverage matrix claimed evidence for
+   code that could not be reached — `digestBytes('BLAKE2b-512', …)` raised
+   `UNKNOWN_ALGORITHM`. Caught by the vector run. Fixed by wiring BLAKE2 into
+   `src/digest/digest.mjs`, and `test/unit/registry-consistency.test.mjs` now
+   checks *every* COMPLETE row for dispatchability so the class of defect
+   cannot recur.
+5. **The vector checker caught a stale expectation the moment SHA-1 changed
+   status.** SHA-1 moved from RECOGNIZE_AND_REJECT to LEGACY_VERIFY_ONLY when
+   the legacy digest path landed, and `vectors/digest/negative-algorithm-ids.json`
+   still asserted `FORBIDDEN_ALGORITHM` for it. `verify-vectors` failed with
+   "expected an error, got none" — which is exactly what a vector set is for.
+6. **A negative vector that could never fail.** The AEAD generator built its
+   "truncated tag" case by slicing to a fixed 8 bytes. For the CCM-8 suites the
+   full tag *is* 8 bytes, so the "truncated" tag was the valid one and the
+   vector asserted a failure that cannot happen. Both the generator and the
+   unit test now truncate relative to each suite's own tag length.
+7. **A test that let recognize-and-reject rows look dispatchable.** The
+   registry-consistency check defaulted to `true` for families with no
+   dispatcher, so the three superseded `X25519+Kyber*` hybrid rows passed a
+   check that should have flagged them. The default is now `false`.
+8. **The first release archive reproduced all 124 recorded source hashes and
+   still could not run.** `src/digest/sha3.mjs` imports `crypto/keccak.mjs`,
+   and `crypto/` had not been packaged. A manifest can only attest to the
+   files it lists; it cannot notice one that should have been listed and
+   wasn't. Caught by extracting the archive into an empty directory and
+   running the suite there — now `scripts/check-cleanroom.mjs`, which is the
+   only check that can catch a missing-file packaging bug.

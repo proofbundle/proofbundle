@@ -1,0 +1,47 @@
+[
+  {
+    "label": "rfc3161/build-tsq-sha256-nonce-certreq",
+    "hash_alg": "SHA-256",
+    "digest_hex": "ec0a58d79ca468c2365aa5d0eb58681bbd49ac71cc406726223181d02f5de647",
+    "nonce": 12345,
+    "cert_req": true,
+    "expected_tsq_hex": "3033020101302730030005000420ec0a58d79ca468c2365aa5d0eb58681bbd49ac71cc406726223181d02f5de647020230390101ff",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "rfc3161/build-tsq-sha384-no-nonce-no-certreq",
+    "hash_alg": "SHA-384",
+    "digest_hex": "7435bbf3b86bc08ecdd039212394977134460299bd9fcdb87a26d93549ae2946b455fa01652fda4cbc1ab3ce94b2f9d9",
+    "nonce": null,
+    "cert_req": false,
+    "expected_tsq_hex": "303c0201013037300300050004307435bbf3b86bc08ecdd039212394977134460299bd9fcdb87a26d93549ae2946b455fa01652fda4cbc1ab3ce94b2f9d9",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "rfc3161/parse-response-recovers-time-and-binds-imprint",
+    "response_hex": "303a30030201003033180f32303236303830353132333034355a0420f46bf91647ec5b7d54d4b547051f6090a4b04d262298e75e1316c8bde6935e11",
+    "digest_hex": "f46bf91647ec5b7d54d4b547051f6090a4b04d262298e75e1316c8bde6935e11",
+    "expected_status": 0,
+    "expected_granted": true,
+    "expected_genTimeISO": "2026-08-05T12:30:45Z",
+    "expected_imprints": [
+      "f46bf91647ec5b7d54d4b547051f6090a4b04d262298e75e1316c8bde6935e11"
+    ],
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "rfc3161/truncated-response",
+    "response_hex": "303a30030201",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "rfc3161/not-a-sequence",
+    "response_hex": "020100",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "rfc3161/empty-response",
+    "response_hex": "",
+    "expected_verdict": "MALFORMED"
+  }
+]

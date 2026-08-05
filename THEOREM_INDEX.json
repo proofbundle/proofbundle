@@ -1,8 +1,122 @@
 {
-  "generated_utc": "2026-07-28T16:00:00Z",
-  "generated_by": "manual, this session — no automated extractor exists yet",
-  "lean_toolchain_status": "UNAVAILABLE — lake and lean are not installed in this environment; see reports/lean-build-report.txt",
+  "generated_by": "manual, maintained alongside src/registry/algorithm-registry.mjs — no automated Lean extractor exists, because no Lean compilation has ever run in this environment",
+  "lean_toolchain_status": "UNAVAILABLE — lake, lean and elan are all absent from PATH; see reports/lean-build-report.txt for the exact commands and their exit code 127",
   "compiled_substantive_theorems": [],
   "support_lemmas": [],
-  "note": "This index is empty by design, not by omission. lean/ProofBundle/Bytes.lean and lean/ProofBundle/SemanticValue.lean contain real Lean 4 source written to the same discipline the specification's theorem-acceptance rules require, but the toolchain to compile and check them is not present in this environment. Per the specification's own rule ('a theorem counts only when it is a compiled Lean declaration'), zero entries belong here until that compilation actually happens. Do not populate this file by reading source and asserting what a human believes would compile — that is exactly the failure mode this file exists to prevent."
+  "counts": {
+    "compiled_substantive_theorems": 0,
+    "support_lemmas": 0,
+    "lean_files_present_but_uncompiled": 2
+  },
+  "note": "This index is empty by design, not by omission. lean/ProofBundle/Bytes.lean and lean/ProofBundle/SemanticValue.lean contain real Lean 4 source written to the same discipline the specification's theorem-acceptance rules require, but the toolchain to compile and check them is not present in this environment. Per the specification's own rule ('a theorem counts only when it is a compiled Lean declaration'), zero entries belong here until that compilation actually happens. Do not populate this file by reading source and asserting what a human believes would compile — that is exactly the failure mode this file exists to prevent.",
+
+  "executable_checked_properties": {
+    "WARNING": "NOTHING IN THIS SECTION IS A THEOREM. These are properties checked by executing code against finitely many inputs. A passing test shows the property held on the inputs tried; it does not establish the property for all inputs. This section exists so the distinction between 'tested' and 'proved' is recorded rather than blurred — per the specification: do not call a test vector a theorem.",
+    "properties": [
+      {
+        "id": "CHK-TRANSCRIPT-INJECTIVE",
+        "property": "The transcript encoding is injective: decodeTranscript recovers exactly the (tag, fields) pair that built the bytes.",
+        "checked_by": "test/unit/transcript.test.mjs",
+        "method": "round-trip over a generated corpus plus targeted ambiguous-concatenation attacks (delimiter-in-data, shifted field boundaries, differing field counts)",
+        "scope_limit": "finite corpus; not a proof of injectivity over all inputs",
+        "assumption_ids": ["ASSUMPTION-TRANSCRIPT-INJECTIVITY"]
+      },
+      {
+        "id": "CHK-MERKLE-INCLUSION",
+        "property": "Every inclusion proof produced for a tree verifies against that tree's root, for all leaf counts 1..17.",
+        "checked_by": "test/unit/accumulators.test.mjs",
+        "method": "exhaustive over sizes 1..17 and every index within each size",
+        "scope_limit": "bounded sizes only; soundness against a computationally bounded adversary additionally depends on ASSUMPTION-HASH-COLLISION-RESISTANCE",
+        "assumption_ids": ["ASSUMPTION-HASH-COLLISION-RESISTANCE"]
+      },
+      {
+        "id": "CHK-MERKLE-POSITION-BINDING",
+        "property": "A valid proof for index i fails at every other index j.",
+        "checked_by": "test/unit/accumulators.test.mjs, test/hostile/hostile-surface.test.mjs",
+        "method": "exhaustive over all wrong positions for an 8-leaf tree",
+        "scope_limit": "single tree size",
+        "assumption_ids": ["ASSUMPTION-HASH-COLLISION-RESISTANCE"]
+      },
+      {
+        "id": "CHK-MERKLE-DOMAIN-SEPARATION",
+        "property": "An internal node hash cannot be presented as a leaf.",
+        "checked_by": "test/unit/accumulators.test.mjs",
+        "method": "direct attack attempt",
+        "scope_limit": "one attack instance",
+        "assumption_ids": ["ASSUMPTION-TRANSCRIPT-INJECTIVITY", "ASSUMPTION-HASH-COLLISION-RESISTANCE"]
+      },
+      {
+        "id": "CHK-MMR-ROLLBACK-DETECTABLE",
+        "property": "An MMR truncated from n leaves to k < n never reproduces the genuine k-leaf root (leaf count is bound into the root).",
+        "checked_by": "test/unit/accumulators.test.mjs, test/hostile/hostile-surface.test.mjs",
+        "method": "exhaustive over all k < 12",
+        "scope_limit": "bounded sizes",
+        "assumption_ids": ["ASSUMPTION-HASH-COLLISION-RESISTANCE"]
+      },
+      {
+        "id": "CHK-LOG-TAMPER-DETECTED",
+        "property": "Rewriting record k of a hash chain is detected, and reported at index k.",
+        "checked_by": "test/unit/accumulators.test.mjs",
+        "method": "exhaustive over every index of a 5-record chain",
+        "scope_limit": "bounded length",
+        "assumption_ids": ["ASSUMPTION-HASH-COLLISION-RESISTANCE"]
+      },
+      {
+        "id": "CHK-LINEAGE-ACYCLIC",
+        "property": "Claimed lineage containing a cycle is rejected with LINEAGE_CYCLE and terminates under a step budget.",
+        "checked_by": "test/unit/accumulators.test.mjs, test/hostile/hostile-surface.test.mjs",
+        "method": "500-node cycle, deep chains, self-parent and duplicate-parent cases",
+        "scope_limit": "specific adversarial graphs. This is NOT the 'Direct Acyclicity' Lean theorem referenced in project prose — no such compiled declaration exists.",
+        "assumption_ids": []
+      },
+      {
+        "id": "CHK-AEAD-NO-PLAINTEXT-ON-FAILURE",
+        "property": "No AEAD failure path returns an object carrying a plaintext field.",
+        "checked_by": "test/hostile/hostile-surface.test.mjs",
+        "method": "four distinct failure modes (wrong AAD, zeroed tag, zeroed ciphertext, truncated tag) across every implemented suite",
+        "scope_limit": "enumerated failure modes",
+        "assumption_ids": ["ASSUMPTION-AEAD-AUTHENTICITY"]
+      },
+      {
+        "id": "CHK-NO-ALGORITHM-FALLBACK",
+        "property": "An unknown algorithm id raises UNKNOWN_ALGORITHM and a registered-but-unwired id raises UNSUPPORTED_ALGORITHM; neither ever dispatches.",
+        "checked_by": "test/unit/signature-kem-aead.test.mjs, test/unit/registry-consistency.test.mjs",
+        "method": "per-family negative dispatch tests",
+        "scope_limit": "implemented families only",
+        "assumption_ids": []
+      },
+      {
+        "id": "CHK-VERIFY-ONLY-CANNOT-GENERATE",
+        "property": "RSA-PKCS1v1.5 verifies historical signatures and refuses generation in two independent places.",
+        "checked_by": "test/unit/signature-kem-aead.test.mjs, scripts/verify-surface-vectors.mjs",
+        "method": "positive historical-verification vector plus refusal assertions on signBytes and generateKeyPair",
+        "scope_limit": "one key size",
+        "assumption_ids": ["ASSUMPTION-SIGNATURE-CORRECTNESS"]
+      },
+      {
+        "id": "CHK-PROVIDER-NO-MANUFACTURED-OUTPUT",
+        "property": "Every unavailable provider raises PROVIDER_UNAVAILABLE with a specific reason for every operation, and returns no value.",
+        "checked_by": "test/unit/mac-kdf-providers.test.mjs, test/hostile/hostile-surface.test.mjs",
+        "method": "all 7 operations across all 19 detected-unavailable providers",
+        "scope_limit": "providers absent in this environment",
+        "assumption_ids": ["ASSUMPTION-PROVIDER-CORRECTNESS"]
+      },
+      {
+        "id": "CHK-REGISTRY-DISPATCH-AGREEMENT",
+        "property": "Every registry row marked COMPLETE is reachable through its family dispatcher, declares the digest length it actually produces, and references only paths that exist on disk.",
+        "checked_by": "test/unit/registry-consistency.test.mjs",
+        "method": "iteration over all 95 registry entries",
+        "scope_limit": "none within the registry; this is a total check over the registry contents",
+        "assumption_ids": [],
+        "history": "Added after this check caught a real defect: BLAKE2b-512 was marked COMPLETE while src/digest/digest.mjs had no dispatch entry for it, so the row claimed evidence for code that could not be reached."
+      }
+    ]
+  },
+
+  "audit_findings": {
+    "sorry": 0,
+    "admit": 0,
+    "global_axiom_declarations": 0,
+    "note": "All zero because no Lean development was compiled or added in this slice — this is the absence of proofs, not evidence of proof quality. Counting zero sorries in a project with zero theorems is not an achievement, and is recorded here only so the number is not mistaken for one. See reports/theorem-audit.txt."
+  }
 }

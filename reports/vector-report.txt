@@ -1,0 +1,23 @@
+$ node scripts/generate-vectors.mjs
+generated 9 fixed-digest vector files, 2 SHAKE vector files, 1 negative-algorithm file, 9 positive + 5 negative canonicalization vectors
+exit=0
+
+$ node scripts/generate-surface-vectors.mjs
+generate-surface-vectors: 193 positive, 191 negative across mac/kdf/digest-blake2/signatures/kem/encryption/merkle/mmr/logs/lineage
+exit=0
+
+$ node scripts/generate-extended-vectors.mjs
+generate-extended-vectors: 48 positive, 30 negative across sha3-224/keccak/sp800-185/legacy-national/key-wrap
+exit=0
+
+$ node scripts/verify-vectors.mjs
+verify-vectors: 235 pass, 0 fail
+exit=0
+
+$ node scripts/verify-surface-vectors.mjs
+verify-surface-vectors: 431 pass, 0 fail
+exit=0
+
+$ node scripts/verify-extended-vectors.mjs
+verify-extended-vectors: 85 pass, 0 fail (14 checked against an external NIST/RFC value)
+exit=0

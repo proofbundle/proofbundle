@@ -10,8 +10,33 @@
     "expected_verdict": "FORBIDDEN_ALGORITHM"
   },
   {
-    "label": "forbidden-sha1",
-    "algorithm": "SHA-1",
+    "label": "forbidden-md4",
+    "algorithm": "MD4",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-md2",
+    "algorithm": "MD2",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-whirlpool",
+    "algorithm": "Whirlpool",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-ripemd-128",
+    "algorithm": "RIPEMD-128",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-ripemd-256",
+    "algorithm": "RIPEMD-256",
+    "expected_verdict": "FORBIDDEN_ALGORITHM"
+  },
+  {
+    "label": "forbidden-ripemd-320",
+    "algorithm": "RIPEMD-320",
     "expected_verdict": "FORBIDDEN_ALGORITHM"
   }
 ]

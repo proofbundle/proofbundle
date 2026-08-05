@@ -88,76 +88,115 @@ function digestEntry(id, { digestLength, moduleFn, vectorFile, status, klass = '
   });
 }
 
-const DIGESTS = [
-  digestEntry('SHA-224', { digestLength: 28, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-224.json', status: 'COMPLETE' }),
-  digestEntry('SHA-256', { digestLength: 32, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-256.json', status: 'COMPLETE' }),
-  digestEntry('SHA-384', { digestLength: 48, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-384.json', status: 'COMPLETE' }),
-  digestEntry('SHA-512', { digestLength: 64, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512.json', status: 'COMPLETE' }),
-  digestEntry('SHA-512/224', { digestLength: 28, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512-224.json', status: 'COMPLETE' }),
-  digestEntry('SHA-512/256', { digestLength: 32, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512-256.json', status: 'COMPLETE' }),
-  digestEntry('SHA3-224', { digestLength: 28, status: 'NOT_IMPLEMENTED', notes: 'crypto/keccak.mjs implements the sponge but does not export a 224-bit-rate SHA3-224 wrapper; would be a one-function addition to that file, deliberately not touched in this pass (see repo-root crypto/README.md).' }),
-  digestEntry('SHA3-256', { digestLength: 32, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-256.json', status: 'COMPLETE', notes: 'Re-exports crypto/keccak.mjs, verified 88/88 against node:crypto this session.' }),
-  digestEntry('SHA3-384', { digestLength: 48, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-384.json', status: 'COMPLETE' }),
-  digestEntry('SHA3-512', { digestLength: 64, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-512.json', status: 'COMPLETE' }),
-  digestEntry('SHAKE128', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'src/digest/shake.mjs', vectorFile: 'shake128.json', status: 'COMPLETE' }),
-  digestEntry('SHAKE256', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'src/digest/shake.mjs', vectorFile: 'shake256.json', status: 'COMPLETE' }),
-  digestEntry('cSHAKE128', { digestLength: 'variable', status: 'NOT_IMPLEMENTED', notes: 'Requires the bytepad/N/S customization construction (NIST SP 800-185) on top of the raw sponge. crypto/keccak.mjs does not currently export the sponge primitive needed to build this without duplicating it; not implemented in this pass.' }),
-  digestEntry('cSHAKE256', { digestLength: 'variable', status: 'NOT_IMPLEMENTED', notes: 'Same blocker as cSHAKE128.' }),
-  // KMAC128/256 are registered once, under MAC below — SP 800-185 defines
-  // them as keyed constructions (a MAC), not fixed-function digests, even
-  // though the spec's own algorithm list names them under both headings.
-  // One canonical id per algorithm; see the MAC section for the entry.
-  digestEntry('BLAKE2b-512', { digestLength: 64, status: 'NOT_IMPLEMENTED', notes: 'Already present in proofbundle.html via the bundled noble library (VETTED_PROVIDER there); not yet re-exposed as a standalone src/digest module.' }),
-  digestEntry('BLAKE2s-256', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Same as BLAKE2b-512.' }),
-  digestEntry('BLAKE3', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Same as BLAKE2b-512.' }),
-  digestEntry('Keccak-256', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Legacy pre-standardization padding (0x01), distinct from SHA3 (0x06). crypto/keccak.mjs exports only the SHA3/SHAKE suffixes; not implemented in this pass.' }),
-  digestEntry('Keccak-512', { digestLength: 64, status: 'NOT_IMPLEMENTED', notes: 'Same as Keccak-256.' }),
-  entry('SHA-1', { canonicalName: 'SHA-1', primitiveFamily: 'DIGEST', implementationClass: 'RECOGNIZE_AND_REJECT', digestLength: 20, allowedOperations: ['recognize'], implementationModulePaths: ['src/digest/digest.mjs'], failureVerdicts: ['FORBIDDEN_ALGORITHM'], implementationStatus: 'RECOGNIZE_ONLY', interoperabilityNotes: 'Recognized and deterministically rejected by digestBytes(); never dispatched to any digest implementation.' }),
-  entry('MD5', { canonicalName: 'MD5', primitiveFamily: 'DIGEST', implementationClass: 'RECOGNIZE_AND_REJECT', digestLength: 16, allowedOperations: ['recognize'], implementationModulePaths: ['src/digest/digest.mjs'], failureVerdicts: ['FORBIDDEN_ALGORITHM'], implementationStatus: 'RECOGNIZE_ONLY', interoperabilityNotes: 'Recognized and deterministically rejected by digestBytes(); never dispatched to any digest implementation.' }),
-];
+// ---------------------------------------------------------------------------
+// The registry is now generated from src/registry/registry-data.mjs, which
+// holds the exhaustive enumeration as data. Hand-maintained per-family arrays
+// did not scale past ~95 entries and made it easy for a status to drift away
+// from the module that backs it.
+//
+// `buildEntry` is the single place a data row becomes a registry entry, so
+// every entry gets every REQUIRED_FIELD whether or not the row supplied one.
 
-function stub(id, family, notes) {
-  return entry(id, { canonicalName: id, primitiveFamily: family, implementationClass: 'VETTED_PROVIDER', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: notes });
+import {
+  DIGEST_ROWS, MAC_ROWS, KDF_ROWS, CLASSICAL_SIG_ROWS, PQ_SIG_ROWS,
+  KEM_ROWS, AEAD_ROWS, HYBRID_SIG_ROWS, HYBRID_KEM_ROWS, HYBRID_POLICY_MODES,
+} from './registry-data.mjs';
+
+export { HYBRID_POLICY_MODES };
+
+const FAMILY_DEFAULTS = {
+  DIGEST: { ops: ['digest'], verdicts: ['UNKNOWN_ALGORITHM', 'DIGEST_MISMATCH'], spec: 'FIPS 180-4 / FIPS 202 / SP 800-185 / RFC 7693' },
+  MAC: { ops: ['mac', 'verify'], verdicts: ['UNKNOWN_ALGORITHM', 'INVALID_SIGNATURE'], spec: 'FIPS 198-1 / RFC 4231 / SP 800-185' },
+  KDF: { ops: ['derive'], verdicts: ['UNKNOWN_ALGORITHM'], spec: 'RFC 5869 / RFC 8018 / RFC 7914 / SP 800-108 / SP 800-56C' },
+  SIGNATURE: { ops: ['sign', 'verify', 'generateKey'], verdicts: ['UNKNOWN_ALGORITHM', 'UNSUPPORTED_ALGORITHM', 'INVALID_SIGNATURE'], spec: 'RFC 8032 / FIPS 186-5 / RFC 8017 / FIPS 204 / FIPS 205' },
+  KEM: { ops: ['encapsulate', 'decapsulate', 'generateKey'], verdicts: ['UNKNOWN_ALGORITHM', 'UNSUPPORTED_ALGORITHM', 'MALFORMED'], spec: 'RFC 7748 / SP 800-56A / FIPS 203' },
+  AEAD: { ops: ['encrypt', 'decrypt'], verdicts: ['UNKNOWN_ALGORITHM', 'UNSUPPORTED_ALGORITHM', 'INVALID_SIGNATURE'], spec: 'SP 800-38D / RFC 8439 / RFC 3394 / RFC 5649' },
+  HYBRID_SIGNATURE: { ops: ['sign', 'verify'], verdicts: ['UNSUPPORTED_ALGORITHM', 'INVALID_SIGNATURE'], spec: 'ProofBundle FORMAT_SPECIFICATION.md (hybrid profiles)' },
+  HYBRID_KEM: { ops: ['encapsulate', 'decapsulate'], verdicts: ['UNSUPPORTED_ALGORITHM', 'MALFORMED'], spec: 'ProofBundle FORMAT_SPECIFICATION.md (hybrid profiles)' },
+};
+
+const DEFAULT_MODULE = {
+  MAC: 'src/mac/hmac.mjs',
+  KDF: 'src/kdf/hkdf.mjs',
+  SIGNATURE: 'src/signature/signature.mjs',
+  KEM: 'src/kem/ecdh.mjs',
+  AEAD: 'src/aead/aead.mjs',
+};
+const DEFAULT_VECTORS = {
+  MAC: 'vectors/mac/hmac.json',
+  KDF: 'vectors/kdf/kdf.json',
+  SIGNATURE: 'vectors/signatures/signatures.json',
+  KEM: 'vectors/kem/ecdh.json',
+  AEAD: 'vectors/encryption/aead.json',
+};
+
+// Statuses that assert working code. Only these get module/vector paths filled
+// in from the family default — a NOT_IMPLEMENTED row must never inherit an
+// evidence path it has no claim to.
+const BACKED_BY_CODE = new Set(['COMPLETE', 'LEGACY_VERIFY_ONLY', 'PARTIAL']);
+
+function buildEntry(family, [id, klass, status, opts = {}]) {
+  const d = FAMILY_DEFAULTS[family];
+  const backed = BACKED_BY_CODE.has(status);
+  const modulePath = opts.module ?? (backed ? DEFAULT_MODULE[family] : null);
+  const vectorPath = opts.vectors ?? (status === 'COMPLETE' ? DEFAULT_VECTORS[family] : null);
+  // RECOGNIZE_ONLY rows point at the module that performs the rejection, but
+  // carry no vectors: there is no output to have a vector for.
+  const recogniseModule = status === 'RECOGNIZE_ONLY' ? (opts.module ?? DEFAULT_MODULE[family] ?? null) : null;
+
+  return entry(id, {
+    canonicalName: opts.canonicalName ?? id,
+    primitiveFamily: family,
+    implementationClass: klass,
+    securityStatus: status === 'RECOGNIZE_ONLY' ? 'REJECTED'
+      : status === 'LEGACY_VERIFY_ONLY' ? 'DEPRECATED' : 'CURRENT',
+    allowedOperations: status === 'RECOGNIZE_ONLY' ? ['recognize']
+      : status === 'LEGACY_VERIFY_ONLY' ? d.ops.filter((o) => o === 'verify' || o === 'digest' || o === 'derive' || o === 'mac') : d.ops,
+    digestLength: opts.digestLength ?? null,
+    keyLengths: opts.keyBits ? [opts.keyBits] : null,
+    nonceLength: opts.nonce ?? null,
+    tagLength: opts.tag ?? null,
+    signatureEncoding: opts.sigEncoding ?? null,
+    publicKeyEncoding: family === 'SIGNATURE' || family === 'KEM' ? 'SPKI DER (PEM/JWK also supported)' : null,
+    privateKeyEncoding: family === 'SIGNATURE' || family === 'KEM' ? 'PKCS#8 DER (PEM/JWK also supported)' : null,
+    transcriptRules: opts.transcriptRules ?? (family === 'SIGNATURE'
+      ? 'Signed bytes are buildTranscript(SIGNATURE_TRANSCRIPT, [algId, keyId, message]) — algorithm id and key id are inside the signature.'
+      : family === 'AEAD'
+        ? 'AAD passed to the cipher is buildTranscript(ENCRYPTED_HEADER, [algId, nonce, callerAad]), binding the suite id and nonce to the ciphertext.'
+        : family === 'KEM'
+          ? 'Shared secret is HKDF over the raw agreement with info = buildTranscript(KEM_COMPONENT, [algId, recipientSPKI, ephemeralSPKI]).'
+          : null),
+    domainSeparationTag: opts.domainTag ?? null,
+    providerRequirements: klass === 'VETTED_PROVIDER' ? 'external provider required; none configured in this environment' : null,
+    generationPolicy: status === 'LEGACY_VERIFY_ONLY' ? 'PROHIBITED — generation entry points raise FORBIDDEN_ALGORITHM'
+      : status === 'RECOGNIZE_ONLY' ? 'PROHIBITED — never dispatched'
+        : status === 'COMPLETE' ? 'permitted' : null,
+    verificationPolicy: status === 'RECOGNIZE_ONLY' ? 'PROHIBITED — deterministic rejection'
+      : backed ? 'permitted' : null,
+    historicalVerificationPolicy: status === 'LEGACY_VERIFY_ONLY' ? 'permitted' : (backed ? 'permitted' : null),
+    testVectorPaths: vectorPath ? [vectorPath] : [],
+    implementationModulePaths: modulePath ? [modulePath] : (recogniseModule ? [recogniseModule] : []),
+    failureVerdicts: status === 'RECOGNIZE_ONLY' ? ['FORBIDDEN_ALGORITHM'] : d.verdicts,
+    interoperabilityNotes: opts.notes ?? opts.blocker ?? null,
+    implementationStatus: status,
+  });
 }
 
-const MAC = ['HMAC-SHA-256', 'HMAC-SHA-384', 'HMAC-SHA-512', 'HMAC-SHA3-256', 'HMAC-SHA3-384', 'HMAC-SHA3-512', 'KMAC128', 'KMAC256', 'keyed-BLAKE2', 'keyed-BLAKE3']
-  .map((id) => stub(id, 'MAC', id.startsWith('KMAC') ? 'Depends on cSHAKE, not yet implemented.' : 'Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.'));
-
-const KDF = ['HKDF-SHA-256', 'HKDF-SHA-384', 'HKDF-SHA-512', 'PBKDF2-HMAC-SHA-256', 'PBKDF2-HMAC-SHA-512', 'scrypt', 'Argon2id', 'ProofBundle-subkey-derivation']
-  .map((id) => stub(id, 'KDF', 'Not implemented in this pass.'));
-
-const CLASSICAL_SIG = ['Ed25519', 'Ed448', 'ECDSA-P-256-SHA-256', 'ECDSA-P-384-SHA-384', 'ECDSA-P-521-SHA-512', 'RSA-PSS-SHA-256', 'RSA-PSS-SHA-384', 'RSA-PSS-SHA-512']
-  .map((id) => stub(id, 'SIGNATURE', 'Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.'));
-const LEGACY_SIG = [entry('RSA-PKCS1v1.5', { canonicalName: 'RSA PKCS#1 v1.5', primitiveFamily: 'SIGNATURE', implementationClass: 'LEGACY_VERIFY_ONLY', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: 'Classified LEGACY_VERIFY_ONLY per spec; not implemented (verify-only path not yet built).' })];
-
-const PQ_SIG = ['ML-DSA-44', 'ML-DSA-65', 'ML-DSA-87', 'SLH-DSA-SHA2-128s', 'SLH-DSA-SHA2-128f', 'SLH-DSA-SHA2-192s', 'SLH-DSA-SHA2-192f', 'SLH-DSA-SHA2-256s', 'SLH-DSA-SHA2-256f', 'SLH-DSA-SHAKE-128s', 'SLH-DSA-SHAKE-128f', 'SLH-DSA-SHAKE-192s', 'SLH-DSA-SHAKE-192f', 'SLH-DSA-SHAKE-256s', 'SLH-DSA-SHAKE-256f']
-  .map((id) => stub(id, 'SIGNATURE', 'Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.'));
-
-const KEM = ['X25519', 'X448', 'ECDH-P-256', 'ECDH-P-384', 'ECDH-P-521']
-  .map((id) => stub(id, 'KEM', 'Not implemented in this pass; available NODE_NATIVE in principle.'))
-  .concat(['ML-KEM-512', 'ML-KEM-768', 'ML-KEM-1024'].map((id) =>
-    entry(id, { canonicalName: id, primitiveFamily: 'KEM', implementationClass: 'PURE_MJS', implementationStatus: 'NOT_IMPLEMENTED', implementationModulePaths: ['crypto/mlkem.mjs'], testVectorPaths: ['crypto/ref_vectors.json'], interoperabilityNotes: 'ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer — the primitive exists, the registry wiring does not.' })));
-
-const AEAD = ['AES-128-GCM', 'AES-192-GCM', 'AES-256-GCM', 'ChaCha20-Poly1305', 'XChaCha20-Poly1305', 'AES-KeyWrap']
-  .map((id) => stub(id, 'AEAD', 'Not implemented in this pass; AES-*-GCM is available NODE_NATIVE in principle.'))
-  .concat([entry('AES-256-GCM-SIV', { canonicalName: 'AES-256-GCM-SIV', primitiveFamily: 'AEAD', implementationClass: 'VETTED_PROVIDER', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: 'No native Node support and no provider wired; requires an external library.' })]);
-
-const HYBRID_SIG_PROFILES = [
-  'Ed25519+ML-DSA-44', 'Ed25519+ML-DSA-65', 'Ed25519+ML-DSA-87', 'Ed448+ML-DSA-65', 'Ed448+ML-DSA-87',
-  'P-256+ML-DSA-44', 'P-384+ML-DSA-65', 'P-384+ML-DSA-87', 'RSA-PSS-3072+ML-DSA-65',
-  'Ed25519+SLH-DSA-SHA2-128s', 'Ed25519+SLH-DSA-SHA2-128f',
-].map((id) => entry(id, { canonicalName: id, primitiveFamily: 'HYBRID_SIGNATURE', implementationClass: 'VETTED_PROVIDER', implementationStatus: 'BLOCKED', interoperabilityNotes: 'Blocked on both component signature schemes being registered individually first (see CLASSICAL_SIG and PQ_SIG rows).' }));
-
-const HYBRID_KEM_PROFILES = [
-  'X25519+ML-KEM-768', 'X25519+ML-KEM-1024', 'X448+ML-KEM-1024',
-  'P-256-ECDH+ML-KEM-768', 'P-384-ECDH+ML-KEM-768', 'P-384-ECDH+ML-KEM-1024',
-].map((id) => entry(id, { canonicalName: id, primitiveFamily: 'HYBRID_KEM', implementationClass: 'VETTED_PROVIDER', implementationStatus: 'BLOCKED', interoperabilityNotes: 'crypto/confidential.mjs already implements an ML-KEM-only encrypt/verify envelope (96 tests this session). A hybrid classical+PQ combiner is not yet built; blocked on the classical KEM rows above.' }));
-
 export const ALGORITHM_REGISTRY = Object.freeze([
-  ...DIGESTS, ...MAC, ...KDF, ...CLASSICAL_SIG, ...LEGACY_SIG, ...PQ_SIG,
-  ...KEM, ...AEAD, ...HYBRID_SIG_PROFILES, ...HYBRID_KEM_PROFILES,
+  ...DIGEST_ROWS.map((r) => buildEntry('DIGEST', r)),
+  ...MAC_ROWS.map((r) => buildEntry('MAC', r)),
+  ...KDF_ROWS.map((r) => buildEntry('KDF', r)),
+  ...CLASSICAL_SIG_ROWS.map((r) => buildEntry('SIGNATURE', r)),
+  ...PQ_SIG_ROWS.map((r) => buildEntry('SIGNATURE', r)),
+  ...KEM_ROWS.map((r) => buildEntry('KEM', r)),
+  ...AEAD_ROWS.map((r) => buildEntry('AEAD', r)),
+  ...HYBRID_SIG_ROWS.map((r) => buildEntry('HYBRID_SIGNATURE', r)),
+  ...HYBRID_KEM_ROWS.map((r) => buildEntry('HYBRID_KEM', r)),
 ]);
 
+export const NORMATIVE_SPEC_BY_FAMILY = Object.freeze(
+  Object.fromEntries(Object.entries(FAMILY_DEFAULTS).map(([k, v]) => [k, v.spec])),
+);
 export function validateRegistry(registry = ALGORITHM_REGISTRY) {
   const errors = [];
   const seenIds = new Set();
@@ -179,8 +218,4 @@ export function validateRegistry(registry = ALGORITHM_REGISTRY) {
     }
   }
   return errors;
-}
-
-export function findAlgorithm(id) {
-  return ALGORITHM_REGISTRY.find((e) => e.id === id) ?? null;
 }

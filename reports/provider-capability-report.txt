@@ -1,0 +1,517 @@
+{
+  "generatedBy": "src/providers/capabilities.mjs",
+  "platform": "linux/x64",
+  "node": "v22.22.2",
+  "openssl": "3.5.5",
+  "available": [
+    "node:crypto"
+  ],
+  "unavailable": [
+    {
+      "providerId": "pkcs11",
+      "reason": "no PKCS#11 module path configured",
+      "detectedBy": "env PROOFBUNDLE_PKCS11_MODULE unset and no module loaded"
+    },
+    {
+      "providerId": "tpm2",
+      "reason": "no TPM 2.0 device node present",
+      "detectedBy": "stat /dev/tpm0"
+    },
+    {
+      "providerId": "secure-enclave",
+      "reason": "Apple Secure Enclave requires macOS on Apple silicon",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "windows-cng",
+      "reason": "Windows CNG/NCrypt requires Windows",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "macos-keychain",
+      "reason": "macOS Keychain requires macOS",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "android-keystore",
+      "reason": "Android Keystore requires an Android runtime",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "piv",
+      "reason": "no PIV smart-card reader configured",
+      "detectedBy": "env PROOFBUNDLE_PIV_READER unset"
+    },
+    {
+      "providerId": "fido2",
+      "reason": "no FIDO2/WebAuthn authenticator available in a headless process",
+      "detectedBy": "env PROOFBUNDLE_FIDO2_DEVICE unset"
+    },
+    {
+      "providerId": "cloud-kms",
+      "reason": "no cloud KMS endpoint or credentials configured",
+      "detectedBy": "env PROOFBUNDLE_KMS_ENDPOINT unset"
+    },
+    {
+      "providerId": "remote-signing",
+      "reason": "no remote signing endpoint configured",
+      "detectedBy": "env PROOFBUNDLE_REMOTE_SIGNER unset"
+    },
+    {
+      "providerId": "rfc3161-tsa",
+      "reason": "no RFC 3161 TSA URL configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_TSA_URL unset"
+    },
+    {
+      "providerId": "opentimestamps",
+      "reason": "no OpenTimestamps calendar configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_OTS_CALENDAR unset"
+    },
+    {
+      "providerId": "x509-path-validation",
+      "reason": "no trust-anchor set configured; path validation without anchors is undefined, not permissive",
+      "detectedBy": "env PROOFBUNDLE_TRUST_ANCHORS unset"
+    },
+    {
+      "providerId": "ocsp",
+      "reason": "no OCSP responder configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_OCSP_URL unset"
+    },
+    {
+      "providerId": "argon2id",
+      "reason": "Argon2id needs a vetted native/WASM module; none is bundled and none is configured",
+      "detectedBy": "env PROOFBUNDLE_ARGON2_MODULE unset"
+    },
+    {
+      "providerId": "ml-kem",
+      "reason": "ML-KEM is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no ML-KEM key type"
+    },
+    {
+      "providerId": "ml-dsa",
+      "reason": "ML-DSA is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no ML-DSA key type"
+    },
+    {
+      "providerId": "slh-dsa",
+      "reason": "SLH-DSA is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no SLH-DSA key type"
+    },
+    {
+      "providerId": "blake3",
+      "reason": "BLAKE3 needs a vetted native/WASM module; none is bundled and none is configured",
+      "detectedBy": "node:crypto getHashes() has no blake3"
+    }
+  ],
+  "providers": [
+    {
+      "providerId": "node:crypto",
+      "providerVersion": "openssl 3.5.5",
+      "available": true,
+      "capabilities": {
+        "digest": true,
+        "mac": true,
+        "kdf": true,
+        "signature": true,
+        "kem": true,
+        "aead": true
+      },
+      "supportedAlgorithms": [
+        "Ed25519",
+        "Ed448",
+        "ECDSA-P-224-SHA-224",
+        "ECDSA-P-256-SHA-256",
+        "ECDSA-secp256k1-SHA-256",
+        "ECDSA-P-192-SHA-256",
+        "ECDSA-P-384-SHA-384",
+        "ECDSA-P-521-SHA-512",
+        "RSA-PSS-SHA-224",
+        "RSA-PSS-SHA-256",
+        "RSA-PSS-SHA-384",
+        "RSA-PSS-SHA-512",
+        "RSA-PKCS1v1.5",
+        "RSA-PKCS1v1.5-SHA-1",
+        "RSA-PKCS1v1.5-SHA-224",
+        "RSA-PKCS1v1.5-SHA-256",
+        "RSA-PKCS1v1.5-SHA-384",
+        "RSA-PKCS1v1.5-SHA-512",
+        "AES-128-GCM",
+        "AES-192-GCM",
+        "AES-256-GCM",
+        "ChaCha20-Poly1305",
+        "AES-128-CCM",
+        "AES-192-CCM",
+        "AES-256-CCM",
+        "AES-128-CCM-8",
+        "AES-192-CCM-8",
+        "AES-256-CCM-8",
+        "AES-128-OCB",
+        "AES-192-OCB",
+        "AES-256-OCB",
+        "ARIA-128-GCM",
+        "ARIA-192-GCM",
+        "ARIA-256-GCM",
+        "ARIA-128-CCM",
+        "ARIA-192-CCM",
+        "ARIA-256-CCM",
+        "X25519",
+        "X448",
+        "ECDH-P-224",
+        "ECDH-P-256",
+        "ECDH-secp256k1",
+        "ECDH-P-384",
+        "ECDH-P-521"
+      ],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "generateKey"
+      ]
+    },
+    {
+      "providerId": "pkcs11",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no PKCS#11 module path configured",
+      "detectedBy": "env PROOFBUNDLE_PKCS11_MODULE unset and no module loaded"
+    },
+    {
+      "providerId": "tpm2",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no TPM 2.0 device node present",
+      "detectedBy": "stat /dev/tpm0"
+    },
+    {
+      "providerId": "secure-enclave",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "Apple Secure Enclave requires macOS on Apple silicon",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "windows-cng",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "Windows CNG/NCrypt requires Windows",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "macos-keychain",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "macOS Keychain requires macOS",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "android-keystore",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "Android Keystore requires an Android runtime",
+      "detectedBy": "process.platform === \"linux\""
+    },
+    {
+      "providerId": "piv",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no PIV smart-card reader configured",
+      "detectedBy": "env PROOFBUNDLE_PIV_READER unset"
+    },
+    {
+      "providerId": "fido2",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no FIDO2/WebAuthn authenticator available in a headless process",
+      "detectedBy": "env PROOFBUNDLE_FIDO2_DEVICE unset"
+    },
+    {
+      "providerId": "cloud-kms",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no cloud KMS endpoint or credentials configured",
+      "detectedBy": "env PROOFBUNDLE_KMS_ENDPOINT unset"
+    },
+    {
+      "providerId": "remote-signing",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no remote signing endpoint configured",
+      "detectedBy": "env PROOFBUNDLE_REMOTE_SIGNER unset"
+    },
+    {
+      "providerId": "rfc3161-tsa",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no RFC 3161 TSA URL configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_TSA_URL unset"
+    },
+    {
+      "providerId": "opentimestamps",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no OpenTimestamps calendar configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_OTS_CALENDAR unset"
+    },
+    {
+      "providerId": "x509-path-validation",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no trust-anchor set configured; path validation without anchors is undefined, not permissive",
+      "detectedBy": "env PROOFBUNDLE_TRUST_ANCHORS unset"
+    },
+    {
+      "providerId": "ocsp",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "no OCSP responder configured and no outbound network permitted",
+      "detectedBy": "env PROOFBUNDLE_OCSP_URL unset"
+    },
+    {
+      "providerId": "argon2id",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "Argon2id needs a vetted native/WASM module; none is bundled and none is configured",
+      "detectedBy": "env PROOFBUNDLE_ARGON2_MODULE unset"
+    },
+    {
+      "providerId": "ml-kem",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "ML-KEM is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no ML-KEM key type"
+    },
+    {
+      "providerId": "ml-dsa",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "ML-DSA is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no ML-DSA key type"
+    },
+    {
+      "providerId": "slh-dsa",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "SLH-DSA is not provided by this Node build and no vetted provider is configured",
+      "detectedBy": "node:crypto exposes no SLH-DSA key type"
+    },
+    {
+      "providerId": "blake3",
+      "providerVersion": null,
+      "available": false,
+      "capabilities": {},
+      "supportedAlgorithms": [],
+      "supportedOperations": [
+        "getPublicKey",
+        "sign",
+        "verify",
+        "encapsulate",
+        "decapsulate",
+        "attest",
+        "generateKey"
+      ],
+      "reason": "BLAKE3 needs a vetted native/WASM module; none is bundled and none is configured",
+      "detectedBy": "node:crypto getHashes() has no blake3"
+    }
+  ]
+}

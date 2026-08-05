@@ -17,7 +17,16 @@ function check(label, ok, detail) {
   else { fail++; failures.push(`${label}: ${detail}`); }
 }
 
+// Files whose vectors have a different shape (SP 800-185 customization
+// strings, tuple inputs, legacy generation-refusal entries) are verified by
+// scripts/verify-extended-vectors.mjs instead. Listing them here rather than
+// pattern-matching keeps a newly added file from being silently skipped: an
+// unknown file still falls through to the generic digest path below and fails
+// loudly if its shape does not match.
+const HANDLED_ELSEWHERE = new Set(['sp800-185.json', 'legacy-national.json', 'keccak.json']);
+
 for (const file of readdirSync('vectors/digest')) {
+  if (HANDLED_ELSEWHERE.has(file)) continue;
   const vectors = JSON.parse(readFileSync(`vectors/digest/${file}`, 'utf-8'));
   for (const v of vectors) {
     if (file === 'negative-algorithm-ids.json') {

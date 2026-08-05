@@ -9,12 +9,15 @@ v22.22.2
 $ node scripts/check-registry.mjs
 exit code: 0
 
-registry: 95 entries, 0 validation errors
+registry: 390 entries, 0 validation errors
 by implementation_status: {
-  "COMPLETE": 11,
-  "NOT_IMPLEMENTED": 65,
-  "RECOGNIZE_ONLY": 2,
-  "BLOCKED": 17
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
+  "COMPLETE_PROVIDER_UNAVAILABLE": 1,
+  "PARTIAL": 1,
+  "BLOCKED": 32
 }
 
 
@@ -22,7 +25,16 @@ by implementation_status: {
 $ node scripts/check-coverage.mjs
 exit code: 0
 
-CRYPTOGRAPHIC_SURFACE.csv: 95 rows written
+CRYPTOGRAPHIC_SURFACE.csv: 390 rows written
+by implementation_status: {
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
+  "COMPLETE_PROVIDER_UNAVAILABLE": 1,
+  "PARTIAL": 1,
+  "BLOCKED": 32
+}
 rows with a critical-issue flag: 0
 
 
@@ -30,8 +42,10 @@ rows with a critical-issue flag: 0
 $ node scripts/check-placeholders.mjs
 exit code: 1
 
-check-placeholders: scanned src/, bin/, scripts/, test/ (.mjs files) — 9 pattern hits
-src/registry/algorithm-registry.mjs: matches pattern '"not implemented" prose'
+check-placeholders: scanned src/, bin/, scripts/, test/ (.mjs files) — 13 pattern hits
+src/errors.mjs: matches pattern '"not implemented" prose'
+src/providers/capabilities.mjs: matches pattern '"not implemented" prose'
+src/registry/registry-data.mjs: matches pattern '"not implemented" prose'
 bin/proofbundle.mjs: matches pattern '"not implemented" prose'
 scripts/check-placeholders.mjs: matches pattern 'sorry'
 scripts/check-placeholders.mjs: matches pattern 'admit'
@@ -39,7 +53,9 @@ scripts/check-placeholders.mjs: matches pattern 'TODO'
 scripts/check-placeholders.mjs: matches pattern 'FIXME'
 scripts/check-placeholders.mjs: matches pattern 'placeholder'
 scripts/check-placeholders.mjs: matches pattern '"not implemented" prose'
+test/integration/cli.test.mjs: matches pattern '"not implemented" prose'
 test/unit/digest.test.mjs: matches pattern '"not implemented" prose'
+test/unit/registry-consistency.test.mjs: matches pattern '"not implemented" prose'
 
 
 ===== vector generation =====
@@ -53,7 +69,7 @@ generated 9 fixed-digest vector files, 2 SHAKE vector files, 1 negative-algorith
 $ node scripts/verify-vectors.mjs
 exit code: 0
 
-verify-vectors: 219 pass, 0 fail
+verify-vectors: 235 pass, 0 fail
 
 
 ===== unit tests =====
@@ -61,261 +77,1983 @@ $ node --test test/unit/*.test.mjs
 exit code: 0
 
 TAP version 13
-# Subtest: concatBytes joins in order
-ok 1 - concatBytes joins in order
+# Subtest: merkle root is deterministic across rebuilds
+ok 1 - merkle root is deterministic across rebuilds
   ---
-  duration_ms: 3.470373
+  duration_ms: 2.500042
+  type: 'test'
+  ...
+# Subtest: merkle root changes when any leaf changes
+ok 2 - merkle root changes when any leaf changes
+  ---
+  duration_ms: 0.612479
+  type: 'test'
+  ...
+# Subtest: merkle: every inclusion proof verifies, for sizes 1..17
+ok 3 - merkle: every inclusion proof verifies, for sizes 1..17
+  ---
+  duration_ms: 16.141319
+  type: 'test'
+  ...
+# Subtest: merkle: a proof for index i does not verify at index j
+ok 4 - merkle: a proof for index i does not verify at index j
+  ---
+  duration_ms: 0.521783
+  type: 'test'
+  ...
+# Subtest: merkle: an internal node cannot be passed off as a leaf
+ok 5 - merkle: an internal node cannot be passed off as a leaf
+  ---
+  duration_ms: 0.485953
+  type: 'test'
+  ...
+# Subtest: merkle: a proof with a flipped direction bit is rejected
+ok 6 - merkle: a proof with a flipped direction bit is rejected
+  ---
+  duration_ms: 0.402662
+  type: 'test'
+  ...
+# Subtest: merkle: extra unconsumed siblings are rejected
+ok 7 - merkle: extra unconsumed siblings are rejected
+  ---
+  duration_ms: 0.341396
+  type: 'test'
+  ...
+# Subtest: merkle: proofs survive serialization
+ok 8 - merkle: proofs survive serialization
+  ---
+  duration_ms: 1.13183
+  type: 'test'
+  ...
+# Subtest: merkle: non-hex proof material is MALFORMED, not false
+ok 9 - merkle: non-hex proof material is MALFORMED, not false
+  ---
+  duration_ms: 0.923694
+  type: 'test'
+  ...
+# Subtest: merkle: multiproof verifies all listed entries
+ok 10 - merkle: multiproof verifies all listed entries
+  ---
+  duration_ms: 0.732145
+  type: 'test'
+  ...
+# Subtest: merkle: appending preserves the prefix root (consistency)
+ok 11 - merkle: appending preserves the prefix root (consistency)
+  ---
+  duration_ms: 1.354803
+  type: 'test'
+  ...
+# Subtest: merkle: the empty tree has a defined root distinct from a one-leaf tree
+ok 12 - merkle: the empty tree has a defined root distinct from a one-leaf tree
+  ---
+  duration_ms: 0.172742
+  type: 'test'
+  ...
+# Subtest: mmr: every inclusion proof verifies for sizes 1..20
+ok 13 - mmr: every inclusion proof verifies for sizes 1..20
+  ---
+  duration_ms: 23.036063
+  type: 'test'
+  ...
+# Subtest: mmr: appending never invalidates an earlier leaf proof against the new root
+ok 14 - mmr: appending never invalidates an earlier leaf proof against the new root
+  ---
+  duration_ms: 0.931874
+  type: 'test'
+  ...
+# Subtest: mmr: leaf count is bound into the root, so truncation is detectable
+ok 15 - mmr: leaf count is bound into the root, so truncation is detectable
+  ---
+  duration_ms: 0.38699
+  type: 'test'
+  ...
+# Subtest: mmr: same-size divergent logs are a detectable fork
+ok 16 - mmr: same-size divergent logs are a detectable fork
+  ---
+  duration_ms: 10.60231
+  type: 'test'
+  ...
+# Subtest: mmr: identical logs are not reported as forked
+ok 17 - mmr: identical logs are not reported as forked
+  ---
+  duration_ms: 0.59762
+  type: 'test'
+  ...
+# Subtest: mmr: a proof naming a peak it does not reach is rejected
+ok 18 - mmr: a proof naming a peak it does not reach is rejected
+  ---
+  duration_ms: 1.147161
+  type: 'test'
+  ...
+# Subtest: log: a well-formed chain verifies and sequences are gapless
+ok 19 - log: a well-formed chain verifies and sequences are gapless
+  ---
+  duration_ms: 1.114718
+  type: 'test'
+  ...
+# Subtest: log: rewriting any record is detected at that record
+ok 20 - log: rewriting any record is detected at that record
+  ---
+  duration_ms: 0.541407
+  type: 'test'
+  ...
+# Subtest: log: the genesis predecessor is a domain-separated value, not zeros
+ok 21 - log: the genesis predecessor is a domain-separated value, not zeros
+  ---
+  duration_ms: 0.110765
+  type: 'test'
+  ...
+# Subtest: log: a later log that drops records is reported as a rollback
+ok 22 - log: a later log that drops records is reported as a rollback
+  ---
+  duration_ms: 0.225829
+  type: 'test'
+  ...
+# Subtest: log: a divergent later log is reported as a fork
+ok 23 - log: a divergent later log is reported as a fork
+  ---
+  duration_ms: 0.179689
+  type: 'test'
+  ...
+# Subtest: lineage: node ids are deterministic and parent-order independent
+ok 24 - lineage: node ids are deterministic and parent-order independent
+  ---
+  duration_ms: 0.395622
+  type: 'test'
+  ...
+# Subtest: lineage: a node id depends on its parents
+ok 25 - lineage: a node id depends on its parents
+  ---
+  duration_ms: 0.143504
+  type: 'test'
+  ...
+# Subtest: lineage: ancestor closure is correct and sorted
+ok 26 - lineage: ancestor closure is correct and sorted
+  ---
+  duration_ms: 0.315991
+  type: 'test'
+  ...
+# Subtest: lineage: adding a node preserves the ancestry of existing nodes
+ok 27 - lineage: adding a node preserves the ancestry of existing nodes
+  ---
+  duration_ms: 0.343944
+  type: 'test'
+  ...
+# Subtest: lineage: duplicate and self parents are refused at construction
+ok 28 - lineage: duplicate and self parents are refused at construction
+  ---
+  duration_ms: 0.252453
+  type: 'test'
+  ...
+# Subtest: lineage: topological order is deterministic across runs
+ok 29 - lineage: topological order is deterministic across runs
+  ---
+  duration_ms: 0.545326
+  type: 'test'
+  ...
+# Subtest: lineage: every registered edge type is accepted
+ok 30 - lineage: every registered edge type is accepted
+  ---
+  duration_ms: 0.368452
+  type: 'test'
+  ...
+# Subtest: lineage: an unregistered edge type is refused
+ok 31 - lineage: an unregistered edge type is refused
+  ---
+  duration_ms: 0.144247
+  type: 'test'
+  ...
+# Subtest: claimed lineage: cycles, self-parents, duplicates and gaps each get their own verdict
+ok 32 - claimed lineage: cycles, self-parents, duplicates and gaps each get their own verdict
+  ---
+  duration_ms: 0.372192
+  type: 'test'
+  ...
+# Subtest: claimed lineage: a long chain still terminates and validates
+ok 33 - claimed lineage: a long chain still terminates and validates
+  ---
+  duration_ms: 4.431999
+  type: 'test'
+  ...
+# Subtest: concatBytes joins in order
+ok 34 - concatBytes joins in order
+  ---
+  duration_ms: 2.150334
   type: 'test'
   ...
 # Subtest: equalBytes true for identical content, false for length or content mismatch
-ok 2 - equalBytes true for identical content, false for length or content mismatch
+ok 35 - equalBytes true for identical content, false for length or content mismatch
   ---
-  duration_ms: 0.468489
+  duration_ms: 0.277352
   type: 'test'
   ...
 # Subtest: constantTimeEqual agrees with equalBytes on all test cases
-ok 3 - constantTimeEqual agrees with equalBytes on all test cases
+ok 36 - constantTimeEqual agrees with equalBytes on all test cases
   ---
-  duration_ms: 0.351516
+  duration_ms: 0.252798
   type: 'test'
   ...
 # Subtest: assertLength / assertMaxLength enforce bounds
-ok 4 - assertLength / assertMaxLength enforce bounds
+ok 37 - assertLength / assertMaxLength enforce bounds
   ---
-  duration_ms: 0.565146
+  duration_ms: 0.388077
   type: 'test'
   ...
 # Subtest: varint round-trips across boundary values
-ok 5 - varint round-trips across boundary values
+ok 38 - varint round-trips across boundary values
   ---
-  duration_ms: 0.740638
+  duration_ms: 0.398011
   type: 'test'
   ...
 # Subtest: varint rejects negative and non-integer
-ok 6 - varint rejects negative and non-integer
+ok 39 - varint rejects negative and non-integer
   ---
-  duration_ms: 0.254034
+  duration_ms: 0.142029
   type: 'test'
   ...
 # Subtest: varint decode rejects overlong (non-minimal) encoding
-ok 7 - varint decode rejects overlong (non-minimal) encoding
+ok 40 - varint decode rejects overlong (non-minimal) encoding
   ---
-  duration_ms: 0.363189
+  duration_ms: 0.219807
   type: 'test'
   ...
 # Subtest: varint decode rejects truncated input
-ok 8 - varint decode rejects truncated input
+ok 41 - varint decode rejects truncated input
   ---
-  duration_ms: 0.186231
+  duration_ms: 0.119988
   type: 'test'
   ...
 # Subtest: utf8 round-trips ASCII and multi-byte text
-ok 9 - utf8 round-trips ASCII and multi-byte text
+ok 42 - utf8 round-trips ASCII and multi-byte text
   ---
-  duration_ms: 0.648999
+  duration_ms: 0.452435
   type: 'test'
   ...
 # Subtest: utf8Decode rejects invalid byte sequences (fatal mode)
-ok 10 - utf8Decode rejects invalid byte sequences (fatal mode)
+ok 43 - utf8Decode rejects invalid byte sequences (fatal mode)
   ---
-  duration_ms: 0.681005
+  duration_ms: 0.464071
   type: 'test'
   ...
 # Subtest: hasLoneSurrogate detects unpaired surrogates, not valid pairs
-ok 11 - hasLoneSurrogate detects unpaired surrogates, not valid pairs
+ok 44 - hasLoneSurrogate detects unpaired surrogates, not valid pairs
   ---
-  duration_ms: 0.296013
+  duration_ms: 0.206663
   type: 'test'
   ...
 # Subtest: hex round-trips and rejects non-canonical input
-ok 12 - hex round-trips and rejects non-canonical input
+ok 45 - hex round-trips and rejects non-canonical input
   ---
-  duration_ms: 0.593308
+  duration_ms: 0.371099
   type: 'test'
   ...
 # Subtest: base64 round-trips and rejects non-canonical padding
-ok 13 - base64 round-trips and rejects non-canonical padding
+ok 46 - base64 round-trips and rejects non-canonical padding
   ---
-  duration_ms: 0.464895
+  duration_ms: 0.302549
   type: 'test'
   ...
 # Subtest: base64url round-trips and rejects standard-alphabet characters
-ok 14 - base64url round-trips and rejects standard-alphabet characters
+ok 47 - base64url round-trips and rejects standard-alphabet characters
   ---
-  duration_ms: 0.527727
+  duration_ms: 0.358416
   type: 'test'
   ...
 # Subtest: object keys are sorted regardless of input order
-ok 15 - object keys are sorted regardless of input order
+ok 48 - object keys are sorted regardless of input order
   ---
-  duration_ms: 3.492384
+  duration_ms: 2.758014
   type: 'test'
   ...
 # Subtest: idempotence: canonicalizing canonical output reproduces it byte-for-byte
-ok 16 - idempotence: canonicalizing canonical output reproduces it byte-for-byte
+ok 49 - idempotence: canonicalizing canonical output reproduces it byte-for-byte
   ---
-  duration_ms: 0.6401
+  duration_ms: 0.601479
   type: 'test'
   ...
 # Subtest: determinism: same semantic input always yields identical bytes
-ok 17 - determinism: same semantic input always yields identical bytes
+ok 50 - determinism: same semantic input always yields identical bytes
   ---
-  duration_ms: 0.194161
+  duration_ms: 0.2307
   type: 'test'
   ...
 # Subtest: whitespace is insignificant to the canonical form
-ok 18 - whitespace is insignificant to the canonical form
+ok 51 - whitespace is insignificant to the canonical form
   ---
-  duration_ms: 0.20495
+  duration_ms: 0.15111
   type: 'test'
   ...
 # Subtest: duplicate object keys are rejected, not silently resolved to the last value
-ok 19 - duplicate object keys are rejected, not silently resolved to the last value
+ok 52 - duplicate object keys are rejected, not silently resolved to the last value
   ---
-  duration_ms: 0.57044
+  duration_ms: 0.509704
   type: 'test'
   ...
 # Subtest: nested duplicate keys are rejected
-ok 20 - nested duplicate keys are rejected
+ok 53 - nested duplicate keys are rejected
   ---
-  duration_ms: 0.17853
+  duration_ms: 0.233531
   type: 'test'
   ...
 # Subtest: non-finite number literals are rejected by the grammar itself
-ok 21 - non-finite number literals are rejected by the grammar itself
+ok 54 - non-finite number literals are rejected by the grammar itself
   ---
-  duration_ms: 0.222094
+  duration_ms: 1.00187
   type: 'test'
   ...
 # Subtest: leading zeros in numbers are rejected (not valid JSON grammar)
-ok 22 - leading zeros in numbers are rejected (not valid JSON grammar)
+ok 55 - leading zeros in numbers are rejected (not valid JSON grammar)
   ---
-  duration_ms: 0.144635
+  duration_ms: 0.177763
   type: 'test'
   ...
 # Subtest: negative zero canonicalizes to "0"
-ok 23 - negative zero canonicalizes to "0"
+ok 56 - negative zero canonicalizes to "0"
   ---
-  duration_ms: 0.499981
+  duration_ms: 0.555536
   type: 'test'
   ...
 # Subtest: minimal integer encoding: no trailing .0 for integral values
-ok 24 - minimal integer encoding: no trailing .0 for integral values
+ok 57 - minimal integer encoding: no trailing .0 for integral values
   ---
-  duration_ms: 0.457603
+  duration_ms: 0.397685
   type: 'test'
   ...
 # Subtest: trailing data after a JSON value is rejected
-ok 25 - trailing data after a JSON value is rejected
+ok 58 - trailing data after a JSON value is rejected
   ---
-  duration_ms: 0.281084
+  duration_ms: 0.227736
   type: 'test'
   ...
 # Subtest: unpaired surrogate in a string is rejected
-ok 26 - unpaired surrogate in a string is rejected
+ok 59 - unpaired surrogate in a string is rejected
   ---
-  duration_ms: 0.19873
+  duration_ms: 0.221171
   type: 'test'
   ...
 # Subtest: empty object and empty array canonicalize correctly
-ok 27 - empty object and empty array canonicalize correctly
+ok 60 - empty object and empty array canonicalize correctly
   ---
-  duration_ms: 0.195292
+  duration_ms: 0.176367
   type: 'test'
   ...
 # Subtest: string escaping round-trips through parse and canonicalize
-ok 28 - string escaping round-trips through parse and canonicalize
+ok 61 - string escaping round-trips through parse and canonicalize
   ---
-  duration_ms: 0.123067
+  duration_ms: 0.104764
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects plain objects (Map is required for the object domain)
-ok 29 - canonicalizeValue rejects plain objects (Map is required for the object domain)
+ok 62 - canonicalizeValue rejects plain objects (Map is required for the object domain)
   ---
-  duration_ms: 0.158992
+  duration_ms: 0.146704
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects undefined and non-finite numbers directly
-ok 30 - canonicalizeValue rejects undefined and non-finite numbers directly
+ok 63 - canonicalizeValue rejects undefined and non-finite numbers directly
   ---
-  duration_ms: 0.192378
+  duration_ms: 0.127258
   type: 'test'
   ...
 # Subtest: array order is preserved (arrays are not sorted, only object keys are)
-ok 31 - array order is preserved (arrays are not sorted, only object keys are)
+ok 64 - array order is preserved (arrays are not sorted, only object keys are)
   ---
-  duration_ms: 0.157467
+  duration_ms: 0.090045
   type: 'test'
   ...
 # Subtest: SHA-256 empty-string known-answer value matches FIPS 180-4
-ok 32 - SHA-256 empty-string known-answer value matches FIPS 180-4
+ok 65 - SHA-256 empty-string known-answer value matches FIPS 180-4
   ---
-  duration_ms: 1.6045
+  duration_ms: 1.487169
   type: 'test'
   ...
 # Subtest: SHA-224 empty-string known-answer value matches FIPS 180-4
-ok 33 - SHA-224 empty-string known-answer value matches FIPS 180-4
+ok 66 - SHA-224 empty-string known-answer value matches FIPS 180-4
   ---
-  duration_ms: 0.459353
+  duration_ms: 0.304108
   type: 'test'
   ...
 # Subtest: SHA3-256 empty-string known-answer value matches FIPS 202
-ok 34 - SHA3-256 empty-string known-answer value matches FIPS 202
+ok 67 - SHA3-256 empty-string known-answer value matches FIPS 202
   ---
-  duration_ms: 2.397515
+  duration_ms: 2.370089
   type: 'test'
   ...
 # Subtest: every wired SHA-2 variant agrees with node:crypto across message lengths
-ok 35 - every wired SHA-2 variant agrees with node:crypto across message lengths
+ok 68 - every wired SHA-2 variant agrees with node:crypto across message lengths
   ---
-  duration_ms: 1.640107
+  duration_ms: 2.876842
   type: 'test'
   ...
 # Subtest: SHA3-256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL)
-ok 36 - SHA3-256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL)
+ok 69 - SHA3-256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL)
   ---
-  duration_ms: 18.171518
+  duration_ms: 20.14442
   type: 'test'
   ...
 # Subtest: SHAKE128/256 produce the requested output length and agree with node:crypto
-ok 37 - SHAKE128/256 produce the requested output length and agree with node:crypto
+ok 70 - SHAKE128/256 produce the requested output length and agree with node:crypto
   ---
-  duration_ms: 2.435082
+  duration_ms: 2.29383
   type: 'test'
   ...
 # Subtest: digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback
-ok 38 - digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback
+ok 71 - digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback
   ---
-  duration_ms: 0.610189
+  duration_ms: 0.621125
   type: 'test'
   ...
-# Subtest: digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched
-ok 39 - digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched
+# Subtest: digestBytes refuses the recognize-and-reject digests, and never dispatches them
+ok 72 - digestBytes refuses the recognize-and-reject digests, and never dispatches them
   ---
-  duration_ms: 0.205531
+  duration_ms: 0.335446
+  type: 'test'
+  ...
+# Subtest: SHA-1 and RIPEMD-160 verify historical material but refuse generation
+ok 73 - SHA-1 and RIPEMD-160 verify historical material but refuse generation
+  ---
+  duration_ms: 1.236774
   type: 'test'
   ...
 # Subtest: isImplementedDigest correctly reports only the wired fixed-length algorithms
-ok 40 - isImplementedDigest correctly reports only the wired fixed-length algorithms
+ok 74 - isImplementedDigest correctly reports only the wired fixed-length algorithms
   ---
-  duration_ms: 0.374434
+  duration_ms: 0.437988
   type: 'test'
   ...
 # Subtest: digestBytes rejects non-Uint8Array input rather than coercing it
-ok 41 - digestBytes rejects non-Uint8Array input rather than coercing it
+ok 75 - digestBytes rejects non-Uint8Array input rather than coercing it
   ---
-  duration_ms: 0.386328
+  duration_ms: 0.187344
   type: 'test'
   ...
-1..41
-# tests 41
+# Subtest: HMAC matches RFC 4231 test case 1
+ok 76 - HMAC matches RFC 4231 test case 1
+  ---
+  duration_ms: 1.64624
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-224: tag length is as registered and verification is exact
+ok 77 - HMAC-SHA-224: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.453337
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-256: tag length is as registered and verification is exact
+ok 78 - HMAC-SHA-256: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.405563
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-384: tag length is as registered and verification is exact
+ok 79 - HMAC-SHA-384: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.262601
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-512: tag length is as registered and verification is exact
+ok 80 - HMAC-SHA-512: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.186885
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-512/224: tag length is as registered and verification is exact
+ok 81 - HMAC-SHA-512/224: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.124942
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-512/256: tag length is as registered and verification is exact
+ok 82 - HMAC-SHA-512/256: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.345214
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA3-224: tag length is as registered and verification is exact
+ok 83 - HMAC-SHA3-224: tag length is as registered and verification is exact
+  ---
+  duration_ms: 1.360675
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA3-256: tag length is as registered and verification is exact
+ok 84 - HMAC-SHA3-256: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.416306
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA3-384: tag length is as registered and verification is exact
+ok 85 - HMAC-SHA3-384: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.648401
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA3-512: tag length is as registered and verification is exact
+ok 86 - HMAC-SHA3-512: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.250428
+  type: 'test'
+  ...
+# Subtest: HMAC-SM3: tag length is as registered and verification is exact
+ok 87 - HMAC-SM3: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.114796
+  type: 'test'
+  ...
+# Subtest: HMAC-SHA-1: tag length is as registered and verification is exact
+ok 88 - HMAC-SHA-1: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.099735
+  type: 'test'
+  ...
+# Subtest: HMAC-RIPEMD-160: tag length is as registered and verification is exact
+ok 89 - HMAC-RIPEMD-160: tag length is as registered and verification is exact
+  ---
+  duration_ms: 0.084356
+  type: 'test'
+  ...
+# Subtest: an unknown MAC algorithm is never dispatched
+ok 90 - an unknown MAC algorithm is never dispatched
+  ---
+  duration_ms: 0.648634
+  type: 'test'
+  ...
+# Subtest: HKDF matches RFC 5869 test case 1
+ok 91 - HKDF matches RFC 5869 test case 1
+  ---
+  duration_ms: 0.423228
+  type: 'test'
+  ...
+# Subtest: HKDF: changing only info changes the output
+ok 92 - HKDF: changing only info changes the output
+  ---
+  duration_ms: 0.20337
+  type: 'test'
+  ...
+# Subtest: HKDF: expansion beyond 255*HashLen is refused
+ok 93 - HKDF: expansion beyond 255*HashLen is refused
+  ---
+  duration_ms: 0.228411
+  type: 'test'
+  ...
+# Subtest: PBKDF2 is deterministic and enforces a generation floor
+ok 94 - PBKDF2 is deterministic and enforces a generation floor
+  ---
+  duration_ms: 1.358773
+  type: 'test'
+  ...
+# Subtest: scrypt rejects non-power-of-two N and oversized parameters
+ok 95 - scrypt rejects non-power-of-two N and oversized parameters
+  ---
+  duration_ms: 0.479693
+  type: 'test'
+  ...
+# Subtest: subkeys differ across purpose, key id, and index
+ok 96 - subkeys differ across purpose, key id, and index
+  ---
+  duration_ms: 0.88613
+  type: 'test'
+  ...
+# Subtest: an unregistered subkey purpose is refused
+ok 97 - an unregistered subkey purpose is refused
+  ---
+  duration_ms: 0.16624
+  type: 'test'
+  ...
+# Subtest: BLAKE2 matches published digests for "abc"
+ok 98 - BLAKE2 matches published digests for "abc"
+  ---
+  duration_ms: 0.413642
+  type: 'test'
+  ...
+# Subtest: keyed BLAKE2 refuses rather than silently ignoring the key
+ok 99 - keyed BLAKE2 refuses rather than silently ignoring the key
+  ---
+  duration_ms: 0.39889
+  type: 'test'
+  ...
+# Subtest: provider detection reports node:crypto available and names each absent provider
+ok 100 - provider detection reports node:crypto available and names each absent provider
+  ---
+  duration_ms: 2.376255
+  type: 'test'
+  ...
+# Subtest: unavailable providers throw PROVIDER_UNAVAILABLE for every operation, never a fallback result
+ok 101 - unavailable providers throw PROVIDER_UNAVAILABLE for every operation, never a fallback result
+  ---
+  duration_ms: 2.55521
+  type: 'test'
+  ...
+# Subtest: unavailable provider reasons are distinct, not one generic message
+ok 102 - unavailable provider reasons are distinct, not one generic message
+  ---
+  duration_ms: 0.512908
+  type: 'test'
+  ...
+# Subtest: every COMPLETE row is reachable through a dispatcher
+ok 103 - every COMPLETE row is reachable through a dispatcher
+  ---
+  duration_ms: 2.26354
+  type: 'test'
+  ...
+# Subtest: every LEGACY_VERIFY_ONLY row is still reachable for verification
+ok 104 - every LEGACY_VERIFY_ONLY row is still reachable for verification
+  ---
+  duration_ms: 0.191198
+  type: 'test'
+  ...
+# Subtest: every fixed-length COMPLETE digest produces its declared length
+ok 105 - every fixed-length COMPLETE digest produces its declared length
+  ---
+  duration_ms: 8.706625
+  type: 'test'
+  ...
+# Subtest: every module and vector path referenced by the registry exists on disk
+ok 106 - every module and vector path referenced by the registry exists on disk
+  ---
+  duration_ms: 5.059408
+  type: 'test'
+  ...
+# Subtest: no row is COMPLETE without both a module and a vector path
+ok 107 - no row is COMPLETE without both a module and a vector path
+  ---
+  duration_ms: 0.224226
+  type: 'test'
+  ...
+# Subtest: every registry id is unique
+ok 108 - every registry id is unique
+  ---
+  duration_ms: 0.198373
+  type: 'test'
+  ...
+# Subtest: every non-COMPLETE row states a reason
+ok 109 - every non-COMPLETE row states a reason
+  ---
+  duration_ms: 0.365666
+  type: 'test'
+  ...
+# Subtest: recognize-and-reject digests are refused by the digest dispatcher
+ok 110 - recognize-and-reject digests are refused by the digest dispatcher
+  ---
+  duration_ms: 0.640353
+  type: 'test'
+  ...
+# Subtest: recognize-and-reject rows in other families are never dispatchable
+ok 111 - recognize-and-reject rows in other families are never dispatchable
+  ---
+  duration_ms: 0.562446
+  type: 'test'
+  ...
+# Subtest: no NOT_IMPLEMENTED or BLOCKED row carries vector evidence it cannot back
+ok 112 - no NOT_IMPLEMENTED or BLOCKED row carries vector evidence it cannot back
+  ---
+  duration_ms: 0.566888
+  type: 'test'
+  ...
+# Subtest: Ed25519: sign then verify succeeds
+ok 113 - Ed25519: sign then verify succeeds
+  ---
+  duration_ms: 5.359994
+  type: 'test'
+  ...
+# Subtest: Ed25519: a modified message does not verify
+ok 114 - Ed25519: a modified message does not verify
+  ---
+  duration_ms: 0.854365
+  type: 'test'
+  ...
+# Subtest: Ed25519: a signature from another key does not verify
+ok 115 - Ed25519: a signature from another key does not verify
+  ---
+  duration_ms: 0.853787
+  type: 'test'
+  ...
+# Subtest: Ed25519: the key id is bound into the signed transcript
+ok 116 - Ed25519: the key id is bound into the signed transcript
+  ---
+  duration_ms: 0.667102
+  type: 'test'
+  ...
+# Subtest: Ed25519: SPKI/PKCS\#8 export and re-import preserve verification
+ok 117 - Ed25519: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 1.853114
+  type: 'test'
+  ...
+# Subtest: Ed448: sign then verify succeeds
+ok 118 - Ed448: sign then verify succeeds
+  ---
+  duration_ms: 1.35302
+  type: 'test'
+  ...
+# Subtest: Ed448: a modified message does not verify
+ok 119 - Ed448: a modified message does not verify
+  ---
+  duration_ms: 1.604491
+  type: 'test'
+  ...
+# Subtest: Ed448: a signature from another key does not verify
+ok 120 - Ed448: a signature from another key does not verify
+  ---
+  duration_ms: 1.99288
+  type: 'test'
+  ...
+# Subtest: Ed448: the key id is bound into the signed transcript
+ok 121 - Ed448: the key id is bound into the signed transcript
+  ---
+  duration_ms: 1.707529
+  type: 'test'
+  ...
+# Subtest: Ed448: SPKI/PKCS\#8 export and re-import preserve verification
+ok 122 - Ed448: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 2.280196
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-224-SHA-224: sign then verify succeeds
+ok 123 - ECDSA-P-224-SHA-224: sign then verify succeeds
+  ---
+  duration_ms: 2.556941
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-224-SHA-224: a modified message does not verify
+ok 124 - ECDSA-P-224-SHA-224: a modified message does not verify
+  ---
+  duration_ms: 1.882038
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-224-SHA-224: a signature from another key does not verify
+ok 125 - ECDSA-P-224-SHA-224: a signature from another key does not verify
+  ---
+  duration_ms: 3.51912
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-224-SHA-224: the key id is bound into the signed transcript
+ok 126 - ECDSA-P-224-SHA-224: the key id is bound into the signed transcript
+  ---
+  duration_ms: 1.501131
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-224-SHA-224: SPKI/PKCS\#8 export and re-import preserve verification
+ok 127 - ECDSA-P-224-SHA-224: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 2.09206
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-256-SHA-256: sign then verify succeeds
+ok 128 - ECDSA-P-256-SHA-256: sign then verify succeeds
+  ---
+  duration_ms: 0.584103
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-256-SHA-256: a modified message does not verify
+ok 129 - ECDSA-P-256-SHA-256: a modified message does not verify
+  ---
+  duration_ms: 0.575796
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-256-SHA-256: a signature from another key does not verify
+ok 130 - ECDSA-P-256-SHA-256: a signature from another key does not verify
+  ---
+  duration_ms: 0.731751
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-256-SHA-256: the key id is bound into the signed transcript
+ok 131 - ECDSA-P-256-SHA-256: the key id is bound into the signed transcript
+  ---
+  duration_ms: 0.525162
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-256-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+ok 132 - ECDSA-P-256-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 2.667581
+  type: 'test'
+  ...
+# Subtest: ECDSA-secp256k1-SHA-256: sign then verify succeeds
+ok 133 - ECDSA-secp256k1-SHA-256: sign then verify succeeds
+  ---
+  duration_ms: 1.729176
+  type: 'test'
+  ...
+# Subtest: ECDSA-secp256k1-SHA-256: a modified message does not verify
+ok 134 - ECDSA-secp256k1-SHA-256: a modified message does not verify
+  ---
+  duration_ms: 1.613381
+  type: 'test'
+  ...
+# Subtest: ECDSA-secp256k1-SHA-256: a signature from another key does not verify
+ok 135 - ECDSA-secp256k1-SHA-256: a signature from another key does not verify
+  ---
+  duration_ms: 2.19237
+  type: 'test'
+  ...
+# Subtest: ECDSA-secp256k1-SHA-256: the key id is bound into the signed transcript
+ok 136 - ECDSA-secp256k1-SHA-256: the key id is bound into the signed transcript
+  ---
+  duration_ms: 1.53598
+  type: 'test'
+  ...
+# Subtest: ECDSA-secp256k1-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+ok 137 - ECDSA-secp256k1-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 2.326646
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-384-SHA-384: sign then verify succeeds
+ok 138 - ECDSA-P-384-SHA-384: sign then verify succeeds
+  ---
+  duration_ms: 3.253581
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-384-SHA-384: a modified message does not verify
+ok 139 - ECDSA-P-384-SHA-384: a modified message does not verify
+  ---
+  duration_ms: 3.94261
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-384-SHA-384: a signature from another key does not verify
+ok 140 - ECDSA-P-384-SHA-384: a signature from another key does not verify
+  ---
+  duration_ms: 4.423179
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-384-SHA-384: the key id is bound into the signed transcript
+ok 141 - ECDSA-P-384-SHA-384: the key id is bound into the signed transcript
+  ---
+  duration_ms: 3.25943
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-384-SHA-384: SPKI/PKCS\#8 export and re-import preserve verification
+ok 142 - ECDSA-P-384-SHA-384: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 3.325182
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-521-SHA-512: sign then verify succeeds
+ok 143 - ECDSA-P-521-SHA-512: sign then verify succeeds
+  ---
+  duration_ms: 6.774134
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-521-SHA-512: a modified message does not verify
+ok 144 - ECDSA-P-521-SHA-512: a modified message does not verify
+  ---
+  duration_ms: 6.96234
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-521-SHA-512: a signature from another key does not verify
+ok 145 - ECDSA-P-521-SHA-512: a signature from another key does not verify
+  ---
+  duration_ms: 9.165523
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-521-SHA-512: the key id is bound into the signed transcript
+ok 146 - ECDSA-P-521-SHA-512: the key id is bound into the signed transcript
+  ---
+  duration_ms: 6.702267
+  type: 'test'
+  ...
+# Subtest: ECDSA-P-521-SHA-512: SPKI/PKCS\#8 export and re-import preserve verification
+ok 147 - ECDSA-P-521-SHA-512: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 7.390762
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-224: sign then verify succeeds
+ok 148 - RSA-PSS-SHA-224: sign then verify succeeds
+  ---
+  duration_ms: 36.033601
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-224: a modified message does not verify
+ok 149 - RSA-PSS-SHA-224: a modified message does not verify
+  ---
+  duration_ms: 29.819428
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-224: a signature from another key does not verify
+ok 150 - RSA-PSS-SHA-224: a signature from another key does not verify
+  ---
+  duration_ms: 75.594194
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-224: the key id is bound into the signed transcript
+ok 151 - RSA-PSS-SHA-224: the key id is bound into the signed transcript
+  ---
+  duration_ms: 39.828396
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-224: SPKI/PKCS\#8 export and re-import preserve verification
+ok 152 - RSA-PSS-SHA-224: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 76.923556
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-256: sign then verify succeeds
+ok 153 - RSA-PSS-SHA-256: sign then verify succeeds
+  ---
+  duration_ms: 95.729414
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-256: a modified message does not verify
+ok 154 - RSA-PSS-SHA-256: a modified message does not verify
+  ---
+  duration_ms: 132.190611
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-256: a signature from another key does not verify
+ok 155 - RSA-PSS-SHA-256: a signature from another key does not verify
+  ---
+  duration_ms: 216.112987
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-256: the key id is bound into the signed transcript
+ok 156 - RSA-PSS-SHA-256: the key id is bound into the signed transcript
+  ---
+  duration_ms: 179.569947
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+ok 157 - RSA-PSS-SHA-256: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 270.464562
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-384: sign then verify succeeds
+ok 158 - RSA-PSS-SHA-384: sign then verify succeeds
+  ---
+  duration_ms: 130.010852
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-384: a modified message does not verify
+ok 159 - RSA-PSS-SHA-384: a modified message does not verify
+  ---
+  duration_ms: 174.554125
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-384: a signature from another key does not verify
+ok 160 - RSA-PSS-SHA-384: a signature from another key does not verify
+  ---
+  duration_ms: 443.09246
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-384: the key id is bound into the signed transcript
+ok 161 - RSA-PSS-SHA-384: the key id is bound into the signed transcript
+  ---
+  duration_ms: 109.796687
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-384: SPKI/PKCS\#8 export and re-import preserve verification
+ok 162 - RSA-PSS-SHA-384: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 152.937279
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-512: sign then verify succeeds
+ok 163 - RSA-PSS-SHA-512: sign then verify succeeds
+  ---
+  duration_ms: 191.257708
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-512: a modified message does not verify
+ok 164 - RSA-PSS-SHA-512: a modified message does not verify
+  ---
+  duration_ms: 210.162963
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-512: a signature from another key does not verify
+ok 165 - RSA-PSS-SHA-512: a signature from another key does not verify
+  ---
+  duration_ms: 1197.80029
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-512: the key id is bound into the signed transcript
+ok 166 - RSA-PSS-SHA-512: the key id is bound into the signed transcript
+  ---
+  duration_ms: 407.105389
+  type: 'test'
+  ...
+# Subtest: RSA-PSS-SHA-512: SPKI/PKCS\#8 export and re-import preserve verification
+ok 167 - RSA-PSS-SHA-512: SPKI/PKCS\#8 export and re-import preserve verification
+  ---
+  duration_ms: 216.752935
+  type: 'test'
+  ...
+# Subtest: key ids differ when the algorithm id differs for identical key bytes
+ok 168 - key ids differ when the algorithm id differs for identical key bytes
+  ---
+  duration_ms: 0.615567
+  type: 'test'
+  ...
+# Subtest: key id is a pure function of algorithm and public key
+ok 169 - key id is a pure function of algorithm and public key
+  ---
+  duration_ms: 2.055225
+  type: 'test'
+  ...
+# Subtest: an algorithm identifier not in the table is never dispatched
+ok 170 - an algorithm identifier not in the table is never dispatched
+  ---
+  duration_ms: 0.904749
+  type: 'test'
+  ...
+# Subtest: a key of the wrong type cannot be reinterpreted under another algorithm
+ok 171 - a key of the wrong type cannot be reinterpreted under another algorithm
+  ---
+  duration_ms: 0.717222
+  type: 'test'
+  ...
+# Subtest: a P-256 key cannot be used under the P-384 algorithm id
+ok 172 - a P-256 key cannot be used under the P-384 algorithm id
+  ---
+  duration_ms: 0.425624
+  type: 'test'
+  ...
+# Subtest: verify-only algorithms refuse to generate, in both modules
+ok 173 - verify-only algorithms refuse to generate, in both modules
+  ---
+  duration_ms: 0.359985
+  type: 'test'
+  ...
+# Subtest: a malformed signature encoding returns false rather than throwing
+ok 174 - a malformed signature encoding returns false rather than throwing
+  ---
+  duration_ms: 0.396098
+  type: 'test'
+  ...
+# Subtest: X25519: encapsulate and decapsulate agree on the shared secret
+ok 175 - X25519: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 2.559889
+  type: 'test'
+  ...
+# Subtest: X25519: a different recipient key derives a different secret
+ok 176 - X25519: a different recipient key derives a different secret
+  ---
+  duration_ms: 1.118697
+  type: 'test'
+  ...
+# Subtest: X25519: two encapsulations to the same key differ (ephemeral freshness)
+ok 177 - X25519: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 0.809997
+  type: 'test'
+  ...
+# Subtest: X448: encapsulate and decapsulate agree on the shared secret
+ok 178 - X448: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 1.576578
+  type: 'test'
+  ...
+# Subtest: X448: a different recipient key derives a different secret
+ok 179 - X448: a different recipient key derives a different secret
+  ---
+  duration_ms: 1.953462
+  type: 'test'
+  ...
+# Subtest: X448: two encapsulations to the same key differ (ephemeral freshness)
+ok 180 - X448: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 1.494124
+  type: 'test'
+  ...
+# Subtest: ECDH-P-224: encapsulate and decapsulate agree on the shared secret
+ok 181 - ECDH-P-224: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 2.047438
+  type: 'test'
+  ...
+# Subtest: ECDH-P-224: a different recipient key derives a different secret
+ok 182 - ECDH-P-224: a different recipient key derives a different secret
+  ---
+  duration_ms: 3.27168
+  type: 'test'
+  ...
+# Subtest: ECDH-P-224: two encapsulations to the same key differ (ephemeral freshness)
+ok 183 - ECDH-P-224: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 2.453474
+  type: 'test'
+  ...
+# Subtest: ECDH-P-256: encapsulate and decapsulate agree on the shared secret
+ok 184 - ECDH-P-256: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 0.844251
+  type: 'test'
+  ...
+# Subtest: ECDH-P-256: a different recipient key derives a different secret
+ok 185 - ECDH-P-256: a different recipient key derives a different secret
+  ---
+  duration_ms: 1.12553
+  type: 'test'
+  ...
+# Subtest: ECDH-P-256: two encapsulations to the same key differ (ephemeral freshness)
+ok 186 - ECDH-P-256: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 0.821645
+  type: 'test'
+  ...
+# Subtest: ECDH-secp256k1: encapsulate and decapsulate agree on the shared secret
+ok 187 - ECDH-secp256k1: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 2.663459
+  type: 'test'
+  ...
+# Subtest: ECDH-secp256k1: a different recipient key derives a different secret
+ok 188 - ECDH-secp256k1: a different recipient key derives a different secret
+  ---
+  duration_ms: 5.844675
+  type: 'test'
+  ...
+# Subtest: ECDH-secp256k1: two encapsulations to the same key differ (ephemeral freshness)
+ok 189 - ECDH-secp256k1: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 5.205995
+  type: 'test'
+  ...
+# Subtest: ECDH-P-384: encapsulate and decapsulate agree on the shared secret
+ok 190 - ECDH-P-384: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 4.761352
+  type: 'test'
+  ...
+# Subtest: ECDH-P-384: a different recipient key derives a different secret
+ok 191 - ECDH-P-384: a different recipient key derives a different secret
+  ---
+  duration_ms: 6.375782
+  type: 'test'
+  ...
+# Subtest: ECDH-P-384: two encapsulations to the same key differ (ephemeral freshness)
+ok 192 - ECDH-P-384: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 5.235643
+  type: 'test'
+  ...
+# Subtest: ECDH-P-521: encapsulate and decapsulate agree on the shared secret
+ok 193 - ECDH-P-521: encapsulate and decapsulate agree on the shared secret
+  ---
+  duration_ms: 9.259703
+  type: 'test'
+  ...
+# Subtest: ECDH-P-521: a different recipient key derives a different secret
+ok 194 - ECDH-P-521: a different recipient key derives a different secret
+  ---
+  duration_ms: 13.389472
+  type: 'test'
+  ...
+# Subtest: ECDH-P-521: two encapsulations to the same key differ (ephemeral freshness)
+ok 195 - ECDH-P-521: two encapsulations to the same key differ (ephemeral freshness)
+  ---
+  duration_ms: 11.299733
+  type: 'test'
+  ...
+# Subtest: ML-KEM is reported as registered-but-unwired, not as unknown
+ok 196 - ML-KEM is reported as registered-but-unwired, not as unknown
+  ---
+  duration_ms: 0.235072
+  type: 'test'
+  ...
+# Subtest: AES-128-GCM: round-trips and binds the AAD
+ok 197 - AES-128-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.867089
+  type: 'test'
+  ...
+# Subtest: AES-128-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 198 - AES-128-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.311403
+  type: 'test'
+  ...
+# Subtest: AES-128-GCM: a truncated tag is refused by length before authentication
+ok 199 - AES-128-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.369352
+  type: 'test'
+  ...
+# Subtest: AES-128-GCM: a wrong-length nonce is rejected
+ok 200 - AES-128-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.298625
+  type: 'test'
+  ...
+# Subtest: AES-192-GCM: round-trips and binds the AAD
+ok 201 - AES-192-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 1.693791
+  type: 'test'
+  ...
+# Subtest: AES-192-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 202 - AES-192-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.28981
+  type: 'test'
+  ...
+# Subtest: AES-192-GCM: a truncated tag is refused by length before authentication
+ok 203 - AES-192-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.122044
+  type: 'test'
+  ...
+# Subtest: AES-192-GCM: a wrong-length nonce is rejected
+ok 204 - AES-192-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.078764
+  type: 'test'
+  ...
+# Subtest: AES-256-GCM: round-trips and binds the AAD
+ok 205 - AES-256-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.252478
+  type: 'test'
+  ...
+# Subtest: AES-256-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 206 - AES-256-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.166525
+  type: 'test'
+  ...
+# Subtest: AES-256-GCM: a truncated tag is refused by length before authentication
+ok 207 - AES-256-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.254827
+  type: 'test'
+  ...
+# Subtest: AES-256-GCM: a wrong-length nonce is rejected
+ok 208 - AES-256-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.079129
+  type: 'test'
+  ...
+# Subtest: ChaCha20-Poly1305: round-trips and binds the AAD
+ok 209 - ChaCha20-Poly1305: round-trips and binds the AAD
+  ---
+  duration_ms: 0.176459
+  type: 'test'
+  ...
+# Subtest: ChaCha20-Poly1305: the cipher-suite id is bound, so a suite swap fails
+ok 210 - ChaCha20-Poly1305: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.124573
+  type: 'test'
+  ...
+# Subtest: ChaCha20-Poly1305: a truncated tag is refused by length before authentication
+ok 211 - ChaCha20-Poly1305: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.100658
+  type: 'test'
+  ...
+# Subtest: ChaCha20-Poly1305: a wrong-length nonce is rejected
+ok 212 - ChaCha20-Poly1305: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.13023
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM: round-trips and binds the AAD
+ok 213 - AES-128-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.181188
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 214 - AES-128-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.165065
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM: a truncated tag is refused by length before authentication
+ok 215 - AES-128-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.092014
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM: a wrong-length nonce is rejected
+ok 216 - AES-128-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.059858
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM: round-trips and binds the AAD
+ok 217 - AES-192-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.123426
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 218 - AES-192-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.106931
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM: a truncated tag is refused by length before authentication
+ok 219 - AES-192-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.166896
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM: a wrong-length nonce is rejected
+ok 220 - AES-192-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.06901
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM: round-trips and binds the AAD
+ok 221 - AES-256-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.182021
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 222 - AES-256-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.123726
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM: a truncated tag is refused by length before authentication
+ok 223 - AES-256-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.090176
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM: a wrong-length nonce is rejected
+ok 224 - AES-256-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.059256
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM-8: round-trips and binds the AAD
+ok 225 - AES-128-CCM-8: round-trips and binds the AAD
+  ---
+  duration_ms: 0.14649
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM-8: the cipher-suite id is bound, so a suite swap fails
+ok 226 - AES-128-CCM-8: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.139922
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM-8: a truncated tag is refused by length before authentication
+ok 227 - AES-128-CCM-8: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.084972
+  type: 'test'
+  ...
+# Subtest: AES-128-CCM-8: a wrong-length nonce is rejected
+ok 228 - AES-128-CCM-8: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.309652
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM-8: round-trips and binds the AAD
+ok 229 - AES-192-CCM-8: round-trips and binds the AAD
+  ---
+  duration_ms: 0.225015
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM-8: the cipher-suite id is bound, so a suite swap fails
+ok 230 - AES-192-CCM-8: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.096263
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM-8: a truncated tag is refused by length before authentication
+ok 231 - AES-192-CCM-8: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.084467
+  type: 'test'
+  ...
+# Subtest: AES-192-CCM-8: a wrong-length nonce is rejected
+ok 232 - AES-192-CCM-8: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.058126
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM-8: round-trips and binds the AAD
+ok 233 - AES-256-CCM-8: round-trips and binds the AAD
+  ---
+  duration_ms: 0.146331
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM-8: the cipher-suite id is bound, so a suite swap fails
+ok 234 - AES-256-CCM-8: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.082791
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM-8: a truncated tag is refused by length before authentication
+ok 235 - AES-256-CCM-8: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.145949
+  type: 'test'
+  ...
+# Subtest: AES-256-CCM-8: a wrong-length nonce is rejected
+ok 236 - AES-256-CCM-8: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.070708
+  type: 'test'
+  ...
+# Subtest: AES-128-OCB: round-trips and binds the AAD
+ok 237 - AES-128-OCB: round-trips and binds the AAD
+  ---
+  duration_ms: 0.144653
+  type: 'test'
+  ...
+# Subtest: AES-128-OCB: the cipher-suite id is bound, so a suite swap fails
+ok 238 - AES-128-OCB: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.15452
+  type: 'test'
+  ...
+# Subtest: AES-128-OCB: a truncated tag is refused by length before authentication
+ok 239 - AES-128-OCB: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.085514
+  type: 'test'
+  ...
+# Subtest: AES-128-OCB: a wrong-length nonce is rejected
+ok 240 - AES-128-OCB: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.058387
+  type: 'test'
+  ...
+# Subtest: AES-192-OCB: round-trips and binds the AAD
+ok 241 - AES-192-OCB: round-trips and binds the AAD
+  ---
+  duration_ms: 0.144825
+  type: 'test'
+  ...
+# Subtest: AES-192-OCB: the cipher-suite id is bound, so a suite swap fails
+ok 242 - AES-192-OCB: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.140534
+  type: 'test'
+  ...
+# Subtest: AES-192-OCB: a truncated tag is refused by length before authentication
+ok 243 - AES-192-OCB: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.087023
+  type: 'test'
+  ...
+# Subtest: AES-192-OCB: a wrong-length nonce is rejected
+ok 244 - AES-192-OCB: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.061324
+  type: 'test'
+  ...
+# Subtest: AES-256-OCB: round-trips and binds the AAD
+ok 245 - AES-256-OCB: round-trips and binds the AAD
+  ---
+  duration_ms: 0.120978
+  type: 'test'
+  ...
+# Subtest: AES-256-OCB: the cipher-suite id is bound, so a suite swap fails
+ok 246 - AES-256-OCB: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.099906
+  type: 'test'
+  ...
+# Subtest: AES-256-OCB: a truncated tag is refused by length before authentication
+ok 247 - AES-256-OCB: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.075269
+  type: 'test'
+  ...
+# Subtest: AES-256-OCB: a wrong-length nonce is rejected
+ok 248 - AES-256-OCB: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.08011
+  type: 'test'
+  ...
+# Subtest: ARIA-128-GCM: round-trips and binds the AAD
+ok 249 - ARIA-128-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.147622
+  type: 'test'
+  ...
+# Subtest: ARIA-128-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 250 - ARIA-128-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.09783
+  type: 'test'
+  ...
+# Subtest: ARIA-128-GCM: a truncated tag is refused by length before authentication
+ok 251 - ARIA-128-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.123345
+  type: 'test'
+  ...
+# Subtest: ARIA-128-GCM: a wrong-length nonce is rejected
+ok 252 - ARIA-128-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.06104
+  type: 'test'
+  ...
+# Subtest: ARIA-192-GCM: round-trips and binds the AAD
+ok 253 - ARIA-192-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.169393
+  type: 'test'
+  ...
+# Subtest: ARIA-192-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 254 - ARIA-192-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.154167
+  type: 'test'
+  ...
+# Subtest: ARIA-192-GCM: a truncated tag is refused by length before authentication
+ok 255 - ARIA-192-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.105114
+  type: 'test'
+  ...
+# Subtest: ARIA-192-GCM: a wrong-length nonce is rejected
+ok 256 - ARIA-192-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.066271
+  type: 'test'
+  ...
+# Subtest: ARIA-256-GCM: round-trips and binds the AAD
+ok 257 - ARIA-256-GCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.12847
+  type: 'test'
+  ...
+# Subtest: ARIA-256-GCM: the cipher-suite id is bound, so a suite swap fails
+ok 258 - ARIA-256-GCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.098926
+  type: 'test'
+  ...
+# Subtest: ARIA-256-GCM: a truncated tag is refused by length before authentication
+ok 259 - ARIA-256-GCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.124986
+  type: 'test'
+  ...
+# Subtest: ARIA-256-GCM: a wrong-length nonce is rejected
+ok 260 - ARIA-256-GCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.058408
+  type: 'test'
+  ...
+# Subtest: ARIA-128-CCM: round-trips and binds the AAD
+ok 261 - ARIA-128-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.127666
+  type: 'test'
+  ...
+# Subtest: ARIA-128-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 262 - ARIA-128-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.101477
+  type: 'test'
+  ...
+# Subtest: ARIA-128-CCM: a truncated tag is refused by length before authentication
+ok 263 - ARIA-128-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.073993
+  type: 'test'
+  ...
+# Subtest: ARIA-128-CCM: a wrong-length nonce is rejected
+ok 264 - ARIA-128-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 1.193832
+  type: 'test'
+  ...
+# Subtest: ARIA-192-CCM: round-trips and binds the AAD
+ok 265 - ARIA-192-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.408292
+  type: 'test'
+  ...
+# Subtest: ARIA-192-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 266 - ARIA-192-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.126123
+  type: 'test'
+  ...
+# Subtest: ARIA-192-CCM: a truncated tag is refused by length before authentication
+ok 267 - ARIA-192-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.078182
+  type: 'test'
+  ...
+# Subtest: ARIA-192-CCM: a wrong-length nonce is rejected
+ok 268 - ARIA-192-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.055529
+  type: 'test'
+  ...
+# Subtest: ARIA-256-CCM: round-trips and binds the AAD
+ok 269 - ARIA-256-CCM: round-trips and binds the AAD
+  ---
+  duration_ms: 0.123428
+  type: 'test'
+  ...
+# Subtest: ARIA-256-CCM: the cipher-suite id is bound, so a suite swap fails
+ok 270 - ARIA-256-CCM: the cipher-suite id is bound, so a suite swap fails
+  ---
+  duration_ms: 0.113106
+  type: 'test'
+  ...
+# Subtest: ARIA-256-CCM: a truncated tag is refused by length before authentication
+ok 271 - ARIA-256-CCM: a truncated tag is refused by length before authentication
+  ---
+  duration_ms: 0.073126
+  type: 'test'
+  ...
+# Subtest: ARIA-256-CCM: a wrong-length nonce is rejected
+ok 272 - ARIA-256-CCM: a wrong-length nonce is rejected
+  ---
+  duration_ms: 0.052273
+  type: 'test'
+  ...
+# Subtest: unknown cipher suites never fall back to a default
+ok 273 - unknown cipher suites never fall back to a default
+  ---
+  duration_ms: 0.33247
+  type: 'test'
+  ...
+# Subtest: cSHAKE matches the NIST SP 800-185 sample vectors
+ok 274 - cSHAKE matches the NIST SP 800-185 sample vectors
+  ---
+  duration_ms: 4.118243
+  type: 'test'
+  ...
+# Subtest: KMAC matches the NIST SP 800-185 sample vectors
+ok 275 - KMAC matches the NIST SP 800-185 sample vectors
+  ---
+  duration_ms: 11.691631
+  type: 'test'
+  ...
+# Subtest: TupleHash and ParallelHash match the NIST sample vectors
+ok 276 - TupleHash and ParallelHash match the NIST sample vectors
+  ---
+  duration_ms: 3.141042
+  type: 'test'
+  ...
+# Subtest: cSHAKE with empty N and S IS SHAKE, per the specification
+ok 277 - cSHAKE with empty N and S IS SHAKE, per the specification
+  ---
+  duration_ms: 0.931147
+  type: 'test'
+  ...
+# Subtest: TupleHash distinguishes re-associations that concatenation cannot
+ok 278 - TupleHash distinguishes re-associations that concatenation cannot
+  ---
+  duration_ms: 0.893036
+  type: 'test'
+  ...
+# Subtest: TupleHash distinguishes element count
+ok 279 - TupleHash distinguishes element count
+  ---
+  duration_ms: 1.193239
+  type: 'test'
+  ...
+# Subtest: KMAC binds its output length: truncation is not a shorter valid tag
+ok 280 - KMAC binds its output length: truncation is not a shorter valid tag
+  ---
+  duration_ms: 1.203968
+  type: 'test'
+  ...
+# Subtest: KMAC binds the customization string
+ok 281 - KMAC binds the customization string
+  ---
+  duration_ms: 1.331448
+  type: 'test'
+  ...
+# Subtest: KMAC changes with the key
+ok 282 - KMAC changes with the key
+  ---
+  duration_ms: 1.686578
+  type: 'test'
+  ...
+# Subtest: cSHAKE binds the customization string
+ok 283 - cSHAKE binds the customization string
+  ---
+  duration_ms: 1.057951
+  type: 'test'
+  ...
+# Subtest: the SP 800-185 length encodings are canonical and unambiguous
+ok 284 - the SP 800-185 length encodings are canonical and unambiguous
+  ---
+  duration_ms: 0.350321
+  type: 'test'
+  ...
+# Subtest: an unknown SP 800-185 identifier is never dispatched
+ok 285 - an unknown SP 800-185 identifier is never dispatched
+  ---
+  duration_ms: 0.5638
+  type: 'test'
+  ...
+# Subtest: AES key wrap matches the RFC 3394 section 4.1 known-answer vector
+ok 286 - AES key wrap matches the RFC 3394 section 4.1 known-answer vector
+  ---
+  duration_ms: 0.653807
+  type: 'test'
+  ...
+# Subtest: AES-128-KW: wrap then unwrap recovers the key exactly
+ok 287 - AES-128-KW: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 1.524793
+  type: 'test'
+  ...
+# Subtest: AES-128-KW: a wrong KEK returns no key material
+ok 288 - AES-128-KW: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.204293
+  type: 'test'
+  ...
+# Subtest: AES-128-KW: every single-byte mutation of the wrapped blob is rejected
+ok 289 - AES-128-KW: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 1.171834
+  type: 'test'
+  ...
+# Subtest: AES-192-KW: wrap then unwrap recovers the key exactly
+ok 290 - AES-192-KW: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 0.248746
+  type: 'test'
+  ...
+# Subtest: AES-192-KW: a wrong KEK returns no key material
+ok 291 - AES-192-KW: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.102894
+  type: 'test'
+  ...
+# Subtest: AES-192-KW: every single-byte mutation of the wrapped blob is rejected
+ok 292 - AES-192-KW: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 0.932809
+  type: 'test'
+  ...
+# Subtest: AES-256-KW: wrap then unwrap recovers the key exactly
+ok 293 - AES-256-KW: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 0.119146
+  type: 'test'
+  ...
+# Subtest: AES-256-KW: a wrong KEK returns no key material
+ok 294 - AES-256-KW: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.157657
+  type: 'test'
+  ...
+# Subtest: AES-256-KW: every single-byte mutation of the wrapped blob is rejected
+ok 295 - AES-256-KW: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 0.943998
+  type: 'test'
+  ...
+# Subtest: AES-128-KWP: wrap then unwrap recovers the key exactly
+ok 296 - AES-128-KWP: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 0.133013
+  type: 'test'
+  ...
+# Subtest: AES-128-KWP: a wrong KEK returns no key material
+ok 297 - AES-128-KWP: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.09936
+  type: 'test'
+  ...
+# Subtest: AES-128-KWP: every single-byte mutation of the wrapped blob is rejected
+ok 298 - AES-128-KWP: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 0.68369
+  type: 'test'
+  ...
+# Subtest: AES-192-KWP: wrap then unwrap recovers the key exactly
+ok 299 - AES-192-KWP: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 0.131764
+  type: 'test'
+  ...
+# Subtest: AES-192-KWP: a wrong KEK returns no key material
+ok 300 - AES-192-KWP: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.093006
+  type: 'test'
+  ...
+# Subtest: AES-192-KWP: every single-byte mutation of the wrapped blob is rejected
+ok 301 - AES-192-KWP: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 0.705578
+  type: 'test'
+  ...
+# Subtest: AES-256-KWP: wrap then unwrap recovers the key exactly
+ok 302 - AES-256-KWP: wrap then unwrap recovers the key exactly
+  ---
+  duration_ms: 0.160626
+  type: 'test'
+  ...
+# Subtest: AES-256-KWP: a wrong KEK returns no key material
+ok 303 - AES-256-KWP: a wrong KEK returns no key material
+  ---
+  duration_ms: 0.110456
+  type: 'test'
+  ...
+# Subtest: AES-256-KWP: every single-byte mutation of the wrapped blob is rejected
+ok 304 - AES-256-KWP: every single-byte mutation of the wrapped blob is rejected
+  ---
+  duration_ms: 0.753173
+  type: 'test'
+  ...
+# Subtest: unpadded key wrap refuses a length that is not a multiple of 8
+ok 305 - unpadded key wrap refuses a length that is not a multiple of 8
+  ---
+  duration_ms: 0.150238
+  type: 'test'
+  ...
+# Subtest: unpadded key wrap refuses fewer than 16 bytes of key material
+ok 306 - unpadded key wrap refuses fewer than 16 bytes of key material
+  ---
+  duration_ms: 0.114535
+  type: 'test'
+  ...
+# Subtest: padded key wrap accepts arbitrary lengths that the unpadded form cannot
+ok 307 - padded key wrap accepts arbitrary lengths that the unpadded form cannot
+  ---
+  duration_ms: 0.38838
+  type: 'test'
+  ...
+# Subtest: an unknown key-wrap identifier is never dispatched
+ok 308 - an unknown key-wrap identifier is never dispatched
+  ---
+  duration_ms: 0.148142
+  type: 'test'
+  ...
+# Subtest: buildTimestampRequest produces a well-formed TimeStampReq for each supported hash
+ok 309 - buildTimestampRequest produces a well-formed TimeStampReq for each supported hash
+  ---
+  duration_ms: 3.902223
+  type: 'test'
+  ...
+# Subtest: buildTimestampRequest omits certReq when false, per the DEFAULT FALSE grammar
+ok 310 - buildTimestampRequest omits certReq when false, per the DEFAULT FALSE grammar
+  ---
+  duration_ms: 0.27819
+  type: 'test'
+  ...
+# Subtest: buildTimestampRequest rejects a digest of the wrong length for the declared algorithm
+ok 311 - buildTimestampRequest rejects a digest of the wrong length for the declared algorithm
+  ---
+  duration_ms: 0.427569
+  type: 'test'
+  ...
+# Subtest: parseTimestampResponse recovers the asserted time and the message imprint
+ok 312 - parseTimestampResponse recovers the asserted time and the message imprint
+  ---
+  duration_ms: 0.943837
+  type: 'test'
+  ...
+# Subtest: verifyBinding is true only for the digest the token actually imprints
+ok 313 - verifyBinding is true only for the digest the token actually imprints
+  ---
+  duration_ms: 0.408277
+  type: 'test'
+  ...
+# Subtest: parseTimestampResponse reports rejection status without throwing
+ok 314 - parseTimestampResponse reports rejection status without throwing
+  ---
+  duration_ms: 0.309784
+  type: 'test'
+  ...
+# Subtest: OpenTimestamps: build then parse round-trips digest, hash algorithm, and header magic
+ok 315 - OpenTimestamps: build then parse round-trips digest, hash algorithm, and header magic
+  ---
+  duration_ms: 1.098718
+  type: 'test'
+  ...
+# Subtest: OpenTimestamps: op replay recovers the exact digest each attestation commits to
+ok 316 - OpenTimestamps: op replay recovers the exact digest each attestation commits to
+  ---
+  duration_ms: 0.743059
+  type: 'test'
+  ...
+# Subtest: OpenTimestamps: branching to two attestations from the same message is parsed correctly
+ok 317 - OpenTimestamps: branching to two attestations from the same message is parsed correctly
+  ---
+  duration_ms: 0.585405
+  type: 'test'
+  ...
+# Subtest: OpenTimestamps: SHA1 and RIPEMD160 chain ops replay against node:crypto, KECCAK256 against this repo's own digest
+ok 318 - OpenTimestamps: SHA1 and RIPEMD160 chain ops replay against node:crypto, KECCAK256 against this repo's own digest
+  ---
+  duration_ms: 0.844436
+  type: 'test'
+  ...
+# Subtest: transcript round-trips tag and fields exactly
+ok 319 - transcript round-trips tag and fields exactly
+  ---
+  duration_ms: 1.545555
+  type: 'test'
+  ...
+# Subtest: an unregistered domain tag cannot be used
+ok 320 - an unregistered domain tag cannot be used
+  ---
+  duration_ms: 0.44046
+  type: 'test'
+  ...
+# Subtest: different domains over identical fields produce different bytes
+ok 321 - different domains over identical fields produce different bytes
+  ---
+  duration_ms: 0.381783
+  type: 'test'
+  ...
+# Subtest: field boundaries cannot be shifted: ["ab","c"] and ["a","bc"] differ
+ok 322 - field boundaries cannot be shifted: ["ab","c"] and ["a","bc"] differ
+  ---
+  duration_ms: 0.188652
+  type: 'test'
+  ...
+# Subtest: field count is bound: ["a"] and ["a",""] differ
+ok 323 - field count is bound: ["a"] and ["a",""] differ
+  ---
+  duration_ms: 0.336121
+  type: 'test'
+  ...
+# Subtest: a field containing the domain tag text does not forge a transcript
+ok 324 - a field containing the domain tag text does not forge a transcript
+  ---
+  duration_ms: 0.269987
+  type: 'test'
+  ...
+# Subtest: injectivity over a generated corpus: distinct inputs, distinct encodings
+ok 325 - injectivity over a generated corpus: distinct inputs, distinct encodings
+  ---
+  duration_ms: 2.383339
+  type: 'test'
+  ...
+# Subtest: trailing bytes after a transcript are rejected
+ok 326 - trailing bytes after a transcript are rejected
+  ---
+  duration_ms: 0.426745
+  type: 'test'
+  ...
+# Subtest: a truncated transcript is rejected, not silently short-read
+ok 327 - a truncated transcript is rejected, not silently short-read
+  ---
+  duration_ms: 0.490532
+  type: 'test'
+  ...
+# Subtest: every registered tag is versioned and recognized
+ok 328 - every registered tag is versioned and recognized
+  ---
+  duration_ms: 0.662362
+  type: 'test'
+  ...
+1..328
+# tests 328
 # suites 0
-# pass 41
+# pass 328
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 150.692735
+# duration_ms 5016.967169
 
 
 ===== negative tests =====
@@ -326,126 +2064,198 @@ TAP version 13
 # Subtest: rejects: duplicate top-level key
 ok 1 - rejects: duplicate top-level key
   ---
-  duration_ms: 1.807978
+  duration_ms: 1.75893
   type: 'test'
   ...
 # Subtest: rejects: duplicate key differing only in later value
 ok 2 - rejects: duplicate key differing only in later value
   ---
-  duration_ms: 0.377679
+  duration_ms: 0.328512
   type: 'test'
   ...
 # Subtest: rejects: trailing comma in object
 ok 3 - rejects: trailing comma in object
   ---
-  duration_ms: 0.124069
+  duration_ms: 0.165153
   type: 'test'
   ...
 # Subtest: rejects: trailing comma in array
 ok 4 - rejects: trailing comma in array
   ---
-  duration_ms: 0.256268
+  duration_ms: 0.229804
   type: 'test'
   ...
 # Subtest: rejects: unquoted key
 ok 5 - rejects: unquoted key
   ---
-  duration_ms: 0.131004
+  duration_ms: 0.10992
   type: 'test'
   ...
 # Subtest: rejects: single-quoted string
 ok 6 - rejects: single-quoted string
   ---
-  duration_ms: 0.185106
+  duration_ms: 0.09069
   type: 'test'
   ...
 # Subtest: rejects: leading zero integer
 ok 7 - rejects: leading zero integer
   ---
-  duration_ms: 0.23656
+  duration_ms: 0.190875
   type: 'test'
   ...
 # Subtest: rejects: leading zero in fraction position is fine but leading zero in int is not
 ok 8 - rejects: leading zero in fraction position is fine but leading zero in int is not
   ---
-  duration_ms: 0.131668
+  duration_ms: 0.099318
   type: 'test'
   ...
 # Subtest: rejects: leading zero rejected inside a container, via the container's own trailing-token check
 ok 9 - rejects: leading zero rejected inside a container, via the container's own trailing-token check
   ---
-  duration_ms: 0.512085
+  duration_ms: 0.329963
   type: 'test'
   ...
 # Subtest: rejects: bare NaN
 ok 10 - rejects: bare NaN
   ---
-  duration_ms: 0.451057
+  duration_ms: 0.415085
   type: 'test'
   ...
 # Subtest: rejects: bare Infinity
 ok 11 - rejects: bare Infinity
   ---
-  duration_ms: 0.263105
+  duration_ms: 0.172226
   type: 'test'
   ...
 # Subtest: rejects: unterminated string
 ok 12 - rejects: unterminated string
   ---
-  duration_ms: 0.131662
+  duration_ms: 0.08888
   type: 'test'
   ...
 # Subtest: rejects: unescaped control character in string
 ok 13 - rejects: unescaped control character in string
   ---
-  duration_ms: 0.095003
+  duration_ms: 0.067888
   type: 'test'
   ...
 # Subtest: rejects: invalid escape
 ok 14 - rejects: invalid escape
   ---
-  duration_ms: 0.150417
+  duration_ms: 0.068787
   type: 'test'
   ...
 # Subtest: rejects: trailing garbage after valid value
 ok 15 - rejects: trailing garbage after valid value
   ---
-  duration_ms: 0.076899
+  duration_ms: 0.068837
   type: 'test'
   ...
 # Subtest: rejects: empty input
 ok 16 - rejects: empty input
   ---
-  duration_ms: 0.067345
+  duration_ms: 0.06453
   type: 'test'
   ...
 # Subtest: rejects: unpaired high surrogate via \\u escape
 ok 17 - rejects: unpaired high surrogate via \\u escape
   ---
-  duration_ms: 0.125461
+  duration_ms: 0.13934
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects a plain object even if structurally value-like
 ok 18 - canonicalizeValue rejects a plain object even if structurally value-like
   ---
-  duration_ms: 1.352677
+  duration_ms: 1.417723
   type: 'test'
   ...
 # Subtest: canonicalizeValue rejects a function, symbol, and bigint
 ok 19 - canonicalizeValue rejects a function, symbol, and bigint
   ---
-  duration_ms: 0.153007
+  duration_ms: 0.180877
   type: 'test'
   ...
-1..19
-# tests 19
+# Subtest: rfc3161 negative vector: rfc3161/truncated-response
+ok 20 - rfc3161 negative vector: rfc3161/truncated-response
+  ---
+  duration_ms: 1.591168
+  type: 'test'
+  ...
+# Subtest: rfc3161 negative vector: rfc3161/not-a-sequence
+ok 21 - rfc3161 negative vector: rfc3161/not-a-sequence
+  ---
+  duration_ms: 0.26281
+  type: 'test'
+  ...
+# Subtest: rfc3161 negative vector: rfc3161/empty-response
+ok 22 - rfc3161 negative vector: rfc3161/empty-response
+  ---
+  duration_ms: 0.111463
+  type: 'test'
+  ...
+# Subtest: opentimestamps negative vector: ots/bad-magic
+ok 23 - opentimestamps negative vector: ots/bad-magic
+  ---
+  duration_ms: 0.366472
+  type: 'test'
+  ...
+# Subtest: opentimestamps negative vector: ots/truncated
+ok 24 - opentimestamps negative vector: ots/truncated
+  ---
+  duration_ms: 0.259755
+  type: 'test'
+  ...
+# Subtest: opentimestamps negative vector: ots/unsupported-major-version
+ok 25 - opentimestamps negative vector: ots/unsupported-major-version
+  ---
+  duration_ms: 0.117489
+  type: 'test'
+  ...
+# Subtest: opentimestamps negative vector: ots/empty
+ok 26 - opentimestamps negative vector: ots/empty
+  ---
+  duration_ms: 0.158766
+  type: 'test'
+  ...
+# Subtest: buildTimestampRequest rejects an unsupported hash algorithm name
+ok 27 - buildTimestampRequest rejects an unsupported hash algorithm name
+  ---
+  duration_ms: 0.241579
+  type: 'test'
+  ...
+# Subtest: buildTimestampRequest rejects a non-Uint8Array digest
+ok 28 - buildTimestampRequest rejects a non-Uint8Array digest
+  ---
+  duration_ms: 0.330858
+  type: 'test'
+  ...
+# Subtest: buildDetachedTimestamp rejects an unsupported hash algorithm name
+ok 29 - buildDetachedTimestamp rejects an unsupported hash algorithm name
+  ---
+  duration_ms: 0.543143
+  type: 'test'
+  ...
+# Subtest: buildDetachedTimestamp rejects a digest of the wrong length for the declared algorithm
+ok 30 - buildDetachedTimestamp rejects a digest of the wrong length for the declared algorithm
+  ---
+  duration_ms: 0.213297
+  type: 'test'
+  ...
+# Subtest: a wrong-length digest never verifies against a genuine OTS proof
+ok 31 - a wrong-length digest never verifies against a genuine OTS proof
+  ---
+  duration_ms: 1.032698
+  type: 'test'
+  ...
+1..31
+# tests 31
 # suites 0
-# pass 19
+# pass 31
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 119.524236
+# duration_ms 113.774107
 
 
 ===== hostile-input tests =====
@@ -456,96 +2266,330 @@ TAP version 13
 # Subtest: hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack
 ok 1 - hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack
   ---
-  duration_ms: 2.12196
+  duration_ms: 6.908149
   type: 'test'
   ...
 # Subtest: hostile: nesting just at the default depth bound is accepted
 ok 2 - hostile: nesting just at the default depth bound is accepted
   ---
-  duration_ms: 1.953005
+  duration_ms: 0.858794
   type: 'test'
   ...
 # Subtest: hostile: a custom maxDepth is honored
 ok 3 - hostile: a custom maxDepth is honored
   ---
-  duration_ms: 0.310436
+  duration_ms: 0.271392
   type: 'test'
   ...
 # Subtest: hostile: very large flat array parses and canonicalizes correctly (no silent truncation)
 ok 4 - hostile: very large flat array parses and canonicalizes correctly (no silent truncation)
   ---
-  duration_ms: 42.321606
+  duration_ms: 48.385281
   type: 'test'
   ...
 # Subtest: hostile: object with many keys — no key silently dropped, no silent cap
 ok 5 - hostile: object with many keys — no key silently dropped, no silent cap
   ---
-  duration_ms: 19.249198
+  duration_ms: 22.675423
   type: 'test'
   ...
 # Subtest: hostile: negative-zero and positive-zero canonicalize to the identical byte sequence
 ok 6 - hostile: negative-zero and positive-zero canonicalize to the identical byte sequence
   ---
-  duration_ms: 0.257571
+  duration_ms: 0.43545
   type: 'test'
   ...
 # Subtest: hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds
 ok 7 - hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds
   ---
-  duration_ms: 0.404547
+  duration_ms: 0.751951
   type: 'test'
   ...
 # Subtest: hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded
 ok 8 - hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded
   ---
-  duration_ms: 0.17037
+  duration_ms: 0.29006
   type: 'test'
   ...
 # Subtest: hostile: hex input with embedded null byte or control character is rejected, not silently stripped
 ok 9 - hostile: hex input with embedded null byte or control character is rejected, not silently stripped
   ---
-  duration_ms: 0.425269
+  duration_ms: 1.033619
   type: 'test'
   ...
 # Subtest: hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted
 ok 10 - hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted
   ---
-  duration_ms: 0.473858
+  duration_ms: 0.430832
   type: 'test'
   ...
 # Subtest: hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown
 ok 11 - hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown
   ---
-  duration_ms: 0.286633
+  duration_ms: 0.339711
   type: 'test'
   ...
 # Subtest: hostile: string with maximum-codepoint characters round-trips through canonicalization
 ok 12 - hostile: string with maximum-codepoint characters round-trips through canonicalization
   ---
-  duration_ms: 0.474923
+  duration_ms: 0.408818
   type: 'test'
   ...
 # Subtest: hostile: repeated backslash-quote sequences do not desynchronize the string scanner
 ok 13 - hostile: repeated backslash-quote sequences do not desynchronize the string scanner
   ---
-  duration_ms: 0.166322
+  duration_ms: 0.111815
   type: 'test'
   ...
 # Subtest: hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution
 ok 14 - hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution
   ---
-  duration_ms: 0.148865
+  duration_ms: 0.139998
   type: 'test'
   ...
-1..14
-# tests 14
+# Subtest: hostile: an oversized declared field length is rejected, not allocated
+ok 15 - hostile: an oversized declared field length is rejected, not allocated
+  ---
+  duration_ms: 5.690323
+  type: 'test'
+  ...
+# Subtest: hostile: a truncated record does not short-read into a valid parse
+ok 16 - hostile: a truncated record does not short-read into a valid parse
+  ---
+  duration_ms: 0.751342
+  type: 'test'
+  ...
+# Subtest: hostile: trailing bytes appended to a valid transcript are rejected
+ok 17 - hostile: trailing bytes appended to a valid transcript are rejected
+  ---
+  duration_ms: 0.379101
+  type: 'test'
+  ...
+# Subtest: hostile: algorithm substitution is refused for every implemented family
+ok 18 - hostile: algorithm substitution is refused for every implemented family
+  ---
+  duration_ms: 4.346503
+  type: 'test'
+  ...
+# Subtest: hostile: an unknown mandatory algorithm never degrades to a default
+ok 19 - hostile: an unknown mandatory algorithm never degrades to a default
+  ---
+  duration_ms: 1.565949
+  type: 'test'
+  ...
+# Subtest: hostile: key substitution does not verify
+ok 20 - hostile: key substitution does not verify
+  ---
+  duration_ms: 1.073396
+  type: 'test'
+  ...
+# Subtest: hostile: signer-id substitution changes the transcript and fails
+ok 21 - hostile: signer-id substitution changes the transcript and fails
+  ---
+  duration_ms: 0.697999
+  type: 'test'
+  ...
+# Subtest: hostile: authentication-tag truncation is refused by length
+ok 22 - hostile: authentication-tag truncation is refused by length
+  ---
+  duration_ms: 2.528363
+  type: 'test'
+  ...
+# Subtest: hostile: nonce truncation is refused before any cipher work
+ok 23 - hostile: nonce truncation is refused before any cipher work
+  ---
+  duration_ms: 0.424768
+  type: 'test'
+  ...
+# Subtest: hostile: cipher-suite substitution fails authentication
+ok 24 - hostile: cipher-suite substitution fails authentication
+  ---
+  duration_ms: 1.010755
+  type: 'test'
+  ...
+# Subtest: hostile: no failure path ever exposes a plaintext field
+ok 25 - hostile: no failure path ever exposes a plaintext field
+  ---
+  duration_ms: 0.424051
+  type: 'test'
+  ...
+# Subtest: hostile: a substituted KEM ciphertext yields a different secret, never the original
+ok 26 - hostile: a substituted KEM ciphertext yields a different secret, never the original
+  ---
+  duration_ms: 2.816382
+  type: 'test'
+  ...
+# Subtest: hostile: a malformed KEM ciphertext is rejected, not coerced
+ok 27 - hostile: a malformed KEM ciphertext is rejected, not coerced
+  ---
+  duration_ms: 0.499257
+  type: 'test'
+  ...
+# Subtest: hostile: a proof-depth overflow is rejected before traversal
+ok 28 - hostile: a proof-depth overflow is rejected before traversal
+  ---
+  duration_ms: 3.895279
+  type: 'test'
+  ...
+# Subtest: hostile: every wrong position for a valid proof is rejected
+ok 29 - hostile: every wrong position for a valid proof is rejected
+  ---
+  duration_ms: 0.501531
+  type: 'test'
+  ...
+# Subtest: hostile: an out-of-range proof index is rejected
+ok 30 - hostile: an out-of-range proof index is rejected
+  ---
+  duration_ms: 0.34607
+  type: 'test'
+  ...
+# Subtest: hostile: every single-sibling mutation of a valid proof is rejected
+ok 31 - hostile: every single-sibling mutation of a valid proof is rejected
+  ---
+  duration_ms: 0.635531
+  type: 'test'
+  ...
+# Subtest: hostile: a malformed proof object is MALFORMED, not a silent false
+ok 32 - hostile: a malformed proof object is MALFORMED, not a silent false
+  ---
+  duration_ms: 0.331337
+  type: 'test'
+  ...
+# Subtest: hostile: an MMR rollback cannot reproduce an earlier honest root
+ok 33 - hostile: an MMR rollback cannot reproduce an earlier honest root
+  ---
+  duration_ms: 4.996348
+  type: 'test'
+  ...
+# Subtest: hostile: conflicting signed heads at equal size are reported as a fork
+ok 34 - hostile: conflicting signed heads at equal size are reported as a fork
+  ---
+  duration_ms: 0.522994
+  type: 'test'
+  ...
+# Subtest: hostile: reordering log records breaks the chain deterministically
+ok 35 - hostile: reordering log records breaks the chain deterministically
+  ---
+  duration_ms: 0.589389
+  type: 'test'
+  ...
+# Subtest: hostile: deleting a log record is detected
+ok 36 - hostile: deleting a log record is detected
+  ---
+  duration_ms: 0.37551
+  type: 'test'
+  ...
+# Subtest: hostile: cyclic lineage terminates with LINEAGE_CYCLE, it does not hang
+ok 37 - hostile: cyclic lineage terminates with LINEAGE_CYCLE, it does not hang
+  ---
+  duration_ms: 1.613743
+  type: 'test'
+  ...
+# Subtest: hostile: an excessive parent count is LIMIT_EXCEEDED
+ok 38 - hostile: an excessive parent count is LIMIT_EXCEEDED
+  ---
+  duration_ms: 0.253551
+  type: 'test'
+  ...
+# Subtest: hostile: an excessive node count is refused before traversal
+ok 39 - hostile: an excessive node count is refused before traversal
+  ---
+  duration_ms: 0.246739
+  type: 'test'
+  ...
+# Subtest: hostile: a deep lineage exhausts a small step budget rather than running unbounded
+ok 40 - hostile: a deep lineage exhausts a small step budget rather than running unbounded
+  ---
+  duration_ms: 1.873572
+  type: 'test'
+  ...
+# Subtest: hostile: a graph node cannot be built that is its own parent
+ok 41 - hostile: a graph node cannot be built that is its own parent
+  ---
+  duration_ms: 0.538643
+  type: 'test'
+  ...
+# Subtest: hostile: a step budget converts unbounded work into RESOURCE_EXHAUSTED
+ok 42 - hostile: a step budget converts unbounded work into RESOURCE_EXHAUSTED
+  ---
+  duration_ms: 0.118825
+  type: 'test'
+  ...
+# Subtest: hostile: a non-integer or negative declared size is LIMIT_EXCEEDED, not NaN arithmetic
+ok 43 - hostile: a non-integer or negative declared size is LIMIT_EXCEEDED, not NaN arithmetic
+  ---
+  duration_ms: 0.224586
+  type: 'test'
+  ...
+# Subtest: hostile: an exception from a provider adapter surfaces as PROVIDER_UNAVAILABLE
+ok 44 - hostile: an exception from a provider adapter surfaces as PROVIDER_UNAVAILABLE
+  ---
+  duration_ms: 1.708366
+  type: 'test'
+  ...
+# Subtest: hostile: an unavailable provider never returns a manufactured signature
+ok 45 - hostile: an unavailable provider never returns a manufactured signature
+  ---
+  duration_ms: 0.77993
+  type: 'test'
+  ...
+# Subtest: hostile: resource exhaustion never yields an accepting verdict
+ok 46 - hostile: resource exhaustion never yields an accepting verdict
+  ---
+  duration_ms: 0.155301
+  type: 'test'
+  ...
+# Subtest: rfc3161: every single-byte mutation of a valid response either throws MALFORMED or changes the parse — never crashes uncaught
+ok 47 - rfc3161: every single-byte mutation of a valid response either throws MALFORMED or changes the parse — never crashes uncaught
+  ---
+  duration_ms: 3.64867
+  type: 'test'
+  ...
+# Subtest: rfc3161: deeply nested DER is rejected by the explicit depth bound, not an engine stack overflow
+ok 48 - rfc3161: deeply nested DER is rejected by the explicit depth bound, not an engine stack overflow
+  ---
+  duration_ms: 0.812402
+  type: 'test'
+  ...
+# Subtest: rfc3161: a claimed length past the end of the buffer is rejected, never read out of bounds
+ok 49 - rfc3161: a claimed length past the end of the buffer is rejected, never read out of bounds
+  ---
+  duration_ms: 0.16608
+  type: 'test'
+  ...
+# Subtest: opentimestamps: every single-byte mutation of a valid proof either throws MALFORMED or is still internally consistent — never crashes uncaught
+ok 50 - opentimestamps: every single-byte mutation of a valid proof either throws MALFORMED or is still internally consistent — never crashes uncaught
+  ---
+  duration_ms: 2.94564
+  type: 'test'
+  ...
+# Subtest: opentimestamps: a varuint with an unbounded continuation-bit run is rejected, not looped forever
+ok 51 - opentimestamps: a varuint with an unbounded continuation-bit run is rejected, not looped forever
+  ---
+  duration_ms: 0.599295
+  type: 'test'
+  ...
+# Subtest: opentimestamps: an append/prepend argument declared longer than the remaining buffer is rejected
+ok 52 - opentimestamps: an append/prepend argument declared longer than the remaining buffer is rejected
+  ---
+  duration_ms: 0.266565
+  type: 'test'
+  ...
+# Subtest: opentimestamps: a buffer that ends right after the digest, with no timestamp tag byte at all, is rejected rather than accepted as vacuously verified
+ok 53 - opentimestamps: a buffer that ends right after the digest, with no timestamp tag byte at all, is rejected rather than accepted as vacuously verified
+  ---
+  duration_ms: 0.385753
+  type: 'test'
+  ...
+1..53
+# tests 53
 # suites 0
-# pass 14
+# pass 53
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 182.392924
+# duration_ms 201.329559
 
 
 ===== Reviewed findings from the stub-marker scan =====

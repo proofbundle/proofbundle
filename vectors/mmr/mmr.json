@@ -1,0 +1,285 @@
+[
+  {
+    "label": "mmr/9-leaf-root",
+    "leaf_count": 9,
+    "leaves_hex": [
+      "656e7472792d30",
+      "656e7472792d31",
+      "656e7472792d32",
+      "656e7472792d33",
+      "656e7472792d34",
+      "656e7472792d35",
+      "656e7472792d36",
+      "656e7472792d37",
+      "656e7472792d38"
+    ],
+    "expected_root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "peak_count": 2,
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-0",
+    "leaf_hex": "656e7472792d30",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 0,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "9ff70fc461024610d669ead6c94e31fa98e7eb9d868a8c5a8e23b22fb029e507",
+          "isLeft": false
+        },
+        {
+          "hash": "78b6ce17ef1695e0d6ed939ec805474bbcfd2d413bba1baaeaf7dd6cc14d532f",
+          "isLeft": false
+        },
+        {
+          "hash": "2dc779c26c4f91eab5c9a04d525bd4f3880f744a17b923f5a05e5ca4bea04ad6",
+          "isLeft": false
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-1",
+    "leaf_hex": "656e7472792d31",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 1,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "0153fc47425c993bea84c389dc00cbd9df4dfbb87e9625e2a04e6a217c1d9c8e",
+          "isLeft": true
+        },
+        {
+          "hash": "78b6ce17ef1695e0d6ed939ec805474bbcfd2d413bba1baaeaf7dd6cc14d532f",
+          "isLeft": false
+        },
+        {
+          "hash": "2dc779c26c4f91eab5c9a04d525bd4f3880f744a17b923f5a05e5ca4bea04ad6",
+          "isLeft": false
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-2",
+    "leaf_hex": "656e7472792d32",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 2,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "09f2037773e3c6a66331b79fa7832a2e44d2063b7d9a3c5156e4847f7eb7e575",
+          "isLeft": false
+        },
+        {
+          "hash": "733e1c02d628ff9bf894b6bcf162a1f8970c2e6e72cce62e5549910d713e5b86",
+          "isLeft": true
+        },
+        {
+          "hash": "2dc779c26c4f91eab5c9a04d525bd4f3880f744a17b923f5a05e5ca4bea04ad6",
+          "isLeft": false
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-3",
+    "leaf_hex": "656e7472792d33",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 3,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "b7bc4ca9f27a1831a98bf6f03907d4c25cc4b37e07bb9f73ca787c7d9b9b07d1",
+          "isLeft": true
+        },
+        {
+          "hash": "733e1c02d628ff9bf894b6bcf162a1f8970c2e6e72cce62e5549910d713e5b86",
+          "isLeft": true
+        },
+        {
+          "hash": "2dc779c26c4f91eab5c9a04d525bd4f3880f744a17b923f5a05e5ca4bea04ad6",
+          "isLeft": false
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-4",
+    "leaf_hex": "656e7472792d34",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 4,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "c824e780c09701c450250a361953ba11b4bd2ae8b95b95fb2161918bc2b8c80e",
+          "isLeft": false
+        },
+        {
+          "hash": "86614cbd6b18a7430ad99ec87ef93c18d5841498ba0d03ae53f6ee719c12f285",
+          "isLeft": false
+        },
+        {
+          "hash": "79f3948f44b00445d5a7d5effdcb2cf42039a708260c190ccc3bfc3327947997",
+          "isLeft": true
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-5",
+    "leaf_hex": "656e7472792d35",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 5,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "ded3d156ba27669f490edce68ece6efcbc5b7465f639502b0a7907eab60fa498",
+          "isLeft": true
+        },
+        {
+          "hash": "86614cbd6b18a7430ad99ec87ef93c18d5841498ba0d03ae53f6ee719c12f285",
+          "isLeft": false
+        },
+        {
+          "hash": "79f3948f44b00445d5a7d5effdcb2cf42039a708260c190ccc3bfc3327947997",
+          "isLeft": true
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-6",
+    "leaf_hex": "656e7472792d36",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 6,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "421fdd5d5b75d9cb878c4d9327e5b8e6c6e9520b67bf1a9fd43a7a0faac8b331",
+          "isLeft": false
+        },
+        {
+          "hash": "4df2ede21040329e2efadb075c94d558a796a86d50df4860f4424343ce6e4c7f",
+          "isLeft": true
+        },
+        {
+          "hash": "79f3948f44b00445d5a7d5effdcb2cf42039a708260c190ccc3bfc3327947997",
+          "isLeft": true
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-7",
+    "leaf_hex": "656e7472792d37",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 7,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 0,
+      "siblings": [
+        {
+          "hash": "275e7e1004ac4d38bc0ce8fa492eb83ca36635c01cea7048c2c2a80b108d8dd4",
+          "isLeft": true
+        },
+        {
+          "hash": "4df2ede21040329e2efadb075c94d558a796a86d50df4860f4424343ce6e4c7f",
+          "isLeft": true
+        },
+        {
+          "hash": "79f3948f44b00445d5a7d5effdcb2cf42039a708260c190ccc3bfc3327947997",
+          "isLeft": true
+        }
+      ],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/inclusion-8",
+    "leaf_hex": "656e7472792d38",
+    "root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "proof": {
+      "leafIndex": 8,
+      "leafCount": 9,
+      "digestAlg": "SHA-256",
+      "peakIndex": 1,
+      "siblings": [],
+      "peaks": [
+        "e2b8c1c987f0317f3f5aa8c8d44272e08093071fc945236bd4180b393851477f",
+        "462b1b4c4b5acaaee789611a981dc06b9a7d0313ac3d45360b72837eda4b2dc3"
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "mmr/rollback-9-to-7",
+    "truncated_leaf_count": 7,
+    "genuine_7_root_hex": "595ae5c2decfdf9bdbbc359243a329b04046c7d5e0323ab6374b3b152a36c15e",
+    "full_9_root_hex": "3e87d1433033b11701af36fffb78599f366b1e549a443fe4fa829c7abf6be1e5",
+    "expected_verdict": "LINEAGE_INVALID",
+    "note": "leaf count is bound into the root, so a truncated log cannot present an earlier honest root"
+  }
+]

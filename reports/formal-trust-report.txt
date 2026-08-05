@@ -1,0 +1,71 @@
+ProofBundle formal-trust report
+date_utc: 2026-08-05T04:18:27Z
+
+1. IS ANY LEAN THEOREM COMPILED?  No. Zero. Toolchain absent (exit 127).
+2. IS THE MJS IMPLEMENTATION FORMALLY VERIFIED?  No.
+
+   No refinement bridge and no extraction bridge exists between the Lean
+   model and the .mjs implementation. Per the specification's own rule, the
+   MJS implementation is therefore NOT described as formally verified
+   anywhere in this project. There is no shared decision-vector set, no
+   Lean evaluator run, and no recorded mismatch table, because none of
+   those artifacts can be produced without a working Lean toolchain.
+
+3. WHAT THE PROJECT'S GUARANTEES ACTUALLY REST ON, TODAY:
+   - executed tests (398 passing)
+   - executed vector checks (751 passing, 14 checked against an external
+     NIST/RFC value: SP 800-185 cSHAKE/KMAC/TupleHash/ParallelHash samples
+     and the RFC 3394 4.1 AES key wrap known-answer vector)
+   - the external assumptions enumerated in ASSUMPTIONS.md
+   Nothing rests on a machine-checked proof, because there is not one.
+
+4. CLAIMS APPEARING IN PROJECT PROSE THAT ARE NOT SUPPORTED BY THIS BUILD:
+   The following appear in the originating specification and in prior
+   project material. Each is listed with its actual status here.
+
+   'Direct Acyclicity proved: 0 axioms, 0 admits, 0 sorry, 0 propext'
+      -> NOT SUPPORTED. No compiled Lean theorem of any kind exists.
+         Acyclicity is enforced and tested in code (CHK-LINEAGE-ACYCLIC),
+         which is a test, not a proof.
+   'Every component has a corresponding Lean formalization'
+      -> NOT SUPPORTED. Two Lean files exist, both uncompiled.
+   'Rocq 8.18 admissibility / cross-formalism gate'
+      -> NOT SUPPORTED. coqc is absent; no Coq file was compiled here.
+   'The model does not hallucinate / output constrained by verification
+    theorems' -> NOT SUPPORTED and OUT OF SCOPE. No model, inference loop,
+         or retrieval system is implemented in this repository slice.
+   'Runs on 1,000,000+ memories'
+      -> NOT SUPPORTED. No such system is present or exercised.
+   '17% admissibility, p < 0.001, Monte Carlo reproducible'
+      -> NOT SUPPORTED. No such binary, operator set, or measurement
+         exists in this repository.
+   'Every decision timestamped on multiple blockchains'
+      -> NOT SUPPORTED. No decision loop exists that automatically
+         timestamps anything, and no blockchain confirmation is performed —
+         this build has no outbound network access, so a real TSA or
+         OpenTimestamps calendar can never be reached from here.
+         What IS implemented and tested (src/timestamp/rfc3161.mjs,
+         src/timestamp/opentimestamps.mjs, added 2026-08-05): a conformant
+         RFC 3161 TimeStampReq encoder; a TimeStampResp parser that
+         recovers the asserted time and checks the message imprint binds
+         to a given digest (not a CMS signature-chain check — that still
+         needs a trust anchor this module isn't given); and an
+         OpenTimestamps .ots encoder/parser that replays the operation
+         chain (append/prepend/reverse/hexlify/sha1/ripemd160/sha256/
+         keccak256) to recover the exact digest each attestation commits
+         to. A BITCOIN/LITECOIN attestation here means "the proof
+         structurally claims this height commits to this digest," not
+         "confirmed against the chain" — that confirmation is the part
+         that needs the network this build doesn't have. The RFC 3161 and
+         OpenTimestamps provider rows in capabilities.mjs still correctly
+         report PROVIDER_UNAVAILABLE — that row is specifically about live
+         TSA/calendar submission, which remains unavailable; it was never
+         about whether the request/response formats could be implemented.
+   'EU AI Act compliance demonstrable end to end'
+      -> NOT SUPPORTED. No Act mapping artifact is produced by this build.
+
+5. WHAT A VERIFIED SIGNATURE MEANS HERE:
+   That the holder of a private key produced a signature over exactly those
+   bytes, subject to ASSUMPTION-SIGNATURE-CORRECTNESS. It does NOT mean the
+   signed statement is true, and it does NOT identify who controls the key.
+   The CLI prints this scope note on every successful verification.

@@ -40,8 +40,27 @@ date_utc: 2026-08-05T04:18:27Z
       -> NOT SUPPORTED. No such binary, operator set, or measurement
          exists in this repository.
    'Every decision timestamped on multiple blockchains'
-      -> NOT SUPPORTED. No timestamping is implemented; the RFC 3161 and
-         OpenTimestamps provider rows report PROVIDER_UNAVAILABLE.
+      -> NOT SUPPORTED. No decision loop exists that automatically
+         timestamps anything, and no blockchain confirmation is performed —
+         this build has no outbound network access, so a real TSA or
+         OpenTimestamps calendar can never be reached from here.
+         What IS implemented and tested (src/timestamp/rfc3161.mjs,
+         src/timestamp/opentimestamps.mjs, added 2026-08-05): a conformant
+         RFC 3161 TimeStampReq encoder; a TimeStampResp parser that
+         recovers the asserted time and checks the message imprint binds
+         to a given digest (not a CMS signature-chain check — that still
+         needs a trust anchor this module isn't given); and an
+         OpenTimestamps .ots encoder/parser that replays the operation
+         chain (append/prepend/reverse/hexlify/sha1/ripemd160/sha256/
+         keccak256) to recover the exact digest each attestation commits
+         to. A BITCOIN/LITECOIN attestation here means "the proof
+         structurally claims this height commits to this digest," not
+         "confirmed against the chain" — that confirmation is the part
+         that needs the network this build doesn't have. The RFC 3161 and
+         OpenTimestamps provider rows in capabilities.mjs still correctly
+         report PROVIDER_UNAVAILABLE — that row is specifically about live
+         TSA/calendar submission, which remains unavailable; it was never
+         about whether the request/response formats could be implemented.
    'EU AI Act compliance demonstrable end to end'
       -> NOT SUPPORTED. No Act mapping artifact is produced by this build.
 

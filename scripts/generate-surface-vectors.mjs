@@ -27,10 +27,13 @@ import { buildMerkleTree, buildInclusionProof, serializeProof } from '../src/mer
 import { MMR } from '../src/mmr/mmr.mjs';
 import { HashChainLog } from '../src/log/hash-chain.mjs';
 import { LineageGraph, computeNodeId } from '../src/lineage/lineage.mjs';
+import { buildTimestampRequest, parseTimestampResponse } from '../src/timestamp/rfc3161.mjs';
+import { buildDetachedTimestamp } from '../src/timestamp/opentimestamps.mjs';
+import { createHash } from 'node:crypto';
 
 const enc = new TextEncoder();
 const B = (s) => enc.encode(s);
-for (const d of ['mac', 'kdf', 'signatures', 'kem', 'encryption', 'merkle', 'mmr', 'logs', 'lineage', 'verdicts']) {
+for (const d of ['mac', 'kdf', 'signatures', 'kem', 'encryption', 'merkle', 'mmr', 'logs', 'lineage', 'timestamp', 'verdicts']) {
   mkdirSync(`vectors/${d}`, { recursive: true });
 }
 
@@ -381,4 +384,112 @@ write('vectors/lineage/lineage.json', [
   neg({ label: 'lineage/missing-parent', nodes: [{ id: 'x', parents: ['ghost'] }], expected_verdict: 'LINEAGE_MISSING' }),
 ]);
 
-console.log(`generate-surface-vectors: ${counts.positive} positive, ${counts.negative} negative across mac/kdf/digest-blake2/signatures/kem/encryption/merkle/mmr/logs/lineage`);
+// -------------------------------------------------------------- timestamp
+// RFC 3161: buildTimestampRequest is a pure DER encoder, checked exactly
+// against the ASN.1 grammar (see the module's own comment). The response
+// side does not have an authoritative external sample available offline, so
+// these vectors build a structurally-representative TimeStampResp-shaped
+// blob (PKIStatusInfo + a GeneralizedTime + the message imprint) rather than
+// a full CMS SignedData token, and record what this run's parser recovers
+// from it — self-consistency, not claimed interoperability. See
+// reports/interoperability-report.txt.
+function derLen(n) { if (n < 0x80) return [n]; const b = []; let x = n; while (x) { b.unshift(x & 0xff); x >>= 8; } return [0x80 | b.length, ...b]; }
+function derSeq(...chunks) { const body = [].concat(...chunks); return [0x30, ...derLen(body.length), ...body]; }
+function derInt(n) { return [0x02, 0x01, n]; }
+function buildSyntheticTsr({ status, digest, genTime }) {
+  const timeBytes = Buffer.from(genTime.replace(/[-:]/g, '').replace('T', ''), 'ascii');
+  const genTimeNode = [0x18, timeBytes.length, ...timeBytes];
+  const imprintNode = [0x04, digest.length, ...digest];
+  const statusInfo = derSeq(derInt(status));
+  const tstInfoLike = derSeq(genTimeNode, imprintNode);
+  return Uint8Array.from(derSeq(statusInfo, tstInfoLike));
+}
+
+const rfc3161Vectors = [];
+{
+  const d256 = new Uint8Array(createHash('sha256').update('proofbundle-timestamp-vector-1').digest());
+  rfc3161Vectors.push(pos({
+    label: 'rfc3161/build-tsq-sha256-nonce-certreq', hash_alg: 'SHA-256', digest_hex: bytesToHex(d256), nonce: 12345, cert_req: true,
+    expected_tsq_hex: bytesToHex(buildTimestampRequest(d256, { hashAlg: 'SHA-256', nonce: 12345, certReq: true })), expected_verdict: 'VERIFIED',
+  }));
+  const d384 = new Uint8Array(createHash('sha384').update('proofbundle-timestamp-vector-2').digest());
+  rfc3161Vectors.push(pos({
+    label: 'rfc3161/build-tsq-sha384-no-nonce-no-certreq', hash_alg: 'SHA-384', digest_hex: bytesToHex(d384), nonce: null, cert_req: false,
+    expected_tsq_hex: bytesToHex(buildTimestampRequest(d384, { hashAlg: 'SHA-384', certReq: false })), expected_verdict: 'VERIFIED',
+  }));
+
+  const digest = new Uint8Array(createHash('sha256').update('provenance payload').digest());
+  const tsr = buildSyntheticTsr({ status: 0, digest, genTime: '2026-08-05T12:30:45Z' });
+  const parsed = parseTimestampResponse(tsr);
+  rfc3161Vectors.push(pos({
+    label: 'rfc3161/parse-response-recovers-time-and-binds-imprint', response_hex: bytesToHex(tsr), digest_hex: bytesToHex(digest),
+    expected_status: parsed.status, expected_granted: parsed.granted, expected_genTimeISO: parsed.genTimeISO, expected_imprints: parsed.imprints,
+    expected_verdict: 'VERIFIED',
+  }));
+  rfc3161Vectors.push(neg({ label: 'rfc3161/truncated-response', response_hex: bytesToHex(tsr.slice(0, 6)), expected_verdict: 'MALFORMED' }));
+  rfc3161Vectors.push(neg({ label: 'rfc3161/not-a-sequence', response_hex: '020100', expected_verdict: 'MALFORMED' }));
+  rfc3161Vectors.push(neg({ label: 'rfc3161/empty-response', response_hex: '', expected_verdict: 'MALFORMED' }));
+}
+write('vectors/timestamp/rfc3161.json', rfc3161Vectors);
+
+// OpenTimestamps: buildDetachedTimestamp/parseOtsProof are checked against
+// the reference implementation's constants and framing algorithm (see the
+// module's own comment for exactly what was verified against upstream
+// source, not memory). These vectors are self-generated round trips, not
+// real calendar-issued .ots files — also recorded in the interoperability
+// report rather than implied here.
+const otsVectors = [];
+{
+  const digest = new Uint8Array(createHash('sha256').update('ots-vector-payload').digest());
+  const nonce = Uint8Array.from([9, 8, 7, 6, 5, 4, 3, 2]);
+  const afterAppend = Buffer.concat([Buffer.from(digest), Buffer.from(nonce)]);
+  const afterSha = new Uint8Array(createHash('sha256').update(afterAppend).digest());
+  const tree = {
+    attestations: [],
+    ops: [{
+      tag: 0xf0, name: 'APPEND', arg: nonce,
+      subtree: {
+        attestations: [],
+        ops: [{
+          tag: 0x08, name: 'SHA256', arg: null,
+          subtree: {
+            attestations: [
+              { name: 'PENDING', tagHex: '83dfe30d2ef90c8e', uri: 'https://alice.btc.calendar.opentimestamps.org' },
+              { name: 'BITCOIN', tagHex: '0588960d73d71901', height: 890000 },
+            ],
+            ops: [],
+          },
+        }],
+      },
+    }],
+  };
+  const proof = buildDetachedTimestamp({ hashAlg: 'SHA256', digest, tree });
+  otsVectors.push(pos({
+    label: 'ots/append-then-sha256-branches-to-pending-and-bitcoin', digest_hex: bytesToHex(digest), proof_hex: bytesToHex(proof),
+    expected_hash_alg: 'SHA256', expected_commitment_hex: bytesToHex(afterSha),
+    expected_attestations: [
+      { name: 'PENDING', uri: 'https://alice.btc.calendar.opentimestamps.org' },
+      { name: 'BITCOIN', height: 890000 },
+    ],
+    expected_bitcoin_attested: true, expected_verdict: 'VERIFIED',
+  }));
+
+  const simpleTree = { attestations: [{ name: 'PENDING', tagHex: '83dfe30d2ef90c8e', uri: 'https://b.pool.opentimestamps.org' }], ops: [] };
+  const simpleProof = buildDetachedTimestamp({ hashAlg: 'SHA256', digest, tree: simpleTree });
+  otsVectors.push(pos({
+    label: 'ots/direct-pending-attestation-no-ops', digest_hex: bytesToHex(digest), proof_hex: bytesToHex(simpleProof),
+    expected_hash_alg: 'SHA256', expected_commitment_hex: bytesToHex(digest),
+    expected_attestations: [{ name: 'PENDING', uri: 'https://b.pool.opentimestamps.org' }],
+    expected_bitcoin_attested: false, expected_verdict: 'VERIFIED',
+  }));
+
+  const mutatedMagic = Uint8Array.from(simpleProof); mutatedMagic[5] ^= 0x01;
+  otsVectors.push(neg({ label: 'ots/bad-magic', proof_hex: bytesToHex(mutatedMagic), expected_verdict: 'MALFORMED' }));
+  otsVectors.push(neg({ label: 'ots/truncated', proof_hex: bytesToHex(simpleProof.slice(0, 35)), expected_verdict: 'MALFORMED' }));
+  const badVersion = Uint8Array.from(simpleProof); badVersion[31] = 2;
+  otsVectors.push(neg({ label: 'ots/unsupported-major-version', proof_hex: bytesToHex(badVersion), expected_verdict: 'MALFORMED' }));
+  otsVectors.push(neg({ label: 'ots/empty', proof_hex: '', expected_verdict: 'MALFORMED' }));
+}
+write('vectors/timestamp/opentimestamps.json', otsVectors);
+
+console.log(`generate-surface-vectors: ${counts.positive} positive, ${counts.negative} negative across mac/kdf/digest-blake2/signatures/kem/encryption/merkle/mmr/logs/lineage/timestamp`);

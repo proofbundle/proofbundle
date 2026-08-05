@@ -24,6 +24,17 @@ WHAT WAS CHECKED INSTEAD, and what it is worth:
   c) CLI-to-library round trip. Keys and signatures produced through the CLI
      verify through the library and vice versa (test/integration/cli.test.mjs).
      This is a self-consistency check, NOT interoperability.
+  d) Byte-format constants checked against reference source, not memory.
+     src/timestamp/opentimestamps.mjs's header magic, version, attestation
+     tags, op tags, and the varuint/varbytes/0xff-framing algorithm were
+     fetched from opentimestamps/python-opentimestamps (core/timestamp.py,
+     core/notary.py, core/op.py, core/serialize.py) before being coded, so
+     the wire format itself matches the reference implementation. What was
+     NOT checked: an actual calendar-issued .ots file or a real TSA
+     response, because this environment has no outbound network to obtain
+     one. The rfc3161.json and opentimestamps.json vectors under
+     vectors/timestamp/ are this run's own build/parse round trips —
+     self-consistency, like (c), not third-party interop like (a).
 
 NOT CHECKED: whether any other ProofBundle implementation, or any third-party
 tool, accepts artifacts produced here. That claim is not made.

@@ -22,6 +22,8 @@ import { buildMerkleTree, verifyInclusionProof, deserializeProof } from '../src/
 import { MMR, verifyMmrProof } from '../src/mmr/mmr.mjs';
 import { HashChainLog, verifyChain, verifyExtends } from '../src/log/hash-chain.mjs';
 import { checkClaimedLineage, LineageGraph, computeNodeId } from '../src/lineage/lineage.mjs';
+import { buildTimestampRequest, parseTimestampResponse } from '../src/timestamp/rfc3161.mjs';
+import { parseOtsProof } from '../src/timestamp/opentimestamps.mjs';
 import { ProofBundleError } from '../src/errors.mjs';
 
 const enc = new TextEncoder();
@@ -225,6 +227,34 @@ for (const v of load('vectors/lineage/lineage.json')) {
   }
   const res = checkClaimedLineage(v.nodes);
   check(`lineage/${v.label}`, res.ok === false && res.failure === v.expected_verdict, `expected ${v.expected_verdict}, got ${JSON.stringify(res)}`);
+}
+
+// ------------------------------------------------------------- timestamp
+for (const v of load('vectors/timestamp/rfc3161.json')) {
+  if (v.label.startsWith('rfc3161/build-tsq')) {
+    const built = buildTimestampRequest(hexToBytes(v.digest_hex), { hashAlg: v.hash_alg, nonce: v.nonce, certReq: v.cert_req });
+    check(`rfc3161/${v.label}`, bytesToHex(built) === v.expected_tsq_hex, 'TSQ encoding changed');
+    continue;
+  }
+  const r = verdictOf(() => parseTimestampResponse(hexToBytes(v.response_hex)));
+  if (v.expected_verdict === 'MALFORMED') { check(`rfc3161/${v.label}`, r.verdict === 'MALFORMED', `expected MALFORMED, got ${r.verdict}`); continue; }
+  const p = r.value;
+  check(`rfc3161/${v.label}`, r.verdict === 'VERIFIED'
+    && p.status === v.expected_status && p.granted === v.expected_granted && p.genTimeISO === v.expected_genTimeISO
+    && JSON.stringify(p.imprints) === JSON.stringify(v.expected_imprints),
+    `response parse changed: ${JSON.stringify(p)}`);
+}
+
+for (const v of load('vectors/timestamp/opentimestamps.json')) {
+  const r = verdictOf(() => parseOtsProof(hexToBytes(v.proof_hex)));
+  if (v.expected_verdict === 'MALFORMED') { check(`ots/${v.label}`, r.verdict === 'MALFORMED', `expected MALFORMED, got ${r.verdict}`); continue; }
+  const p = r.value;
+  const attsMatch = JSON.stringify(p.attestations.map((a) => a.name === 'PENDING' ? { name: a.name, uri: a.uri } : { name: a.name, height: a.height }))
+    === JSON.stringify(v.expected_attestations);
+  check(`ots/${v.label}`, r.verdict === 'VERIFIED' && p.hashAlg === v.expected_hash_alg && p.digestHex === v.digest_hex
+    && p.bitcoinAttested === v.expected_bitcoin_attested && attsMatch
+    && p.attestations.every((a) => a.commitsToHex === v.expected_commitment_hex),
+    `OTS parse changed: ${JSON.stringify(p)}`);
 }
 
 console.log(`verify-surface-vectors: ${pass} pass, ${fail} fail`);

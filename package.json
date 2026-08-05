@@ -12,9 +12,9 @@
   "scripts": {
     "selftest": "node cli/proofbundle-cli.mjs selftest",
     "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs",
-    "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs test/integration/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/verify-surface-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs",
+    "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs test/integration/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/verify-surface-vectors.mjs && node scripts/verify-extended-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs",
     "test": "npm run test:surface",
-    "vectors:generate": "node scripts/generate-vectors.mjs && node scripts/generate-surface-vectors.mjs",
+    "vectors:generate": "node scripts/generate-vectors.mjs && node scripts/generate-surface-vectors.mjs && node scripts/generate-extended-vectors.mjs",
     "audit": "node scripts/audit.mjs"
   },
   "dependencies": {

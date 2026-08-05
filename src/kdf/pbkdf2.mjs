@@ -4,12 +4,21 @@
 // nobody chose.
 
 import { pbkdf2Sync } from 'node:crypto';
-import { UnknownAlgorithmError } from '../errors.mjs';
+import { UnknownAlgorithmError, GenerationProhibitedError } from '../errors.mjs';
 
 const TABLE = new Map([
+  ['PBKDF2-HMAC-SHA-224', 'sha224'],
   ['PBKDF2-HMAC-SHA-256', 'sha256'],
+  ['PBKDF2-HMAC-SHA-384', 'sha384'],
   ['PBKDF2-HMAC-SHA-512', 'sha512'],
+  // Verify-only: PBKDF2-HMAC-SHA-1 remains extremely common in existing
+  // password databases, so it must stay computable for verification.
+  // pbkdf2Generate() refuses it.
+  ['PBKDF2-HMAC-SHA-1', 'sha1'],
 ]);
+
+const VERIFY_ONLY = new Set(['PBKDF2-HMAC-SHA-1']);
+export function isVerifyOnlyPbkdf2(algId) { return VERIFY_ONLY.has(algId); }
 
 export const MINIMUM_ITERATIONS = 1000; // floor for *generation*; verification of historical material may use any recorded count
 
@@ -28,6 +37,7 @@ export function pbkdf2(algId, { password, salt, iterations, length }) {
 // Separate entry point for producing new material, so the generation floor
 // cannot be bypassed by a caller that only meant to verify something old.
 export function pbkdf2Generate(algId, opts) {
+  if (VERIFY_ONLY.has(algId)) throw new GenerationProhibitedError(algId);
   if (opts.iterations < MINIMUM_ITERATIONS) {
     throw new RangeError(`pbkdf2Generate: iterations ${opts.iterations} below generation minimum ${MINIMUM_ITERATIONS}`);
   }

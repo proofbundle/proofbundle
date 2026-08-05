@@ -12,20 +12,25 @@ import { GenerationProhibitedError, UnknownAlgorithmError, UnsupportedAlgorithmE
 const GEN = new Map([
   ['Ed25519', () => generateKeyPairSync('ed25519')],
   ['Ed448', () => generateKeyPairSync('ed448')],
+  ['ECDSA-P-224-SHA-224', () => generateKeyPairSync('ec', { namedCurve: 'secp224r1' })],
   ['ECDSA-P-256-SHA-256', () => generateKeyPairSync('ec', { namedCurve: 'prime256v1' })],
+  ['ECDSA-secp256k1-SHA-256', () => generateKeyPairSync('ec', { namedCurve: 'secp256k1' })],
   ['ECDSA-P-384-SHA-384', () => generateKeyPairSync('ec', { namedCurve: 'secp384r1' })],
   ['ECDSA-P-521-SHA-512', () => generateKeyPairSync('ec', { namedCurve: 'secp521r1' })],
+  ['RSA-PSS-SHA-224', () => generateKeyPairSync('rsa', { modulusLength: 2048 })],
   ['RSA-PSS-SHA-256', () => generateKeyPairSync('rsa', { modulusLength: 3072 })],
   ['RSA-PSS-SHA-384', () => generateKeyPairSync('rsa', { modulusLength: 3072 })],
   ['RSA-PSS-SHA-512', () => generateKeyPairSync('rsa', { modulusLength: 4096 })],
   ['X25519', () => generateKeyPairSync('x25519')],
   ['X448', () => generateKeyPairSync('x448')],
+  ['ECDH-P-224', () => generateKeyPairSync('ec', { namedCurve: 'secp224r1' })],
   ['ECDH-P-256', () => generateKeyPairSync('ec', { namedCurve: 'prime256v1' })],
+  ['ECDH-secp256k1', () => generateKeyPairSync('ec', { namedCurve: 'secp256k1' })],
   ['ECDH-P-384', () => generateKeyPairSync('ec', { namedCurve: 'secp384r1' })],
   ['ECDH-P-521', () => generateKeyPairSync('ec', { namedCurve: 'secp521r1' })],
 ]);
 
-const KEM_IDS = new Set(['X25519', 'X448', 'ECDH-P-256', 'ECDH-P-384', 'ECDH-P-521']);
+const KEM_IDS = new Set(['X25519', 'X448', 'ECDH-P-224', 'ECDH-P-256', 'ECDH-P-384', 'ECDH-P-521', 'ECDH-secp256k1']);
 
 export function canGenerateKey(algId) { return GEN.has(algId); }
 export function generatableAlgorithms() { return [...GEN.keys()]; }

@@ -1,42 +1,26 @@
 $ node scripts/check-registry.mjs
-registry: 95 entries, 0 validation errors
+registry: 390 entries, 0 validation errors
 by implementation_status: {
-  "COMPLETE": 42,
-  "NOT_IMPLEMENTED": 31,
-  "RECOGNIZE_ONLY": 2,
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
   "COMPLETE_PROVIDER_UNAVAILABLE": 1,
   "PARTIAL": 1,
-  "LEGACY_VERIFY_ONLY": 1,
-  "BLOCKED": 17
+  "BLOCKED": 32
 }
 exit=0
 
 $ node scripts/check-coverage.mjs
-CRYPTOGRAPHIC_SURFACE.csv: 95 rows written
+CRYPTOGRAPHIC_SURFACE.csv: 390 rows written
 by implementation_status: {
-  "COMPLETE": 42,
-  "NOT_IMPLEMENTED": 31,
-  "RECOGNIZE_ONLY": 2,
+  "COMPLETE": 97,
+  "NOT_IMPLEMENTED": 150,
+  "LEGACY_VERIFY_ONLY": 12,
+  "RECOGNIZE_ONLY": 97,
   "COMPLETE_PROVIDER_UNAVAILABLE": 1,
   "PARTIAL": 1,
-  "LEGACY_VERIFY_ONLY": 1,
-  "BLOCKED": 17
+  "BLOCKED": 32
 }
 rows with a critical-issue flag: 0
 exit=0
-
-$ node scripts/check-placeholders.mjs
-check-placeholders: scanned src/, bin/, scripts/, test/ (.mjs files) — 12 pattern hits
-src/errors.mjs: matches pattern '"not implemented" prose'
-src/providers/capabilities.mjs: matches pattern '"not implemented" prose'
-src/registry/algorithm-registry.mjs: matches pattern '"not implemented" prose'
-bin/proofbundle.mjs: matches pattern '"not implemented" prose'
-scripts/check-placeholders.mjs: matches pattern 'sorry'
-scripts/check-placeholders.mjs: matches pattern 'admit'
-scripts/check-placeholders.mjs: matches pattern 'TODO'
-scripts/check-placeholders.mjs: matches pattern 'FIXME'
-scripts/check-placeholders.mjs: matches pattern 'placeholder'
-scripts/check-placeholders.mjs: matches pattern '"not implemented" prose'
-test/integration/cli.test.mjs: matches pattern '"not implemented" prose'
-test/unit/digest.test.mjs: matches pattern '"not implemented" prose'
-exit=1 (non-zero by design: the scan reports hits for human review; see scripts/stub-scan-review-notes.txt)

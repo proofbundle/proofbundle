@@ -8,22 +8,45 @@
 // underlying OpenSSL HMAC, which is external (ASSUMPTION-NODE-CRYPTO-CORRECTNESS).
 
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { UnknownAlgorithmError } from '../errors.mjs';
+import { UnknownAlgorithmError, GenerationProhibitedError } from '../errors.mjs';
 
 // registry id -> node:crypto digest name
 const TABLE = new Map([
+  ['HMAC-SHA-224', 'sha224'],
   ['HMAC-SHA-256', 'sha256'],
   ['HMAC-SHA-384', 'sha384'],
   ['HMAC-SHA-512', 'sha512'],
+  ['HMAC-SHA-512/224', 'sha512-224'],
+  ['HMAC-SHA-512/256', 'sha512-256'],
+  ['HMAC-SHA3-224', 'sha3-224'],
   ['HMAC-SHA3-256', 'sha3-256'],
   ['HMAC-SHA3-384', 'sha3-384'],
   ['HMAC-SHA3-512', 'sha3-512'],
+  ['HMAC-SM3', 'sm3'],
+  // Verify-only: computable for historical material, refused for generation
+  // by macGenerate() below.
+  ['HMAC-SHA-1', 'sha1'],
+  ['HMAC-RIPEMD-160', 'ripemd160'],
 ]);
 
+// Accepted for checking old artifacts, never for producing new ones.
+const VERIFY_ONLY = new Set(['HMAC-SHA-1', 'HMAC-RIPEMD-160']);
+
 export const HMAC_TAG_LENGTHS = Object.freeze({
-  'HMAC-SHA-256': 32, 'HMAC-SHA-384': 48, 'HMAC-SHA-512': 64,
-  'HMAC-SHA3-256': 32, 'HMAC-SHA3-384': 48, 'HMAC-SHA3-512': 64,
+  'HMAC-SHA-224': 28, 'HMAC-SHA-256': 32, 'HMAC-SHA-384': 48, 'HMAC-SHA-512': 64,
+  'HMAC-SHA-512/224': 28, 'HMAC-SHA-512/256': 32,
+  'HMAC-SHA3-224': 28, 'HMAC-SHA3-256': 32, 'HMAC-SHA3-384': 48, 'HMAC-SHA3-512': 64,
+  'HMAC-SM3': 32, 'HMAC-SHA-1': 20, 'HMAC-RIPEMD-160': 20,
 });
+
+export function isVerifyOnlyMac(algId) { return VERIFY_ONLY.has(algId); }
+
+// Generation path. Refuses the verify-only algorithms, so historical material
+// stays checkable while nothing new can be minted under a broken digest.
+export function macGenerate(algId, key, message) {
+  if (VERIFY_ONLY.has(algId)) throw new GenerationProhibitedError(algId);
+  return macBytes(algId, key, message);
+}
 
 export function isImplementedMac(algId) { return TABLE.has(algId); }
 

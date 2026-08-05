@@ -65,12 +65,28 @@ test('digestBytes throws UnknownAlgorithmError for an unrecognized identifier â€
   assert.throws(() => digestBytes('NOT-A-REAL-ALGORITHM', enc.encode('x')), UnknownAlgorithmError);
 });
 
-test('digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 â€” recognized, never dispatched', () => {
-  assert.throws(() => digestBytes('MD5', enc.encode('x')), ForbiddenAlgorithmError);
-  assert.throws(() => digestBytes('SHA-1', enc.encode('x')), ForbiddenAlgorithmError);
-  assert.equal(isRejectedAlgorithm('MD5'), true);
-  assert.equal(isRejectedAlgorithm('SHA-256'), false);
+test('digestBytes refuses the recognize-and-reject digests, and never dispatches them', () => {
+  // SHA-1 is deliberately NOT in this list. It moved to LEGACY_VERIFY_ONLY
+  // when the legacy digest path landed: digestBytes() computes it so old
+  // artifacts stay checkable, and digestForGeneration() refuses it. The
+  // separate assertion below pins that split.
+  for (const algId of ['MD5', 'MD4', 'MD2', 'Whirlpool', 'RIPEMD-128', 'RIPEMD-256', 'RIPEMD-320']) {
+    assert.throws(() => digestBytes(algId, new Uint8Array(1)), (e) => e.name === 'ForbiddenAlgorithmError' || e.verdict === 'FORBIDDEN_ALGORITHM', `${algId} was not refused`);
+  }
 });
+
+test('SHA-1 and RIPEMD-160 verify historical material but refuse generation', async () => {
+  const { digestForGeneration } = await import('../../src/digest/legacy-and-national.mjs');
+  const enc = new TextEncoder();
+  // Verification path works and matches the published digest.
+  assert.equal(bytesToHex(digestBytes('SHA-1', enc.encode('abc'))), 'a9993e364706816aba3e25717850c26c9cd0d89d');
+  assert.equal(bytesToHex(digestBytes('RIPEMD-160', enc.encode('abc'))), '8eb208f7e05d987a9b044a8e98c6b087f15a0bfc');
+  // Generation path refuses both.
+  for (const algId of ['SHA-1', 'RIPEMD-160']) {
+    assert.throws(() => digestForGeneration(algId, new Uint8Array(1)), (e) => e.verdict === 'FORBIDDEN_ALGORITHM');
+  }
+});
+
 
 test('isImplementedDigest correctly reports only the wired fixed-length algorithms', () => {
   assert.equal(isImplementedDigest('SHA-256'), true);

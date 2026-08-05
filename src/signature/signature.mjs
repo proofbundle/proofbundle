@@ -29,20 +29,33 @@ import { buildTranscript, DOMAIN_TAGS } from '../canonical/transcript.mjs';
 const TABLE = new Map([
   ['Ed25519', { kind: 'eddsa', digest: null, keyType: 'ed25519' }],
   ['Ed448', { kind: 'eddsa', digest: null, keyType: 'ed448' }],
+  ['ECDSA-P-224-SHA-224', { kind: 'digest', digest: 'sha224', keyType: 'ec', curve: 'secp224r1', dsaEncoding: 'der' }],
   ['ECDSA-P-256-SHA-256', { kind: 'digest', digest: 'sha256', keyType: 'ec', curve: 'prime256v1', dsaEncoding: 'der' }],
+  ['ECDSA-secp256k1-SHA-256', { kind: 'digest', digest: 'sha256', keyType: 'ec', curve: 'secp256k1', dsaEncoding: 'der' }],
+  // P-192 is below current strength; verify-only for historical material.
+  ['ECDSA-P-192-SHA-256', { kind: 'digest', digest: 'sha256', keyType: 'ec', curve: 'prime192v1', dsaEncoding: 'der' }],
   ['ECDSA-P-384-SHA-384', { kind: 'digest', digest: 'sha384', keyType: 'ec', curve: 'secp384r1', dsaEncoding: 'der' }],
   ['ECDSA-P-521-SHA-512', { kind: 'digest', digest: 'sha512', keyType: 'ec', curve: 'secp521r1', dsaEncoding: 'der' }],
+  ['RSA-PSS-SHA-224', { kind: 'pss', digest: 'sha224', keyType: 'rsa', saltLength: 28 }],
   ['RSA-PSS-SHA-256', { kind: 'pss', digest: 'sha256', keyType: 'rsa', saltLength: 32 }],
   ['RSA-PSS-SHA-384', { kind: 'pss', digest: 'sha384', keyType: 'rsa', saltLength: 48 }],
   ['RSA-PSS-SHA-512', { kind: 'pss', digest: 'sha512', keyType: 'rsa', saltLength: 64 }],
+  // PKCS#1 v1.5, one entry per digest so the digest is part of the
+  // authenticated algorithm identifier rather than inferred at verify time.
   ['RSA-PKCS1v1.5', { kind: 'digest', digest: 'sha256', keyType: 'rsa' }],
+  ['RSA-PKCS1v1.5-SHA-1', { kind: 'digest', digest: 'sha1', keyType: 'rsa' }],
+  ['RSA-PKCS1v1.5-SHA-224', { kind: 'digest', digest: 'sha224', keyType: 'rsa' }],
+  ['RSA-PKCS1v1.5-SHA-256', { kind: 'digest', digest: 'sha256', keyType: 'rsa' }],
+  ['RSA-PKCS1v1.5-SHA-384', { kind: 'digest', digest: 'sha384', keyType: 'rsa' }],
+  ['RSA-PKCS1v1.5-SHA-512', { kind: 'digest', digest: 'sha512', keyType: 'rsa' }],
 ]);
 
 // LEGACY_VERIFY_ONLY: present for historical verification, never for minting.
 const GENERATION_ALLOWED = new Set([
   'Ed25519', 'Ed448',
-  'ECDSA-P-256-SHA-256', 'ECDSA-P-384-SHA-384', 'ECDSA-P-521-SHA-512',
-  'RSA-PSS-SHA-256', 'RSA-PSS-SHA-384', 'RSA-PSS-SHA-512',
+  'ECDSA-P-224-SHA-224', 'ECDSA-P-256-SHA-256', 'ECDSA-P-384-SHA-384',
+  'ECDSA-P-521-SHA-512', 'ECDSA-secp256k1-SHA-256',
+  'RSA-PSS-SHA-224', 'RSA-PSS-SHA-256', 'RSA-PSS-SHA-384', 'RSA-PSS-SHA-512',
 ]);
 
 // Registered in ALGORITHM_REGISTRY.json but with no implementation in this

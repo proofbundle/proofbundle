@@ -126,6 +126,25 @@ function sponge(rateBytes, suffix, msg, outLen) {
 }
 
 // Rate = (1600 - 2*outputBits) / 8 for SHA-3; SHAKE uses its security level.
+//
+// `sponge` is exported so the SP 800-185 constructions (cSHAKE, KMAC,
+// TupleHash, ParallelHash) can be built on this same permutation instead of
+// duplicating it. Added without changing any existing behaviour: every
+// function below is byte-identical to before, and the SHA3/SHAKE vectors
+// still pass.
+export { sponge };
+
+// SHA3-224 uses rate 144 (= (1600 - 2*224)/8) and the same 0x06 domain suffix.
+export function sha3_224(msg) { return sponge(144, 0x06, msg, 28); }
+
+// Keccak, as originally submitted: identical permutation and rates, but the
+// pre-standardization 0x01 domain suffix rather than SHA-3's 0x06. The two are
+// NOT interchangeable — same input, different digest.
+export function keccak_224(msg) { return sponge(144, 0x01, msg, 28); }
+export function keccak_256(msg) { return sponge(136, 0x01, msg, 32); }
+export function keccak_384(msg) { return sponge(104, 0x01, msg, 48); }
+export function keccak_512(msg) { return sponge(72,  0x01, msg, 64); }
+
 export function sha3_256(msg) { return sponge(136, 0x06, msg, 32); }
 export function sha3_384(msg) { return sponge(104, 0x06, msg, 48); }
 export function sha3_512(msg) { return sponge(72,  0x06, msg, 64); }

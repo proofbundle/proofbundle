@@ -19,7 +19,9 @@ import { UnknownAlgorithmError, UnsupportedAlgorithmError } from '../errors.mjs'
 const TABLE = new Map([
   ['X25519', { secretLength: 32 }],
   ['X448', { secretLength: 56 }],
+  ['ECDH-P-224', { secretLength: 28 }],
   ['ECDH-P-256', { secretLength: 32 }],
+  ['ECDH-secp256k1', { secretLength: 32 }],
   ['ECDH-P-384', { secretLength: 48 }],
   ['ECDH-P-521', { secretLength: 66 }],
 ]);

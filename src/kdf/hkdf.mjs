@@ -8,9 +8,17 @@ import { concatBytes } from '../bytes/bytes.mjs';
 import { UnknownAlgorithmError } from '../errors.mjs';
 
 const TABLE = new Map([
+  ['HKDF-SHA-224', { digest: 'sha224', len: 28 }],
   ['HKDF-SHA-256', { digest: 'sha256', len: 32 }],
   ['HKDF-SHA-384', { digest: 'sha384', len: 48 }],
   ['HKDF-SHA-512', { digest: 'sha512', len: 64 }],
+  ['HKDF-SHA-512/224', { digest: 'sha512-224', len: 28 }],
+  ['HKDF-SHA-512/256', { digest: 'sha512-256', len: 32 }],
+  ['HKDF-SHA3-224', { digest: 'sha3-224', len: 28 }],
+  ['HKDF-SHA3-256', { digest: 'sha3-256', len: 32 }],
+  ['HKDF-SHA3-384', { digest: 'sha3-384', len: 48 }],
+  ['HKDF-SHA3-512', { digest: 'sha3-512', len: 64 }],
+  ['HKDF-SM3', { digest: 'sm3', len: 32 }],
 ]);
 
 export function isImplementedKdf(algId) { return TABLE.has(algId); }

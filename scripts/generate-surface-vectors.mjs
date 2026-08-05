@@ -89,7 +89,7 @@ kdfVectors.push(pos({
   expected_okm_hex: '3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865',
   expected_verdict: 'VERIFIED',
 }));
-for (const algId of ['HKDF-SHA-256', 'HKDF-SHA-384', 'HKDF-SHA-512']) {
+for (const algId of ['HKDF-SHA-224', 'HKDF-SHA-256', 'HKDF-SHA-384', 'HKDF-SHA-512', 'HKDF-SHA-512/224', 'HKDF-SHA-512/256', 'HKDF-SHA3-224', 'HKDF-SHA3-256', 'HKDF-SHA3-384', 'HKDF-SHA3-512', 'HKDF-SM3']) {
   const ikm = B('input keying material'), salt = B('salt'), info = B('info');
   for (const length of [16, 32, 64]) {
     kdfVectors.push(pos({
@@ -109,7 +109,7 @@ for (const algId of ['HKDF-SHA-256', 'HKDF-SHA-384', 'HKDF-SHA-512']) {
     differs_from_label: `${algId}/len32`, expected_verdict: 'VERIFIED',
   }));
 }
-for (const algId of ['PBKDF2-HMAC-SHA-256', 'PBKDF2-HMAC-SHA-512']) {
+for (const algId of ['PBKDF2-HMAC-SHA-224', 'PBKDF2-HMAC-SHA-256', 'PBKDF2-HMAC-SHA-384', 'PBKDF2-HMAC-SHA-512', 'PBKDF2-HMAC-SHA-1']) {
   kdfVectors.push(pos({
     label: `${algId}/it1000`, algorithm: algId,
     password_hex: bytesToHex(B('password')), salt_hex: bytesToHex(B('salt')), iterations: 1000, length: 32,
@@ -301,7 +301,12 @@ for (const algId of aeadAlgorithms()) {
   const flip = ct.ciphertext.slice(); if (flip.length) flip[0] ^= 1;
   aeadVectors.push(neg({ label: `${algId}/altered-ciphertext`, algorithm: algId, key_hex: bytesToHex(key), nonce_hex: bytesToHex(nonce), aad_hex: bytesToHex(aad), ciphertext_hex: bytesToHex(flip), tag_hex: bytesToHex(ct.tag), expected_verdict: 'INVALID_SIGNATURE', expected_reason: 'AUTHENTICATION_FAILED' }));
   aeadVectors.push(neg({ label: `${algId}/aad-mismatch`, algorithm: algId, key_hex: bytesToHex(key), nonce_hex: bytesToHex(nonce), aad_hex: bytesToHex(B('DIFFERENT-header')), ciphertext_hex: bytesToHex(ct.ciphertext), tag_hex: bytesToHex(ct.tag), expected_verdict: 'INVALID_SIGNATURE', expected_reason: 'AUTHENTICATION_FAILED' }));
-  aeadVectors.push(neg({ label: `${algId}/truncated-tag`, algorithm: algId, key_hex: bytesToHex(key), nonce_hex: bytesToHex(nonce), aad_hex: bytesToHex(aad), ciphertext_hex: bytesToHex(ct.ciphertext), tag_hex: bytesToHex(ct.tag.slice(0, 8)), expected_verdict: 'INVALID_SIGNATURE', expected_reason: 'TAG_LENGTH_INVALID' }));
+  // Truncate relative to this suite's own tag length. A fixed 8-byte cut is
+  // wrong for the CCM-8 suites, whose full tag IS 8 bytes — the "truncated"
+  // tag would be the valid one and the vector would assert a failure that
+  // cannot happen. Caught by verify-surface-vectors when CCM-8 was added.
+  const shortTag = ct.tag.slice(0, Math.max(1, p.tagLength - 4));
+  aeadVectors.push(neg({ label: `${algId}/truncated-tag`, algorithm: algId, key_hex: bytesToHex(key), nonce_hex: bytesToHex(nonce), aad_hex: bytesToHex(aad), ciphertext_hex: bytesToHex(ct.ciphertext), tag_hex: bytesToHex(shortTag), expected_verdict: 'INVALID_SIGNATURE', expected_reason: 'TAG_LENGTH_INVALID' }));
   aeadVectors.push(neg({ label: `${algId}/wrong-key`, algorithm: algId, key_hex: bytesToHex(new Uint8Array(p.keyLength).fill(0xff)), nonce_hex: bytesToHex(nonce), aad_hex: bytesToHex(aad), ciphertext_hex: bytesToHex(ct.ciphertext), tag_hex: bytesToHex(ct.tag), expected_verdict: 'INVALID_SIGNATURE', expected_reason: 'AUTHENTICATION_FAILED' }));
 }
 aeadVectors.push(neg({ label: 'registered-unwired/AES-256-GCM-SIV', algorithm: 'AES-256-GCM-SIV', expected_verdict: 'UNSUPPORTED_ALGORITHM' }));

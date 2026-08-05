@@ -1,0 +1,167 @@
+[
+  {
+    "label": "AES-128-KW/RFC3394-4.1",
+    "source": "external — RFC 3394 section 4.1",
+    "algorithm": "AES-128-KW",
+    "kek_hex": "000102030405060708090a0b0c0d0e0f",
+    "key_hex": "00112233445566778899aabbccddeeff",
+    "expected_wrapped_hex": "1fa68b0a8112b447aef34bd8fb5a7b829d3e862371d2cfe5",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-KW/positive",
+    "algorithm": "AES-128-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "expected_wrapped_hex": "0c8dc7dd3b5b3403820b0d3198e76cc9cf55cd09a9b313977b6500bec540ea4434738f2d0e2e1c88",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-KW/altered-wrapped",
+    "algorithm": "AES-128-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b",
+    "wrapped_hex": "0d8dc7dd3b5b3403820b0d3198e76cc9cf55cd09a9b313977b6500bec540ea4434738f2d0e2e1c88",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-128-KW/wrong-kek",
+    "algorithm": "AES-128-KW",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "0c8dc7dd3b5b3403820b0d3198e76cc9cf55cd09a9b313977b6500bec540ea4434738f2d0e2e1c88",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-192-KW/positive",
+    "algorithm": "AES-192-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "expected_wrapped_hex": "773f124cd445f8f938deeb25ef0cf37a289a70d3a73c73252c32dbd091b4deb538f301fa44b2dedc",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-192-KW/altered-wrapped",
+    "algorithm": "AES-192-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73",
+    "wrapped_hex": "763f124cd445f8f938deeb25ef0cf37a289a70d3a73c73252c32dbd091b4deb538f301fa44b2dedc",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-192-KW/wrong-kek",
+    "algorithm": "AES-192-KW",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "773f124cd445f8f938deeb25ef0cf37a289a70d3a73c73252c32dbd091b4deb538f301fa44b2dedc",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-256-KW/positive",
+    "algorithm": "AES-256-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73787d82878c91969b",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "expected_wrapped_hex": "38f5fe50337fc4e7c9bcd73fcd5c1855f9bf4d84379877dd2234b76b209b174b99ab22ac5a51418c",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-256-KW/altered-wrapped",
+    "algorithm": "AES-256-KW",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73787d82878c91969b",
+    "wrapped_hex": "39f5fe50337fc4e7c9bcd73fcd5c1855f9bf4d84379877dd2234b76b209b174b99ab22ac5a51418c",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-256-KW/wrong-kek",
+    "algorithm": "AES-256-KW",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "38f5fe50337fc4e7c9bcd73fcd5c1855f9bf4d84379877dd2234b76b209b174b99ab22ac5a51418c",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-128-KWP/positive",
+    "algorithm": "AES-128-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b",
+    "key_hex": "000102030405060708090a0b0c0d0e0f10111213",
+    "expected_wrapped_hex": "d613471ae48587d98f9bdb6475491ae77f583b3d9cdcef90576674a23ebef945",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-KWP/altered-wrapped",
+    "algorithm": "AES-128-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b",
+    "wrapped_hex": "d713471ae48587d98f9bdb6475491ae77f583b3d9cdcef90576674a23ebef945",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-128-KWP/wrong-kek",
+    "algorithm": "AES-128-KWP",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "d613471ae48587d98f9bdb6475491ae77f583b3d9cdcef90576674a23ebef945",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-192-KWP/positive",
+    "algorithm": "AES-192-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73",
+    "key_hex": "000102030405060708090a0b0c0d0e0f10111213",
+    "expected_wrapped_hex": "05e33d2bde74f3bfa4d5d6b272b39c730726c543f8c7a39c9bc8a00a3b89cdc8",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-192-KWP/altered-wrapped",
+    "algorithm": "AES-192-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73",
+    "wrapped_hex": "04e33d2bde74f3bfa4d5d6b272b39c730726c543f8c7a39c9bc8a00a3b89cdc8",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-192-KWP/wrong-kek",
+    "algorithm": "AES-192-KWP",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "05e33d2bde74f3bfa4d5d6b272b39c730726c543f8c7a39c9bc8a00a3b89cdc8",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-256-KWP/positive",
+    "algorithm": "AES-256-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73787d82878c91969b",
+    "key_hex": "000102030405060708090a0b0c0d0e0f10111213",
+    "expected_wrapped_hex": "acd5565a5997ffd515fd7464db1716440a6d5374117715193a343c237f08fcc3",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-256-KWP/altered-wrapped",
+    "algorithm": "AES-256-KWP",
+    "kek_hex": "00050a0f14191e23282d32373c41464b50555a5f64696e73787d82878c91969b",
+    "wrapped_hex": "add5565a5997ffd515fd7464db1716440a6d5374117715193a343c237f08fcc3",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-256-KWP/wrong-kek",
+    "algorithm": "AES-256-KWP",
+    "kek_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "wrapped_hex": "acd5565a5997ffd515fd7464db1716440a6d5374117715193a343c237f08fcc3",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "KEY_WRAP_INTEGRITY_FAILED"
+  },
+  {
+    "label": "AES-128-KW/misaligned-key-length",
+    "algorithm": "AES-128-KW",
+    "key_length": 20,
+    "expected_verdict": "MALFORMED",
+    "note": "RFC 3394 requires a multiple of 8 bytes; KWP handles arbitrary lengths."
+  },
+  {
+    "label": "unknown-keywrap-algorithm",
+    "algorithm": "AES-999-KW",
+    "expected_verdict": "UNKNOWN_ALGORITHM"
+  }
+]

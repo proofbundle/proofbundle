@@ -131,7 +131,12 @@ for (const algId of aeadAlgorithms()) {
   test(`${algId}: a truncated tag is refused by length before authentication`, () => {
     const nonce = generateNonce(algId);
     const ct = aeadEncrypt(algId, { key, nonce, plaintext: B('hello'), aad: null });
-    assert.deepEqual(aeadDecrypt(algId, { key, nonce, ciphertext: ct.ciphertext, tag: ct.tag.slice(0, 8), aad: null }), { ok: false, reason: 'TAG_LENGTH_INVALID' });
+    // Truncate relative to this suite's own tag length. A fixed 8-byte cut is
+    // wrong for the CCM-8 suites, whose full tag IS 8 bytes — the "truncated"
+    // tag would be the valid one and the assertion would be vacuous.
+    const shortTag = ct.tag.slice(0, Math.max(1, p.tagLength - 4));
+    assert.ok(shortTag.length < p.tagLength);
+    assert.deepEqual(aeadDecrypt(algId, { key, nonce, ciphertext: ct.ciphertext, tag: shortTag, aad: null }), { ok: false, reason: 'TAG_LENGTH_INVALID' });
   });
 
   test(`${algId}: a wrong-length nonce is rejected`, () => {

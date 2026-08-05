@@ -1,96 +1,106 @@
-# Implementation status — slice 2 of the full cryptographic/evidentiary spec
+# Implementation status — slice 3 of the full cryptographic/evidentiary spec
 
-**This is an honest second installment, not the completed specification.**
-`ALGORITHM_REGISTRY.json` lists 95 algorithm/profile entries; the originating
-request additionally specifies ~150 source modules, a parallel Lean 4
-formal-verification tree, hardware/HSM providers, external timestamping
-services, a multi-agent orchestration loop and an EU AI Act mapping. That is
-not achievable in one pass and this repository does not claim otherwise.
+**This is an honest third installment, not the completed specification.** The
+algorithm registry now carries the exhaustive enumeration: **390 rows**, every
+algorithm and parameter set named in the specification, including the ones this
+build cannot perform. A row exists so its status can be stated — an algorithm
+absent from the registry is an algorithm whose absence nobody recorded.
 
 ## Closure rule: NOT PASSED
 
-The closure rule requires, among other things, that every substantive theorem
-compiles. **Zero theorems compile, because the Lean toolchain is not installed
-in this environment** (`lake`, `lean`, `elan` all exit 127 — see
-`reports/lean-build-report.txt`). The rule therefore cannot pass here, and is
-reported as not passed rather than reinterpreted.
+The closure rule requires every substantive theorem to compile. **Zero theorems
+compile, because the Lean toolchain is not installed in this environment**
+(`lake`, `lean`, `elan` all exit 127 — see `reports/lean-build-report.txt`).
+The rule cannot pass here and is reported as not passed rather than
+reinterpreted.
 
 What *is* closed is narrower and stated exactly: every row marked COMPLETE has
 a source module, generated positive vectors, a negative-vector file, a
-unit-test file and a hostile-input test file, and `scripts/check-coverage.mjs`
-fails the build if any COMPLETE row lacks one.
+unit-test file and a hostile-input test file; `scripts/check-coverage.mjs`
+fails the build if any COMPLETE row lacks one; and
+`test/unit/registry-consistency.test.mjs` fails if any COMPLETE row is not
+actually reachable through a dispatcher.
 
-## Surface status (95 registry entries)
+## Surface status (390 registry entries)
 
-| status | count |
-|---|---|
-| COMPLETE | 42 |
-| COMPLETE_PROVIDER_UNAVAILABLE | 1 |
-| LEGACY_VERIFY_ONLY | 1 |
-| PARTIAL | 1 |
-| RECOGNIZE_ONLY | 2 |
-| BLOCKED | 17 |
-| NOT_IMPLEMENTED | 31 |
+| status | count | meaning |
+|---|---|---|
+| COMPLETE | 97 | implemented here, with vectors and tests |
+| LEGACY_VERIFY_ONLY | 12 | computable for historical verification; generation refused |
+| COMPLETE_PROVIDER_UNAVAILABLE | 1 | interface + deterministic refusal implemented and tested; provider absent |
+| PARTIAL | 1 | implemented but missing a required artifact |
+| RECOGNIZE_ONLY | 97 | recognized so rejection is deterministic; never computed |
+| BLOCKED | 32 | waits on another row in this registry |
+| NOT_IMPLEMENTED | 150 | not built; each row names its specific blocker |
 
-### COMPLETE (42)
+By family: DIGEST 46, MAC 24, KDF 36, SIGNATURE 118, KEM 79, AEAD 52,
+HYBRID_SIGNATURE 19, HYBRID_KEM 16.
 
-    digests    SHA-224/256/384/512, SHA-512/224, SHA-512/256,
-               SHA3-256/384/512, SHAKE128/256, BLAKE2b-512, BLAKE2s-256
-    MAC        HMAC-SHA-256/384/512, HMAC-SHA3-256/384/512
-    KDF        HKDF-SHA-256/384/512, PBKDF2-HMAC-SHA-256/512,
-               ProofBundle-subkey-derivation
-    signature  Ed25519, Ed448, ECDSA P-256/P-384/P-521,
-               RSA-PSS-SHA-256/384/512
-    KEM        X25519, X448, ECDH P-256/P-384/P-521
-    AEAD       AES-128/192/256-GCM, ChaCha20-Poly1305
+### What became COMPLETE this pass (42 → 97)
 
-Plus the structural layer, which is not registry rows but is implemented and
-tested: domain-separated transcripts, Merkle trees with inclusion/consistency
-proofs, Merkle Mountain Ranges with rollback and fork detection, hash-chain
-append-only logs, a lineage DAG with cycle detection and bounded traversal,
-provider capability detection, resource limits with step budgets, and 16 CLI
-commands.
+    digests    SHA3-224, Keccak-224/256/384/512, SM3
+               (SHA3-224 and Keccak were unblocked by exporting the sponge
+               from crypto/keccak.mjs — the blocker the registry had recorded)
+    SP 800-185 cSHAKE128/256, KMAC128/256, TupleHash128/256,
+               ParallelHash128/256 — all checked against NIST sample vectors
+    MAC        HMAC over SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SM3
+    KDF        HKDF over 11 digests; PBKDF2 over SHA-224/384
+    signature  ECDSA P-224, ECDSA secp256k1, RSA-PSS-SHA-224
+    KEM        ECDH P-224, ECDH secp256k1
+    AEAD       AES-CCM (128/192/256 and the 8-byte-tag variants),
+               AES-OCB (128/192/256), ARIA-GCM and ARIA-CCM (128/192/256)
+    key wrap   AES-KW and AES-KWP (128/192/256), RFC 3394 + RFC 5649
 
-### The three special statuses, and why they are not COMPLETE
+### The three special statuses
 
 **COMPLETE_PROVIDER_UNAVAILABLE (1) — keyed-BLAKE2.** `node:crypto` accepts
-`createHash(alg, { key })` and *silently ignores the key*, returning an
-unkeyed digest. Shipping that as a MAC would be a silent authentication
-failure, so `src/digest/blake2.mjs` detects it and raises
-`PROVIDER_UNAVAILABLE`. The interface and the refusal are implemented and
-tested; no keyed BLAKE2 output is ever produced on this build.
+`createHash(alg, { key })` and *silently ignores the key*, returning an unkeyed
+digest. Shipping that as a MAC would authenticate nothing, so
+`src/digest/blake2.mjs` detects it and raises `PROVIDER_UNAVAILABLE`.
 
-**LEGACY_VERIFY_ONLY (1) — RSA-PKCS1v1.5.** Verifies historical signatures
-(positive vector included); generation is refused in two independent places.
+**LEGACY_VERIFY_ONLY (12).** SHA-1, RIPEMD-160, HMAC-SHA-1, HMAC-RIPEMD-160,
+PBKDF2-HMAC-SHA-1, ECDSA-P-192, and the six RSA-PKCS1v1.5 digest bindings.
+All are computable so historical artifacts stay checkable; every generation
+entry point refuses them.
 
 **PARTIAL (1) — scrypt.** Implemented with parameter validation and a memory
 ceiling, unit-tested for both rejection paths, but no positive RFC 7914
-known-answer vector is recorded — so it does not meet the vector requirement
-and is not marked COMPLETE.
+known-answer vector is recorded — so it does not meet the vector requirement.
 
-## What is NOT implemented, with the blocking dependency for each
+## Blocking dependencies, by category
 
-Each `NOT_IMPLEMENTED` and `BLOCKED` row in `ALGORITHM_REGISTRY.json` carries
-its own specific blocker in `interoperabilityNotes`. These are not collapsed
-into one generic limitation. The distinct categories:
+Each NOT_IMPLEMENTED and BLOCKED row carries its own blocker string in
+`ALGORITHM_REGISTRY.json`. These are not collapsed into one generic
+limitation. The categories:
 
-1. **Absent formal toolchain.** Lean and Coq are not installed. This blocks
-   every theorem, the refinement bridge, and the Rocq cross-check.
-2. **Absent provider.** 19 providers are probed and report
-   `PROVIDER_UNAVAILABLE` with a specific reason each — no PKCS#11 module, no
-   `/dev/tpm0`, wrong platform, no configured endpoint or credential. ML-KEM,
-   ML-DSA, SLH-DSA, Argon2id and BLAKE3 fall here.
-3. **Blocked on a missing component.** All 11 hybrid signature profiles and
-   all 6 hybrid KEM profiles: the classical half is now COMPLETE, but no PQ
-   component is registered through this dispatch layer, and a
-   `BOTH_REQUIRED` profile with a missing component must reject, not degrade.
-4. **Real buildable work not yet done.** cSHAKE128/256 and KMAC (need the raw
-   sponge exported), SHA3-224, Keccak-256/512, XChaCha20-Poly1305 (needs
-   HChaCha20), AES key wrap.
+1. **Absent formal toolchain.** Lean and Coq are not installed. Blocks every
+   theorem, the refinement bridge, and the Rocq cross-check.
+2. **Absent post-quantum provider.** ML-DSA, SLH-DSA, Falcon, XMSS, LMS, HSS,
+   Classic McEliece, NTRU, NTRU Prime, BIKE, HQC, FrodoKEM. No vetted
+   liboqs-class provider is bundled or configured.
+3. **Stateful signatures, independently.** XMSS/LMS/HSS carry a *second*
+   blocker beyond provider availability: signing consumes a one-time key and
+   reusing an index is catastrophic. ProofBundle has no state-management story
+   for stateful signatures.
+4. **OpenSSL build limits.** Camellia and SM4 are present but only in
+   CBC/CFB/CTR/ECB/OFB — no GCM or CCM mode. BLAKE2 truncated digest lengths
+   are not exposed. GOST/Streebog needs an engine this build lacks. Each was
+   verified by inspecting `getCiphers()`/`getHashes()` during this build.
+5. **Blocked on a missing component.** All 19 hybrid signature profiles and
+   13 hybrid KEM profiles: the classical half is COMPLETE, the PQ half is not,
+   and a `BOTH_REQUIRED` profile with a missing component must reject rather
+   than degrade.
+6. **Broken or superseded, recognized for rejection.** 97 rows: SIKE and
+   Rainbow (practically broken), Kyber/Dilithium/SPHINCS+ round-3 identifiers
+   (superseded by the FIPS versions and not bit-compatible), MD2/MD4/MD5,
+   DSA, the NIST Round-1 KEM candidates.
+7. **Real buildable work not done.** CMAC and GMAC, SP 800-108 and SP 800-56C
+   KDFs, XChaCha20-Poly1305, RSA-OAEP, encrypt-then-MAC compositions. Each
+   says so plainly rather than blaming a missing dependency.
 
-## Layers of the specification with NO implementation in this repository
+## Layers with NO implementation in this repository
 
-Stated plainly so their absence is not mistaken for an oversight: bundle data
+Stated plainly so their absence is not mistaken for oversight: bundle data
 model and parser, selective disclosure and redaction, supersession and
 revocation records, policy engine, certificates and revocation checking, RFC
 3161 and OpenTimestamps timestamping, blockchain anchoring, content-addressed
@@ -99,8 +109,7 @@ the EU AI Act mapping, the browser application, the Firefox extension, the
 bridge, and the swarm protocol.
 
 The verdict enum (46 codes) and the single-terminal-verdict `Result` type
-exist and are used throughout, but there is no bundle-level verifier that
-consumes them yet.
+exist and are used throughout, but no bundle-level verifier consumes them yet.
 
 ## Why Lean 4 was not compiled
 
@@ -122,32 +131,35 @@ standard applies to this new Lean tree.
 
 ## Numbers, exactly as run
 
-    registry entries                        95
-      COMPLETE                              42
-      COMPLETE_PROVIDER_UNAVAILABLE          1
-      LEGACY_VERIFY_ONLY                     1
-      PARTIAL                                1
-      RECOGNIZE_ONLY                         2
-      BLOCKED                               17
-      NOT_IMPLEMENTED                       31
+    registry entries                        390
+      COMPLETE                               97
+      LEGACY_VERIFY_ONLY                     12
+      COMPLETE_PROVIDER_UNAVAILABLE           1
+      PARTIAL                                 1
+      RECOGNIZE_ONLY                         97
+      BLOCKED                                32
+      NOT_IMPLEMENTED                       150
 
-    unit tests                             190  (190 pass, 0 fail)
-    negative tests                          19  ( 19 pass, 0 fail)
-    hostile-input tests                     46  ( 46 pass, 0 fail)
-    integration (CLI subprocess) tests      15  ( 15 pass, 0 fail)
-    total node --test                      270  (270 pass, 0 fail)
+    unit tests                              318  (318 pass, 0 fail)
+    negative tests                           19  ( 19 pass, 0 fail)
+    hostile-input tests                      46  ( 46 pass, 0 fail)
+    integration (CLI subprocess) tests       15  ( 15 pass, 0 fail)
+    total node --test                       398  (398 pass, 0 fail)
 
-    vector files                            24
-    positive vectors                       217
-    negative vectors                       185
-    vector conformance checks              426  (426 pass, 0 fail)
-      scripts/verify-vectors.mjs           223
-      scripts/verify-surface-vectors.mjs   203
+    vector files                             29
+    positive vectors                        371
+    negative vectors                        315
+    vector conformance checks               751  (751 pass, 0 fail)
+      scripts/verify-vectors.mjs            235
+      scripts/verify-surface-vectors.mjs    431
+      scripts/verify-extended-vectors.mjs    85
+    of which checked against an external
+      NIST/RFC published value               14
 
-    compiled substantive theorems            0  (Lean toolchain absent, exit 127)
-    support lemmas                           0
-    providers available                      1  (node:crypto)
-    providers unavailable                   19  (each with a distinct reason)
+    compiled substantive theorems             0  (Lean toolchain absent, exit 127)
+    support lemmas                            0
+    providers available                       1  (node:crypto)
+    providers unavailable                    19  (each with a distinct reason)
 
 All of the above were executed in this session; raw output is in `reports/`.
 
@@ -176,7 +188,21 @@ over. All were fixed rather than only flagged.
    `src/digest/digest.mjs`, and `test/unit/registry-consistency.test.mjs` now
    checks *every* COMPLETE row for dispatchability so the class of defect
    cannot recur.
-5. **The first release archive reproduced all 124 recorded source hashes and
+5. **The vector checker caught a stale expectation the moment SHA-1 changed
+   status.** SHA-1 moved from RECOGNIZE_AND_REJECT to LEGACY_VERIFY_ONLY when
+   the legacy digest path landed, and `vectors/digest/negative-algorithm-ids.json`
+   still asserted `FORBIDDEN_ALGORITHM` for it. `verify-vectors` failed with
+   "expected an error, got none" — which is exactly what a vector set is for.
+6. **A negative vector that could never fail.** The AEAD generator built its
+   "truncated tag" case by slicing to a fixed 8 bytes. For the CCM-8 suites the
+   full tag *is* 8 bytes, so the "truncated" tag was the valid one and the
+   vector asserted a failure that cannot happen. Both the generator and the
+   unit test now truncate relative to each suite's own tag length.
+7. **A test that let recognize-and-reject rows look dispatchable.** The
+   registry-consistency check defaulted to `true` for families with no
+   dispatcher, so the three superseded `X25519+Kyber*` hybrid rows passed a
+   check that should have flagged them. The default is now `false`.
+8. **The first release archive reproduced all 124 recorded source hashes and
    still could not run.** `src/digest/sha3.mjs` imports `crypto/keccak.mjs`,
    and `crypto/` had not been packaged. A manifest can only attest to the
    files it lists; it cannot notice one that should have been listed and

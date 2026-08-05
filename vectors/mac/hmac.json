@@ -1,5 +1,53 @@
 [
   {
+    "label": "HMAC-SHA-224/empty",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "2a7430f93bb5456d155c654063c7074aa70c01936a6c0e53a9f9407f",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-224/abc",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "f8930d410fdd27f8d703d1f9852a2202569224942a0a8cc02a25db71",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-224/block-boundary-64",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "0f06ee85f4fc7f12fbc3ba11cdd7d6fdf151959cc277b1ffdcf12565",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-224/altered-tag",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "f9930d410fdd27f8d703d1f9852a2202569224942a0a8cc02a25db71",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-224/truncated-tag",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "f8930d410fdd27f8",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-224/wrong-key",
+    "algorithm": "HMAC-SHA-224",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "f8930d410fdd27f8d703d1f9852a2202569224942a0a8cc02a25db71",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
     "label": "HMAC-SHA-256/empty",
     "algorithm": "HMAC-SHA-256",
     "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
@@ -144,6 +192,150 @@
     "expected_verdict": "INVALID_SIGNATURE"
   },
   {
+    "label": "HMAC-SHA-512/224/empty",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "4ec8e8f65d1e0f0a2097af2c87b907bf891d8452c5b94511af1db1a9",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/224/abc",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "df37bf246072efd8d7f4a3209b9429322d70ee1024f6b71c0bdf37de",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/224/block-boundary-64",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "58b735e6ddb87eb6d1bfd85aba70266de59c6793ce67287f5b899134",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/224/altered-tag",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "de37bf246072efd8d7f4a3209b9429322d70ee1024f6b71c0bdf37de",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-512/224/truncated-tag",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "df37bf246072efd8",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-512/224/wrong-key",
+    "algorithm": "HMAC-SHA-512/224",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "df37bf246072efd8d7f4a3209b9429322d70ee1024f6b71c0bdf37de",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-512/256/empty",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "62d06962dd2c4114a07d0b1ef16df27cc5f2d9c80fc246e8a9ef7b9b7c59aacc",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/256/abc",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "8f57da33849c2a22cd2c5949c27bd17282cccd470ca200da8a43e7efb49d1a84",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/256/block-boundary-64",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "7f29ecbd8e56414e1e2accec81d038796035817dbe48f35f3aded79e607316c4",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-512/256/altered-tag",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "8e57da33849c2a22cd2c5949c27bd17282cccd470ca200da8a43e7efb49d1a84",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-512/256/truncated-tag",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "8f57da33849c2a22",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-512/256/wrong-key",
+    "algorithm": "HMAC-SHA-512/256",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "8f57da33849c2a22cd2c5949c27bd17282cccd470ca200da8a43e7efb49d1a84",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA3-224/empty",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "2e37c6fd64fd8a04653d260323bc726482d8cb6b4d9e59e02bd58cd9",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA3-224/abc",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "debdc30c521141e043efd1e30e6555ddafe8e485a0b56931f3c6be91",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA3-224/block-boundary-64",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "0e36cac7a7123d976cc47de14d9064e058fcd112f3ee8d4725d74f91",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA3-224/altered-tag",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "dfbdc30c521141e043efd1e30e6555ddafe8e485a0b56931f3c6be91",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA3-224/truncated-tag",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "debdc30c521141e0",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA3-224/wrong-key",
+    "algorithm": "HMAC-SHA3-224",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "debdc30c521141e043efd1e30e6555ddafe8e485a0b56931f3c6be91",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
     "label": "HMAC-SHA3-256/empty",
     "algorithm": "HMAC-SHA3-256",
     "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
@@ -285,6 +477,150 @@
     "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     "message_hex": "616263",
     "tag_hex": "833b31e777d6b33d7523a579cc3beb276fd6525754c4c54b2d5a347d362407917a3c626e7edb8e493b42c8e5a696d5e66ba7ad2000eb6cff76cb1ec030130e81",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SM3/empty",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "fda7c78d15984d8771f59f20a69d195c6e237070d37ec962e167326e517433db",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SM3/abc",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "a8f95cf26f204957e7ca73c9602a25dda35f168b28103b51dfc968c810416b63",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SM3/block-boundary-64",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "ba0804ab7ccb634aab05b3d4b0fbb667acb1e40347a154576996de45d19fa6a1",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SM3/altered-tag",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "a9f95cf26f204957e7ca73c9602a25dda35f168b28103b51dfc968c810416b63",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SM3/truncated-tag",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "a8f95cf26f204957",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SM3/wrong-key",
+    "algorithm": "HMAC-SM3",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "a8f95cf26f204957e7ca73c9602a25dda35f168b28103b51dfc968c810416b63",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-1/empty",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "b459b2a1c9fc2f668c6509f6907d41f2209f507c",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-1/abc",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "fde25bea45b90744715078c176caef9942f77498",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-1/block-boundary-64",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "b2d0ee9ab9bf11d1dffd6e545417dea159006ebf",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-SHA-1/altered-tag",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "fce25bea45b90744715078c176caef9942f77498",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-1/truncated-tag",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "fde25bea45b90744",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-SHA-1/wrong-key",
+    "algorithm": "HMAC-SHA-1",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "fde25bea45b90744715078c176caef9942f77498",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/empty",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "",
+    "expected_tag_hex": "4ae7036d462bb9e9eb80eac9a6610fe3975df49a",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/abc",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "expected_tag_hex": "96f590513d039e85b6e18288b7f8358fd75f39d1",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/block-boundary-64",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "expected_tag_hex": "3ee57ca4162a41923a5a6351832d1ed3e6c3cc6f",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/altered-tag",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "97f590513d039e85b6e18288b7f8358fd75f39d1",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/truncated-tag",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "message_hex": "616263",
+    "tag_hex": "96f590513d039e85",
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "HMAC-RIPEMD-160/wrong-key",
+    "algorithm": "HMAC-RIPEMD-160",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "message_hex": "616263",
+    "tag_hex": "96f590513d039e85b6e18288b7f8358fd75f39d1",
     "expected_verdict": "INVALID_SIGNATURE"
   },
   {

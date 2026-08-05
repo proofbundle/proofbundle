@@ -12,8 +12,10 @@ date_utc: 2026-08-05T04:18:27Z
    those artifacts can be produced without a working Lean toolchain.
 
 3. WHAT THE PROJECT'S GUARANTEES ACTUALLY REST ON, TODAY:
-   - executed tests (270 passing)
-   - executed vector checks (426 passing)
+   - executed tests (398 passing)
+   - executed vector checks (751 passing, 14 checked against an external
+     NIST/RFC value: SP 800-185 cSHAKE/KMAC/TupleHash/ParallelHash samples
+     and the RFC 3394 4.1 AES key wrap known-answer vector)
    - the external assumptions enumerated in ASSUMPTIONS.md
    Nothing rests on a machine-checked proof, because there is not one.
 

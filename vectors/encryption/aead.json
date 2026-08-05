@@ -1,0 +1,320 @@
+[
+  {
+    "label": "AES-128-GCM/empty",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "",
+    "ciphertext_hex": "",
+    "tag_hex": "51c3cf4e955cd13978bce7de61488915",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-GCM/short",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "736563726574207061796c6f6164",
+    "ciphertext_hex": "2dcfe210fcba21690f5ff01a82f1",
+    "tag_hex": "38b7bdb5f9f9e4e7e6c4726b253884ce",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-GCM/block-boundary-16",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "41414141414141414141414141414141",
+    "ciphertext_hex": "1febc023d88f40582f67dd34a2d47df9",
+    "tag_hex": "751374b53f0b113d9d14f3069a9f4a88",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-128-GCM/altered-ciphertext",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "2ccfe210fcba21690f5ff01a82f1",
+    "tag_hex": "38b7bdb5f9f9e4e7e6c4726b253884ce",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-128-GCM/aad-mismatch",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "444946464552454e542d686561646572",
+    "ciphertext_hex": "2dcfe210fcba21690f5ff01a82f1",
+    "tag_hex": "38b7bdb5f9f9e4e7e6c4726b253884ce",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-128-GCM/truncated-tag",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "00070e151c232a31383f464d545b6269",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "2dcfe210fcba21690f5ff01a82f1",
+    "tag_hex": "38b7bdb5f9f9e4e7",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "TAG_LENGTH_INVALID"
+  },
+  {
+    "label": "AES-128-GCM/wrong-key",
+    "algorithm": "AES-128-GCM",
+    "key_hex": "ffffffffffffffffffffffffffffffff",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "2dcfe210fcba21690f5ff01a82f1",
+    "tag_hex": "38b7bdb5f9f9e4e7e6c4726b253884ce",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-192-GCM/empty",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "",
+    "ciphertext_hex": "",
+    "tag_hex": "c17fa4130a9cf7f8bc202ac4bace0d8a",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-192-GCM/short",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "736563726574207061796c6f6164",
+    "ciphertext_hex": "07e4d6e1137ccfcf89f98b6b81d9",
+    "tag_hex": "4b5defc4617670696821d9eb3381b9dd",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-192-GCM/block-boundary-16",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "41414141414141414141414141414141",
+    "ciphertext_hex": "35c0f4d23749aefea9c1a645a1fc4d32",
+    "tag_hex": "b5fa5f7a9eeeb0808ff3366eaea945ed",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-192-GCM/altered-ciphertext",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "06e4d6e1137ccfcf89f98b6b81d9",
+    "tag_hex": "4b5defc4617670696821d9eb3381b9dd",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-192-GCM/aad-mismatch",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "444946464552454e542d686561646572",
+    "ciphertext_hex": "07e4d6e1137ccfcf89f98b6b81d9",
+    "tag_hex": "4b5defc4617670696821d9eb3381b9dd",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-192-GCM/truncated-tag",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "07e4d6e1137ccfcf89f98b6b81d9",
+    "tag_hex": "4b5defc461767069",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "TAG_LENGTH_INVALID"
+  },
+  {
+    "label": "AES-192-GCM/wrong-key",
+    "algorithm": "AES-192-GCM",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "07e4d6e1137ccfcf89f98b6b81d9",
+    "tag_hex": "4b5defc4617670696821d9eb3381b9dd",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-256-GCM/empty",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "",
+    "ciphertext_hex": "",
+    "tag_hex": "1e1538943d565d22634b3260da38186b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-256-GCM/short",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "736563726574207061796c6f6164",
+    "ciphertext_hex": "4a59ae7fbc334d0e8826daeee6b3",
+    "tag_hex": "f9fa93108bc41f026bd60258ffbdff00",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-256-GCM/block-boundary-16",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "41414141414141414141414141414141",
+    "ciphertext_hex": "787d8c4c98062c3fa81ef7c0c6960f43",
+    "tag_hex": "6a0c916d3d3ae36753b46fc0f97e3b7b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "AES-256-GCM/altered-ciphertext",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "4b59ae7fbc334d0e8826daeee6b3",
+    "tag_hex": "f9fa93108bc41f026bd60258ffbdff00",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-256-GCM/aad-mismatch",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "444946464552454e542d686561646572",
+    "ciphertext_hex": "4a59ae7fbc334d0e8826daeee6b3",
+    "tag_hex": "f9fa93108bc41f026bd60258ffbdff00",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "AES-256-GCM/truncated-tag",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "4a59ae7fbc334d0e8826daeee6b3",
+    "tag_hex": "f9fa93108bc41f02",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "TAG_LENGTH_INVALID"
+  },
+  {
+    "label": "AES-256-GCM/wrong-key",
+    "algorithm": "AES-256-GCM",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "4a59ae7fbc334d0e8826daeee6b3",
+    "tag_hex": "f9fa93108bc41f026bd60258ffbdff00",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/empty",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "",
+    "ciphertext_hex": "",
+    "tag_hex": "e2b197e8656d7bc13784d1f258e7be87",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/short",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "736563726574207061796c6f6164",
+    "ciphertext_hex": "20eed86950e1f7ae18af54ac85c1",
+    "tag_hex": "0d06d29198377f25e2fa9e68c9587b58",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/block-boundary-16",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "plaintext_hex": "41414141414141414141414141414141",
+    "ciphertext_hex": "12cafa5a74d4969f38977982a5e4acb5",
+    "tag_hex": "9c08b189c2cc8cc8e128192cbd33c41b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/altered-ciphertext",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "21eed86950e1f7ae18af54ac85c1",
+    "tag_hex": "0d06d29198377f25e2fa9e68c9587b58",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/aad-mismatch",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "444946464552454e542d686561646572",
+    "ciphertext_hex": "20eed86950e1f7ae18af54ac85c1",
+    "tag_hex": "0d06d29198377f25e2fa9e68c9587b58",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "ChaCha20-Poly1305/truncated-tag",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "00070e151c232a31383f464d545b626970777e858c939aa1a8afb6bdc4cbd2d9",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "20eed86950e1f7ae18af54ac85c1",
+    "tag_hex": "0d06d29198377f25",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "TAG_LENGTH_INVALID"
+  },
+  {
+    "label": "ChaCha20-Poly1305/wrong-key",
+    "algorithm": "ChaCha20-Poly1305",
+    "key_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "nonce_hex": "000306090c0f1215181b1e21",
+    "aad_hex": "626f756e642d686561646572",
+    "ciphertext_hex": "20eed86950e1f7ae18af54ac85c1",
+    "tag_hex": "0d06d29198377f25e2fa9e68c9587b58",
+    "expected_verdict": "INVALID_SIGNATURE",
+    "expected_reason": "AUTHENTICATION_FAILED"
+  },
+  {
+    "label": "registered-unwired/AES-256-GCM-SIV",
+    "algorithm": "AES-256-GCM-SIV",
+    "expected_verdict": "UNSUPPORTED_ALGORITHM"
+  },
+  {
+    "label": "unknown-aead-algorithm",
+    "algorithm": "NOT-AN-AEAD",
+    "expected_verdict": "UNKNOWN_ALGORITHM"
+  }
+]

@@ -1,0 +1,45 @@
+ProofBundle theorem audit
+date_utc: 2026-08-05T04:17:28Z
+
+HEADLINE: 0 compiled substantive theorems. 0 support lemmas.
+Not because the audit found problems, but because no Lean compilation ran.
+The toolchain is absent (reports/lean-build-report.txt, exit 127).
+
+=== Audit patterns searched across lean/ and coq/ ===
+  pattern 'sorry': 0 hit(s)
+  pattern 'admit': 0 hit(s)
+  pattern 'Admitted': 3 hit(s)
+  pattern 'axiom': 0 hit(s)
+  pattern 'Axiom': 3 hit(s)
+  pattern 'TODO': 0 hit(s)
+  pattern 'FIXME': 0 hit(s)
+  pattern 'placeholder': 0 hit(s)
+
+=== Hits in lean/ (the tree that would be compiled) ===
+  none
+
+=== Hits in coq/ (pre-existing tree, not part of this slice) ===
+coq/GPXBoundary.v:8:   Zero Axiom.  Zero Admitted.  Zero Parameter.  Zero Hypothesis.
+coq/GPXDiachronic.v:22:   Coq 8.18.0, stdlib only. Zero Axiom / Admitted / Parameter / Hypothesis.
+coq/GPXTemporal.v:19:   Coq 8.18.0, stdlib only. Zero Axiom / Admitted / Parameter / Hypothesis.
+
+=== Audit criteria that COULD NOT be evaluated ===
+Each of the following requires elaborating the Lean development. None was run:
+  - assumption of the theorem conclusion
+  - contradictory hypotheses
+  - empty-domain vacuity
+  - unreachable-case-only proofs
+  - definition restatements presented as theorems
+  - trusted assumptions stronger than the conclusion
+  - circular theorem dependencies
+  - theorem names overstating the proved proposition
+Status for all eight: NOT EVALUATED — blocked on the Lean toolchain.
+
+=== What was audited instead ===
+The executable surface, by execution. See THEOREM_INDEX.json
+'executable_checked_properties' — 12 properties checked by running code.
+None of them is a theorem and none is recorded as one.
+
+=== Statement required by the specification ===
+Prose is not a theorem. A test vector is not a theorem. A definition is not a
+theorem. An assumption is not a proof. This project currently has zero theorems.

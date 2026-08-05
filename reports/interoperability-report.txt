@@ -1,0 +1,25 @@
+ProofBundle interoperability report
+date_utc: 2026-08-05T04:18:27Z
+
+RESULT: NOT RUN for cross-implementation interoperability.
+
+Interoperability in the sense the specification means it — the same bundle
+verified by a second, independently written implementation — requires a
+second implementation. None is available in this environment, so every
+interop_status cell in CRYPTOGRAPHIC_SURFACE.csv reads NOT_RUN.
+
+WHAT WAS CHECKED INSTEAD, and what it is worth:
+
+  a) External authoritative vectors. HMAC-SHA-256 against RFC 4231 TC1 and
+     HKDF-SHA-256 against RFC 5869 A.1. These ARE cross-implementation
+     checks: the expected bytes come from the RFC, not from this code.
+     BLAKE2b-512 and BLAKE2s-256 are checked against published digests.
+  b) node:crypto as a second implementation for SHA3/SHAKE. crypto/keccak.mjs
+     (PURE_MJS) was previously cross-checked against node's OpenSSL-backed
+     SHA3 — two independent implementations agreeing.
+  c) CLI-to-library round trip. Keys and signatures produced through the CLI
+     verify through the library and vice versa (test/integration/cli.test.mjs).
+     This is a self-consistency check, NOT interoperability.
+
+NOT CHECKED: whether any other ProofBundle implementation, or any third-party
+tool, accepts artifacts produced here. That claim is not made.

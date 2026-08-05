@@ -1,0 +1,107 @@
+[
+  {
+    "label": "lineage/diamond",
+    "nodes": [
+      {
+        "id": "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e",
+        "type": "source",
+        "parents": []
+      },
+      {
+        "id": "99a4713c8c0387c5f1ead90800caa0ccf5c040fb04a86f2dcc3b10d262c83ded",
+        "type": "derived",
+        "parents": [
+          "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e"
+        ]
+      },
+      {
+        "id": "b2f46e3470f169a463820f10e95a2d2fc5000ab2f03a839716a68c4326bd508d",
+        "type": "derived",
+        "parents": [
+          "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e",
+          "99a4713c8c0387c5f1ead90800caa0ccf5c040fb04a86f2dcc3b10d262c83ded"
+        ]
+      }
+    ],
+    "expected_ancestors_of_c": [
+      "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e",
+      "99a4713c8c0387c5f1ead90800caa0ccf5c040fb04a86f2dcc3b10d262c83ded"
+    ],
+    "expected_topological_order": [
+      "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e",
+      "99a4713c8c0387c5f1ead90800caa0ccf5c040fb04a86f2dcc3b10d262c83ded",
+      "b2f46e3470f169a463820f10e95a2d2fc5000ab2f03a839716a68c4326bd508d"
+    ],
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "lineage/node-id-determinism",
+    "node_type": "derived",
+    "payload_hex": "43",
+    "parents": [
+      "84115150cec5c293a27ad8f8a69e79c424673adcf0014b89974e50f6ba9c104e",
+      "99a4713c8c0387c5f1ead90800caa0ccf5c040fb04a86f2dcc3b10d262c83ded"
+    ],
+    "expected_id": "b2f46e3470f169a463820f10e95a2d2fc5000ab2f03a839716a68c4326bd508d",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "lineage/cycle",
+    "nodes": [
+      {
+        "id": "x",
+        "parents": [
+          "y"
+        ]
+      },
+      {
+        "id": "y",
+        "parents": [
+          "x"
+        ]
+      }
+    ],
+    "expected_verdict": "LINEAGE_CYCLE"
+  },
+  {
+    "label": "lineage/self-parent",
+    "nodes": [
+      {
+        "id": "x",
+        "parents": [
+          "x"
+        ]
+      }
+    ],
+    "expected_verdict": "LINEAGE_INVALID"
+  },
+  {
+    "label": "lineage/duplicate-parent",
+    "nodes": [
+      {
+        "id": "x",
+        "parents": []
+      },
+      {
+        "id": "y",
+        "parents": [
+          "x",
+          "x"
+        ]
+      }
+    ],
+    "expected_verdict": "LINEAGE_INVALID"
+  },
+  {
+    "label": "lineage/missing-parent",
+    "nodes": [
+      {
+        "id": "x",
+        "parents": [
+          "ghost"
+        ]
+      }
+    ],
+    "expected_verdict": "LINEAGE_MISSING"
+  }
+]

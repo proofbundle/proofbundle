@@ -1,0 +1,210 @@
+[
+  {
+    "label": "RFC5869/TC1",
+    "source": "RFC 5869 Appendix A.1 (external authority)",
+    "algorithm": "HKDF-SHA-256",
+    "ikm_hex": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+    "salt_hex": "000102030405060708090a0b0c",
+    "info_hex": "f0f1f2f3f4f5f6f7f8f9",
+    "length": 42,
+    "expected_prk_hex": "077709362c2e32df0ddc3f0dc47bba6390b6c73bb50f9c3122ec844ad7c2b3e5",
+    "expected_okm_hex": "3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-256/len16",
+    "algorithm": "HKDF-SHA-256",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 16,
+    "expected_prk_hex": "45a39914db43cbfb9a3318dd20171ca16f1f7556063ab5438d1d837f24a79bf4",
+    "expected_okm_hex": "55e906cde65145a29218620e9e34b7fc",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-256/len32",
+    "algorithm": "HKDF-SHA-256",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 32,
+    "expected_prk_hex": "45a39914db43cbfb9a3318dd20171ca16f1f7556063ab5438d1d837f24a79bf4",
+    "expected_okm_hex": "55e906cde65145a29218620e9e34b7fcdae07a38258f17cc9f16cbe6b2ed5ba6",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-256/len64",
+    "algorithm": "HKDF-SHA-256",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 64,
+    "expected_prk_hex": "45a39914db43cbfb9a3318dd20171ca16f1f7556063ab5438d1d837f24a79bf4",
+    "expected_okm_hex": "55e906cde65145a29218620e9e34b7fcdae07a38258f17cc9f16cbe6b2ed5ba635504a5eea960c70c4801d00d6f62111a7dcd16465a6f244681468bf90b4d157",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-256/info-sensitivity",
+    "algorithm": "HKDF-SHA-256",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "646966666572656e7420696e666f",
+    "length": 32,
+    "expected_okm_hex": "b10948b3ed30a98b597e9253b0c63e088bbd21b1fc23a2e1cb47d211114a40cf",
+    "differs_from_label": "HKDF-SHA-256/len32",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-384/len16",
+    "algorithm": "HKDF-SHA-384",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 16,
+    "expected_prk_hex": "463ccf554287df66bf074b581f53e5756db76f837b01e195db37fa165eed8754c30b20eca1a7a5b7feec522cbb1f1fd1",
+    "expected_okm_hex": "0f7de6aa02281119694054bbc012873d",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-384/len32",
+    "algorithm": "HKDF-SHA-384",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 32,
+    "expected_prk_hex": "463ccf554287df66bf074b581f53e5756db76f837b01e195db37fa165eed8754c30b20eca1a7a5b7feec522cbb1f1fd1",
+    "expected_okm_hex": "0f7de6aa02281119694054bbc012873da2e1f4ab1a3fd0ce396c596a3e068951",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-384/len64",
+    "algorithm": "HKDF-SHA-384",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 64,
+    "expected_prk_hex": "463ccf554287df66bf074b581f53e5756db76f837b01e195db37fa165eed8754c30b20eca1a7a5b7feec522cbb1f1fd1",
+    "expected_okm_hex": "0f7de6aa02281119694054bbc012873da2e1f4ab1a3fd0ce396c596a3e0689519b173df36383267c67765b4463d7c2ab04e6b64bc99ff92fb1a3aa8ff9dc5d96",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-384/info-sensitivity",
+    "algorithm": "HKDF-SHA-384",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "646966666572656e7420696e666f",
+    "length": 32,
+    "expected_okm_hex": "db108d66fa9f961586ab5bfd7a1dccf621ad55d714f7e1f10524fd1d00e956a1",
+    "differs_from_label": "HKDF-SHA-384/len32",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-512/len16",
+    "algorithm": "HKDF-SHA-512",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 16,
+    "expected_prk_hex": "d94518f90ae07d34d9aa69e9042e7f258ddc51ef6f70abfc043c849f4627fc15a40a0b475e04ae63ceee0afc760dd61a249aad343434bcb96db5f31154864e08",
+    "expected_okm_hex": "2224ea30c36c36b77b7d471b53036150",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-512/len32",
+    "algorithm": "HKDF-SHA-512",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 32,
+    "expected_prk_hex": "d94518f90ae07d34d9aa69e9042e7f258ddc51ef6f70abfc043c849f4627fc15a40a0b475e04ae63ceee0afc760dd61a249aad343434bcb96db5f31154864e08",
+    "expected_okm_hex": "2224ea30c36c36b77b7d471b5303615099085277769fd98635b045a54072c0e1",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-512/len64",
+    "algorithm": "HKDF-SHA-512",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "696e666f",
+    "length": 64,
+    "expected_prk_hex": "d94518f90ae07d34d9aa69e9042e7f258ddc51ef6f70abfc043c849f4627fc15a40a0b475e04ae63ceee0afc760dd61a249aad343434bcb96db5f31154864e08",
+    "expected_okm_hex": "2224ea30c36c36b77b7d471b5303615099085277769fd98635b045a54072c0e139c7fdd4908b37b9fb962fc3160e7e7f77faca83c5774972a4f454e0b48ade68",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "HKDF-SHA-512/info-sensitivity",
+    "algorithm": "HKDF-SHA-512",
+    "ikm_hex": "696e707574206b6579696e67206d6174657269616c",
+    "salt_hex": "73616c74",
+    "info_hex": "646966666572656e7420696e666f",
+    "length": 32,
+    "expected_okm_hex": "153a3a1cf4587a94848cdba3252ac927c23ef28944b7508753dac7feec6bccd8",
+    "differs_from_label": "HKDF-SHA-512/len32",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "PBKDF2-HMAC-SHA-256/it1000",
+    "algorithm": "PBKDF2-HMAC-SHA-256",
+    "password_hex": "70617373776f7264",
+    "salt_hex": "73616c74",
+    "iterations": 1000,
+    "length": 32,
+    "expected_okm_hex": "632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb3",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "PBKDF2-HMAC-SHA-512/it1000",
+    "algorithm": "PBKDF2-HMAC-SHA-512",
+    "password_hex": "70617373776f7264",
+    "salt_hex": "73616c74",
+    "iterations": 1000,
+    "length": 32,
+    "expected_okm_hex": "afe6c5530785b6cc6b1c6453384731bd5ee432ee549fd42fb6695779ad8a1c5b",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "subkey/content-encryption",
+    "algorithm": "ProofBundle-subkey-derivation",
+    "master_key_hex": "0707070707070707070707070707070707070707070707070707070707070707",
+    "purpose": "content-encryption",
+    "key_id": "kid-1",
+    "index": 0,
+    "length": 32,
+    "expected_okm_hex": "51b6744ae51a6fbbccee4f0ccf6ef7c877254e967aabac344e80c4368f703040",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "subkey/header-authentication",
+    "algorithm": "ProofBundle-subkey-derivation",
+    "master_key_hex": "0707070707070707070707070707070707070707070707070707070707070707",
+    "purpose": "header-authentication",
+    "key_id": "kid-1",
+    "index": 0,
+    "length": 32,
+    "expected_okm_hex": "5d37fc8cf37785caed95356a00c22cee592709057c53712c9085cfcbdde43071",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "subkey/log-record-mac",
+    "algorithm": "ProofBundle-subkey-derivation",
+    "master_key_hex": "0707070707070707070707070707070707070707070707070707070707070707",
+    "purpose": "log-record-mac",
+    "key_id": "kid-1",
+    "index": 0,
+    "length": 32,
+    "expected_okm_hex": "32c752d1daaecbf54e375e532fd3fe79f060ca75bfa5c1aece6a51dbf12913f3",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "subkey/unregistered-purpose",
+    "algorithm": "ProofBundle-subkey-derivation",
+    "purpose": "not-a-purpose",
+    "expected_verdict": "MALFORMED"
+  },
+  {
+    "label": "unknown-kdf-algorithm",
+    "algorithm": "HKDF-NOPE",
+    "expected_verdict": "UNKNOWN_ALGORITHM"
+  }
+]

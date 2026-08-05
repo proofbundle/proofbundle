@@ -1,0 +1,308 @@
+[
+  {
+    "label": "merkle/7-leaf-root",
+    "digest": "SHA-256",
+    "leaf_count": 7,
+    "leaves_hex": [
+      "6c6561662d30",
+      "6c6561662d31",
+      "6c6561662d32",
+      "6c6561662d33",
+      "6c6561662d34",
+      "6c6561662d35",
+      "6c6561662d36"
+    ],
+    "expected_root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-0",
+    "leaf_hex": "6c6561662d30",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 0,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "cda3acade3fe27a456451e79e613c3318c04d6eb1ef6fc4758bbe61846a766df",
+          "isLeft": false
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-1",
+    "leaf_hex": "6c6561662d31",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 1,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "ae5627242c0e01c51f8eff3ea0078b3cc40df7aeef6122efc296be024912dcdc",
+          "isLeft": true
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-2",
+    "leaf_hex": "6c6561662d32",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 2,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "15f0e389569f6299ebe9bb9c7c4087f6359c7ee771b6f79d7d6b6b5cda9a0630",
+          "isLeft": false
+        },
+        {
+          "hash": "acf18a1d78e2ae7212fecdea6d41835531679d792fc6f0584374db9885314f38",
+          "isLeft": true
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-3",
+    "leaf_hex": "6c6561662d33",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 3,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "d45ca70aec5f6262a4f0508914945cda3cab045ec0e8f747cd10c987a2f02fb8",
+          "isLeft": true
+        },
+        {
+          "hash": "acf18a1d78e2ae7212fecdea6d41835531679d792fc6f0584374db9885314f38",
+          "isLeft": true
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-4",
+    "leaf_hex": "6c6561662d34",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 4,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "139852f7277a13584efa712c098ca7bb4c6b296915fec51d142af18b72b6904c",
+          "isLeft": false
+        },
+        {
+          "hash": "21621bedce6cc75cd384f3e62f6f05a01c1e2d540fb6eb559fe0821393bd63bc",
+          "isLeft": false
+        },
+        {
+          "hash": "54f73c7f3486b3f4693210ce63e5838c15cce09ecd579bd3c4eab49bb4a6cc36",
+          "isLeft": true
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-5",
+    "leaf_hex": "6c6561662d35",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 5,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "31328e055ae8df843344a65fd0a34864b0fa78233abe166ad41d61b24330d0ac",
+          "isLeft": true
+        },
+        {
+          "hash": "21621bedce6cc75cd384f3e62f6f05a01c1e2d540fb6eb559fe0821393bd63bc",
+          "isLeft": false
+        },
+        {
+          "hash": "54f73c7f3486b3f4693210ce63e5838c15cce09ecd579bd3c4eab49bb4a6cc36",
+          "isLeft": true
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/inclusion-6",
+    "leaf_hex": "6c6561662d36",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 6,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "2bca03811fa5ed7c94cc5cb65aaf4562349b72872302834eee531f0935fc0e7e",
+          "isLeft": true
+        },
+        {
+          "hash": "54f73c7f3486b3f4693210ce63e5838c15cce09ecd579bd3c4eab49bb4a6cc36",
+          "isLeft": true
+        }
+      ]
+    },
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "merkle/wrong-position",
+    "leaf_hex": "6c6561662d30",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 1,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "cda3acade3fe27a456451e79e613c3318c04d6eb1ef6fc4758bbe61846a766df",
+          "isLeft": false
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "INVALID_SIGNATURE",
+    "note": "position binding: the index is inside the leaf hash"
+  },
+  {
+    "label": "merkle/wrong-leaf",
+    "leaf_hex": "6e6f742d612d6c656166",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 0,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "cda3acade3fe27a456451e79e613c3318c04d6eb1ef6fc4758bbe61846a766df",
+          "isLeft": false
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "merkle/mutated-path",
+    "leaf_hex": "6c6561662d30",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 0,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "isLeft": false
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "INVALID_SIGNATURE"
+  },
+  {
+    "label": "merkle/internal-node-as-leaf",
+    "leaf_hex": "acf18a1d78e2ae7212fecdea6d41835531679d792fc6f0584374db9885314f38",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 0,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "cda3acade3fe27a456451e79e613c3318c04d6eb1ef6fc4758bbe61846a766df",
+          "isLeft": false
+        },
+        {
+          "hash": "1195ea954c4ac34da95f832d817acebea7c5e180123659f0550c3c9d0a9d7829",
+          "isLeft": false
+        },
+        {
+          "hash": "12aa05298ec02c517838864855068b926c4dc610f389225f1b9866854bed1c0c",
+          "isLeft": false
+        }
+      ]
+    },
+    "expected_verdict": "INVALID_SIGNATURE",
+    "note": "leaf and internal-node domains are separated"
+  },
+  {
+    "label": "merkle/noncanonical-proof-hex",
+    "leaf_hex": "6c6561662d30",
+    "root_hex": "d43113d043392f31a1158f42a8ca293d342f78f3fdafa6669035720efff46c09",
+    "proof": {
+      "index": 0,
+      "leafCount": 7,
+      "digestAlg": "SHA-256",
+      "siblings": [
+        {
+          "hash": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+          "isLeft": true
+        }
+      ]
+    },
+    "expected_verdict": "MALFORMED"
+  }
+]

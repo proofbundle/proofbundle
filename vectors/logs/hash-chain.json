@@ -1,0 +1,46 @@
+[
+  {
+    "label": "log/3-record-chain",
+    "records": [
+      {
+        "sequence": 0,
+        "payload_hex": "7265636f72642d61",
+        "previous_hash_hex": "5f86cde456adbbd34d4af534fc5457f7ceedccb155fb7f6b7eac6137e7f63f04",
+        "hash_hex": "3aba6a61d9b7bf46ff77cae210bbc078a6aadafe42d538f6bd46d2c2e5032710"
+      },
+      {
+        "sequence": 1,
+        "payload_hex": "7265636f72642d62",
+        "previous_hash_hex": "3aba6a61d9b7bf46ff77cae210bbc078a6aadafe42d538f6bd46d2c2e5032710",
+        "hash_hex": "815833bf91eada63bdeae6a783ec63f9a415bead524b38fcad983facad38cdd3"
+      },
+      {
+        "sequence": 2,
+        "payload_hex": "7265636f72642d63",
+        "previous_hash_hex": "815833bf91eada63bdeae6a783ec63f9a415bead524b38fcad983facad38cdd3",
+        "hash_hex": "a1bee84f77724f9fca25774d9dc7ee7b8430812bc06dd7ed07a96ec119173cc8"
+      }
+    ],
+    "expected_head_hex": "a1bee84f77724f9fca25774d9dc7ee7b8430812bc06dd7ed07a96ec119173cc8",
+    "expected_verdict": "VERIFIED"
+  },
+  {
+    "label": "log/tampered-middle-record",
+    "tamper_at": 1,
+    "replacement_payload_hex": "4556494c",
+    "expected_verdict": "LINEAGE_INVALID",
+    "expected_failure": "RECORD_HASH_MISMATCH"
+  },
+  {
+    "label": "log/rollback",
+    "earlier_head_sequence": 5,
+    "later_log_length": 3,
+    "expected_verdict": "LINEAGE_INVALID",
+    "expected_failure": "ROLLBACK"
+  },
+  {
+    "label": "log/sequence-gap",
+    "expected_verdict": "LINEAGE_INVALID",
+    "expected_failure": "SEQUENCE_NOT_MONOTONE"
+  }
+]

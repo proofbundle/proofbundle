@@ -9,6 +9,7 @@
 import { sha224, sha256, sha384, sha512, sha512_224, sha512_256 } from './sha2.mjs';
 import { sha3_256, sha3_384, sha3_512 } from './sha3.mjs';
 import { shake128, shake256 } from './shake.mjs';
+import { blake2b512, blake2s256 } from './blake2.mjs';
 
 // Algorithm IDs recognized so a deterministic rejection can be issued, per
 // the RECOGNIZE_AND_REJECT implementation class. Never dispatched to any
@@ -25,6 +26,8 @@ const TABLE = new Map([
   ['SHA3-256', (b) => sha3_256(b)],
   ['SHA3-384', (b) => sha3_384(b)],
   ['SHA3-512', (b) => sha3_512(b)],
+  ['BLAKE2b-512', (b) => blake2b512(b)],
+  ['BLAKE2s-256', (b) => blake2s256(b)],
 ]);
 
 export class UnknownAlgorithmError extends RangeError {

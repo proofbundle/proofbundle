@@ -1,0 +1,113 @@
+ProofBundle dependency report
+date_utc: 2026-08-05T04:15:56Z
+
+$ npm ls --all
+proofbundle@1.0.0 /home/user/proofbundle
+`-- jsdom@24.1.3
+  +-- UNMET OPTIONAL DEPENDENCY canvas@^2.11.2
+  +-- cssstyle@4.6.0
+  | +-- @asamuzakjp/css-color@3.2.0
+  | | +-- @csstools/css-calc@2.1.4
+  | | | +-- @csstools/css-parser-algorithms@3.0.5 deduped
+  | | | `-- @csstools/css-tokenizer@3.0.4 deduped
+  | | +-- @csstools/css-color-parser@3.1.0
+  | | | +-- @csstools/color-helpers@5.1.0
+  | | | +-- @csstools/css-calc@2.1.4 deduped
+  | | | +-- @csstools/css-parser-algorithms@3.0.5 deduped
+  | | | `-- @csstools/css-tokenizer@3.0.4 deduped
+  | | +-- @csstools/css-parser-algorithms@3.0.5
+  | | | `-- @csstools/css-tokenizer@3.0.4 deduped
+  | | +-- @csstools/css-tokenizer@3.0.4
+  | | `-- lru-cache@10.4.3
+  | `-- rrweb-cssom@0.8.0
+  +-- data-urls@5.0.0
+  | +-- whatwg-mimetype@4.0.0 deduped
+  | `-- whatwg-url@14.2.0 deduped
+  +-- decimal.js@10.6.0
+  +-- form-data@4.0.6
+  | +-- asynckit@0.4.0
+  | +-- combined-stream@1.0.8
+  | | `-- delayed-stream@1.0.0
+  | +-- es-set-tostringtag@2.1.0
+  | | +-- es-errors@1.3.0
+  | | +-- get-intrinsic@1.3.0
+  | | | +-- call-bind-apply-helpers@1.0.2
+  | | | | +-- es-errors@1.3.0 deduped
+  | | | | `-- function-bind@1.1.2 deduped
+  | | | +-- es-define-property@1.0.1
+  | | | +-- es-errors@1.3.0 deduped
+  | | | +-- es-object-atoms@1.1.2
+  | | | | `-- es-errors@1.3.0 deduped
+  | | | +-- function-bind@1.1.2 deduped
+  | | | +-- get-proto@1.0.1
+  | | | | +-- dunder-proto@1.0.1
+  | | | | | +-- call-bind-apply-helpers@1.0.2 deduped
+  | | | | | +-- es-errors@1.3.0 deduped
+  | | | | | `-- gopd@1.2.0 deduped
+  | | | | `-- es-object-atoms@1.1.2 deduped
+  | | | +-- gopd@1.2.0
+  | | | +-- has-symbols@1.1.0
+  | | | +-- hasown@2.0.4 deduped
+  | | | `-- math-intrinsics@1.1.0
+  | | +-- has-tostringtag@1.0.2
+  | | | `-- has-symbols@1.1.0 deduped
+  | | `-- hasown@2.0.4 deduped
+  | +-- hasown@2.0.4
+  | | `-- function-bind@1.1.2
+  | `-- mime-types@2.1.35
+  |   `-- mime-db@1.52.0
+  +-- html-encoding-sniffer@4.0.0
+  | `-- whatwg-encoding@3.1.1 deduped
+  +-- http-proxy-agent@7.0.2
+  | +-- agent-base@7.1.4
+  | `-- debug@4.4.3
+  |   `-- ms@2.1.3
+  +-- https-proxy-agent@7.0.6
+  | +-- agent-base@7.1.4 deduped
+  | `-- debug@4.4.3 deduped
+  +-- is-potential-custom-element-name@1.0.1
+  +-- nwsapi@2.2.24
+  +-- parse5@7.3.0
+  | `-- entities@6.0.1
+  +-- rrweb-cssom@0.7.1
+  +-- saxes@6.0.0
+  | `-- xmlchars@2.2.0
+  +-- symbol-tree@3.2.4
+  +-- tough-cookie@4.1.4
+  | +-- psl@1.15.0
+  | | `-- punycode@2.3.1 deduped
+  | +-- punycode@2.3.1
+  | +-- universalify@0.2.0
+  | `-- url-parse@1.5.10
+  |   +-- querystringify@2.2.0
+  |   `-- requires-port@1.0.0
+  +-- w3c-xmlserializer@5.0.0
+  | `-- xml-name-validator@5.0.0 deduped
+  +-- webidl-conversions@7.0.0
+  +-- whatwg-encoding@3.1.1
+  | `-- iconv-lite@0.6.3
+  |   `-- safer-buffer@2.1.2
+  +-- whatwg-mimetype@4.0.0
+  +-- whatwg-url@14.2.0
+  | +-- tr46@5.1.1
+  | | `-- punycode@2.3.1 deduped
+  | `-- webidl-conversions@7.0.0 deduped
+  +-- ws@8.21.1
+  | +-- UNMET OPTIONAL DEPENDENCY bufferutil@^4.0.1
+  | `-- UNMET OPTIONAL DEPENDENCY utf-8-validate@>=5.0.2
+  `-- xml-name-validator@5.0.0
+
+exit=0
+
+$ npm audit --json | head
+found 0 vulnerabilities
+exit=0
+
+RUNTIME DEPENDENCIES OF THE src/ SURFACE: none.
+Every module under src/ imports only node: builtins. jsdom is a dependency of the
+separate legacy cli/proofbundle-cli.mjs (the jsdom-hosted HTML engine), not of the
+src/ tree built in this slice. Verified by the import scan below.
+
+$ grep -rhoE "from '[^.][^']*'" src/ bin/ | sort -u
+from 'node:crypto'
+from 'node:fs'

@@ -1,14 +1,35 @@
-===== environment =====
-date: 2026-07-28T16:00:50Z
-node: v22.22.2
-npm: 10.9.7
-platform: Linux vm 6.18.5 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64 x86_64 GNU/Linux
+ProofBundle environment report
+generated_by: manual capture during slice-2 build; every line below is command output, unedited
+date_utc: 2026-08-05T04:14:20Z
 
-===== lean/lake =====
-$ command -v lake
-not found — Lean 4 toolchain is not installed in this environment
-$ command -v lean
-not found
+$ node --version
+v22.22.2
+exit=0
 
-===== coq (relevant to existing corpus claims elsewhere in this repo) =====
-not found — consistent with docs/CORPUS-STATE.md's stated assumption all session
+$ npm --version
+10.9.7
+exit=0
+
+$ uname -a
+Linux vm 6.18.5-fc-v18 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64 x86_64 GNU/Linux
+exit=0
+
+$ node -p process.versions.openssl
+3.5.5
+exit=0
+
+$ lake --version
+/bin/bash: line 26: lake: command not found
+exit=127
+
+$ lean --version
+/bin/bash: line 27: lean: command not found
+exit=127
+
+$ coqc --version
+/bin/bash: line 28: coqc: command not found
+exit=127
+
+$ elan --version
+/bin/bash: line 29: elan: command not found
+exit=127

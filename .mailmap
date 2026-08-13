@@ -1,0 +1,4 @@
+# Display-only identity mapping. Does NOT rewrite history — `git log` and
+# `git shortlog` resolve these to the project address; the objects are untouched.
+FalseAlias <hello@proofbundle.org> <falsealias267@gmail.com>
+FalseAlias <hello@proofbundle.org> <falsealias@icloud.com>

@@ -5,7 +5,10 @@
 # toolchain available, not as evidence anything here compiles.
 
 name = "ProofBundle"
-defaultTargets = ["ProofBundle"]
+defaultTargets = ["Architecture"]
 
 [[lean_lib]]
 name = "ProofBundle"
+
+[[lean_lib]]
+name = "Architecture"

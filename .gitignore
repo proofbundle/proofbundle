@@ -3,3 +3,16 @@ node_modules/
 cosign.key
 *.pem
 .DS_Store
+
+# Lean build artifacts
+lean/.lake/
+*.olean
+*.ilean
+
+# Coq build artifacts
+*.vo
+*.vok
+*.vos
+*.glob
+.*.aux
+.lia.cache

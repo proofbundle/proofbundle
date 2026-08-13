@@ -7,6 +7,7 @@ Seal, verify, and timestamp — offline, single-file, no trust required.
 
 [![ci](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
 [![coq](https://img.shields.io/badge/coq%208.18.0-83%20theorems%2C%200%20axioms-brightgreen)](coq/)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/proofbundle/proofbundle)
 [![offline](https://img.shields.io/badge/runs-100%25%20offline-blue)](#what-it-is)
 [![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue)](#license)
 [![Signed releases](https://img.shields.io/badge/releases-cryptographically%20signed-brightgreen)](VERIFYING.md)
@@ -69,6 +70,33 @@ node cli/proofbundle-cli.mjs selftest      # runs the 65/65 self-test headlessly
 node cli/proofbundle-cli.mjs verify receipt.pb.json
 ```
 
+## Develop in GitHub Codespaces
+
+A ready-to-use dev container is included. Click **Open in GitHub Codespaces** above
+or run `Code: Rebuild and Reopen in Container` locally with the Dev Containers
+extension. The container ships Coq 8.18, Lean 4.11.0, and Node 22, installs `npm`
+dependencies automatically, and can run the full surface test suite plus the Coq
+proof checks without any local toolchain installation.
+
+```bash
+npm run test:surface        # unit / negative / hostile / vector / registry checks
+npm run test:crypto         # from-scratch Keccak + ML-KEM tests
+node cli/proofbundle-cli.mjs selftest
+cd coq && make check        # 83 theorems, 0 axioms
+cd lean && lake build       # Lean 4 formal tree (work in progress)
+```
+
+## Install toolchains locally
+
+If you prefer a local environment, run:
+
+```bash
+bash tools/install-toolchains.sh
+```
+
+This idempotent script installs the exact versions used by CI: Node dependencies,
+Coq 8.18.0 via `opam`, and Lean 4.11.0 via `elan`.
+
 ## Cryptographically signed releases
 
 Every published release artifact is signed. The public key lives in this repo, and
@@ -107,8 +135,18 @@ the signature schemes still use `noble`/WebCrypto. See [crypto/README.md](crypto
 
 ## License
 
-Dual-licensed under **Apache-2.0 OR MIT** — your choice. See
-[LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT).
+**GPL-3.0-or-later** — copyleft. See [LICENSE-GPL](LICENSE-GPL).
+
+A verifier is only worth what its source is worth. Copyleft keeps every
+downstream modification of the verification path open to the same inspection
+the artifacts themselves demand: a closed fork of a provenance tool is a
+provenance tool nobody can check.
+
+**Prior releases remain dual-licensed under Apache-2.0 OR MIT**
+([LICENSE-APACHE](LICENSE-APACHE), [LICENSE-MIT](LICENSE-MIT)). Those grants are
+irrevocable for code already published under them; the copyleft terms apply
+going forward. Both files are retained deliberately rather than deleted, so the
+licensing history stays legible.
 
 ---
 

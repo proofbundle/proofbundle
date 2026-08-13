@@ -13,7 +13,7 @@ namespace ProofBundle
     on, modeled here as a list of bytes rather than an array, since list
     induction is what the accompanying (also uncompiled) proofs in
     `Theorems/` would need. -/
-def ByteString := List UInt8
+abbrev ByteString := List UInt8
 
 /-- Concatenation, matching `concatBytes` in `src/bytes/bytes.mjs`. -/
 def ByteString.concat (a b : ByteString) : ByteString := a ++ b

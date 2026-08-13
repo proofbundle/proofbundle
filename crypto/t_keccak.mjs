@@ -31,6 +31,48 @@ chk('KAT shake128("",32)', toHex(shake128(new Uint8Array(0),32)),
   const a = toHex(shake128(m, 504)), b = toHex(shake128(m, 1008));
   chk('shake128 prefix-stable', b.slice(0, a.length), a);
 }
+// Streaming .create()/.update()/.digest(): must match the one-shot function
+// AND node:crypto's own streaming API, across chunk sizes that land on,
+// straddle, and avoid the 104-byte SHA3-384 rate boundary.
+{
+  const totalLens = [0, 1, 103, 104, 105, 208, 300, 50000];
+  const chunkSizes = [1, 7, 104, 105, 233, 4096];
+  for (const total of totalLens) {
+    const m = randomBytes(total);
+    const oneshot = toHex(sha3_384(m));
+    const nodeRef = createHash('sha3-384').update(m).digest('hex');
+    chk(`sha3-384 stream ref len=${total}`, oneshot, nodeRef);
+    for (const cs of chunkSizes) {
+      const s = sha3_384.create();
+      const nodeStream = createHash('sha3-384');
+      for (let off = 0; off < m.length; off += cs) {
+        const chunk = m.subarray(off, Math.min(off + cs, m.length));
+        s.update(chunk);
+        nodeStream.update(chunk);
+      }
+      if (m.length === 0) { /* zero update calls is fine, digest still valid */ }
+      chk(`sha3-384 stream len=${total} chunk=${cs} vs oneshot`, toHex(s.digest()), oneshot);
+    }
+  }
+  // digest() twice must throw, not silently return garbage
+  {
+    const s = sha3_384.create();
+    s.update(randomBytes(10));
+    s.digest();
+    let threw = false;
+    try { s.digest(); } catch { threw = true; }
+    chk('sha3-384 stream: digest() twice throws', threw, true);
+  }
+  // update() after digest() must throw
+  {
+    const s = sha3_384.create();
+    s.digest();
+    let threw = false;
+    try { s.update(new Uint8Array(1)); } catch { threw = true; }
+    chk('sha3-384 stream: update() after digest() throws', threw, true);
+  }
+}
+
 console.log(`keccak: ${pass} pass, ${fail} fail`);
 if (bad.length) console.log(bad.slice(0,6).join("\n"));
 process.exit(fail?1:0);

@@ -85,32 +85,21 @@ export function keccakF1600(A) {
 //   rateBytes - block size in bytes (1600 bits minus capacity, over 8)
 //   suffix    - domain separation byte: 0x06 for SHA-3, 0x1F for SHAKE
 //   outLen    - requested output length in bytes
-function sponge(rateBytes, suffix, msg, outLen) {
-  if (typeof msg === 'string') msg = new TextEncoder().encode(msg);
-
-  const A = new Array(25).fill(0n);
-
-  // pad10*1 with domain suffix: suffix byte, zeros, then high bit of final byte
-  const padLen = rateBytes - (msg.length % rateBytes);
-  const padded = new Uint8Array(msg.length + padLen);
-  padded.set(msg);
-  padded[msg.length] = suffix;
-  padded[padded.length - 1] |= 0x80;
-
-  // absorb: XOR each rate-sized block into the state as little-endian lanes
-  const lanesPerBlock = rateBytes / 8;
-  for (let off = 0; off < padded.length; off += rateBytes) {
-    for (let i = 0; i < lanesPerBlock; i++) {
-      let lane = 0n;
-      for (let b = 7; b >= 0; b--) {
-        lane = (lane << 8n) | BigInt(padded[off + i * 8 + b]);
-      }
-      A[i] ^= lane;
+// Absorb exactly one rate-sized block into the state (XOR as little-endian
+// lanes, then permute). Shared by the one-shot sponge() and the streaming
+// SpongeStream below so the two can never diverge.
+function absorbBlock(A, block, lanesPerBlock) {
+  for (let i = 0; i < lanesPerBlock; i++) {
+    let lane = 0n;
+    for (let b = 7; b >= 0; b--) {
+      lane = (lane << 8n) | BigInt(block[i * 8 + b]);
     }
-    keccakF1600(A);
+    A[i] ^= lane;
   }
+  keccakF1600(A);
+}
 
-  // squeeze
+function squeeze(A, lanesPerBlock, outLen) {
   const out = new Uint8Array(outLen);
   let produced = 0;
   while (produced < outLen) {
@@ -125,12 +114,88 @@ function sponge(rateBytes, suffix, msg, outLen) {
   return out;
 }
 
+function sponge(rateBytes, suffix, msg, outLen) {
+  if (typeof msg === 'string') msg = new TextEncoder().encode(msg);
+
+  const A = new Array(25).fill(0n);
+
+  // pad10*1 with domain suffix: suffix byte, zeros, then high bit of final byte
+  const padLen = rateBytes - (msg.length % rateBytes);
+  const padded = new Uint8Array(msg.length + padLen);
+  padded.set(msg);
+  padded[msg.length] = suffix;
+  padded[padded.length - 1] |= 0x80;
+
+  const lanesPerBlock = rateBytes / 8;
+  for (let off = 0; off < padded.length; off += rateBytes) {
+    absorbBlock(A, padded.subarray(off, off + rateBytes), lanesPerBlock);
+  }
+  return squeeze(A, lanesPerBlock, outLen);
+}
+
+// Streaming/incremental sponge: update() any number of times with chunks of
+// any size, then digest() once. Produces byte-identical output to calling
+// the one-shot function on the concatenation of all update() calls -- this
+// is what makeStream()'s own test suite checks, chunk-boundary case by case,
+// not assumed.
+class SpongeStream {
+  constructor(rateBytes, suffix, outLen) {
+    this.rateBytes = rateBytes;
+    this.suffix = suffix;
+    this.outLen = outLen;
+    this.lanesPerBlock = rateBytes / 8;
+    this.A = new Array(25).fill(0n);
+    this.buf = new Uint8Array(0);
+    this.done = false;
+  }
+  update(bytes) {
+    if (this.done) throw new Error('SpongeStream: update() after digest()');
+    if (typeof bytes === 'string') bytes = new TextEncoder().encode(bytes);
+    const combined = new Uint8Array(this.buf.length + bytes.length);
+    combined.set(this.buf, 0);
+    combined.set(bytes, this.buf.length);
+    let off = 0;
+    while (combined.length - off >= this.rateBytes) {
+      absorbBlock(this.A, combined.subarray(off, off + this.rateBytes), this.lanesPerBlock);
+      off += this.rateBytes;
+    }
+    this.buf = combined.slice(off);
+    return this;
+  }
+  digest() {
+    if (this.done) throw new Error('SpongeStream: digest() called twice');
+    this.done = true;
+    const padLen = this.rateBytes - (this.buf.length % this.rateBytes);
+    const padded = new Uint8Array(this.buf.length + padLen);
+    padded.set(this.buf, 0);
+    padded[this.buf.length] = this.suffix;
+    padded[padded.length - 1] |= 0x80;
+    for (let off = 0; off < padded.length; off += this.rateBytes) {
+      absorbBlock(this.A, padded.subarray(off, off + this.rateBytes), this.lanesPerBlock);
+    }
+    return squeeze(this.A, this.lanesPerBlock, this.outLen);
+  }
+}
+
+function makeStream(rateBytes, suffix, outLen) {
+  return () => new SpongeStream(rateBytes, suffix, outLen);
+}
+
 // Rate = (1600 - 2*outputBits) / 8 for SHA-3; SHAKE uses its security level.
 export function sha3_256(msg) { return sponge(136, 0x06, msg, 32); }
 export function sha3_384(msg) { return sponge(104, 0x06, msg, 48); }
 export function sha3_512(msg) { return sponge(72,  0x06, msg, 64); }
 export function shake128(msg, outLen) { return sponge(168, 0x1F, msg, outLen); }
 export function shake256(msg, outLen) { return sponge(136, 0x1F, msg, outLen); }
+
+// .create() on each hash function, matching @noble/hashes' API shape, so
+// call sites written against `X.create().update(a).update(b).digest()`
+// work unchanged against this from-scratch implementation.
+sha3_256.create = makeStream(136, 0x06, 32);
+sha3_384.create = makeStream(104, 0x06, 48);
+sha3_512.create = makeStream(72,  0x06, 64);
+shake128.create = (outLen) => makeStream(168, 0x1F, outLen)();
+shake256.create = (outLen) => makeStream(136, 0x1F, outLen)();
 
 export function toHex(bytes) {
   let s = '';

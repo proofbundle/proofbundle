@@ -23,7 +23,7 @@ jobs:
         run: |
           node cli/proofbundle-cli.mjs keygen > /tmp/keys.json
           echo '{"hello":"world"}' > /tmp/payload.json
-          node cli/proofbundle-cli.mjs seal /tmp/payload.json --keys /tmp/keys.json > /tmp/receipt.pb.json
+          node cli/proofbundle-cli.mjs seal /tmp/payload.json --key /tmp/keys.json > /tmp/receipt.pb.json
           node cli/proofbundle-cli.mjs verify /tmp/receipt.pb.json
 
   tamper:
@@ -39,7 +39,7 @@ jobs:
         run: |
           node cli/proofbundle-cli.mjs keygen > /tmp/keys.json
           echo '{"hello":"world"}' > /tmp/payload.json
-          node cli/proofbundle-cli.mjs seal /tmp/payload.json --keys /tmp/keys.json > /tmp/receipt.pb.json
+          node cli/proofbundle-cli.mjs seal /tmp/payload.json --key /tmp/keys.json > /tmp/receipt.pb.json
           sed 's/world/w0rld/' /tmp/receipt.pb.json > /tmp/tampered.pb.json
           if node cli/proofbundle-cli.mjs verify /tmp/tampered.pb.json; then
             echo "tampered receipt verified — this is a failure"; exit 1

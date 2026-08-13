@@ -16,7 +16,9 @@ Seal, verify, and timestamp — offline, single-file, no trust required.
 
 </div>
 
-> **Status: v1.0.0.** The engine passes its own suites (65/65 self-test, 660/660
+> **Status: v1.0.0 release candidate.** No `v1.0.0` tag or signed release exists yet
+> (the latest published tag is `v0.9.1-ship-20260716`) — this line will say `v1.0.0`
+> once one does. The engine passes its own suites (65/65 self-test, 660/660
 > conformance), the CLI round-trips, and the Coq proofs close — 83 theorems, zero
 > axioms. Nothing here is overstated — see [Honest limitations](#honest-limitations)
 > and [AUDIT.md](AUDIT.md), which logs every defect found in this codebase including

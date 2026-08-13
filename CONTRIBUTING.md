@@ -8,4 +8,7 @@ Thanks for your interest in ProofBundle.
   self-test at a full pass — CI runs it on every push and blocks merges that don't.
 - **No new cryptographic claims without vectors.** If you add an algorithm or outcome,
   add conformance coverage for it.
+- **Codespaces welcome:** the `.devcontainer` setup gives you Coq 8.18 + Lean 4.11.0 +
+  Node 22 with one click; use it if you don't want to install toolchains locally.
+  Locally, run `bash tools/install-toolchains.sh` to install the same versions.
 - Commits should be signed where possible so they show as Verified.

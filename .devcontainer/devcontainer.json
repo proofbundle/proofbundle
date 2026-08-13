@@ -1,0 +1,32 @@
+{
+  "name": "ProofBundle (Coq 8.18 + Node 22)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "coq",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "updateContentCommand": "npm ci",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "maximedenes.vscoq",
+        "leanprover.lean4"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "forwardPorts": [8080, 3000, 8000],
+  "portsAttributes": {
+    "8080": { "label": "static preview" },
+    "3000": { "label": "node app" },
+    "8000": { "label": "python http server" }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/coq/.ssh,type=bind,consistency=cached"
+  ]
+}

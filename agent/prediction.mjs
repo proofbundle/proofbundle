@@ -54,20 +54,33 @@ export function isExpired(prediction) {
 }
 
 /**
- * Resolve a prediction with an outcome.
- * @param {object} prediction — the prediction to resolve
+ * Compute a resolved COPY of a prediction. Never mutates its argument —
+ * this codebase treats sealed content as append-only everywhere else
+ * (envelopes are never rewritten; see bridge.mjs), and a prediction embedded
+ * in an already-sealed envelope is exactly that: sealed content.
+ *
+ * NOTE: this is a pure helper, not the live resolution path. The actual
+ * bridge (bridge.mjs predictionStatus) resolves a prediction by scanning the
+ * lineage for a later "verdict" envelope whose payload.body.resolve_seq
+ * matches, and computing the outcome on read — it never touches the
+ * original prediction object. Call this only if you are building a
+ * standalone prediction record outside that flow and need the resulting
+ * shape; it is unused by the bridge itself as of this writing.
+ * @param {object} prediction — the prediction to resolve (not mutated)
  * @param {string} outcome — "confirmed" | "falsified"
  * @param {string} verifierAgentId — who is resolving it
  * @param {number} envelopeSeq — seq of the resolving envelope
- * @returns {object} updated prediction
+ * @returns {object} a new prediction object with the outcome applied
  */
 export function resolvePrediction(prediction, outcome, verifierAgentId, envelopeSeq) {
-  if (prediction.outcome) return prediction; // already resolved
-  prediction.outcome = outcome;
-  prediction.outcome_sealed_at = new Date().toISOString();
-  prediction.outcome_envelope_seq = envelopeSeq;
-  prediction.outcome_verifier = verifierAgentId;
-  return prediction;
+  if (prediction.outcome) return prediction; // already resolved — no-op, still no mutation
+  return {
+    ...prediction,
+    outcome,
+    outcome_sealed_at: new Date().toISOString(),
+    outcome_envelope_seq: envelopeSeq,
+    outcome_verifier: verifierAgentId,
+  };
 }
 
 /**

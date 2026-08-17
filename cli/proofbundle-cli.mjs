@@ -133,6 +133,12 @@ async function cmdVerify(args) {
   process.exit(result.outcome === 'VERIFIED' ? 0 : 1);
 }
 
+async function cmdBridgeWatch(rest) {
+  const { runBridgeWatch } = await import(join(__dirname, '..', 'agent', 'bin', 'bridge-watch.mjs'));
+  runBridgeWatch(rest);
+  return new Promise(() => {}); // runs until SIGINT; never resolves on its own
+}
+
 async function main() {
   const [, , cmd, ...rest] = process.argv;
   const args = parseArgs(rest);
@@ -141,6 +147,7 @@ async function main() {
     case 'seal': return cmdSeal(args);
     case 'verify': return cmdVerify(args);
     case 'keygen': return cmdKeygen(args);
+    case 'bridge-watch': return cmdBridgeWatch(rest);
     default:
       console.log(`ProofBundle CLI
 
@@ -148,7 +155,8 @@ Usage:
   proofbundle selftest
   proofbundle keygen --sig Ed25519 [--out keyfile.json]
   proofbundle seal <input.json> --digest SHA-256 --sig Ed25519 [--key keyfile.json] [--out sealed.json]
-  proofbundle verify <bundle.json> [--context ctx.json]`);
+  proofbundle verify <bundle.json> [--context ctx.json]
+  proofbundle bridge-watch [--from SEQ] [--agent ID] [--json]`);
       process.exit(cmd ? 2 : 0);
   }
 }

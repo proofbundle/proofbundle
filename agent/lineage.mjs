@@ -28,53 +28,58 @@ function hashNode(leftHash, rightHash) {
 }
 
 /**
- * Compute a Merkle root from an array of envelopes (RFC 6962 style).
- * @param {object[]} envelopes
- * @returns {{ root: Buffer (hex string), leaves: Buffer[] }}
+ * Largest power of two strictly less than n (RFC 6962 MTH split point).
+ * n=3->2, n=5->4, n=7->4, n=8->4 (8 itself is excluded; must split further).
  */
-export function merkleRoot(envelopes) {
-  if (!envelopes.length) return { root: '0'.repeat(64), leaves: [] };
-  let leaves = envelopes.map(hashLeaf);
-  while (leaves.length > 1) {
-    const next = [];
-    for (let i = 0; i < leaves.length; i += 2) {
-      const left = leaves[i];
-      const right = i + 1 < leaves.length ? leaves[i + 1] : leaves[i]; // duplicate last if odd
-      next.push(hashNode(left, right));
-    }
-    leaves = next;
-  }
-  return { root: leaves[0].toString('hex'), leaves: envelopes.map(hashLeaf).map(b => b.toString('hex')) };
+function splitPoint(n) {
+  let k = 1;
+  while (k * 2 < n) k *= 2;
+  return k;
 }
 
 /**
- * Generate a Merkle inclusion proof for the leaf at index `i`.
- * @returns {{ hash: string, side: 'L'|'R' }[]}
+ * RFC 6962 Merkle Tree Hash: recursive, unbalanced-subtree split — NEVER
+ * duplicates an odd node. Pairwise-duplicate-last (the historical Bitcoin/
+ * CVE-2012-2459 shape) lets two DIFFERENT-length leaf sets collide on the
+ * same root (e.g. [A,B,C] and [A,B,C,C]); this does not, independent of the
+ * leaf/node domain separation above (which prevents a different attack —
+ * presenting an internal node as a leaf, not root collision across lengths).
+ */
+function mth(leaves) {
+  if (leaves.length === 1) return leaves[0];
+  const k = splitPoint(leaves.length);
+  return hashNode(mth(leaves.slice(0, k)), mth(leaves.slice(k)));
+}
+
+/**
+ * Compute a Merkle root from an array of envelopes (RFC 6962 MTH).
+ * @param {object[]} envelopes
+ * @returns {{ root: string (hex), leaves: string[] (hex) }}
+ */
+export function merkleRoot(envelopes) {
+  if (!envelopes.length) return { root: '0'.repeat(64), leaves: [] };
+  const leafHashes = envelopes.map(hashLeaf);
+  return { root: mth(leafHashes).toString('hex'), leaves: leafHashes.map(b => b.toString('hex')) };
+}
+
+/**
+ * Generate a Merkle inclusion proof for the leaf at index `index`
+ * (RFC 6962 PATH — same recursive split as mth(), so proofs stay valid
+ * against merkleRoot's output for any leaf count, not just powers of two).
+ * @returns {{ hash: string, side: 'L'|'R' }[]} ordered leaf-to-root.
  */
 export function merkleProof(envelopes, index) {
-  if (!envelopes.length || index >= envelopes.length) return [];
-  let leaves = envelopes.map(hashLeaf);
-  const proof = [];
-  let idx = index;
-  while (leaves.length > 1) {
-    const next = [];
-    for (let i = 0; i < leaves.length; i += 2) {
-      const left = leaves[i];
-      const right = i + 1 < leaves.length ? leaves[i + 1] : leaves[i];
-      if (i === idx || i + 1 === idx) {
-        const siblingIdx = idx === i ? i + 1 : i;
-        const sibling = siblingIdx < leaves.length ? leaves[siblingIdx] : left;
-        proof.push({
-          hash: sibling.toString('hex'),
-          side: idx % 2 === 0 ? 'R' : 'L',
-        });
-      }
-      next.push(hashNode(left, right));
+  if (!envelopes.length || index < 0 || index >= envelopes.length) return [];
+  const leafHashes = envelopes.map(hashLeaf);
+  const path = (leaves, idx) => {
+    if (leaves.length === 1) return [];
+    const k = splitPoint(leaves.length);
+    if (idx < k) {
+      return [...path(leaves.slice(0, k), idx), { hash: mth(leaves.slice(k)).toString('hex'), side: 'R' }];
     }
-    idx = Math.floor(idx / 2);
-    leaves = next;
-  }
-  return proof;
+    return [...path(leaves.slice(k), idx - k), { hash: mth(leaves.slice(0, k)).toString('hex'), side: 'L' }];
+  };
+  return path(leafHashes, index);
 }
 
 /** Verify a Merkle inclusion proof. */

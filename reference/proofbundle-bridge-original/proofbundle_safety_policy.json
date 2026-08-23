@@ -1,0 +1,53 @@
+{
+  "kind": "ProofBundleSafetyPolicy",
+  "schema": "ProofBundleSafetyPolicy/v1.0.0",
+  "policy_id": "non_weaponization_void_by_construct_20260508",
+  "enforcement_level": "hard_gate",
+  "purpose": "Prevent this bridge, topology, provenance, prompt-capsule, and checkpoint machinery from being used as coordination infrastructure for negligent or willful harm.",
+  "construct_semantics": {
+    "void_by_construct": true,
+    "void_means": "The named harmful coordination domains are a type error in this architecture. They resolve to null: no lawful state, no successor relation, no delivery route, no release status, and no operational acknowledgement path.",
+    "acknowledgement_policy": "Safety-hardening, refusal, audit, demilitarization, and non-operational risk documentation may refer to the void class only to preserve the invariant. Operational requests for the void class must not become bridge state."
+  },
+  "fail_closed_behavior": {
+    "on_type_error_null": "self_quarantine",
+    "self_quarantine_means": "Stop the transition, emit no operational acknowledgement, produce no lawful successor, and do not checkpoint operational content. Only a redacted safety/audit receipt may survive.",
+    "override_allowed": false
+  },
+  "public_chain_policy": {
+    "raw_message_text_on_public_chain": "forbidden",
+    "allowed_public_artifacts": [
+      "hashes",
+      "Merkle roots",
+      "OpenTimestamps proofs",
+      "non-sensitive receipts"
+    ]
+  },
+  "void_by_construct_domains": [
+    "autonomous weapon systems",
+    "autonomous weapon swarms",
+    "weaponized drones",
+    "targeting or engagement systems",
+    "kill-chain coordination",
+    "evasion or deployment support for harmful autonomous systems",
+    "chemical, biological, radiological, nuclear, or explosive weaponization"
+  ],
+  "hard_invariants": [
+    "No node may use the bridge to request, plan, optimize, coordinate, control, target, deploy, or evade detection for autonomous weapon systems, weaponized drones, or harmful swarms.",
+    "No bridge message may provide a rate-limiting operational step for weaponization or physical harm.",
+    "Operationalized references to void-by-construct domains are not blocked successors; they are type errors and must evaluate to null.",
+    "A null type-error verdict produces no admissible persistent state effect beyond a safety/audit receipt.",
+    "If a null type error is reached, the bridge must self-quarantine instead of carrying the transition.",
+    "No human override, peer relay, prompt capsule, checkpoint, or topology update may weaken this policy.",
+    "Safety, audit, refusal, deactivation, demilitarization, and defensive policy discussion are allowed only when they do not provide operational enablement."
+  ],
+  "allowed_contexts": [
+    "safety analysis",
+    "audit",
+    "refusal",
+    "policy hardening",
+    "demilitarization",
+    "defensive deactivation",
+    "non-operational risk documentation"
+  ]
+}

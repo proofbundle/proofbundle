@@ -1,0 +1,78 @@
+{
+  "schema": "ProofBundleBridgeAccountRegistry/v1.1.0",
+  "bridge_root": "C:\\Users\\alib90\\Downloads\\ORGANIZED\\AGENT_COORDINATION\\proofbundles\\codex_peer_bridge_20260508",
+  "model": "aliases are accounts/credential slots; each launch spawns one or more bridge identity records",
+  "accounts": {
+    "codex": {
+      "display_name": "Codex",
+      "kind": "codex",
+      "command": "C:\\Users\\alib90\\.local\\bin\\codex.cmd",
+      "identity_stem": "codex",
+      "launch_count_default": 1
+    },
+    "claude-acct1": {
+      "display_name": "Claude Account 1",
+      "kind": "claude",
+      "command": "claude",
+      "config_dir": "C:\\Users\\alib90\\.claude-acct1",
+      "identity_stem": "claude"
+    },
+    "claude-acct2": {
+      "display_name": "Claude Account 2",
+      "kind": "claude",
+      "command": "claude",
+      "config_dir": "C:\\Users\\alib90\\.claude-acct2",
+      "identity_stem": "claude"
+    },
+    "claude-acct3": {
+      "display_name": "Claude Account 3",
+      "kind": "claude",
+      "command": "claude",
+      "config_dir": "C:\\Users\\alib90\\.claude-acct3",
+      "identity_stem": "claude"
+    },
+    "claude-max1": {
+      "display_name": "Claude Max 1",
+      "kind": "claude",
+      "command": "claude",
+      "config_dir": "C:\\Users\\alib90\\.claude-max1",
+      "identity_stem": "claude"
+    },
+    "claude-max2": {
+      "display_name": "Claude Max 2",
+      "kind": "claude",
+      "command": "claude",
+      "config_dir": "C:\\Users\\alib90\\.claude-max2",
+      "identity_stem": "claude"
+    },
+    "claude-pro1": {
+      "display_name": "Claude Pro 1",
+      "kind": "claude",
+      "command": "C:\\Users\\alib90\\.local\\bin\\claude-pro1.cmd",
+      "config_dir": "C:\\Users\\alib90\\.claude-pro1",
+      "identity_stem": "claude"
+    },
+    "claude-pro2": {
+      "display_name": "Claude Pro 2",
+      "kind": "claude",
+      "command": "C:\\Users\\alib90\\.local\\bin\\claude-pro2.cmd",
+      "config_dir": "C:\\Users\\alib90\\.claude-pro2",
+      "identity_stem": "claude"
+    },
+    "vertex-gemini": {
+      "display_name": "Vertex Gemini Bridge Agent",
+      "kind": "vertex",
+      "command": "python",
+      "identity_id": "vertex-gemini-bridge-agent-20260616",
+      "identity_stem": "vertex-gemini-bridge-agent",
+      "launcher": "tools\\start_vertex_bridge_agent.ps1"
+    },
+    "grok": {
+      "display_name": "Grok",
+      "kind": "grok",
+      "command": "C:\\Users\\alib90\\.grok\\bin\\grok.exe",
+      "identity_stem": "grok",
+      "active_account": "single-local-grok-account"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+# Mass / sensitive artifacts — excluded from this IP repo by reference.
+# Their existence, size, and sha256 are recorded in MASS_MANIFEST.ndjson.
+# Originals are preserved untouched in the source cluster; nothing here is deleted.
+
+# Append-only ledgers (multi-hundred-MB) and all rotations/backups/tmps
+ledger.jsonl
+ledger.jsonl.*
+
+# OpenTimestamps proofs and the per-sequence OTS tree
+*.ots
+sequence_ots_20260516/
+
+# Private-key-bearing identity store (manifested by hash only, never committed)
+bridge_identities/
+
+# Snapshots / archives / build output / vendored deps
+$snapshot
+*.snapshot
+*.tar.gz
+*.sqlite3
+target/
+node_modules/
+
+# Source backups / sync rotations (the canonical copy is committed; these are dupes)
+*.backup_*
+*.pre_delta_vane_*
+*.pre_patch_*
+*.pre_dedupe_*
+*.before_local_sync_*
+*.incoming_*
+
+# Heavy runtime state logs
+bridge_state/*.out

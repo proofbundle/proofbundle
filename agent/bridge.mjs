@@ -397,6 +397,16 @@ function json(res, code, obj) {
   res.end(body);
 }
 
+function jsonLocalRead(req, res, code, obj) {
+  const origin = req.headers.origin;
+  const allowed = origin === 'null' || origin === 'http://127.0.0.1' || origin === 'http://localhost';
+  const body = JSON.stringify(obj, null, 2);
+  const headers = { 'content-type':'application/json', 'content-length':Buffer.byteLength(body), 'cache-control':'no-store' };
+  if (allowed) headers['access-control-allow-origin'] = origin;
+  res.writeHead(code, headers);
+  res.end(body);
+}
+
 async function readBody(req) {
   const chunks = [];
   for await (const c of req) chunks.push(c);
@@ -467,6 +477,15 @@ export function createServer({ port = DEFAULT_PORT } = {}) {
         });
       }
 
+      if (req.method === 'GET' && path === '/lineage/export') {
+        const log = loadLog();
+        const check = checkLog(log);
+        return jsonLocalRead(req, res, 200, {
+          schema:'PB-AGENT-LINEAGE-EXPORT-1', generated_at:new Date().toISOString(),
+          ...check, entries:log,
+        });
+      }
+
       if (req.method === 'GET' && path.startsWith('/identity/')) {
         const id = decodeURIComponent(path.slice('/identity/'.length));
         const ident = getIdentity(id);
@@ -522,7 +541,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === fileURLToPath(pathToFi
   const pi = process.argv.indexOf('--port');
   startBridge({ port: pi >= 0 ? Number(process.argv[pi + 1]) : DEFAULT_PORT });
 }
-
 
 
 

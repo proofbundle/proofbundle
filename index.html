@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ProofBundle — Provenance & compliance evidence for AI, before Aug 2</title>
-<meta name="description" content="Produce tamper-evident, independently verifiable provenance and EU AI Act Article 50 transparency evidence for any AI artifact. Offline, single-file, no data leaves your device.">
+<title>ProofBundle — prove what your AI actually did</title>
+<meta name="description" content="Tamper-evident, independently verifiable records of AI agent actions and artifact provenance. EU AI Act Article 12, 19 and 50 evidence. Offline, single-file, no data leaves your device.">
 <style>
   :root{
     --bg0:#0d1117;--bg1:#161b22;--bg2:#1c2330;--border:#2a3341;--border2:#3a4658;
@@ -52,9 +52,9 @@
 <div class="wrap">
 
   <div class="hero">
-    <span class="kicker">EU AI Act · Article 50 · applies 2 Aug 2026</span>
-    <h1>Prove your AI artifacts are exactly what you say — before the deadline.</h1>
-    <p class="sub">ProofBundle produces tamper-evident, independently verifiable provenance receipts and Article&nbsp;50 transparency markings for any AI artifact — model, dataset, or generated content. Offline. Single file. Nothing leaves your device.</p>
+    <span class="kicker">EU AI Act · Articles 12, 19 &amp; 50 · in force since 2 Aug 2026</span>
+    <h1>Prove what your AI actually did.</h1>
+    <p class="sub">Agent logs are written by the system being investigated. ProofBundle seals every action as it happens — signed, hash-chained, anchored to Bitcoin — so a third party can verify the record without trusting you, your vendor, or the model. Offline. Single file. Nothing leaves your device.</p>
     <div class="cta">
       <a class="btn btn-primary" href="proofbundle.html">Open the live tool →</a>
       <a class="btn btn-secondary" href="mailto:hello@proofbundle.org?subject=ProofBundle%20for%20our%20team">Talk to us</a>
@@ -63,13 +63,35 @@
   </div>
 
   <section>
-    <h2>The clock companies are actually staring at</h2>
+    <h2>The deadline already passed</h2>
     <div class="deadline">
       <div class="d-date">2 Aug 2026</div>
       <div style="flex:1;min-width:220px;color:var(--text1);font-size:15px">
-        EU AI Act Article&nbsp;50 transparency obligations apply. Providers and deployers need to <b>mark</b> AI-generated content and <b>hold evidence</b> of provenance and traceability. Most have a spreadsheet and a prayer.
+        High-risk obligations are <b>in force now</b>. Article&nbsp;12 requires automatic recording of events across a system's lifetime. Article&nbsp;19 requires providers to retain those logs. Article&nbsp;50 requires marking AI-generated content. Retention is solved everywhere. <b>Integrity is solved nowhere</b> — a log the operator can rewrite is not evidence.
       </div>
     </div>
+  </section>
+
+  <section>
+    <h2>Agent actions, not just artifacts</h2>
+    <p class="lead">The hard part isn't sealing a file. It's proving what an autonomous system did at 3am while nobody was watching.</p>
+    <div class="grid">
+      <div class="card"><h3>Sealed at execution</h3><p>Each action is canonically encoded, digested and Ed25519-signed the moment it runs — not batched afterwards, when it could be curated.</p></div>
+      <div class="card"><h3>Hash-chained</h3><p>Every entry commits to its predecessor. Remove or alter one and every entry after it breaks. Append-only, by construction.</p></div>
+      <div class="card"><h3>Anchored to Bitcoin</h3><p>Batches are Merkle-rooted and timestamped via OpenTimestamps. "Existed before block N" becomes a fact about the chain, not a claim about you.</p></div>
+      <div class="card"><h3>Attributable</h3><p>Agents carry cryptographic identity — PB-AI-BOM-1, SHA3-384, ML-KEM-768. Actions attach to a named agent and model, not to "the system".</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Found in production, by the system itself</h2>
+    <p class="lead">Every one of these came out of a live multi-agent forensic investigation — not a whitepaper.</p>
+    <ul class="plain">
+      <li><span class="check">✓</span> <b>Hooks correctly configured and silently not firing.</b> ~30 agent actions executed entirely outside the chain, no error, no gap indicator. A provenance layer with an off switch is not a provenance layer.</li>
+      <li><span class="check">✓</span> <b>Chain forked by concurrent writers.</b> Four agents raced an append with no atomicity; two entries claimed one sequence number. Root-caused, locked, reconciled by appending — never by rewriting.</li>
+      <li><span class="check">✓</span> <b>11,640 agent actions never sealed at all.</b> Five separate agent harnesses on one host, none of them in any chain, including the ones under investigation.</li>
+    </ul>
+    <p class="honest" style="margin-top:22px"><b>What it does not solve.</b> Sealing witnesses <em>execution</em>, not <em>observation</em>. A model can read a secret in a tool result, hold it in context, never emit it, and leave no trace in any action log — while that value has already reached the inference provider. ProofBundle bounds this by sealing the context payload rather than only the tool envelope. No vendor currently does this at all. We say what it does and no more.</p>
   </section>
 
   <section>

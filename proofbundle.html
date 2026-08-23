@@ -1344,6 +1344,12 @@ var PBSHA256=(function(){
   </div>
 
   <div class="form-row">
+    <label class="label">Live agent evidence — verified PB-AGENT-1 ingestion</label>
+    <p><a href="file:///home/falsealias/Documents/Codex/2026-08-21/lis/outputs/proofbundle-live-itinerary.html">Open live evidence itinerary</a> · <a href="file:///var/lib/proofbundle/tty-ledger/">Open protected ledger directory</a> · <a href="file:///var/lib/proofbundle/tty-ledger/segments/">Open Merkle + OTS segments</a></p>
+    <div id="agent-live"><span class="badge badge-orange">connecting</span></div>
+  </div>
+
+  <div class="form-row">
     <label class="label">Action chain</label>
     <div id="ledger-head"></div>
     <div id="ledger-chain" style="margin-top:8px"></div>
@@ -5602,6 +5608,34 @@ function init() {
   heroInit();
   verifyDropInit();
   runSelfTests();
+  refreshAgentLineage();
+  setInterval(refreshAgentLineage, 5000);
+}
+
+async function refreshAgentLineage() {
+  const box=document.getElementById('agent-live'); if(!box)return;
+  try {
+    const res=await fetch('http://127.0.0.1:8788/lineage/export',{cache:'no-store'});
+    if(!res.ok)throw new Error('bridge HTTP '+res.status);
+    const data=await res.json(), entries=Array.isArray(data.entries)?data.entries:[];
+    let previous='genesis', valid=0, failure=null;
+    for(let i=0;i<entries.length;i++){
+      const e=entries[i];
+      if(e.seq!==i||e.prev_hash!==previous){failure=`chain mismatch at ${i}`;break;}
+      if(!e.payload?.encrypted){
+        const bodyHash=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(e.payload?.body))));
+        if(bodyHash!==e.payload?.plaintext_hash){failure=`payload hash mismatch at ${i}`;break;}
+      }
+      const unsigned=JSON.parse(JSON.stringify(e)); unsigned.signature=null;
+      const pubRaw=h2b(String(e.from?.pubkey||'').slice(-64));
+      const sig=h2b(String(e.signature||''));
+      if(pubRaw.length!==32||sig.length!==64||!(await _ed.verify(utf8(canonicalJSON(unsigned)),sig,pubRaw))){failure=`signature mismatch at ${i}`;break;}
+      previous=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(e)))); valid++;
+    }
+    STATE.agentReceipts=entries; persistState();
+    const rows=entries.slice(-20).reverse().map(e=>`<tr><td>${e.seq}</td><td>${esc(e.from?.agent_id||'?')}</td><td>${esc(e.payload_type||'?')}</td><td class="mono">${esc((e.payload?.plaintext_hash||'').slice(0,18))}…</td></tr>`).join('');
+    box.innerHTML=`<span class="badge ${failure?'badge-red':'badge-green'}">${failure?esc(failure):'verified'}</span> ${valid}/${entries.length} signatures + payload hashes + chain links verified locally`+(rows?`<table class="mini-table"><thead><tr><th>#</th><th>agent</th><th>type</th><th>payload hash</th></tr></thead><tbody>${rows}</tbody></table>`:'');
+  } catch(e) { box.innerHTML=`<span class="badge badge-orange">offline</span> ${esc(e.message)} — ingestion retries automatically`; }
 }
 
 init();

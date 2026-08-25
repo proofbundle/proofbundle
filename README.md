@@ -2,8 +2,9 @@
 
 # ProofBundle
 
-**Formal compliance evaluation and cryptographically signed certification.**
-Define, evaluate, certify, and independently verify artifacts and agent actions.
+**Machine-verifiable compliance infrastructure.**
+Certify computational claims from reproducible evidence—not institutional
+assertion alone.
 
 [![ci](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
 [![coq](https://img.shields.io/badge/coq%208.18.0-83%20theorems%2C%200%20axioms-brightgreen)](coq/)
@@ -19,16 +20,25 @@ protected local custody and are never committed.
 
 </div>
 
-> **Current measured state.** The standalone engine runs 65 boot integrity checks,
-> a live runner generates up to 630 classical conformance cases, and the frozen
-> custody ledger records 1,097 vectors. The modular surface separately reports
-> 74 unit/negative/hostile checks, 219 vectors, and 95 validated registry rows.
-> These are distinct sets. See [CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md),
+> **ProofBundle is a cryptographically signed certification system that resolves
+> claims against a canonical registry, binds them to artifacts, implementations,
+> identities, policies, formal proofs, assumptions, lineage, and time, and emits
+> independently verifiable evidence of what was evaluated, what passed, what
+> failed, and what remains externally assumed.**
+
+Read the complete public product definition in
+[WHAT_PROOFBUNDLE_IS.md](WHAT_PROOFBUNDLE_IS.md).
+
+> **Evidence is reported by instrument and scope.** Boot checks, generated
+> conformance cases, frozen vectors, modular tests, interoperability runs,
+> formal builds, axiom audits, and registry validation are distinct evidence
+> sets. No one counter represents ProofBundle's verification surface. See
+> [CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md),
 > [ASSUMPTIONS.md](ASSUMPTIONS.md), and [AUDIT.md](AUDIT.md).
 
 ---
 
-## What it is
+## What it certifies
 
 ProofBundle evaluates declared compliance requirements and issues a cryptographically
 signed **certification of compliance**. The certification binds the applicable profile,
@@ -49,7 +59,9 @@ state, AI-BOM, verification trace, issuer identity, signature, timestamp, and li
 - **Signed compliance certification** — issue a portable, machine-verifiable result
   bound to the evaluated requirements, evidence, artifact state, AI-BOM, and issuer.
 - **EU AI Act Article 50** machine-readable transparency marking.
-- **65 boot integrity checks** that run in the standalone browser client on load.
+- A **standalone boot harness** that checks the browser client at load; its
+  legacy counter is one instrument and is not the system-wide verification
+  total.
 - **Up to 630 live classical conformance cases** across 9 digests, 7 classical
   signatures, and 10 outcome classes.
 - A legacy fixture file of 1,097 vectors is included. **436 pass under the
@@ -71,7 +83,7 @@ receipt. Drop that receipt onto **Verify**. You'll see `VERIFIED`.
 
 ```bash
 npm ci
-node cli/proofbundle-cli.mjs selftest      # runs the 65/65 self-test headlessly
+node cli/proofbundle-cli.mjs selftest      # runs the legacy standalone boot harness
 node cli/proofbundle-cli.mjs verify receipt.pb.json
 ```
 

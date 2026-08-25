@@ -5,13 +5,29 @@ should be read as having discharged any of these.
 
 ## ASSUMPTION-NODE-CRYPTO-CORRECTNESS
 
-Every `NODE_NATIVE` algorithm (currently: SHA-224/256/384/512/512-224/512-256)
-is implemented by Node's `node:crypto` module, which is OpenSSL underneath.
-This project does not verify OpenSSL's implementation and cannot: that would
-mean re-deriving FIPS 180-4 conformance for a C codebase this project does
-not control. **Dependent code:** `src/digest/sha2.mjs`,
-`src/digest/digest.mjs`. **Dependent registry rows:** all `NODE_NATIVE` rows
-in `ALGORITHM_REGISTRY.json`.
+Every `NODE_NATIVE` algorithm (currently: SHA-224/256/384/512/512-224/512-256,
+BLAKE2b-512, BLAKE2s-256) is implemented by Node's `node:crypto` module,
+which is OpenSSL underneath. This project does not verify OpenSSL's
+implementation and cannot: that would mean re-deriving the relevant spec
+(FIPS 180-4 for SHA-2, RFC 7693 for BLAKE2) conformance for a C codebase
+this project does not control. For BLAKE2b-512/BLAKE2s-256 specifically,
+empty-string and boundary-length outputs were additionally cross-checked
+against Python's `hashlib` (a separate implementation from Node/OpenSSL) —
+agreement narrows the risk to "both independent implementations share the
+same bug," not eliminates it. **Dependent code:** `src/digest/sha2.mjs`,
+`src/digest/blake2.mjs`, `src/digest/digest.mjs`. **Dependent registry
+rows:** all `NODE_NATIVE` rows in `ALGORITHM_REGISTRY.json`.
+
+## ASSUMPTION-SHA3-224-RATE
+
+SHA3-224 was added to `crypto/keccak.mjs` as `sponge(144, 0x06, msg, 28)` —
+the same audited Keccak-f[1600] permutation and sponge construction as
+SHA3-256/384/512 (see `ASSUMPTION-KECCAK-CORRECTNESS`), with a rate/output
+pair specific to this variant that had not previously been exercised in
+this codebase. Empty-string and boundary-length outputs were cross-checked
+against Python's `hashlib.sha3_224` (a separate implementation), not just
+against internal self-consistency. **Dependent code:** `crypto/keccak.mjs`,
+`src/digest/sha3.mjs`.
 
 ## ASSUMPTION-KECCAK-CORRECTNESS
 

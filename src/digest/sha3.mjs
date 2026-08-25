@@ -6,4 +6,4 @@
 // would create two copies to keep in sync for no benefit; this is the
 // single source.
 
-export { sha3_256, sha3_384, sha3_512, shake128, shake256 } from '../../crypto/keccak.mjs';
+export { sha3_224, sha3_256, sha3_384, sha3_512, shake128, shake256 } from '../../crypto/keccak.mjs';

@@ -126,3 +126,27 @@ inferences, assumptions, and unresolved external state.
   surface is used and authoritative DNS is re-read.
 - Stripe registration was handed to the operator for private account fields;
   dashboard configuration remains pending reattachment after account creation.
+
+## Update 2026-08-25 (registry: SHA3-224, BLAKE2b-512, BLAKE2s-256 added)
+
+Generated from live checks on 2026-08-25 by a Claude session, distinct from the
+2026-08-24 Codex identity above — no continuity between them is asserted.
+
+- Three `NOT_IMPLEMENTED` digest rows moved to `COMPLETE`: `SHA3-224` (added to
+  `crypto/keccak.mjs` as `sponge(144, 0x06, msg, 28)`, the same audited
+  permutation as SHA3-256/384/512), `BLAKE2b-512` and `BLAKE2s-256` (new
+  `src/digest/blake2.mjs`, `NODE_NATIVE` via `node:crypto`).
+- The registry now contains 95 rows: **14** `COMPLETE`, 2 `RECOGNIZE_ONLY`,
+  **62** `NOT_IMPLEMENTED`, 17 `BLOCKED`. Registry validation: 0 errors.
+  `CRYPTOGRAPHIC_SURFACE.csv`: 95 rows, 0 critical-issue flags.
+- The modular test runner returned **76** passing unit/negative/hostile tests
+  (was 74) and **265** passing vectors (was 219), zero failures.
+- All three new digests' empty-string and boundary-length outputs were
+  independently cross-checked against Python's `hashlib` — a separate
+  implementation from both this repo and Node/OpenSSL — not just internal
+  self-consistency or agreement with node:crypto alone. See
+  `ASSUMPTION-SHA3-224-RATE` and the updated `ASSUMPTION-NODE-CRYPTO-CORRECTNESS`
+  in `ASSUMPTIONS.md`.
+- Not re-run in this pass: the Lean build/axiom print (unaffected — no Lean
+  source touched), the browser client's separate 630-case/1097-vector surface,
+  the DNS/HTTPS state above. Do not infer any change to those from this update.

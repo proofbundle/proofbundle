@@ -1,15 +1,16 @@
 // From-scratch Keccak-f[1600] and the FIPS 202 sponge functions.
 // Pure JS, no external crypto library, no WebCrypto, no noble-*.
 //
-// Provides: SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256.
+// Provides: SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256.
 // ML-KEM (FIPS 203) requires SHAKE128, SHAKE256, SHA3-256 and SHA3-512
 // internally, so this module is a prerequisite for building that from scratch.
 //
 // Spec: FIPS 202 (SHA-3 Standard: Permutation-Based Hash and Extendable-Output
 // Functions), sections 3.2 (step mappings), 5.1 (padding), 6.1/6.2 (SHA-3, SHAKE).
 //
-// TEST RESULT 2026-07-27: 102 pass, 0 fail
-//   verified against node:crypto (sha3-256/384/512, shake128, shake256)
+// TEST RESULT 2026-08-25: 146 pass, 0 fail (was 102 on 2026-07-27, before
+//   SHA3-224 was added)
+//   verified against node:crypto (sha3-224/256/384/512, shake128, shake256)
 //   across 11 message lengths incl. rate boundaries and a 100KB stress case,
 //   11 SHAKE output lengths incl. squeeze-boundary crossings,
 //   plus 3 hardcoded FIPS 202 known-answer values.
@@ -184,6 +185,7 @@ function makeStream(rateBytes, suffix, outLen) {
 // Rate = (1600 - 2*outputBits) / 8 for SHA-3; SHAKE uses its security level.
 export function sha3_256(msg) { return sponge(136, 0x06, msg, 32); }
 export function sha3_384(msg) { return sponge(104, 0x06, msg, 48); }
+export function sha3_224(msg) { return sponge(144, 0x06, msg, 28); }
 export function sha3_512(msg) { return sponge(72,  0x06, msg, 64); }
 export function shake128(msg, outLen) { return sponge(168, 0x1F, msg, outLen); }
 export function shake256(msg, outLen) { return sponge(136, 0x1F, msg, outLen); }
@@ -191,6 +193,7 @@ export function shake256(msg, outLen) { return sponge(136, 0x1F, msg, outLen); }
 // .create() on each hash function, matching @noble/hashes' API shape, so
 // call sites written against `X.create().update(a).update(b).digest()`
 // work unchanged against this from-scratch implementation.
+sha3_224.create = makeStream(144, 0x06, 28);
 sha3_256.create = makeStream(136, 0x06, 32);
 sha3_384.create = makeStream(104, 0x06, 48);
 sha3_512.create = makeStream(72,  0x06, 64);

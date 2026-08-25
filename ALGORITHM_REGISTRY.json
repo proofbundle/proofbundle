@@ -244,7 +244,7 @@
     "canonicalName": "SHA3-224",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -264,16 +264,20 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "vectors/digest/sha3-224.json"
+    ],
+    "implementationModulePaths": [
+      "src/digest/sha3.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "crypto/keccak.mjs implements the sponge but does not export a 224-bit-rate SHA3-224 wrapper; would be a one-function addition to that file, deliberately not touched in this pass (see repo-root crypto/README.md).",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs — same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "SHA3-256",
@@ -572,16 +576,20 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "vectors/digest/blake2b-512.json"
+    ],
+    "implementationModulePaths": [
+      "src/digest/blake2.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble library (VETTED_PROVIDER there); not yet re-exposed as a standalone src/digest module.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "NODE_NATIVE via node:crypto createHash('blake2b512'). Cross-checked against Python hashlib.blake2b, a separate implementation from Node/OpenSSL.",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "BLAKE2s-256",
@@ -608,16 +616,20 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "vectors/digest/blake2s-256.json"
+    ],
+    "implementationModulePaths": [
+      "src/digest/blake2.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Same as BLAKE2b-512.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "NODE_NATIVE via node:crypto createHash('blake2s256'). Cross-checked against Python hashlib.blake2s, a separate implementation from Node/OpenSSL.",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "BLAKE3",

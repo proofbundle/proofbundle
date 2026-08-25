@@ -95,7 +95,7 @@ const DIGESTS = [
   digestEntry('SHA-512', { digestLength: 64, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512.json', status: 'COMPLETE' }),
   digestEntry('SHA-512/224', { digestLength: 28, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512-224.json', status: 'COMPLETE' }),
   digestEntry('SHA-512/256', { digestLength: 32, moduleFn: 'src/digest/sha2.mjs', vectorFile: 'sha-512-256.json', status: 'COMPLETE' }),
-  digestEntry('SHA3-224', { digestLength: 28, status: 'NOT_IMPLEMENTED', notes: 'crypto/keccak.mjs implements the sponge but does not export a 224-bit-rate SHA3-224 wrapper; would be a one-function addition to that file, deliberately not touched in this pass (see repo-root crypto/README.md).' }),
+  digestEntry('SHA3-224', { digestLength: 28, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-224.json', status: 'COMPLETE', notes: 'Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs — same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).' }),
   digestEntry('SHA3-256', { digestLength: 32, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-256.json', status: 'COMPLETE', notes: 'Re-exports crypto/keccak.mjs, verified 88/88 against node:crypto this session.' }),
   digestEntry('SHA3-384', { digestLength: 48, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-384.json', status: 'COMPLETE' }),
   digestEntry('SHA3-512', { digestLength: 64, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-512.json', status: 'COMPLETE' }),
@@ -107,8 +107,8 @@ const DIGESTS = [
   // them as keyed constructions (a MAC), not fixed-function digests, even
   // though the spec's own algorithm list names them under both headings.
   // One canonical id per algorithm; see the MAC section for the entry.
-  digestEntry('BLAKE2b-512', { digestLength: 64, status: 'NOT_IMPLEMENTED', notes: 'Already present in proofbundle.html via the bundled noble library (VETTED_PROVIDER there); not yet re-exposed as a standalone src/digest module.' }),
-  digestEntry('BLAKE2s-256', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Same as BLAKE2b-512.' }),
+  digestEntry('BLAKE2b-512', { digestLength: 64, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2b-512.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2b512'). Cross-checked against Python hashlib.blake2b, a separate implementation from Node/OpenSSL." }),
+  digestEntry('BLAKE2s-256', { digestLength: 32, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2s-256.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2s256'). Cross-checked against Python hashlib.blake2s, a separate implementation from Node/OpenSSL." }),
   digestEntry('BLAKE3', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Same as BLAKE2b-512.' }),
   digestEntry('Keccak-256', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Legacy pre-standardization padding (0x01), distinct from SHA3 (0x06). crypto/keccak.mjs exports only the SHA3/SHAKE suffixes; not implemented in this pass.' }),
   digestEntry('Keccak-512', { digestLength: 64, status: 'NOT_IMPLEMENTED', notes: 'Same as Keccak-256.' }),

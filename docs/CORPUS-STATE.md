@@ -109,7 +109,7 @@ rename maps.
 ### What the corpus does and does not establish
 
 Worth keeping attached to any external count, because it is the honest frame and it
-is easy to lose. **[relayed, custody ledger]** Corpus authored by C. Tajia Russell.
+is easy to lose. **[relayed, custody ledger]** Source attributed to the ProofBundle contributors.
 
 Established as formal theorems: the attribution criterion's grammar; spoof-resistance
 under biconditional matching; architecture-exclusion for named architectures; custody

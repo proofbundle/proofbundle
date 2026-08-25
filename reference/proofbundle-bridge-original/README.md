@@ -1,6 +1,6 @@
 # proofbundle-bridge
 
-Author: **C. Tajia Russell**
+Author: **ProofBundle contributors**
 
 Earliest provable date for this IP cluster: **2026-05-08** (source cluster directory
 `codex_peer_bridge_20260508`), corroborated by the earliest source-file content

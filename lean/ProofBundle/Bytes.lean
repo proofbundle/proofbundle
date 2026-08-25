@@ -1,18 +1,11 @@
--- NOT COMPILED. `lake`/`lean` are not installed in this session's
--- environment; this file has never been run through the Lean compiler.
--- Nothing in THEOREM_INDEX.json counts anything from this file, and
--- nothing in this repository should describe it as verified. It exists as
--- a real, carefully-written starting skeleton for the byte/varint layer
--- already implemented and tested in ../../src/bytes/, written so a future
--- session with a working toolchain has something concrete to compile
--- against rather than starting from nothing.
+-- SPDX-License-Identifier: GPL-3.0-or-later
+-- Compiled with the repository's pinned Lean 4.11.0 toolchain on 2026-08-24.
+-- This models the byte/varint layer implemented and tested in ../../src/bytes/.
 
 namespace ProofBundle
 
 /-- A finite byte string: the same domain `src/bytes/bytes.mjs` operates
-    on, modeled here as a list of bytes rather than an array, since list
-    induction is what the accompanying (also uncompiled) proofs in
-    `Theorems/` would need. -/
+    on, modeled here as a list of bytes rather than an array. -/
 abbrev ByteString := List UInt8
 
 /-- Concatenation, matching `concatBytes` in `src/bytes/bytes.mjs`. -/

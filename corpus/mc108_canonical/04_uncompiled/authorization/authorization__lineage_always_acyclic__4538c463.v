@@ -4,7 +4,7 @@
  * Formal Proofs — 10 Theorems
  * ============================================================
  *
- * Author: Chaleb Russell / Anthropic Claude
+ * Author: ProofBundle contributors / Anthropic Claude
  * Date: 2026-04-21T18:00:00Z
  * Status: COMPILED — Verified in Coq 8.18.0
  * 

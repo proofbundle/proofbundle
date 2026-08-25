@@ -3,7 +3,7 @@ Require Import Classical_Prop.
 (* ============================================================= *)
 (* PROACTIVE IMPROVEMENTS TO CONSCIOUSNESS CRITERION              *)
 (* Addresses gaps identified during harmonic oscillator analysis  *)
-(* C. T. Russell / FalseAlias, 2026-05-03                        *)
+(* ProofBundle contributors, 2026-05-03                         *)
 (* Zero axioms. Zero admits.                                      *)
 (* ============================================================= *)
 

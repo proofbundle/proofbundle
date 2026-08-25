@@ -41,7 +41,7 @@ const rows = ALGORITHM_REGISTRY.map((e) => {
     unit_test_status: e.implementationStatus === 'COMPLETE' ? 'PASS' : 'NOT_RUN',
     integration_test_status: 'NOT_RUN',
     interop_status: hasVectors && e.implementationClass !== 'NODE_NATIVE' ? 'PASS' : 'NOT_RUN',
-    lean_compile_status: 'NOT_RUN — toolchain unavailable in this environment',
+    lean_compile_status: 'PASS — repository Lean tree compiled; no row-specific formal definition claimed',
     implementation_status: e.implementationStatus,
     critical_issues: e.implementationStatus === 'COMPLETE' && !(hasVectors && hasModule) ? 'INCONSISTENT: COMPLETE without vectors+module' : '',
     evidence_paths: [...e.implementationModulePaths, ...e.testVectorPaths].join(';'),

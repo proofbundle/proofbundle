@@ -1,3 +1,4 @@
+-- SPDX-License-Identifier: GPL-3.0-or-later
 /-
   Temporal predicates: a commitment is binding only if it precedes the
   observation it commits to.

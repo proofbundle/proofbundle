@@ -2,8 +2,8 @@
   "name": "proofbundle",
   "version": "1.0.0",
   "private": false,
-  "description": "Signed, Merkle-committed provenance envelope for any digital artifact — offline, single-file, no trust required.",
-  "license": "Apache-2.0 OR MIT OR GPL-3.0-or-later",
+  "description": "Formal compliance evaluation and cryptographically signed certification for artifacts and agent actions.",
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "bin": {
     "proofbundle": "cli/proofbundle-cli.mjs"

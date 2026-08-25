@@ -25,9 +25,9 @@ Added:
 - `test/unit/`, `test/negative/`, `test/hostile/` — 74 tests, all passing.
 - `vectors/digest/`, `vectors/canonicalization/` — 219 vector-conformance
   checks, generated from actual execution rather than hand-authored.
-- `lean/` — foundational, uncompiled Lean 4 source (`Bytes.lean`,
-  `SemanticValue.lean`). Not compiled in this session; `lake`/`lean` are
-  not installed here. `THEOREM_INDEX.json` is empty accordingly.
+- `lean/` — GPL-3.0-or-later Lean 4 formalizations, compiled with the pinned
+  Lean 4.11.0 toolchain. All Lean sources type-check; the source tree contains
+  64 theorem declarations. See `THEOREM_INDEX.json` and the build receipt.
 - `scripts/` — `generate-vectors.mjs`, `verify-vectors.mjs`,
   `check-registry.mjs`, `check-coverage.mjs`, `check-placeholders.mjs`,
   `audit.mjs`, all real and run for real; output under `reports/`.

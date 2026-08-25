@@ -27,7 +27,7 @@ const SOURCE_CANDIDATES = {
     'C:\\Users\\alib90\\Downloads\\PRINCIPIA\\New folder\\Rehab\\unique_apps',
     'proofbundle_working_20260515\\proofs'
   ),
-  githubRepo: 'C:\\Users\\alib90\\Downloads\\ORGANIZED\\AGENT_COORDINATION\\github_repos\\FalseAlias_proofbundle',
+  githubRepo: '<private-source-archive>/proofbundle',
 };
 
 function sha256File(file) {
@@ -178,7 +178,7 @@ async function main() {
       vm_receipt_mirror: 'vm_receipts/receipt_exact_takeover_*/{primary,second}/receipt_exact_queue_*/pb-proof-family-NNN/',
       git_roots: {
         local_bridge: bridgeDir,
-        falsealias_proofbundle: SOURCE_CANDIDATES.githubRepo,
+        proofbundle_repo: SOURCE_CANDIDATES.githubRepo,
         vm_highmem_proof_src: '/data/proofbundle/kimi_agent_proofbundle_blueprint_20260602/extracted/proofbundle',
       },
     },

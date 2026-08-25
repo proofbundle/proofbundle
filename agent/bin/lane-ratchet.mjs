@@ -23,7 +23,7 @@ import { homedir } from 'node:os';
 
 const BRIDGE_HOST = '127.0.0.1';
 const BRIDGE_PORT = Number(process.env.PB_AGENT_BRIDGE_PORT || 8788);
-const VERIFIER = '/home/falsealias/src/proofbundle/proofbundle.html';
+const VERIFIER = new URL('../../proofbundle.html', import.meta.url).pathname;
 const AGENT_DIR = join(homedir(), '.proofbundle', 'agent');
 
 function req(method, path, body = null) {
@@ -49,7 +49,7 @@ if (!agentId || !peerId) {
 
 // 1. mint identity + AIBOM if absent, then ensure registered
 if (!existsSync(join(AGENT_DIR, agentId, 'aibom.json'))) {
-  const { initializeAgent } = await import('/home/falsealias/src/proofbundle/agent/agent-init.mjs');
+  const { initializeAgent } = await import('../agent-init.mjs');
   const init = await initializeAgent(agentId, `urn:agent:lane:${agentId}:20260816`, new Date().toISOString());
   console.log(`minted AIBOM ${agentId} fp=${init.key_fingerprint} digest=${init.aibom.bom_seal.digest_b64u.slice(0, 16)}…`);
 } else {

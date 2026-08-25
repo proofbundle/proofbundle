@@ -64,8 +64,8 @@ Steps when you boot:
 
 | Window | Lane (claim one) |
 |---|---|
-| A — Opus/Pro (falsealias@icloud.com) | COORDINATOR-ASSIST + continuity: read inbox, keep the fleet's StatePackets honest, drive the open objectives. |
-| B — Sonnet/Pro (proofbundle@proofbundle.org) | WORKHORSE loops every ~15 min, each with a receipt: `capture_all.cmd`; `python tools/mira_bridge_ingest.py`; `node tools/mira_gate_monitor.mjs`; `gcloud storage rsync -r D:\custody gs://proofbundle-cross-ai-synthesis-20260531/CLAUDE_OPUS_CUSTODY/custody`. |
+| A — Opus/Pro | COORDINATOR-ASSIST + continuity: read inbox, keep the fleet's StatePackets honest, drive the open objectives. |
+| B — Sonnet/Pro | WORKHORSE loops every ~15 min, each with a receipt: `capture_all.cmd`; `python tools/mira_bridge_ingest.py`; `node tools/mira_gate_monitor.mjs`; `gcloud storage rsync -r D:\custody gs://proofbundle-cross-ai-synthesis-20260531/CLAUDE_OPUS_CUSTODY/custody`. |
 | C — third Claude | PROOFS/VM: consolidate + machine-verify formal proofs (.lean/.v/.thy) on the VM; sync to D:+bucket; signed StatePackets with verify receipts. |
 (claude-opus-4-8-20260615 = the existing Opus session, reserved — do not reuse.)
 
@@ -80,7 +80,7 @@ Steps when you boot:
 ## 8. OPEN OBJECTIVES (operator priorities, 2026-06-17)
 - **Persistence daemon** — re-invoke each agent on new bridge messages so turns don't end / agents don't
   idle. This is the keystone the operator has demanded all along.
-- **Send** the Google Cloud reply to Abhishek (`abmadan@xwf.google.com`) — draft exists in Gmail.
+- **Send** the Google Cloud reply to the assigned support contact — draft exists in Gmail.
 - **Publish** the clean ProofBundle HTML verifier to proofbundle.org (Squarespace, operator-owned) —
   SCRUBBED first: no keys, no personal data, no profanity, no overclaims.
 - **Background message→idle-agent** relay: operator sends a message to an idle agent and it responds as

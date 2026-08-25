@@ -1,3 +1,4 @@
+-- SPDX-License-Identifier: GPL-3.0-or-later
 /-
   Refutability: an arrow that cannot fail is not an arrow.
 

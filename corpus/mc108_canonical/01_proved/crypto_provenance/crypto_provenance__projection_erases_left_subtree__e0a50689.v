@@ -1,6 +1,6 @@
 (* ================================================================== *)
 (* MERKLE-FOLD DIFFUSION: DOES THE TREE ACTUALLY WORK?                *)
-(* C. T. Russell, 2026-04-11                                          *)
+(* ProofBundle contributors, 2026-04-11                               *)
 (* Coq 8.18.0 | Zero axioms | Zero admits | Zero sorry               *)
 (* ================================================================== *)
 (* Question: I claimed the Merkle-Fold tree provides diffusion that   *)

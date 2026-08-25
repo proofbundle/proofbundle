@@ -3,7 +3,7 @@
 (** Core Theorems: DAG Acyclicity, Immutability, Corruption      *)
 (**                                                              *)
 (** Specification: GPX-SPEC-1.0-DEF                              *)
-(** Author: Chaleb Russell, Owner and Founder, ProofBundles     *)
+(** Author: ProofBundle contributors                            *)
 (** Formalizations: Coq 8.18.0                                   *)
 (**                                                              *)
 (** 25 Theorems, 19 Lemmas, 7 Foundational Assumptions          *)

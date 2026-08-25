@@ -27,32 +27,12 @@
   Vector manifest derived from ALL_1097_VECTORS.html
     (source sha256 42c5f4fff80fe5aa40191082f2eb63f824ae180f8bdcd634deb139e50916f21f).
 
-  Copyright (c) 2026 C. T. Russell / Chaleb Tajia Russell
-  Dual-licensed under MIT OR Apache-2.0 (at your option).
+  ProofBundle contributors, 2026.
+  SPDX-License-Identifier: GPL-3.0-or-later
+  Current work is published under GNU GPL version 3 or any later version.
 
-  MIT License
-  -----------
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is furnished
-  to do so, subject to the following conditions:
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-
-  Apache License 2.0
-  ------------------
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-      http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  The complete license text is published as LICENSE-GPL in the source repository.
+  Prior published releases retain their irrevocable historical license grants.
 -->
 <html lang="en">
 <head>
@@ -64,23 +44,23 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg0: #0d1117;
-  --bg1: #161b22;
-  --bg2: #1c2330;
-  --bg3: #232b3a;
-  --border: #2a3341;
-  --border2: #3a4658;
-  --text0: #e6edf3;
-  --text1: #9aa7b8;
-  --text2: #6e7b8f;
-  --blue: #4d8eff;
-  --blue2: #3b6fd4;
+  --bg0: #07101d;
+  --bg1: #0d1929;
+  --bg2: #122238;
+  --bg3: #19304a;
+  --border: #203852;
+  --border2: #315272;
+  --text0: #f2f8ff;
+  --text1: #a9bdd0;
+  --text2: #718aa3;
+  --blue: #65b8ff;
+  --blue2: #2f83d6;
   --green: #3fb950;
   --red: #f85149;
   --orange: #d29922;
   --purple: #a371f7;
   --yellow: #d29922;
-  --cyan: #56d4c8;
+  --cyan: #44e0d0;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
   --font-ui: 'Inter', 'SF Pro Display', system-ui, sans-serif;
   --radius: 8px;
@@ -91,7 +71,7 @@
 html, body { height: 100%; }
 body {
   font-family: var(--font-ui);
-  background: var(--bg0);
+  background: radial-gradient(circle at 78% -20%, rgba(50,145,220,.18), transparent 38%), linear-gradient(145deg, #07101d 0%, #081321 58%, #07101d 100%);
   color: var(--text0);
   display: flex;
   flex-direction: row;
@@ -103,7 +83,7 @@ body {
 #sidebar {
   width: 244px;
   flex-shrink: 0;
-  background: var(--bg1);
+  background: rgba(9, 22, 37, .96);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -115,6 +95,7 @@ body {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
+.sb-brand::before { content:''; width:4px; height:28px; border-radius:4px; background:linear-gradient(var(--cyan),var(--blue)); box-shadow:0 0 22px rgba(68,224,208,.35); }
 .logo { font-size: 16px; font-weight: 700; color: var(--text0); letter-spacing: -.02em; }
 .logo .mark { color: var(--blue); margin-right: 5px; }
 .version-badge {
@@ -135,7 +116,7 @@ body {
   cursor: pointer; transition: background .12s, color .12s;
 }
 .sb-nav button:hover { background: var(--bg2); color: var(--text0); }
-.sb-nav button.active { background: var(--bg3); color: var(--text0); font-weight: 600; }
+.sb-nav button.active { background:linear-gradient(90deg,rgba(68,224,208,.16),rgba(101,184,255,.08)); color:var(--text0); font-weight:600; box-shadow:inset 2px 0 var(--cyan); }
 .sb-nav button.active .sb-ico { color: var(--blue); }
 .sb-ico { width: 15px; text-align: center; color: var(--text2); font-size: 13px; flex-shrink: 0; }
 .sb-foot {
@@ -148,13 +129,13 @@ body {
 .topbar {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 32px; height: 57px; flex-shrink: 0;
-  background: var(--bg0); border-bottom: 1px solid var(--border);
+  background: rgba(7,16,29,.82); border-bottom: 1px solid var(--border); backdrop-filter:blur(16px);
 }
 .topbar-title { font-size: 15px; font-weight: 600; color: var(--text0); letter-spacing: -.01em; }
 .topbar-meta { font-size: 11px; color: var(--text2); font-family: var(--font-mono); }
 .selftest-badge { cursor: pointer; }
 main { flex: 1; overflow-y: auto; }
-.tab-panel { display: none; padding: 32px; max-width: 940px; }
+.tab-panel { display: none; padding: 40px; max-width: 1120px; }
 .tab-panel.active { display: block; }
 
 @media (max-width: 560px) {
@@ -166,7 +147,7 @@ main { flex: 1; overflow-y: auto; }
 }
 
 /* ── TYPOGRAPHY ─────────────────────────────────────────────────── */
-h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+h2 { font-size: 24px; font-weight: 750; margin-bottom: 8px; letter-spacing:-.025em; }
 h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 p { font-size: 14px; color: var(--text1); line-height: 1.6; margin-bottom: 16px; }
 .label {
@@ -177,7 +158,7 @@ p { font-size: 14px; color: var(--text1); line-height: 1.6; margin-bottom: 16px;
 /* ── FORM ELEMENTS ──────────────────────────────────────────────── */
 textarea, input[type=text], input[type=number] {
   width: 100%;
-  background: var(--bg1);
+  background: linear-gradient(145deg,rgba(17,34,56,.92),rgba(10,24,40,.94));
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text0);
@@ -224,6 +205,13 @@ textarea:focus, input:focus { border-color: var(--blue2); }
   display: flex; align-items: center; gap: 10px;
 }
 .card-desc { font-size: 13px; color: var(--text1); line-height: 1.5; margin-bottom: 14px; }
+.registry-pulse { display:grid; grid-template-columns:repeat(4,minmax(120px,1fr)); gap:10px; margin:22px 0; }
+.registry-stat { padding:16px; border:1px solid var(--border); border-radius:var(--radius); background:linear-gradient(145deg,rgba(68,224,208,.08),rgba(101,184,255,.035)); }
+.registry-stat strong { display:block; font:700 24px/1 var(--font-mono); color:var(--text0); }
+.registry-stat span { display:block; margin-top:7px; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text2); }
+.registry-family-grid { display:flex; flex-wrap:wrap; gap:7px; margin:10px 0 20px; }
+.registry-family-grid span { padding:6px 9px; border:1px solid var(--border); border-radius:999px; font:11px var(--font-mono); color:var(--text1); background:rgba(7,16,29,.55); }
+@media (max-width:760px) { .registry-pulse { grid-template-columns:1fr 1fr; } }
 
 /* ── CODE BLOCK ─────────────────────────────────────────────────── */
 .code-block {
@@ -825,13 +813,13 @@ var PBSHA256=(function(){
 <aside id="sidebar">
   <div class="sb-brand">
     <div class="logo"><span class="mark">◆</span>ProofBundle</div>
-    <div class="version-badge">v0.9 · pre-release</div>
+    <div class="version-badge">PB 2.1</div>
   </div>
   <nav class="sb-nav" id="tabs">
     <button class="active" data-title="Seal a file" onclick="switchTab('home',this)"><span class="sb-ico">✦</span><span>Seal</span></button>
     <button data-title="Verify" onclick="switchTab('verify',this)"><span class="sb-ico">✓</span><span>Verify</span></button>
     <button class="sb-adv-only" data-title="Compliance profiles" onclick="switchTab('domains',this)"><span class="sb-ico">◈</span><span>Profiles</span></button>
-    <button class="sb-adv-only" data-title="AI Bill of Materials" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>AI-BOM</span></button>
+    <button class="sb-adv-only" data-title="Compliance certification" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>Certification</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
     <button class="sb-adv-only" data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
@@ -853,7 +841,7 @@ var PBSHA256=(function(){
 <div id="app-main">
     <div class="topbar">
     <div class="topbar-title" id="topbar-title">Seal a file</div>
-    <div class="topbar-meta">Private · nothing uploaded</div>
+    <div class="topbar-meta">Registry 95 · client operations 19</div>
     <div class="mode-toggle">
       <button type="button" class="mode-text" id="mode-link" onclick="toggleMode()" title="Toggle Receipts / Developer">Developer</button>
     </div>
@@ -875,7 +863,7 @@ var PBSHA256=(function(){
     </div>
     <div id="hero-results"></div>
     <div id="hero-job" class="hero-job" style="display:none" aria-live="polite"></div>
-    <div class="hero-foot">Each seal is saved to your <b>History</b> and can be re-checked any time under <b>Verify</b>. No account, no upload, no setup.</div>
+    <div class="hero-foot">Each seal enters <b>History</b> with its digest, signature, public key, and verification trace.</div>
   </div>
 </div>
 
@@ -1060,7 +1048,9 @@ var PBSHA256=(function(){
 <!-- ══════════════════════════════════════════════════════════════ -->
 <div class="tab-panel" id="panel-algorithms">
   <h2>Algorithm Registry</h2>
-  <p>Full ProofBundle registry — 9 digest algorithms and 10 signature schemes, classical and post-quantum, all executable in this browser. Classical schemes run on WebCrypto; SHA-3 / BLAKE digests and post-quantum signatures run on the embedded audited <span class="mono">noble</span> implementations. Every entry carries a live round-trip test: generate, sign, verify, then confirm a flipped byte fails.</p>
+  <p>The authoritative registry is loaded from <span class="mono">ALGORITHM_REGISTRY.json</span>. It separates recognition, implementation, and browser execution so an algorithm is never presented as operational merely because its name is known.</p>
+
+  <div id="authoritative-registry"><span class="badge badge-orange">loading registry</span></div>
 
   <div class="form-row">
     <label class="label">Boot Self-Test</label>
@@ -1068,12 +1058,12 @@ var PBSHA256=(function(){
   </div>
 
   <div class="form-row">
-    <label class="label">Digest Algorithms</label>
+    <label class="label">Standalone browser engine · digest algorithms</label>
     <div id="algo-digests"></div>
   </div>
 
   <div class="form-row">
-    <label class="label">Signature Algorithms</label>
+    <label class="label">Standalone browser engine · signature algorithms</label>
     <div id="algo-sigs"></div>
   </div>
 </div>
@@ -1128,8 +1118,8 @@ var PBSHA256=(function(){
 <!-- EU AI ACT TAB                                                  -->
 <!-- ══════════════════════════════════════════════════════════════ -->
 <div class="tab-panel" id="panel-euaia">
-  <h2>AI Bill of Materials</h2>
-  <p>The Article 10 compliance vector <span class="mono">per-requirement scores (0–1)</span>, the compliance gate <span class="mono">all thresholds met</span>, and the compliance score <span class="mono">score</span> — plus the AI Bill of Materials (completeness check, canonical JSON signed over its SHA3-384 digest) and an Article 50(2) machine-readable marking generator.</p>
+  <h2>Formal Compliance Certification</h2>
+  <p>Evaluate the applicable requirement profile, compliance vector, threshold vector, gate, and score; bind the result to the artifact, AI-BOM, registry state, issuer key, timestamp, and lineage; then issue a portable cryptographically signed certification.</p>
 
   <div class="form-row">
     <label class="label">Applicability timeline (post-Omnibus, verified July 2026)</label>
@@ -1168,7 +1158,7 @@ var PBSHA256=(function(){
 
   <hr>
   <div class="form-row">
-    <label class="label">AI Bill of Materials</label>
+    <label class="label">Certification subject and AI Bill of Materials</label>
     <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr">
       <div><label class="label">Artifact</label><input type="text" id="bom-artifact" placeholder="urn:artifact:model-v3"></div>
       <div><label class="label">Risk tier</label>
@@ -1188,8 +1178,8 @@ var PBSHA256=(function(){
     <div id="bom-rows"></div>
     <div id="bom-kappa" style="margin-top:8px"></div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="generateBom()">Generate Signed AI-BOM (SHA3-384 · §22.3)</button>
-      <button class="btn btn-secondary" id="bom-verify-btn" style="display:none" onclick="verifyBomOutput()">Verify BOM</button>
+      <button class="btn btn-primary" onclick="generateBom()">Issue Signed Compliance Certification</button>
+      <button class="btn btn-secondary" id="bom-verify-btn" style="display:none" onclick="verifyBomOutput()">Verify Certification</button>
     </div>
     <div id="bom-verify-result" style="display:none;margin-top:8px"></div>
     <div class="code-block" id="bom-out" style="display:none;max-height:320px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin-top:8px"></div>
@@ -1345,7 +1335,7 @@ var PBSHA256=(function(){
 
   <div class="form-row">
     <label class="label">Live agent evidence — verified PB-AGENT-1 ingestion</label>
-    <p><a href="file:///home/falsealias/Documents/Codex/2026-08-21/lis/outputs/proofbundle-live-itinerary.html">Open live evidence itinerary</a> · <a href="file:///var/lib/proofbundle/tty-ledger/">Open protected ledger directory</a> · <a href="file:///var/lib/proofbundle/tty-ledger/segments/">Open Merkle + OTS segments</a></p>
+    <p><a href="CURRENT_STATE_PROOFS.md">Open current-state proofs</a> · protected machine ledgers remain local to the installation.</p>
     <div id="agent-live"><span class="badge badge-orange">connecting</span></div>
   </div>
 
@@ -3801,6 +3791,33 @@ function clearLedger() {
 
 let PB_CAPS = {};
 let _currentKey = null; /* { alg, priv, pub } */
+let PB_AUTH_REGISTRY_DIGEST = null;
+
+async function loadAuthoritativeRegistry() {
+  const box = document.getElementById('authoritative-registry');
+  if (!box) return;
+  try {
+    const res = await fetch('ALGORITHM_REGISTRY.json', { cache:'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const rows = await res.json();
+    if (!Array.isArray(rows)) throw new Error('registry root is not an array');
+    PB_AUTH_REGISTRY_DIGEST = hexOf(await digestBytes('SHA-256', utf8(canonicalJSON(rows))));
+    const status = {}, families = {};
+    for (const r of rows) {
+      status[r.implementationStatus] = (status[r.implementationStatus] || 0) + 1;
+      families[r.primitiveFamily] = (families[r.primitiveFamily] || 0) + 1;
+    }
+    box.innerHTML = `<div class="registry-pulse">
+      <div class="registry-stat"><strong>${rows.length}</strong><span>defined algorithms</span></div>
+      <div class="registry-stat"><strong>${status.COMPLETE || 0}</strong><span>complete modules</span></div>
+      <div class="registry-stat"><strong>${status.RECOGNIZE_ONLY || 0}</strong><span>recognize only</span></div>
+      <div class="registry-stat"><strong>${(status.BLOCKED || 0) + (status.NOT_IMPLEMENTED || 0)}</strong><span>not operational</span></div>
+    </div><div class="registry-family-grid">${Object.entries(families).map(([k,v]) => `<span>${esc(k)} · ${v}</span>`).join('')}</div>
+    <div class="notice"><div class="notice-icon">◎</div><div class="notice-body"><strong>Two explicit execution surfaces.</strong> The modular source registry currently marks ${status.COMPLETE || 0} implementations COMPLETE. The standalone client below independently exposes ${PB_DIGESTS.length} digest and ${PB_SIGS.length} signature operations and tests their live runtime capability at boot.</div></div>`;
+  } catch (e) {
+    box.innerHTML = `<div class="notice"><div class="notice-icon">↯</div><div class="notice-body"><strong>Standalone mode.</strong> The external registry file is unavailable (${esc(e.message)}). The embedded ${PB_DIGESTS.length + PB_SIGS.length}-operation browser engine remains usable and self-tests below.</div></div>`;
+  }
+}
 
 async function renderAlgorithmsPanel() {
   PB_CAPS = await probeCapabilities();
@@ -4664,27 +4681,42 @@ async function generateBom() {
   const sigAlg = document.getElementById('bom-sigalg').value;
   const out = document.getElementById('bom-out');
   out.style.display = 'block';
-  out.innerText = 'Generating key pair and sealing BOM…';
+  out.innerText = 'Evaluating requirements and issuing signed certification…';
   try {
+    const gate = euaiaGate(EUAIA_THETA, EUAIA_C);
+    const deltaL = parseFloat(document.getElementById('euaia-deltal').value) || 0;
+    const drift = parseFloat(document.getElementById('euaia-drift').value) || 0;
+    const score = euaiaHorizon(deltaL, gate.norm, drift);
     const bom = {
-      schema: 'PB-AI-BOM-1',
-      artifact,
-      risk_tier: tier,
-      generated_at: new Date().toISOString(),
-      ancestry: BOM_ROWS.map(r => ({ id: r.id, delta_L: r.deltaL, attestation_level: 'L' + r.level })),
-      model_cards: BOM_ROWS.map(r => r.id + '#model-card'),
-      custody_chain: 'chi(v) — see lineage ledger',
-      attestation_record: 'alpha(v)',
-      kappa: bomKappa(BOM_ROWS),
-      compliance_vector: EUAIA_C.slice(),
-      theta: EUAIA_THETA.slice(),
-      gate_norm: euaiaGate(EUAIA_THETA, EUAIA_C).norm,
+      schema: 'PB-COMPLIANCE-CERT-1',
+      certification: {
+        subject: artifact,
+        profile: tier === 'high' ? 'EU-AI-ACT-ANNEX-III' : `EU-AI-ACT-${tier.toUpperCase()}`,
+        issued_at: new Date().toISOString(),
+        result: gate.pass && score > 0 ? 'CERTIFIED' : 'NOT-CERTIFIED',
+        compliance_vector: EUAIA_C.slice(),
+        threshold_vector: EUAIA_THETA.slice(),
+        gate_pass: gate.pass,
+        gate_norm: gate.norm,
+        compliance_score: score,
+        registry_sha256: PB_AUTH_REGISTRY_DIGEST,
+        assumptions: 'ASSUMPTIONS.md',
+        verification_semantics: 'VERIFICATION_SEMANTICS.md',
+      },
+      ai_bom: {
+        schema: 'PB-AI-BOM-1', artifact, risk_tier: tier,
+        ancestry: BOM_ROWS.map(r => ({ id: r.id, delta_L: r.deltaL, attestation_level: 'L' + r.level })),
+        model_cards: BOM_ROWS.map(r => r.id + '#model-card'),
+        custody_chain: 'chi(v) — see lineage ledger',
+        attestation_record: 'alpha(v)',
+        kappa: bomKappa(BOM_ROWS),
+      },
     };
     /* §22.3 — signature covers the SHA3-384 digest of the canonical JSON */
     const digest = await digestBytes('SHA3-384', canonicalJSON(bom));
     const key = await sigKeygen(sigAlg);
     const signature = await sigSign(sigAlg, digest, key.priv);
-    const signed = { ...bom, bom_seal: {
+    const signed = { ...bom, certification_seal: {
       digest_alg: 'SHA3-384',
       digest_b64u: b64uEncode(digest),
       sig_alg: sigAlg,
@@ -4701,12 +4733,12 @@ async function verifyBomOutput() {
   out.style.display = 'block';
   try {
     const signed = JSON.parse(document.getElementById('bom-out').innerText);
-    const { bom_seal, ...bom } = signed;
-    const digest = await digestBytes(bom_seal.digest_alg, canonicalJSON(bom));
-    const digestOk = b64uEncode(digest) === bom_seal.digest_b64u;
-    const sigOk = digestOk && await sigVerify(bom_seal.sig_alg, digest, b64uDecode(bom_seal.signature_b64u), bom_seal.pub_b64u);
+    const { certification_seal, ...bom } = signed;
+    const digest = await digestBytes(certification_seal.digest_alg, canonicalJSON(bom));
+    const digestOk = b64uEncode(digest) === certification_seal.digest_b64u;
+    const sigOk = digestOk && await sigVerify(certification_seal.sig_alg, digest, b64uDecode(certification_seal.signature_b64u), certification_seal.pub_b64u);
     out.innerHTML = sigOk
-      ? `<span class="badge badge-green">SELF-VERIFYING ✓</span> SHA3-384 digest recomputed and ${esc(bom_seal.sig_alg)} signature verified — submittable as a self-verifying artifact (§22.3).`
+      ? `<span class="badge badge-green">CERTIFICATION VERIFIED ✓</span> SHA3-384 digest recomputed and ${esc(certification_seal.sig_alg)} issuer signature verified. Result: ${esc(signed.certification.result)}.`
       : `<span class="badge badge-red">VERIFICATION FAILED</span> ${digestOk ? 'signature check failed' : 'digest recomputation mismatch'}.`;
   } catch (e) { out.innerHTML = errBox('BOM verify error: ' + e.message); }
 }
@@ -5260,7 +5292,8 @@ function renderAdmissibility() {
 }
 
 /* ── claim-status-model.lean — embedded formal model ───────────────────────────── */
-const CLAIM_MODEL_LEAN = `/-
+const CLAIM_MODEL_LEAN = `-- SPDX-License-Identifier: GPL-3.0-or-later
+/-
   claim-status-model.lean — how claim strengths combine.
 
   The claim-strength vocabulary as an inductive type, its ordering,
@@ -5600,6 +5633,7 @@ function init() {
   renderPredictions();
   renderShowcase();
   renderAlgorithmsPanel();
+  loadAuthoritativeRegistry();
   renderVectorsPanel();
   renderEuaiaPanel();
   renderFilesPanel();

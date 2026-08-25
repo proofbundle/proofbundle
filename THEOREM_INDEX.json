@@ -1,8 +1,11 @@
 {
-  "generated_utc": "2026-07-28T16:00:00Z",
-  "generated_by": "manual, this session — no automated extractor exists yet",
-  "lean_toolchain_status": "UNAVAILABLE — lake and lean are not installed in this environment; see reports/lean-build-report.txt",
-  "compiled_substantive_theorems": [],
-  "support_lemmas": [],
-  "note": "This index is empty by design, not by omission. lean/ProofBundle/Bytes.lean and lean/ProofBundle/SemanticValue.lean contain real Lean 4 source written to the same discipline the specification's theorem-acceptance rules require, but the toolchain to compile and check them is not present in this environment. Per the specification's own rule ('a theorem counts only when it is a compiled Lean declaration'), zero entries belong here until that compilation actually happens. Do not populate this file by reading source and asserting what a human believes would compile — that is exactly the failure mode this file exists to prevent."
+  "generated_utc": "2026-08-24T23:45:00Z",
+  "generated_by": "Lean 4.11.0 compilation plus source declaration count",
+  "license": "GPL-3.0-or-later",
+  "lean_toolchain_status": "PASS — lake build and direct compilation of every tracked .lean source completed successfully",
+  "compiled_theorem_declarations": 64,
+  "compiled_files": ["lean/Architecture.lean", "lean/Audit.lean", "lean/PrintAxioms.lean", "lean/ProofBundle.lean", "lean/ProofBundle/Bytes.lean", "lean/ProofBundle/Canonical.lean", "lean/ProofBundle/Conformance.lean", "lean/ProofBundle/Digest.lean", "lean/ProofBundle/Falsifiable.lean", "lean/ProofBundle/Loop.lean", "lean/ProofBundle/SemanticValue.lean", "lean/ProofBundle/Temporal.lean", "lean/ProofBundle/Verdict.lean"],
+  "axiom_audit": "PrintAxioms.lean reports no axioms for its enumerated Loop declarations; Audit.lean reports none for ProofBundle.Verdict.isVerified_false_iff. This is not generalized beyond the declarations actually printed.",
+  "receipt": "reports/lean-build-report.txt",
+  "note": "The count is the number of theorem declarations in the compiled source tree, not a count of tests, vectors, definitions, or imported transitive declarations."
 }

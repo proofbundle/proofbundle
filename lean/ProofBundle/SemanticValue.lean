@@ -1,9 +1,7 @@
--- NOT COMPILED — see the header comment in Bytes.lean; the same caveat
--- applies here in full. This models the admitted semantic-value domain
--- from src/canonical/canonical-json.mjs, so that a future canonicalization
--- proof (determinism, idempotence, injectivity over this domain — none of
--- which is proved yet, see ../../THEOREM_INDEX.json) has a domain to state
--- those properties about.
+-- SPDX-License-Identifier: GPL-3.0-or-later
+-- Compiled with the repository's pinned Lean 4.11.0 toolchain on 2026-08-24.
+-- This models the admitted semantic-value domain from
+-- src/canonical/canonical-json.mjs.
 
 import ProofBundle.Bytes
 

@@ -66,10 +66,10 @@ directory. Both mechanisms are verifiable offline; the keyless one additionally
 leaves a public transparency-log record. Anyone verifying a release should use
 the method matching the receipt they were given, and this file will say which.
 
-## Honest limitations
+## Certification scope and assumptions
 
-ProofBundle proves integrity and provenance — that a file is exactly what it was
-when sealed, and who sealed it. It does not prove the artifact is safe, correct,
-or fit for purpose. See [SECURITY.md](../SECURITY.md) for the full model and
-[AUDIT.md](../AUDIT.md) for every defect found in this codebase, including those
-found by outside reference implementations rather than by us.
+The signed certification states the result of its selected formal profile over the
+declared evidence and committed artifact state. The certification carries the profile,
+inputs, thresholds, result, issuer, and verification material required to reproduce that
+determination. See [ASSUMPTIONS.md](../ASSUMPTIONS.md),
+[SECURITY.md](../SECURITY.md), and [AUDIT.md](../AUDIT.md).

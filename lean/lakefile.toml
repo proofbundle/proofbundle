@@ -1,8 +1,5 @@
-# NOT BUILT IN THIS SESSION. `lake` is not installed in the environment
-# that wrote this file (see ../reports/lean-build-report.txt for the exact
-# check). This file has never been run through `lake build`, so its syntax
-# is unverified. Treat it as a starting point for whoever next has a Lean
-# toolchain available, not as evidence anything here compiles.
+# Compiled with the pinned Lean 4.11.0 toolchain on 2026-08-24. See
+# ../reports/lean-build-report.txt for the command and result.
 
 name = "ProofBundle"
 defaultTargets = ["Architecture"]

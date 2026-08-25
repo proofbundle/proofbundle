@@ -1,3 +1,4 @@
+-- SPDX-License-Identifier: GPL-3.0-or-later
 /-
   Conformance: what the signature-level result can and cannot establish.
 

@@ -6,7 +6,7 @@ and 0 classical axioms**.  Every theorem must close with
 `Print Assumptions` reporting `Closed under the global context`.
 
 **Reference snapshot:**
-`/media/falsealias/BACKUP/C-Backup/Users-falsealias/crypto_core_active/crypto-core/*.mjs`
+the private source archive's `crypto_core_active/crypto-core/*.mjs`
 plus the HTML status page (`proofbundle-crypto-core.html`).
 
 ---
@@ -54,4 +54,3 @@ Theorems (sample):
 - All `word32` operations return values `< 2^32`.
 
 Axiom budget: **0**.
-

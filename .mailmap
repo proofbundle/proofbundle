@@ -1,4 +1,2 @@
-# Display-only identity mapping. Does NOT rewrite history — `git log` and
-# `git shortlog` resolve these to the project address; the objects are untouched.
-FalseAlias <hello@proofbundle.org> <falsealias267@gmail.com>
-FalseAlias <hello@proofbundle.org> <falsealias@icloud.com>
+# Intentionally empty: public repository metadata does not map personal identities
+# or personal addresses. Historical Git objects are outside this file's scope.

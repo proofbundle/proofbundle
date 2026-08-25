@@ -1,6 +1,6 @@
 (* ================================================================== *)
 (* DISTINCTION-BASED CRYPTOGRAPHY: FORMAL PROOFS                       *)
-(* C. T. Russell, 2026                                                 *)
+(* ProofBundle contributors, 2026                                     *)
 (* Coq 8.18.0 | Zero axioms | Zero admits | Zero sorry               *)
 (* ================================================================== *)
 (* Primitive: Distinction (Delta)                                      *)

@@ -2,40 +2,36 @@
 
 # ProofBundle
 
-**A signed, Merkle-committed provenance envelope for any digital artifact.**
-Seal, verify, and timestamp — offline, single-file, no trust required.
+**Formal compliance evaluation and cryptographically signed certification.**
+Define, evaluate, certify, and independently verify artifacts and agent actions.
 
 [![ci](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
 [![coq](https://img.shields.io/badge/coq%208.18.0-83%20theorems%2C%200%20axioms-brightgreen)](coq/)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/proofbundle/proofbundle)
-[![offline](https://img.shields.io/badge/runs-100%25%20offline-blue)](#what-it-is)
-[![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue)](#license)
+[![License](https://img.shields.io/badge/license-GPL--3.0--or--later-243746)](#license)
 [![Signed releases](https://img.shields.io/badge/releases-cryptographically%20signed-brightgreen)](VERIFYING.md)
 
 [Live app](https://proofbundle.org) · [Verify a release](VERIFYING.md) · [Security policy](SECURITY.md)
 
 </div>
 
-> **Status: v1.0.0 release candidate.** No `v1.0.0` tag or signed release exists yet
-> (the latest published tag is `v0.9.1-ship-20260716`) — this line will say `v1.0.0`
-> once one does. The engine passes its own suites (65/65 self-test, 660/660
-> conformance), the CLI round-trips, and the Coq proofs close — 83 theorems, zero
-> axioms. Nothing here is overstated — see [Honest limitations](#honest-limitations)
-> and [AUDIT.md](AUDIT.md), which logs every defect found in this codebase including
-> the ones found against outside reference implementations.
+> **Current measured state.** The standalone engine runs 65 boot integrity checks,
+> a live runner generates up to 630 classical conformance cases, and the frozen
+> custody ledger records 1,097 vectors. The modular surface separately reports
+> 74 unit/negative/hostile checks, 219 vectors, and 95 validated registry rows.
+> These are distinct sets. See [CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md),
+> [ASSUMPTIONS.md](ASSUMPTIONS.md), and [AUDIT.md](AUDIT.md).
 
 ---
 
 ## What it is
 
-ProofBundle is a **single HTML file** that runs entirely in your browser. Drop in a
-document, model, dataset, or any file, and it produces a cryptographically **sealed
-receipt** — a tamper-evident record that anyone can independently verify later, offline,
-with nothing but the receipt and a public key.
+ProofBundle evaluates declared compliance requirements and issues a cryptographically
+signed **certification of compliance**. The certification binds the applicable profile,
+compliance vector, threshold vector, gate result, score, artifact commitment, registry
+state, AI-BOM, verification trace, issuer identity, signature, timestamp, and lineage.
 
-Nothing is uploaded. No account. No server. Your private key never leaves the page.
-
-## What it actually does — provable, not marketing
+## Certification and verification operations
 
 - **Seal any artifact** with a signature over a Merkle-committed digest (RFC 6962-style
   domain separation).
@@ -44,19 +40,22 @@ Nothing is uploaded. No account. No server. Your private key never leaves the pa
 - **Typed verification outcomes** — a receipt returns a named verdict
   (`VERIFIED`, `INVALID-SIGNATURE`, `OUT-OF-BOUNDS`, `EXPIRED`, `LINEAGE-INVALID`, …),
   not a guess.
-- **Compliance profiles** — ready-made rule sets for regulated verticals (healthcare,
-  finance, autonomous systems, and more), each expressed as plain-language requirements.
+- **Compliance profiles** — formal rule sets for regulated verticals, with explicit
+  predicates, thresholds, decision procedures, and typed failure results.
+- **Signed compliance certification** — issue a portable, machine-verifiable result
+  bound to the evaluated requirements, evidence, artifact state, AI-BOM, and issuer.
 - **EU AI Act Article 50** machine-readable transparency marking.
-- **65/65 self-test** that runs live in your own browser on load.
-- **660/660 conformance cases** across 9 digest algorithms and 10 signature
-  schemes, classical and post-quantum.
+- **65 boot integrity checks** that run in the standalone browser client on load.
+- **Up to 630 live classical conformance cases** across 9 digests, 7 classical
+  signatures, and 10 outcome classes.
 - A legacy fixture file of 1,097 vectors is included. **436 pass under the
   current schema**, and all 108 vectors of kind `verified` pass cleanly. The
   remainder is documented schema drift from `spec_ver 1.0.0` — missing
   `bundle.seal.pub_b64u` and `bundle.merkleRoot`, and SPKI-wrapped keys where
   the engine expects raw. See [AUDIT.md](AUDIT.md) entry PB-2026-07-15-002.
 
-Every claim above is verifiable in the app or in this repo. See [Honest limitations](#honest-limitations).
+Every visible conclusion is connected to its machine-verifiable basis. See
+[CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md).
 
 ## Try it in 10 seconds
 
@@ -85,7 +84,7 @@ npm run test:surface        # unit / negative / hostile / vector / registry chec
 npm run test:crypto         # from-scratch Keccak + ML-KEM tests
 node cli/proofbundle-cli.mjs selftest
 cd coq && make check        # 83 theorems, 0 axioms
-cd lean && lake build       # Lean 4 formal tree (work in progress)
+cd lean && lake build       # pinned Lean 4.11.0 formal tree
 ```
 
 ## Install toolchains locally
@@ -105,21 +104,17 @@ Every published release artifact is signed. The public key lives in this repo, a
 [VERIFYING.md](VERIFYING.md) walks through checking a download end to end. A provenance
 tool should hold itself to its own standard — so this one does.
 
-## Honest limitations
+## Certification scope and assumptions
 
-ProofBundle proves **integrity and provenance** — that a file is exactly what it was when
-it was sealed, and who sealed it. It does **not**:
+The certification states the result of the selected formal compliance profile over the
+declared evidence and committed artifact state. Its scope, inputs, thresholds, registry
+state, issuer, assumptions, and verification trace are carried with the result. Temporal
+claims identify their clock or external anchor. See [ASSUMPTIONS.md](ASSUMPTIONS.md),
+[TRUST_BOUNDARY.md](TRUST_BOUNDARY.md), and [SECURITY.md](SECURITY.md).
 
-- prove an AI system is safe, unbiased, or fit for purpose (those are separate assessments);
-- guarantee regulatory compliance — it produces *evidence of traceability*, which a
-  notified body or auditor evaluates;
-- protect against a compromised input (it faithfully seals whatever it is given).
+## Formal verification and the proof archive
 
-Temporal checks trust the local clock. See [SECURITY.md](SECURITY.md) for the full model.
-
-## Formal verification and the proof corpus
-
-The formal-methods work behind this project lives in a separate corpus. Its verified
+The formal-methods work behind this project lives in a separate archive. Its verified
 state — which numbers are checked, which are relayed, and which are in circulation but
 should not be published — is recorded in **[docs/CORPUS-STATE.md](docs/CORPUS-STATE.md)**.
 Read that first before quoting any theorem count.
@@ -139,6 +134,10 @@ the signature schemes still use `noble`/WebCrypto. See [crypto/README.md](crypto
 
 **GPL-3.0-or-later** — copyleft. See [LICENSE-GPL](LICENSE-GPL).
 
+Every Lean formalization under [`lean/`](lean/) is published under
+**GPL-3.0-or-later** and carries an SPDX identifier in the source file. Generated
+Lean downloads emitted by the standalone client carry the same copyleft notice.
+
 A verifier is only worth what its source is worth. Copyleft keeps every
 downstream modification of the verification path open to the same inspection
 the artifacts themselves demand: a closed fork of a provenance tool is a
@@ -153,5 +152,5 @@ licensing history stays legible.
 ---
 
 <div align="center">
-<sub>ProofBundle — provenance you can check yourself.</sub>
+<sub>ProofBundle — formal compliance certification with independent verification.</sub>
 </div>

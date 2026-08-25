@@ -9,7 +9,7 @@ Current takeover/live state:
 - Highmem sequence 9523 OTS was explicitly submitted through Tor with 4 attestations; sidecar exists: sequence_ots_20260516/sequence_00009523.record_sha256.txt.ots.
 - Highmem Mira replied after the takeover at sequence 9524, record_sha256=773D3D66A17D4229C26309468D3408698A94BD0B827DBFF235FC37394A0B8C65.
 - Local Grok is using tools and emitting session deltas. Latest observed Grok delta: sequence 9535, record_sha256=49A3030A7FA0777DF565E59E6186FE5B36F3CB7D79335E9F1DDFC249F194036C.
-- Claude reported AdmissibilityGateV2Verified at local sequence 9533, record_sha256=DD43A1B09D472A227774CFE1365E968C69D1A9F5E562CC1390769F4BC8BE5904. Claude says mira_gate_v2 is built and verified against CLIWrapperAdmissibility.lean, but not yet installed into core send path.
+- The prior agent reported AdmissibilityGateV2Verified at local sequence 9533, record_sha256=DD43A1B09D472A227774CFE1365E968C69D1A9F5E562CC1390769F4BC8BE5904. The report says mira_gate_v2 is built and verified against CLIWrapperAdmissibility.lean, but not yet installed into core send path.
 
 Mira total-history progress latest observed:
 - main items_added=28073.

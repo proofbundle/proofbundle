@@ -1,3 +1,2 @@
-* @FalseAlias
-/proofbundle.html @FalseAlias
-/.github/ @FalseAlias
+# Ownership is administered through repository permissions rather than a public
+# mapping to an individual account.

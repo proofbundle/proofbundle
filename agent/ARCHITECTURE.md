@@ -125,12 +125,12 @@ but no modulate/drive/represent/reenter) is the state where an agent can
 submit and be verified but cannot route or respond — exactly the current
 situation without the bridge.
 
-## Not proprietary
+## Copyleft implementation
 
-MIT/Apache-2.0 dual-licensed. Primitives are standard (Ed25519 = RFC 8032,
+GPL-3.0-or-later. Primitives are standard (Ed25519 = RFC 8032,
 ML-KEM = FIPS 203, Merkle = RFC 6962, OTS = OpenTimestamps). API layers,
 CLIs, Rust bindings, Docker images to follow.
-`~/.proofbundle/agent/<agent_id>/`:
+The local agent-state directory has this structure:
 
 ```
 ~/.proofbundle/agent/

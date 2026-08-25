@@ -99,6 +99,13 @@ inferences, assumptions, and unresolved external state.
 - GitHub organization and repository descriptions now state formal compliance
   evaluation and cryptographically signed certification. The organization has
   no public email; its private billing contact is an institutional domain address.
+- Google Workspace Enterprise Plus manages `proofbundle.org`. Nine explicit role
+  aliases deliver to the controlled Workspace mailbox: contact, hello, support,
+  security, compliance, abuse-reports, privacy, billing, and legal. Google
+  reserves the bare `abuse` local part; `abuse-reports` is the configured address.
+- Each email role has a distinct bridge-registered Ed25519 signing identity and
+  verified AI-BOM. Public keys, fingerprints, and AI-BOM digests are published
+  in `AGENT_ROLE_KEYS.json`; private keys remain local with mode 0600.
 
 ## Google Cloud observations
 
@@ -117,6 +124,5 @@ inferences, assumptions, and unresolved external state.
 
 - The apex record cannot be truthfully reported as updated until that control
   surface is used and authoritative DNS is re-read.
-- Stripe registration is open but not submitted. It requires the legal account
-  holder name, account email, password, and legal country; no personal identity
-  has been inferred or inserted.
+- Stripe registration was handed to the operator for private account fields;
+  dashboard configuration remains pending reattachment after account creation.

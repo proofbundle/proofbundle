@@ -1,0 +1,16 @@
+{
+  "schema": "PB-ROLE-KEY-REGISTRY-1",
+  "generated_at": "2026-08-25T00:33:26Z",
+  "custody": "Private Ed25519 keys are stored only under the protected local ProofBundle agent-state directory; this registry contains public verification material.",
+  "roles": [
+    {"email":"contact@proofbundle.org","agent_id":"proofbundle-contact","fingerprint":"c0edba1932262bc1fc93af7fbb04ff7b","aibom_digest":"M96FPHOS2AlwdZTGqyRAFSCuo3yxGlF6NtGTLBvWcYchYZT61E1qVwXa3cfQUzEi","aibom_pubkey":"oromlHGN5vI2atPX8rPShwwC_UBR5eQ2ug-cF4oYTII"},
+    {"email":"hello@proofbundle.org","agent_id":"proofbundle-hello","fingerprint":"ed5063fdb2efbb3bfbe4f84036231ba3","aibom_digest":"l-SkRTIPJznyxjXlZoSchkX4psyES_7yKZRvTYzxW78XftS8D_Xg4a4GtDPcd3s0","aibom_pubkey":"HRNVMpIhIF15W1_t_AUw-OgEpuWPkQ9oiMeH1zb2W7Q"},
+    {"email":"support@proofbundle.org","agent_id":"proofbundle-support","fingerprint":"fd449addee54956620662d6c4b8e8990","aibom_digest":"9zBCbuhGgfaqtjI_bzJafnka2q9ynBDycXVRW3VK2Mfqq2-W4VdZA90ykLdf8qLW","aibom_pubkey":"C6H8nYUxDRaScAV_riKy3oBkl9c_H-oUnBW2kY9mxtg"},
+    {"email":"security@proofbundle.org","agent_id":"proofbundle-security","fingerprint":"b8bd2fc2f1cfadc919a43c098dd295a3","aibom_digest":"Chm4Gzhff5Bzd4N7nNkAc3QK8kN71vYI9YfRQcamaYcxGROC15gFT3YWTC0wb7T9","aibom_pubkey":"YO-T_fClhsH5TFtY-Ez3_WqDRNwbRrCLK5UK-EZv41Q"},
+    {"email":"compliance@proofbundle.org","agent_id":"proofbundle-compliance","fingerprint":"14a40b1a8e5e89ea0bb0ecadb96668dd","aibom_digest":"x_eFq-EA-X2xO3I6n9wp3ujT_t9hebNcDfeMbkOtOH21IaLeelzO5lGKlgtdo51W","aibom_pubkey":"4ROPzLD4Wd5vzfQPKKquSbN97-E4GDYbQipLpsXpBus"},
+    {"email":"abuse-reports@proofbundle.org","agent_id":"proofbundle-abuse-reports","fingerprint":"0c8dc0a8843b00dd77871ceddf5b5ec1","aibom_digest":"6S28Bgiz54k7ZuCQpRbKZ2QmvBQg-lA80GoSmYMAhVGdFhxHdFqhVJkTNJL3d0r4","aibom_pubkey":"bj7bSi_U9c3VPGnqNMc8UxgsjD0Ur5SbBDL9x8B3gO4"},
+    {"email":"privacy@proofbundle.org","agent_id":"proofbundle-privacy","fingerprint":"61d51c2f68430de23e5e18f764f76ed8","aibom_digest":"5uOXSe6z4H_HC76yzB8XgW9L1Sf0iUtoL_C0BINgcwXvXbgJwoBR8oerHkJV8gHp","aibom_pubkey":"cgl80oHHM1cr8qlwAAIAyJbS0LfOvmrl3MTGT3rA63o"},
+    {"email":"billing@proofbundle.org","agent_id":"proofbundle-billing","fingerprint":"19f61b0b7512bd95d1200c02cad1a062","aibom_digest":"M5503LtvwbRv9GtKXIxFyxgOGj1kT32c2hqxXTbiyxUyZyj9jvEqFcdor5Hh4IsE","aibom_pubkey":"_ukAb5eAQNsPbl1OEy4-kvSDR_CnI-QpYeNEnUmz0C0"},
+    {"email":"legal@proofbundle.org","agent_id":"proofbundle-legal","fingerprint":"c1a3a4a7399a1d7cea5cdc39d7cdd315","aibom_digest":"WemIODMm-NixFsYGE_z-w0te3C7uT97lqqB3Olzp7TIDhg7Qo4dcL4_TKtADHhL5","aibom_pubkey":"Ygs5EzKP08ipzG03H2dR6Qo9MMDI60xwmX-o5kmjqX0"}
+  ]
+}

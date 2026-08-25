@@ -13,6 +13,10 @@ Define, evaluate, certify, and independently verify artifacts and agent actions.
 
 [Live app](https://proofbundle.org) · [Verify a release](VERIFYING.md) · [Security policy](SECURITY.md)
 
+Institutional role-signing keys and AI-BOM bindings are published in
+[`AGENT_ROLE_KEYS.json`](AGENT_ROLE_KEYS.json); private signing keys remain in
+protected local custody and are never committed.
+
 </div>
 
 > **Current measured state.** The standalone engine runs 65 boot integrity checks,

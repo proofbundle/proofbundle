@@ -1,14 +1,90 @@
 ===== environment =====
-date: 2026-07-28T16:00:50Z
-node: v22.22.2
-npm: 10.9.7
-platform: Linux vm 6.18.5 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64 x86_64 GNU/Linux
+date: 2026-08-27T13:58:31Z
+node: v24.19.0
+npm: 11.17.0
+platform: Linux pb7700k 6.14.0-37-generic #37~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 10:25:38 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+Superseded 2026-08-27: the previous version of this file (dated
+2026-07-28T16:00:50Z, platform "Linux vm 6.18.5") was generated in a
+different, unrelated sandbox and does not describe this machine. Every line
+below was verified by actually running the named binary on this machine
+during a live session (not inferred, not copied from a header comment or
+prior claim) — see docs/CORPUS-STATE.md and this repo's own crypto/README.md
+for why that distinction matters here specifically.
 
 ===== lean/lake =====
-$ command -v lake
-not found — Lean 4 toolchain is not installed in this environment
-$ command -v lean
-not found
+$ command -v lean lake elan
+/home/falsealias/.elan/bin/lean
+/home/falsealias/.elan/bin/lake
+/home/falsealias/.elan/bin/elan
+$ lean --version
+Lean (version 4.32.2, x86_64-unknown-linux-gnu, commit f3b06c705e6c85f5314019d5d3baab0fec5b580c, Release)
+$ elan toolchain list
+leanprover/lean4:v4.11.0
+leanprover/lean4:v4.29.1
+leanprover/lean4:v4.32.2
+leanprover/lean4:v4.34.0-rc1
+leanprover/lean4:v4.8.0
+default toolchain used by `lean`/`lake env lean`: v4.32.2
 
-===== coq (relevant to existing corpus claims elsewhere in this repo) =====
-not found — consistent with docs/CORPUS-STATE.md's stated assumption all session
+===== coq / rocq =====
+$ command -v coqc rocq   (default PATH, includes ~/.opam)
+not found — ~/.opam has no active switch (config/lock/log/opam-init/repo only,
+no actual toolchain installed under the default opam root)
+
+BUT a real, working Rocq install exists at a second, non-default opam root:
+  /media/falsealias/raid2tb/root-offload/opam/4.14.2/bin/rocq
+$ /media/falsealias/raid2tb/root-offload/opam/4.14.2/bin/rocq --version
+The Rocq Prover, version 9.2 (compiled with OCaml 4.14.2)
+Same bin/ directory also has: coqidetop, dune, ocaml, ocamlfind, ocamllsp,
+and the full ocaml/dune toolchain — a complete, usable Rocq dev environment,
+just not on PATH by default. Not currently added to shell PATH/profile.
+
+===== isabelle =====
+No runnable `isabelle` binary found anywhere searched (`/`, home, both raid2tb
+opam roots, Windows mount). Only found: scattered `.thy` source files (e.g.
+under raid2tb Windows mount `CLEAN_PROJECT/_DUPLICATES_REVIEW/`) and one
+unextracted archive whose filename references Isabelle
+(`recovered_files.90/f99560187_consciousness_criterion_with_isabelle_tar.gz`,
+not inspected). Isabelle theory *sources* exist in the corpus; an Isabelle
+*installation* to check them does not, as of this report.
+
+===== SMT solvers =====
+$ z3 --version    -> Z3 version 5.0.0 - 64 bit    (/usr/local/bin/z3)
+$ cvc5 --version  -> cvc5 1.3.4 [git f3b21c4]     (/usr/local/bin/cvc5)
+$ why3 --version  -> Why3 platform, version 1.6.0 (/usr/bin/why3)
+$ dafny            -> present at /usr/bin/dafny, runs (no matching --version flag)
+All four genuinely installed and runnable. No .smt2/.mlw/.why/.dfy usage found
+anywhere in Crypto_Accumulation_Algorithms except nine templated placeholder
+.smt2 stubs (formal_backfill/smt_z3/*.smt2, ~437 bytes each, identical
+content-free "uninterpreted function" tautology reused per algorithm name —
+Z3 returns unsat on all nine for real, but that proves nothing about any
+actual algorithm; see session notes 2026-08-27).
+
+===== F* / EverCrypt / HACL* =====
+Not installed, no source tree found anywhere searched. `fstar`/`fstar.exe`:
+absent (only false-positive match was the unrelated `sqfstar` squashfs tool).
+
+===== JS crypto core (this repo, crypto/) =====
+Fully self-contained, no external deps beyond node:crypto used only inside
+t_*.mjs test files as an independent arbiter (never in implementation files).
+As of 2026-08-27: keccak, mlkem, confidential, sha256, sha512 (+sha384),
+ed25519, blake2, blake3, ecdsa (P-256/P-384), mldsa (ML-DSA-44/65/87) all
+present and independently re-verified in this session: 947 pass / 0 fail
+across 12 test files, ~13.6s total. identity.mjs (agent/) now uses this
+ed25519 implementation instead of node:crypto for all signing. No chacha20,
+poly1305, or falcon in this repo (chacha20/poly1305 exist as Lean sources
+elsewhere — see next section — falcon exists nowhere found in this session).
+
+===== Lean crypto sources outside this repo =====
+90_ORIGINAL_PACKAGES/proofbundle-lean-crypto-0.1.0/src/{chacha20,poly1305}
+had real bugs (impossible Church-Sort-1 encoding, an off-by-one in Word32's
+bit count, five separate accessor fencepost bugs, a sigma0/sigma1 naming
+collision with the SHA-256 foundation file, and two functions referenced but
+never defined: w32addc, zero32/one32) — never compiled before this session.
+Fixed and verified 2026-08-27: compiles clean (exit 0), #print axioms on
+representative definitions across every layer (foundation, SHA-256, ChaCha20,
+Poly1305) all report "does not depend on any axioms", and #eval confirms real
+computed values (not just type-checking). Scratch copy at
+~/pb/work/chacha20-poly1305-verify-1787837231/Assembled.lean — not yet
+written back into the original archive or wired into this repo's crypto/.

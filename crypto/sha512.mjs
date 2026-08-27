@@ -48,12 +48,20 @@ function pad(msgBytes) {
   return out;
 }
 
-export function sha512(msgBytes) {
+// SHA-384 shares SHA-512's compression function exactly (FIPS 180-4 §5.3.4)
+// — only the initial hash value differs, and the output is truncated to the
+// first 384 bits (48 bytes) of the resulting 512-bit state.
+const H0_384 = [
+  0xcbbb9d5dc1059ed8n, 0x629a292a367cd507n, 0x9159015a3070dd17n, 0x152fecd8f70e5939n,
+  0x67332667ffc00b31n, 0x8eb44a8768581511n, 0xdb0c2e0d64f98fa7n, 0x47b5481dbefa4fa4n,
+];
+
+function compress(msgBytes, initH, outLen) {
   if (!(msgBytes instanceof Uint8Array)) {
     msgBytes = new TextEncoder().encode(msgBytes);
   }
   const M = pad(msgBytes);
-  const H = H0.slice();
+  const H = initH.slice();
   const W = new Array(80);
   const dv = new DataView(M.buffer);
 
@@ -80,12 +88,24 @@ export function sha512(msgBytes) {
     H[4] = (H[4] + e) & MASK64; H[5] = (H[5] + f) & MASK64; H[6] = (H[6] + g) & MASK64; H[7] = (H[7] + h) & MASK64;
   }
 
-  const out = new Uint8Array(64);
+  const out = new Uint8Array(outLen);
   const outDv = new DataView(out.buffer);
-  for (let i = 0; i < 8; i++) outDv.setBigUint64(i * 8, H[i], false);
+  for (let i = 0; i < outLen / 8; i++) outDv.setBigUint64(i * 8, H[i], false);
   return out;
+}
+
+export function sha512(msgBytes) {
+  return compress(msgBytes, H0, 64);
+}
+
+export function sha384(msgBytes) {
+  return compress(msgBytes, H0_384, 48);
 }
 
 export function sha512hex(msgBytes) {
   return Array.from(sha512(msgBytes)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+export function sha384hex(msgBytes) {
+  return Array.from(sha384(msgBytes)).map(b => b.toString(16).padStart(2, '0')).join('');
 }

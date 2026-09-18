@@ -390,6 +390,39 @@ export function predictionStatus(seq) {
   };
 }
 
+// ── OTS status cache — keeps /lineage off the OTS scan path ──────────────────
+// Measured on this host 2026-09-18: 178 `.ots` proof files, 0 of them already
+// 'upgraded', and otsCheck() skips only upgraded files — so every /lineage
+// request ran `ots info` once per proof file, sequentially. Measured rate
+// 124 calls / 20.042 s = 6.19/s → ~29 s per response. `curl -m 25` and
+// `curl -m 28` both returned 0 bytes. The endpoint was answering, but only
+// after the client had already given up.
+//
+// /lineage now returns the last completed scan plus the timestamp of that scan,
+// and schedules a refresh in the background. Callers that need a scan taken
+// *now* must call /ots-check, which is still synchronous and still pays the
+// real cost. Statuses are read from the append-only file on a cold cache, so
+// the fast path never returns nothing.
+const OTS_CACHE_TTL_MS = 60_000;
+let otsCache = { at: 0, statuses: null, scanning: false };
+
+/** Fast path: file-only read of the append-only status log. Never scans. */
+function otsSnapshot() {
+  return {
+    statuses: otsCache.statuses || readStatuses(OTS_STATUS),
+    asof: otsCache.at ? new Date(otsCache.at).toISOString() : null,
+  };
+}
+
+/** Background refresh. Never awaited by a request handler. */
+function refreshOtsInBackground() {
+  if (otsCache.scanning) return;
+  otsCache.scanning = true;
+  otsCheck({ batchesDir: BATCHES_DIR, statusFile: OTS_STATUS })
+    .then(statuses => { otsCache = { at: Date.now(), statuses, scanning: false }; })
+    .catch(() => { otsCache.scanning = false; });
+}
+
 // ── HTTP broker (127.0.0.1 ONLY — this is a local loop, not a service) ──
 function json(res, code, obj) {
   const body = JSON.stringify(obj, null, 2);
@@ -467,13 +500,18 @@ export function createServer({ port = DEFAULT_PORT } = {}) {
       if (req.method === 'GET' && path === '/lineage') {
         const log = loadLog();
         const check = checkLog(log);
-        const statuses = await otsCheck({ batchesDir: BATCHES_DIR, statusFile: OTS_STATUS });
+        // Background refresh; the response carries the last completed scan and
+        // its timestamp. This request never waits on the OTS scan (>28 s
+        // measured). Use /ots-check when a scan taken now is required.
+        refreshOtsInBackground();
+        const snap = otsSnapshot();
         return json(res, 200, {
           ...check,
           last_seq: log.length ? log[log.length - 1].seq : null,
           tip_hash: log.length ? envelopeHash(log[log.length - 1]) : null,
           unanchored_entries: Math.max(0, log.length - 1 - lastBatchedSeq()),
-          ots_batches: statuses,
+          ots_batches: snap.statuses,
+          ots_batches_asof: snap.asof,
         });
       }
 
@@ -528,6 +566,11 @@ export function startBridge({ port = DEFAULT_PORT } = {}) {
   const srv = createServer({ port });
   srv.listen(port, '127.0.0.1', () => {
     console.error(`pb-agent-bridge listening on http://127.0.0.1:${port} (state: ${BRIDGE_DIR})`);
+    // Warm the OTS cache once at start and keep it warm; requests never block
+    // on the scan (see OTS status cache above).
+    refreshOtsInBackground();
+    const timer = setInterval(refreshOtsInBackground, OTS_CACHE_TTL_MS * 5);
+    if (typeof timer.unref === 'function') timer.unref();
   });
   return srv;
 }

@@ -27,6 +27,16 @@
  * HTTP broker and offline CLI appends serialize. The lineage is
  * append-only: nothing already written is ever modified or deleted.
  */
+
+// REVOKED 2026-09-23 by operator: standalone daemon start disabled.
+// Library exports above remain importable; running this file directly
+// exits 81. See ~/pb/memory/notes/2026-09-23-proofbundle-law-revoked.md.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.error('bridge.mjs: broker REVOKED by operator 2026-09-23 — not starting. ' +
+                'See ~/pb/memory/notes/2026-09-23-proofbundle-law-revoked.md');
+  process.exit(81);
+}
+
 import http from 'node:http';
 import {
   mkdirSync, readFileSync, writeFileSync, appendFileSync,

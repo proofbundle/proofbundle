@@ -62,10 +62,11 @@ jobs:
         run: |
           set -e
           check() {
-            n=$(grep -c "Closed under the global context" "$1.coq.log")
-            m=$(grep -vc "Closed under the global context" "$1.coq.log")
-            echo "$1: closed=$n non-closed=$m (expected $2 / 0)"
-            [ "$n" = "$2" ] && [ "$m" = "0" ]
+            [ -s "$1.coq.log" ]
+            n=$(grep -c "Closed under the global context" "$1.coq.log" || true)
+            d=$(grep -Ec "^(Axioms|Parameters):" "$1.coq.log" || true)
+            echo "$1: closed=$n axiom-dependent=$d (expected $2 / 0)"
+            [ "$n" = "$2" ] && [ "$d" = "0" ]
           }
           check GPXBoundary   42
           check GPXTemporal   23

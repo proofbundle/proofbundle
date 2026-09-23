@@ -60,6 +60,17 @@ async function bootEngine() {
   return dom.window;
 }
 
+async function closeEngine(win) {
+  // The page starts its boot self-tests asynchronously. Closing the JSDOM
+  // window while that task is still running leaves it executing against a
+  // dismantled document and can turn a successful CLI operation into a late
+  // uncaught exception. Let the boot task settle before releasing the window.
+  for (let i = 0; i < 120 && !win.PB_SELFTEST; i++) {
+    await new Promise((r) => setTimeout(r, 250));
+  }
+  win.close();
+}
+
 async function cmdSelftest() {
   const win = await bootEngine();
   let st = null;
@@ -78,6 +89,8 @@ async function cmdKeygen(args) {
   const out = JSON.stringify(key, null, 2);
   if (args.out) { writeFileSync(args.out, out); console.log(`Key written to ${args.out}`); }
   else console.log(out);
+  await closeEngine(win);
+  process.exit(0);
 }
 
 async function cmdSeal(args) {
@@ -118,6 +131,8 @@ async function cmdSeal(args) {
   const out = JSON.stringify(sealed, null, 2);
   if (args.out) { writeFileSync(args.out, out); console.log(`Sealed bundle written to ${args.out}`); }
   else console.log(out);
+  await closeEngine(win);
+  process.exit(0);
 }
 
 async function cmdVerify(args) {

@@ -9,9 +9,9 @@ GPXDiachronic.vo: GPXTemporal.vo
 check: all
 	@echo "expected closed: 42 / 23 / 18"
 	@for f in $(FILES); do \
-	  printf "%-16s closed=%s non-closed=%s\n" $$f \
-	    $$(grep -c "Closed under the global context" $$f.coq.log) \
-	    $$(grep -vc "Closed under the global context" $$f.coq.log); done
+	  printf "%-16s closed=%s axiom-dependent=%s\n" $$f \
+	    $$(grep -c "Closed under the global context" $$f.coq.log || true) \
+	    $$(grep -Ec "^(Axioms|Parameters):" $$f.coq.log || true); done
 	@echo "--- forbidden axioms (must be empty) ---"
 	@grep -h -E "propositional_extensionality|functional_extensionality|classic|proof_irrelevance" *.coq.log || echo "  none"
 clean:

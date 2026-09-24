@@ -889,7 +889,7 @@ var PBSHA256=(function(){
     <button data-title="Artifact library" onclick="switchTab('library',this); renderLibrary()"><span class="sb-ico">▣</span><span>Library</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
     <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
-    <button data-title="Multi-agent orchestration" onclick="switchTab('orchestrator',this); refreshOrchestrator()"><span class="sb-ico">⬡</span><span>Orchestrator</span></button>
+    <button data-title="Multi-agent orchestration" onclick="switchTab('orchestrator',this); refreshOrchestrator(); orchStartPolling()"><span class="sb-ico">⬡</span><span>Orchestrator</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
     <button class="sb-adv-only" data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
     <button class="sb-adv-only" data-title="Bundle editor" onclick="switchTab('seal',this)"><span class="sb-ico">⌗</span><span>Bundle editor</span></button>
@@ -5976,7 +5976,11 @@ async function bridgeLoadLineage() {
   if (box) box.innerHTML = entries.length ? `<table class="mini-table"><thead><tr><th>#</th><th>from</th><th>type</th><th>to</th><th>hash</th></tr></thead><tbody>` + entries.slice(-30).reverse().map(e => `<tr><td>${esc(e.sequence)}</td><td>${esc(e.from || '?')}</td><td>${esc(e.message_type || '?')}</td><td>${esc(e.to || '')}</td><td class="mono">${esc(String(e.payload_sha256 || '').slice(0,18))}…</td></tr>`).join('') + `</tbody></table>` : '<div class="empty"><div class="empty-title">No verifier lineage entries</div></div>';
 }
 // ── Orchestrator: reads pb-lane-bus directly (agent/live-bus/, same origin) ──
-const ORCH_STATE = { messages: [], lanes: {}, activeLane: '' };
+const ORCH_STATE = { messages: [], lanes: {}, activeLane: '', pollTimer: null };
+function orchStartPolling() {
+  if (ORCH_STATE.pollTimer) return;
+  ORCH_STATE.pollTimer = setInterval(refreshOrchestrator, 4000);
+}
 const ORCH_PROVIDER_COLOR = { zai: 'var(--blue)', xai: 'var(--purple)', cline: 'var(--cyan)', 'local-endpoint': 'var(--orange)', local: 'var(--text2)' };
 const ORCH_KIND_COLOR = { error: 'var(--red)', msg: 'var(--blue)', register: 'var(--green)', receipt: 'var(--cyan)', launch: 'var(--purple)', root: 'var(--orange)', vm: 'var(--cyan)', transcript: 'var(--orange)' };
 const ORCH_KIND_BADGE = { error: 'badge-red', msg: 'badge-blue', register: 'badge-green', receipt: 'badge-cyan', launch: 'badge-purple', root: 'badge-orange', vm: 'badge-cyan', transcript: 'badge-orange' };

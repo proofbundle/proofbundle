@@ -1471,14 +1471,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/ed25519.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "Ed448",
@@ -1537,14 +1539,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ECDSA-P-384-SHA-384",
@@ -1570,14 +1574,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ECDSA-P-521-SHA-512",
@@ -1603,14 +1609,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "RSA-PSS-SHA-256",
@@ -1768,14 +1776,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/mldsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ML-DSA-65",
@@ -1801,14 +1811,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/mldsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ML-DSA-87",
@@ -1834,14 +1846,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/mldsa.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "SLH-DSA-SHA2-128s",
@@ -2439,7 +2453,7 @@
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ML-KEM-768",
@@ -2476,7 +2490,7 @@
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ML-KEM-1024",
@@ -2513,7 +2527,7 @@
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "AES-128-GCM",

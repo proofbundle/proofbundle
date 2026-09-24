@@ -11,7 +11,9 @@
   "scripts": {
     "selftest": "node cli/proofbundle-cli.mjs selftest",
     "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs && node t_vault_stream.mjs",
-    "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs"
+    "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs",
+    "test:html-crypto": "node scripts/audit-html-crypto.mjs proofbundle.html",
+    "test:all": "npm run selftest && npm run test:crypto && npm run test:surface && npm run test:html-crypto"
   },
   "dependencies": {
     "jsdom": "^24.1.3"

@@ -255,16 +255,50 @@ findings.push({
   required: 'PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile.',
 });
 
-/* Demonstrate that PB-CANON-JSON-1 is not injective over JavaScript values. */
-const canonicalCollision = win.eval(`canonicalJSON([]) === canonicalJSON([undefined])`);
-const canonicalInvalid = win.eval(`canonicalJSON({a:undefined})`);
+/* PB-CANON-JSON-1 domain probe.
+ *
+ * History, kept so the expectation is auditable: this probe was written against
+ * the PRE-guard contract, where canonicalJSON accepted values outside its
+ * apparent JSON domain — `[]` and `[undefined]` canonicalized identically and
+ * `{a:undefined}` returned the literal string '{"a":undefined}'. That was
+ * finding PBHTML-F002, severity MEDIUM.
+ *
+ * Commit 4f710a2 added the guard at proofbundle.html:1755-1758, which now
+ * THROWS on undefined/function/symbol/bigint and on non-finite numbers. The
+ * old probe therefore aborted this harness with an uncaught
+ * "PB-CANON-JSON-1: value not representable in JSON (undefined)" and the audit
+ * could not run at all on HEAD.
+ *
+ * The finding is CLOSED by that guard. The probe is now a positive test: it
+ * asserts the guard rejects each out-of-domain value. The pre-guard behavior
+ * stays recorded here as the falsifier — if a future edit makes any of these
+ * calls stop throwing, this probe fails and PBHTML-F002 reopens.
+ */
+const throwsOn = (expr) => win.eval(`(() => { try { ${expr}; return false; } catch (e) { return e instanceof Error; } })()`);
+const nonInjective = (() => {
+  try { return (win.eval(`canonicalJSON([])`) === win.eval(`canonicalJSON([undefined])`)); }
+  catch { return null; }
+})();
+const rejected = {
+  undefinedValue:     throwsOn(`canonicalJSON(undefined)`),
+  undefinedInObject:  throwsOn(`canonicalJSON({a:undefined})`),
+  undefinedInArray:   throwsOn(`canonicalJSON([undefined])`),
+  nonFiniteNumber:    throwsOn(`canonicalJSON({a:NaN})`),
+  functionValue:      throwsOn(`canonicalJSON({f:function(){}})`),
+};
+const guardHolds = Object.values(rejected).every(Boolean);
 findings.push({
   id: 'PBHTML-F002',
   severity: 'MEDIUM',
-  title: 'PB-CANON-JSON-1 accepts values outside its apparent JSON domain',
-  reproduced: canonicalCollision && canonicalInvalid === '{"a":undefined}',
-  observation: `[] and [undefined] canonicalize identically: ${canonicalCollision}; {a:undefined} canonicalizes to ${canonicalInvalid}.`,
-  required: 'Reject non-JSON values before sealing and verifying, and publish the exact canonical value domain.',
+  title: 'PB-CANON-JSON-1 domain is enforced by the 4f710a2 guard (finding closed)',
+  reproduced: guardHolds,
+  status: guardHolds ? 'CLOSED-BY-4f710a2' : 'REOPENED',
+  observation: 'Per-value guard rejects: ' + JSON.stringify(rejected) +
+    '; [] vs [undefined] still non-injective pre-rejection: ' + nonInjective +
+    ' (null = no longer comparable, both throw).',
+  required: guardHolds
+    ? 'Hold: any future edit that stops throwing on these inputs reopens PBHTML-F002.'
+    : 'The 4f710a2 guard no longer covers every out-of-domain value; reject non-JSON values before sealing and verifying, and publish the exact canonical value domain.',
 });
 
 /* Compare the offline and network OTS file headers emitted by this artifact. */

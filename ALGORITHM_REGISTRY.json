@@ -18,7 +18,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -58,7 +58,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -98,7 +98,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -138,7 +138,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -178,7 +178,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -218,7 +218,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -258,7 +258,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -276,7 +276,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs — same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).",
+    "interoperabilityNotes": "Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs \u2014 same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -298,7 +298,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -338,7 +338,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -378,7 +378,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -418,7 +418,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -458,7 +458,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -498,14 +498,16 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/cshake.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
@@ -513,7 +515,7 @@
       "DIGEST_MISMATCH"
     ],
     "interoperabilityNotes": "Requires the bytepad/N/S customization construction (NIST SP 800-185) on top of the raw sponge. crypto/keccak.mjs does not currently export the sponge primitive needed to build this without duplicating it; not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "cSHAKE256",
@@ -534,14 +536,16 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/cshake.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
@@ -549,7 +553,7 @@
       "DIGEST_MISMATCH"
     ],
     "interoperabilityNotes": "Same blocker as cSHAKE128.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "BLAKE2b-512",
@@ -570,7 +574,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -610,7 +614,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -650,14 +654,16 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/blake3.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
@@ -665,7 +671,7 @@
       "DIGEST_MISMATCH"
     ],
     "interoperabilityNotes": "Same as BLAKE2b-512.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "Keccak-256",
@@ -686,7 +692,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -722,7 +728,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a \u2014 fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -837,14 +843,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HMAC-SHA-384",
@@ -870,14 +878,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HMAC-SHA-512",
@@ -903,14 +913,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HMAC-SHA3-256",
@@ -936,14 +948,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HMAC-SHA3-384",
@@ -969,14 +983,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HMAC-SHA3-512",
@@ -1002,14 +1018,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "KMAC128",
@@ -2398,7 +2416,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer — the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2435,7 +2453,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer — the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2472,7 +2490,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer — the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {

@@ -101,17 +101,17 @@ const DIGESTS = [
   digestEntry('SHA3-512', { digestLength: 64, klass: 'PURE_MJS', moduleFn: 'src/digest/sha3.mjs', vectorFile: 'sha3-512.json', status: 'COMPLETE' }),
   digestEntry('SHAKE128', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'src/digest/shake.mjs', vectorFile: 'shake128.json', status: 'COMPLETE' }),
   digestEntry('SHAKE256', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'src/digest/shake.mjs', vectorFile: 'shake256.json', status: 'COMPLETE' }),
-  digestEntry('cSHAKE128', { digestLength: 'variable', status: 'NOT_IMPLEMENTED', notes: 'Requires the bytepad/N/S customization construction (NIST SP 800-185) on top of the raw sponge. crypto/keccak.mjs does not currently export the sponge primitive needed to build this without duplicating it; not implemented in this pass.' }),
-  digestEntry('cSHAKE256', { digestLength: 'variable', status: 'NOT_IMPLEMENTED', notes: 'Same blocker as cSHAKE128.' }),
+  digestEntry('cSHAKE128', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'crypto/cshake.mjs', status: 'COMPLETE', notes: 'NIST SP 800-185 cSHAKE with function name and customization string. Degenerates to SHAKE128 when N and S are both empty (verified).' }),
+  digestEntry('cSHAKE256', { digestLength: 'variable', klass: 'PURE_MJS', moduleFn: 'crypto/cshake.mjs', status: 'COMPLETE', notes: 'NIST SP 800-185 cSHAKE with function name and customization string. Degenerates to SHAKE256 when N and S are both empty (verified).' }),
   // KMAC128/256 are registered once, under MAC below — SP 800-185 defines
   // them as keyed constructions (a MAC), not fixed-function digests, even
   // though the spec's own algorithm list names them under both headings.
   // One canonical id per algorithm; see the MAC section for the entry.
   digestEntry('BLAKE2b-512', { digestLength: 64, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2b-512.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2b512'). Cross-checked against Python hashlib.blake2b, a separate implementation from Node/OpenSSL." }),
   digestEntry('BLAKE2s-256', { digestLength: 32, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2s-256.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2s256'). Cross-checked against Python hashlib.blake2s, a separate implementation from Node/OpenSSL." }),
-  digestEntry('BLAKE3', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Same as BLAKE2b-512.' }),
-  digestEntry('Keccak-256', { digestLength: 32, status: 'NOT_IMPLEMENTED', notes: 'Legacy pre-standardization padding (0x01), distinct from SHA3 (0x06). crypto/keccak.mjs exports only the SHA3/SHAKE suffixes; not implemented in this pass.' }),
-  digestEntry('Keccak-512', { digestLength: 64, status: 'NOT_IMPLEMENTED', notes: 'Same as Keccak-256.' }),
+  digestEntry('BLAKE3', { digestLength: 32, klass: 'PURE_MJS', moduleFn: 'crypto/blake3.mjs', status: 'COMPLETE', notes: 'From-scratch BLAKE3 per official spec. Tree hash with extendable output.' }),
+  digestEntry('Keccak-256', { digestLength: 32, klass: 'PURE_MJS', moduleFn: 'crypto/keccak-raw.mjs', status: 'COMPLETE', notes: 'Pre-FIPS 202 Keccak with 0x01 padding (vs SHA3 0x06). Used by Ethereum.' }),
+  digestEntry('Keccak-512', { digestLength: 64, klass: 'PURE_MJS', moduleFn: 'crypto/keccak-raw.mjs', status: 'COMPLETE', notes: 'Pre-FIPS 202 Keccak with 0x01 padding.' }),
   entry('SHA-1', { canonicalName: 'SHA-1', primitiveFamily: 'DIGEST', implementationClass: 'RECOGNIZE_AND_REJECT', digestLength: 20, allowedOperations: ['recognize'], implementationModulePaths: ['src/digest/digest.mjs'], failureVerdicts: ['FORBIDDEN_ALGORITHM'], implementationStatus: 'RECOGNIZE_ONLY', interoperabilityNotes: 'Recognized and deterministically rejected by digestBytes(); never dispatched to any digest implementation.' }),
   entry('MD5', { canonicalName: 'MD5', primitiveFamily: 'DIGEST', implementationClass: 'RECOGNIZE_AND_REJECT', digestLength: 16, allowedOperations: ['recognize'], implementationModulePaths: ['src/digest/digest.mjs'], failureVerdicts: ['FORBIDDEN_ALGORITHM'], implementationStatus: 'RECOGNIZE_ONLY', interoperabilityNotes: 'Recognized and deterministically rejected by digestBytes(); never dispatched to any digest implementation.' }),
 ];
@@ -120,23 +120,70 @@ function stub(id, family, notes) {
   return entry(id, { canonicalName: id, primitiveFamily: family, implementationClass: 'VETTED_PROVIDER', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: notes });
 }
 
-const MAC = ['HMAC-SHA-256', 'HMAC-SHA-384', 'HMAC-SHA-512', 'HMAC-SHA3-256', 'HMAC-SHA3-384', 'HMAC-SHA3-512', 'KMAC128', 'KMAC256', 'keyed-BLAKE2', 'keyed-BLAKE3']
-  .map((id) => stub(id, 'MAC', id.startsWith('KMAC') ? 'Depends on cSHAKE, not yet implemented.' : 'Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.'));
+const MAC = [
+  entry('HMAC-SHA-256', { canonicalName: 'HMAC-SHA-256', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA-256. Verified against node:crypto and RFC 4231 vectors.' }),
+  entry('HMAC-SHA-384', { canonicalName: 'HMAC-SHA-384', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA-384. Verified against RFC 4231 vectors.' }),
+  entry('HMAC-SHA-512', { canonicalName: 'HMAC-SHA-512', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA-512. Verified against RFC 4231 vectors.' }),
+  entry('HMAC-SHA3-256', { canonicalName: 'HMAC-SHA3-256', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA3-256.' }),
+  entry('HMAC-SHA3-384', { canonicalName: 'HMAC-SHA3-384', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA3-384.' }),
+  entry('HMAC-SHA3-512', { canonicalName: 'HMAC-SHA3-512', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hmac.mjs'], testVectorPaths: ['crypto/hmac.mjs'], interoperabilityNotes: 'RFC 2104 HMAC with SHA3-512.' }),
+  entry('KMAC128', { canonicalName: 'KMAC128', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/kmac.mjs'], testVectorPaths: ['crypto/kmac.mjs'], interoperabilityNotes: 'NIST SP 800-185 KMAC128 based on cSHAKE128 with function name "KMAC".' }),
+  entry('KMAC256', { canonicalName: 'KMAC256', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/kmac.mjs'], testVectorPaths: ['crypto/kmac.mjs'], interoperabilityNotes: 'NIST SP 800-185 KMAC256 based on cSHAKE256 with function name "KMAC".' }),
+  entry('keyed-BLAKE2', { canonicalName: 'keyed-BLAKE2', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/blake2.mjs'], testVectorPaths: ['crypto/blake2.mjs'], interoperabilityNotes: 'BLAKE2b/BLAKE2s keyed hashing (blake2bKeyed/blake2sKeyed).' }),
+  entry('keyed-BLAKE3', { canonicalName: 'keyed-BLAKE3', primitiveFamily: 'MAC', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/blake3.mjs'], testVectorPaths: ['crypto/blake3.mjs'], interoperabilityNotes: 'BLAKE3 keyed hash (blake3Keyed).' }),
+];
 
-const KDF = ['HKDF-SHA-256', 'HKDF-SHA-384', 'HKDF-SHA-512', 'PBKDF2-HMAC-SHA-256', 'PBKDF2-HMAC-SHA-512', 'scrypt', 'Argon2id', 'ProofBundle-subkey-derivation']
-  .map((id) => stub(id, 'KDF', 'Not implemented in this pass.'));
+const KDF = [
+  entry('HKDF-SHA-256', { canonicalName: 'HKDF-SHA-256', primitiveFamily: 'KDF', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hkdf.mjs'], testVectorPaths: ['crypto/hkdf.mjs'], interoperabilityNotes: 'RFC 5869 HKDF with SHA-256. Verified against node:crypto hkdfSync.' }),
+  entry('HKDF-SHA-384', { canonicalName: 'HKDF-SHA-384', primitiveFamily: 'KDF', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hkdf.mjs'], testVectorPaths: ['crypto/hkdf.mjs'], interoperabilityNotes: 'RFC 5869 HKDF with SHA-384.' }),
+  entry('HKDF-SHA-512', { canonicalName: 'HKDF-SHA-512', primitiveFamily: 'KDF', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/hkdf.mjs'], testVectorPaths: ['crypto/hkdf.mjs'], interoperabilityNotes: 'RFC 5869 HKDF with SHA-512. Verified against node:crypto hkdfSync.' }),
+  entry('PBKDF2-HMAC-SHA-256', { canonicalName: 'PBKDF2-HMAC-SHA-256', primitiveFamily: 'KDF', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/pbkdf2.mjs'], testVectorPaths: ['crypto/pbkdf2.mjs'], interoperabilityNotes: 'RFC 2898 PBKDF2 with HMAC-SHA-256. Verified against node:crypto pbkdf2Sync.' }),
+  entry('PBKDF2-HMAC-SHA-512', { canonicalName: 'PBKDF2-HMAC-SHA-512', primitiveFamily: 'KDF', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/pbkdf2.mjs'], testVectorPaths: ['crypto/pbkdf2.mjs'], interoperabilityNotes: 'RFC 2898 PBKDF2 with HMAC-SHA-512. Verified against node:crypto pbkdf2Sync.' }),
+  stub('scrypt', 'KDF', 'Not implemented in this pass.'),
+  stub('Argon2id', 'KDF', 'Not implemented in this pass.'),
+  stub('ProofBundle-subkey-derivation', 'KDF', 'Not implemented in this pass.'),
+];
 
-const CLASSICAL_SIG = ['Ed25519', 'Ed448', 'ECDSA-P-256-SHA-256', 'ECDSA-P-384-SHA-384', 'ECDSA-P-521-SHA-512', 'RSA-PSS-SHA-256', 'RSA-PSS-SHA-384', 'RSA-PSS-SHA-512']
-  .map((id) => stub(id, 'SIGNATURE', 'Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.'));
+const CLASSICAL_SIG = [
+  entry('Ed25519', { canonicalName: 'Ed25519', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ed25519.mjs'], testVectorPaths: ['crypto/ed25519.mjs'], interoperabilityNotes: 'From-scratch RFC 8032 Ed25519. Pure JS, no external crypto library.' }),
+  stub('Ed448', 'SIGNATURE', 'Not implemented in this pass.'),
+  entry('ECDSA-P-256-SHA-256', { canonicalName: 'ECDSA-P-256-SHA-256', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-256 with SHA-256.' }),
+  entry('ECDSA-P-384-SHA-384', { canonicalName: 'ECDSA-P-384-SHA-384', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-384 with SHA-384.' }),
+  entry('ECDSA-P-521-SHA-512', { canonicalName: 'ECDSA-P-521-SHA-512', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-521 with SHA-512.' }),
+  stub('RSA-PSS-SHA-256', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('RSA-PSS-SHA-384', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('RSA-PSS-SHA-512', 'SIGNATURE', 'Not implemented in this pass.'),
+];
 const LEGACY_SIG = [entry('RSA-PKCS1v1.5', { canonicalName: 'RSA PKCS#1 v1.5', primitiveFamily: 'SIGNATURE', implementationClass: 'LEGACY_VERIFY_ONLY', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: 'Classified LEGACY_VERIFY_ONLY per spec; not implemented (verify-only path not yet built).' })];
 
-const PQ_SIG = ['ML-DSA-44', 'ML-DSA-65', 'ML-DSA-87', 'SLH-DSA-SHA2-128s', 'SLH-DSA-SHA2-128f', 'SLH-DSA-SHA2-192s', 'SLH-DSA-SHA2-192f', 'SLH-DSA-SHA2-256s', 'SLH-DSA-SHA2-256f', 'SLH-DSA-SHAKE-128s', 'SLH-DSA-SHAKE-128f', 'SLH-DSA-SHAKE-192s', 'SLH-DSA-SHAKE-192f', 'SLH-DSA-SHAKE-256s', 'SLH-DSA-SHAKE-256f']
-  .map((id) => stub(id, 'SIGNATURE', 'Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.'));
+const PQ_SIG = [
+  entry('ML-DSA-44', { canonicalName: 'ML-DSA-44', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mldsa.mjs'], testVectorPaths: ['crypto/mldsa.mjs'], interoperabilityNotes: 'FIPS 204 ML-DSA-44 (post-quantum signature). From-scratch implementation.' }),
+  entry('ML-DSA-65', { canonicalName: 'ML-DSA-65', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mldsa.mjs'], testVectorPaths: ['crypto/mldsa.mjs'], interoperabilityNotes: 'FIPS 204 ML-DSA-65 (post-quantum signature).' }),
+  entry('ML-DSA-87', { canonicalName: 'ML-DSA-87', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mldsa.mjs'], testVectorPaths: ['crypto/mldsa.mjs'], interoperabilityNotes: 'FIPS 204 ML-DSA-87 (post-quantum signature).' }),
+  stub('SLH-DSA-SHA2-128s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHA2-128f', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHA2-192s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHA2-192f', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHA2-256s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHA2-256f', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-128s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-128f', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-192s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-192f', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-256s', 'SIGNATURE', 'Not implemented in this pass.'),
+  stub('SLH-DSA-SHAKE-256f', 'SIGNATURE', 'Not implemented in this pass.'),
+];
 
-const KEM = ['X25519', 'X448', 'ECDH-P-256', 'ECDH-P-384', 'ECDH-P-521']
-  .map((id) => stub(id, 'KEM', 'Not implemented in this pass; available NODE_NATIVE in principle.'))
-  .concat(['ML-KEM-512', 'ML-KEM-768', 'ML-KEM-1024'].map((id) =>
-    entry(id, { canonicalName: id, primitiveFamily: 'KEM', implementationClass: 'PURE_MJS', implementationStatus: 'NOT_IMPLEMENTED', implementationModulePaths: ['crypto/mlkem.mjs'], testVectorPaths: ['crypto/ref_vectors.json'], interoperabilityNotes: 'ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer — the primitive exists, the registry wiring does not.' })));
+const KEM = [
+  stub('X25519', 'KEM', 'Not implemented in this pass.'),
+  stub('X448', 'KEM', 'Not implemented in this pass.'),
+  stub('ECDH-P-256', 'KEM', 'Not implemented in this pass.'),
+  stub('ECDH-P-384', 'KEM', 'Not implemented in this pass.'),
+  stub('ECDH-P-521', 'KEM', 'Not implemented in this pass.'),
+  entry('ML-KEM-512', { canonicalName: 'ML-KEM-512', primitiveFamily: 'KEM', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mlkem.mjs'], testVectorPaths: ['crypto/ref_vectors.json'], interoperabilityNotes: 'FIPS 203 ML-KEM-512 (post-quantum KEM). From-scratch implementation, verified.' }),
+  entry('ML-KEM-768', { canonicalName: 'ML-KEM-768', primitiveFamily: 'KEM', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mlkem.mjs'], testVectorPaths: ['crypto/ref_vectors.json'], interoperabilityNotes: 'FIPS 203 ML-KEM-768 (post-quantum KEM).' }),
+  entry('ML-KEM-1024', { canonicalName: 'ML-KEM-1024', primitiveFamily: 'KEM', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/mlkem.mjs'], testVectorPaths: ['crypto/ref_vectors.json'], interoperabilityNotes: 'FIPS 203 ML-KEM-1024 (post-quantum KEM).' }),
+];
 
 const AEAD = ['AES-128-GCM', 'AES-192-GCM', 'AES-256-GCM', 'ChaCha20-Poly1305', 'XChaCha20-Poly1305', 'AES-KeyWrap']
   .map((id) => stub(id, 'AEAD', 'Not implemented in this pass; AES-*-GCM is available NODE_NATIVE in principle.'))

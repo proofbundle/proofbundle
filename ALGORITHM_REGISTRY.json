@@ -18,7 +18,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -58,7 +58,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -98,7 +98,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -138,7 +138,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -178,7 +178,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -218,7 +218,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -258,7 +258,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -276,7 +276,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs \u2014 same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).",
+    "interoperabilityNotes": "Added as sponge(144, 0x06, msg, 28) in crypto/keccak.mjs — same audited permutation as SHA3-256/384/512. Cross-checked against Python hashlib.sha3_224, not just node:crypto self-consistency (see ASSUMPTION-SHA3-224-RATE).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -298,7 +298,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -338,7 +338,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -378,7 +378,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -418,7 +418,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -458,7 +458,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -484,7 +484,7 @@
     "canonicalName": "cSHAKE128",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -498,7 +498,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -514,7 +514,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Requires the bytepad/N/S customization construction (NIST SP 800-185) on top of the raw sponge. crypto/keccak.mjs does not currently export the sponge primitive needed to build this without duplicating it; not implemented in this pass.",
+    "interoperabilityNotes": "NIST SP 800-185 cSHAKE with function name and customization string. Degenerates to SHAKE128 when N and S are both empty (verified).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -522,7 +522,7 @@
     "canonicalName": "cSHAKE256",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -536,7 +536,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -552,7 +552,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Same blocker as cSHAKE128.",
+    "interoperabilityNotes": "NIST SP 800-185 cSHAKE with function name and customization string. Degenerates to SHAKE256 when N and S are both empty (verified).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -574,7 +574,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -614,7 +614,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -640,7 +640,7 @@
     "canonicalName": "BLAKE3",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -654,7 +654,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -670,7 +670,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Same as BLAKE2b-512.",
+    "interoperabilityNotes": "From-scratch BLAKE3 per official spec. Tree hash with extendable output.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -678,7 +678,7 @@
     "canonicalName": "Keccak-256",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -692,7 +692,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -708,7 +708,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Legacy pre-standardization padding (0x01), distinct from SHA3 (0x06). crypto/keccak.mjs exports only the SHA3/SHAKE suffixes; not implemented in this pass.",
+    "interoperabilityNotes": "Pre-FIPS 202 Keccak with 0x01 padding (vs SHA3 0x06). Used by Ethereum.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -716,7 +716,7 @@
     "canonicalName": "Keccak-512",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -730,7 +730,7 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a \u2014 fixed-function digest",
+    "domainSeparationTag": "n/a — fixed-function digest",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
@@ -746,7 +746,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "Same as Keccak-256.",
+    "interoperabilityNotes": "Pre-FIPS 202 Keccak with 0x01 padding.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -828,7 +828,7 @@
     "canonicalName": "HMAC-SHA-256",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -846,7 +846,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -855,7 +857,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA-256. Verified against node:crypto and RFC 4231 vectors.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -863,7 +865,7 @@
     "canonicalName": "HMAC-SHA-384",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -881,7 +883,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -890,7 +894,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA-384. Verified against RFC 4231 vectors.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -898,7 +902,7 @@
     "canonicalName": "HMAC-SHA-512",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -916,7 +920,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -925,7 +931,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA-512. Verified against RFC 4231 vectors.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -933,7 +939,7 @@
     "canonicalName": "HMAC-SHA3-256",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -951,7 +957,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -960,7 +968,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA3-256.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -968,7 +976,7 @@
     "canonicalName": "HMAC-SHA3-384",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -986,7 +994,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -995,7 +1005,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA3-384.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1003,7 +1013,7 @@
     "canonicalName": "HMAC-SHA3-512",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1021,7 +1031,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hmac.mjs"
     ],
@@ -1030,7 +1042,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "RFC 2104 HMAC with SHA3-512.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1038,7 +1050,7 @@
     "canonicalName": "KMAC128",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1056,7 +1068,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/kmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/kmac.mjs"
     ],
@@ -1065,7 +1079,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Depends on cSHAKE, not yet implemented.",
+    "interoperabilityNotes": "NIST SP 800-185 KMAC128 based on cSHAKE128 with function name \"KMAC\".",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1073,7 +1087,7 @@
     "canonicalName": "KMAC256",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1091,7 +1105,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/kmac.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/kmac.mjs"
     ],
@@ -1100,7 +1116,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Depends on cSHAKE, not yet implemented.",
+    "interoperabilityNotes": "NIST SP 800-185 KMAC256 based on cSHAKE256 with function name \"KMAC\".",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1108,7 +1124,7 @@
     "canonicalName": "keyed-BLAKE2",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1126,7 +1142,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/blake2.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/blake2.mjs"
     ],
@@ -1135,7 +1153,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "BLAKE2b/BLAKE2s keyed hashing (blake2bKeyed/blake2sKeyed).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1143,7 +1161,7 @@
     "canonicalName": "keyed-BLAKE3",
     "aliases": [],
     "primitiveFamily": "MAC",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1161,7 +1179,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/blake3.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/blake3.mjs"
     ],
@@ -1170,7 +1190,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
+    "interoperabilityNotes": "BLAKE3 keyed hash (blake3Keyed).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1178,7 +1198,7 @@
     "canonicalName": "HKDF-SHA-256",
     "aliases": [],
     "primitiveFamily": "KDF",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1196,7 +1216,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hkdf.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hkdf.mjs"
     ],
@@ -1205,7 +1227,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass.",
+    "interoperabilityNotes": "RFC 5869 HKDF with SHA-256. Verified against node:crypto hkdfSync.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1213,7 +1235,7 @@
     "canonicalName": "HKDF-SHA-384",
     "aliases": [],
     "primitiveFamily": "KDF",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1231,7 +1253,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hkdf.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hkdf.mjs"
     ],
@@ -1240,7 +1264,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass.",
+    "interoperabilityNotes": "RFC 5869 HKDF with SHA-384.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1248,7 +1272,7 @@
     "canonicalName": "HKDF-SHA-512",
     "aliases": [],
     "primitiveFamily": "KDF",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1266,7 +1290,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/hkdf.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/hkdf.mjs"
     ],
@@ -1275,7 +1301,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass.",
+    "interoperabilityNotes": "RFC 5869 HKDF with SHA-512. Verified against node:crypto hkdfSync.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1283,7 +1309,7 @@
     "canonicalName": "PBKDF2-HMAC-SHA-256",
     "aliases": [],
     "primitiveFamily": "KDF",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1301,7 +1327,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/pbkdf2.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/pbkdf2.mjs"
     ],
@@ -1310,7 +1338,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass.",
+    "interoperabilityNotes": "RFC 2898 PBKDF2 with HMAC-SHA-256. Verified against node:crypto pbkdf2Sync.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1318,7 +1346,7 @@
     "canonicalName": "PBKDF2-HMAC-SHA-512",
     "aliases": [],
     "primitiveFamily": "KDF",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1336,7 +1364,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/pbkdf2.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/pbkdf2.mjs"
     ],
@@ -1345,7 +1375,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass.",
+    "interoperabilityNotes": "RFC 2898 PBKDF2 with HMAC-SHA-512. Verified against node:crypto pbkdf2Sync.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1452,7 +1482,7 @@
     "canonicalName": "Ed25519",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1470,7 +1500,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/ed25519.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/ed25519.mjs"
     ],
@@ -1479,7 +1511,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "From-scratch RFC 8032 Ed25519. Pure JS, no external crypto library.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1512,7 +1544,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1520,7 +1552,7 @@
     "canonicalName": "ECDSA-P-256-SHA-256",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1538,7 +1570,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/ecdsa.mjs"
     ],
@@ -1547,7 +1581,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "From-scratch ECDSA on NIST P-256 with SHA-256.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1555,7 +1589,7 @@
     "canonicalName": "ECDSA-P-384-SHA-384",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1573,7 +1607,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/ecdsa.mjs"
     ],
@@ -1582,7 +1618,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "From-scratch ECDSA on NIST P-384 with SHA-384.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1590,7 +1626,7 @@
     "canonicalName": "ECDSA-P-521-SHA-512",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1608,7 +1644,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/ecdsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/ecdsa.mjs"
     ],
@@ -1617,7 +1655,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "From-scratch ECDSA on NIST P-521 with SHA-512.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1650,7 +1688,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1683,7 +1721,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1716,7 +1754,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; all are available NODE_NATIVE in principle (Node supports Ed25519/Ed448/ECDSA/RSA-PSS natively) and are the natural next slice.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1757,7 +1795,7 @@
     "canonicalName": "ML-DSA-44",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1775,7 +1813,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/mldsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/mldsa.mjs"
     ],
@@ -1784,7 +1824,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "FIPS 204 ML-DSA-44 (post-quantum signature). From-scratch implementation.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1792,7 +1832,7 @@
     "canonicalName": "ML-DSA-65",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1810,7 +1850,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/mldsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/mldsa.mjs"
     ],
@@ -1819,7 +1861,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "FIPS 204 ML-DSA-65 (post-quantum signature).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1827,7 +1869,7 @@
     "canonicalName": "ML-DSA-87",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -1845,7 +1887,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/mldsa.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/mldsa.mjs"
     ],
@@ -1854,7 +1898,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "FIPS 204 ML-DSA-87 (post-quantum signature).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1887,7 +1931,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1920,7 +1964,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1953,7 +1997,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1986,7 +2030,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2019,7 +2063,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2052,7 +2096,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2085,7 +2129,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2118,7 +2162,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2151,7 +2195,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2184,7 +2228,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2217,7 +2261,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2250,7 +2294,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Already present in proofbundle.html via the bundled noble-post-quantum library; not yet re-exposed as a standalone provider module in this src/ tree.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2283,7 +2327,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2316,7 +2360,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2349,7 +2393,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2382,7 +2426,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2415,7 +2459,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not implemented in this pass; available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2452,7 +2496,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "FIPS 203 ML-KEM-512 (post-quantum KEM). From-scratch implementation, verified.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -2489,7 +2533,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "FIPS 203 ML-KEM-768 (post-quantum KEM).",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -2526,7 +2570,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "ML-KEM itself is implemented and verified at crypto/mlkem.mjs (40 + 45 tests this session). NOT_IMPLEMENTED here specifically means: not yet re-registered through this src/ registry/dispatcher layer \u2014 the primitive exists, the registry wiring does not.",
+    "interoperabilityNotes": "FIPS 203 ML-KEM-1024 (post-quantum KEM).",
     "implementationStatus": "COMPLETE"
   },
   {

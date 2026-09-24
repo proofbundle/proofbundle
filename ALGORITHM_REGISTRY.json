@@ -1127,14 +1127,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/blake2.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "keyed-BLAKE3",
@@ -1300,14 +1302,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/pbkdf2.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "PBKDF2-HMAC-SHA-512",
@@ -1333,14 +1337,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/pbkdf2.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "scrypt",

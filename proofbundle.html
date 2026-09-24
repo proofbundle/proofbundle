@@ -5852,10 +5852,12 @@ async function bridgeLoadLineage() {
   const entries = Array.isArray(data.entries) ? data.entries : [];
   const ev = document.getElementById('bridge-entries-v'); if (ev) ev.textContent = String(entries.length);
   const last = entries[entries.length - 1] || {};
-  const tv = document.getElementById('bridge-tip-v'); if (tv) tv.textContent = last.seq == null ? 'genesis' : String(last.seq);
-  const rv = document.getElementById('bridge-root-v'); if (rv) rv.textContent = String(data.merkle_root || data.tip_hash || last.merkle_root || 'genesis').slice(0, 20) + '…';
+  // ProofBundleBridgeEvent/v2 (verified against live entries 2026-09-24):
+  // sequence/from/message_type/to/payload_sha256, not seq/from.agent_id/payload_type.
+  const tv = document.getElementById('bridge-tip-v'); if (tv) tv.textContent = last.sequence == null ? 'genesis' : String(last.sequence);
+  const rv = document.getElementById('bridge-root-v'); if (rv) rv.textContent = String(data.merkle_root || data.tip_hash || last.record_sha256 || 'genesis').slice(0, 20) + '…';
   const box = document.getElementById('bridge-lineage-table');
-  if (box) box.innerHTML = entries.length ? `<table class="mini-table"><thead><tr><th>#</th><th>from</th><th>type</th><th>to</th><th>hash</th></tr></thead><tbody>` + entries.slice(-30).reverse().map(e => `<tr><td>${esc(e.seq)}</td><td>${esc(e.from?.agent_id || '?')}</td><td>${esc(e.payload_type || '?')}</td><td>${esc(e.payload?.to || e.to || '')}</td><td class="mono">${esc(String(e.payload?.plaintext_hash || e.merkle_root || '').slice(0,18))}…</td></tr>`).join('') + `</tbody></table>` : '<div class="empty"><div class="empty-title">No verifier lineage entries</div></div>';
+  if (box) box.innerHTML = entries.length ? `<table class="mini-table"><thead><tr><th>#</th><th>from</th><th>type</th><th>to</th><th>hash</th></tr></thead><tbody>` + entries.slice(-30).reverse().map(e => `<tr><td>${esc(e.sequence)}</td><td>${esc(e.from || '?')}</td><td>${esc(e.message_type || '?')}</td><td>${esc(e.to || '')}</td><td class="mono">${esc(String(e.payload_sha256 || '').slice(0,18))}…</td></tr>`).join('') + `</tbody></table>` : '<div class="empty"><div class="empty-title">No verifier lineage entries</div></div>';
 }
 async function bridgeRegister(which) {
   const c = bridgeCfg(), id = which === 'recipient' ? c.recipient : c.local;
@@ -5961,23 +5963,25 @@ async function refreshAgentLineage() {
     const res=await fetch('http://127.0.0.1:8788/lineage/export',{cache:'no-store'});
     if(!res.ok)throw new Error('bridge HTTP '+res.status);
     const data=await res.json(), entries=Array.isArray(data.entries)?data.entries:[];
-    let previous='genesis', valid=0, failure=null;
+    // Schema is ProofBundleBridgeEvent/v2 (from live bridge, verified against 34
+    // real entries 2026-09-24): sequence is 1-indexed, chain links via
+    // continuity.predecessor_sha256 -> previous record_sha256, and both
+    // payload_sha256 and record_sha256 are SHA-256 over canonicalJSON. There is
+    // no per-record signature in this stream — do not claim one is checked.
+    let previous=null, valid=0, failure=null;
     for(let i=0;i<entries.length;i++){
       const e=entries[i];
-      if(e.seq!==i||e.prev_hash!==previous){failure=`chain mismatch at ${i}`;break;}
-      if(!e.payload?.encrypted){
-        const bodyHash=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(e.payload?.body))));
-        if(bodyHash!==e.payload?.plaintext_hash){failure=`payload hash mismatch at ${i}`;break;}
-      }
-      const unsigned=JSON.parse(JSON.stringify(e)); unsigned.signature=null;
-      const pubRaw=h2b(String(e.from?.pubkey||'').slice(-64));
-      const sig=h2b(String(e.signature||''));
-      if(pubRaw.length!==32||sig.length!==64||!(await _ed.verify(utf8(canonicalJSON(unsigned)),sig,pubRaw))){failure=`signature mismatch at ${i}`;break;}
-      previous=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(e)))); valid++;
+      if(e.sequence!==i+1||(e.continuity?.predecessor_sha256??null)!==previous){failure=`chain mismatch at ${i}`;break;}
+      const payloadHash=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(e.payload))));
+      if(payloadHash!==e.payload_sha256){failure=`payload hash mismatch at ${i}`;break;}
+      const {record_sha256, ...rest}=e;
+      const recordHash=hexOf(await digestBytes('SHA-256',utf8(canonicalJSON(rest))));
+      if(recordHash!==record_sha256){failure=`record hash mismatch at ${i}`;break;}
+      previous=record_sha256; valid++;
     }
     STATE.agentReceipts=entries; persistState();
-    const rows=entries.slice(-20).reverse().map(e=>`<tr><td>${e.seq}</td><td>${esc(e.from?.agent_id||'?')}</td><td>${esc(e.payload_type||'?')}</td><td class="mono">${esc((e.payload?.plaintext_hash||'').slice(0,18))}…</td></tr>`).join('');
-    box.innerHTML=`<span class="badge ${failure?'badge-red':'badge-green'}">${failure?esc(failure):'verified'}</span> ${valid}/${entries.length} signatures + payload hashes + chain links verified locally`+(rows?`<table class="mini-table"><thead><tr><th>#</th><th>agent</th><th>type</th><th>payload hash</th></tr></thead><tbody>${rows}</tbody></table>`:'');
+    const rows=entries.slice(-20).reverse().map(e=>`<tr><td>${e.sequence}</td><td>${esc(e.from||'?')}</td><td>${esc(e.message_type||'?')}</td><td class="mono">${esc((e.payload_sha256||'').slice(0,18))}…</td></tr>`).join('');
+    box.innerHTML=`<span class="badge ${failure?'badge-red':'badge-green'}">${failure?esc(failure):'chain + payload/record hashes verified'}</span> ${valid}/${entries.length} verified locally — ${esc(entries[0]?.schema||'schema unknown')}, unsigned (no per-record signature in this stream)`+(rows?`<table class="mini-table"><thead><tr><th>#</th><th>agent</th><th>type</th><th>payload hash</th></tr></thead><tbody>${rows}</tbody></table>`:'');
   } catch(e) { box.innerHTML=`<span class="badge badge-orange">offline</span> ${esc(e.message)} — ingestion retries automatically`; }
 }
 

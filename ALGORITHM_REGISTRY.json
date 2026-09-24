@@ -498,13 +498,15 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a — customizable XOF",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/cshake.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/cshake.mjs"
     ],
@@ -536,13 +538,15 @@
     "publicKeyEncoding": null,
     "privateKeyEncoding": null,
     "transcriptRules": null,
-    "domainSeparationTag": "n/a — fixed-function digest",
+    "domainSeparationTag": "n/a — customizable XOF",
     "providerRequirements": null,
     "generationPolicy": null,
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/cshake.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/cshake.mjs"
     ],
@@ -660,7 +664,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/blake3.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/blake3.mjs"
     ],
@@ -698,7 +704,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/keccak-raw.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/keccak-raw.mjs"
     ],
@@ -736,7 +744,9 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
+    "testVectorPaths": [
+      "crypto/keccak-raw.mjs"
+    ],
     "implementationModulePaths": [
       "crypto/keccak-raw.mjs"
     ],

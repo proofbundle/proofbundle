@@ -1,4 +1,6 @@
 COQC ?= coqc
+SHELL := /usr/bin/env bash
+.SHELLFLAGS := -euo pipefail -c
 FILES := GPXBoundary GPXTemporal GPXDiachronic
 EXPECTED := 42 23 18
 all: $(addsuffix .vo,$(FILES))

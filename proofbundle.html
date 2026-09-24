@@ -897,6 +897,7 @@ var PBSHA256=(function(){
     <button class="sb-adv-only" data-title="Predictions" onclick="switchTab('predict',this)"><span class="sb-ico">◷</span><span>Predictions</span></button>
     <div class="sb-group-label sb-adv-only">Reference</div>
     <button id="tab-algorithms" class="sb-adv-only" data-title="Algorithms" onclick="switchTab('algorithms',this)"><span class="sb-ico">⚙</span><span>Algorithms</span></button>
+    <button id="tab-registry-mgr" class="sb-adv-only" data-title="Registry Manager" onclick="switchTab('registry-mgr',this)"><span class="sb-ico">⬡</span><span>Registry Mgr</span></button>
     <button class="sb-adv-only" data-title="Conformance tests" onclick="switchTab('vectors',this)"><span class="sb-ico">▦</span><span>Tests</span></button>
     <button class="sb-adv-only" data-title="Showcase" onclick="switchTab('showcase',this)"><span class="sb-ico">◱</span><span>Showcase</span></button>
   </nav>
@@ -1134,6 +1135,100 @@ var PBSHA256=(function(){
   <div class="form-row">
     <label class="label">Standalone browser engine · signature algorithms</label>
     <div id="algo-sigs"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- REGISTRY MANAGER TAB                                           -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-registry-mgr">
+  <h2>Adaptive Registry Manager</h2>
+  <p>Manage the algorithm registry: add, deprecate, reactivate, and monitor algorithms. Connects to the toolbench backend API for real-time updates.</p>
+
+  <div id="registry-mgr-status" style="margin-bottom:16px">
+    <span class="badge badge-orange" id="rm-api-status">API: checking…</span>
+    <span class="badge badge-orange" id="rm-ws-status">WebSocket: checking…</span>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="form-row">
+    <label class="label">Registry Statistics</label>
+    <div id="rm-stats" style="display:flex;gap:16px;flex-wrap:wrap">
+      <div class="registry-stat" style="padding:8px 16px;background:var(--card-bg,#1a1a2e);border-radius:6px"><strong id="rm-stat-total">—</strong><span>Total</span></div>
+      <div class="registry-stat" style="padding:8px 16px;background:var(--card-bg,#1a1a2e);border-radius:6px"><strong id="rm-stat-active">—</strong><span>Active</span></div>
+      <div class="registry-stat" style="padding:8px 16px;background:var(--card-bg,#1a1a2e);border-radius:6px"><strong id="rm-stat-deprecated">—</strong><span>Deprecated</span></div>
+      <div class="registry-stat" style="padding:8px 16px;background:var(--card-bg,#1a1a2e);border-radius:6px"><strong id="rm-stat-suspended">—</strong><span>Suspended</span></div>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="form-row">
+    <label class="label">Search &amp; Filter</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input type="text" id="rm-search" placeholder="Search algorithms…" style="flex:1;min-width:200px;padding:8px 12px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+      <select id="rm-filter-family" style="padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+        <option value="">All families</option>
+        <option value="DIGEST">DIGEST</option>
+        <option value="MAC">MAC</option>
+        <option value="KDF">KDF</option>
+        <option value="SIGNATURE">SIGNATURE</option>
+        <option value="KEM">KEM</option>
+        <option value="AEAD">AEAD</option>
+        <option value="BLOCK_CIPHER">BLOCK_CIPHER</option>
+        <option value="STREAM_CIPHER">STREAM_CIPHER</option>
+        <option value="PKE">PKE</option>
+      </select>
+      <select id="rm-filter-status" style="padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+        <option value="">All statuses</option>
+        <option value="ACTIVE">Active</option>
+        <option value="DEPRECATED">Deprecated</option>
+        <option value="SUSPENDED">Suspended</option>
+      </select>
+      <button class="btn btn-primary" onclick="rmSearch()">Search</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="form-row">
+    <label class="label">Algorithms <span id="rm-result-count" style="opacity:0.6"></span></label>
+    <div id="rm-results" style="max-height:400px;overflow-y:auto"></div>
+  </div>
+
+  <!-- Deprecation Workflow -->
+  <div class="form-row">
+    <label class="label">Deprecation Workflow</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input type="text" id="rm-deprecate-id" placeholder="Algorithm ID" style="flex:1;min-width:150px;padding:8px 12px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+      <select id="rm-deprecate-severity" style="padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+        <option value="LOW">LOW (180 days)</option>
+        <option value="MEDIUM">MEDIUM (90 days)</option>
+        <option value="HIGH">HIGH (30 days)</option>
+        <option value="CRITICAL">CRITICAL (7 days)</option>
+      </select>
+      <input type="text" id="rm-deprecate-reason" placeholder="Reason for deprecation" style="flex:2;min-width:200px;padding:8px 12px;border-radius:6px;border:1px solid var(--border,#333);background:var(--input-bg,#0d0d1a);color:var(--text,#e0e0e0)">
+      <button class="btn" style="background:#c0392b;color:#fff" onclick="rmDeprecate()">Deprecate</button>
+      <button class="btn btn-secondary" onclick="rmReactivate()">Reactivate</button>
+    </div>
+  </div>
+
+  <!-- Security Advisories -->
+  <div class="form-row">
+    <label class="label">Security Advisories</label>
+    <div id="rm-advisories" style="max-height:200px;overflow-y:auto"><span class="badge badge-orange">Loading…</span></div>
+  </div>
+
+  <!-- Update Log -->
+  <div class="form-row">
+    <label class="label">Recent Updates</label>
+    <div id="rm-update-log" style="max-height:200px;overflow-y:auto;font-family:monospace;font-size:0.85em"><span class="badge badge-orange">Loading…</span></div>
+  </div>
+
+  <!-- WebSocket Live Events -->
+  <div class="form-row">
+    <label class="label">Live Events (WebSocket)</label>
+    <div id="rm-live-events" style="max-height:150px;overflow-y:auto;font-family:monospace;font-size:0.85em;opacity:0.8">
+      <div style="opacity:0.5">Waiting for connection…</div>
+    </div>
   </div>
 </div>
 
@@ -6258,6 +6353,198 @@ async function bridgeLoadWorkspace(){
     const cb=document.getElementById('bridge-live-code'),codeEvents=events.filter(e=>['code','proof','error','ots_checkpoint'].includes(e.message_type)).slice(-12).reverse();if(cb)cb.innerHTML=codeEvents.length?codeEvents.map(e=>{const p=e.payload||{};return `<div class="bridge-event type-${esc(e.message_type)}"><b>${esc(p.repository||e.message_type)}</b><div class="bridge-event-message">${esc(p.state||p.summary||'')}</div>${p.output?`<pre class="bridge-code">${esc(String(p.output).slice(-5000))}</pre>`:''}</div>`}).join(''):'<div class="empty">No code or proof events</div>';
   }catch(e){bridgeLog('workspace load failed: '+e.message,'error')}
 }
+
+/* ── REGISTRY MANAGER PANEL ───────────────────────────────────── */
+(function(){
+  const RM_API = 'http://127.0.0.1:8097';
+  const RM_WS  = 'ws://127.0.0.1:8097';
+  let rmWS = null;
+  let rmWSEvents = [];
+
+  function rmEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  async function rmFetch(path, opts){
+    try{
+      const r = await fetch(RM_API + path, Object.assign({ headers:{'Content-Type':'application/json'} }, opts||{}));
+      return await r.json();
+    }catch(e){ return { error: e.message }; }
+  }
+
+  async function rmCheckAPI(){
+    const badge = document.getElementById('rm-api-status');
+    if(!badge) return;
+    const data = await rmFetch('/health');
+    if(data.status === 'ok'){
+      badge.className = 'badge badge-green';
+      badge.textContent = 'API: connected';
+    } else {
+      badge.className = 'badge badge-red';
+      badge.textContent = 'API: offline';
+    }
+  }
+
+  function rmConnectWS(){
+    const badge = document.getElementById('rm-ws-status');
+    const liveEl = document.getElementById('rm-live-events');
+    try{
+      rmWS = new WebSocket(RM_WS);
+      rmWS.onopen = function(){
+        if(badge){ badge.className='badge badge-green'; badge.textContent='WebSocket: connected'; }
+        rmWS.send(JSON.stringify({type:'subscribe',channel:'*'}));
+      };
+      rmWS.onmessage = function(ev){
+        try{
+          const msg = JSON.parse(ev.data);
+          if(msg.type==='broadcast'){
+            rmWSEvents.unshift(msg);
+            if(rmWSEvents.length>50) rmWSEvents.length=50;
+            if(liveEl){
+              liveEl.innerHTML = rmWSEvents.map(function(e){
+                return '<div style="padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05)">'+
+                  '<span style="opacity:0.5">'+rmEsc(e.timestamp?.slice(11,19)||'')+'</span> '+
+                  '<b>'+rmEsc(e.channel)+'</b> '+rmEsc(e.data?.event||'')+' '+
+                  (e.data?.algorithmId?'['+rmEsc(e.data.algorithmId)+']':'')+
+                  '</div>';
+              }).join('');
+            }
+            // Auto-refresh on changes
+            if(msg.channel==='algorithms'){ rmLoadStats(); rmLoadAdvisories(); }
+          }
+        }catch(e){}
+      };
+      rmWS.onclose = function(){
+        if(badge){ badge.className='badge badge-orange'; badge.textContent='WebSocket: disconnected'; }
+        setTimeout(rmConnectWS, 5000);
+      };
+      rmWS.onerror = function(){
+        if(badge){ badge.className='badge badge-red'; badge.textContent='WebSocket: error'; }
+      };
+    }catch(e){
+      if(badge){ badge.className='badge badge-red'; badge.textContent='WebSocket: unavailable'; }
+    }
+  }
+
+  async function rmLoadStats(){
+    const data = await rmFetch('/stats');
+    if(data.error) return;
+    var s = function(id,v){ var e=document.getElementById(id); if(e) e.textContent=String(v); };
+    s('rm-stat-total', data.total);
+    s('rm-stat-active', data.active);
+    s('rm-stat-deprecated', data.deprecated);
+    s('rm-stat-suspended', data.suspended);
+  }
+
+  window.rmSearch = async function(){
+    var q = document.getElementById('rm-search')?.value || '';
+    var fam = document.getElementById('rm-filter-family')?.value || '';
+    var st = document.getElementById('rm-filter-status')?.value || '';
+    var params = new URLSearchParams();
+    if(q) params.set('search', q);
+    if(fam) params.set('family', fam);
+    if(st) params.set('status', st);
+    params.set('limit', '50');
+    var data = await rmFetch('/algorithms?' + params.toString());
+    var el = document.getElementById('rm-results');
+    var countEl = document.getElementById('rm-result-count');
+    if(!el) return;
+    if(data.error){ el.innerHTML='<span class="badge badge-red">'+rmEsc(data.error)+'</span>'; return; }
+    if(countEl) countEl.textContent = '(' + (data.total||0) + ' results)';
+    if(!data.results || !data.results.length){ el.innerHTML='<div style="opacity:0.5">No algorithms found</div>'; return; }
+    el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:0.9em">' +
+      '<tr style="opacity:0.6;text-align:left"><th style="padding:4px 8px">ID</th><th style="padding:4px 8px">Family</th><th style="padding:4px 8px">Status</th><th style="padding:4px 8px">Impl</th><th style="padding:4px 8px">Security</th></tr>' +
+      data.results.map(function(a){
+        var st = a.registryMeta?.status || '?';
+        var badge = st==='ACTIVE'?'badge-green':st==='DEPRECATED'?'badge-red':'badge-orange';
+        return '<tr style="border-bottom:1px solid rgba(255,255,255,0.05)">'+
+          '<td style="padding:4px 8px;font-family:monospace">'+rmEsc(a.id)+'</td>'+
+          '<td style="padding:4px 8px">'+rmEsc(a.primitiveFamily||'—')+'</td>'+
+          '<td style="padding:4px 8px"><span class="badge '+badge+'">'+rmEsc(st)+'</span></td>'+
+          '<td style="padding:4px 8px;font-size:0.85em">'+rmEsc(a.implementationStatus||'—')+'</td>'+
+          '<td style="padding:4px 8px">'+rmEsc(a.securityStatus||'—')+'</td>'+
+          '</tr>';
+      }).join('') + '</table>';
+  };
+
+  window.rmDeprecate = async function(){
+    var id = document.getElementById('rm-deprecate-id')?.value;
+    var sev = document.getElementById('rm-deprecate-severity')?.value;
+    var reason = document.getElementById('rm-deprecate-reason')?.value;
+    if(!id || !reason){ alert('Algorithm ID and reason are required'); return; }
+    var data = await rmFetch('/algorithms/'+encodeURIComponent(id)+'/deprecate', {
+      method:'POST', body: JSON.stringify({ severity:sev, reason:reason })
+    });
+    if(data.success){
+      alert('Deprecated: '+id+' ('+sev+')');
+      rmLoadStats(); rmSearch();
+    } else {
+      alert('Error: '+(data.error||JSON.stringify(data)));
+    }
+  };
+
+  window.rmReactivate = async function(){
+    var id = document.getElementById('rm-deprecate-id')?.value;
+    if(!id){ alert('Algorithm ID is required'); return; }
+    var data = await rmFetch('/algorithms/'+encodeURIComponent(id)+'/reactivate', {
+      method:'POST', body: JSON.stringify({ reason:'Reactivated via GUI' })
+    });
+    if(data.success){
+      alert('Reactivated: '+id);
+      rmLoadStats(); rmSearch();
+    } else {
+      alert('Error: '+(data.error||JSON.stringify(data)));
+    }
+  };
+
+  async function rmLoadAdvisories(){
+    var data = await rmFetch('/advisories');
+    var el = document.getElementById('rm-advisories');
+    if(!el) return;
+    if(data.error || !Array.isArray(data) || !data.length){
+      el.innerHTML = '<span style="opacity:0.5">No active advisories</span>';
+      return;
+    }
+    el.innerHTML = data.map(function(a){
+      var badge = a.severity==='CRITICAL'?'badge-red':a.severity==='HIGH'?'badge-red':'badge-orange';
+      return '<div style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05)">'+
+        '<span class="badge '+badge+'">'+rmEsc(a.severity)+'</span> '+
+        '<b>'+rmEsc(a.title)+'</b> — '+rmEsc(a.description?.slice(0,80)||'')+
+        ' <span style="opacity:0.5">['+rmEsc(a.status||'')+']</span></div>';
+    }).join('');
+  }
+
+  async function rmLoadUpdateLog(){
+    var data = await rmFetch('/update-log?limit=20');
+    var el = document.getElementById('rm-update-log');
+    if(!el) return;
+    if(data.error || !Array.isArray(data) || !data.length){
+      el.innerHTML = '<span style="opacity:0.5">No updates recorded</span>';
+      return;
+    }
+    el.innerHTML = data.slice().reverse().map(function(e){
+      return '<div style="padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05)">'+
+        '<span style="opacity:0.5">'+rmEsc(e.timestamp?.slice(0,19)||'')+'</span> '+
+        '<b>'+rmEsc(e.action)+'</b> '+rmEsc(e.algorithmId||'')+
+        (e.reason?' — '+rmEsc(e.reason.slice(0,60)):'')+
+        '</div>';
+    }).join('');
+  }
+
+  // Initialize when panel becomes visible
+  var rmInitialized = false;
+  var origSwitch = window.switchTab;
+  window.switchTab = function(id, btn){
+    origSwitch(id, btn);
+    if(id === 'registry-mgr' && !rmInitialized){
+      rmInitialized = true;
+      rmCheckAPI();
+      rmConnectWS();
+      rmLoadStats();
+      rmLoadAdvisories();
+      rmLoadUpdateLog();
+      rmSearch();
+    }
+  };
+})();
 
 </script>
 </body>

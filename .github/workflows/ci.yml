@@ -47,6 +47,21 @@ jobs:
             echo "tampered receipt rejected as expected"
           fi
 
+  surface:
+    name: crypto surface and registry tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: install
+        run: npm ci || npm install
+      - name: crypto surface tests
+        run: npm run test:surface
+      - name: cryptographic implementation tests
+        run: npm run test:crypto
+
   coq:
     name: coq proofs
     runs-on: ubuntu-latest

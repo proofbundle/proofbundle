@@ -6,6 +6,7 @@ Requires=proofbundle-bridge.service
 [Service]
 Type=simple
 User=pb
+SupplementaryGroups=docker
 Environment=PB_PROOF_ROOT=/proof
 ExecStart=/usr/bin/python3 /proof/control/proof_worker.py
 Restart=always

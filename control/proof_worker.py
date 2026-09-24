@@ -41,8 +41,21 @@ def model_review(text):
     try:
       q=urllib.request.Request('http://127.0.0.1:8080/v1/chat/completions',data=json.dumps(body).encode(),headers={'Content-Type':'application/json'}); return json.loads(urllib.request.urlopen(q,timeout=180).read()).get('choices',[{}])[0].get('message',{}).get('content')
     except Exception as e:return 'model-review-error: '+str(e)
+def run_proof_build(item,dest):
+    prover=item.get('prover')
+    if prover=='lean':
+      env={**os.environ,'PATH':'/home/pb/.elan/bin:'+os.environ.get('PATH','')}
+      first=subprocess.run(['/home/pb/.elan/bin/lake','build'],cwd=dest,env=env,capture_output=True,text=True,timeout=900)
+      if first.returncode:return first.returncode,(first.stdout+first.stderr)[-12000:],['lake','build']
+      second=subprocess.run(['/home/pb/.elan/bin/lake','env','lean','Main.lean'],cwd=dest,env=env,capture_output=True,text=True,timeout=300)
+      return second.returncode,(first.stdout+first.stderr+second.stdout+second.stderr)[-12000:],['lake','build','&&','lake','env','lean','Main.lean']
+    if prover=='rocq':
+      cmd=['docker','run','--rm','--user',f'{os.getuid()}:{os.getgid()}','-v',f'{dest}:/work','-w','/work','rocq/rocq-prover:9.0.1','make','all']
+      cp=subprocess.run(cmd,capture_output=True,text=True,timeout=900)
+      return cp.returncode,(cp.stdout+cp.stderr)[-12000:],cmd
+    return 2,'unsupported prover: '+str(prover),[]
 def production_cycle():
-    stats={'updated_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'matrix_present':MATRIX.exists(),'repositories':0,'checked':0,'passed':0,'failed':0,'model_endpoint':False}
+    stats={'updated_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'matrix_present':MATRIX.exists(),'repositories':0,'checked':0,'synced':0,'build_executed':0,'passed':0,'failed':0,'model_endpoint':False}
     try: urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=5); stats['model_endpoint']=True
     except Exception:pass
     if MATRIX.exists():
@@ -53,8 +66,12 @@ def production_cycle():
        url='https://github.com/proofbundle/'+repo+'.git'
        if not dest.exists(): cp=subprocess.run(['git','clone','--depth','1',url,str(dest)],capture_output=True,text=True,timeout=180)
        else: cp=subprocess.run(['git','-C',str(dest),'pull','--ff-only'],capture_output=True,text=True,timeout=90)
-       stats['checked']=1; ok=cp.returncode==0; stats['passed']=int(ok); stats['failed']=int(not ok)
-       payload={'state':'repository_synced' if ok else 'repository_sync_failed','repository':repo,'prover':item['prover'],'algorithm_id':item['algorithm_id'],'output':(cp.stdout+cp.stderr)[-4000:]}
+       stats['checked']=1; synced=cp.returncode==0; stats['synced']=int(synced)
+       build_rc,build_output,build_command=(99,'sync failed',[])
+       if synced:
+        build_rc,build_output,build_command=run_proof_build(item,dest); stats['build_executed']=1
+       ok=synced and build_rc==0; stats['passed']=int(ok); stats['failed']=int(not ok)
+       payload={'state':'proof_build_passed' if ok else ('proof_build_failed' if synced else 'repository_sync_failed'),'repository':repo,'prover':item['prover'],'algorithm_id':item['algorithm_id'],'sync_output':(cp.stdout+cp.stderr)[-4000:],'build_command':build_command,'build_exit_code':build_rc,'build_output':build_output}
        if not ok and stats['model_endpoint']:payload['model_review']=model_review(payload['output'])
        append({'from':'vm-proof-worker','message_type':'code','payload':payload}); cursor_file.write_text(str((cursor+1)%len(matrix)))
     tmp=STATE/'proof-production.json.new'; tmp.write_text(json.dumps(stats,indent=2)+'\n'); tmp.replace(STATE/'proof-production.json')

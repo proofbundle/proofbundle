@@ -1,0 +1,51 @@
+== STEP 11: Generate negative-twin and malformed JSON cases
+== started 2026-09-16T09:29:59Z
+== commands:
+make_cases () 
+{ 
+    python3 - "$B" <<'PY'
+import hashlib, json, sys
+b = sys.argv[1]
+base = json.loads(open(f"{b}/data/witness.json").read())
+def enc(n):
+    out = ""
+    while n != 1:
+        out += "0" if n % 2 == 0 else "1"; n //= 2
+    return out + "."
+def dump(r): return json.dumps(r, separators=(",", ":"), sort_keys=True, ensure_ascii=True)
+cases = {}
+t = json.loads(dump(base)); t["periods"] = enc(9192631771); cases["twin_succ_periods"] = dump(t)
+t = json.loads(dump(base)); t["corrections"] = []; cases["twin_empty_corrections"] = dump(t)
+t = json.loads(dump(base)); t["species"] = "otherSpecies"; cases["twin_other_species"] = dump(t)
+t = json.loads(dump(base)); t["transition"]["levelB"] = "fThree"; cases["twin_same_level"] = dump(t)
+t = json.loads(dump(base)); t["note"] = "x"; cases["malformed_extra_key"] = dump(t)
+cases["malformed_trailing_space"] = dump(base) + " "
+for k, v in cases.items():
+    open(f"{b}/data/cases/{k}.json", "w", newline="").write(v)
+    print(k, len(v.encode()), "bytes sha256", hashlib.sha256(v.encode()).hexdigest())
+PY
+
+    for f in "$B"/data/cases/*.json;
+    do
+        if cmp -s "$f" "/tmp/cases/$(basename "$f")"; then
+            echo "$(basename "$f") identical to the earlier scratch copy";
+        else
+            echo "$(basename "$f") DIFFERS from the earlier scratch copy";
+        fi;
+    done
+}
+== output:
+twin_succ_periods 540 bytes sha256 20a7af401f8610529040d6de2d083c219d899e3ee730efa73d58c820e9c36fc2
+twin_empty_corrections 297 bytes sha256 eb00740d4583019a0509efa9f3e97ba0775a5d3f80e42b4adbb8699963841b4f
+twin_other_species 542 bytes sha256 6175565572f440bf7b29fac686f471cb3a8a1c9b075aa6b4da3c2effdb7b97d3
+twin_same_level 541 bytes sha256 698b108a5171cbd40ac987ecd59745f2b1995d44781898243fb7979752c69265
+malformed_extra_key 551 bytes sha256 8e0388874677edb0a6a88431a4d61f4886632bc4fe97d575db2249b8ffd05e39
+malformed_trailing_space 541 bytes sha256 2875b6dca6b5d0acc137b28288e7552c650bd6c4c0013cacb96476c687586cf6
+malformed_extra_key.json identical to the earlier scratch copy
+malformed_trailing_space.json identical to the earlier scratch copy
+twin_empty_corrections.json identical to the earlier scratch copy
+twin_other_species.json identical to the earlier scratch copy
+twin_same_level.json identical to the earlier scratch copy
+twin_succ_periods.json identical to the earlier scratch copy
+== exit 0
+== wall .047570273 s

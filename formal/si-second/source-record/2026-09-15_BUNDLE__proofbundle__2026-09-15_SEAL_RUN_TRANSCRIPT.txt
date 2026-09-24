@@ -1,0 +1,30 @@
+2026-09-15_SEAL_RUN_TRANSCRIPT.txt
+
+What this is: the complete standard output of the one sealing run that produced data/witness.pb.json,
+copied verbatim from the tool result in the chat session. The run was not logged to a file at the
+time. It is not rerun here: sealing generates a new Ed25519 key, bundle_id, and timestamp, which would
+produce a different witness.pb.json and a different hash H.
+
+Command (run in /tmp/pb, ProofBundle clone at commit 7d44e7c7d53faa9272da98bf6d6504b8c79f88b9):
+  timeout 180 node seal_witness_scratch.mjs 2>&1 | cut -c1-600
+The driver source is proofbundle/2026-09-15_SEAL_DRIVER_SCRATCH.mjs.
+The `cut -c1-600` truncates lines longer than 600 characters; no line below reaches that length.
+Exit status reported by the tool: 0.
+
+Tie to the file: the bundle_id below equals hdr.bundle_id in data/witness.pb.json
+(step 17 of logs/2026-09-15_RUN_LOG.txt prints it from the file).
+
+----- begin verbatim output -----
+page hashing status: ready
+page produced a sealed bundle: true
+hdr: {"bundle_id":"IHvV3mcxUknsZR7gMlyu_CFDTzOLc65Nwdf_zW4HQRc","profile":"PB-ARTIFACT-1","spec_id":"PROOFBUNDLE","spec_ver":"2.1.0"}
+artifact: {"name":"witness.json","size":540,"mime":"application/json","digest_alg":"SHA-256","chunk_size":1048576,"chunks":1,"merkle_root_b64u":"DHEe099YVlUS09P_m8hKQjim8vtN7JPohdzug0ukvWY","gpx_content_address":"2d4242c08b66eaeda4552c4bdd571eac6095ec09d0a677b134266eec80af182283d01511d18519c3fbaac7b61fd2b4d7"}
+top-level keys: hdr,meta,payload,merkleRoot,seal
+seal fields: digest_alg,digest_b64u,sig_alg,pub_b64u,signature_b64u | sig_alg: Ed25519
+page file-vs-receipt check: BATCH VERIFIED — seal: VERIFIED · artifacts: 1/1 roots reproducedartifactsizealg / chunkrootcheckwitness.json540 BSHA-256 / 1.00 MBDHEe099YVlUS09P_m8hKQjim8vtN7JPohdzug0ukvWY✓ root reproduced
+environment shims beyond the CLI boot: Blob.prototype.arrayBuffer via FileReader
+engine errors (non-canvas): none
+----- end verbatim output -----
+
+Copy step afterwards (same session, separate tool call):
+  cp /home/claude/build/witness.pb.json /mnt/user-data/outputs/witness.pb.json

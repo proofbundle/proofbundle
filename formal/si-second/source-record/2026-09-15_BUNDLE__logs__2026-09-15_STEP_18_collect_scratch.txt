@@ -1,0 +1,92 @@
+== STEP 18: Collect every earlier scratch file and log
+== started 2026-09-16T09:30:36Z
+== commands:
+collect_scratch () 
+{ 
+    d="$B/scratch";
+    mkdir -p "$d/tmp/cases" "$d/home_claude/build" "$d/home_claude/coqcheck" "$d/home_claude/coqprobe" "$d/home_claude/probe";
+    for f in /tmp/run_one.sh /tmp/witness_allconsts.lean /tmp/stability.js /tmp/verify_out.json /tmp/verify_err.txt /tmp/tamper_out.json /tmp/witness_tampered.pb.json /tmp/npm.log;
+    do
+        if [ -e "$f" ]; then
+            cp -v "$f" "$d/tmp/";
+        else
+            echo "absent: $f";
+        fi;
+    done;
+    cp -v /tmp/cases/*.json "$d/tmp/cases/";
+    for f in /home/claude/coq_install.log /home/claude/elan_install.log /home/claude/elan-init.sh;
+    do
+        if [ -e "$f" ]; then
+            cp -v "$f" "$d/home_claude/";
+        else
+            echo "absent: $f";
+        fi;
+    done;
+    for f in witness_out.txt witness_syms.txt witness_code.txt bits_term.txt handwritten.txt audit_out.txt lean-toolchain;
+    do
+        if [ -e "$S/$f" ]; then
+            cp -v "$S/$f" "$d/home_claude/build/";
+        else
+            echo "absent: $S/$f";
+        fi;
+    done;
+    for f in run_check.v run_check.vo run_check.vok run_check.vos run_check.glob;
+    do
+        if [ -e "$C/$f" ]; then
+            cp -v "$C/$f" "$d/home_claude/coqcheck/";
+        else
+            echo "absent: $C/$f";
+        fi;
+    done;
+    cp -v /home/claude/coqprobe/* "$d/home_claude/coqprobe/";
+    ( cd /home/claude/probe && find . -path ./modprobe/.lake -prune -o -type f -print | while read -r f; do
+        mkdir -p "$d/home_claude/probe/$(dirname "$f")";
+        cp "$f" "$d/home_claude/probe/$f";
+        echo "copied probe/$f";
+    done );
+    echo "-- note: /home/claude/probe/modprobe/.lake (Lake build cache of a name probe) not copied"
+}
+== output:
+'/tmp/run_one.sh' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/run_one.sh'
+'/tmp/witness_allconsts.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/witness_allconsts.lean'
+'/tmp/stability.js' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/stability.js'
+'/tmp/verify_out.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/verify_out.json'
+'/tmp/verify_err.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/verify_err.txt'
+'/tmp/tamper_out.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/tamper_out.json'
+'/tmp/witness_tampered.pb.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/witness_tampered.pb.json'
+'/tmp/npm.log' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/npm.log'
+'/tmp/cases/malformed_extra_key.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/malformed_extra_key.json'
+'/tmp/cases/malformed_trailing_space.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/malformed_trailing_space.json'
+'/tmp/cases/twin_empty_corrections.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_empty_corrections.json'
+'/tmp/cases/twin_other_species.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_other_species.json'
+'/tmp/cases/twin_same_level.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_same_level.json'
+'/tmp/cases/twin_succ_periods.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_succ_periods.json'
+'/home/claude/coq_install.log' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coq_install.log'
+'/home/claude/elan_install.log' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/elan_install.log'
+'/home/claude/elan-init.sh' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/elan-init.sh'
+'/home/claude/build/witness_out.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_out.txt'
+'/home/claude/build/witness_syms.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_syms.txt'
+'/home/claude/build/witness_code.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_code.txt'
+'/home/claude/build/bits_term.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/bits_term.txt'
+'/home/claude/build/handwritten.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/handwritten.txt'
+'/home/claude/build/audit_out.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/audit_out.txt'
+'/home/claude/build/lean-toolchain' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/lean-toolchain'
+'/home/claude/coqcheck/run_check.v' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.v'
+'/home/claude/coqcheck/run_check.vo' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vo'
+'/home/claude/coqcheck/run_check.vok' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vok'
+'/home/claude/coqcheck/run_check.vos' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vos'
+'/home/claude/coqcheck/run_check.glob' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.glob'
+'/home/claude/coqprobe/2026-09-15_NAMETEST.v' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqprobe/2026-09-15_NAMETEST.v'
+copied probe/./probe_inj.lean
+copied probe/./modprobe/2026-09-15_A.lean
+copied probe/./modprobe/2026-09-15_LAKEFILE.lean
+copied probe/./modprobe/lake-manifest.json
+copied probe/./modprobe/2026-09-15_B.lean
+copied probe/./modprobe/lean-toolchain
+copied probe/./probe3.lean
+copied probe/./probe_from.lean
+copied probe/./probe.lean
+copied probe/./probe2.lean
+-- note: /home/claude/probe/modprobe/.lake (Lake build cache of a name probe) not copied
+== exit 0
+== wall .076145163 s

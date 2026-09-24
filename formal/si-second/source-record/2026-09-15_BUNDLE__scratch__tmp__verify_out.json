@@ -1,0 +1,23 @@
+{
+  "outcome": "VERIFIED",
+  "trace": [
+    {
+      "title": "Signature verified",
+      "body": "Ed25519 over SHA-256 digest ✓",
+      "outcome": null,
+      "ms": "22ms"
+    },
+    {
+      "title": "Merkle root verified",
+      "body": "leaf hashes (SHA-256) match committed root ✓",
+      "outcome": null,
+      "ms": "59ms"
+    },
+    {
+      "title": "Boundary evaluation",
+      "body": "no predicates",
+      "outcome": null,
+      "ms": "59ms"
+    }
+  ]
+}

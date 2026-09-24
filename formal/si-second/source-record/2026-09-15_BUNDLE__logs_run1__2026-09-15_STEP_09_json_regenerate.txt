@@ -1,0 +1,30 @@
+== STEP 09: Regenerate witness.json from its definition and compare bytes
+== started 2026-09-16T09:26:52Z
+== commands:
+json_regenerate () 
+{ 
+    python3 - "$B" <<'PY'
+import json, sys
+b = sys.argv[1]
+n = 9192631770; code = ""
+while n != 1:
+    code += "0" if n % 2 == 0 else "1"; n //= 2
+code += "."
+corr = [{"effect": e, "shift": "zero", "uncertainty": "zero"}
+        for e in ["motion", "staticFields", "thermalRadiation", "collisions"]]
+rec = {"atRest": "correctedToLimit", "corrections": corr, "isolated": "correctedToLimit",
+       "noStaticFields": "correctedToLimit", "noThermalRadiation": "correctedToLimit",
+       "periods": code, "species": "caesium133", "sublevels": "zeroToZero",
+       "transition": {"levelA": "fThree", "levelB": "fFour"}}
+text = json.dumps(rec, separators=(",", ":"), sort_keys=True, ensure_ascii=True)
+open(f"{b}/logs/2026-09-15_REGENERATED_witness.json", "w", newline="").write(text)
+print("regenerated", len(text), "bytes; periods code", code)
+PY
+
+    cmp "$B/logs/2026-09-15_REGENERATED_witness.json" "$B/data/witness.json" && echo "regenerated file is byte-identical to data/witness.json"
+}
+== output:
+regenerated 540 bytes; periods code 010110111011011000110111110001000.
+regenerated file is byte-identical to data/witness.json
+== exit 0
+== wall .025975787 s

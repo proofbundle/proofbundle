@@ -1,0 +1,21 @@
+2026-09-15_MANIFEST_VERIFICATION.txt
+Hashes of the manifest and of the bundle. The bundle contains the 11 content files
+and the manifest; it does not contain this file.
+Bundle entries use a fixed timestamp (2026-09-15 00:00:00) and sorted order, so
+rebuilding the zip from the same files with the same method gives the same hashes.
+
+file:    2026-09-15_MANIFEST.txt
+bytes:   3981
+sha256:  58228f1bc12042847c3b9c5a32f763292e6561498e5c3d6f8e253c67877d87f8
+sha512:  cbf80f1e7417ceb794f8e970d963134246ea5076bb36c2c63d590e3e8b72dd03227509ac26630b51bed5c746c845aa5e22bc45b05bc1eec4b6dbe2198ce87f69
+blake3:  156139c7abcbea71197896b1bae733dccf5ba39e164c85b1493a75373ba184d3
+
+file:    2026-09-15_SI_SECOND_BUNDLE.zip
+bytes:   29746
+sha256:  96436a5cdf438e5a32632104cdcfb4f92ba887bb4b06bafca7d9edd31fca2a24
+sha512:  eb55661aa7a16b46022d0e66bc9cf609cb542b6e41a60db124534467e3fe58f9dd2420a87b7152d60f9b8a7b43a1078bbdb6e789335fc853e2064cd48cd92670
+blake3:  c80e666d72ad6480938e342ef789eba8d6cd9ed7a1d45ff7140ec55b645efcd6
+
+Check a file (Linux):
+  sha256sum <file>; sha512sum <file>; b3sum <file>
+Compare each result with the matching line above or in 2026-09-15_MANIFEST.txt.

@@ -1,0 +1,31 @@
+--- p.html	2026-09-22 23:04:22.866009599 +0000
++++ fixed.html	2026-09-22 23:06:28.051135374 +0000
+@@ -4407,6 +4407,10 @@
+     const keys = Object.keys(obj).sort();
+     return '{' + keys.map(k => JSON.stringify(k) + ':' + canonicalJSON(obj[k])).join(',') + '}';
+   }
++  if (obj === undefined || typeof obj === 'function' || typeof obj === 'symbol' || typeof obj === 'bigint')
++    throw new Error('PB-CANON-JSON-1: value not representable in JSON (' + typeof obj + ')');
++  if (typeof obj === 'number' && !Number.isFinite(obj))
++    throw new Error('PB-CANON-JSON-1: non-finite number');
+   return JSON.stringify(obj);
+ }
+ 
+@@ -6587,7 +6591,7 @@
+       subject_profile: (subject.hdr && subject.hdr.profile) || null,
+       outcome, verified_at: new Date(nowMs || Date.now()).toISOString(),
+       verifier_key_fingerprint: await keyFingerprint(key.pub),
+-      trace: trace.map(t => ({ step: t.step, detail: t.detail })),
++      trace: trace.map(t => ({ title: String(t.title ?? ''), body: String(t.body ?? ''), outcome: t.outcome ?? null, ms: (typeof t.ms === 'number' ? t.ms : null) })),
+     },
+   };
+   await sealCore(report, digestAlg, sigAlg, key);
+@@ -7109,7 +7113,7 @@
+       const rfcSig  = 'e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b';
+       const fbPub = hexOf(await _ed.pubFromSeed(rfcSeed));
+       const fbSig = hexOf(await _ed.sign(new Uint8Array(0), rfcSeed));
+-      const fbVerifiesRfc = await _ed.verify(new Uint8Array(0), h2b(rfcSig), h2b(rfcPub));
++      const fbVerifiesRfc = await _ed.verify(h2b(rfcSig), new Uint8Array(0), h2b(rfcPub));
+       const fbOk = fbPub === rfcPub && fbSig === rfcSig && fbVerifiesRfc === true;
+       T('Ed25519 fallback KAT (RFC 8032 §7.1 vector 1)', fbOk, fbOk ? '' : `pub=${fbPub} sig=${fbSig} verify=${fbVerifiesRfc}`);
+       if (!fbOk) {

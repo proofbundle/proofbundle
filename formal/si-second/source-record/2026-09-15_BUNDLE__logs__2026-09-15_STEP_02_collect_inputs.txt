@@ -1,0 +1,46 @@
+== STEP 02: Copy delivered files, sources, and the ProofBundle engine into the bundle
+== started 2026-09-16T09:29:51Z
+== commands:
+collect_inputs () 
+{ 
+    mkdir -p "$B/lean" "$B/coq" "$B/data/cases" "$B/proofbundle/cli" "$B/scratch";
+    cp -v "$S/2026-09-15_SI_SECOND_KERNEL.lean" "$S/2026-09-15_SI_SECOND_LEDGER.lean" "$S/2026-09-15_LAKEFILE.lean" "$S/2026-09-15_SI_SECOND_AUDIT.lean" "$B/lean/";
+    cp -v "$OUT/2026-09-15_SI_SECOND_WITNESS.lean" "$B/lean/";
+    cp -v "$OUT/SI_SECOND_CHECKER_2026_09_15.v" "$B/coq/";
+    cp -v "$OUT/witness.json" "$OUT/witness.pb.json" "$B/data/";
+    cp -v "$OUT/2026-09-15_MANIFEST.txt" "$B/scratch/2026-09-15_PRIOR_BUILD_MANIFEST.txt";
+    cp -v "$PB/proofbundle.html" "$PB/package.json" "$B/proofbundle/";
+    [ -e "$PB/package-lock.json" ] && cp -v "$PB/package-lock.json" "$B/proofbundle/";
+    cp -v "$PB/cli/proofbundle-cli.mjs" "$B/proofbundle/cli/";
+    echo "-- git blob ids recorded at the clone commit:";
+    git -C "$PB" ls-files -s proofbundle.html cli/proofbundle-cli.mjs package.json package-lock.json;
+    echo "-- git blob ids of the copies:";
+    git hash-object "$B/proofbundle/proofbundle.html" "$B/proofbundle/cli/proofbundle-cli.mjs" "$B/proofbundle/package.json";
+    cp -v "$PB/seal_witness_scratch.mjs" "$B/proofbundle/2026-09-15_SEAL_DRIVER_SCRATCH.mjs"
+}
+== output:
+'/home/claude/build/2026-09-15_SI_SECOND_KERNEL.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_KERNEL.lean'
+'/home/claude/build/2026-09-15_SI_SECOND_LEDGER.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_LEDGER.lean'
+'/home/claude/build/2026-09-15_LAKEFILE.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_LAKEFILE.lean'
+'/home/claude/build/2026-09-15_SI_SECOND_AUDIT.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_AUDIT.lean'
+'/mnt/user-data/outputs/2026-09-15_SI_SECOND_WITNESS.lean' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_WITNESS.lean'
+'/mnt/user-data/outputs/SI_SECOND_CHECKER_2026_09_15.v' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.v'
+'/mnt/user-data/outputs/witness.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/witness.json'
+'/mnt/user-data/outputs/witness.pb.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/witness.pb.json'
+'/mnt/user-data/outputs/2026-09-15_MANIFEST.txt' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/2026-09-15_PRIOR_BUILD_MANIFEST.txt'
+'/tmp/pb/proofbundle.html' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/proofbundle.html'
+'/tmp/pb/package.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/package.json'
+'/tmp/pb/package-lock.json' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/package-lock.json'
+'/tmp/pb/cli/proofbundle-cli.mjs' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/cli/proofbundle-cli.mjs'
+-- git blob ids recorded at the clone commit:
+100755 3f0722423de15abde39b42f92807cddf0a88f86e 0	cli/proofbundle-cli.mjs
+100644 e178f99eb9292ea609cca2c4c54d0b2b4336bfd7 0	package-lock.json
+100644 75647c0bf9198fa62f944c0fe8ff1e6a2eea6210 0	package.json
+100644 04d31b8d3ab581eb36e80f948695089aacd43e8a 0	proofbundle.html
+-- git blob ids of the copies:
+04d31b8d3ab581eb36e80f948695089aacd43e8a
+3f0722423de15abde39b42f92807cddf0a88f86e
+75647c0bf9198fa62f944c0fe8ff1e6a2eea6210
+'/tmp/pb/seal_witness_scratch.mjs' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/2026-09-15_SEAL_DRIVER_SCRATCH.mjs'
+== exit 0
+== wall .022255245 s

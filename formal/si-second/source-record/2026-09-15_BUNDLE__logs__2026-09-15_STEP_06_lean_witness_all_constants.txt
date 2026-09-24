@@ -1,0 +1,54 @@
+== STEP 06: Lean scan of every declaration under SISecond.Witness
+== started 2026-09-16T09:29:54Z
+== commands:
+lean_witness_all_constants () 
+{ 
+    cd "$B/lean" || exit 1;
+    { 
+        echo 'import Lean';
+        cat 2026-09-15_SI_SECOND_WITNESS.lean;
+        cat <<'LEAN'
+
+open Lean in
+#eval show CoreM Unit from do
+  let env ← getEnv
+  let mut n := 0
+  let mut bad := 0
+  for (name, _) in env.constants.map₂.toList do
+    if (`SISecond.Witness).isPrefixOf name then
+      n := n + 1
+      let axs ← collectAxioms name
+      IO.println s!"{name}: axioms {axs}"
+      if !axs.isEmpty then bad := bad + 1
+  IO.println s!"declarations under SISecond.Witness: {n}; with axioms: {bad}"
+LEAN
+
+    } > "$B/scripts/2026-09-15_WITNESS_ALL_CONSTANTS.lean";
+    lake -f 2026-09-15_LAKEFILE.lean env lean "$B/scripts/2026-09-15_WITNESS_ALL_CONSTANTS.lean";
+    local rc=$?;
+    echo "lean exit $rc";
+    return $rc
+}
+== output:
+'SISecond.Witness.witness' does not depend on any axioms
+'SISecond.Witness.witness_isSecond' does not depend on any axioms
+'SISecond.Witness.witness_succ_periods_not_second' does not depend on any axioms
+'SISecond.Witness.witness_has_corrected_report' does not depend on any axioms
+'SISecond.Witness.witness_empty_corrections_not_second' does not depend on any axioms
+'SISecond.Witness.witness_other_species_not_second' does not depend on any axioms
+'SISecond.Witness.witness_same_level_not_second' does not depend on any axioms
+'SISecond.Witness.witnessBytes' does not depend on any axioms
+'SISecond.Witness.witnessBytes_eq' does not depend on any axioms
+SISecond.Witness.witness_other_species_not_second: axioms #[]
+SISecond.Witness.witness_has_corrected_report: axioms #[]
+SISecond.Witness.witness_isSecond: axioms #[]
+SISecond.Witness.witness_empty_corrections_not_second: axioms #[]
+SISecond.Witness.witnessBytes_eq: axioms #[]
+SISecond.Witness.witnessBytes: axioms #[]
+SISecond.Witness.witness_same_level_not_second: axioms #[]
+SISecond.Witness.witness_succ_periods_not_second: axioms #[]
+SISecond.Witness.witness: axioms #[]
+declarations under SISecond.Witness: 9; with axioms: 0
+lean exit 0
+== exit 0
+== wall 1.223876206 s

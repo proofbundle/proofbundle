@@ -1,0 +1,201 @@
+2026-09-18_FULL_HANDOVER_PATH_MAP.txt
+Container path -> delivered file name.
+Files already present in your folder with identical content are marked as such and not duplicated.
+
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_ASSEMBLY_LOG.txt -> already delivered as 2026-09-15_ASSEMBLY_LOG.txt (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_MANIFEST.txt -> already delivered as 2026-09-15_MANIFEST.txt (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_MANIFEST_VERIFICATION.txt -> already delivered as 2026-09-15_MANIFEST_VERIFICATION.txt (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_README.md -> already delivered as 2026-09-15_README.md (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_STEP_LOG.md -> already delivered as 2026-09-15_STEP_LOG.md (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_VERIFY.py -> already delivered as 2026-09-15_VERIFY.py (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/2026-09-15_VERIFY_RUN.txt -> already delivered as 2026-09-15_VERIFY_RUN.txt (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/.SI_SECOND_CHECKER_2026_09_15.aux -> 2026-09-15_BUNDLE__coq__.SI_SECOND_CHECKER_2026_09_15.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.glob -> already delivered as SI_SECOND_CHECKER_2026_09_15.glob (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.v -> already delivered as SI_SECOND_CHECKER_2026_09_15.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.vo -> already delivered as SI_SECOND_CHECKER_2026_09_15.vo (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/SI_SECOND_CHECKER_2026_09_15.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_malformed_extra_key.aux -> 2026-09-15_BUNDLE__coq__runs__.run_malformed_extra_key.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_malformed_trailing_space.aux -> 2026-09-15_BUNDLE__coq__runs__.run_malformed_trailing_space.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_twin_empty_corrections.aux -> 2026-09-15_BUNDLE__coq__runs__.run_twin_empty_corrections.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_twin_other_species.aux -> 2026-09-15_BUNDLE__coq__runs__.run_twin_other_species.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_twin_same_level.aux -> 2026-09-15_BUNDLE__coq__runs__.run_twin_same_level.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_twin_succ_periods.aux -> 2026-09-15_BUNDLE__coq__runs__.run_twin_succ_periods.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/.run_witness.aux -> 2026-09-15_BUNDLE__coq__runs__.run_witness.aux
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_extra_key.glob -> 2026-09-15_BUNDLE__coq__runs__run_malformed_extra_key.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_extra_key.v -> already delivered as run_malformed_extra_key.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_extra_key.vo -> 2026-09-15_BUNDLE__coq__runs__run_malformed_extra_key.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_extra_key.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_extra_key.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_trailing_space.glob -> 2026-09-15_BUNDLE__coq__runs__run_malformed_trailing_space.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_trailing_space.v -> already delivered as run_malformed_trailing_space.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_trailing_space.vo -> 2026-09-15_BUNDLE__coq__runs__run_malformed_trailing_space.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_trailing_space.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_malformed_trailing_space.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_empty_corrections.glob -> 2026-09-15_BUNDLE__coq__runs__run_twin_empty_corrections.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_empty_corrections.v -> already delivered as run_twin_empty_corrections.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_empty_corrections.vo -> 2026-09-15_BUNDLE__coq__runs__run_twin_empty_corrections.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_empty_corrections.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_empty_corrections.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_other_species.glob -> 2026-09-15_BUNDLE__coq__runs__run_twin_other_species.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_other_species.v -> already delivered as run_twin_other_species.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_other_species.vo -> 2026-09-15_BUNDLE__coq__runs__run_twin_other_species.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_other_species.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_other_species.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_same_level.glob -> 2026-09-15_BUNDLE__coq__runs__run_twin_same_level.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_same_level.v -> already delivered as run_twin_same_level.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_same_level.vo -> 2026-09-15_BUNDLE__coq__runs__run_twin_same_level.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_same_level.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_same_level.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_succ_periods.glob -> 2026-09-15_BUNDLE__coq__runs__run_twin_succ_periods.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_succ_periods.v -> already delivered as run_twin_succ_periods.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_succ_periods.vo -> 2026-09-15_BUNDLE__coq__runs__run_twin_succ_periods.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_succ_periods.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_twin_succ_periods.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_witness.glob -> 2026-09-15_BUNDLE__coq__runs__run_witness.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_witness.v -> already delivered as run_witness.v (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_witness.vo -> 2026-09-15_BUNDLE__coq__runs__run_witness.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_witness.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/coq/runs/run_witness.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scripts/2026-09-15_JSON_STABILITY.js -> 2026-09-15_BUNDLE__scripts__2026-09-15_JSON_STABILITY.js
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scripts/2026-09-15_MAKE_MANIFEST.py -> 2026-09-15_BUNDLE__scripts__2026-09-15_MAKE_MANIFEST.py
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scripts/2026-09-15_RUN_ALL.sh -> 2026-09-15_BUNDLE__scripts__2026-09-15_RUN_ALL.sh
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scripts/2026-09-15_WITNESS_ALL_CONSTANTS.lean -> 2026-09-15_BUNDLE__scripts__2026-09-15_WITNESS_ALL_CONSTANTS.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_REGENERATED_witness.json -> already delivered as witness.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_RUN_LOG.txt -> already delivered as 2026-09-15_RUN_LOG.txt (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_01_toolchain.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_01_toolchain.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_02_collect_inputs.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_02_collect_inputs.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_03_prior_manifest.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_03_prior_manifest.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_04_lean_build.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_04_lean_build.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_05_lean_witness.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_05_lean_witness.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_06_lean_witness_all_constants.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_06_lean_witness_all_constants.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_07_lean_audit.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_07_lean_audit.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_08_lean_checker.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_08_lean_checker.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_09_json_regenerate.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_09_json_regenerate.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_10_json_stability.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_10_json_stability.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_11_make_cases.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_11_make_cases.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_12_coq_checker.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_12_coq_checker.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_13_coq_runs.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_13_coq_runs.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_14_coq_kernel_check.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_14_coq_kernel_check.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_15_pb_verify.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_15_pb_verify.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_16_pb_tamper.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_16_pb_tamper.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_17_binding.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_17_binding.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs/2026-09-15_STEP_18_collect_scratch.txt -> 2026-09-15_BUNDLE__logs__2026-09-15_STEP_18_collect_scratch.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/witness.json -> already delivered as witness.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/witness.pb.json -> already delivered as witness.pb.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/witness_tampered_root.pb.json -> already delivered as witness_tampered_root.pb.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/malformed_extra_key.json -> already delivered as malformed_extra_key.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/malformed_trailing_space.json -> already delivered as malformed_trailing_space.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/twin_empty_corrections.json -> already delivered as twin_empty_corrections.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/twin_other_species.json -> already delivered as twin_other_species.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/twin_same_level.json -> already delivered as twin_same_level.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/data/cases/twin_succ_periods.json -> already delivered as twin_succ_periods.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_LAKEFILE.lean -> already delivered as 2026-09-15_LAKEFILE.lean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_AUDIT.lean -> already delivered as 2026-09-15_SI_SECOND_AUDIT.lean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_KERNEL.lean -> already delivered as 2026-09-15_SI_SECOND_KERNEL.lean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_LEDGER.lean -> already delivered as 2026-09-15_SI_SECOND_LEDGER.lean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/2026-09-15_SI_SECOND_WITNESS.lean -> already delivered as 2026-09-15_SI_SECOND_WITNESS.lean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/lake-manifest.json -> already delivered as lake-manifest.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/witness_build/2026-09-15_SI_SECOND_WITNESS.ilean -> already delivered as 2026-09-15_SI_SECOND_WITNESS.ilean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/witness_build/2026-09-15_SI_SECOND_WITNESS.olean -> already delivered as 2026-09-15_SI_SECOND_WITNESS.olean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/config/0/2026-09-15_LAKEFILE.olean -> already delivered as 2026-09-15_LAKEFILE.olean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/config/0/2026-09-15_LAKEFILE.olean.trace -> already delivered as 2026-09-15_LAKEFILE.olean.trace (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_KERNEL.c -> already delivered as 2026-09-15_SI_SECOND_KERNEL.c (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_KERNEL.c.hash -> already delivered as 2026-09-15_SI_SECOND_KERNEL.c.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_KERNEL.setup.json -> already delivered as 2026-09-15_SI_SECOND_KERNEL.setup.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_LEDGER.c -> already delivered as 2026-09-15_SI_SECOND_LEDGER.c (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_LEDGER.c.hash -> already delivered as 2026-09-15_SI_SECOND_LEDGER.c.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/ir/2026-09-15_SI_SECOND_LEDGER.setup.json -> 2026-09-15_BUNDLE__lean__.lake__build__ir__2026-09-15_SI_SECOND_LEDGER.setup.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.ilean -> already delivered as 2026-09-15_SI_SECOND_KERNEL.ilean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.ilean.hash -> already delivered as 2026-09-15_SI_SECOND_KERNEL.ilean.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.olean -> already delivered as 2026-09-15_SI_SECOND_KERNEL.olean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.olean.hash -> already delivered as 2026-09-15_SI_SECOND_KERNEL.olean.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.trace -> 2026-09-15_BUNDLE__lean__.lake__build__lib__lean__2026-09-15_SI_SECOND_KERNEL.trace
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_LEDGER.ilean -> already delivered as 2026-09-15_SI_SECOND_LEDGER.ilean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_LEDGER.ilean.hash -> already delivered as 2026-09-15_SI_SECOND_LEDGER.ilean.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_LEDGER.olean -> already delivered as 2026-09-15_SI_SECOND_LEDGER.olean (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_LEDGER.olean.hash -> already delivered as 2026-09-15_SI_SECOND_LEDGER.olean.hash (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_LEDGER.trace -> 2026-09-15_BUNDLE__lean__.lake__build__lib__lean__2026-09-15_SI_SECOND_LEDGER.trace
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_MANUAL_PROBE_leanchecker_usage.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_MANUAL_PROBE_leanchecker_usage.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_REGENERATED_witness.json -> already delivered as witness.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_RUN_ALL_run1_copy.sh -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_ALL_run1_copy.sh
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_RUN_LOG.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_LOG.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_01_toolchain.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_01_toolchain.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_02_collect_inputs.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_02_collect_inputs.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_03_prior_manifest.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_03_prior_manifest.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_04_lean_build.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_04_lean_build.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_05_lean_witness.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_05_lean_witness.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_06_lean_witness_all_constants.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_06_lean_witness_all_constants.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_07_lean_audit.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_07_lean_audit.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_08_lean_checker.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_08_lean_checker.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_09_json_regenerate.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_09_json_regenerate.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_10_json_stability.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_10_json_stability.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_11_make_cases.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_11_make_cases.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_12_coq_checker.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_12_coq_checker.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_13_coq_runs.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_13_coq_runs.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_14_coq_kernel_check.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_14_coq_kernel_check.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_15_pb_verify.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_15_pb_verify.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_16_pb_tamper.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_16_pb_tamper.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_17_binding.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_17_binding.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/logs_run1/2026-09-15_STEP_18_collect_scratch.txt -> 2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_18_collect_scratch.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/2026-09-15_SEAL_DRIVER_SCRATCH.mjs -> 2026-09-15_BUNDLE__proofbundle__2026-09-15_SEAL_DRIVER_SCRATCH.mjs
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/2026-09-15_SEAL_RUN_TRANSCRIPT.txt -> 2026-09-15_BUNDLE__proofbundle__2026-09-15_SEAL_RUN_TRANSCRIPT.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/package-lock.json -> 2026-09-15_BUNDLE__proofbundle__package-lock.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/package.json -> 2026-09-15_BUNDLE__proofbundle__package.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/proofbundle.html -> 2026-09-15_BUNDLE__proofbundle__proofbundle.html
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/proofbundle/cli/proofbundle-cli.mjs -> 2026-09-15_BUNDLE__proofbundle__cli__proofbundle-cli.mjs
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/2026-09-15_PRIOR_BUILD_MANIFEST.txt -> 2026-09-15_BUNDLE__scratch__2026-09-15_PRIOR_BUILD_MANIFEST.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coq_install.log -> 2026-09-15_BUNDLE__scratch__home_claude__coq_install.log
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/elan-init.sh -> 2026-09-15_BUNDLE__scratch__home_claude__elan-init.sh
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/elan_install.log -> 2026-09-15_BUNDLE__scratch__home_claude__elan_install.log
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/run_all_console.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/run_all_console_run2.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/probe.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__probe.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/probe2.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__probe2.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/probe3.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__probe3.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/probe_from.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__probe_from.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/probe_inj.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__probe_inj.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/modprobe/2026-09-15_A.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_A.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/modprobe/2026-09-15_B.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_B.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/modprobe/2026-09-15_LAKEFILE.lean -> 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_LAKEFILE.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/modprobe/lake-manifest.json -> 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__lake-manifest.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/probe/modprobe/lean-toolchain -> 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__lean-toolchain
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.glob -> 2026-09-15_BUNDLE__scratch__home_claude__coqcheck__run_check.glob
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.v -> 2026-09-15_BUNDLE__scratch__home_claude__coqcheck__run_check.v
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vo -> 2026-09-15_BUNDLE__scratch__home_claude__coqcheck__run_check.vo
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vok -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqcheck/run_check.vos -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/audit_out.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__audit_out.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/bits_term.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__bits_term.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/handwritten.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__handwritten.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/lean-toolchain -> already delivered as 2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__lean-toolchain (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_code.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__witness_code.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_out.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__witness_out.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/build/witness_syms.txt -> 2026-09-15_BUNDLE__scratch__home_claude__build__witness_syms.txt
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/home_claude/coqprobe/2026-09-15_NAMETEST.v -> 2026-09-15_BUNDLE__scratch__home_claude__coqprobe__2026-09-15_NAMETEST.v
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/npm.log -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/run_one.sh -> 2026-09-15_BUNDLE__scratch__tmp__run_one.sh
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/stability.js -> already delivered as 2026-09-15_BUNDLE__scripts__2026-09-15_JSON_STABILITY.js (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/tamper_out.json -> 2026-09-15_BUNDLE__scratch__tmp__tamper_out.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/verify_err.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/verify_out.json -> 2026-09-15_BUNDLE__scratch__tmp__verify_out.json
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/witness_allconsts.lean -> 2026-09-15_BUNDLE__scratch__tmp__witness_allconsts.lean
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/witness_tampered.pb.json -> already delivered as witness_tampered_root.pb.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/malformed_extra_key.json -> already delivered as malformed_extra_key.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/malformed_trailing_space.json -> already delivered as malformed_trailing_space.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_empty_corrections.json -> already delivered as twin_empty_corrections.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_other_species.json -> already delivered as twin_other_species.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_same_level.json -> already delivered as twin_same_level.json (identical content)
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scratch/tmp/cases/twin_succ_periods.json -> already delivered as twin_succ_periods.json (identical content)
+/home/claude/build/2026-09-15_MANIFEST.txt -> already delivered as 2026-09-15_BUNDLE__scratch__2026-09-15_PRIOR_BUILD_MANIFEST.txt (identical content)
+/home/claude/build/2026-09-15_MANIFEST_VERIFICATION.txt -> 2026-09-15_BUILD1_MANIFEST_VERIFICATION.txt  [first build's verification file]
+/home/claude/assembly_part1.txt -> 2026-09-15_SCRATCH_assembly_part1.txt
+/home/claude/finish_bundle.sh -> 2026-09-15_SCRATCH_finish_bundle.sh
+/home/claude/handover_file_list.txt -> 2026-09-15_SCRATCH_handover_file_list.txt
+/home/claude/run_all_console.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/run_all_console_run2.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/handover_console.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/home/claude/finish_console.txt -> already delivered as SI_SECOND_CHECKER_2026_09_15.vok (identical content)
+/tmp/probe4.lean -> 2026-09-18_SCRATCH_probe4_lemma_axioms.lean
+/tmp/p5.lean -> 2026-09-18_SCRATCH_probe5_iff_of_eq.lean
+/home/claude/2026-09-18_NEXT/logs/2026-09-18_RUN.log -> already delivered as 2026-09-18_RUN.log (identical content)

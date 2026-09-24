@@ -1,0 +1,5 @@
+    [ .digitZero, .digitOne, .digitZero, .digitOne, .digitOne, .digitZero, .digitOne,
+      .digitOne, .digitOne, .digitZero, .digitOne, .digitOne, .digitZero, .digitOne,
+      .digitOne, .digitZero, .digitZero, .digitZero, .digitOne, .digitOne, .digitZero,
+      .digitOne, .digitOne, .digitOne, .digitOne, .digitOne, .digitZero, .digitZero,
+      .digitZero, .digitOne, .digitZero, .digitZero, .digitZero, .stop ]

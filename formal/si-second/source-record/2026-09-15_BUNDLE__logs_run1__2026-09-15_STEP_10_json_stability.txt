@@ -1,0 +1,19 @@
+== STEP 10: Node JSON round-trip test on witness.json
+== started 2026-09-16T09:26:52Z
+== commands:
+json_stability () 
+{ 
+    cp -v /tmp/stability.js "$B/scripts/2026-09-15_JSON_STABILITY.js";
+    node "$B/scripts/2026-09-15_JSON_STABILITY.js" "$B/data/witness.json";
+    echo "node exit $?"
+}
+== output:
+'/tmp/stability.js' -> '/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/scripts/2026-09-15_JSON_STABILITY.js'
+JSON.stringify(JSON.parse(B)) === B: true
+leaf fields compared: 21; all === after parse(stringify(x)): true
+keys exactly the Realization fields, no extras: true
+keys in sorted order at every object: true
+printable ASCII only, no whitespace outside strings: true
+node exit 0
+== exit 0
+== wall .030332161 s

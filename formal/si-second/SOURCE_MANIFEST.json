@@ -1,0 +1,1398 @@
+{
+  "schema": "proofbundle.si-second.source-manifest.v1",
+  "source_archive_sha256": "d3cf709eab35c2e330cee675d9c1468bc7edcc208a48f1b3ec0427e8df432565",
+  "entries": [
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_ASSEMBLY_LOG.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_ASSEMBLY_LOG.txt",
+      "bytes": 1091,
+      "sha256": "8f30ef5d39e978686410c77266b2b7a217a393cbaa24ab747f63576194a0d02f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUILD.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUILD.sh",
+      "bytes": 1858,
+      "sha256": "d6b89cf64955752964af8259c8951d796561a2f0105949c87b0cd07d4cd7fa44",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUILD1_MANIFEST_VERIFICATION.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUILD1_MANIFEST_VERIFICATION.txt",
+      "bytes": 1163,
+      "sha256": "98d27b91f953a8c175aee912ad532ca98823987a43096413dcd461cbfc7cdf24",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUILD_LOG.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUILD_LOG.txt",
+      "bytes": 11661,
+      "sha256": "f0c3ec9c6455e573556ccf6df454793b3e1a1ad4f19411ce121a6c7d68280247",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__lean__.lake__build__ir__2026-09-15_SI_SECOND_LEDGER.setup.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__lean__.lake__build__ir__2026-09-15_SI_SECOND_LEDGER.setup.json",
+      "bytes": 307,
+      "sha256": "e7025e2a54592c9a970f84782fb6c1b154828410935f32d6fc12d7410c1037e0",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_01_toolchain.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_01_toolchain.txt",
+      "bytes": 1386,
+      "sha256": "24dfa0e80170614078c82ac3e1cea225331619b80982759ab4374110958ae8b1",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_02_collect_inputs.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_02_collect_inputs.txt",
+      "bytes": 3658,
+      "sha256": "5653e27dc707c81a1e6d1528276fe6367a4bd3d7a51432cc80d6abf2639af2cd",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_03_prior_manifest.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_03_prior_manifest.txt",
+      "bytes": 1278,
+      "sha256": "927f4e5d5c3e1e0639f2fec549984902ed34bd6138108d0d1f6992d5f3d7f34a",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_04_lean_build.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_04_lean_build.txt",
+      "bytes": 1548,
+      "sha256": "b1a9a07e5f2d55ca39d131a3239a79a8038384383315bfe33fb519037b22fc2e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_05_lean_witness.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_05_lean_witness.txt",
+      "bytes": 1423,
+      "sha256": "9fff356a1616f4e388e5a2785a1201a1217215c436a176a5660e3670bf9f0de2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_06_lean_witness_all_constants.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_06_lean_witness_all_constants.txt",
+      "bytes": 2157,
+      "sha256": "1475bcd5e0b023971dcb117b7927df6fe053a07d01e0d553bcb7940918f46044",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_07_lean_audit.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_07_lean_audit.txt",
+      "bytes": 8378,
+      "sha256": "4d387c01ee9683b555f09b5a6196a2f426a2a990d7c3c127401f66c05a50508d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_08_lean_checker.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_08_lean_checker.txt",
+      "bytes": 1374,
+      "sha256": "a881cea42c4021af7adc47b42696a68f38f65b3589631170918e0456ec91da2e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_09_json_regenerate.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_09_json_regenerate.txt",
+      "bytes": 1351,
+      "sha256": "8be4638f41792ac93704be0983114713f8f25be3711c58801898756e20ff3866",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_10_json_stability.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_10_json_stability.txt",
+      "bytes": 293,
+      "sha256": "6a737f2dbed68e253309de6e0bb5bb9976811054b12e4f775652271e52f1e666",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_11_make_cases.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_11_make_cases.txt",
+      "bytes": 2494,
+      "sha256": "80ae2321924e98e390911a7736c230f00a7bfdb8d85a5b42d41931ae8143a259",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_12_coq_checker.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_12_coq_checker.txt",
+      "bytes": 1003,
+      "sha256": "c5e24bedb23f610cdff247557e927cdfe9f0c544ac4da86879fd20a671ad90a4",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_13_coq_runs.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_13_coq_runs.txt",
+      "bytes": 3459,
+      "sha256": "e08f7fc6101cfcf863e5fee3b2812f14f33f6e32ef8b5eb399373e85b90f28c1",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_14_coq_kernel_check.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_14_coq_kernel_check.txt",
+      "bytes": 2725943,
+      "sha256": "6c0ef16a02d1a07ed880c9d49f8a5e98f12abdffcfd6bab0002f20d0391bc308",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_15_pb_verify.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_15_pb_verify.txt",
+      "bytes": 806,
+      "sha256": "2a42512878fb6f33c2eead15911e69c0174396235e9d52ca95aa032cf02e76a2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_16_pb_tamper.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_16_pb_tamper.txt",
+      "bytes": 1145,
+      "sha256": "b7cd3e647487dc11e80972ed01c0381770c0d3ed8eb53605333a1b2c8ac7150d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_17_binding.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_17_binding.txt",
+      "bytes": 2027,
+      "sha256": "ffe5c65bbc3edc418c100535cf9f210961366a9f7eba14faed879e9426446430",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs__2026-09-15_STEP_18_collect_scratch.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs__2026-09-15_STEP_18_collect_scratch.txt",
+      "bytes": 6060,
+      "sha256": "cd1793b8db8b5cbbbabdf10aeeba709398fb9117dd71f14d16d1369900ae3ef6",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_MANUAL_PROBE_leanchecker_usage.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_MANUAL_PROBE_leanchecker_usage.txt",
+      "bytes": 678,
+      "sha256": "2f3c8b110fb78f138de12a72d3351c4d50ccc6914938dabb5f7e7aa1b2ebae48",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_ALL_run1_copy.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_ALL_run1_copy.sh",
+      "bytes": 14009,
+      "sha256": "5bcc5893326a6b933d04d6261dd529d9fbb37c8b6d7893577ffef72abb240b5e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_LOG.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_RUN_LOG.txt",
+      "bytes": 2504,
+      "sha256": "6e827b48629aa022bd99df7ef8a4173e85b7b506f10a6cccc6845200e2a0e615",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_01_toolchain.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_01_toolchain.txt",
+      "bytes": 1387,
+      "sha256": "edfd59919e8352c8261672ff7a850d648f4c84cffb88b1c8557223d19b4ac398",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_02_collect_inputs.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_02_collect_inputs.txt",
+      "bytes": 3658,
+      "sha256": "bfef611c836258f4e4b50b24eb8be885a01cb2c860ce450ddd884fdefcc38cad",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_03_prior_manifest.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_03_prior_manifest.txt",
+      "bytes": 1207,
+      "sha256": "c470192b0ca8aada2dc8ace08799488e420604db488a21a83392b5cd07084a38",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_04_lean_build.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_04_lean_build.txt",
+      "bytes": 1515,
+      "sha256": "9dc7d9a4e04d648d9519729d822d2cef2edf8aa38b74f36ac5c8059966c20b06",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_05_lean_witness.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_05_lean_witness.txt",
+      "bytes": 1389,
+      "sha256": "51d3037317f2f3bfd18b2b9a117ad27bc147a026c6b801c341dfdd232a5a3063",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_06_lean_witness_all_constants.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_06_lean_witness_all_constants.txt",
+      "bytes": 2124,
+      "sha256": "15e1b3a4e6aecb365797d2bcea78b171c1df72f2b9e61a4915f0f0b8508872fa",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_07_lean_audit.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_07_lean_audit.txt",
+      "bytes": 8344,
+      "sha256": "8d9722f3417bfa0ea9996c022eb7d78ec009d708473427b23d22ce7c3e1c5e94",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_08_lean_checker.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_08_lean_checker.txt",
+      "bytes": 778,
+      "sha256": "237526ccc876d18194ca87209b836f23d0782bd0abb1c4a7aab4f41e0a674034",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_09_json_regenerate.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_09_json_regenerate.txt",
+      "bytes": 1300,
+      "sha256": "3f98aae94485272f215e1bafd78ee4c042bc916b8510413c25b00cbb52af94d3",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_10_json_stability.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_10_json_stability.txt",
+      "bytes": 720,
+      "sha256": "f8bd47bfc7c17f483cd7fcf3264206a8851a2de57ceaaa917c6aeafec90c83c4",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_11_make_cases.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_11_make_cases.txt",
+      "bytes": 2494,
+      "sha256": "b1e0a8e925f000ba17222829c471b3dce8d28b93a41122899ce5c9eed318c749",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_12_coq_checker.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_12_coq_checker.txt",
+      "bytes": 914,
+      "sha256": "c4aba4079ded156318f8f98de2b4ded2ee0f23377daad4bbe9a9702b93a246c2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_13_coq_runs.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_13_coq_runs.txt",
+      "bytes": 3360,
+      "sha256": "88a25f4230df766bb9851a35c2063584f2286cd1ea9171523da49f73461eb025",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_14_coq_kernel_check.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_14_coq_kernel_check.txt",
+      "bytes": 2725909,
+      "sha256": "ccde430d01925153c24a6b94470166c1b706aad92d5e36708b5ac5cc5cf009db",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_15_pb_verify.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_15_pb_verify.txt",
+      "bytes": 772,
+      "sha256": "0bf5d611f14e4a7d5af02f3508f44f26d220a7011590ecddb27273f6d75c36c4",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_16_pb_tamper.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_16_pb_tamper.txt",
+      "bytes": 1092,
+      "sha256": "b1061adc7d16d48b8c35a4f2998ab53f64678e1f6087c3659689915954e69615",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_17_binding.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_17_binding.txt",
+      "bytes": 1907,
+      "sha256": "730fe44274594f068317dcb0b2b3a3bd72abbc2aa0a8b8ff8eed781595198ba2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_18_collect_scratch.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__logs_run1__2026-09-15_STEP_18_collect_scratch.txt",
+      "bytes": 6060,
+      "sha256": "8cfd357427e716e092bb0c96daefe1915c98602b040b38781f6d341bab78066c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__proofbundle__2026-09-15_SEAL_RUN_TRANSCRIPT.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__proofbundle__2026-09-15_SEAL_RUN_TRANSCRIPT.txt",
+      "bytes": 2099,
+      "sha256": "566f74c9f35609f5732ad3a72bacbf286038f77a97dfc621edd289aa6904ec08",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__proofbundle__package-lock.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__proofbundle__package-lock.json",
+      "bytes": 28186,
+      "sha256": "fb010919ed976f39d7530ed3093a96a737a157642765477dc6358aeef6e78e37",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__proofbundle__package.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__proofbundle__package.json",
+      "bytes": 800,
+      "sha256": "28b9d4f8113aced8abe94d0d8ce88aa715f752768b48ab3a6dc46a575e7fafe9",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__2026-09-15_PRIOR_BUILD_MANIFEST.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__2026-09-15_PRIOR_BUILD_MANIFEST.txt",
+      "bytes": 3981,
+      "sha256": "58228f1bc12042847c3b9c5a32f763292e6561498e5c3d6f8e253c67877d87f8",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__audit_out.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__audit_out.txt",
+      "bytes": 7821,
+      "sha256": "394f65a1f0ee7c22032d529bc1916cc91d6f8ec6bd57b5de6f7fb632e1b4f88b",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__bits_term.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__bits_term.txt",
+      "bytes": 620,
+      "sha256": "14607592ed393633bc25e45f471c72d64afecf9b604a77279192dfc8c8b4015e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__handwritten.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__handwritten.txt",
+      "bytes": 762,
+      "sha256": "ee33d79a080b25b095a24a3e60c216dcb18f070f600b8315ef9abf9c152a7b8b",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__witness_code.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__witness_code.txt",
+      "bytes": 34,
+      "sha256": "10bf9726d512dc0b50b9b581cdb3cbf492862defa87d5b7acca78dae82d0e561",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__witness_out.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__witness_out.txt",
+      "bytes": 656,
+      "sha256": "a8b541c2d89941a42f8b3d21e4d8e84c7e2e0f7900d8888b171ac5052deab9e2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__build__witness_syms.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__build__witness_syms.txt",
+      "bytes": 415,
+      "sha256": "8dfc2dd6ac09e204b63bd4772fb544aeee839cc18d59e727cf62ef03ca165d90",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__coq_install.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__coq_install.log",
+      "bytes": 7711,
+      "sha256": "f3f1d2040378e333f7901f98ac49178be89f6a8b69fd596819a784610254d989",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__coqcheck__run_check.v",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__coqcheck__run_check.v",
+      "bytes": 794,
+      "sha256": "36414719d0c8ca5f78378f68a729f62d616d44fa4bc77077ce1d6e2d0a84e2f3",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__coqprobe__2026-09-15_NAMETEST.v",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__coqprobe__2026-09-15_NAMETEST.v",
+      "bytes": 19,
+      "sha256": "dcefd4c94feb6a14a7fef04752d040e7f990eabe0758c9e8465fb9e509f78191",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__elan-init.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__elan-init.sh",
+      "bytes": 9823,
+      "sha256": "a620ff1641616222c8d37c54845492004bb84d6877cdbc944dd65c1aa685bf53",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__elan_install.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__elan_install.log",
+      "bytes": 85,
+      "sha256": "840d9019afb1685cfe152148bd20bbf184327cfbc82a33c1e23f4d0bc4345d2c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_A.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_A.lean",
+      "bytes": 26,
+      "sha256": "dd76463a4cb0c5655039de1b896aff3e0bbc870334e6369e4ea80893ac0bd133",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_B.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_B.lean",
+      "bytes": 83,
+      "sha256": "3863f29f6406323578ec13ea4b3abac64a969855cd440ed1125c73bbdcb5d4be",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_LAKEFILE.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__2026-09-15_LAKEFILE.lean",
+      "bytes": 138,
+      "sha256": "b7484a9d7f36c4a7170d93bb5ae55f5e9416ab4bf2c7af5443a61b8b519edffa",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__lake-manifest.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__modprobe__lake-manifest.json",
+      "bytes": 140,
+      "sha256": "2326f43a7539737cbffdebf0e629f28035e68649af012037bd812ff9612a800b",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__probe.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__probe.lean",
+      "bytes": 1363,
+      "sha256": "d69fa41788c40e61e8ebb8dfd47314fe6b819a7a7c289db9ae82e9b9e724188d",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__probe2.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__probe2.lean",
+      "bytes": 578,
+      "sha256": "5d9437e4ef767f63da6b2ea66d5fb8a865f463b9f898d9e2acda021dadac3f32",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__probe3.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__probe3.lean",
+      "bytes": 568,
+      "sha256": "d4014aa9123919042958ed1ec41f22a31cf550cf038d75fc07e2f1186e6c3f62",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__probe_from.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__probe_from.lean",
+      "bytes": 125,
+      "sha256": "f8ddf7a4c0cdd5784d771b802e33ddf0af1125cb525cb6f1355cef815e0ddd55",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__home_claude__probe__probe_inj.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__home_claude__probe__probe_inj.lean",
+      "bytes": 647,
+      "sha256": "794c9491cf9fe15c8dc7e6d2de521d9181ef0b9519fc3e21d3a422e462604040",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__tmp__run_one.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__tmp__run_one.sh",
+      "bytes": 442,
+      "sha256": "99ba7ed71723d7022ef645e5a25388c4c14cc88805a60a5f3f3b0029fb29b437",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__tmp__tamper_out.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__tmp__tamper_out.json",
+      "bytes": 281,
+      "sha256": "14131292d6f3b54c9b07e247025e0a2059cbdea4d2551f6eb21e64e273ee8551",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__tmp__verify_out.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__tmp__verify_out.json",
+      "bytes": 468,
+      "sha256": "2ac16fabb6e27969aa437261ee0a0cdbbf384a25db074daaee8cf77fd338da17",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scratch__tmp__witness_allconsts.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scratch__tmp__witness_allconsts.lean",
+      "bytes": 3759,
+      "sha256": "64ce6a072767072c79420ed516b899a80fe2966cce418fec26dcf8856b53c440",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scripts__2026-09-15_MAKE_MANIFEST.py",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scripts__2026-09-15_MAKE_MANIFEST.py",
+      "bytes": 1876,
+      "sha256": "865178bd25211d51d7735869f2c90bd30f41c089df3a1b5b09290c5a4ba6bd4c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scripts__2026-09-15_RUN_ALL.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scripts__2026-09-15_RUN_ALL.sh",
+      "bytes": 15267,
+      "sha256": "151a34f3475046e97b85958fb9840ed848ad9cdd533a55499f187f5a8a7f6562",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_BUNDLE__scripts__2026-09-15_WITNESS_ALL_CONSTANTS.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_BUNDLE__scripts__2026-09-15_WITNESS_ALL_CONSTANTS.lean",
+      "bytes": 3736,
+      "sha256": "866951039298d26d07d9a7be68e06ada46fce431660dc8e6fcb7e297f35040d5",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQCHK.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQCHK.log",
+      "bytes": 2725270,
+      "sha256": "f119e67e2944fea5b9e21177bf331da083c2d53c1f06d6e06a1ba145780c40fb",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_CHECKER_COMPILE_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_CHECKER_COMPILE_PRINT_ASSUMPTIONS.log",
+      "bytes": 301,
+      "sha256": "dd58cf080758a246664f2709c434f27e406627444f286b7c87b3b09710052a6a",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_FILES_GENERATE.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_FILES_GENERATE.log",
+      "bytes": 1436,
+      "sha256": "b57c22e394413997b8f3aa4398b34d8ce36b7ec89afa7521612ebbaf3b0ab544",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_malformed_extra_key_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_malformed_extra_key_PRINT_ASSUMPTIONS.log",
+      "bytes": 327,
+      "sha256": "1cecc31146d6fd46175dbe2023ae4458eb087c29bcec6d7c4d6a5340c03c45d0",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_malformed_trailing_space_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_malformed_trailing_space_PRINT_ASSUMPTIONS.log",
+      "bytes": 332,
+      "sha256": "1677b450faf9d46468ca6f329190411a6b630d7ded7b179c7a88c158a37d48a3",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_twin_empty_corrections_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_twin_empty_corrections_PRINT_ASSUMPTIONS.log",
+      "bytes": 342,
+      "sha256": "2d293960f75ea5a20297b033b74d49d9f4257a1aec227fc01e78b7cf6c7a655f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_twin_other_species_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_twin_other_species_PRINT_ASSUMPTIONS.log",
+      "bytes": 338,
+      "sha256": "0bf50ad1aca9d4d45d8aa74f32589a7d491d32cf0b08d50ea2bc2e934b1c5138",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_twin_same_level_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_twin_same_level_PRINT_ASSUMPTIONS.log",
+      "bytes": 335,
+      "sha256": "8ac8d2e8c19b504ac20232f5a3a3b73165e72b9d468299e3373c2379185a7102",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_twin_succ_periods_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_twin_succ_periods_PRINT_ASSUMPTIONS.log",
+      "bytes": 337,
+      "sha256": "8dc8c37078798e7a631ce77087301fee15a94e503b2a44f40dcf682c644a0e9f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_COQ_RUN_witness_PRINT_ASSUMPTIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_COQ_RUN_witness_PRINT_ASSUMPTIONS.log",
+      "bytes": 325,
+      "sha256": "3c1b134c12f31074cf0cf12880577105060beb1e0dc2f8b13a74d11d3dcfec55",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_GEN_COQ_RUN_FILES.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_GEN_COQ_RUN_FILES.sh",
+      "bytes": 1050,
+      "sha256": "e4ffd749ce4565eae1b26cf7b1a345f03f2833bea54a49793c2a519dfd65e64d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_ASSEMBLY.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_ASSEMBLY.log",
+      "bytes": 859,
+      "sha256": "7e69d83aa6864f0357b340774a760b5f096fc5fc4b250469f8a7d7254e75b1ca",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_BUILD.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_BUILD.sh",
+      "bytes": 4973,
+      "sha256": "40fa364864b4676e760186ed7538a0ef4fb2d951dd81cbc48370a990d7d04c16",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_LOG_INDEX.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_LOG_INDEX.txt",
+      "bytes": 4516,
+      "sha256": "e585531dca69a17d57fece1750e63ea2796803d2d38cc8d6173085f28f69b75c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_MANIFEST.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_MANIFEST.txt",
+      "bytes": 38067,
+      "sha256": "bb85b1dbb7247dacc7c5658ae13a05218c70e09f21dfb96d258e78b9731cb099",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_MANIFEST_VERIFICATION.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_MANIFEST_VERIFICATION.txt",
+      "bytes": 434,
+      "sha256": "b8f556434397672bcd9612d86d6a0cf4502537db964ec02bfeb1b9722c3ae98f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_PATH_MAP.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_PATH_MAP.txt",
+      "bytes": 8378,
+      "sha256": "a7c4628334438a052ff94013ac44a3dd93490ba8736b43e29223cd65bc47d710",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_HANDOVER_RUN.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_HANDOVER_RUN.log",
+      "bytes": 3958,
+      "sha256": "d90d49a8fdc06c32c314d3b7fab86eaa3242a2444db835c5ead13c1943239433",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LAKEFILE.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LAKEFILE.lean",
+      "bytes": 169,
+      "sha256": "db8af480c0260db9ef5c53464a1cbb41c037f055d15d1634a2b5aa00956c0c9d",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LAKE_BUILD.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LAKE_BUILD.log",
+      "bytes": 1806,
+      "sha256": "2422fa6e5435f1e636c9a186f46a8fd56d9450ec242d9c21af8c1a42297c27c7",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LAKE_BUILD_OUTPUT_FILES.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LAKE_BUILD_OUTPUT_FILES.log",
+      "bytes": 1516,
+      "sha256": "c949193b536304f613de68ae9d914d2845837029a9b7de25b20997c23fbe1622",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LEANCHECKER_KERNEL_LEDGER.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LEANCHECKER_KERNEL_LEDGER.log",
+      "bytes": 305,
+      "sha256": "2def969940098faa3a681e93b6ea618b60901a24bcf52d3a99c7d8651ca6475a",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LEANCHECKER_NEGATIVE_CONTROL.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LEANCHECKER_NEGATIVE_CONTROL.log",
+      "bytes": 352,
+      "sha256": "870514015823599dadcf51f8824e0278c957388d69cd83fc6d0b8dbca394edcf",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LEANCHECKER_WITNESS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LEANCHECKER_WITNESS.log",
+      "bytes": 408,
+      "sha256": "c8967748be146d9f34f2867ce16d6888c3462a7f41f0676eb9f0b97cb6079f66",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LEAN_AUDIT_PRINT_AXIOMS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LEAN_AUDIT_PRINT_AXIOMS.log",
+      "bytes": 8299,
+      "sha256": "a2ed03160245cdbd20e9b6ee23fd5997fe94ce0bc642b971c00c936905b2e3cc",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_LEAN_WITNESS_COMPILE_PRINT_AXIOMS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_LEAN_WITNESS_COMPILE_PRINT_AXIOMS.log",
+      "bytes": 1000,
+      "sha256": "a5eb2c6ef3a731bca7d34d5721f71ac907a66afee25a8378809a084e4a2b4c83",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_MANIFEST.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_MANIFEST.txt",
+      "bytes": 63600,
+      "sha256": "e4f8feb6e7a3e11894e96a2038687122a065032daf3910b9a4ee57f1d1711f8d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_MANIFEST_VERIFICATION.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_MANIFEST_VERIFICATION.txt",
+      "bytes": 407,
+      "sha256": "abb8053069d98f71578bf9326f5e0c9f87443a6471cc2bcaacdd42c7e4c39900",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_PROOFBUNDLE_TAMPER_MAKE.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_PROOFBUNDLE_TAMPER_MAKE.log",
+      "bytes": 610,
+      "sha256": "a614d3899b5dbccda47063b707f94fb624ff976966face8f0dc4de3a4f52c38d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_PROOFBUNDLE_VERIFY.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_PROOFBUNDLE_VERIFY.log",
+      "bytes": 721,
+      "sha256": "fc2a9872daef9be32bc7d4e230435a2d8748adfe82708b97ea61f24572a4a743",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_PROOFBUNDLE_VERIFY_TAMPERED.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_PROOFBUNDLE_VERIFY_TAMPERED.log",
+      "bytes": 548,
+      "sha256": "d2d15e6660b69a257d4abd12e156bae207bce1d4bc2dfebebdf4d742c1b3cf2f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_README.md",
+      "repository_path": "formal/si-second/source-record/2026-09-15_README.md",
+      "bytes": 157,
+      "sha256": "e59df7b1c0540463eadf19ecb28c450fffaa4c872fd256da42a06e94015dd63d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_RUN_LOG.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_RUN_LOG.txt",
+      "bytes": 2525,
+      "sha256": "43723d75d63f47dd69ce328af65b0cfaed051e61b25c737be6ca78b66dcd7fae",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SCRATCH_assembly_part1.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SCRATCH_assembly_part1.txt",
+      "bytes": 522,
+      "sha256": "fb04cac2b7e6ebf143fbf63a30bab4739e464d6c5d2b3cc49828aa94779524bc",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SCRATCH_finish_bundle.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SCRATCH_finish_bundle.sh",
+      "bytes": 1685,
+      "sha256": "a8a588811bbbd79b123982310bcb2f793bc30e6c9ea323bb0dc714b51d3cf984",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SCRATCH_handover_file_list.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SCRATCH_handover_file_list.txt",
+      "bytes": 3660,
+      "sha256": "9dc9b79121c4df93bbde710487758d1c0beb4498cb8973fd8dd5a35957076d14",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SHA256_WITNESS_JSON.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SHA256_WITNESS_JSON.log",
+      "bytes": 294,
+      "sha256": "3a0e3a45a6d115820b5eea84dfa20b4ace352906349927a7c27b5ce55dd96d80",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_ANALYSIS.md",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_ANALYSIS.md",
+      "bytes": 21393,
+      "sha256": "bf569849b21276d52b71c61d9e07dd23eedfb3cefc1166d5e22405c3ec783c92",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_AUDIT.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_AUDIT.lean",
+      "bytes": 4505,
+      "sha256": "cbf87b09f8eff38ccf91d1a0fa36fb1f069024400edcc1b7fafcca0a88d0b793",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_KERNEL.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_KERNEL.lean",
+      "bytes": 16154,
+      "sha256": "5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_KERNEL.setup.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_KERNEL.setup.json",
+      "bytes": 155,
+      "sha256": "d8eb7eedd71066b6b3170b401bf1480dabe7a510e8d1e437cb67dfc4aba7289c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_LEDGER.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_LEDGER.lean",
+      "bytes": 11566,
+      "sha256": "7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_LEDGER.setup.json",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_LEDGER.setup.json",
+      "bytes": 291,
+      "sha256": "0795251236c0c93c1106ac71652d01c3f6cb0e74cd45981845e9174d366601e4",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SI_SECOND_WITNESS.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SI_SECOND_WITNESS.lean",
+      "bytes": 3309,
+      "sha256": "37790d3483194c03896fa58b4ce954d14c3f182a8f4ae67567789853f8a636c4",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SOURCE_HASHES.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SOURCE_HASHES.log",
+      "bytes": 1237,
+      "sha256": "83025ece989afee3fbb094b89139e749be47286d44ab8b66c37c1f764afcc669",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SOURCE_SKETCH_DEFECTS.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SOURCE_SKETCH_DEFECTS.lean",
+      "bytes": 6143,
+      "sha256": "f2c6501f6a790172783107b1c50af7aba58007b414e11c86ea11e4531afff70b",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SOURCE_SKETCH_PARSE_FAILURE.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SOURCE_SKETCH_PARSE_FAILURE.lean",
+      "bytes": 319,
+      "sha256": "0ec393dcbde3de2fbc47f90ad72a7f8b7d96a5b15c362876efe2801e0ce3e0b9",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_SOURCE_SKETCH_SORRY.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-15_SOURCE_SKETCH_SORRY.lean",
+      "bytes": 426,
+      "sha256": "093eb9dbe8628469692b87a973e7707089c21376712afa181e6b40376618d153",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_STEP_LOG.md",
+      "repository_path": "formal/si-second/source-record/2026-09-15_STEP_LOG.md",
+      "bytes": 11065,
+      "sha256": "cbe485632f2ef1c495d7eb2f281fbff64b62c5b00b492c6a822636398d39dd57",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_TOOL_VERSIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-15_TOOL_VERSIONS.log",
+      "bytes": 730,
+      "sha256": "fea8c68d39ce53e64110721dc88dda7a0c33fd6757d4a01d1b23fd0cf0c6a23f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_UNARY_DEPTH_PROBE.py",
+      "repository_path": "formal/si-second/source-record/2026-09-15_UNARY_DEPTH_PROBE.py",
+      "bytes": 2316,
+      "sha256": "db184e0b9ae630bdecfcb01e18224a51a082bbe5befef847a47348285e3260b6",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_VERIFY.py",
+      "repository_path": "formal/si-second/source-record/2026-09-15_VERIFY.py",
+      "bytes": 11690,
+      "sha256": "f9c9fa53a16240383cecfa2d0846b8638f87d5a3ce8056a0239b3aba1a6055ef",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_VERIFY_RUN.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_VERIFY_RUN.txt",
+      "bytes": 2726358,
+      "sha256": "1afea2ae73c28de807962b1f9e83aa05c659c2a84e8a400cde4df0c7488dca56",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-15_ZIP_EXTRACT_VERIFY.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-15_ZIP_EXTRACT_VERIFY.txt",
+      "bytes": 1093,
+      "sha256": "72e704844cc24fc59e5e3d254723c6bde058bb1cb0eada815b6981577a85a1d5",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_ALL_CONSTANTS_SCAN.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-18_ALL_CONSTANTS_SCAN.lean",
+      "bytes": 14894,
+      "sha256": "01c948e84fbd01fd68417c3a6077a44410dc5f3d80f4c7767ee5888692b5c166",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_ALL_CONSTANTS_SCAN.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_ALL_CONSTANTS_SCAN.log",
+      "bytes": 10470,
+      "sha256": "ed200af7db5f24b9fa5a4c0e18fc34c212c98e603fa3b01d0a8b966a8f8b4527",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_DOCUMENT_AUDIT.md",
+      "repository_path": "formal/si-second/source-record/2026-09-18_DOCUMENT_AUDIT.md",
+      "bytes": 10607,
+      "sha256": "4ed92d61c10cab160d325e3b4204d7cc8b577666a6035793b088ca5e7241c0dd",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_FULL_HANDOVER_ASSEMBLY.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_FULL_HANDOVER_ASSEMBLY.log",
+      "bytes": 195,
+      "sha256": "6cae55157462b69085e470db5b12c968c807aee77bcbfe8f52a40294258f2e22",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_FULL_HANDOVER_MANIFEST.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-18_FULL_HANDOVER_MANIFEST.txt",
+      "bytes": 90791,
+      "sha256": "17caca27d3ff198468748e68790f33d8946464cf89e08dc8fd14825ad6b32f2c",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_FULL_HANDOVER_MANIFEST_VERIFICATION.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-18_FULL_HANDOVER_MANIFEST_VERIFICATION.txt",
+      "bytes": 449,
+      "sha256": "7556ae85b242c70698ab90866720588c3f0014133b634ccb38d1c611f8e3b81d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_FULL_HANDOVER_PATH_MAP.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-18_FULL_HANDOVER_PATH_MAP.txt",
+      "bytes": 30680,
+      "sha256": "90f200a713982d8c813f896394431d103a36180207f5c50e4506a4efec370cee",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_LAKE_BUILD.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_LAKE_BUILD.log",
+      "bytes": 266,
+      "sha256": "f262354c8b74359f7039b91b12d0bed70ec9c808a31d87c7b4d5099019918a4d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_LEANCHECKER.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_LEANCHECKER.log",
+      "bytes": 1068,
+      "sha256": "c2e711557779843339a347e2a7ede4a379bdff48ae531e42f438f5b25737f6e3",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_MANIFEST.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-18_MANIFEST.txt",
+      "bytes": 4608,
+      "sha256": "c7fe1698c419cf21b4154cd8e297078f99d21affa9ac0a2214d4e69e97adb202",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_MANIFEST_VERIFICATION.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-18_MANIFEST_VERIFICATION.txt",
+      "bytes": 406,
+      "sha256": "074cdc2bf59065635e631c455d65e397fb90d54a7d1559f660722a27203e1d18",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_NEXT_BUILD.sh",
+      "repository_path": "formal/si-second/source-record/2026-09-18_NEXT_BUILD.sh",
+      "bytes": 3075,
+      "sha256": "5c06c54014d89ffd08d073b927e4873a1030e71804ddc063420e867d3518f7eb",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_REPORT_TO_FACT.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-18_REPORT_TO_FACT.lean",
+      "bytes": 14458,
+      "sha256": "bc459f1610d8abeb3a97fc1004a56f0f283f7405e83651bf1b1a931a110b410b",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_REPORT_TO_FACT_COMPILE_PRINT_AXIOMS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_REPORT_TO_FACT_COMPILE_PRINT_AXIOMS.log",
+      "bytes": 1723,
+      "sha256": "b360eebb8145ad723617df3827792bce180aea4b12fa5504eab440b73cf2f5fe",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_RUN.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_RUN.log",
+      "bytes": 1729,
+      "sha256": "0c6ff9e851b8f56652f366eccc15ad722b53d52acaefa8b55313786752f2a601",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_SCRATCH_probe4_lemma_axioms.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-18_SCRATCH_probe4_lemma_axioms.lean",
+      "bytes": 458,
+      "sha256": "8793f2e7a5ed2c936637b049a025b70eb87a8801fe74ce0d09053491f058b3ef",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_SCRATCH_probe5_iff_of_eq.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-18_SCRATCH_probe5_iff_of_eq.lean",
+      "bytes": 42,
+      "sha256": "fc1c3418d138ef03315ea07c712b2110557d48db6614aad996c0e6f74352df1e",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_SOURCE_HASHES.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_SOURCE_HASHES.log",
+      "bytes": 706,
+      "sha256": "8b8866832603e2e536af5e636d51a3fcfaa397a187e00c474b2c6285a7989c90",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "2026-09-18_TOOL_VERSIONS.log",
+      "repository_path": "formal/si-second/source-record/2026-09-18_TOOL_VERSIONS.log",
+      "bytes": 475,
+      "sha256": "2471b7c3234551ae82cc20fd1f93ed981ac0359f9ded4523816bd5b54e8f2f49",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_EXAMPLE_SI_SECOND.registry.payload.json",
+      "member": "2026-09-22_EXAMPLE_SI_SECOND.registry.payload.json",
+      "repository_path": "formal/si-second/source-record/2026-09-22_EXAMPLE_SI_SECOND.registry.payload.json",
+      "bytes": 12227,
+      "sha256": "a6b91d214322e55cbd4c56f44d863bcae0b6488c971f1956663fb669c46c93f0",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_LAKEFILE.lean",
+      "member": "2026-09-22_LAKEFILE.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-22_LAKEFILE.lean",
+      "bytes": 203,
+      "sha256": "1afd3f3ef5892f5e065bd67b7e10664d1a24dcdc5f31fe1f18a60c6cc42493ce",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_MAP_AND_NEXT.md",
+      "member": "2026-09-22_MAP_AND_NEXT.md",
+      "repository_path": "formal/si-second/source-record/2026-09-22_MAP_AND_NEXT.md",
+      "bytes": 8739,
+      "sha256": "25d18bda844d5c7a7a482a922054adaf4b0fbcefbabea74db9dc2ac81a7ef0a0",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_PB-CORPUS-REGISTRY-1.schema.json",
+      "member": "2026-09-22_PB-CORPUS-REGISTRY-1.schema.json",
+      "repository_path": "formal/si-second/source-record/2026-09-22_PB-CORPUS-REGISTRY-1.schema.json",
+      "bytes": 8527,
+      "sha256": "cab2daa7c8fd4be75dff08d98c74756200fbff618685096df64006b97090d4a7",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_SERIAL_AUDIT.lean",
+      "member": "2026-09-22_SERIAL_AUDIT.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-22_SERIAL_AUDIT.lean",
+      "bytes": 1821,
+      "sha256": "a0c03e2861d72a25d63a2ea4b3195718bc109974633bf0e8ff76b4c6cbd2e52b",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_SERIAL_RUN_LOG.txt",
+      "member": "2026-09-22_SERIAL_RUN_LOG.txt",
+      "repository_path": "formal/si-second/source-record/2026-09-22_SERIAL_RUN_LOG.txt",
+      "bytes": 1661,
+      "sha256": "fd3a0f69b400e65421057fc70f6dab1f8438124e638ff8d5799fcb285c94d80e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_SI_SECOND_SERIAL.lean",
+      "member": "2026-09-22_SI_SECOND_SERIAL.lean",
+      "repository_path": "formal/si-second/source-record/2026-09-22_SI_SECOND_SERIAL.lean",
+      "bytes": 8392,
+      "sha256": "bdee9935fa797db4df69331187086d580eb51b827dd2e5d2980bd80c8de78f7b",
+      "class": "lean4"
+    },
+    {
+      "source_archive": "/home/falsealias/pb/scratch/si-second-20260924/2026-09-22_identity_fixes.patch",
+      "member": "2026-09-22_identity_fixes.patch",
+      "repository_path": "formal/si-second/source-record/2026-09-22_identity_fixes.patch",
+      "bytes": 1883,
+      "sha256": "5bfe651c214002c29bedcd26651471dda0922a817505f1209776424b56896a8e",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "SI_SECOND_CHECKER_2026_09_15.v",
+      "repository_path": "formal/si-second/source-record/SI_SECOND_CHECKER_2026_09_15.v",
+      "bytes": 9885,
+      "sha256": "d5d0133fa8eab43eae4473d1f77793092f66832db72284d52d82fd64d917d0d4",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "lake-manifest.json",
+      "repository_path": "formal/si-second/source-record/lake-manifest.json",
+      "bytes": 141,
+      "sha256": "7d18c85bfee531e970068b624722655b01f7b852fd27043ceb872ecea7247545",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "malformed_extra_key.json",
+      "repository_path": "formal/si-second/source-record/malformed_extra_key.json",
+      "bytes": 551,
+      "sha256": "8e0388874677edb0a6a88431a4d61f4886632bc4fe97d575db2249b8ffd05e39",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "malformed_trailing_space.json",
+      "repository_path": "formal/si-second/source-record/malformed_trailing_space.json",
+      "bytes": 541,
+      "sha256": "2875b6dca6b5d0acc137b28288e7552c650bd6c4c0013cacb96476c687586cf6",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_malformed_extra_key.v",
+      "repository_path": "formal/si-second/source-record/run_malformed_extra_key.v",
+      "bytes": 993,
+      "sha256": "0091e947f0ef12e5a417fcafdefa755a03dec129746ae3d4fb39ba4754434033",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_malformed_trailing_space.v",
+      "repository_path": "formal/si-second/source-record/run_malformed_trailing_space.v",
+      "bytes": 979,
+      "sha256": "24a0bacda78f27959c6f7766b310f04a982efc6947976e061c7a1e15960d4f4b",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_twin_empty_corrections.v",
+      "repository_path": "formal/si-second/source-record/run_twin_empty_corrections.v",
+      "bytes": 687,
+      "sha256": "6dd7d5383b50a8b2c35d8c216bd959e03e6c3d0c65f34473212ebd34c47409a8",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_twin_other_species.v",
+      "repository_path": "formal/si-second/source-record/run_twin_other_species.v",
+      "bytes": 980,
+      "sha256": "79fa26371515a674eeb4d63a8f1c4d47f11d53436bebe8746aff0c9d958f6bad",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_twin_same_level.v",
+      "repository_path": "formal/si-second/source-record/run_twin_same_level.v",
+      "bytes": 979,
+      "sha256": "297331a8023a19a5e8c950dbdf853fe126de730815ced7235c939af626b4d89e",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_twin_succ_periods.v",
+      "repository_path": "formal/si-second/source-record/run_twin_succ_periods.v",
+      "bytes": 978,
+      "sha256": "5e353ae4803f75a4fba9fe391fbd6b20e7b6395f77efdcfc60596a8d498e3f5e",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "run_witness.v",
+      "repository_path": "formal/si-second/source-record/run_witness.v",
+      "bytes": 978,
+      "sha256": "6f0884ea8e4045d01167a2f8a0eabe18c1bd7e416f397ed5651c438a8a37d981",
+      "class": "rocq"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "twin_empty_corrections.json",
+      "repository_path": "formal/si-second/source-record/twin_empty_corrections.json",
+      "bytes": 297,
+      "sha256": "eb00740d4583019a0509efa9f3e97ba0775a5d3f80e42b4adbb8699963841b4f",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "twin_other_species.json",
+      "repository_path": "formal/si-second/source-record/twin_other_species.json",
+      "bytes": 542,
+      "sha256": "6175565572f440bf7b29fac686f471cb3a8a1c9b075aa6b4da3c2effdb7b97d3",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "twin_same_level.json",
+      "repository_path": "formal/si-second/source-record/twin_same_level.json",
+      "bytes": 541,
+      "sha256": "698b108a5171cbd40ac987ecd59745f2b1995d44781898243fb7979752c69265",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "twin_succ_periods.json",
+      "repository_path": "formal/si-second/source-record/twin_succ_periods.json",
+      "bytes": 540,
+      "sha256": "20a7af401f8610529040d6de2d083c219d899e3ee730efa73d58c820e9c36fc2",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "witness.json",
+      "repository_path": "formal/si-second/source-record/witness.json",
+      "bytes": 540,
+      "sha256": "93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "witness.pb.json",
+      "repository_path": "formal/si-second/source-record/witness.pb.json",
+      "bytes": 1205,
+      "sha256": "42e6c9491fab734d274b8edb8fa618fb016e42cfa98318334d470e81bb72e860",
+      "class": "record"
+    },
+    {
+      "source_archive": "/home/falsealias/20260924_SI_second_claude_raw.zip",
+      "member": "witness_tampered_root.pb.json",
+      "repository_path": "formal/si-second/source-record/witness_tampered_root.pb.json",
+      "bytes": 1205,
+      "sha256": "318f99ef5782f9694ea8d3766aadffda6e63c3a61813ac41c247de8d76018f0a",
+      "class": "record"
+    }
+  ]
+}

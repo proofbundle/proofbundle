@@ -1,0 +1,9 @@
+'SISecond.Witness.witness' does not depend on any axioms
+'SISecond.Witness.witness_isSecond' does not depend on any axioms
+'SISecond.Witness.witness_succ_periods_not_second' does not depend on any axioms
+'SISecond.Witness.witness_has_corrected_report' does not depend on any axioms
+'SISecond.Witness.witness_empty_corrections_not_second' does not depend on any axioms
+'SISecond.Witness.witness_other_species_not_second' does not depend on any axioms
+'SISecond.Witness.witness_same_level_not_second' does not depend on any axioms
+'SISecond.Witness.witnessBytes' does not depend on any axioms
+'SISecond.Witness.witnessBytes_eq' does not depend on any axioms

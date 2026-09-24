@@ -1,0 +1,1 @@
+def aValue : Bool := true

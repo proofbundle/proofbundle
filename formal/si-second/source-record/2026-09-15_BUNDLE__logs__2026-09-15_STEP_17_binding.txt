@@ -1,0 +1,36 @@
+== STEP 17: Binding of witness.pb.json to witness.json with standard hashes
+== started 2026-09-16T09:30:36Z
+== commands:
+binding () 
+{ 
+    python3 - "$B" <<'PY'
+import base64, hashlib, json, sys
+b = sys.argv[1]
+B = open(f"{b}/data/witness.json", "rb").read()
+C = open(f"{b}/data/witness.pb.json", "rb").read()
+c = json.loads(C); art = c["payload"]["artifacts"][0]
+root = base64.urlsafe_b64encode(hashlib.sha256(b"\x00" + B).digest()).rstrip(b"=").decode()
+gpx = hashlib.sha3_384(b"artifact.content" + b"\x00" + len(B).to_bytes(8, "little") + B).hexdigest()
+print("receipt merkle_root_b64u    ", art["merkle_root_b64u"])
+print("base64url(SHA-256(0x00||B)) ", root, "equal:", root == art["merkle_root_b64u"])
+print("receipt gpx_content_address ", art["gpx_content_address"])
+print("SHA3-384(prefix||B)         ", gpx, "equal:", gpx == art["gpx_content_address"])
+print("receipt size", art["size"], "len(B)", len(B), "equal:", art["size"] == len(B))
+print("bundle_id", c["hdr"]["bundle_id"], "profile", c["hdr"]["profile"], "spec_ver", c["hdr"]["spec_ver"])
+print("sha256(B)", hashlib.sha256(B).hexdigest())
+print("sha256(C)", hashlib.sha256(C).hexdigest())
+sys.exit(0 if (root == art["merkle_root_b64u"] and gpx == art["gpx_content_address"] and art["size"] == len(B)) else 1)
+PY
+
+}
+== output:
+receipt merkle_root_b64u     DHEe099YVlUS09P_m8hKQjim8vtN7JPohdzug0ukvWY
+base64url(SHA-256(0x00||B))  DHEe099YVlUS09P_m8hKQjim8vtN7JPohdzug0ukvWY equal: True
+receipt gpx_content_address  2d4242c08b66eaeda4552c4bdd571eac6095ec09d0a677b134266eec80af182283d01511d18519c3fbaac7b61fd2b4d7
+SHA3-384(prefix||B)          2d4242c08b66eaeda4552c4bdd571eac6095ec09d0a677b134266eec80af182283d01511d18519c3fbaac7b61fd2b4d7 equal: True
+receipt size 540 len(B) 540 equal: True
+bundle_id IHvV3mcxUknsZR7gMlyu_CFDTzOLc65Nwdf_zW4HQRc profile PB-ARTIFACT-1 spec_ver 2.1.0
+sha256(B) 93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d
+sha256(C) 42e6c9491fab734d274b8edb8fa618fb016e42cfa98318334d470e81bb72e860
+== exit 0
+== wall .025666655 s

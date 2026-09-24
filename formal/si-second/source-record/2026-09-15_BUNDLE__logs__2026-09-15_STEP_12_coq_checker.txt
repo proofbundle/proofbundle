@@ -1,0 +1,28 @@
+== STEP 12: Coq compile of the checker with Print Assumptions (.vo)
+== started 2026-09-16T09:29:59Z
+== commands:
+coq_checker () 
+{ 
+    cd "$B/coq" || exit 1;
+    coqc -Q . SIC SI_SECOND_CHECKER_2026_09_15.v;
+    local rc=$?;
+    echo "coqc exit $rc";
+    ls -la;
+    return $rc
+}
+== output:
+Closed under the global context
+Closed under the global context
+coqc exit 0
+total 124
+drwxr-xr-x  3 root root  4096 Sep 16 09:26 .
+drwxr-xr-x 10 root root  4096 Sep 16 09:29 ..
+-rw-r--r--  1 root root   315 Sep 16 09:29 .SI_SECOND_CHECKER_2026_09_15.aux
+-rw-r--r--  1 root root 35345 Sep 16 09:29 SI_SECOND_CHECKER_2026_09_15.glob
+-rw-r--r--  1 root root  9885 Sep 16 09:29 SI_SECOND_CHECKER_2026_09_15.v
+-rw-r--r--  1 root root 61104 Sep 16 09:29 SI_SECOND_CHECKER_2026_09_15.vo
+-rw-r--r--  1 root root     0 Sep 16 09:29 SI_SECOND_CHECKER_2026_09_15.vok
+-rw-r--r--  1 root root     0 Sep 16 09:29 SI_SECOND_CHECKER_2026_09_15.vos
+drwxr-xr-x  2 root root  4096 Sep 16 09:26 runs
+== exit 0
+== wall .377299052 s

@@ -1,0 +1,95 @@
+== STEP 13: Coq runs on witness.json and every case, results printed and kernel-checked
+== started 2026-09-16T09:29:59Z
+== commands:
+coq_runs () 
+{ 
+    cd "$B/coq" || exit 1;
+    mkdir -p runs;
+    local rc_all=0;
+    for f in ../data/witness.json ../data/cases/*.json;
+    do
+        name=$(basename "$f" .json);
+        v="runs/run_${name}.v";
+        { 
+            printf 'From Coq Require Import String.\nFrom SIC Require Import SI_SECOND_CHECKER_2026_09_15.\n';
+            printf 'Definition input : String.string := \042';
+            sed 's/\x22/\x22\x22/g' "$f";
+            printf '\042%%string.\n';
+            printf 'Eval vm_compute in check input.\n';
+            printf 'Definition result := Eval vm_compute in check input.\n';
+            printf 'Print result.\n';
+            printf 'Lemma result_is_check_input : result = check input.\nProof. reflexivity. Qed.\n';
+            printf 'Print Assumptions result_is_check_input.\n'
+        } > "$v";
+        echo "---- input $f sha256 $(sha256sum "$f" | cut -d' ' -f1)";
+        echo "---- generated $v";
+        coqc -Q . SIC "$v";
+        local rc=$?;
+        echo "coqc exit $rc";
+        [ $rc -ne 0 ] && rc_all=$rc;
+    done;
+    echo "---- sha256 of B printed with the checker result:";
+    sha256sum ../data/witness.json;
+    return $rc_all
+}
+== output:
+---- input ../data/witness.json sha256 93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d
+---- generated runs/run_witness.v
+     = Some true
+     : option bool
+result = Some true
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/malformed_extra_key.json sha256 8e0388874677edb0a6a88431a4d61f4886632bc4fe97d575db2249b8ffd05e39
+---- generated runs/run_malformed_extra_key.v
+     = None
+     : option bool
+result = None
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/malformed_trailing_space.json sha256 2875b6dca6b5d0acc137b28288e7552c650bd6c4c0013cacb96476c687586cf6
+---- generated runs/run_malformed_trailing_space.v
+     = None
+     : option bool
+result = None
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/twin_empty_corrections.json sha256 eb00740d4583019a0509efa9f3e97ba0775a5d3f80e42b4adbb8699963841b4f
+---- generated runs/run_twin_empty_corrections.v
+     = Some false
+     : option bool
+result = Some false
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/twin_other_species.json sha256 6175565572f440bf7b29fac686f471cb3a8a1c9b075aa6b4da3c2effdb7b97d3
+---- generated runs/run_twin_other_species.v
+     = Some false
+     : option bool
+result = Some false
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/twin_same_level.json sha256 698b108a5171cbd40ac987ecd59745f2b1995d44781898243fb7979752c69265
+---- generated runs/run_twin_same_level.v
+     = Some false
+     : option bool
+result = Some false
+     : option bool
+Closed under the global context
+coqc exit 0
+---- input ../data/cases/twin_succ_periods.json sha256 20a7af401f8610529040d6de2d083c219d899e3ee730efa73d58c820e9c36fc2
+---- generated runs/run_twin_succ_periods.v
+     = Some false
+     : option bool
+result = Some false
+     : option bool
+Closed under the global context
+coqc exit 0
+---- sha256 of B printed with the checker result:
+93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d  ../data/witness.json
+== exit 0
+== wall 2.218659252 s

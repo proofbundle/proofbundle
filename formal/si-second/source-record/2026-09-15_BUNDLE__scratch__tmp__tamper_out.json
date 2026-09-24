@@ -1,0 +1,11 @@
+{
+  "outcome": "INVALID-SIGNATURE",
+  "trace": [
+    {
+      "title": "Digest recomputation",
+      "body": "SHA-256 digest of canonical bundle does not match seal.digest_b64u → content altered after sealing",
+      "outcome": "INVALID-SIGNATURE",
+      "ms": "21ms"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+JSON.stringify(JSON.parse(B)) === B: true
+leaf fields compared: 21; all === after parse(stringify(x)): true
+keys exactly the Realization fields, no extras: true
+keys in sorted order at every object: true
+printable ASCII only, no whitespace outside strings: true
+== exit 0
+== wall .030814108 s

@@ -1,0 +1,33 @@
+== STEP 04: Lean clean build of kernel and ledger (.olean)
+== started 2026-09-16T09:25:26Z
+== commands:
+lean_build () 
+{ 
+    cd "$B/lean" || exit 1;
+    rm -rf .lake lake-manifest.json;
+    lake -f 2026-09-15_LAKEFILE.lean build;
+    echo "lake exit $?";
+    ls -la .lake/build/lib/lean/
+}
+== output:
+info: si_second: no previous manifest, creating one from scratch
+info: toolchain not updated; no toolchain information found
+✔ [2/4] Built «2026-09-15_SI_SECOND_KERNEL» (902ms)
+✔ [3/4] Built «2026-09-15_SI_SECOND_LEDGER» (718ms)
+Build completed successfully (4 jobs).
+lake exit 0
+total 1312
+drwxr-xr-x 2 root root   4096 Sep 16 09:26 .
+drwxr-xr-x 3 root root   4096 Sep 16 09:26 ..
+-rw-r--r-- 1 root root  42365 Sep 16 09:26 2026-09-15_SI_SECOND_KERNEL.ilean
+-rw-r--r-- 1 root root     16 Sep 16 09:26 2026-09-15_SI_SECOND_KERNEL.ilean.hash
+-rw-r--r-- 1 root root 925128 Sep 16 09:26 2026-09-15_SI_SECOND_KERNEL.olean
+-rw-r--r-- 1 root root     16 Sep 16 09:26 2026-09-15_SI_SECOND_KERNEL.olean.hash
+-rw-r--r-- 1 root root   1758 Sep 16 09:26 2026-09-15_SI_SECOND_KERNEL.trace
+-rw-r--r-- 1 root root  31029 Sep 16 09:26 2026-09-15_SI_SECOND_LEDGER.ilean
+-rw-r--r-- 1 root root     16 Sep 16 09:26 2026-09-15_SI_SECOND_LEDGER.ilean.hash
+-rw-r--r-- 1 root root 305024 Sep 16 09:26 2026-09-15_SI_SECOND_LEDGER.olean
+-rw-r--r-- 1 root root     16 Sep 16 09:26 2026-09-15_SI_SECOND_LEDGER.olean.hash
+-rw-r--r-- 1 root root   1914 Sep 16 09:26 2026-09-15_SI_SECOND_LEDGER.trace
+== exit 0
+== wall 51.411989772 s

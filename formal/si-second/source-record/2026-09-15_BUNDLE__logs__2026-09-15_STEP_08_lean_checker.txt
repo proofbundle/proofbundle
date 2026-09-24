@@ -1,0 +1,32 @@
+== STEP 08: leanchecker replay of kernel, ledger, and witness .olean files
+== started 2026-09-16T09:29:57Z
+== commands:
+lean_checker () 
+{ 
+    cd "$B/lean" || exit 1;
+    local rc_all=0 rc;
+    echo "-- replay kernel and ledger";
+    lake -f 2026-09-15_LAKEFILE.lean env leanchecker «2026-09-15_SI_SECOND_KERNEL» «2026-09-15_SI_SECOND_LEDGER»;
+    rc=$?;
+    echo "leanchecker kernel+ledger exit $rc";
+    [ $rc -ne 0 ] && rc_all=$rc;
+    echo "-- replay witness .olean (witness_build added to LEAN_PATH)";
+    LEAN_PATH="$B/lean/witness_build:$B/lean/.lake/build/lib/lean:$HOME/.elan/toolchains/leanprover--lean4---v4.34.0/lib/lean" leanchecker «2026-09-15_SI_SECOND_WITNESS»;
+    rc=$?;
+    echo "leanchecker witness exit $rc";
+    [ $rc -ne 0 ] && rc_all=$rc;
+    echo "-- negative control: unresolvable module name (expected nonzero)";
+    lake -f 2026-09-15_LAKEFILE.lean env leanchecker «2026-09-15_NO_SUCH_MODULE»;
+    echo "leanchecker negative control exit $?";
+    return $rc_all
+}
+== output:
+-- replay kernel and ledger
+leanchecker kernel+ledger exit 0
+-- replay witness .olean (witness_build added to LEAN_PATH)
+leanchecker witness exit 0
+-- negative control: unresolvable module name (expected nonzero)
+uncaught exception: Could not find any oleans for: «2026-09-15_NO_SUCH_MODULE»
+leanchecker negative control exit 1
+== exit 0
+== wall 2.046747490 s

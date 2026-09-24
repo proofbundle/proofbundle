@@ -1,0 +1,31 @@
+== STEP 05: Lean compile of the witness with #print axioms (.olean)
+== started 2026-09-16T09:29:53Z
+== commands:
+lean_witness () 
+{ 
+    cd "$B/lean" || exit 1;
+    mkdir -p witness_build;
+    lake -f 2026-09-15_LAKEFILE.lean env lean -o witness_build/2026-09-15_SI_SECOND_WITNESS.olean -i witness_build/2026-09-15_SI_SECOND_WITNESS.ilean 2026-09-15_SI_SECOND_WITNESS.lean;
+    local rc=$?;
+    echo "lean exit $rc";
+    ls -la witness_build/;
+    return $rc
+}
+== output:
+'SISecond.Witness.witness' does not depend on any axioms
+'SISecond.Witness.witness_isSecond' does not depend on any axioms
+'SISecond.Witness.witness_succ_periods_not_second' does not depend on any axioms
+'SISecond.Witness.witness_has_corrected_report' does not depend on any axioms
+'SISecond.Witness.witness_empty_corrections_not_second' does not depend on any axioms
+'SISecond.Witness.witness_other_species_not_second' does not depend on any axioms
+'SISecond.Witness.witness_same_level_not_second' does not depend on any axioms
+'SISecond.Witness.witnessBytes' does not depend on any axioms
+'SISecond.Witness.witnessBytes_eq' does not depend on any axioms
+lean exit 0
+total 72
+drwxr-xr-x 2 root root  4096 Sep 16 09:29 .
+drwxr-xr-x 4 root root  4096 Sep 16 09:29 ..
+-rw-r--r-- 1 root root 10731 Sep 16 09:29 2026-09-15_SI_SECOND_WITNESS.ilean
+-rw-r--r-- 1 root root 52320 Sep 16 09:29 2026-09-15_SI_SECOND_WITNESS.olean
+== exit 0
+== wall .592086214 s

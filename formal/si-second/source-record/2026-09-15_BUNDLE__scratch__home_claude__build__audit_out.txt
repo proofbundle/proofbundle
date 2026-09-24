@@ -1,0 +1,206 @@
+MODULE «2026-09-15_SI_SECOND_KERNEL»: 475 constants; constants with a non-empty axiom set: 7
+  SISecond.Shift.nonzero.injEq: #[propext]
+  SISecond.Magnitude.nonzero.injEq: #[propext]
+  SISecond.Correction.mk.injEq: #[propext]
+  SISecond.Pos.twicePlusOne.injEq: #[propext]
+  SISecond.Realization.mk.injEq: #[propext]
+  SISecond.Transition.mk.injEq: #[propext]
+  SISecond.Pos.twice.injEq: #[propext]
+MODULE «2026-09-15_SI_SECOND_LEDGER»: 84 constants; constants with a non-empty axiom set: 1
+  SISecond.ClockState.mk.injEq: #[propext]
+KERNEL constants whose own type or value names Nat directly: 172 of 475
+  SISecond.Correction._sizeOf_1
+  SISecond.Correction.ctorIdx
+  SISecond.Correction.mk.sizeOf_spec
+  SISecond.Effect._sizeOf_1
+  SISecond.Effect.collisions.elim
+  SISecond.Effect.collisions.sizeOf_spec
+  SISecond.Effect.ctorElim
+  SISecond.Effect.ctorElimType
+  SISecond.Effect.ctorIdx
+  SISecond.Effect.motion.elim
+  SISecond.Effect.motion.sizeOf_spec
+  SISecond.Effect.noConfusion
+  SISecond.Effect.noConfusionType
+  SISecond.Effect.ofNat
+  SISecond.Effect.otherEffect.elim
+  SISecond.Effect.otherEffect.sizeOf_spec
+  SISecond.Effect.staticFields.elim
+  SISecond.Effect.staticFields.sizeOf_spec
+  SISecond.Effect.thermalRadiation.elim
+  SISecond.Effect.thermalRadiation.sizeOf_spec
+  SISecond.GroundLevel._sizeOf_1
+  SISecond.GroundLevel.ctorElim
+  SISecond.GroundLevel.ctorElimType
+  SISecond.GroundLevel.ctorIdx
+  SISecond.GroundLevel.fFour.elim
+  SISecond.GroundLevel.fFour.sizeOf_spec
+  SISecond.GroundLevel.fThree.elim
+  SISecond.GroundLevel.fThree.sizeOf_spec
+  SISecond.GroundLevel.noConfusion
+  SISecond.GroundLevel.noConfusionType
+  SISecond.GroundLevel.ofNat
+  SISecond.Magnitude._sizeOf_1
+  SISecond.Magnitude.ctorElim
+  SISecond.Magnitude.ctorElimType
+  SISecond.Magnitude.ctorIdx
+  SISecond.Magnitude.nonzero.elim
+  SISecond.Magnitude.nonzero.sizeOf_spec
+  SISecond.Magnitude.zero.elim
+  SISecond.Magnitude.zero.sizeOf_spec
+  SISecond.NoCarrier.End._sizeOf_1
+  SISecond.NoCarrier.End.ctorElim
+  SISecond.NoCarrier.End.ctorElimType
+  SISecond.NoCarrier.End.ctorIdx
+  SISecond.NoCarrier.End.hi.elim
+  SISecond.NoCarrier.End.hi.sizeOf_spec
+  SISecond.NoCarrier.End.lo.elim
+  SISecond.NoCarrier.End.lo.sizeOf_spec
+  SISecond.NoCarrier.End.noConfusion
+  SISecond.NoCarrier.End.noConfusionType
+  SISecond.NoCarrier.End.ofNat
+  SISecond.NoCarrier.Filter._sizeOf_1
+  SISecond.NoCarrier.Filter.ctorElim
+  SISecond.NoCarrier.Filter.ctorElimType
+  SISecond.NoCarrier.Filter.ctorIdx
+  SISecond.NoCarrier.Filter.dirty.elim
+  SISecond.NoCarrier.Filter.dirty.sizeOf_spec
+  SISecond.NoCarrier.Filter.noConfusion
+  SISecond.NoCarrier.Filter.noConfusionType
+  SISecond.NoCarrier.Filter.ofNat
+  SISecond.NoCarrier.Filter.unperturbed.elim
+  SISecond.NoCarrier.Filter.unperturbed.sizeOf_spec
+  SISecond.NoCarrier.instDecidableEqEnd
+  SISecond.NoCarrier.instDecidableEqEnd._proof_1
+  SISecond.NoCarrier.instDecidableEqEnd._proof_2
+  SISecond.NoCarrier.instDecidableEqFilter
+  SISecond.NoCarrier.instDecidableEqFilter._proof_1
+  SISecond.NoCarrier.instDecidableEqFilter._proof_2
+  SISecond.Pos._sizeOf_1
+  SISecond.Pos.ctorElim
+  SISecond.Pos.ctorElimType
+  SISecond.Pos.ctorIdx
+  SISecond.Pos.noConfusionType
+  SISecond.Pos.one.elim
+  SISecond.Pos.one.sizeOf_spec
+  SISecond.Pos.twice.elim
+  SISecond.Pos.twice.sizeOf_spec
+  SISecond.Pos.twicePlusOne.elim
+  SISecond.Pos.twicePlusOne.sizeOf_spec
+  SISecond.Realization._sizeOf_1
+  SISecond.Realization.ctorIdx
+  SISecond.Realization.mk.sizeOf_spec
+  SISecond.Report._sizeOf_1
+  SISecond.Report.correctedToLimit.elim
+  SISecond.Report.correctedToLimit.sizeOf_spec
+  SISecond.Report.ctorElim
+  SISecond.Report.ctorElimType
+  SISecond.Report.ctorIdx
+  SISecond.Report.heldAtLimit.elim
+  SISecond.Report.heldAtLimit.sizeOf_spec
+  SISecond.Report.noConfusion
+  SISecond.Report.noConfusionType
+  SISecond.Report.notControlled.elim
+  SISecond.Report.notControlled.sizeOf_spec
+  SISecond.Report.ofNat
+  SISecond.Shift._sizeOf_1
+  SISecond.Shift.ctorElim
+  SISecond.Shift.ctorElimType
+  SISecond.Shift.ctorIdx
+  SISecond.Shift.nonzero.elim
+  SISecond.Shift.nonzero.sizeOf_spec
+  SISecond.Shift.zero.elim
+  SISecond.Shift.zero.sizeOf_spec
+  SISecond.Sign._sizeOf_1
+  SISecond.Sign.ctorElim
+  SISecond.Sign.ctorElimType
+  SISecond.Sign.ctorIdx
+  SISecond.Sign.minus.elim
+  SISecond.Sign.minus.sizeOf_spec
+  SISecond.Sign.noConfusion
+  SISecond.Sign.noConfusionType
+  SISecond.Sign.ofNat
+  SISecond.Sign.plus.elim
+  SISecond.Sign.plus.sizeOf_spec
+  SISecond.Species._sizeOf_1
+  SISecond.Species.caesium133.elim
+  SISecond.Species.caesium133.sizeOf_spec
+  SISecond.Species.ctorElim
+  SISecond.Species.ctorElimType
+  SISecond.Species.ctorIdx
+  SISecond.Species.noConfusion
+  SISecond.Species.noConfusionType
+  SISecond.Species.ofNat
+  SISecond.Species.otherSpecies.elim
+  SISecond.Species.otherSpecies.sizeOf_spec
+  SISecond.Sublevels._sizeOf_1
+  SISecond.Sublevels.ctorElim
+  SISecond.Sublevels.ctorElimType
+  SISecond.Sublevels.ctorIdx
+  SISecond.Sublevels.noConfusion
+  SISecond.Sublevels.noConfusionType
+  SISecond.Sublevels.ofNat
+  SISecond.Sublevels.otherPair.elim
+  SISecond.Sublevels.otherPair.sizeOf_spec
+  SISecond.Sublevels.zeroToZero.elim
+  SISecond.Sublevels.zeroToZero.sizeOf_spec
+  SISecond.Symbol._sizeOf_1
+  SISecond.Symbol.ctorElim
+  SISecond.Symbol.ctorElimType
+  SISecond.Symbol.ctorIdx
+  SISecond.Symbol.digitOne.elim
+  SISecond.Symbol.digitOne.sizeOf_spec
+  SISecond.Symbol.digitZero.elim
+  SISecond.Symbol.digitZero.sizeOf_spec
+  SISecond.Symbol.noConfusion
+  SISecond.Symbol.noConfusionType
+  SISecond.Symbol.ofNat
+  SISecond.Symbol.stop.elim
+  SISecond.Symbol.stop.sizeOf_spec
+  SISecond.Transition._sizeOf_1
+  SISecond.Transition.ctorIdx
+  SISecond.Transition.mk.sizeOf_spec
+  SISecond.instDecidableEqEffect
+  SISecond.instDecidableEqEffect._proof_1
+  SISecond.instDecidableEqEffect._proof_2
+  SISecond.instDecidableEqGroundLevel
+  SISecond.instDecidableEqGroundLevel._proof_1
+  SISecond.instDecidableEqGroundLevel._proof_2
+  SISecond.instDecidableEqReport
+  SISecond.instDecidableEqReport._proof_1
+  SISecond.instDecidableEqReport._proof_2
+  SISecond.instDecidableEqSign
+  SISecond.instDecidableEqSign._proof_1
+  SISecond.instDecidableEqSign._proof_2
+  SISecond.instDecidableEqSpecies
+  SISecond.instDecidableEqSpecies._proof_1
+  SISecond.instDecidableEqSpecies._proof_2
+  SISecond.instDecidableEqSublevels
+  SISecond.instDecidableEqSublevels._proof_1
+  SISecond.instDecidableEqSublevels._proof_2
+  SISecond.instDecidableEqSymbol
+  SISecond.instDecidableEqSymbol._proof_1
+  SISecond.instDecidableEqSymbol._proof_2
+KERNEL reachability of Nat through referenced constants:
+  SISecond.caesiumPeriodsPerSecond: does not reach Nat
+  SISecond.lightSpeedMetresPerSecond: does not reach Nat
+  SISecond.Pos.mul: does not reach Nat
+  SISecond.periodsFor: does not reach Nat
+  SISecond.IsSecond: does not reach Nat
+  SISecond.IsDuration: does not reach Nat
+  SISecond.MeetsDefinitionForm: does not reach Nat
+  SISecond.decIsSecond: reaches Nat
+  SISecond.formOnlyRecord_isSecond: reaches Nat
+  SISecond.NoCarrier.BareIsSecond: does not reach Nat
+  SISecond.Pos.encode_append_inj: reaches Nat
+'SISecond.formOnlyRecord_isSecond' does not depend on any axioms
+'SISecond.isDuration_iff_count' does not depend on any axioms
+'SISecond.Pos.toNat_mul' does not depend on any axioms
+'SISecond.Pos.toNat_inj' does not depend on any axioms
+'SISecond.run_total' does not depend on any axioms
+'SISecond.run_phase_lt' does not depend on any axioms
+'SISecond.caesium_run_total' does not depend on any axioms
+'SISecond.NoCarrier.bareIsSecond_iff' does not depend on any axioms
+'SISecond.NoCarrier.bare_same_content' does not depend on any axioms
+'SISecond.Pos.encode_append_inj' does not depend on any axioms
+'SISecond.raw64_caesium_count_wrap_seconds' does not depend on any axioms

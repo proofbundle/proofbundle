@@ -1,0 +1,36 @@
+== STEP 15: ProofBundle CLI verifyCore on witness.pb.json
+== started 2026-09-16T09:27:31Z
+== commands:
+pb_verify () 
+{ 
+    cd "$B/data" || exit 1;
+    node "$PB/cli/proofbundle-cli.mjs" verify witness.pb.json;
+    echo "cli verify exit $?"
+}
+== output:
+{
+  "outcome": "VERIFIED",
+  "trace": [
+    {
+      "title": "Signature verified",
+      "body": "Ed25519 over SHA-256 digest ✓",
+      "outcome": null,
+      "ms": "27ms"
+    },
+    {
+      "title": "Merkle root verified",
+      "body": "leaf hashes (SHA-256) match committed root ✓",
+      "outcome": null,
+      "ms": "80ms"
+    },
+    {
+      "title": "Boundary evaluation",
+      "body": "no predicates",
+      "outcome": null,
+      "ms": "80ms"
+    }
+  ]
+}
+cli verify exit 0
+== exit 0
+== wall 1.369639425 s

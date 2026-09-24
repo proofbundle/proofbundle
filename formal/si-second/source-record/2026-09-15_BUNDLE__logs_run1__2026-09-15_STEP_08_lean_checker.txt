@@ -1,0 +1,22 @@
+== STEP 08: Independent replay of .olean files if leanchecker exists
+== started 2026-09-16T09:26:51Z
+== commands:
+lean_checker () 
+{ 
+    cd "$B/lean" || exit 1;
+    local lc="$HOME/.elan/toolchains/leanprover--lean4---v4.34.0/bin/leanchecker";
+    if [ -x "$lc" ]; then
+        "$lc" --help 2>&1 | head -30;
+        lake -f 2026-09-15_LAKEFILE.lean env leanchecker «2026-09-15_SI_SECOND_KERNEL» «2026-09-15_SI_SECOND_LEDGER»;
+        echo "leanchecker exit $?";
+    else
+        echo "leanchecker is not present in the Lean 4.34.0 toolchain bin directory.";
+        echo "No independent replay of the .olean files was run.";
+        exit 3;
+    fi
+}
+== output:
+uncaught exception: Could not find any oleans for: Si_second
+leanchecker exit 0
+== exit 0
+== wall 1.225372459 s

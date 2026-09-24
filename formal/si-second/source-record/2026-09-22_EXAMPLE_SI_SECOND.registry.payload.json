@@ -1,0 +1,437 @@
+{
+  "spec": "PB-CORPUS-REGISTRY-1",
+  "entries": [
+    {
+      "id": "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625",
+      "kind": "proof_source",
+      "language": "lean4",
+      "digests": {
+        "sha256": "5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625"
+      },
+      "bytes": 16154,
+      "locations": [
+        {
+          "container": "2026-09-15_SI_SECOND_BUNDLE.zip",
+          "path": "2026-09-15_SI_SECOND_KERNEL.lean"
+        },
+        {
+          "container": "Pbid_pbis_20260917.zip",
+          "path": "Pbid20260915/2026-09-15_SI_SECOND_KERNEL.lean"
+        }
+      ],
+      "declares": [
+        {
+          "name": "SISecond.IsSecond",
+          "role": "definition",
+          "expected_axioms": []
+        },
+        {
+          "name": "SISecond.caesiumPeriodsPerSecond",
+          "role": "definition",
+          "expected_axioms": []
+        }
+      ],
+      "claims": [
+        {
+          "text": "461 constants, none with a non-empty axiom set",
+          "label": "checked",
+          "run_refs": [
+            "run:2026-09-22:si-audit"
+          ]
+        },
+        {
+          "text": "caesiumPeriodsPerSecond decodes to 9192631770",
+          "label": "checked",
+          "run_refs": [
+            "run:2026-09-22:si-decode"
+          ]
+        },
+        {
+          "text": "A declared count corresponds to real caesium-133 periods",
+          "label": "inference"
+        }
+      ],
+      "status": "current",
+      "sensitive": false
+    },
+    {
+      "id": "sha256:7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b",
+      "kind": "proof_source",
+      "language": "lean4",
+      "digests": {
+        "sha256": "7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b"
+      },
+      "bytes": 11566,
+      "locations": [
+        {
+          "container": "2026-09-15_SI_SECOND_BUNDLE.zip",
+          "path": "2026-09-15_SI_SECOND_LEDGER.lean"
+        }
+      ],
+      "relations": [
+        {
+          "rel": "built_from",
+          "target": "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:cbf87b09f8eff38ccf91d1a0fa36fb1f069024400edcc1b7fafcca0a88d0b793",
+      "kind": "checker_source",
+      "language": "lean4",
+      "digests": {
+        "sha256": "cbf87b09f8eff38ccf91d1a0fa36fb1f069024400edcc1b7fafcca0a88d0b793"
+      },
+      "bytes": 4505,
+      "locations": [
+        {
+          "container": "2026-09-15_SI_SECOND_BUNDLE.zip",
+          "path": "2026-09-15_SI_SECOND_AUDIT.lean"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:db8af480c0260db9ef5c53464a1cbb41c037f055d15d1634a2b5aa00956c0c9d",
+      "kind": "script",
+      "language": "lean4",
+      "digests": {
+        "sha256": "db8af480c0260db9ef5c53464a1cbb41c037f055d15d1634a2b5aa00956c0c9d"
+      },
+      "bytes": 169,
+      "locations": [
+        {
+          "container": "2026-09-15_SI_SECOND_BUNDLE.zip",
+          "path": "2026-09-15_LAKEFILE.lean"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:37790d3483194c03896fa58b4ce954d14c3f182a8f4ae67567789853f8a636c4",
+      "kind": "witness",
+      "language": "lean4",
+      "digests": {
+        "sha256": "37790d3483194c03896fa58b4ce954d14c3f182a8f4ae67567789853f8a636c4"
+      },
+      "bytes": 3309,
+      "locations": [
+        {
+          "container": "Pbid_pbis_20260917.zip",
+          "path": "Pbid20260915/2026-09-15_SI_SECOND_WITNESS.lean",
+          "path_note": "flattened by handover"
+        }
+      ],
+      "relations": [
+        {
+          "rel": "witnesses",
+          "target": "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d",
+      "kind": "witness",
+      "language": "json",
+      "digests": {
+        "sha256": "93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d"
+      },
+      "bytes": 540,
+      "locations": [
+        {
+          "container": "Pbid_pbis_20260917.zip",
+          "path": "Pbid20260915/witness.json"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:20a7af401f8610529040d6de2d083c219d899e3ee730efa73d58c820e9c36fc2",
+      "kind": "negative_control",
+      "language": "json",
+      "digests": {
+        "sha256": "20a7af401f8610529040d6de2d083c219d899e3ee730efa73d58c820e9c36fc2"
+      },
+      "bytes": 540,
+      "locations": [
+        {
+          "container": "Pbid_pbis_20260917.zip",
+          "path": "Pbid20260915/twin_succ_periods.json"
+        }
+      ],
+      "relations": [
+        {
+          "rel": "negative_control_of",
+          "target": "sha256:93eaba9a33faddba2ee2ecc45498dd6f5a496a2b6d67d43ae62121c1a0a1bd3d"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:49cdfd5148891cf24731fc1d691092acce4b1877bebc50bedf1a74ab038a975c",
+      "kind": "log",
+      "language": "text",
+      "digests": {
+        "sha256": "49cdfd5148891cf24731fc1d691092acce4b1877bebc50bedf1a74ab038a975c"
+      },
+      "bytes": 11830,
+      "locations": [
+        {
+          "container": "(this session)",
+          "path": "my_run.log"
+        }
+      ],
+      "status": "current"
+    },
+    {
+      "id": "sha256:504adbb93a5d4ce516958d60b8fcf261aa4fed7a041b7bce88bbc9f621c7f49e",
+      "kind": "app",
+      "language": "html",
+      "digests": {
+        "sha256": "504adbb93a5d4ce516958d60b8fcf261aa4fed7a041b7bce88bbc9f621c7f49e"
+      },
+      "bytes": 682489,
+      "locations": [
+        {
+          "container": "(upload)",
+          "path": "2026-09-14_proofbundle_identity.html"
+        }
+      ],
+      "claims": [
+        {
+          "text": "Self-test 73/74; report fails JSON round-trip",
+          "label": "checked",
+          "run_refs": [
+            "run:2026-09-22:id-baseline"
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "rel": "superseded_by",
+          "target": "sha256:b888eb33c956352d44d7e4e42b8275ca3ef2cc17f35facd5c0115e9e2d87fe92"
+        }
+      ],
+      "status": "superseded"
+    },
+    {
+      "id": "sha256:b888eb33c956352d44d7e4e42b8275ca3ef2cc17f35facd5c0115e9e2d87fe92",
+      "kind": "app",
+      "language": "html",
+      "digests": {
+        "sha256": "b888eb33c956352d44d7e4e42b8275ca3ef2cc17f35facd5c0115e9e2d87fe92"
+      },
+      "bytes": 682906,
+      "locations": [
+        {
+          "container": "(this session)",
+          "path": "2026-09-22_proofbundle_identity_FIXED.html"
+        }
+      ],
+      "claims": [
+        {
+          "text": "Self-test 74/74; conformance 900/0; report verifies after JSON round-trip",
+          "label": "checked",
+          "run_refs": [
+            "run:2026-09-22:id-fixed"
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "rel": "supersedes",
+          "target": "sha256:504adbb93a5d4ce516958d60b8fcf261aa4fed7a041b7bce88bbc9f621c7f49e"
+        }
+      ],
+      "status": "current"
+    }
+  ],
+  "runs": [
+    {
+      "id": "run:2026-09-22:si-build",
+      "check": "build",
+      "command": "lake -f 2026-09-15_LAKEFILE.lean build",
+      "toolchain": [
+        {
+          "name": "lean4",
+          "version": "4.34.0",
+          "commit": "293d5d0c0c3f3dded4688b3ccd6a33939ac5102b"
+        },
+        {
+          "name": "lake",
+          "version": "5.0.0"
+        }
+      ],
+      "environment": {
+        "host": "claude.ai container",
+        "os": "Ubuntu 24",
+        "started_utc": "2026-09-22T23:03:17Z",
+        "finished_utc": "2026-09-22T23:04:06Z",
+        "operator": "anthropic/claude-opus-5.5 (label only)"
+      },
+      "inputs": [
+        "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625",
+        "sha256:7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b",
+        "sha256:db8af480c0260db9ef5c53464a1cbb41c037f055d15d1634a2b5aa00956c0c9d"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0
+      },
+      "result": "as_expected",
+      "outputs": [
+        "sha256:49cdfd5148891cf24731fc1d691092acce4b1877bebc50bedf1a74ab038a975c"
+      ]
+    },
+    {
+      "id": "run:2026-09-22:si-audit",
+      "check": "axiom_audit",
+      "command": "lake env lean 2026-09-15_SI_SECOND_AUDIT.lean",
+      "toolchain": [
+        {
+          "name": "lean4",
+          "version": "4.34.0",
+          "commit": "293d5d0c0c3f3dded4688b3ccd6a33939ac5102b"
+        },
+        {
+          "name": "lake",
+          "version": "5.0.0"
+        }
+      ],
+      "environment": {
+        "host": "claude.ai container",
+        "os": "Ubuntu 24",
+        "started_utc": "2026-09-22T23:03:17Z",
+        "finished_utc": "2026-09-22T23:04:06Z",
+        "operator": "anthropic/claude-opus-5.5 (label only)"
+      },
+      "inputs": [
+        "sha256:cbf87b09f8eff38ccf91d1a0fa36fb1f069024400edcc1b7fafcca0a88d0b793",
+        "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625",
+        "sha256:7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0,
+        "axioms": [],
+        "counts": {
+          "kernel_constants": 461,
+          "ledger_constants": 82,
+          "with_axioms": 0
+        }
+      },
+      "result": "as_expected",
+      "outputs": [
+        "sha256:49cdfd5148891cf24731fc1d691092acce4b1877bebc50bedf1a74ab038a975c"
+      ]
+    },
+    {
+      "id": "run:2026-09-22:si-decode",
+      "check": "independent_decode",
+      "command": "python3 re-parse of Pos term",
+      "toolchain": [
+        {
+          "name": "python",
+          "version": "3.12"
+        }
+      ],
+      "inputs": [
+        "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0,
+        "summary": "9192631770"
+      },
+      "result": "as_expected"
+    },
+    {
+      "id": "run:2026-09-22:si-witness",
+      "check": "print_axioms",
+      "command": "lake env lean 2026-09-15_SI_SECOND_WITNESS.lean",
+      "toolchain": [
+        {
+          "name": "lean4",
+          "version": "4.34.0",
+          "commit": "293d5d0c0c3f3dded4688b3ccd6a33939ac5102b"
+        },
+        {
+          "name": "lake",
+          "version": "5.0.0"
+        }
+      ],
+      "inputs": [
+        "sha256:37790d3483194c03896fa58b4ce954d14c3f182a8f4ae67567789853f8a636c4",
+        "sha256:5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0,
+        "axioms": []
+      },
+      "result": "as_expected"
+    },
+    {
+      "id": "run:2026-09-22:id-baseline",
+      "check": "selftest",
+      "command": "baseline.py",
+      "toolchain": [
+        {
+          "name": "chromium",
+          "version": "playwright headless"
+        },
+        {
+          "name": "python",
+          "version": "3.12"
+        }
+      ],
+      "inputs": [
+        "sha256:504adbb93a5d4ce516958d60b8fcf261aa4fed7a041b7bce88bbc9f621c7f49e"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0,
+        "counts": {
+          "selftest_pass": 73,
+          "selftest_total": 74,
+          "conformance_pass": 900,
+          "conformance_fail": 0
+        },
+        "summary": "report viaJson INVALID-SIGNATURE"
+      },
+      "result": "unexpected"
+    },
+    {
+      "id": "run:2026-09-22:id-fixed",
+      "check": "selftest",
+      "command": "baseline.py",
+      "toolchain": [
+        {
+          "name": "chromium",
+          "version": "playwright headless"
+        },
+        {
+          "name": "python",
+          "version": "3.12"
+        }
+      ],
+      "inputs": [
+        "sha256:b888eb33c956352d44d7e4e42b8275ca3ef2cc17f35facd5c0115e9e2d87fe92"
+      ],
+      "expect": "pass",
+      "observed": {
+        "exit_code": 0,
+        "counts": {
+          "selftest_pass": 74,
+          "selftest_total": 74,
+          "conformance_pass": 900,
+          "conformance_fail": 0
+        },
+        "summary": "report viaJson VERIFIED"
+      },
+      "result": "as_expected"
+    }
+  ]
+}

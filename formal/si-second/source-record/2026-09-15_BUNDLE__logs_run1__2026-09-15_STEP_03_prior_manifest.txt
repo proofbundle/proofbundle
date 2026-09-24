@@ -1,0 +1,24 @@
+== STEP 03: Kernel, ledger, lakefile, audit against the prior manifest
+== started 2026-09-16T09:25:26Z
+== commands:
+prior_manifest () 
+{ 
+    python3 - "$B" <<'PY'
+import hashlib, re, sys
+b = sys.argv[1]
+m = open(f"{b}/scratch/2026-09-15_PRIOR_BUILD_MANIFEST.txt").read()
+rec = dict(re.findall(r"file:\s+(\S+)\nbytes:\s+\d+\nsha256:\s+(\w+)", m))
+for f in ["2026-09-15_SI_SECOND_KERNEL.lean", "2026-09-15_SI_SECOND_LEDGER.lean",
+          "2026-09-15_LAKEFILE.lean", "2026-09-15_SI_SECOND_AUDIT.lean"]:
+    d = hashlib.sha256(open(f"{b}/lean/{f}", "rb").read()).hexdigest()
+    print(f, d, "MATCHES prior manifest" if d == rec.get(f) else f"DIFFERS from prior manifest {rec.get(f)}")
+PY
+
+}
+== output:
+2026-09-15_SI_SECOND_KERNEL.lean 5338c042f45648a30020d5dc6e7386d56238b74201c96e163d52060e03f79625 MATCHES prior manifest
+2026-09-15_SI_SECOND_LEDGER.lean 7c47adce7b5d4010674f06f31a68806a785a24337024c0a1789bc275c21ab10b MATCHES prior manifest
+2026-09-15_LAKEFILE.lean db8af480c0260db9ef5c53464a1cbb41c037f055d15d1634a2b5aa00956c0c9d MATCHES prior manifest
+2026-09-15_SI_SECOND_AUDIT.lean cbf87b09f8eff38ccf91d1a0fa36fb1f069024400edcc1b7fafcca0a88d0b793 MATCHES prior manifest
+== exit 0
+== wall .036475173 s

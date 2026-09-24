@@ -1,0 +1,20 @@
+RUN STARTED 2026-09-16T09:25:15Z bundle=/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE
+STEP 01 exit=0 wall=9.700911014s Tool versions and ProofBundle clone state -> logs/2026-09-15_STEP_01_toolchain.txt
+STEP 02 exit=0 wall=.730491599s Copy delivered files, sources, and the ProofBundle engine into the bundle -> logs/2026-09-15_STEP_02_collect_inputs.txt
+STEP 03 exit=0 wall=.036475173s Kernel, ledger, lakefile, audit against the prior manifest -> logs/2026-09-15_STEP_03_prior_manifest.txt
+STEP 04 exit=0 wall=51.411989772s Lean clean build of kernel and ledger (.olean) -> logs/2026-09-15_STEP_04_lean_build.txt
+STEP 05 exit=0 wall=.608406379s Lean compile of the witness with #print axioms (.olean) -> logs/2026-09-15_STEP_05_lean_witness.txt
+STEP 06 exit=0 wall=31.581396495s Lean scan of every declaration under SISecond.Witness -> logs/2026-09-15_STEP_06_lean_witness_all_constants.txt
+STEP 07 exit=0 wall=1.342305355s Lean audit of every constant in kernel and ledger -> logs/2026-09-15_STEP_07_lean_audit.txt
+STEP 08 exit=0 wall=1.225372459s Independent replay of .olean files if leanchecker exists -> logs/2026-09-15_STEP_08_lean_checker.txt
+STEP 09 exit=0 wall=.025975787s Regenerate witness.json from its definition and compare bytes -> logs/2026-09-15_STEP_09_json_regenerate.txt
+STEP 10 exit=0 wall=.030332161s Node JSON round-trip test on witness.json -> logs/2026-09-15_STEP_10_json_stability.txt
+STEP 11 exit=0 wall=.046850130s Generate negative-twin and malformed JSON cases -> logs/2026-09-15_STEP_11_make_cases.txt
+STEP 12 exit=0 wall=3.670164874s Coq compile of the checker with Print Assumptions (.vo) -> logs/2026-09-15_STEP_12_coq_checker.txt
+STEP 13 exit=0 wall=2.367433167s Coq runs on witness.json and every case, results printed and kernel-checked -> logs/2026-09-15_STEP_13_coq_runs.txt
+STEP 14 exit=0 wall=32.999025498s coqchk on the checker and every run module -> logs/2026-09-15_STEP_14_coq_kernel_check.txt
+STEP 15 exit=0 wall=1.369639425s ProofBundle CLI verifyCore on witness.pb.json -> logs/2026-09-15_STEP_15_pb_verify.txt
+STEP 16 exit=0 wall=1.300172538s ProofBundle CLI verifyCore on a copy with one Merkle-root character changed -> logs/2026-09-15_STEP_16_pb_tamper.txt
+STEP 17 exit=0 wall=.026166420s Binding of witness.pb.json to witness.json with standard hashes -> logs/2026-09-15_STEP_17_binding.txt
+STEP 18 exit=0 wall=.177813415s Collect every earlier scratch file and log -> logs/2026-09-15_STEP_18_collect_scratch.txt
+RUN FINISHED 2026-09-16T09:27:34Z

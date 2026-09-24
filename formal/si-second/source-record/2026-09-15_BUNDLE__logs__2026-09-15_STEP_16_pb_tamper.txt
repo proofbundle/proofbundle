@@ -1,0 +1,36 @@
+== STEP 16: ProofBundle CLI verifyCore on a copy with one Merkle-root character changed (expected nonzero)
+== started 2026-09-16T09:30:35Z
+== commands:
+pb_tamper () 
+{ 
+    cd "$B/data" || exit 1;
+    python3 - <<'PY'
+import json
+c = json.load(open("witness.pb.json"))
+r = c["payload"]["artifacts"][0]["merkle_root_b64u"]
+c["payload"]["artifacts"][0]["merkle_root_b64u"] = ("A" if r[0] != "A" else "B") + r[1:]
+open("witness_tampered_root.pb.json", "w").write(json.dumps(c, indent=2))
+print("first character of merkle_root_b64u changed:", r[0], "->", c["payload"]["artifacts"][0]["merkle_root_b64u"][0])
+PY
+
+    node "$PB/cli/proofbundle-cli.mjs" verify witness_tampered_root.pb.json;
+    local rc=$?;
+    echo "cli verify exit $rc";
+    return $rc
+}
+== output:
+first character of merkle_root_b64u changed: D -> A
+{
+  "outcome": "INVALID-SIGNATURE",
+  "trace": [
+    {
+      "title": "Digest recomputation",
+      "body": "SHA-256 digest of canonical bundle does not match seal.digest_b64u → content altered after sealing",
+      "outcome": "INVALID-SIGNATURE",
+      "ms": "27ms"
+    }
+  ]
+}
+cli verify exit 1
+== exit 1
+== wall 1.245219729 s

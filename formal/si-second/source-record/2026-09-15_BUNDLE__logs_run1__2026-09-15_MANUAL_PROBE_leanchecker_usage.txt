@@ -1,0 +1,15 @@
+== manual probe 2026-09-16T09:28:37Z: how to invoke leanchecker (4.34.0)
+== cmd: leanchecker --help
+uncaught exception: Could not find any oleans for: Si_second
+exit 1
+== cmd: leanchecker (no args, from the bundle lean dir)
+uncaught exception: Could not find any oleans for: Si_second
+exit 1
+== cmd: lake env leanchecker 2026-09-15_SI_SECOND_KERNEL
+uncaught exception: Could not resolve module: 2026-09-15_SI_SECOND_KERNEL
+exit 1
+== cmd: lake env leanchecker '«2026-09-15_SI_SECOND_KERNEL»'
+exit 0
+== cmd: lake env printenv LEAN_PATH
+/home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE/lean/.lake/build/lib/lean:/root/.elan/toolchains/leanprover--lean4---v4.34.0/lib/lean
+exit 0

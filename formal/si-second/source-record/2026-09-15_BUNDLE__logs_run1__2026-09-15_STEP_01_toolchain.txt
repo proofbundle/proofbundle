@@ -1,0 +1,49 @@
+== STEP 01: Tool versions and ProofBundle clone state
+== started 2026-09-16T09:25:15Z
+== commands:
+toolchain () 
+{ 
+    lean --version;
+    lake --version;
+    coqc --version;
+    coqchk --version;
+    node --version;
+    python3 --version;
+    python3 -c "import blake3; print('python blake3', blake3.__version__)";
+    echo "-- Lean 4.34.0 toolchain binaries:";
+    ls "$HOME/.elan/toolchains/leanprover--lean4---v4.34.0/bin/";
+    echo "-- ProofBundle clone:";
+    git -C "$PB" log -1 --format='commit %H %cI';
+    git -C "$PB" status --porcelain -- cli proofbundle.html package.json;
+    echo "(no status lines above = cli, proofbundle.html, package.json unmodified)";
+    ( cd "$PB" && npm ls jsdom )
+}
+== output:
+Lean (version 4.34.0, x86_64-unknown-linux-gnu, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
+Lake version 5.0.0-src+293d5d0 (Lean version 4.34.0)
+The Coq Proof Assistant, version 8.18.0
+compiled with OCaml 4.14.1
+The Coq Proof Checker, version 8.18.0
+v22.22.2
+Python 3.12.3
+python blake3 1.0.9
+-- Lean 4.34.0 toolchain binaries:
+cadical
+clang
+lake
+ld.lld
+lean
+leanc
+leanchecker
+leanir
+leanmake
+leantar
+llvm-ar
+-- ProofBundle clone:
+commit 7d44e7c7d53faa9272da98bf6d6504b8c79f88b9 2026-08-24T19:09:13-07:00
+(no status lines above = cli, proofbundle.html, package.json unmodified)
+proofbundle@1.0.0 /tmp/pb
+`-- jsdom@24.1.3
+
+== exit 0
+== wall 9.700911014 s

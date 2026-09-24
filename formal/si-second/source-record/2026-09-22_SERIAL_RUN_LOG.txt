@@ -1,0 +1,29 @@
+== run 2026-09-22T23:41:32Z ==
+Lean (version 4.34.0, x86_64-unknown-linux-gnu, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
+== scan ==
+SCAN RESULT: no matches
+== clean build ==
+info: si_second: no previous manifest, creating one from scratch
+info: toolchain not updated; no toolchain information found
+✔ [2/5] Built «2026-09-15_SI_SECOND_KERNEL» (859ms)
+✔ [3/5] Built «2026-09-22_SI_SECOND_SERIAL» (1.1s)
+✔ [4/5] Built «2026-09-15_SI_SECOND_LEDGER» (730ms)
+Build completed successfully (5 jobs).
+== serial audit ==
+MODULE «2026-09-22_SI_SECOND_SERIAL»: 82 constants; constants with a non-empty axiom set: 0
+constants naming Nat directly: 2; not matching generated patterns: 2
+    SISecond.Serial.«_aux_2026-09-22_SI_SECOND_SERIAL___macroRules_SISecond_Serial_tacticEnum_pf_1»
+    SISecond.Serial.tacticEnum_pf
+'SISecond.Serial.realizationE_pf' does not depend on any axioms
+'SISecond.Serial.encode_inj' does not depend on any axioms
+'SISecond.Serial.encode_pair_inj' does not depend on any axioms
+'SISecond.Serial.formOnly_code_ne_succ' does not depend on any axioms
+'SISecond.Serial.formOnly_code_ne_reversed' does not depend on any axioms
+== kernel/ledger audit (regression) ==
+MODULE «2026-09-15_SI_SECOND_KERNEL»: 461 constants; constants with a non-empty axiom set: 0
+MODULE «2026-09-15_SI_SECOND_LEDGER»: 82 constants; constants with a non-empty axiom set: 0
+== witness (regression) ==
+'SISecond.Witness.witness' does not depend on any axioms
+'SISecond.Witness.witness_isSecond' does not depend on any axioms
+'SISecond.Witness.witness_succ_periods_not_second' does not depend on any axioms
+== done 2026-09-22T23:41:38Z ==

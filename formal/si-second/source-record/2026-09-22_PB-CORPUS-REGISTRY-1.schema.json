@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proofbundle:schema:PB-CORPUS-REGISTRY-1:draft-2026-09-22",
+  "title": "PB-CORPUS-REGISTRY-1 payload (DRAFT)",
+  "description": "Payload for a bundle whose hdr.profile is PB-CORPUS-REGISTRY-1. It sits inside the existing PB envelope (hdr / meta / payload / merkleRoot / seal) and is canonicalized with PB-CANON-JSON-1. Every artifact is addressed by content hash. Every check is a run record with pinned inputs, a pinned toolchain, and hashed outputs. Draft: names and enums are proposals, not frozen.",
+  "type": "object",
+  "required": ["spec", "entries", "runs"],
+  "additionalProperties": false,
+  "properties": {
+    "spec": { "const": "PB-CORPUS-REGISTRY-1" },
+    "entries": { "type": "array", "items": { "$ref": "#/$defs/entry" } },
+    "runs": { "type": "array", "items": { "$ref": "#/$defs/run" } }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "digests": {
+      "type": "object",
+      "required": ["sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "sha512": { "type": "string", "pattern": "^[0-9a-f]{128}$" },
+        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "sha3_256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "evidence_label": {
+      "description": "Taken from the labels already used in 2026-09-15_SI_SECOND_ANALYSIS.md.",
+      "enum": ["source", "recalled", "checked", "inference", "interpretation"]
+    },
+    "toolchain": {
+      "type": "object",
+      "required": ["name", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "enum": ["lean4", "lake", "coq", "coqchk", "isabelle", "fstar", "python", "chromium", "other"] },
+        "version": { "type": "string" },
+        "commit": { "type": "string" },
+        "options": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "kind", "digests", "bytes", "locations"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Content address. sha256: prefix plus hex. Same bytes under any filename or bundle means one entry.",
+          "type": "string", "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "kind": {
+          "enum": ["proof_source", "proof_object", "checker_source", "witness", "negative_control",
+                   "tamper_control", "manifest", "manifest_verification", "log", "script",
+                   "analysis", "sealed_bundle", "keyring", "registry", "app", "index", "other"]
+        },
+        "language": { "enum": ["lean4", "coq", "isabelle", "fstar", "python", "js", "html", "json", "markdown", "text", "binary", "other"] },
+        "digests": { "$ref": "#/$defs/digests" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "locations": {
+          "description": "Every place these bytes were seen. Duplicates collapse here instead of becoming new entries.",
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "required": ["container", "path"], "additionalProperties": false,
+            "properties": {
+              "container": { "type": "string", "description": "Outer bundle file name, e.g. 2026-09-15_SI_SECOND_WITNESS_BUNDLE.zip" },
+              "container_sha256": { "$ref": "#/$defs/sha256" },
+              "path": { "type": "string" },
+              "path_note": { "type": "string", "description": "e.g. flattened by handover; original path per HANDOVER_PATH_MAP" }
+            }
+          }
+        },
+        "declares": {
+          "description": "For proof sources: the named declarations and what the source itself asserts about them.",
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["name"], "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "enum": ["definition", "theorem", "negative_theorem", "instance", "example", "other"] },
+              "expected_axioms": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "claims": {
+          "description": "Statements about this artifact. Each carries its own evidence label; 'checked' requires run_refs.",
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["text", "label"], "additionalProperties": false,
+            "properties": {
+              "text": { "type": "string" },
+              "label": { "$ref": "#/$defs/evidence_label" },
+              "run_refs": { "type": "array", "items": { "type": "string", "pattern": "^run:" } }
+            },
+            "if": { "properties": { "label": { "const": "checked" } } },
+            "then": { "required": ["run_refs"], "properties": { "run_refs": { "minItems": 1 } } }
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["rel", "target"], "additionalProperties": false,
+            "properties": {
+              "rel": { "enum": ["supersedes", "superseded_by", "contained_in", "contains", "built_from",
+                                 "witnesses", "negative_control_of", "tamper_control_of", "describes",
+                                 "verifies", "generated_by", "near_duplicate_of"] },
+              "target": { "type": "string", "pattern": "^(sha256:[0-9a-f]{64}|run:.+)$" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "status": {
+          "enum": ["current", "superseded", "scratch", "quarantined", "unreviewed"],
+          "description": "quarantined = contains private key material or known-bad output; never cite."
+        },
+        "sensitive": { "type": "boolean", "description": "True for anything holding private keys, even throwaway ones." }
+      }
+    },
+    "run": {
+      "description": "One execution of one check. Inputs and outputs are content-addressed so a run can be replayed and diffed.",
+      "type": "object",
+      "required": ["id", "check", "toolchain", "inputs", "expect", "observed", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^run:[A-Za-z0-9._:-]+$" },
+        "check": {
+          "enum": ["build", "axiom_audit", "print_axioms", "kernel_recheck", "forbidden_token_scan",
+                   "manifest_hash", "seal_verify", "tamper_verify", "selftest", "conformance_matrix",
+                   "round_trip", "independent_decode", "probe", "other"]
+        },
+        "command": { "type": "string" },
+        "toolchain": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/toolchain" } },
+        "environment": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "host": { "type": "string" },
+            "os": { "type": "string" },
+            "started_utc": { "type": "string", "format": "date-time" },
+            "finished_utc": { "type": "string", "format": "date-time" },
+            "operator": { "type": "string", "description": "Who or what ran it: a person, or a model name. A model name is a label, not an attestation." }
+          }
+        },
+        "inputs": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" } },
+        "expect": {
+          "enum": ["pass", "fail", "error"],
+          "description": "Declared before the run. Negative controls expect fail or error."
+        },
+        "observed": {
+          "type": "object", "required": ["exit_code"], "additionalProperties": false,
+          "properties": {
+            "exit_code": { "type": "integer" },
+            "axioms": { "type": "array", "items": { "type": "string" } },
+            "counts": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "summary": { "type": "string" }
+          }
+        },
+        "result": {
+          "enum": ["as_expected", "unexpected", "not_run"],
+          "description": "Compares observed to expect. A negative control that fails is as_expected."
+        },
+        "outputs": { "type": "array", "items": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" } },
+        "replicates": {
+          "type": "string", "pattern": "^run:",
+          "description": "An earlier run this one independently repeats."
+        }
+      }
+    }
+  }
+}

@@ -82,3 +82,32 @@ jobs:
         with:
           name: coq-logs
           path: coq/*.coq.log
+
+  lean:
+    name: lean proofs and axiom audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install elan
+        run: |
+          set -euo pipefail
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: build pinned Lean formal core
+        working-directory: lean
+        run: |
+          set -euo pipefail
+          lake build ProofBundle Architecture
+      - name: theorem-wide axiom audit
+        working-directory: lean
+        run: |
+          set -euo pipefail
+          lake env lean PrintAxioms.lean 2>&1 | tee lean-axioms.log
+          if grep -Ev "^(.*'[^']+' does not depend on any axioms|)$" lean-axioms.log; then
+            echo "Lean axiom audit found a declaration with nonempty axiom dependencies or unexpected output"
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lean-axiom-audit
+          path: lean/lean-axioms.log

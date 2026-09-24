@@ -6208,6 +6208,18 @@ async function refreshAgentLineage() {
   } catch(e) { box.innerHTML=`<span class="badge badge-orange">offline</span> ${esc(e.message)} — ingestion retries automatically`; }
 }
 
+// Ctrl-A: select all text in focused textarea/input
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+    const el = document.activeElement;
+    if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT')) {
+      e.preventDefault();
+      el.select();
+      el.setSelectionRange(0, el.value.length);
+    }
+  }
+});
+
 init();
 
 

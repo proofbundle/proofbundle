@@ -1752,6 +1752,10 @@ function canonicalJSON(obj) {
     const keys = Object.keys(obj).sort();
     return '{' + keys.map(k => JSON.stringify(k) + ':' + canonicalJSON(obj[k])).join(',') + '}';
   }
+  if (obj === undefined || typeof obj === 'function' || typeof obj === 'symbol' || typeof obj === 'bigint')
+    throw new Error('PB-CANON-JSON-1: value not representable in JSON (' + typeof obj + ')');
+  if (typeof obj === 'number' && !Number.isFinite(obj))
+    throw new Error('PB-CANON-JSON-1: non-finite number');
   return JSON.stringify(obj);
 }
 
@@ -3596,7 +3600,7 @@ async function buildVerifyReport(subject, outcome, trace, digestAlg, sigAlg, key
       subject_profile: (subject.hdr && subject.hdr.profile) || null,
       outcome, verified_at: new Date(nowMs || Date.now()).toISOString(),
       verifier_key_fingerprint: await keyFingerprint(key.pub),
-      trace: trace.map(t => ({ step: t.step, detail: t.detail })),
+      trace: trace.map(t => ({ title: String(t.title ?? ''), body: String(t.body ?? ''), outcome: t.outcome ?? null, ms: (typeof t.ms === 'number' ? t.ms : null) })),
     },
   };
   await sealCore(report, digestAlg, sigAlg, key);

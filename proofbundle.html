@@ -490,6 +490,19 @@ nav button { white-space: nowrap; }
 .drop-sub { font-size:12px; color:var(--text2); margin-top:4px; }
 
 
+/* ── Bridge console ───────────────────────────────────────────── */
+.bridge-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; margin:14px 0; }
+.bridge-tile { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; }
+.bridge-tile-k { font-size:11px; color:var(--text2); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px; }
+.bridge-tile-v { font-size:16px; color:var(--text0); font-weight:700; word-break:break-all; }
+.bridge-log { max-height:320px; overflow:auto; background:var(--bg0); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px; font-family:var(--font-mono); font-size:11px; line-height:1.45; white-space:pre-wrap; }
+.bridge-flow { display:grid; grid-template-columns: 1fr 64px 1fr 64px 1fr; gap:10px; align-items:center; margin:12px 0; }
+.bridge-node { border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; background:var(--bg2); min-height:72px; }
+.bridge-arrow { text-align:center; color:var(--blue); font-size:22px; }
+.bridge-node-title { font-weight:700; color:var(--text0); margin-bottom:4px; }
+.bridge-node-sub { font-size:12px; color:var(--text2); word-break:break-all; }
+@media (max-width:900px){ .bridge-grid{grid-template-columns:1fr 1fr}.bridge-flow{grid-template-columns:1fr}.bridge-arrow{transform:rotate(90deg)} }
+
 /* ── light theme ─────────────────────────────────────────────── */
 :root[data-theme="light"] {
   --bg0: #f6f8fa; --bg1: #ffffff; --bg2: #eef1f4; --bg3: #e2e6ea;
@@ -821,6 +834,7 @@ var PBSHA256=(function(){
     <button class="sb-adv-only" data-title="Compliance profiles" onclick="switchTab('domains',this)"><span class="sb-ico">◈</span><span>Profiles</span></button>
     <button class="sb-adv-only" data-title="Compliance certification" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>Certification</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
+    <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
     <button class="sb-adv-only" data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
     <button class="sb-adv-only" data-title="Bundle editor" onclick="switchTab('seal',this)"><span class="sb-ico">⌗</span><span>Bundle editor</span></button>
@@ -1361,6 +1375,95 @@ var PBSHA256=(function(){
     <textarea id="ledger-import-json" rows="3" spellcheck="false" placeholder='{"hdr":{"profile":"PB-ARCHIVE-1",…},"payload":{"state":{…}},"seal":{…}}' style="margin-top:6px"></textarea>
     <div class="btn-row"><button class="btn btn-secondary" onclick="importArchive()">Verify & Restore</button></div>
     <div id="ledger-import-result" style="display:none;margin-top:10px"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BRIDGE TAB                                                     -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-bridge">
+  <h2>Bridge console</h2>
+  <p>Watch the local ProofBundle verifier relay, inspect the lineage, register explicit lane identities, seal messages, route envelopes, read inboxes, and verify the chain. This console does not claim inherited identity; it only reports what the verifier endpoint confirms.</p>
+
+  <div class="card">
+    <div class="card-title">Verifier endpoint</div>
+    <div class="form-grid" style="grid-template-columns:1fr 160px 160px">
+      <div>
+        <label class="label">Endpoint</label>
+        <input type="text" id="bridge-endpoint" value="http://127.0.0.1:8788" oninput="saveBridgeConfig()">
+      </div>
+      <div>
+        <label class="label">Poll seconds</label>
+        <input type="number" id="bridge-poll-seconds" value="5" min="1" max="60" oninput="saveBridgeConfig(); restartBridgePolling()">
+      </div>
+      <div style="display:flex;align-items:end;gap:8px">
+        <button class="btn btn-primary" onclick="refreshBridgeConsole()">Refresh</button>
+        <button class="btn btn-secondary" onclick="toggleBridgePolling()" id="bridge-poll-btn">Pause</button>
+      </div>
+    </div>
+    <div id="bridge-status" style="margin-top:12px"><span class="badge badge-orange">not checked</span></div>
+  </div>
+
+  <div class="bridge-grid">
+    <div class="bridge-tile"><div class="bridge-tile-k">health</div><div class="bridge-tile-v" id="bridge-health-v">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">entries</div><div class="bridge-tile-v" id="bridge-entries-v">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">tip seq</div><div class="bridge-tile-v" id="bridge-tip-v">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">tip hash</div><div class="bridge-tile-v mono" id="bridge-root-v">?</div></div>
+  </div>
+
+  <div class="bridge-flow">
+    <div class="bridge-node"><div class="bridge-node-title">Initiator</div><div class="bridge-node-sub" id="bridge-flow-from">not set</div></div>
+    <div class="bridge-arrow">→</div>
+    <div class="bridge-node"><div class="bridge-node-title">Verifier relay</div><div class="bridge-node-sub" id="bridge-flow-verifier">not checked</div></div>
+    <div class="bridge-arrow">→</div>
+    <div class="bridge-node"><div class="bridge-node-title">Recipient</div><div class="bridge-node-sub" id="bridge-flow-to">not set</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Actions</div>
+    <div class="form-grid" style="grid-template-columns:1fr 1fr">
+      <div>
+        <label class="label">Local agent ID</label>
+        <input type="text" id="bridge-agent-id" value="codex-desktop-current" oninput="saveBridgeConfig()">
+      </div>
+      <div>
+        <label class="label">Recipient agent ID</label>
+        <input type="text" id="bridge-recipient-id" value="peer-codex-agent" oninput="saveBridgeConfig()">
+      </div>
+    </div>
+    <div class="btn-row" style="margin:10px 0">
+      <button class="btn btn-secondary" onclick="bridgeRegister('local')">Register local</button>
+      <button class="btn btn-secondary" onclick="bridgeRegister('recipient')">Register recipient</button>
+      <button class="btn btn-secondary" onclick="bridgeLoadIdentity('local')">Load local identity</button>
+      <button class="btn btn-secondary" onclick="bridgeLoadIdentity('recipient')">Load recipient identity</button>
+      <button class="btn btn-secondary" onclick="bridgeReadInbox('local')">Read local inbox</button>
+      <button class="btn btn-secondary" onclick="bridgeReadInbox('recipient')">Read recipient inbox</button>
+    </div>
+    <label class="label">Payload JSON</label>
+    <textarea id="bridge-payload-json" rows="8" spellcheck="false">{
+  "schema": "ProofBundleBridgeGenesis/v0.1",
+  "phase": "gui_test",
+  "message": "Bridge GUI action from ProofBundle"
+}</textarea>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="bridgeSeal(false)">Seal payload</button>
+      <button class="btn btn-primary" onclick="bridgeSeal(true)">Seal encrypted to recipient</button>
+      <button class="btn btn-secondary" onclick="bridgeRouteLast()">Route last envelope</button>
+      <button class="btn btn-secondary" onclick="bridgeVerifyLast()">Verify last envelope</button>
+      <button class="btn btn-secondary" onclick="bridgeExportLineage()">Download lineage</button>
+    </div>
+  </div>
+
+  <div class="form-grid" style="grid-template-columns:1fr 1fr;margin-top:14px">
+    <div class="card">
+      <div class="card-title">Recent lineage</div>
+      <div id="bridge-lineage-table"><span class="badge badge-orange">not loaded</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Action log</div>
+      <div id="bridge-action-log" class="bridge-log">Bridge console ready.</div>
+    </div>
   </div>
 </div>
 
@@ -5619,6 +5722,147 @@ function heroVerifyNow(i) {
 }
 
 
+/* ── BRIDGE CONSOLE ────────────────────────────────────────────── */
+const BRIDGE_STATE = { polling: true, timer: null, lastEnvelope: null, lastLineage: null };
+function bridgeCfg() {
+  return {
+    endpoint: (document.getElementById('bridge-endpoint')?.value || 'http://127.0.0.1:8788').replace(/\/+$/, ''),
+    local: document.getElementById('bridge-agent-id')?.value || 'codex-desktop-current',
+    recipient: document.getElementById('bridge-recipient-id')?.value || 'peer-codex-agent',
+    poll: Math.max(1, Number(document.getElementById('bridge-poll-seconds')?.value || 5)),
+  };
+}
+function bridgeLog(msg, kind) {
+  const box = document.getElementById('bridge-action-log');
+  if (!box) return;
+  const line = '[' + new Date().toISOString() + '] ' + (kind ? kind.toUpperCase() + ': ' : '') + msg;
+  box.textContent = (line + '\n' + box.textContent).slice(0, 12000);
+}
+function saveBridgeConfig() {
+  try { localStorage.setItem('pb.bridge.console', JSON.stringify(bridgeCfg())); } catch (e) {}
+  const c = bridgeCfg();
+  const f = document.getElementById('bridge-flow-from'); if (f) f.textContent = c.local;
+  const t = document.getElementById('bridge-flow-to'); if (t) t.textContent = c.recipient;
+}
+function restoreBridgeConfig() {
+  try {
+    const c = JSON.parse(localStorage.getItem('pb.bridge.console') || '{}');
+    if (c.endpoint && document.getElementById('bridge-endpoint')) document.getElementById('bridge-endpoint').value = c.endpoint;
+    if (c.local && document.getElementById('bridge-agent-id')) document.getElementById('bridge-agent-id').value = c.local;
+    if (c.recipient && document.getElementById('bridge-recipient-id')) document.getElementById('bridge-recipient-id').value = c.recipient;
+    if (c.poll && document.getElementById('bridge-poll-seconds')) document.getElementById('bridge-poll-seconds').value = c.poll;
+  } catch (e) {}
+  saveBridgeConfig();
+}
+async function bridgeFetch(path, opts) {
+  const c = bridgeCfg();
+  const res = await fetch(c.endpoint + path, Object.assign({ cache: 'no-store' }, opts || {}));
+  const text = await res.text();
+  let data; try { data = text ? JSON.parse(text) : {}; } catch (e) { data = { raw: text }; }
+  if (!res.ok) throw Object.assign(new Error((data && (data.detail || data.error)) || ('HTTP ' + res.status)), { status: res.status, data });
+  return data;
+}
+function bridgeSetStatus(ok, text) {
+  const st = document.getElementById('bridge-status');
+  if (st) st.innerHTML = `<span class="badge ${ok ? 'badge-green' : 'badge-orange'}">${ok ? 'online' : 'offline'}</span> ${esc(text || '')}`;
+  const hv = document.getElementById('bridge-health-v'); if (hv) hv.textContent = ok ? 'online' : 'offline';
+  const vf = document.getElementById('bridge-flow-verifier'); if (vf) vf.textContent = ok ? bridgeCfg().endpoint : 'offline: ' + (text || 'unreachable');
+}
+async function refreshBridgeConsole() {
+  if (!document.getElementById('panel-bridge')) return;
+  saveBridgeConfig();
+  try {
+    const h = await bridgeFetch('/health');
+    bridgeSetStatus(true, (h.service || 'bridge') + ' ' + (h.version || ''));
+    await bridgeLoadLineage();
+  } catch (e) {
+    bridgeSetStatus(false, e.message || String(e));
+    const ev = document.getElementById('bridge-entries-v'); if (ev) ev.textContent = '?';
+    const tv = document.getElementById('bridge-tip-v'); if (tv) tv.textContent = '?';
+    const rv = document.getElementById('bridge-root-v'); if (rv) rv.textContent = '?';
+  }
+}
+async function bridgeLoadLineage() {
+  const data = await bridgeFetch('/lineage/export');
+  BRIDGE_STATE.lastLineage = data;
+  const entries = Array.isArray(data.entries) ? data.entries : [];
+  const ev = document.getElementById('bridge-entries-v'); if (ev) ev.textContent = String(entries.length);
+  const last = entries[entries.length - 1] || {};
+  const tv = document.getElementById('bridge-tip-v'); if (tv) tv.textContent = last.seq == null ? 'genesis' : String(last.seq);
+  const rv = document.getElementById('bridge-root-v'); if (rv) rv.textContent = String(data.merkle_root || data.tip_hash || last.merkle_root || 'genesis').slice(0, 20) + '…';
+  const box = document.getElementById('bridge-lineage-table');
+  if (box) box.innerHTML = entries.length ? `<table class="mini-table"><thead><tr><th>#</th><th>from</th><th>type</th><th>to</th><th>hash</th></tr></thead><tbody>` + entries.slice(-30).reverse().map(e => `<tr><td>${esc(e.seq)}</td><td>${esc(e.from?.agent_id || '?')}</td><td>${esc(e.payload_type || '?')}</td><td>${esc(e.payload?.to || e.to || '')}</td><td class="mono">${esc(String(e.payload?.plaintext_hash || e.merkle_root || '').slice(0,18))}…</td></tr>`).join('') + `</tbody></table>` : '<div class="empty"><div class="empty-title">No verifier lineage entries</div></div>';
+}
+async function bridgeRegister(which) {
+  const c = bridgeCfg(), id = which === 'recipient' ? c.recipient : c.local;
+  try {
+    const data = await bridgeFetch('/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ agent_id: id }) });
+    bridgeLog('registered ' + id + ' fingerprint=' + (data.key_fingerprint || '?'), 'ok');
+    await refreshBridgeConsole();
+  } catch (e) { bridgeLog('register ' + id + ' failed: ' + e.message, 'error'); }
+}
+async function bridgeLoadIdentity(which) {
+  const c = bridgeCfg(), id = which === 'recipient' ? c.recipient : c.local;
+  try { const data = await bridgeFetch('/identity/' + encodeURIComponent(id)); bridgeLog('identity ' + id + '\n' + JSON.stringify(data, null, 2), 'ok'); }
+  catch (e) { bridgeLog('identity ' + id + ' failed: ' + e.message, 'error'); }
+}
+function bridgePayload() {
+  const raw = document.getElementById('bridge-payload-json')?.value || '{}';
+  const payload = JSON.parse(raw);
+  if (!payload.timestamp) payload.timestamp = new Date().toISOString();
+  return payload;
+}
+async function bridgeSeal(encrypt) {
+  const c = bridgeCfg();
+  try {
+    const body = { agentId: c.local, payloadType: 'bridge-gui', payload: bridgePayload() };
+    if (encrypt) { body.encrypt = true; body.to = c.recipient; }
+    const data = await bridgeFetch('/seal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    BRIDGE_STATE.lastEnvelope = data.envelope || data;
+    bridgeLog('sealed seq=' + (BRIDGE_STATE.lastEnvelope.seq ?? '?') + (encrypt ? ' encrypted to ' + c.recipient : ''), 'ok');
+    await refreshBridgeConsole();
+  } catch (e) { bridgeLog('seal failed: ' + e.message, 'error'); }
+}
+async function bridgeRouteLast() {
+  const c = bridgeCfg();
+  if (!BRIDGE_STATE.lastEnvelope) return bridgeLog('no last envelope to route', 'error');
+  try {
+    const data = await bridgeFetch('/route', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to: c.recipient, envelope: BRIDGE_STATE.lastEnvelope }) });
+    bridgeLog('route to ' + c.recipient + ': ' + JSON.stringify(data), 'ok');
+  } catch (e) { bridgeLog('route failed: ' + e.message, 'error'); }
+}
+async function bridgeVerifyLast() {
+  if (!BRIDGE_STATE.lastEnvelope) return bridgeLog('no last envelope to verify', 'error');
+  try {
+    const data = await bridgeFetch('/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ envelope: BRIDGE_STATE.lastEnvelope }) });
+    bridgeLog('verify last: ' + JSON.stringify(data), data.ok === false ? 'error' : 'ok');
+  } catch (e) { bridgeLog('verify failed: ' + e.message, 'error'); }
+}
+async function bridgeReadInbox(which) {
+  const c = bridgeCfg(), id = which === 'recipient' ? c.recipient : c.local;
+  try { const data = await bridgeFetch('/inbox/' + encodeURIComponent(id)); bridgeLog('inbox ' + id + '\n' + JSON.stringify(data, null, 2), 'ok'); }
+  catch (e) { bridgeLog('inbox ' + id + ' failed: ' + e.message, 'error'); }
+}
+function bridgeExportLineage() {
+  if (!BRIDGE_STATE.lastLineage) return bridgeLog('lineage has not been loaded', 'error');
+  dlText('proofbundle-bridge-lineage-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json', JSON.stringify(BRIDGE_STATE.lastLineage, null, 2));
+}
+function restartBridgePolling() {
+  if (BRIDGE_STATE.timer) clearInterval(BRIDGE_STATE.timer);
+  BRIDGE_STATE.timer = null;
+  if (BRIDGE_STATE.polling) BRIDGE_STATE.timer = setInterval(refreshBridgeConsole, bridgeCfg().poll * 1000);
+}
+function toggleBridgePolling() {
+  BRIDGE_STATE.polling = !BRIDGE_STATE.polling;
+  const b = document.getElementById('bridge-poll-btn'); if (b) b.textContent = BRIDGE_STATE.polling ? 'Pause' : 'Resume';
+  restartBridgePolling();
+}
+function initBridgeConsole() {
+  restoreBridgeConfig();
+  refreshBridgeConsole();
+  restartBridgePolling();
+}
+
 function init() {
   // Pre-fill seal JSON timestamp
   try {
@@ -5644,6 +5888,7 @@ function init() {
   runSelfTests();
   refreshAgentLineage();
   setInterval(refreshAgentLineage, 5000);
+  initBridgeConsole();
 }
 
 async function refreshAgentLineage() {

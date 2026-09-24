@@ -699,7 +699,9 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/keccak-raw.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
@@ -707,7 +709,7 @@
       "DIGEST_MISMATCH"
     ],
     "interoperabilityNotes": "Legacy pre-standardization padding (0x01), distinct from SHA3 (0x06). crypto/keccak.mjs exports only the SHA3/SHAKE suffixes; not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "Keccak-512",
@@ -735,7 +737,9 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/keccak-raw.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
@@ -743,7 +747,7 @@
       "DIGEST_MISMATCH"
     ],
     "interoperabilityNotes": "Same as Keccak-256.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "SHA-1",
@@ -1053,14 +1057,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/kmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Depends on cSHAKE, not yet implemented.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "KMAC256",
@@ -1086,14 +1092,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/kmac.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Depends on cSHAKE, not yet implemented.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "keyed-BLAKE2",
@@ -1152,14 +1160,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/blake3.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not wired in this pass; HMAC-SHA-256/384/512 are straightforward NODE_NATIVE additions and are the natural next step, not attempted here to keep this slice finite.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HKDF-SHA-256",
@@ -1185,14 +1195,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hkdf.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HKDF-SHA-384",
@@ -1218,14 +1230,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hkdf.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "HKDF-SHA-512",
@@ -1251,14 +1265,16 @@
     "historicalVerificationPolicy": null,
     "deprecation": null,
     "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "implementationModulePaths": [
+      "crypto/hkdf.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
     "interoperabilityNotes": "Not implemented in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "PBKDF2-HMAC-SHA-256",

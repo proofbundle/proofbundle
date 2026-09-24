@@ -237,6 +237,8 @@ textarea:focus, input:focus { border-color: var(--blue2); }
 .badge-green { background: rgba(46,204,113,.12); color: var(--green); border: 1px solid rgba(46,204,113,.3); }
 .badge-red { background: rgba(231,76,60,.12); color: var(--red); border: 1px solid rgba(231,76,60,.3); }
 .badge-orange { background: rgba(243,156,18,.12); color: var(--orange); border: 1px solid rgba(243,156,18,.3); }
+.badge-purple { background: rgba(163,113,247,.12); color: var(--purple); border: 1px solid rgba(163,113,247,.3); }
+.badge-cyan { background: rgba(68,224,208,.12); color: var(--cyan); border: 1px solid rgba(68,224,208,.3); }
 .badge-purple { background: rgba(155,89,182,.12); color: var(--purple); border: 1px solid rgba(155,89,182,.3); }
 .badge-yellow { background: rgba(241,196,15,.12); color: var(--yellow); border: 1px solid rgba(241,196,15,.3); }
 .badge-cyan { background: rgba(26,188,156,.12); color: var(--cyan); border: 1px solid rgba(26,188,156,.3); }
@@ -500,6 +502,40 @@ nav button { white-space: nowrap; }
 .bridge-node { border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; background:var(--bg2); min-height:72px; }
 .bridge-arrow { text-align:center; color:var(--blue); font-size:22px; }
 .bridge-node-title { font-weight:700; color:var(--text0); margin-bottom:4px; }
+.orch-grid { display:grid; grid-template-columns: 300px 1.6fr 340px; gap:16px; margin-top:16px; align-items:start; }
+.orch-pane { padding:16px; }
+.orch-pane .card-title { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.orch-pane .label { margin-top:10px; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--text2); }
+.orch-scroll { max-height:460px; overflow-y:auto; margin:-4px; padding:4px; }
+.orch-scroll::-webkit-scrollbar { width:8px; }
+.orch-scroll::-webkit-scrollbar-thumb { background:var(--border2); border-radius:4px; }
+
+.orch-lane-card {
+  display:flex; align-items:center; gap:10px; padding:10px 12px; margin-bottom:6px;
+  background:var(--bg1); border:1px solid var(--border); border-left:3px solid var(--provider-c, var(--text2));
+  border-radius:var(--radius-sm); cursor:pointer; transition:background .12s, border-color .12s;
+}
+.orch-lane-card:hover { background:var(--bg2); border-color:var(--border2); }
+.orch-lane-card.active { background:var(--bg2); border-color:var(--provider-c, var(--blue)); box-shadow:0 0 0 1px var(--provider-c, var(--blue)) inset; }
+.orch-lane-dot { width:9px; height:9px; border-radius:50%; background:var(--provider-c, var(--text2)); flex:none; box-shadow:0 0 6px 0 var(--provider-c, transparent); }
+.orch-lane-body { min-width:0; flex:1; }
+.orch-lane-name { font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--text0); }
+.orch-lane-meta { display:flex; gap:6px; margin-top:4px; flex-wrap:wrap; }
+.orch-lane-meta .chip { font-size:9px; padding:1px 6px; border-radius:4px; background:var(--bg3); color:var(--text2); font-family:var(--font-mono); }
+
+.orch-msg-card {
+  padding:10px 12px; margin-bottom:8px; background:var(--bg1); border:1px solid var(--border);
+  border-left:3px solid var(--kind-c, var(--text2)); border-radius:var(--radius-sm);
+}
+.orch-msg-hdr { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px; }
+.orch-msg-route { display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; color:var(--text1); min-width:0; }
+.orch-msg-route b { color:var(--text0); }
+.orch-msg-ts { font-size:10px; color:var(--text2); white-space:nowrap; font-family:var(--font-mono); }
+.orch-msg-subject { font-weight:600; font-size:13px; color:var(--text0); margin-bottom:3px; }
+.orch-msg-body { font-size:12px; color:var(--text2); white-space:pre-wrap; line-height:1.5; }
+
+.orch-empty { padding:24px 12px; text-align:center; color:var(--text2); font-size:12px; }
+@media (max-width:1100px){ .orch-grid{grid-template-columns:1fr} }
 .bridge-node-sub { font-size:12px; color:var(--text2); word-break:break-all; }
 @media (max-width:900px){ .bridge-grid{grid-template-columns:1fr 1fr}.bridge-flow{grid-template-columns:1fr}.bridge-arrow{transform:rotate(90deg)} }
 
@@ -853,6 +889,7 @@ var PBSHA256=(function(){
     <button data-title="Artifact library" onclick="switchTab('library',this); renderLibrary()"><span class="sb-ico">▣</span><span>Library</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
     <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
+    <button data-title="Multi-agent orchestration" onclick="switchTab('orchestrator',this); refreshOrchestrator()"><span class="sb-ico">⬡</span><span>Orchestrator</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
     <button class="sb-adv-only" data-title="Files &amp; inclusion proofs" onclick="switchTab('files',this)"><span class="sb-ico">▤</span><span>Files</span></button>
     <button class="sb-adv-only" data-title="Bundle editor" onclick="switchTab('seal',this)"><span class="sb-ico">⌗</span><span>Bundle editor</span></button>
@@ -1522,6 +1559,85 @@ var PBSHA256=(function(){
     <div class="card">
       <div class="card-title">Action log</div>
       <div id="bridge-action-log" class="bridge-log">Bridge console ready.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- ORCHESTRATOR TAB — multi-pane cross-agent view                 -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-orchestrator">
+  <h2>Multi-agent orchestration</h2>
+  <p>Reads <code>pb-lane-bus</code> directly — the same append-only, hash-chained,
+  local file transport every agent lane on this host writes to
+  (<code>~/pb/live/bus/messages.ndjson</code>, served same-origin at
+  <code>agent/live-bus/</code>). This is not the sealed-envelope agent mesh
+  (<code>agent/envelope.mjs</code>, X25519 + ChaCha20-Poly1305): that protocol
+  is real and implemented, but its only server is the local ProofBundle broker,
+  which the operator revoked on 2026-09-23 and which this page will not
+  restart. The panel below composes exact <code>pb-lane-bus</code> commands for
+  you to run in your own shell; it does not execute them from the browser.</p>
+
+  <div class="card" id="orch-crypto-status">
+    <div class="card-title">Encryption layers — what is actually active</div>
+    <div class="form-grid" style="grid-template-columns:1fr 1fr">
+      <div class="bridge-tile">
+        <div class="bridge-tile-k">pb-lane-bus (this panel's data)</div>
+        <div class="bridge-tile-v" style="font-size:13px">SHA-256 hash chain (<code>prev_hash</code>), plaintext body. Tamper-evident, not confidential, not signed.</div>
+      </div>
+      <div class="bridge-tile">
+        <div class="bridge-tile-k">agent/envelope.mjs (sealed mesh)</div>
+        <div class="bridge-tile-v" style="font-size:13px">Ed25519 signing + X25519-HKDF-SHA256-ChaCha20Poly1305 encryption, implemented. <span class="badge badge-orange">no server</span> — local broker guarded (exit 81), not restarted here.</div>
+      </div>
+      <div class="bridge-tile">
+        <div class="bridge-tile-k">Bridge panel target (127.0.0.1:8788)</div>
+        <div class="bridge-tile-v" style="font-size:13px">Tunneled to pb-moe-02. Serves <code>ProofBundleBridgeEvent/v2</code> telemetry, unsigned at the source. Different protocol from the sealed mesh above despite sharing a port.</div>
+      </div>
+      <div class="bridge-tile">
+        <div class="bridge-tile-k">Algorithm registry</div>
+        <div class="bridge-tile-v" style="font-size:13px">Full digest/MAC/KDF/signature/KEM/AEAD registry lives on the <a href="#" onclick="switchTab('algorithms', document.getElementById('tab-algorithms')); return false">Algorithms</a> tab — not duplicated here.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bridge-grid">
+    <div class="bridge-tile"><div class="bridge-tile-k">registered lanes</div><div class="bridge-tile-v" id="orch-stat-lanes">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">bus messages</div><div class="bridge-tile-v" id="orch-stat-messages">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">bus tip seq</div><div class="bridge-tile-v" id="orch-stat-tip">?</div></div>
+    <div class="bridge-tile"><div class="bridge-tile-k">filtered on</div><div class="bridge-tile-v" id="orch-stat-filter" style="font-size:14px">all lanes</div></div>
+  </div>
+
+  <div class="orch-grid">
+    <div class="card orch-pane">
+      <div class="card-title">Lanes <span id="orch-lane-count" class="badge badge-orange">0</span></div>
+      <div id="orch-lanes" class="orch-scroll"></div>
+    </div>
+    <div class="card orch-pane">
+      <div class="card-title">Feed <span id="orch-feed-count" class="badge badge-orange">0</span></div>
+      <div class="btn-row" style="margin-bottom:12px">
+        <button class="btn btn-secondary" onclick="refreshOrchestrator()">Refresh</button>
+        <select id="orch-feed-filter" onchange="renderOrchFeed()" style="flex:1">
+          <option value="">all lanes</option>
+        </select>
+      </div>
+      <div id="orch-feed" class="orch-scroll"></div>
+    </div>
+    <div class="card orch-pane">
+      <div class="card-title">Compose <span style="font-size:10px;color:var(--text2);text-transform:none;font-weight:400">copy to your shell — nothing here executes</span></div>
+      <label class="label">From lane</label>
+      <input type="text" id="orch-from" value="claude" placeholder="claude">
+      <label class="label">To (comma-separated lanes, or leave blank for all registered)</label>
+      <input type="text" id="orch-to" placeholder="claude,codex,glm,grok,cline,ops">
+      <label class="label">Subject</label>
+      <input type="text" id="orch-subject" placeholder="subject">
+      <label class="label">Body</label>
+      <textarea id="orch-body" rows="4" placeholder="message body"></textarea>
+      <div class="btn-row" style="margin-top:10px">
+        <button class="btn btn-primary" onclick="orchBuildCommand()">Build command</button>
+        <button class="btn btn-secondary" onclick="orchCopyCommand()">Copy</button>
+      </div>
+      <label class="label" style="margin-top:10px">pb-lane-bus command</label>
+      <textarea id="orch-command" rows="5" readonly spellcheck="false" style="font-family:var(--font-mono);font-size:12px"></textarea>
     </div>
   </div>
 </div>
@@ -5859,6 +5975,109 @@ async function bridgeLoadLineage() {
   const box = document.getElementById('bridge-lineage-table');
   if (box) box.innerHTML = entries.length ? `<table class="mini-table"><thead><tr><th>#</th><th>from</th><th>type</th><th>to</th><th>hash</th></tr></thead><tbody>` + entries.slice(-30).reverse().map(e => `<tr><td>${esc(e.sequence)}</td><td>${esc(e.from || '?')}</td><td>${esc(e.message_type || '?')}</td><td>${esc(e.to || '')}</td><td class="mono">${esc(String(e.payload_sha256 || '').slice(0,18))}…</td></tr>`).join('') + `</tbody></table>` : '<div class="empty"><div class="empty-title">No verifier lineage entries</div></div>';
 }
+// ── Orchestrator: reads pb-lane-bus directly (agent/live-bus/, same origin) ──
+const ORCH_STATE = { messages: [], lanes: {}, activeLane: '' };
+const ORCH_PROVIDER_COLOR = { zai: 'var(--blue)', xai: 'var(--purple)', cline: 'var(--cyan)', 'local-endpoint': 'var(--orange)', local: 'var(--text2)' };
+const ORCH_KIND_COLOR = { error: 'var(--red)', msg: 'var(--blue)', register: 'var(--green)', receipt: 'var(--cyan)', launch: 'var(--purple)', root: 'var(--orange)', vm: 'var(--cyan)', transcript: 'var(--orange)' };
+const ORCH_KIND_BADGE = { error: 'badge-red', msg: 'badge-blue', register: 'badge-green', receipt: 'badge-cyan', launch: 'badge-purple', root: 'badge-orange', vm: 'badge-cyan', transcript: 'badge-orange' };
+
+async function refreshOrchestrator() {
+  try {
+    const [lanesRes, busRes] = await Promise.all([
+      fetch('agent/live-bus/LANES.json', { cache: 'no-store' }),
+      fetch('agent/live-bus/messages.ndjson', { cache: 'no-store' }),
+    ]);
+    ORCH_STATE.lanes = lanesRes.ok ? (await lanesRes.json()).lanes || {} : {};
+    const text = busRes.ok ? await busRes.text() : '';
+    ORCH_STATE.messages = text.split('\n').filter(Boolean).map(line => {
+      try { return JSON.parse(line); } catch { return null; }
+    }).filter(Boolean);
+  } catch (e) {
+    document.getElementById('orch-feed').innerHTML = `<div class="orch-empty"><span class="badge badge-orange">offline</span><br>${esc(e.message)}</div>`;
+    return;
+  }
+  document.getElementById('orch-stat-lanes').textContent = String(Object.keys(ORCH_STATE.lanes).length);
+  document.getElementById('orch-stat-messages').textContent = String(ORCH_STATE.messages.length);
+  const last = ORCH_STATE.messages[ORCH_STATE.messages.length - 1];
+  document.getElementById('orch-stat-tip').textContent = last ? String(last.seq) : 'genesis';
+  renderOrchLanes();
+  renderOrchFeed();
+}
+
+function renderOrchLanes() {
+  const box = document.getElementById('orch-lanes'); if (!box) return;
+  const names = Object.keys(ORCH_STATE.lanes).sort();
+  document.getElementById('orch-lane-count').textContent = String(names.length);
+  const filterSel = document.getElementById('orch-feed-filter');
+  const prevVal = filterSel.value;
+  filterSel.innerHTML = '<option value="">all lanes</option>' + names.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  filterSel.value = prevVal;
+  box.innerHTML = names.map(n => {
+    const l = ORCH_STATE.lanes[n];
+    const c = ORCH_PROVIDER_COLOR[l.provider] || 'var(--text2)';
+    const active = n === ORCH_STATE.activeLane ? ' active' : '';
+    return `<div class="orch-lane-card${active}" style="--provider-c:${c}" onclick="orchSelectLane('${esc(n)}')">
+      <div class="orch-lane-dot"></div>
+      <div class="orch-lane-body">
+        <div class="orch-lane-name">${esc(n)}</div>
+        <div class="orch-lane-meta">
+          <span class="chip">${esc(l.cli||'?')}</span>
+          <span class="chip">${esc(l.model||'no model')}</span>
+          <span class="chip">${esc(l.provider||'?')}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="orch-empty">No lanes registered</div>';
+}
+
+function orchSelectLane(name) {
+  ORCH_STATE.activeLane = ORCH_STATE.activeLane === name ? '' : name;
+  document.getElementById('orch-feed-filter').value = ORCH_STATE.activeLane;
+  renderOrchLanes();
+  renderOrchFeed();
+}
+
+function renderOrchFeed() {
+  const box = document.getElementById('orch-feed'); if (!box) return;
+  const filter = document.getElementById('orch-feed-filter').value;
+  ORCH_STATE.activeLane = filter;
+  document.getElementById('orch-stat-filter').textContent = filter || 'all lanes';
+  const msgs = ORCH_STATE.messages.filter(m => !filter || m.src === filter || (Array.isArray(m.to) && m.to.includes(filter)));
+  document.getElementById('orch-feed-count').textContent = String(msgs.length);
+  box.innerHTML = msgs.slice(-60).reverse().map(m => {
+    const kind = m.kind || 'msg';
+    const kc = ORCH_KIND_COLOR[kind] || 'var(--text2)';
+    const kb = ORCH_KIND_BADGE[kind] || 'badge-blue';
+    const to = Array.isArray(m.to) ? m.to.join(', ') : (m.to || '');
+    return `<div class="orch-msg-card" style="--kind-c:${kc}">
+      <div class="orch-msg-hdr">
+        <div class="orch-msg-route"><span class="badge ${kb}">${esc(kind)}</span> <span class="mono">#${esc(m.seq)}</span> <b>${esc(m.src||'?')}</b> → ${esc(to)}</div>
+        <div class="orch-msg-ts">${esc((m.ts||'').replace('T',' ').replace('Z',''))}</div>
+      </div>
+      <div class="orch-msg-subject">${esc(m.subject||'')}</div>
+      <div class="orch-msg-body">${esc((m.body||'').slice(0,400))}</div>
+    </div>`;
+  }).join('') || '<div class="orch-empty">No messages match this filter</div>';
+}
+
+function orchBuildCommand() {
+  const from = document.getElementById('orch-from').value.trim() || 'claude';
+  const toRaw = document.getElementById('orch-to').value.trim();
+  const to = toRaw || Object.keys(ORCH_STATE.lanes).sort().join(',') || 'ops';
+  const subject = document.getElementById('orch-subject').value;
+  const body = document.getElementById('orch-body').value;
+  const q = s => `'${String(s).replace(/'/g, `'\\''`)}'`;
+  const cmd = `pb-lane-bus send --from ${q(from)} --to ${q(to)} --subject ${q(subject)} --body ${q(body)}`;
+  document.getElementById('orch-command').value = cmd;
+}
+
+async function orchCopyCommand() {
+  orchBuildCommand();
+  const el = document.getElementById('orch-command');
+  el.select();
+  try { await navigator.clipboard.writeText(el.value); } catch { document.execCommand('copy'); }
+}
+
 async function bridgeRegister(which) {
   const c = bridgeCfg(), id = which === 'recipient' ? c.recipient : c.local;
   try {

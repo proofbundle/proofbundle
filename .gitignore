@@ -1,5 +1,6 @@
 node_modules/
 *.log
+agent/live-bus
 cosign.key
 *.pem
 .DS_Store

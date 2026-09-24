@@ -1,0 +1,11 @@
+.git
+node_modules
+target
+rust/target
+formal/si-second/source-record
+reference
+corpus
+reports
+release
+*.zip
+*.tar.gz

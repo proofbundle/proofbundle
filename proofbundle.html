@@ -547,6 +547,23 @@ body.adv-mode .mode-text { color: var(--text0); border-color: var(--blue); }
 .hero-job { font-size: 12px; color: var(--text1); margin-top: 12px; }
 .topbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
+
+/* PB 2.2 workspace layers and durable artifact library */
+.layer-map{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:0 0 22px;background:var(--surface)}
+.layer-map button{appearance:none;border:0;border-right:1px solid var(--border);background:transparent;color:var(--text1);padding:12px 10px;text-align:left;cursor:pointer;font:inherit}
+.layer-map button:last-child{border-right:0}.layer-map button:hover{background:var(--surface2)}
+.layer-map b{display:block;font-size:12px;color:var(--text0)}.layer-map span{display:block;font-size:10px;margin-top:3px;color:var(--text2)}
+.library-toolbar{display:grid;grid-template-columns:minmax(180px,2fr) minmax(130px,1fr) auto;gap:10px;align-items:end;margin:16px 0}
+.library-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 18px}.library-stat{border:1px solid var(--border);border-radius:8px;padding:13px;background:var(--surface)}
+.library-stat b{display:block;font:600 18px var(--mono);color:var(--text0)}.library-stat span{font-size:11px;color:var(--text2)}
+.library-drop{border:1px dashed var(--accent);border-radius:8px;padding:18px;text-align:center;cursor:pointer;background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.library-row-actions{display:flex;gap:5px;flex-wrap:wrap}.library-tag{display:inline-block;padding:2px 6px;border-radius:10px;background:var(--surface2);font-size:10px;margin:1px}
+@media(max-width:800px){.layer-map{grid-template-columns:1fr}.layer-map button{border-right:0;border-bottom:1px solid var(--border)}.library-toolbar{grid-template-columns:1fr}.library-stats{grid-template-columns:1fr 1fr}}
+
+
+.bridge-workspace{display:grid;grid-template-columns:250px minmax(0,1.5fr) minmax(300px,1fr);gap:12px;margin:18px 0}.bridge-pane{border:1px solid var(--border);border-radius:8px;background:var(--surface);min-height:430px;overflow:hidden}.bridge-pane-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700}.bridge-pane-body{max-height:620px;overflow:auto;padding:10px}.bridge-agent{padding:10px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px}.bridge-agent b{font-size:12px}.bridge-agent-meta{font-size:10px;color:var(--text2);margin-top:4px;word-break:break-word}.bridge-event{border-left:3px solid var(--border);padding:9px 10px;margin-bottom:9px;background:var(--surface2);border-radius:0 6px 6px 0}.bridge-event.type-code{border-left-color:var(--accent)}.bridge-event.type-proof{border-left-color:var(--green)}.bridge-event.type-error{border-left-color:var(--red)}.bridge-event-head{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:var(--text2)}.bridge-event-message{font-size:12px;white-space:pre-wrap;word-break:break-word;margin-top:5px}.bridge-code{font:11px var(--mono);white-space:pre-wrap;word-break:break-word;background:var(--code-bg);padding:9px;border-radius:5px;margin-top:7px;max-height:260px;overflow:auto}.bridge-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bridge-proof-stat{padding:9px;border:1px solid var(--border);border-radius:6px}.bridge-proof-stat b{display:block;font:600 15px var(--mono)}.bridge-proof-stat span{font-size:9px;color:var(--text2)}
+@media(max-width:1050px){.bridge-workspace{grid-template-columns:220px 1fr}.bridge-workspace>.bridge-pane:last-child{grid-column:1/-1}}@media(max-width:700px){.bridge-workspace{grid-template-columns:1fr}.bridge-workspace>.bridge-pane:last-child{grid-column:auto}}
+
 </style>
 <script>
 /* ── PBKECCAK — from-scratch FIPS 202 (Keccak-f[1600], SHA-3, SHAKE) ──
@@ -826,13 +843,14 @@ var PBSHA256=(function(){
 <aside id="sidebar">
   <div class="sb-brand">
     <div class="logo"><span class="mark">◆</span>ProofBundle</div>
-    <div class="version-badge">PB 2.1</div>
+    <div class="version-badge">PB 2.2</div>
   </div>
   <nav class="sb-nav" id="tabs">
     <button class="active" data-title="Seal a file" onclick="switchTab('home',this)"><span class="sb-ico">✦</span><span>Seal</span></button>
     <button data-title="Verify" onclick="switchTab('verify',this)"><span class="sb-ico">✓</span><span>Verify</span></button>
     <button class="sb-adv-only" data-title="Compliance profiles" onclick="switchTab('domains',this)"><span class="sb-ico">◈</span><span>Profiles</span></button>
     <button class="sb-adv-only" data-title="Compliance certification" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>Certification</span></button>
+    <button data-title="Artifact library" onclick="switchTab('library',this); renderLibrary()"><span class="sb-ico">▣</span><span>Library</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
     <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
@@ -1307,6 +1325,41 @@ var PBSHA256=(function(){
   </div>
 </div>
 
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- ARTIFACT LIBRARY — durable local custody                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-library">
+  <h2>Artifact Library</h2>
+  <p>A durable, local-first catalog for source files, datasets, model artifacts, proof objects, receipts, and evidence. File bytes and metadata remain in this browser's IndexedDB unless explicitly exported.</p>
+
+  <div class="layer-map" aria-label="ProofBundle workspace layers">
+    <button onclick="libraryPick()"><b>1 · Capture</b><span>files, folders, datasets</span></button>
+    <button onclick="switchTab('library',document.querySelector('[data-title=&quot;Artifact library&quot;]'))"><b>2 · Custody</b><span>catalog, tags, content address</span></button>
+    <button onclick="switchTab('files',document.querySelector('[data-title^=&quot;Files&quot;]'))"><b>3 · Commit</b><span>chunks, Merkle root, receipt</span></button>
+    <button onclick="switchTab('verify',document.querySelector('[data-title=&quot;Verify&quot;]'))"><b>4 · Verify</b><span>typed verdict and trace</span></button>
+    <button onclick="switchTab('bridge',document.querySelector('[data-title=&quot;Bridge&quot;]'));refreshBridgeConsole()"><b>5 · Operate</b><span>Bridge, CLI, container</span></button>
+  </div>
+
+  <div class="library-drop" id="library-drop" onclick="libraryPick()">
+    <b>Add artifacts to the built-in library</b><div class="algo-note">Files are hashed with the ProofBundle engine and stored locally with their bytes, metadata, and content address.</div>
+    <input type="file" id="library-input" multiple style="display:none" onchange="libraryImport(this.files);this.value=''">
+  </div>
+  <div id="library-status" class="algo-note" style="margin-top:8px" aria-live="polite"></div>
+  <div class="library-stats">
+    <div class="library-stat"><b id="library-count">0</b><span>artifacts</span></div>
+    <div class="library-stat"><b id="library-bytes">0 B</b><span>stored bytes</span></div>
+    <div class="library-stat"><b id="library-sealed">0</b><span>with custody commitment</span></div>
+    <div class="library-stat"><b id="library-types">0</b><span>media types</span></div>
+  </div>
+  <div class="library-toolbar">
+    <div><label class="label">Search</label><input id="library-search" placeholder="name, media type, tag, digest" oninput="renderLibrary()"></div>
+    <div><label class="label">Collection</label><select id="library-filter" onchange="renderLibrary()"><option value="">All artifacts</option><option value="proof">Proofs</option><option value="model">AI / ML</option><option value="dataset">Datasets</option><option value="receipt">Receipts</option><option value="source">Source</option></select></div>
+    <div class="btn-row"><button class="btn btn-secondary btn-sm" onclick="libraryExportIndex()">Export index</button><button class="btn btn-secondary btn-sm" onclick="libraryImportIndexPick()">Import index</button><input type="file" id="library-index-input" accept=".json,application/json" style="display:none" onchange="libraryImportIndex(this.files[0]);this.value=''"></div>
+  </div>
+  <div id="library-list"></div>
+</div>
+
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- LEDGER TAB                                                     -->
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1385,6 +1438,12 @@ var PBSHA256=(function(){
 <div class="tab-panel" id="panel-bridge">
   <h2>Bridge console</h2>
   <p>Watch the local ProofBundle verifier relay, inspect the lineage, register explicit lane identities, seal messages, route envelopes, read inboxes, and verify the chain. This console does not claim inherited identity; it only reports what the verifier endpoint confirms.</p>
+  <div class="bridge-workspace">
+    <section class="bridge-pane"><div class="bridge-pane-head"><span>Agents</span><span id="bridge-agent-count" class="badge">0</span></div><div class="bridge-pane-body" id="bridge-live-agents"><div class="empty">No live state</div></div></section>
+    <section class="bridge-pane"><div class="bridge-pane-head"><span>Live chatter + actions</span><span id="bridge-live-seq" class="mono">—</span></div><div class="bridge-pane-body" id="bridge-live-feed"><div class="empty">Waiting for the bridge endpoint</div></div></section>
+    <section class="bridge-pane"><div class="bridge-pane-head"><span>Code + proof custody</span><span id="bridge-live-root" class="mono">—</span></div><div class="bridge-pane-body"><div class="bridge-proof-grid"><div class="bridge-proof-stat"><b id="bridge-proof-repos">0</b><span>PROVER REPOSITORIES</span></div><div class="bridge-proof-stat"><b id="bridge-proof-checked">0</b><span>LAST CYCLE CHECKED</span></div><div class="bridge-proof-stat"><b id="bridge-proof-segments">0</b><span>MERKLE SEGMENTS</span></div><div class="bridge-proof-stat"><b id="bridge-proof-ots">0</b><span>OTS RECEIPTS</span></div></div><div id="bridge-live-code" style="margin-top:10px"><div class="empty">Code activity appears here</div></div></div></section>
+  </div>
+
 
   <div class="card">
     <div class="card-title">Verifier endpoint</div>
@@ -5779,6 +5838,7 @@ async function refreshBridgeConsole() {
     const h = await bridgeFetch('/health');
     bridgeSetStatus(true, (h.service || 'bridge') + ' ' + (h.version || ''));
     await bridgeLoadLineage();
+    await bridgeLoadWorkspace();
   } catch (e) {
     bridgeSetStatus(false, e.message || String(e));
     const ev = document.getElementById('bridge-entries-v'); if (ev) ev.textContent = '?';
@@ -5922,6 +5982,44 @@ async function refreshAgentLineage() {
 }
 
 init();
+
+
+/* ── PB artifact library: IndexedDB bytes + content-address metadata ── */
+const PB_LIBRARY_DB = 'proofbundle-artifact-library-v1';
+const PB_LIBRARY_STORE = 'artifacts';
+let PB_LIBRARY_CACHE = [];
+function libraryDb(){return new Promise((ok,bad)=>{const q=indexedDB.open(PB_LIBRARY_DB,1);q.onupgradeneeded=()=>{const db=q.result;if(!db.objectStoreNames.contains(PB_LIBRARY_STORE)){const s=db.createObjectStore(PB_LIBRARY_STORE,{keyPath:'id'});s.createIndex('name','name');s.createIndex('imported_at','imported_at');}};q.onsuccess=()=>ok(q.result);q.onerror=()=>bad(q.error);});}
+async function libraryTx(mode,fn){const db=await libraryDb();return new Promise((ok,bad)=>{const tx=db.transaction(PB_LIBRARY_STORE,mode),s=tx.objectStore(PB_LIBRARY_STORE);let v;try{v=fn(s)}catch(e){bad(e);return}tx.oncomplete=()=>ok(v);tx.onerror=()=>bad(tx.error);});}
+function libraryPick(){document.getElementById('library-input').click()}
+function libraryKind(name,mime){const n=name.toLowerCase();if(/\.((lean)|(v)|(vo)|(glob)|(proof))$/.test(n))return'proof';if(/\.(gguf|onnx|safetensors|pt|pth|ckpt|tflite)$/.test(n))return'model';if(/\.(csv|tsv|parquet|arrow|jsonl|ndjson)$/.test(n))return'dataset';if(/(receipt|bundle|attestation).*\.json$/.test(n))return'receipt';if(/\.(rs|js|mjs|ts|py|go|c|h|cpp|java|sh)$/.test(n))return'source';return mime||'artifact'}
+async function libraryImport(files){const status=document.getElementById('library-status');let done=0;for(const file of files){status.textContent=`Indexing ${done+1}/${files.length}: ${file.name}`;const entry={file,size:file.size};const h=await hashFileEntry(entry,'SHA-256',1048576);const id='sha256:'+h.root_b64u;const prior=await libraryGet(id);const record={id,name:file.name,size:file.size,mime:file.type||'application/octet-stream',kind:libraryKind(file.name,file.type),tags:prior?.tags||[],notes:prior?.notes||'',imported_at:prior?.imported_at||new Date().toISOString(),updated_at:new Date().toISOString(),digest_alg:'SHA-256',chunk_size:1048576,chunks:h.chunks,merkle_root_b64u:h.root_b64u,gpx_content_address:h.gpx_content_address,custody_bundle:prior?.custody_bundle||null,blob:file};await libraryTx('readwrite',s=>s.put(record));done++}status.textContent=`Indexed ${done} artifact${done===1?'':'s'} locally.`;await renderLibrary()}
+async function libraryGet(id){const db=await libraryDb();return new Promise((ok,bad)=>{const q=db.transaction(PB_LIBRARY_STORE).objectStore(PB_LIBRARY_STORE).get(id);q.onsuccess=()=>ok(q.result);q.onerror=()=>bad(q.error)})}
+async function libraryAll(){const db=await libraryDb();return new Promise((ok,bad)=>{const q=db.transaction(PB_LIBRARY_STORE).objectStore(PB_LIBRARY_STORE).getAll();q.onsuccess=()=>ok(q.result);q.onerror=()=>bad(q.error)})}
+async function renderLibrary(){const host=document.getElementById('library-list');if(!host)return;try{PB_LIBRARY_CACHE=(await libraryAll()).sort((a,b)=>b.imported_at.localeCompare(a.imported_at));const q=(document.getElementById('library-search')?.value||'').toLowerCase(),f=document.getElementById('library-filter')?.value||'';const rows=PB_LIBRARY_CACHE.filter(x=>(!f||x.kind===f)&&(!q||[x.name,x.mime,x.kind,x.id,x.gpx_content_address,...(x.tags||[])].join(' ').toLowerCase().includes(q)));document.getElementById('library-count').textContent=PB_LIBRARY_CACHE.length;document.getElementById('library-bytes').textContent=fmtBytes(PB_LIBRARY_CACHE.reduce((n,x)=>n+x.size,0));document.getElementById('library-sealed').textContent=PB_LIBRARY_CACHE.filter(x=>x.custody_bundle).length;document.getElementById('library-types').textContent=new Set(PB_LIBRARY_CACHE.map(x=>x.mime)).size;if(!rows.length){host.innerHTML='<div class="empty"><div class="empty-title">No matching artifacts</div><div class="empty-sub">Add files above or change the search.</div></div>';return}host.innerHTML='<table class="mini-table"><thead><tr><th>artifact</th><th>class</th><th>size</th><th>commitment</th><th>custody</th><th></th></tr></thead><tbody>'+rows.map(x=>`<tr><td><b>${esc(x.name)}</b><div class="algo-note">${esc(x.mime)} · ${esc(x.imported_at)}</div>${(x.tags||[]).map(t=>`<span class="library-tag">${esc(t)}</span>`).join('')}</td><td>${esc(x.kind)}</td><td>${fmtBytes(x.size)}</td><td class="mono vec-hash">${esc(x.merkle_root_b64u)}<div class="algo-note">addr ${esc((x.gpx_content_address||'').slice(0,24))}…</div></td><td>${x.custody_bundle?'<span class="badge badge-green">SEALED</span>':'<span class="badge">INDEXED</span>'}</td><td><div class="library-row-actions"><button class="btn btn-secondary btn-sm" onclick="libraryOpen('${x.id}')">Commit</button><button class="btn btn-secondary btn-sm" onclick="libraryDownload('${x.id}')">Download</button><button class="btn btn-secondary btn-sm" onclick="libraryTag('${x.id}')">Tag</button><button class="btn btn-secondary btn-sm" onclick="libraryRemove('${x.id}')">Remove</button></div></td></tr>`).join('')+'</tbody></table>'}catch(e){host.innerHTML='<div class="notice notice-error">Library unavailable: '+esc(e.message)+'</div>'}}
+async function libraryOpen(id){const x=await libraryGet(id);if(!x||!x.blob)return;const file=new File([x.blob],x.name,{type:x.mime,lastModified:Date.parse(x.updated_at)||Date.now()});addFiles([file]);switchTab('files',document.querySelector('[data-title^="Files"]'))}
+async function libraryDownload(id){const x=await libraryGet(id);if(!x?.blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(x.blob);a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+async function libraryTag(id){const x=await libraryGet(id);if(!x)return;const raw=prompt('Comma-separated tags',(x.tags||[]).join(', '));if(raw===null)return;x.tags=[...new Set(raw.split(',').map(v=>v.trim()).filter(Boolean))];x.updated_at=new Date().toISOString();await libraryTx('readwrite',s=>s.put(x));renderLibrary()}
+async function libraryRemove(id){await libraryTx('readwrite',s=>s.delete(id));renderLibrary()}
+async function libraryExportIndex(){const all=await libraryAll();const out={schema:'PB-ARTIFACT-LIBRARY-INDEX-1',generated_at:new Date().toISOString(),artifacts:all.map(({blob,...x})=>x)};dlText('proofbundle-library-index.json',JSON.stringify(out,null,2))}
+function libraryImportIndexPick(){document.getElementById('library-index-input').click()}
+async function libraryImportIndex(file){if(!file)return;const doc=JSON.parse(await file.text());if(doc.schema!=='PB-ARTIFACT-LIBRARY-INDEX-1'||!Array.isArray(doc.artifacts))throw new Error('unsupported library index');for(const x of doc.artifacts){const prior=await libraryGet(x.id);await libraryTx('readwrite',s=>s.put({...x,blob:prior?.blob||null,updated_at:new Date().toISOString()}))}renderLibrary()}
+function libraryDropInit(){const dz=document.getElementById('library-drop');if(!dz)return;['dragover','dragenter'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drop-hot')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drop-hot')}));dz.addEventListener('drop',e=>libraryImport(e.dataTransfer.files))}
+libraryDropInit();
+
+
+async function bridgeLoadWorkspace(){
+  try{
+    const w=await bridgeFetch('/snapshot?limit=250'), agents=Array.isArray(w.agents)?w.agents:[], events=Array.isArray(w.events)?w.events:[], m=w.merkle||{}, pp=w.proof_production||{};
+    const ac=document.getElementById('bridge-agent-count');if(ac)ac.textContent=String(agents.length);
+    const ab=document.getElementById('bridge-live-agents');if(ab)ab.innerHTML=agents.length?agents.sort((a,b)=>String(b.last_seen).localeCompare(String(a.last_seen))).map(a=>`<div class="bridge-agent"><b>${esc(a.id)}</b> <span class="badge ${a.state==='online'||a.state==='active'?'badge-green':'badge-orange'}">${esc(a.state||'unknown')}</span><div class="bridge-agent-meta">${esc(a.model||'model not declared')}<br>${esc(a.repository||'no repository')}<br>${esc(a.task||'')}</div></div>`).join(''):'<div class="empty">No agent heartbeat records</div>';
+    const seq=document.getElementById('bridge-live-seq');if(seq)seq.textContent=w.tip?'seq '+w.tip.sequence:'genesis';
+    const root=document.getElementById('bridge-live-root');if(root)root.textContent=(m.cumulative_merkle_root||'unanchored').slice(0,14)+'…';
+    const feed=document.getElementById('bridge-live-feed');if(feed)feed.innerHTML=events.length?events.slice().reverse().map(e=>{const p=e.payload||{},t=e.message_type||'activity',msg=p.message||p.text||p.summary||p.task||p.state||'';const code=p.output||p.diff||p.code||p.model_review||'';return `<article class="bridge-event type-${esc(t)}"><div class="bridge-event-head"><b>${esc(e.from||'?')} · ${esc(t)}</b><span>#${esc(e.sequence)} · ${esc(e.created_at_utc||'')}</span></div><div class="bridge-event-message">${esc(msg)}${p.repository?`<div><b>${esc(p.repository)}</b>${p.algorithm_id?' · '+esc(p.algorithm_id):''}</div>`:''}</div>${code?`<pre class="bridge-code">${esc(String(code).slice(-12000))}</pre>`:''}</article>`}).join(''):'<div class="empty">No bridge events</div>';
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=String(v??0)};set('bridge-proof-repos',pp.repositories);set('bridge-proof-checked',pp.checked);set('bridge-proof-segments',m.segment_count);set('bridge-proof-ots',Object.keys(m.ots||{}).length);
+    const cb=document.getElementById('bridge-live-code'),codeEvents=events.filter(e=>['code','proof','error','ots_checkpoint'].includes(e.message_type)).slice(-12).reverse();if(cb)cb.innerHTML=codeEvents.length?codeEvents.map(e=>{const p=e.payload||{};return `<div class="bridge-event type-${esc(e.message_type)}"><b>${esc(p.repository||e.message_type)}</b><div class="bridge-event-message">${esc(p.state||p.summary||'')}</div>${p.output?`<pre class="bridge-code">${esc(String(p.output).slice(-5000))}</pre>`:''}</div>`}).join(''):'<div class="empty">No code or proof events</div>';
+  }catch(e){bridgeLog('workspace load failed: '+e.message,'error')}
+}
+
 </script>
 </body>
 </html>

@@ -1,0 +1,1908 @@
+{
+  "schema": "PB-ALGORITHM-PROVER-REPOSITORY-MATRIX-1",
+  "registry_sha256": "dae3d22d1811275874aebcfa06eabcbee580c3b6c1ccee624459471aef6172e1",
+  "algorithm_count": 95,
+  "repository_count": 190,
+  "repositories": [
+    {
+      "algorithm_id": "SHA-224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-224",
+      "url": "https://github.com/proofbundle/lean-sha-224",
+      "registry_entry_sha256": "814311d2134a7dc7933f0ee7711f429c232985baa1b98a9571fdfec50a38f1a3",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-224"
+    },
+    {
+      "algorithm_id": "SHA-224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-224",
+      "url": "https://github.com/proofbundle/rocq-sha-224",
+      "registry_entry_sha256": "814311d2134a7dc7933f0ee7711f429c232985baa1b98a9571fdfec50a38f1a3",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-224"
+    },
+    {
+      "algorithm_id": "SHA-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-256",
+      "url": "https://github.com/proofbundle/lean-sha-256",
+      "registry_entry_sha256": "b0a093769deeb3faf5ec6aa39ae9b78551adc158e8170fa25a5c46a725a661fa",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-256"
+    },
+    {
+      "algorithm_id": "SHA-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-256",
+      "url": "https://github.com/proofbundle/rocq-sha-256",
+      "registry_entry_sha256": "b0a093769deeb3faf5ec6aa39ae9b78551adc158e8170fa25a5c46a725a661fa",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-256"
+    },
+    {
+      "algorithm_id": "SHA-384",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-384",
+      "url": "https://github.com/proofbundle/lean-sha-384",
+      "registry_entry_sha256": "793f00214ec83d787c501fc425ee5d7ec6413d362b8e05ab5b43fae1a1aab391",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-384"
+    },
+    {
+      "algorithm_id": "SHA-384",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-384",
+      "url": "https://github.com/proofbundle/rocq-sha-384",
+      "registry_entry_sha256": "793f00214ec83d787c501fc425ee5d7ec6413d362b8e05ab5b43fae1a1aab391",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-384"
+    },
+    {
+      "algorithm_id": "SHA-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-512",
+      "url": "https://github.com/proofbundle/lean-sha-512",
+      "registry_entry_sha256": "6df04057fd800636aaf70a24ef4c3c3996cf9670e6e2bca4d0dbd5f0c221f3aa",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-512"
+    },
+    {
+      "algorithm_id": "SHA-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-512",
+      "url": "https://github.com/proofbundle/rocq-sha-512",
+      "registry_entry_sha256": "6df04057fd800636aaf70a24ef4c3c3996cf9670e6e2bca4d0dbd5f0c221f3aa",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-512"
+    },
+    {
+      "algorithm_id": "SHA-512/224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-512-224",
+      "url": "https://github.com/proofbundle/lean-sha-512-224",
+      "registry_entry_sha256": "3dae2c63f8ee938ca27c2c47727ac890bf0b0cb736c78535a409df5446cba74b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-512-224"
+    },
+    {
+      "algorithm_id": "SHA-512/224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-512-224",
+      "url": "https://github.com/proofbundle/rocq-sha-512-224",
+      "registry_entry_sha256": "3dae2c63f8ee938ca27c2c47727ac890bf0b0cb736c78535a409df5446cba74b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-512-224"
+    },
+    {
+      "algorithm_id": "SHA-512/256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha-512-256",
+      "url": "https://github.com/proofbundle/lean-sha-512-256",
+      "registry_entry_sha256": "56e4f99917d4aae3db539586007e50ab0f22652ba20562f0e3b7fcefcfff947f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-512-256"
+    },
+    {
+      "algorithm_id": "SHA-512/256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha-512-256",
+      "url": "https://github.com/proofbundle/rocq-sha-512-256",
+      "registry_entry_sha256": "56e4f99917d4aae3db539586007e50ab0f22652ba20562f0e3b7fcefcfff947f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-512-256"
+    },
+    {
+      "algorithm_id": "SHA3-224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha3-224",
+      "url": "https://github.com/proofbundle/lean-sha3-224",
+      "registry_entry_sha256": "66936361a997ce17a59fa7cf68a7d1a49794fff5c779425fb03b20a05bd82827",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha3-224"
+    },
+    {
+      "algorithm_id": "SHA3-224",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha3-224",
+      "url": "https://github.com/proofbundle/rocq-sha3-224",
+      "registry_entry_sha256": "66936361a997ce17a59fa7cf68a7d1a49794fff5c779425fb03b20a05bd82827",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha3-224"
+    },
+    {
+      "algorithm_id": "SHA3-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha3-256",
+      "url": "https://github.com/proofbundle/lean-sha3-256",
+      "registry_entry_sha256": "078e84090174856dc87fb49910c0246cbf1e8c1b2beef917611c703e2a52126b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha3-256"
+    },
+    {
+      "algorithm_id": "SHA3-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha3-256",
+      "url": "https://github.com/proofbundle/rocq-sha3-256",
+      "registry_entry_sha256": "078e84090174856dc87fb49910c0246cbf1e8c1b2beef917611c703e2a52126b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha3-256"
+    },
+    {
+      "algorithm_id": "SHA3-384",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha3-384",
+      "url": "https://github.com/proofbundle/lean-sha3-384",
+      "registry_entry_sha256": "ddb931923a0f2da90bc3f44a5baa79576d60824df11f33437cda841c52967fce",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha3-384"
+    },
+    {
+      "algorithm_id": "SHA3-384",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha3-384",
+      "url": "https://github.com/proofbundle/rocq-sha3-384",
+      "registry_entry_sha256": "ddb931923a0f2da90bc3f44a5baa79576d60824df11f33437cda841c52967fce",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha3-384"
+    },
+    {
+      "algorithm_id": "SHA3-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-sha3-512",
+      "url": "https://github.com/proofbundle/lean-sha3-512",
+      "registry_entry_sha256": "a078e422b91c07042fbd923c60e5f1f9ae12072097ecdb683ce9d83d275b926c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha3-512"
+    },
+    {
+      "algorithm_id": "SHA3-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-sha3-512",
+      "url": "https://github.com/proofbundle/rocq-sha3-512",
+      "registry_entry_sha256": "a078e422b91c07042fbd923c60e5f1f9ae12072097ecdb683ce9d83d275b926c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha3-512"
+    },
+    {
+      "algorithm_id": "SHAKE128",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-shake128",
+      "url": "https://github.com/proofbundle/lean-shake128",
+      "registry_entry_sha256": "5a98b190f34d5e2ec9ebddb1e7fbdd6fc7e24db4967055b7fa2422d10e5089ab",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-shake128"
+    },
+    {
+      "algorithm_id": "SHAKE128",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-shake128",
+      "url": "https://github.com/proofbundle/rocq-shake128",
+      "registry_entry_sha256": "5a98b190f34d5e2ec9ebddb1e7fbdd6fc7e24db4967055b7fa2422d10e5089ab",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-shake128"
+    },
+    {
+      "algorithm_id": "SHAKE256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-shake256",
+      "url": "https://github.com/proofbundle/lean-shake256",
+      "registry_entry_sha256": "51d2d334ae25d6d74d891490517a5cf9a3550ee96653a32c12e46f03d870cb4b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-shake256"
+    },
+    {
+      "algorithm_id": "SHAKE256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-shake256",
+      "url": "https://github.com/proofbundle/rocq-shake256",
+      "registry_entry_sha256": "51d2d334ae25d6d74d891490517a5cf9a3550ee96653a32c12e46f03d870cb4b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-shake256"
+    },
+    {
+      "algorithm_id": "cSHAKE128",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-cshake128",
+      "url": "https://github.com/proofbundle/lean-cshake128",
+      "registry_entry_sha256": "516c5c0ee23366ccadc125485cf649a9cdbb422bd2679565ad573ba7e6e5e750",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-cshake128"
+    },
+    {
+      "algorithm_id": "cSHAKE128",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-cshake128",
+      "url": "https://github.com/proofbundle/rocq-cshake128",
+      "registry_entry_sha256": "516c5c0ee23366ccadc125485cf649a9cdbb422bd2679565ad573ba7e6e5e750",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-cshake128"
+    },
+    {
+      "algorithm_id": "cSHAKE256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-cshake256",
+      "url": "https://github.com/proofbundle/lean-cshake256",
+      "registry_entry_sha256": "f7d782af610b7a954f0387f49189ee7005aac1dc04212c2c376717b5af4f4cb2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-cshake256"
+    },
+    {
+      "algorithm_id": "cSHAKE256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-cshake256",
+      "url": "https://github.com/proofbundle/rocq-cshake256",
+      "registry_entry_sha256": "f7d782af610b7a954f0387f49189ee7005aac1dc04212c2c376717b5af4f4cb2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-cshake256"
+    },
+    {
+      "algorithm_id": "BLAKE2b-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-blake2b-512",
+      "url": "https://github.com/proofbundle/lean-blake2b-512",
+      "registry_entry_sha256": "c6e95ba3c634977991f5c1accc479de567e213f8444a418f5dd085881f8c3535",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-blake2b-512"
+    },
+    {
+      "algorithm_id": "BLAKE2b-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-blake2b-512",
+      "url": "https://github.com/proofbundle/rocq-blake2b-512",
+      "registry_entry_sha256": "c6e95ba3c634977991f5c1accc479de567e213f8444a418f5dd085881f8c3535",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-blake2b-512"
+    },
+    {
+      "algorithm_id": "BLAKE2s-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "lean",
+      "repository": "lean-blake2s-256",
+      "url": "https://github.com/proofbundle/lean-blake2s-256",
+      "registry_entry_sha256": "2cdd8b565a01f3a69dd83547b484770e40faf014929393c8db2053c2fc863ac4",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-blake2s-256"
+    },
+    {
+      "algorithm_id": "BLAKE2s-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "COMPLETE",
+      "prover": "rocq",
+      "repository": "rocq-blake2s-256",
+      "url": "https://github.com/proofbundle/rocq-blake2s-256",
+      "registry_entry_sha256": "2cdd8b565a01f3a69dd83547b484770e40faf014929393c8db2053c2fc863ac4",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-blake2s-256"
+    },
+    {
+      "algorithm_id": "BLAKE3",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-blake3",
+      "url": "https://github.com/proofbundle/lean-blake3",
+      "registry_entry_sha256": "c43754c79cc9bfcd34895346791fa0abdf7eb6c9ab715192b2abec1b2859a0bc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-blake3"
+    },
+    {
+      "algorithm_id": "BLAKE3",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-blake3",
+      "url": "https://github.com/proofbundle/rocq-blake3",
+      "registry_entry_sha256": "c43754c79cc9bfcd34895346791fa0abdf7eb6c9ab715192b2abec1b2859a0bc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-blake3"
+    },
+    {
+      "algorithm_id": "Keccak-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-keccak-256",
+      "url": "https://github.com/proofbundle/lean-keccak-256",
+      "registry_entry_sha256": "38434436bec3739f98a8f01fcfb2e815fa73a1d7d312d14476076e7c671b4d7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-keccak-256"
+    },
+    {
+      "algorithm_id": "Keccak-256",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-keccak-256",
+      "url": "https://github.com/proofbundle/rocq-keccak-256",
+      "registry_entry_sha256": "38434436bec3739f98a8f01fcfb2e815fa73a1d7d312d14476076e7c671b4d7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-keccak-256"
+    },
+    {
+      "algorithm_id": "Keccak-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-keccak-512",
+      "url": "https://github.com/proofbundle/lean-keccak-512",
+      "registry_entry_sha256": "ce2f86bf864a691d7316c14279a06e3b1d8468c433490a46f1d5038dce800b04",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-keccak-512"
+    },
+    {
+      "algorithm_id": "Keccak-512",
+      "primitive_family": "DIGEST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-keccak-512",
+      "url": "https://github.com/proofbundle/rocq-keccak-512",
+      "registry_entry_sha256": "ce2f86bf864a691d7316c14279a06e3b1d8468c433490a46f1d5038dce800b04",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-keccak-512"
+    },
+    {
+      "algorithm_id": "SHA-1",
+      "primitive_family": "DIGEST",
+      "implementation_status": "RECOGNIZE_ONLY",
+      "prover": "lean",
+      "repository": "lean-sha-1",
+      "url": "https://github.com/proofbundle/lean-sha-1",
+      "registry_entry_sha256": "eaf228411a2495e898406c3388119a944c63d4782a60889d777caca2736608eb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-sha-1"
+    },
+    {
+      "algorithm_id": "SHA-1",
+      "primitive_family": "DIGEST",
+      "implementation_status": "RECOGNIZE_ONLY",
+      "prover": "rocq",
+      "repository": "rocq-sha-1",
+      "url": "https://github.com/proofbundle/rocq-sha-1",
+      "registry_entry_sha256": "eaf228411a2495e898406c3388119a944c63d4782a60889d777caca2736608eb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-sha-1"
+    },
+    {
+      "algorithm_id": "MD5",
+      "primitive_family": "DIGEST",
+      "implementation_status": "RECOGNIZE_ONLY",
+      "prover": "lean",
+      "repository": "lean-md5",
+      "url": "https://github.com/proofbundle/lean-md5",
+      "registry_entry_sha256": "2b09313284b2df99fee4cae22efaba0ad8114fd55991f0f780930ee4f7c19e6c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-md5"
+    },
+    {
+      "algorithm_id": "MD5",
+      "primitive_family": "DIGEST",
+      "implementation_status": "RECOGNIZE_ONLY",
+      "prover": "rocq",
+      "repository": "rocq-md5",
+      "url": "https://github.com/proofbundle/rocq-md5",
+      "registry_entry_sha256": "2b09313284b2df99fee4cae22efaba0ad8114fd55991f0f780930ee4f7c19e6c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-md5"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha-256",
+      "url": "https://github.com/proofbundle/lean-hmac-sha-256",
+      "registry_entry_sha256": "bd0ae88d28935513927978e8cfb442783379fc92379b41353cda5bd21ee056c0",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha-256"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha-256",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha-256",
+      "registry_entry_sha256": "bd0ae88d28935513927978e8cfb442783379fc92379b41353cda5bd21ee056c0",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha-256"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-384",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha-384",
+      "url": "https://github.com/proofbundle/lean-hmac-sha-384",
+      "registry_entry_sha256": "3f8ef418ab1007458c78392dcc0f1d82e5586af369ca42f21e788994256b20f1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha-384"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-384",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha-384",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha-384",
+      "registry_entry_sha256": "3f8ef418ab1007458c78392dcc0f1d82e5586af369ca42f21e788994256b20f1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha-384"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-512",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha-512",
+      "url": "https://github.com/proofbundle/lean-hmac-sha-512",
+      "registry_entry_sha256": "620aa94304adb6a2756d6999f221d148590450ae8b5eead3bdcbbeec26610bc9",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha-512"
+    },
+    {
+      "algorithm_id": "HMAC-SHA-512",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha-512",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha-512",
+      "registry_entry_sha256": "620aa94304adb6a2756d6999f221d148590450ae8b5eead3bdcbbeec26610bc9",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha-512"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha3-256",
+      "url": "https://github.com/proofbundle/lean-hmac-sha3-256",
+      "registry_entry_sha256": "88d94bc9e2872f769aa178edccdcbbfafd04780ad4187567ebb567286b4dff3a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha3-256"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha3-256",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha3-256",
+      "registry_entry_sha256": "88d94bc9e2872f769aa178edccdcbbfafd04780ad4187567ebb567286b4dff3a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha3-256"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-384",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha3-384",
+      "url": "https://github.com/proofbundle/lean-hmac-sha3-384",
+      "registry_entry_sha256": "80543ae69368638e620f2c0ce314ac7d364841709a003f03cf6c63ce1cb31790",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha3-384"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-384",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha3-384",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha3-384",
+      "registry_entry_sha256": "80543ae69368638e620f2c0ce314ac7d364841709a003f03cf6c63ce1cb31790",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha3-384"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-512",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hmac-sha3-512",
+      "url": "https://github.com/proofbundle/lean-hmac-sha3-512",
+      "registry_entry_sha256": "f15dce48a4a9b46493295947bfcc307367b0679196ba820d3c434b86aef37e0e",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hmac-sha3-512"
+    },
+    {
+      "algorithm_id": "HMAC-SHA3-512",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hmac-sha3-512",
+      "url": "https://github.com/proofbundle/rocq-hmac-sha3-512",
+      "registry_entry_sha256": "f15dce48a4a9b46493295947bfcc307367b0679196ba820d3c434b86aef37e0e",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hmac-sha3-512"
+    },
+    {
+      "algorithm_id": "KMAC128",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-kmac128",
+      "url": "https://github.com/proofbundle/lean-kmac128",
+      "registry_entry_sha256": "8772bd9ee0c9d91ec54a7d8966d3e7e5d3ff955a52f68ada79573b1ba18ed251",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-kmac128"
+    },
+    {
+      "algorithm_id": "KMAC128",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-kmac128",
+      "url": "https://github.com/proofbundle/rocq-kmac128",
+      "registry_entry_sha256": "8772bd9ee0c9d91ec54a7d8966d3e7e5d3ff955a52f68ada79573b1ba18ed251",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-kmac128"
+    },
+    {
+      "algorithm_id": "KMAC256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-kmac256",
+      "url": "https://github.com/proofbundle/lean-kmac256",
+      "registry_entry_sha256": "cc21ccb097085dfd293a37ad94fb8843a897d7e04a1af04cfc08e698fb279232",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-kmac256"
+    },
+    {
+      "algorithm_id": "KMAC256",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-kmac256",
+      "url": "https://github.com/proofbundle/rocq-kmac256",
+      "registry_entry_sha256": "cc21ccb097085dfd293a37ad94fb8843a897d7e04a1af04cfc08e698fb279232",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-kmac256"
+    },
+    {
+      "algorithm_id": "keyed-BLAKE2",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-keyed-blake2",
+      "url": "https://github.com/proofbundle/lean-keyed-blake2",
+      "registry_entry_sha256": "5db11dba923f4d16fcb97fb94cdbed760542c2328bf0823018b4cc8a01e02367",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-keyed-blake2"
+    },
+    {
+      "algorithm_id": "keyed-BLAKE2",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-keyed-blake2",
+      "url": "https://github.com/proofbundle/rocq-keyed-blake2",
+      "registry_entry_sha256": "5db11dba923f4d16fcb97fb94cdbed760542c2328bf0823018b4cc8a01e02367",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-keyed-blake2"
+    },
+    {
+      "algorithm_id": "keyed-BLAKE3",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-keyed-blake3",
+      "url": "https://github.com/proofbundle/lean-keyed-blake3",
+      "registry_entry_sha256": "960bd450d0fc4980b5d8e45669f8d9523cf79423d38aaa9971f05763efb9338e",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-keyed-blake3"
+    },
+    {
+      "algorithm_id": "keyed-BLAKE3",
+      "primitive_family": "MAC",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-keyed-blake3",
+      "url": "https://github.com/proofbundle/rocq-keyed-blake3",
+      "registry_entry_sha256": "960bd450d0fc4980b5d8e45669f8d9523cf79423d38aaa9971f05763efb9338e",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-keyed-blake3"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-256",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hkdf-sha-256",
+      "url": "https://github.com/proofbundle/lean-hkdf-sha-256",
+      "registry_entry_sha256": "6f6581bf8ff5ad8ece9dac95fd26b641f3f90e9a8664730c158e44fcfb4b00bf",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hkdf-sha-256"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-256",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hkdf-sha-256",
+      "url": "https://github.com/proofbundle/rocq-hkdf-sha-256",
+      "registry_entry_sha256": "6f6581bf8ff5ad8ece9dac95fd26b641f3f90e9a8664730c158e44fcfb4b00bf",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hkdf-sha-256"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-384",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hkdf-sha-384",
+      "url": "https://github.com/proofbundle/lean-hkdf-sha-384",
+      "registry_entry_sha256": "00851c5de3dc0723a040a50addc78456fce5166d0dcaf2fa8ea85408c9d1e7ba",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hkdf-sha-384"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-384",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hkdf-sha-384",
+      "url": "https://github.com/proofbundle/rocq-hkdf-sha-384",
+      "registry_entry_sha256": "00851c5de3dc0723a040a50addc78456fce5166d0dcaf2fa8ea85408c9d1e7ba",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hkdf-sha-384"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-512",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-hkdf-sha-512",
+      "url": "https://github.com/proofbundle/lean-hkdf-sha-512",
+      "registry_entry_sha256": "77ced8e3283a4d2b9f19f70cc3a41e12d43723f8610ef688990b17452272d2cb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-hkdf-sha-512"
+    },
+    {
+      "algorithm_id": "HKDF-SHA-512",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-hkdf-sha-512",
+      "url": "https://github.com/proofbundle/rocq-hkdf-sha-512",
+      "registry_entry_sha256": "77ced8e3283a4d2b9f19f70cc3a41e12d43723f8610ef688990b17452272d2cb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-hkdf-sha-512"
+    },
+    {
+      "algorithm_id": "PBKDF2-HMAC-SHA-256",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-pbkdf2-hmac-sha-256",
+      "url": "https://github.com/proofbundle/lean-pbkdf2-hmac-sha-256",
+      "registry_entry_sha256": "3dfbc3f8b06f786bf8ae94d3f14711a488172575e674979ea985481eca323ef7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-pbkdf2-hmac-sha-256"
+    },
+    {
+      "algorithm_id": "PBKDF2-HMAC-SHA-256",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-pbkdf2-hmac-sha-256",
+      "url": "https://github.com/proofbundle/rocq-pbkdf2-hmac-sha-256",
+      "registry_entry_sha256": "3dfbc3f8b06f786bf8ae94d3f14711a488172575e674979ea985481eca323ef7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-pbkdf2-hmac-sha-256"
+    },
+    {
+      "algorithm_id": "PBKDF2-HMAC-SHA-512",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-pbkdf2-hmac-sha-512",
+      "url": "https://github.com/proofbundle/lean-pbkdf2-hmac-sha-512",
+      "registry_entry_sha256": "57c681b4f349002981b618da279dde5d6e711c37cba91dbf6c8b7628cadf0107",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-pbkdf2-hmac-sha-512"
+    },
+    {
+      "algorithm_id": "PBKDF2-HMAC-SHA-512",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-pbkdf2-hmac-sha-512",
+      "url": "https://github.com/proofbundle/rocq-pbkdf2-hmac-sha-512",
+      "registry_entry_sha256": "57c681b4f349002981b618da279dde5d6e711c37cba91dbf6c8b7628cadf0107",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-pbkdf2-hmac-sha-512"
+    },
+    {
+      "algorithm_id": "scrypt",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-scrypt",
+      "url": "https://github.com/proofbundle/lean-scrypt",
+      "registry_entry_sha256": "1b5d540b8d49e2e7548942506af7e16892c40c6ff65c377394904e18944c4429",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-scrypt"
+    },
+    {
+      "algorithm_id": "scrypt",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-scrypt",
+      "url": "https://github.com/proofbundle/rocq-scrypt",
+      "registry_entry_sha256": "1b5d540b8d49e2e7548942506af7e16892c40c6ff65c377394904e18944c4429",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-scrypt"
+    },
+    {
+      "algorithm_id": "Argon2id",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-argon2id",
+      "url": "https://github.com/proofbundle/lean-argon2id",
+      "registry_entry_sha256": "772ea365eb4c5e2a61b0425651da3a18cd181aedcb33722fd0ac44a425b52727",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-argon2id"
+    },
+    {
+      "algorithm_id": "Argon2id",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-argon2id",
+      "url": "https://github.com/proofbundle/rocq-argon2id",
+      "registry_entry_sha256": "772ea365eb4c5e2a61b0425651da3a18cd181aedcb33722fd0ac44a425b52727",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-argon2id"
+    },
+    {
+      "algorithm_id": "ProofBundle-subkey-derivation",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-proofbundle-subkey-derivation",
+      "url": "https://github.com/proofbundle/lean-proofbundle-subkey-derivation",
+      "registry_entry_sha256": "80c78d3dc017e587f7ead66ecf14bde754b55870414dcee632e0260fb5ca3f93",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-proofbundle-subkey-derivation"
+    },
+    {
+      "algorithm_id": "ProofBundle-subkey-derivation",
+      "primitive_family": "KDF",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-proofbundle-subkey-derivation",
+      "url": "https://github.com/proofbundle/rocq-proofbundle-subkey-derivation",
+      "registry_entry_sha256": "80c78d3dc017e587f7ead66ecf14bde754b55870414dcee632e0260fb5ca3f93",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-proofbundle-subkey-derivation"
+    },
+    {
+      "algorithm_id": "Ed25519",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ed25519",
+      "url": "https://github.com/proofbundle/lean-ed25519",
+      "registry_entry_sha256": "2bdb7dab02b4a383be32b2f6a4e3f2984b8ace267db8d652ff73e216c10ec978",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519"
+    },
+    {
+      "algorithm_id": "Ed25519",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519",
+      "url": "https://github.com/proofbundle/rocq-ed25519",
+      "registry_entry_sha256": "2bdb7dab02b4a383be32b2f6a4e3f2984b8ace267db8d652ff73e216c10ec978",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519"
+    },
+    {
+      "algorithm_id": "Ed448",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ed448",
+      "url": "https://github.com/proofbundle/lean-ed448",
+      "registry_entry_sha256": "107727c590936a0964c04601a38f41a093ff2b8e44d03d8025849b7c771bb5bf",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed448"
+    },
+    {
+      "algorithm_id": "Ed448",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ed448",
+      "url": "https://github.com/proofbundle/rocq-ed448",
+      "registry_entry_sha256": "107727c590936a0964c04601a38f41a093ff2b8e44d03d8025849b7c771bb5bf",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed448"
+    },
+    {
+      "algorithm_id": "ECDSA-P-256-SHA-256",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdsa-p-256-sha-256",
+      "url": "https://github.com/proofbundle/lean-ecdsa-p-256-sha-256",
+      "registry_entry_sha256": "421910fabaa853a4571f0c3bf591f083b5ef4a8397d1c2a90f63cd55313d8324",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdsa-p-256-sha-256"
+    },
+    {
+      "algorithm_id": "ECDSA-P-256-SHA-256",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdsa-p-256-sha-256",
+      "url": "https://github.com/proofbundle/rocq-ecdsa-p-256-sha-256",
+      "registry_entry_sha256": "421910fabaa853a4571f0c3bf591f083b5ef4a8397d1c2a90f63cd55313d8324",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdsa-p-256-sha-256"
+    },
+    {
+      "algorithm_id": "ECDSA-P-384-SHA-384",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdsa-p-384-sha-384",
+      "url": "https://github.com/proofbundle/lean-ecdsa-p-384-sha-384",
+      "registry_entry_sha256": "f5e3fd653a486a12f2719f417e23733d22cbdddfedf0e085012a54476d79d97c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdsa-p-384-sha-384"
+    },
+    {
+      "algorithm_id": "ECDSA-P-384-SHA-384",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdsa-p-384-sha-384",
+      "url": "https://github.com/proofbundle/rocq-ecdsa-p-384-sha-384",
+      "registry_entry_sha256": "f5e3fd653a486a12f2719f417e23733d22cbdddfedf0e085012a54476d79d97c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdsa-p-384-sha-384"
+    },
+    {
+      "algorithm_id": "ECDSA-P-521-SHA-512",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdsa-p-521-sha-512",
+      "url": "https://github.com/proofbundle/lean-ecdsa-p-521-sha-512",
+      "registry_entry_sha256": "c0d5c1c41ea02e61dd0b0b6baba61e07d5eb7326be5e94386a4c43ad0f0b6c46",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdsa-p-521-sha-512"
+    },
+    {
+      "algorithm_id": "ECDSA-P-521-SHA-512",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdsa-p-521-sha-512",
+      "url": "https://github.com/proofbundle/rocq-ecdsa-p-521-sha-512",
+      "registry_entry_sha256": "c0d5c1c41ea02e61dd0b0b6baba61e07d5eb7326be5e94386a4c43ad0f0b6c46",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdsa-p-521-sha-512"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-256",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-rsa-pss-sha-256",
+      "url": "https://github.com/proofbundle/lean-rsa-pss-sha-256",
+      "registry_entry_sha256": "0872b61e197d98cf6a2d52d363deaaea736436af432a7b20b5a864bfcfb86d6f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-rsa-pss-sha-256"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-256",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-rsa-pss-sha-256",
+      "url": "https://github.com/proofbundle/rocq-rsa-pss-sha-256",
+      "registry_entry_sha256": "0872b61e197d98cf6a2d52d363deaaea736436af432a7b20b5a864bfcfb86d6f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-rsa-pss-sha-256"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-384",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-rsa-pss-sha-384",
+      "url": "https://github.com/proofbundle/lean-rsa-pss-sha-384",
+      "registry_entry_sha256": "1fee3d256479dacef63093aa8e29f502cdfebda098293d50b0603773ef5c6d32",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-rsa-pss-sha-384"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-384",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-rsa-pss-sha-384",
+      "url": "https://github.com/proofbundle/rocq-rsa-pss-sha-384",
+      "registry_entry_sha256": "1fee3d256479dacef63093aa8e29f502cdfebda098293d50b0603773ef5c6d32",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-rsa-pss-sha-384"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-512",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-rsa-pss-sha-512",
+      "url": "https://github.com/proofbundle/lean-rsa-pss-sha-512",
+      "registry_entry_sha256": "1d9290ea563867490738003b66ebc12b675249b553f835c4c7a20ee97ea45872",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-rsa-pss-sha-512"
+    },
+    {
+      "algorithm_id": "RSA-PSS-SHA-512",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-rsa-pss-sha-512",
+      "url": "https://github.com/proofbundle/rocq-rsa-pss-sha-512",
+      "registry_entry_sha256": "1d9290ea563867490738003b66ebc12b675249b553f835c4c7a20ee97ea45872",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-rsa-pss-sha-512"
+    },
+    {
+      "algorithm_id": "RSA-PKCS1v1.5",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-rsa-pkcs1v1-5",
+      "url": "https://github.com/proofbundle/lean-rsa-pkcs1v1-5",
+      "registry_entry_sha256": "8ef3079a9bb7338b15e78ce9542ba958294b44440644dc668bd6a82ad140a7ca",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-rsa-pkcs1v1-5"
+    },
+    {
+      "algorithm_id": "RSA-PKCS1v1.5",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-rsa-pkcs1v1-5",
+      "url": "https://github.com/proofbundle/rocq-rsa-pkcs1v1-5",
+      "registry_entry_sha256": "8ef3079a9bb7338b15e78ce9542ba958294b44440644dc668bd6a82ad140a7ca",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-rsa-pkcs1v1-5"
+    },
+    {
+      "algorithm_id": "ML-DSA-44",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-dsa-44",
+      "url": "https://github.com/proofbundle/lean-ml-dsa-44",
+      "registry_entry_sha256": "6e96c1b66ec550deb352f5459680b86f4c6bada1579b48130fbd2e438a3a47c7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "ML-DSA-44",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-dsa-44",
+      "url": "https://github.com/proofbundle/rocq-ml-dsa-44",
+      "registry_entry_sha256": "6e96c1b66ec550deb352f5459680b86f4c6bada1579b48130fbd2e438a3a47c7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "ML-DSA-65",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-dsa-65",
+      "url": "https://github.com/proofbundle/lean-ml-dsa-65",
+      "registry_entry_sha256": "71ccbfe592f1203afb21ae8e96d6737c581702cffdbb49d135c9294f632d353a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "ML-DSA-65",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-dsa-65",
+      "url": "https://github.com/proofbundle/rocq-ml-dsa-65",
+      "registry_entry_sha256": "71ccbfe592f1203afb21ae8e96d6737c581702cffdbb49d135c9294f632d353a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "ML-DSA-87",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-dsa-87",
+      "url": "https://github.com/proofbundle/lean-ml-dsa-87",
+      "registry_entry_sha256": "d9b68ee868073d9899257b6d50b1318a6144a06a3c7866cf7b500d389de2c8d2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "ML-DSA-87",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-dsa-87",
+      "url": "https://github.com/proofbundle/rocq-ml-dsa-87",
+      "registry_entry_sha256": "d9b68ee868073d9899257b6d50b1318a6144a06a3c7866cf7b500d389de2c8d2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-128s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-128s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-128s",
+      "registry_entry_sha256": "0b34cfb840df566434b2ce03480ab2ae263753981b028812ee23bc640b03dd78",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-128s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-128s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-128s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-128s",
+      "registry_entry_sha256": "0b34cfb840df566434b2ce03480ab2ae263753981b028812ee23bc640b03dd78",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-128s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-128f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-128f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-128f",
+      "registry_entry_sha256": "13e3ba625d7530b1163abd4e44e71e27b9c276ca64cbb8935f1dae3e6f80e533",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-128f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-128f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-128f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-128f",
+      "registry_entry_sha256": "13e3ba625d7530b1163abd4e44e71e27b9c276ca64cbb8935f1dae3e6f80e533",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-128f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-192s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-192s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-192s",
+      "registry_entry_sha256": "90379b8ca5d136bb56cbabb999f542c34eda687c98a0fd74c357d03e1e640921",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-192s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-192s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-192s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-192s",
+      "registry_entry_sha256": "90379b8ca5d136bb56cbabb999f542c34eda687c98a0fd74c357d03e1e640921",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-192s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-192f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-192f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-192f",
+      "registry_entry_sha256": "a8ad7ee7e77e0e41b984887e50ec91e5e5107c1254b89faad28bc511a5e7d967",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-192f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-192f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-192f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-192f",
+      "registry_entry_sha256": "a8ad7ee7e77e0e41b984887e50ec91e5e5107c1254b89faad28bc511a5e7d967",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-192f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-256s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-256s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-256s",
+      "registry_entry_sha256": "7f82ddf5cd73ace8dc972acce18103ae31b8f61284a0d262ff96fbbab9bfb4cd",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-256s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-256s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-256s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-256s",
+      "registry_entry_sha256": "7f82ddf5cd73ace8dc972acce18103ae31b8f61284a0d262ff96fbbab9bfb4cd",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-256s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-256f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-sha2-256f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-sha2-256f",
+      "registry_entry_sha256": "7f77dbe9d5327a6f3b2bb194e7b2cf5fbf1bccf2decab7b55155ac7ea4e324eb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-sha2-256f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHA2-256f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-sha2-256f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-sha2-256f",
+      "registry_entry_sha256": "7f77dbe9d5327a6f3b2bb194e7b2cf5fbf1bccf2decab7b55155ac7ea4e324eb",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-sha2-256f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-128s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-128s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-128s",
+      "registry_entry_sha256": "74d65c02ed4e4360475d8057c05eeca6f4965026be34d89f80d1c0fa305760af",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-128s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-128s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-128s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-128s",
+      "registry_entry_sha256": "74d65c02ed4e4360475d8057c05eeca6f4965026be34d89f80d1c0fa305760af",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-128s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-128f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-128f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-128f",
+      "registry_entry_sha256": "ae32750ca7995ffff524cd386549176794eaa762505dfaf59d096cbfe7439dad",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-128f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-128f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-128f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-128f",
+      "registry_entry_sha256": "ae32750ca7995ffff524cd386549176794eaa762505dfaf59d096cbfe7439dad",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-128f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-192s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-192s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-192s",
+      "registry_entry_sha256": "f88956ffcf6325255114803c82dc4301c4c2081aa19e1597383fd5087c3f64c7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-192s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-192s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-192s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-192s",
+      "registry_entry_sha256": "f88956ffcf6325255114803c82dc4301c4c2081aa19e1597383fd5087c3f64c7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-192s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-192f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-192f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-192f",
+      "registry_entry_sha256": "d817ed1066777b7901c5d363e91c78e13af775cffe2fc0d74953a81c6bbc18c2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-192f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-192f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-192f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-192f",
+      "registry_entry_sha256": "d817ed1066777b7901c5d363e91c78e13af775cffe2fc0d74953a81c6bbc18c2",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-192f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-256s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-256s",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-256s",
+      "registry_entry_sha256": "d76dbc2ea23f6b38cb9e576d02fba842126d86fc42d91dee972d6327821f8437",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-256s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-256s",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-256s",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-256s",
+      "registry_entry_sha256": "d76dbc2ea23f6b38cb9e576d02fba842126d86fc42d91dee972d6327821f8437",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-256s"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-256f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-slh-dsa-shake-256f",
+      "url": "https://github.com/proofbundle/lean-slh-dsa-shake-256f",
+      "registry_entry_sha256": "7de04d8a645de684ce4e4699d4517cbaff87c3164d00747b67575a088062c50a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-slh-dsa-shake-256f"
+    },
+    {
+      "algorithm_id": "SLH-DSA-SHAKE-256f",
+      "primitive_family": "SIGNATURE",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-slh-dsa-shake-256f",
+      "url": "https://github.com/proofbundle/rocq-slh-dsa-shake-256f",
+      "registry_entry_sha256": "7de04d8a645de684ce4e4699d4517cbaff87c3164d00747b67575a088062c50a",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-slh-dsa-shake-256f"
+    },
+    {
+      "algorithm_id": "X25519",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-x25519",
+      "url": "https://github.com/proofbundle/lean-x25519",
+      "registry_entry_sha256": "a0ed90b00e63fac152c55fd9a20f7e09da53af0913fec0c53a5139920a3685b8",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-x25519"
+    },
+    {
+      "algorithm_id": "X25519",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-x25519",
+      "url": "https://github.com/proofbundle/rocq-x25519",
+      "registry_entry_sha256": "a0ed90b00e63fac152c55fd9a20f7e09da53af0913fec0c53a5139920a3685b8",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-x25519"
+    },
+    {
+      "algorithm_id": "X448",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-x448",
+      "url": "https://github.com/proofbundle/lean-x448",
+      "registry_entry_sha256": "fb7033eb374953464ec8741f3b44091f9e9f963ff9a8bfb879f0eb064e1b53b7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-x448"
+    },
+    {
+      "algorithm_id": "X448",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-x448",
+      "url": "https://github.com/proofbundle/rocq-x448",
+      "registry_entry_sha256": "fb7033eb374953464ec8741f3b44091f9e9f963ff9a8bfb879f0eb064e1b53b7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-x448"
+    },
+    {
+      "algorithm_id": "ECDH-P-256",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdh-p-256",
+      "url": "https://github.com/proofbundle/lean-ecdh-p-256",
+      "registry_entry_sha256": "cf5dde52c595ca01af8c738e7bbad2753dc4136762657638169292288b3a7028",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdh-p-256"
+    },
+    {
+      "algorithm_id": "ECDH-P-256",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdh-p-256",
+      "url": "https://github.com/proofbundle/rocq-ecdh-p-256",
+      "registry_entry_sha256": "cf5dde52c595ca01af8c738e7bbad2753dc4136762657638169292288b3a7028",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdh-p-256"
+    },
+    {
+      "algorithm_id": "ECDH-P-384",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdh-p-384",
+      "url": "https://github.com/proofbundle/lean-ecdh-p-384",
+      "registry_entry_sha256": "8788631d9b752ef40b7da7d553ea447a00ac6e009b279238e679cac45699f228",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdh-p-384"
+    },
+    {
+      "algorithm_id": "ECDH-P-384",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdh-p-384",
+      "url": "https://github.com/proofbundle/rocq-ecdh-p-384",
+      "registry_entry_sha256": "8788631d9b752ef40b7da7d553ea447a00ac6e009b279238e679cac45699f228",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdh-p-384"
+    },
+    {
+      "algorithm_id": "ECDH-P-521",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ecdh-p-521",
+      "url": "https://github.com/proofbundle/lean-ecdh-p-521",
+      "registry_entry_sha256": "4064f755d23e5085077a5962f52296d5bc651634bb04820d8c801f3161d0e6f7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ecdh-p-521"
+    },
+    {
+      "algorithm_id": "ECDH-P-521",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ecdh-p-521",
+      "url": "https://github.com/proofbundle/rocq-ecdh-p-521",
+      "registry_entry_sha256": "4064f755d23e5085077a5962f52296d5bc651634bb04820d8c801f3161d0e6f7",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ecdh-p-521"
+    },
+    {
+      "algorithm_id": "ML-KEM-512",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-kem-512",
+      "url": "https://github.com/proofbundle/lean-ml-kem-512",
+      "registry_entry_sha256": "a1e984451e7710a945f3bf3e8e267abda7c82b01e64caa1961828d0af6c96dc9",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-kem-512"
+    },
+    {
+      "algorithm_id": "ML-KEM-512",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-kem-512",
+      "url": "https://github.com/proofbundle/rocq-ml-kem-512",
+      "registry_entry_sha256": "a1e984451e7710a945f3bf3e8e267abda7c82b01e64caa1961828d0af6c96dc9",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-kem-512"
+    },
+    {
+      "algorithm_id": "ML-KEM-768",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-kem-768",
+      "url": "https://github.com/proofbundle/lean-ml-kem-768",
+      "registry_entry_sha256": "222df44661ac8d11fbd8d706640d68ca4b35c5ec3365a6c0e743ab6ceec8e748",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-kem-768"
+    },
+    {
+      "algorithm_id": "ML-KEM-768",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-kem-768",
+      "url": "https://github.com/proofbundle/rocq-ml-kem-768",
+      "registry_entry_sha256": "222df44661ac8d11fbd8d706640d68ca4b35c5ec3365a6c0e743ab6ceec8e748",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-kem-768"
+    },
+    {
+      "algorithm_id": "ML-KEM-1024",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-ml-kem-1024",
+      "url": "https://github.com/proofbundle/lean-ml-kem-1024",
+      "registry_entry_sha256": "d336f9678893d75bb8c83e7b87a32355f8849aecda76c3feb17e1a71bd6a7cc1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "ML-KEM-1024",
+      "primitive_family": "KEM",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-ml-kem-1024",
+      "url": "https://github.com/proofbundle/rocq-ml-kem-1024",
+      "registry_entry_sha256": "d336f9678893d75bb8c83e7b87a32355f8849aecda76c3feb17e1a71bd6a7cc1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "AES-128-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-aes-128-gcm",
+      "url": "https://github.com/proofbundle/lean-aes-128-gcm",
+      "registry_entry_sha256": "f51743afee4e9219891ead14f343c2c09eab137e125642aa191814ade5ff7a3f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-aes-128-gcm"
+    },
+    {
+      "algorithm_id": "AES-128-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-aes-128-gcm",
+      "url": "https://github.com/proofbundle/rocq-aes-128-gcm",
+      "registry_entry_sha256": "f51743afee4e9219891ead14f343c2c09eab137e125642aa191814ade5ff7a3f",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-aes-128-gcm"
+    },
+    {
+      "algorithm_id": "AES-192-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-aes-192-gcm",
+      "url": "https://github.com/proofbundle/lean-aes-192-gcm",
+      "registry_entry_sha256": "e76743af5a9def4b11a9e37e193446599c2b7864dec5d39bcc3f30bc10595099",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-aes-192-gcm"
+    },
+    {
+      "algorithm_id": "AES-192-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-aes-192-gcm",
+      "url": "https://github.com/proofbundle/rocq-aes-192-gcm",
+      "registry_entry_sha256": "e76743af5a9def4b11a9e37e193446599c2b7864dec5d39bcc3f30bc10595099",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-aes-192-gcm"
+    },
+    {
+      "algorithm_id": "AES-256-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-aes-256-gcm",
+      "url": "https://github.com/proofbundle/lean-aes-256-gcm",
+      "registry_entry_sha256": "8cb4283c35f355c9fdf7ff6f6b8d36d9de2e96d91d7712eb1dd2a381df035ecd",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-aes-256-gcm"
+    },
+    {
+      "algorithm_id": "AES-256-GCM",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-aes-256-gcm",
+      "url": "https://github.com/proofbundle/rocq-aes-256-gcm",
+      "registry_entry_sha256": "8cb4283c35f355c9fdf7ff6f6b8d36d9de2e96d91d7712eb1dd2a381df035ecd",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-aes-256-gcm"
+    },
+    {
+      "algorithm_id": "ChaCha20-Poly1305",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-chacha20-poly1305",
+      "url": "https://github.com/proofbundle/lean-chacha20-poly1305",
+      "registry_entry_sha256": "988f1436455d94698e2d422ff0f112b5c5b7ad62c84fd7137fe6532002ecbe40",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-chacha20-poly1305"
+    },
+    {
+      "algorithm_id": "ChaCha20-Poly1305",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-chacha20-poly1305",
+      "url": "https://github.com/proofbundle/rocq-chacha20-poly1305",
+      "registry_entry_sha256": "988f1436455d94698e2d422ff0f112b5c5b7ad62c84fd7137fe6532002ecbe40",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-chacha20-poly1305"
+    },
+    {
+      "algorithm_id": "XChaCha20-Poly1305",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-xchacha20-poly1305",
+      "url": "https://github.com/proofbundle/lean-xchacha20-poly1305",
+      "registry_entry_sha256": "59d8ce1343f1365985ef7270732e1e36018712d4572d438c336113c2ec47f60c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-xchacha20-poly1305"
+    },
+    {
+      "algorithm_id": "XChaCha20-Poly1305",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-xchacha20-poly1305",
+      "url": "https://github.com/proofbundle/rocq-xchacha20-poly1305",
+      "registry_entry_sha256": "59d8ce1343f1365985ef7270732e1e36018712d4572d438c336113c2ec47f60c",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-xchacha20-poly1305"
+    },
+    {
+      "algorithm_id": "AES-KeyWrap",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-aes-keywrap",
+      "url": "https://github.com/proofbundle/lean-aes-keywrap",
+      "registry_entry_sha256": "1f85fa5afc242b0fddf027653bf8db8d8d2321bebb1b4e0d7dd12e4815908f19",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-aes-keywrap"
+    },
+    {
+      "algorithm_id": "AES-KeyWrap",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-aes-keywrap",
+      "url": "https://github.com/proofbundle/rocq-aes-keywrap",
+      "registry_entry_sha256": "1f85fa5afc242b0fddf027653bf8db8d8d2321bebb1b4e0d7dd12e4815908f19",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-aes-keywrap"
+    },
+    {
+      "algorithm_id": "AES-256-GCM-SIV",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "lean",
+      "repository": "lean-aes-256-gcm-siv",
+      "url": "https://github.com/proofbundle/lean-aes-256-gcm-siv",
+      "registry_entry_sha256": "bfb2d7a5ba89b143da8982cac274c89f633b1cc81fa674a1b1d5e56b1a71aed1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-aes-256-gcm-siv"
+    },
+    {
+      "algorithm_id": "AES-256-GCM-SIV",
+      "primitive_family": "AEAD",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "prover": "rocq",
+      "repository": "rocq-aes-256-gcm-siv",
+      "url": "https://github.com/proofbundle/rocq-aes-256-gcm-siv",
+      "registry_entry_sha256": "bfb2d7a5ba89b143da8982cac274c89f633b1cc81fa674a1b1d5e56b1a71aed1",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-aes-256-gcm-siv"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-44",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed25519-ml-dsa-44",
+      "url": "https://github.com/proofbundle/lean-ed25519-ml-dsa-44",
+      "registry_entry_sha256": "2f66bc9409716c64d10290208598ef5d2db1eb1094d1c4c584f71f8ad68e5a64",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-44",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519-ml-dsa-44",
+      "url": "https://github.com/proofbundle/rocq-ed25519-ml-dsa-44",
+      "registry_entry_sha256": "2f66bc9409716c64d10290208598ef5d2db1eb1094d1c4c584f71f8ad68e5a64",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed25519-ml-dsa-65",
+      "url": "https://github.com/proofbundle/lean-ed25519-ml-dsa-65",
+      "registry_entry_sha256": "1e4bbe5c0ed9fa69116b57ffc3108f68eb12538ff68c86684c719dc4c17cdabc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519-ml-dsa-65",
+      "url": "https://github.com/proofbundle/rocq-ed25519-ml-dsa-65",
+      "registry_entry_sha256": "1e4bbe5c0ed9fa69116b57ffc3108f68eb12538ff68c86684c719dc4c17cdabc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed25519-ml-dsa-87",
+      "url": "https://github.com/proofbundle/lean-ed25519-ml-dsa-87",
+      "registry_entry_sha256": "9fbcdab6923e1bfd95c06d784e1dd0d2f59212a455995ea2c8b07f4989683825",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "Ed25519+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519-ml-dsa-87",
+      "url": "https://github.com/proofbundle/rocq-ed25519-ml-dsa-87",
+      "registry_entry_sha256": "9fbcdab6923e1bfd95c06d784e1dd0d2f59212a455995ea2c8b07f4989683825",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "Ed448+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed448-ml-dsa-65",
+      "url": "https://github.com/proofbundle/lean-ed448-ml-dsa-65",
+      "registry_entry_sha256": "d00342e9ff8af067042f94592d19737d7eb5feb34a1e5f5765e8636b876023e5",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed448-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "Ed448+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed448-ml-dsa-65",
+      "url": "https://github.com/proofbundle/rocq-ed448-ml-dsa-65",
+      "registry_entry_sha256": "d00342e9ff8af067042f94592d19737d7eb5feb34a1e5f5765e8636b876023e5",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed448-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "Ed448+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed448-ml-dsa-87",
+      "url": "https://github.com/proofbundle/lean-ed448-ml-dsa-87",
+      "registry_entry_sha256": "cf136c59fe75adb3b8d1a9b4f18b859306ee9dabef776ae9d8d5080adde2d169",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed448-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "Ed448+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed448-ml-dsa-87",
+      "url": "https://github.com/proofbundle/rocq-ed448-ml-dsa-87",
+      "registry_entry_sha256": "cf136c59fe75adb3b8d1a9b4f18b859306ee9dabef776ae9d8d5080adde2d169",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed448-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "P-256+ML-DSA-44",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-256-ml-dsa-44",
+      "url": "https://github.com/proofbundle/lean-p-256-ml-dsa-44",
+      "registry_entry_sha256": "c5428601e24aaa0d45f68b737ef44b3cfc06575f92e66505ead2f7909b5250ae",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-256-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "P-256+ML-DSA-44",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-256-ml-dsa-44",
+      "url": "https://github.com/proofbundle/rocq-p-256-ml-dsa-44",
+      "registry_entry_sha256": "c5428601e24aaa0d45f68b737ef44b3cfc06575f92e66505ead2f7909b5250ae",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-256-ml-dsa-44"
+    },
+    {
+      "algorithm_id": "P-384+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-384-ml-dsa-65",
+      "url": "https://github.com/proofbundle/lean-p-384-ml-dsa-65",
+      "registry_entry_sha256": "b34e79c6e5a1803be030bcf4cece63502beba32e3230f9f55623a87b2c71a575",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-384-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "P-384+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-384-ml-dsa-65",
+      "url": "https://github.com/proofbundle/rocq-p-384-ml-dsa-65",
+      "registry_entry_sha256": "b34e79c6e5a1803be030bcf4cece63502beba32e3230f9f55623a87b2c71a575",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-384-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "P-384+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-384-ml-dsa-87",
+      "url": "https://github.com/proofbundle/lean-p-384-ml-dsa-87",
+      "registry_entry_sha256": "82001862641e41f2aa906db2022c6c49992bbb3798ea45f2680eae796f78f842",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-384-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "P-384+ML-DSA-87",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-384-ml-dsa-87",
+      "url": "https://github.com/proofbundle/rocq-p-384-ml-dsa-87",
+      "registry_entry_sha256": "82001862641e41f2aa906db2022c6c49992bbb3798ea45f2680eae796f78f842",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-384-ml-dsa-87"
+    },
+    {
+      "algorithm_id": "RSA-PSS-3072+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-rsa-pss-3072-ml-dsa-65",
+      "url": "https://github.com/proofbundle/lean-rsa-pss-3072-ml-dsa-65",
+      "registry_entry_sha256": "0bc577418007d01136664c56214db80fa300d761b26292ecd8e69b23ddb9fb7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-rsa-pss-3072-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "RSA-PSS-3072+ML-DSA-65",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-rsa-pss-3072-ml-dsa-65",
+      "url": "https://github.com/proofbundle/rocq-rsa-pss-3072-ml-dsa-65",
+      "registry_entry_sha256": "0bc577418007d01136664c56214db80fa300d761b26292ecd8e69b23ddb9fb7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-rsa-pss-3072-ml-dsa-65"
+    },
+    {
+      "algorithm_id": "Ed25519+SLH-DSA-SHA2-128s",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed25519-slh-dsa-sha2-128s",
+      "url": "https://github.com/proofbundle/lean-ed25519-slh-dsa-sha2-128s",
+      "registry_entry_sha256": "643d4732a7a92fd41be1ae3c138d50145b3681f6b99839b5b17b4e63062ee557",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519-slh-dsa-sha2-128s"
+    },
+    {
+      "algorithm_id": "Ed25519+SLH-DSA-SHA2-128s",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519-slh-dsa-sha2-128s",
+      "url": "https://github.com/proofbundle/rocq-ed25519-slh-dsa-sha2-128s",
+      "registry_entry_sha256": "643d4732a7a92fd41be1ae3c138d50145b3681f6b99839b5b17b4e63062ee557",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519-slh-dsa-sha2-128s"
+    },
+    {
+      "algorithm_id": "Ed25519+SLH-DSA-SHA2-128f",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-ed25519-slh-dsa-sha2-128f",
+      "url": "https://github.com/proofbundle/lean-ed25519-slh-dsa-sha2-128f",
+      "registry_entry_sha256": "50a9ebab6a70348b22491d74fa5a42b65bfd7741f84bc5dd4b8a223c776910bc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-ed25519-slh-dsa-sha2-128f"
+    },
+    {
+      "algorithm_id": "Ed25519+SLH-DSA-SHA2-128f",
+      "primitive_family": "HYBRID_SIGNATURE",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-ed25519-slh-dsa-sha2-128f",
+      "url": "https://github.com/proofbundle/rocq-ed25519-slh-dsa-sha2-128f",
+      "registry_entry_sha256": "50a9ebab6a70348b22491d74fa5a42b65bfd7741f84bc5dd4b8a223c776910bc",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-ed25519-slh-dsa-sha2-128f"
+    },
+    {
+      "algorithm_id": "X25519+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-x25519-ml-kem-768",
+      "url": "https://github.com/proofbundle/lean-x25519-ml-kem-768",
+      "registry_entry_sha256": "6e33caa2ed29b9540739cc9c868c611014900d1dd0b938fec5fa11829c9c9449",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-x25519-ml-kem-768"
+    },
+    {
+      "algorithm_id": "X25519+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-x25519-ml-kem-768",
+      "url": "https://github.com/proofbundle/rocq-x25519-ml-kem-768",
+      "registry_entry_sha256": "6e33caa2ed29b9540739cc9c868c611014900d1dd0b938fec5fa11829c9c9449",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-x25519-ml-kem-768"
+    },
+    {
+      "algorithm_id": "X25519+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-x25519-ml-kem-1024",
+      "url": "https://github.com/proofbundle/lean-x25519-ml-kem-1024",
+      "registry_entry_sha256": "07a1802c01595a25d5afe716f6c4843c073507724b5c8642bdfb4a48c35a8f24",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-x25519-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "X25519+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-x25519-ml-kem-1024",
+      "url": "https://github.com/proofbundle/rocq-x25519-ml-kem-1024",
+      "registry_entry_sha256": "07a1802c01595a25d5afe716f6c4843c073507724b5c8642bdfb4a48c35a8f24",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-x25519-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "X448+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-x448-ml-kem-1024",
+      "url": "https://github.com/proofbundle/lean-x448-ml-kem-1024",
+      "registry_entry_sha256": "8be1bdc62eff0aa2885f69b2fdc2f988f1d8e463174f97c0ea711c862ffd4e55",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-x448-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "X448+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-x448-ml-kem-1024",
+      "url": "https://github.com/proofbundle/rocq-x448-ml-kem-1024",
+      "registry_entry_sha256": "8be1bdc62eff0aa2885f69b2fdc2f988f1d8e463174f97c0ea711c862ffd4e55",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-x448-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "P-256-ECDH+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-256-ecdh-ml-kem-768",
+      "url": "https://github.com/proofbundle/lean-p-256-ecdh-ml-kem-768",
+      "registry_entry_sha256": "f5cae05b07b4546d4ecd46eb061477c7b48a01b0adfa30ea7aff46ef21b82f21",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-256-ecdh-ml-kem-768"
+    },
+    {
+      "algorithm_id": "P-256-ECDH+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-256-ecdh-ml-kem-768",
+      "url": "https://github.com/proofbundle/rocq-p-256-ecdh-ml-kem-768",
+      "registry_entry_sha256": "f5cae05b07b4546d4ecd46eb061477c7b48a01b0adfa30ea7aff46ef21b82f21",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-256-ecdh-ml-kem-768"
+    },
+    {
+      "algorithm_id": "P-384-ECDH+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-384-ecdh-ml-kem-768",
+      "url": "https://github.com/proofbundle/lean-p-384-ecdh-ml-kem-768",
+      "registry_entry_sha256": "d3ee834bbc1f757183fbc9098f9b142f1685bc11c02241f40dd2452e44f91d7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-384-ecdh-ml-kem-768"
+    },
+    {
+      "algorithm_id": "P-384-ECDH+ML-KEM-768",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-384-ecdh-ml-kem-768",
+      "url": "https://github.com/proofbundle/rocq-p-384-ecdh-ml-kem-768",
+      "registry_entry_sha256": "d3ee834bbc1f757183fbc9098f9b142f1685bc11c02241f40dd2452e44f91d7b",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-384-ecdh-ml-kem-768"
+    },
+    {
+      "algorithm_id": "P-384-ECDH+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "lean",
+      "repository": "lean-p-384-ecdh-ml-kem-1024",
+      "url": "https://github.com/proofbundle/lean-p-384-ecdh-ml-kem-1024",
+      "registry_entry_sha256": "297b1601cfede0391630d50c53647fca29d509577d09ac377b11a77fc870b076",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/lean-p-384-ecdh-ml-kem-1024"
+    },
+    {
+      "algorithm_id": "P-384-ECDH+ML-KEM-1024",
+      "primitive_family": "HYBRID_KEM",
+      "implementation_status": "BLOCKED",
+      "prover": "rocq",
+      "repository": "rocq-p-384-ecdh-ml-kem-1024",
+      "url": "https://github.com/proofbundle/rocq-p-384-ecdh-ml-kem-1024",
+      "registry_entry_sha256": "297b1601cfede0391630d50c53647fca29d509577d09ac377b11a77fc870b076",
+      "local_path": "/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-09-24/wh/work/algorithm-formal-repos/rocq-p-384-ecdh-ml-kem-1024"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=ProofBundle append-only Bridge API
+After=network-online.target
+
+[Service]
+Type=simple
+User=pb
+Environment=PB_PROOF_ROOT=/proof
+ExecStart=/usr/bin/python3 /proof/control/bridge_api.py --listen 127.0.0.1 --port 8788
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/proof
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

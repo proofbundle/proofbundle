@@ -1,0 +1,19 @@
+[Unit]
+Description=ProofBundle continuous Lean/Rocq and OTS production
+After=network-online.target proofbundle-bridge.service
+Requires=proofbundle-bridge.service
+
+[Service]
+Type=simple
+User=pb
+Environment=PB_PROOF_ROOT=/proof
+ExecStart=/usr/bin/python3 /proof/control/proof_worker.py
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/proof
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

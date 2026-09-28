@@ -6,7 +6,7 @@ user's earlier tooling (rocqchk "Chicken 9.2", opam 4.14.2 tree). I only read an
 ## rocqchk (independent kernel re-check of compiled .vo files)
 13 sections in the raw file. 12 end in a CONTEXT SUMMARY with `Axioms: <none>`, no type-in-type,
 no unsafe fixpoints: ProofBundleVerifier, ProofBundleMerkle, ProofBundleRegistry, ProofBundleHybrid,
-GPX.GPXBoundary, GPX.GPXTemporal, GPX.GPXDiachronic, sha256, sha512, keccak, ed25519, ecdsa.
+Boundary, Temporal, Diachronic, sha256, sha512, keccak, ed25519, ecdsa.
 
 **mldsa: no summary.** The section starts (line 412235) and the file ends mid-"checking cst" with
 no verdict. Treat as unfinished/truncated, not as a pass.

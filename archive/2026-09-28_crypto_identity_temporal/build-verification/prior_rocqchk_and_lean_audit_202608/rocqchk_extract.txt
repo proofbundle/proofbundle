@@ -7,11 +7,11 @@
 49596-Welcome to Chicken 9.2
 77003:--- ProofBundleHybrid ---
 77004-Welcome to Chicken 9.2
-77998:--- GPX.GPXBoundary ---
+77998:--- Boundary ---
 77999-Welcome to Chicken 9.2
-120479:--- GPX.GPXTemporal ---
+120479:--- Temporal ---
 120480-Welcome to Chicken 9.2
-163006:--- GPX.GPXDiachronic ---
+163006:--- Diachronic ---
 163007-Welcome to Chicken 9.2
 205575:--- sha256 ---
 205576-Welcome to Chicken 9.2

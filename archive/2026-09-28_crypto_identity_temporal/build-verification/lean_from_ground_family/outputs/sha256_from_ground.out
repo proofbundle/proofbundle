@@ -1,0 +1,142 @@
+sha256_from_ground.lean:16:19: error: Invalid universe polymorphic resulting type: The resulting universe is not `Prop`, but it may be `Prop` for some parameter values:
+  Sort u
+
+Hint: A possible solution is to use levels of the form `max 1 _` or `_ + 1` to ensure the universe is of the form `Type _`
+sha256_from_ground.lean:22:22: error: Type mismatch
+  (X : Type) → X → X → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+sha256_from_ground.lean:24:22: error: Type mismatch
+  fun X t f => t
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.5 X
+but is expected to have type
+  CBool
+sha256_from_ground.lean:25:22: error: Type mismatch
+  fun X t f => f
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.6 X t
+but is expected to have type
+  CBool
+sha256_from_ground.lean:27:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:28:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:29:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:30:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:31:51: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:36:37: error: Type mismatch
+  (X : Type) → (A → B → X) → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+sha256_from_ground.lean:38:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:41:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:42:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:47:21: error: Type mismatch
+  (X : Type) → (X → X) → X → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+sha256_from_ground.lean:49:20: error: Type mismatch
+  fun X s z => z
+has type
+  (X : ?m.2) → (s : ?m.5 X) → ?m.6 X s → ?m.6 X s
+but is expected to have type
+  CNat
+sha256_from_ground.lean:50:31: error: Type mismatch
+  fun X s z => ?m.6
+has type
+  (X : ?m.2) → (s : ?m.7 X) → (z : ?m.8 X s) → ?m.9 X s z
+but is expected to have type
+  CNat
+sha256_from_ground.lean:52:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:53:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:58:20: error(lean.unknownIdentifier): Unknown identifier `CBool`
+sha256_from_ground.lean:59:16: error(lean.unknownIdentifier): Unknown identifier `ctrue`
+sha256_from_ground.lean:60:16: error(lean.unknownIdentifier): Unknown identifier `cfalse`
+sha256_from_ground.lean:64:2: error(lean.unknownIdentifier): Unknown identifier `CPair`
+sha256_from_ground.lean:67:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:68:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:68:45: error: unexpected token ')'; expected command
+sha256_from_ground.lean:69:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:69:52: error: unexpected token ')'; expected command
+sha256_from_ground.lean:70:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:70:59: error: unexpected token ')'; expected command
+sha256_from_ground.lean:71:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:71:66: error: unexpected token ')'; expected command
+sha256_from_ground.lean:72:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:72:73: error: unexpected token ')'; expected command
+sha256_from_ground.lean:73:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:73:80: error: unexpected token ')'; expected command
+sha256_from_ground.lean:74:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:74:87: error: unexpected token ')'; expected command
+sha256_from_ground.lean:75:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:75:94: error: unexpected token ')'; expected command
+sha256_from_ground.lean:76:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:76:101: error: unexpected token ')'; expected command
+sha256_from_ground.lean:77:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:77:109: error: unexpected token ')'; expected command
+sha256_from_ground.lean:78:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:78:116: error: unexpected token ')'; expected command
+sha256_from_ground.lean:79:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:79:123: error: unexpected token ')'; expected command
+sha256_from_ground.lean:80:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:80:130: error: unexpected token ')'; expected command
+sha256_from_ground.lean:81:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:81:137: error: unexpected token ')'; expected command
+sha256_from_ground.lean:82:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:82:144: error: unexpected token ')'; expected command
+sha256_from_ground.lean:83:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:83:151: error: unexpected token ')'; expected command
+sha256_from_ground.lean:84:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:84:158: error: unexpected token ')'; expected command
+sha256_from_ground.lean:85:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:85:165: error: unexpected token ')'; expected command
+sha256_from_ground.lean:86:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:86:172: error: unexpected token ')'; expected command
+sha256_from_ground.lean:87:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:87:179: error: unexpected token ')'; expected command
+sha256_from_ground.lean:88:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:88:186: error: unexpected token ')'; expected command
+sha256_from_ground.lean:89:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:89:193: error: unexpected token ')'; expected command
+sha256_from_ground.lean:90:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:90:200: error: unexpected token ')'; expected command
+sha256_from_ground.lean:91:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:91:207: error: unexpected token ')'; expected command
+sha256_from_ground.lean:92:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:92:214: error: unexpected token ')'; expected command
+sha256_from_ground.lean:93:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:93:221: error: unexpected token ')'; expected command
+sha256_from_ground.lean:94:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:94:228: error: unexpected token ')'; expected command
+sha256_from_ground.lean:95:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:95:235: error: unexpected token ')'; expected command
+sha256_from_ground.lean:96:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:96:242: error: unexpected token ')'; expected command
+sha256_from_ground.lean:97:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:97:249: error: unexpected token ')'; expected command
+sha256_from_ground.lean:98:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha256_from_ground.lean:98:256: error: unexpected token ')'; expected command
+sha256_from_ground.lean:105:2: error(lean.unknownIdentifier): Unknown identifier `cpair`
+sha256_from_ground.lean:112:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:115:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:118:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:121:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:128:28: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:132:32: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha256_from_ground.lean:142:12: error(lean.unknownIdentifier): Unknown identifier `cfalse`
+sha256_from_ground.lean:245:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:248:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:251:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:254:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:257:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:260:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:263:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+sha256_from_ground.lean:266:2: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

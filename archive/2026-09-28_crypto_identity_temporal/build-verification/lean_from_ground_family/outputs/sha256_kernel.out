@@ -1,0 +1,110 @@
+sha256_kernel.lean:21:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:22:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:23:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:24:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:25:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:26:4: error(lean.unknownIdentifier): Unknown constant `lcAny`
+sha256_kernel.lean:28:19: error: Invalid universe polymorphic resulting type: The resulting universe is not `Prop`, but it may be `Prop` for some parameter values:
+  Sort u
+
+Hint: A possible solution is to use levels of the form `max 1 _` or `_ + 1` to ensure the universe is of the form `Type _`
+sha256_kernel.lean:37:56: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:38:56: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:48:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:49:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:50:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:51:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:52:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:53:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:54:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:55:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:56:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:57:25: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:58:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:59:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:60:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:61:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:62:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:63:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:64:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:65:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:66:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:67:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:68:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:69:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:70:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:71:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:72:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:73:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:74:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:75:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:76:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:77:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:78:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:79:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:82:3: warning: Local variable 'b0' resembles constructor 'Bit.b0' - write '.b0' (with a dot) or 'Bit.b0' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+sha256_kernel.lean:82:6: warning: Local variable 'b1' resembles constructor 'Bit.b1' - write '.b1' (with a dot) or 'Bit.b1' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+sha256_kernel.lean:87:21: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:88:27: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:89:27: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:90:27: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:93:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:97:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:101:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:105:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:108:53: error(lean.unknownIdentifier): Unknown identifier `bxor`
+sha256_kernel.lean:110:13: error(lean.unknownIdentifier): Unknown identifier `halfAdder`
+sha256_kernel.lean:119:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:218:38: error(lean.unknownIdentifier): Unknown identifier `fst`
+sha256_kernel.lean:673:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:677:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:681:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:685:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:689:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:693:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:697:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:701:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:705:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:709:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:713:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:717:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:721:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:725:2: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:728:39: error(lean.unknownIdentifier): Unknown identifier `w32xor`
+sha256_kernel.lean:729:39: error(lean.unknownIdentifier): Unknown identifier `w32xor`
+sha256_kernel.lean:730:39: error(lean.unknownIdentifier): Unknown identifier `w32xor`
+sha256_kernel.lean:731:39: error(lean.unknownIdentifier): Unknown identifier `w32xor`
+sha256_kernel.lean:740:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:741:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:742:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:743:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:744:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:745:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:746:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:747:26: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:756:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:757:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:758:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:759:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:760:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:761:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:762:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:763:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:764:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:765:29: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:766:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:767:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:768:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:769:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:770:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:771:30: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:789:31: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:790:31: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:791:31: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:792:31: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:793:31: error(lean.unknownIdentifier): Unknown constant `PProd.mk`
+sha256_kernel.lean:794:31: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

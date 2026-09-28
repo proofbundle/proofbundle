@@ -1,0 +1,142 @@
+c_ed25519.lean:13:19: error: Invalid universe polymorphic resulting type: The resulting universe is not `Prop`, but it may be `Prop` for some parameter values:
+  Sort u
+
+Hint: A possible solution is to use levels of the form `max 1 _` or `_ + 1` to ensure the universe is of the form `Type _`
+c_ed25519.lean:15:22: error: Type mismatch
+  (X : Type) → X → X → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+c_ed25519.lean:16:22: error: Type mismatch
+  fun X t f => t
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.5 X
+but is expected to have type
+  CBool
+c_ed25519.lean:17:22: error: Type mismatch
+  fun X t f => f
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.6 X t
+but is expected to have type
+  CBool
+c_ed25519.lean:18:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:19:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:20:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:21:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:22:51: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:24:37: error: Type mismatch
+  (X : Type) → (A → B → X) → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+c_ed25519.lean:25:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:26:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:27:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:29:21: error: Type mismatch
+  (X : Type) → (X → X) → X → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+c_ed25519.lean:30:20: error: Type mismatch
+  fun X s z => z
+has type
+  (X : ?m.2) → (s : ?m.5 X) → ?m.6 X s → ?m.6 X s
+but is expected to have type
+  CNat
+c_ed25519.lean:31:31: error: Type mismatch
+  fun X s z => ?m.6
+has type
+  (X : ?m.2) → (s : ?m.7 X) → (z : ?m.8 X s) → ?m.9 X s z
+but is expected to have type
+  CNat
+c_ed25519.lean:32:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:33:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:35:20: error(lean.unknownIdentifier): Unknown identifier `CBool`
+c_ed25519.lean:36:16: error(lean.unknownIdentifier): Unknown identifier `ctrue`
+c_ed25519.lean:37:16: error(lean.unknownIdentifier): Unknown identifier `cfalse`
+c_ed25519.lean:40:2: error(lean.unknownIdentifier): Unknown identifier `CPair`
+c_ed25519.lean:42:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:43:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:43:45: error: unexpected token ')'; expected command
+c_ed25519.lean:44:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:44:52: error: unexpected token ')'; expected command
+c_ed25519.lean:45:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:45:59: error: unexpected token ')'; expected command
+c_ed25519.lean:46:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:46:66: error: unexpected token ')'; expected command
+c_ed25519.lean:47:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:47:73: error: unexpected token ')'; expected command
+c_ed25519.lean:48:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:48:80: error: unexpected token ')'; expected command
+c_ed25519.lean:49:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:49:87: error: unexpected token ')'; expected command
+c_ed25519.lean:50:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:50:94: error: unexpected token ')'; expected command
+c_ed25519.lean:51:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:51:101: error: unexpected token ')'; expected command
+c_ed25519.lean:52:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:52:109: error: unexpected token ')'; expected command
+c_ed25519.lean:53:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:53:116: error: unexpected token ')'; expected command
+c_ed25519.lean:54:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:54:123: error: unexpected token ')'; expected command
+c_ed25519.lean:55:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:55:130: error: unexpected token ')'; expected command
+c_ed25519.lean:56:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:56:137: error: unexpected token ')'; expected command
+c_ed25519.lean:57:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:57:144: error: unexpected token ')'; expected command
+c_ed25519.lean:58:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:58:151: error: unexpected token ')'; expected command
+c_ed25519.lean:59:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:59:158: error: unexpected token ')'; expected command
+c_ed25519.lean:60:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:60:165: error: unexpected token ')'; expected command
+c_ed25519.lean:61:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:61:172: error: unexpected token ')'; expected command
+c_ed25519.lean:62:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:62:179: error: unexpected token ')'; expected command
+c_ed25519.lean:63:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:63:186: error: unexpected token ')'; expected command
+c_ed25519.lean:64:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:64:193: error: unexpected token ')'; expected command
+c_ed25519.lean:65:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:65:200: error: unexpected token ')'; expected command
+c_ed25519.lean:66:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:66:207: error: unexpected token ')'; expected command
+c_ed25519.lean:67:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:67:214: error: unexpected token ')'; expected command
+c_ed25519.lean:68:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:68:221: error: unexpected token ')'; expected command
+c_ed25519.lean:69:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:69:228: error: unexpected token ')'; expected command
+c_ed25519.lean:70:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:70:235: error: unexpected token ')'; expected command
+c_ed25519.lean:71:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:71:242: error: unexpected token ')'; expected command
+c_ed25519.lean:72:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:72:249: error: unexpected token ')'; expected command
+c_ed25519.lean:73:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:73:256: error: unexpected token ')'; expected command
+c_ed25519.lean:79:2: error(lean.unknownIdentifier): Unknown identifier `cpair`
+c_ed25519.lean:82:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:85:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:88:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:91:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:93:28: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:94:32: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:103:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+c_ed25519.lean:202:38: error(lean.unknownIdentifier): Unknown identifier `cfst`
+c_ed25519.lean:205:13: error(lean.unknownIdentifier): Unknown identifier `cnot`
+c_ed25519.lean:240:14: error(lean.unknownIdentifier): Unknown identifier `cand`
+c_ed25519.lean:307:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:310:2: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+c_ed25519.lean:312:23: error(lean.unknownIdentifier): Unknown identifier `CPair`
+c_ed25519.lean:313:42: error(lean.unknownIdentifier): Unknown identifier `cpair`
+c_ed25519.lean:314:35: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

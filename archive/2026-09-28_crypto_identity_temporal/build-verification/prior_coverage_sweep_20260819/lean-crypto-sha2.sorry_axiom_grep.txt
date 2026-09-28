@@ -1,0 +1,1 @@
+/home/falsealias/pb/lean-crypto-sha2/Crypto/Vec.lean:52:-- papered over with `sorry`, which would violate the package's own zero-sorry claim.

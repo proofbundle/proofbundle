@@ -1,0 +1,14 @@
+2026-08-19T18:31:16Z === lean-crypto : toolchain leanprover/lean4:v4.29.1
+2026-08-19T18:31:16Z lean-crypto build exit=0
+2026-08-19T18:31:16Z lean-crypto source sorry/axiom/native_decide hits: 120
+2026-08-19T18:31:16Z lean-crypto : auditing BaseAxiomAudit.lean
+2026-08-19T18:31:16Z lean-crypto RESULT: 6 clean / 2 depend-on-axioms
+2026-08-19T18:31:16Z === lean-crypto-sha2 : toolchain leanprover/lean4:v4.8.0
+2026-08-19T18:31:20Z lean-crypto-sha2 build exit=1
+2026-08-19T18:31:20Z lean-crypto-sha2 source sorry/axiom/native_decide hits: 1
+2026-08-19T18:31:20Z lean-crypto-sha2 : auditing SHA256Core.lean
+2026-08-19T18:31:21Z lean-crypto-sha2 RESULT: 0 clean / 0 depend-on-axioms
+2026-08-19T18:31:21Z === crypto-library snapshot inventory
+2026-08-19T18:31:21Z library files containing sorry/admit: 26
+2026-08-19T18:31:21Z library files using native_decide: 356
+2026-08-19T18:31:21Z DONE -> /media/falsealias/raid2tb/lean_axiom_sweep_20260819T183116Z

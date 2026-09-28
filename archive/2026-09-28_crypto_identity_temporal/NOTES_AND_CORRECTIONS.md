@@ -13,6 +13,17 @@ cryptographic artifacts themselves.
   never committed. Caught on resume by running `git status` from the
   actual repo root before doing anything else, which showed the 101
   pending deletions were still staged and intact. Committed as `4a8a099`.
+- **Claimed a commit included files it didn't.** Committed
+  `js_crypto_core_README.md` and said the paired test-run logs
+  (`js_crypto_core_test_logs/*.log`) were included in the same commit
+  (`1de864e`). They weren't: the repo's `.gitignore` has a blanket
+  `*.log` rule, and a plain `git add` on the directory silently dropped
+  them rather than erroring. Caught immediately after by running
+  `git ls-files` against what the commit message claimed, rather than
+  trusting that the add-then-commit sequence did what it was meant to.
+  Force-added and committed separately as `9bf708d`. The lesson: verify
+  a commit's actual tree against the intended file list when a repo has
+  ignore rules broad enough to eat evidence file extensions like `.log`.
 - **Overclaiming risk on the identity witness, corrected before it shipped
   as prose but not before it shipped as unnecessary caveat text.** The
   first draft of the session-identity README over-explained, at length,

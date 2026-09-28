@@ -98,3 +98,19 @@ by the user and attached to the session.
 ## Prior rocqchk audit read (2026-09-28)
 12 of 13 sections show `Axioms: <none>`; the `mldsa` section is truncated with no verdict. See
 build-verification/prior_rocqchk_and_lean_audit_202608/README.md. Not re-run this session.
+
+## 2026-05-18 combined bundle: reading results (snapshot, 2026-09-28)
+Zip SHA-256 `921c94f42f1941784c52d5a893a74f38835e6d75752625865d95a782412f9c18`, 21 files, not committed here.
+- Duplicates: the two large `.html` copies are byte-identical (same SHA-256); the `.txt` is a separate text rendering.
+- Embedded hashes: the v1.1 thread file states four embedded digests (SHA-256, SHA-384, SHA3-384, SHA-512) computed after zeroing
+  the four hash values. Recomputed independently (Python hashlib; SHA-256 and SHA3-384 also with sha256sum/openssl): all four match.
+- Coq files (coqc 8.18.0, flat directory): kernel, oal_preprint, fold_real, continuum_final and the consolidation file compile;
+  core_v0.02, kernel_v2 and both Anachronegon files do not. oal_preprint has 4 `Admitted`; continuum_final has 1 `Admitted` Instance and 5 axioms/parameters.
+- The bundle README says the consolidation file fails on unmatched `End` directives. Those close `Module` blocks (6 Modules, 2 Sections);
+  the file compiles under 8.18.0 and its 151 `Print Assumptions` outputs read "Closed under the global context".
+- Spec PDF: 36 clauses and 150 subclauses are all present (apparent numbering gaps in a text extract were extraction artifacts).
+  Metric claims (107 vectors, 20 operators) are stated consistently; not checked against an implementation.
+- Clementine RLM v0.3.1 runs. Its own benchmark output reports motion discrimination 0.0, intra-formal and cross-group similarity both
+  0.9941 (no separation), and L3/L5 as STUB. It prints "v0.3.0" in a v0.3.1 file.
+- The Qwen transcript is speculative chat with no verifiable claims; the Kimi page is a chat export.
+- Not read in full: the 89k-line html/txt rendering and the continuum PDF.

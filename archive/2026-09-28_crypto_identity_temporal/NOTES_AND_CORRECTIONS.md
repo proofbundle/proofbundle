@@ -119,3 +119,17 @@ Zip SHA-256 `921c94f42f1941784c52d5a893a74f38835e6d75752625865d95a782412f9c18`, 
 - The PDF's own text says `reconstruction_correct` "destructs an axiom that already assumes the conclusion", that the
   `incompressibility` axiom as formulated has a problem, and that the reconstruction instance is `Admitted`. Independent compile of the file
   found the same: 1 `Admitted`, 5 axioms/parameters. The document and the compile agree.
+
+## Rust workspace source dump from the 2026-05-18 bundle: build attempt (snapshot, 2026-09-28)
+Rebuilt from the 213-file text dump (27 crate directories). Raw cargo logs are kept outside this repo; SHA-256 prefixes:
+manifest-load run `5196d79324302b15…`, keep-going check run `621cb85117a9b4fb…`.
+- The dump's own `BUILD_SUCCESS` file ticks every box ("All crates created", "All 19 operators", "96 conformance vectors"). It is a self-written
+  checklist, dated 2024, and states counts (19 operators, 96 vectors, 9 profiles) that differ from the spec PDF (20, 107, 10).
+- `cargo check --workspace` cannot load the workspace: 4 member crates depend on 5 crates that are not in the dump (config, core, telemetry, utils, watchdog).
+  6 of 27 crates have an incomplete dependency closure (aibom, deployment, drd, pipeline, server, verifier).
+- No lockfile is present; with the pinned Rust 1.78.0 dependency resolution fails (a transitive crate needs edition2024).
+  Retried with stable 1.95.0 (a deviation from the pin, recorded here).
+- On the 21 crates whose dependencies are present, 7 fail with real errors in their own code (about 92 errors): cbor (calls a non-existent
+  `Value::from_slice`), storage (private-field access, `RwLock::clone`, borrow errors), merkle, keys, monitoring, operators, profiles.
+  The remaining 14 were not reached because they depend on a failed crate; their status is unknown.
+- Conclusion for this snapshot: the workspace does not build, so the `BUILD_SUCCESS` claim is not supported. Nothing was patched.

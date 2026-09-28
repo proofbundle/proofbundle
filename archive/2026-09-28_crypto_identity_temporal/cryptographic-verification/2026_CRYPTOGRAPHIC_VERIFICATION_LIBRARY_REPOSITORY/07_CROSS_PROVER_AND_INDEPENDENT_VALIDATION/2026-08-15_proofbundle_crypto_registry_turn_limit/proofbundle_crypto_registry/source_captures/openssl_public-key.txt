@@ -1,0 +1,181 @@
+$ openssl list -public-key-algorithms
+RETURN_CODE=0
+
+STDOUT
+Legacy:
+ Name: OpenSSL RSA method
+	Type: Builtin Algorithm
+	OID: rsaEncryption
+	PEM string: RSA
+ Name: rsa
+	Alias for: rsaEncryption
+ Name: OpenSSL PKCS#3 DH method
+	Type: Builtin Algorithm
+	OID: dhKeyAgreement
+	PEM string: DH
+ Name: dsaEncryption-old
+	Alias for: dsaEncryption
+ Name: dsaWithSHA1-old
+	Alias for: dsaWithSHA
+ Name: dsaWithSHA1
+	Alias for: dsaWithSHA
+ Name: OpenSSL DSA method
+	Type: Builtin Algorithm
+	OID: dsaEncryption
+	PEM string: DSA
+ Name: OpenSSL EC algorithm
+	Type: Builtin Algorithm
+	OID: id-ecPublicKey
+	PEM string: EC
+ Name: OpenSSL RSA-PSS method
+	Type: Builtin Algorithm
+	OID: rsassaPss
+	PEM string: RSA-PSS
+ Name: OpenSSL X9.42 DH method
+	Type: Builtin Algorithm
+	OID: X9.42 DH
+	PEM string: X9.42 DH
+ Name: OpenSSL X25519 algorithm
+	Type: Builtin Algorithm
+	OID: X25519
+	PEM string: X25519
+ Name: OpenSSL X448 algorithm
+	Type: Builtin Algorithm
+	OID: X448
+	PEM string: X448
+ Name: OpenSSL ED25519 algorithm
+	Type: Builtin Algorithm
+	OID: ED25519
+	PEM string: ED25519
+ Name: OpenSSL ED448 algorithm
+	Type: Builtin Algorithm
+	OID: ED448
+	PEM string: ED448
+ Name: sm2
+	Alias for: id-ecPublicKey
+Provided:
+ Key Managers:
+  Name: OpenSSL RSA implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.113549.1.1.1, 2.5.8.1.1, RSA, rsaEncryption } @ default
+  Name: OpenSSL PKCS#3 DH implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.113549.1.3.1, DH, dhKeyAgreement } @ default
+  Name: OpenSSL DSA implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.10040.4.1, 1.3.14.3.2.12, DSA, DSA-old, dsaEncryption, dsaEncryption-old } @ default
+  Name: OpenSSL EC implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.10045.2.1, EC, id-ecPublicKey } @ default
+  Name: OpenSSL RSA-PSS implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.113549.1.1.10, RSA-PSS, RSASSA-PSS, rsassaPss } @ default
+  Name: OpenSSL X9.42 DH implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.840.10046.2.1, dhpublicnumber, DHX, X9.42 DH } @ default
+  Name: OpenSSL X25519 implementation
+    Type: Provider Algorithm
+    IDs: { 1.3.101.110, X25519 } @ default
+  Name: OpenSSL X448 implementation
+    Type: Provider Algorithm
+    IDs: { 1.3.101.111, X448 } @ default
+  Name: OpenSSL ED25519 implementation
+    Type: Provider Algorithm
+    IDs: { 1.3.101.112, ED25519 } @ default
+  Name: OpenSSL ED448 implementation
+    Type: Provider Algorithm
+    IDs: { 1.3.101.113, ED448 } @ default
+  Name: OpenSSL SM2 implementation
+    Type: Provider Algorithm
+    IDs: { 1.2.156.10197.1.301, SM2 } @ default
+  Name: OpenSSL ML-DSA-44 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.17, id-ml-dsa-44, ML-DSA-44, MLDSA44 } @ default
+  Name: OpenSSL ML-DSA-65 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.18, id-ml-dsa-65, ML-DSA-65, MLDSA65 } @ default
+  Name: OpenSSL ML-DSA-87 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.19, id-ml-dsa-87, ML-DSA-87, MLDSA87 } @ default
+  Name: OpenSSL TLS1_PRF via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: TLS1-PRF @ default
+  Name: OpenSSL HKDF via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: HKDF @ default
+  Name: OpenSSL SCRYPT via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: { 1.3.6.1.4.1.11591.4.11, id-scrypt, SCRYPT } @ default
+  Name: OpenSSL HMAC via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: HMAC @ default
+  Name: OpenSSL SIPHASH via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: SIPHASH @ default
+  Name: OpenSSL POLY1305 via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: POLY1305 @ default
+  Name: OpenSSL CMAC via EVP_PKEY implementation
+    Type: Provider Algorithm
+    IDs: CMAC @ default
+  Name: OpenSSL ML-KEM-512 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.4.1, id-alg-ml-kem-512, ML-KEM-512, MLKEM512 } @ default
+  Name: OpenSSL ML-KEM-768 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.4.2, id-alg-ml-kem-768, ML-KEM-768, MLKEM768 } @ default
+  Name: OpenSSL ML-KEM-1024 implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.4.3, id-alg-ml-kem-1024, ML-KEM-1024, MLKEM1024 } @ default
+  Name: X25519+ML-KEM-768 TLS hybrid implementation
+    Type: Provider Algorithm
+    IDs: X25519MLKEM768 @ default
+  Name: X448+ML-KEM-1024 TLS hybrid implementation
+    Type: Provider Algorithm
+    IDs: X448MLKEM1024 @ default
+  Name: P-256+ML-KEM-768 TLS hybrid implementation
+    Type: Provider Algorithm
+    IDs: SecP256r1MLKEM768 @ default
+  Name: P-384+ML-KEM-1024 TLS hybrid implementation
+    Type: Provider Algorithm
+    IDs: SecP384r1MLKEM1024 @ default
+  Name: OpenSSL SLH-DSA-SHA2-128s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.20, id-slh-dsa-sha2-128s, SLH-DSA-SHA2-128s } @ default
+  Name: OpenSSL SLH-DSA-SHA2-128f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.21, id-slh-dsa-sha2-128f, SLH-DSA-SHA2-128f } @ default
+  Name: OpenSSL SLH-DSA-SHA2-192s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.22, id-slh-dsa-sha2-192s, SLH-DSA-SHA2-192s } @ default
+  Name: OpenSSL SLH-DSA-SHA2-192f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.23, id-slh-dsa-sha2-192f, SLH-DSA-SHA2-192f } @ default
+  Name: OpenSSL SLH-DSA-SHA2-256s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.24, id-slh-dsa-sha2-256s, SLH-DSA-SHA2-256s } @ default
+  Name: OpenSSL SLH-DSA-SHA2-256f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.25, id-slh-dsa-sha2-256f, SLH-DSA-SHA2-256f } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-128s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.26, id-slh-dsa-shake-128s, SLH-DSA-SHAKE-128s } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-128f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.27, id-slh-dsa-shake-128f, SLH-DSA-SHAKE-128f } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-192s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.28, id-slh-dsa-shake-192s, SLH-DSA-SHAKE-192s } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-192f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.29, id-slh-dsa-shake-192f, SLH-DSA-SHAKE-192f } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-256s implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.30, id-slh-dsa-shake-256s, SLH-DSA-SHAKE-256s } @ default
+  Name: OpenSSL SLH-DSA-SHAKE-256f implementation
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.3.31, id-slh-dsa-shake-256f, SLH-DSA-SHAKE-256f } @ default
+
+
+STDERR
+

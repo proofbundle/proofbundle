@@ -1,0 +1,16 @@
+Verification record for 2026-09-14_MANIFEST.json
+bytes   2827
+SHA-256 49959d1891df2cb32a919c2ea05155e7c9f2e0e2ff809c804e9eb556e149f584
+SHA-512 3940293623441e7cf84e50261264f3a1aa58470c26d0704faeb62dcf75fa4a86e75044f6c8252f01af052f6f23c2e361c2f8ecdd357a4ab8686bd86d9a5a8aad
+BLAKE3  22c1d64f90800c37677e65dcce1e2bdcc020700e9c04ed570496867ea24d524f
+
+Check the manifest:
+  sha256sum 2026-09-14_MANIFEST.json
+  sha512sum 2026-09-14_MANIFEST.json
+  b3sum 2026-09-14_MANIFEST.json            (pip install blake3, or cargo install b3sum)
+Then check each file listed inside the manifest the same way.
+
+Check the diff against your original:
+  # in a directory holding an unmodified proofbundle_txt.html
+  patch -p1 < 2026-09-14_proofbundle_identity.diff
+  sha256sum proofbundle_txt.html      # must equal the manifest entry for 2026-09-14_proofbundle_identity.html

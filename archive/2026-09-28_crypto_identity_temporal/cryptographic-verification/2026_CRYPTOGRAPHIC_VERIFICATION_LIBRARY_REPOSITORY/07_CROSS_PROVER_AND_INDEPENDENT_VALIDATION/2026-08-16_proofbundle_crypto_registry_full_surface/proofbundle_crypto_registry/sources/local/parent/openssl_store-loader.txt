@@ -1,0 +1,10 @@
+$ openssl list -store-loaders
+RETURN_CODE=0
+
+STDOUT
+Provided STORE LOADERs:
+  file @ default
+
+
+STDERR
+

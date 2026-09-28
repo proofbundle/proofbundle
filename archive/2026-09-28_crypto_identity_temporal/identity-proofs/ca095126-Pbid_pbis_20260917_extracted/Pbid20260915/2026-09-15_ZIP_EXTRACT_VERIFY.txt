@@ -1,0 +1,14 @@
+== 2026-09-16T09:39:00Z extracted /home/claude/2026-09-15_SI_SECOND_WITNESS_BUNDLE.zip into /tmp/zipcheck
+== cmd: python3 2026-09-15_VERIFY.py (hash, manifest, binding, README checks; no rerun)
+bundle: /tmp/zipcheck/2026-09-15_SI_SECOND_WITNESS_BUNDLE
+[PASS] 2026-09-15_MANIFEST.txt against 2026-09-15_MANIFEST_VERIFICATION.txt
+[PASS] all 181 manifest entries match -- size, SHA-256, SHA-512, BLAKE3
+[PASS] no files outside the manifest except its own outputs
+[PASS] receipt size equals witness.json size -- 540 vs 540
+[PASS] receipt Merkle root equals base64url(SHA-256(0x00 || witness.json)) -- DHEe099YVlUS09P_m8hKQjim8vtN7JPohdzug0ukvWY
+[PASS] receipt content address equals SHA3-384(artifact.content || 0x00 || LE64(size) || witness.json)
+[PASS] README hash equals SHA-256 of data/witness.pb.json -- README ['42e6c9491fab734d274b8edb8fa618fb016e42cfa98318334d470e81bb72e860']; computed 42e6c9491fab734d274b8edb8fa618fb016e42cfa98318334d470e81bb72e860
+[PASS] README says form-only
+[NOT RUN] Lean, Coq, coqchk, verifyCore reruns -- use --rerun
+summary: 8 passed, 0 failed, 1 not run
+exit 2

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "kat_0",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "24b79a28c405cde023514d5c6882199f6dc485e9df1f1a7dba50089cd5dd0015",
+    "canonicalized_supplied_dk_sha256": "4c463dc0c539ef119b7c2c3d8575d9bb0004f24f3be9f78dca3b6a9ad51b0ed0",
+    "supplied_ek_sha256": "8bc4d3ad1e2e0bdc84729d69c9694bfd3d9d38db9cc52c3393dbd2db37647c2d",
+    "openssl_ek_sha256": "faf5e9b7c6f16c0abbc0102991fce35a0b81f9bdd681367d384997e5d74a6cc5"
+  },
+  {
+    "name": "kat_1",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "1ff392278bbd7c0654b5e29b6840200213b9b6be8404eb2663743a1cde9e35d6",
+    "canonicalized_supplied_dk_sha256": "72500697f142b3675ce7d647797a72f33091bed67109b3c59175d2d877a97955",
+    "supplied_ek_sha256": "c48d972466ce538b0f551eb9ea7fc964b7ac7cbeafd0b8b09f304462e8d4256b",
+    "openssl_ek_sha256": "5abc00ebb75a8fcc40475e48b851bd055219bcf1da1a6f6a9b3c4e925b27bf0c"
+  },
+  {
+    "name": "kat_2",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "5750a8235e8411d15b444c47cc29088a317e60cae3c679fce9d35a00b892472e",
+    "canonicalized_supplied_dk_sha256": "0b01496c341dc715556861e10e3617351a158743def4f8429b77e8f6d1f2f385",
+    "supplied_ek_sha256": "8f29c55bedeb8929bfc1cf8d473d18353f97b12404a48173a67bed1a6fdbe768",
+    "openssl_ek_sha256": "5dabbc6a0a25762d10c7f1621e8d840935cb07460d67ebc53b7eb21461876bb2"
+  },
+  {
+    "name": "kat_3",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "d1b5eb713cfc5a7340e5017a60874f0f6c483142ecf36af1c534ee577c6d09d1",
+    "canonicalized_supplied_dk_sha256": "7268e91c6a0e79fc13092bf4a2ce59cfade78ea543b05c2d2c64dadf625a8001",
+    "supplied_ek_sha256": "75ea53dd890180707a3581cf33aa37e7374ae45ff402f5391bfa765a342bdf61",
+    "openssl_ek_sha256": "be9fc4439679958a3c7925f69d0e84fe99ad6f0e0dc758b0116153f587f70f78"
+  },
+  {
+    "name": "kat_4",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "b8fbe2dc356d6bf4bce7a9c7ee40454011d3a4c3b90f20cfd578f5770956517b",
+    "canonicalized_supplied_dk_sha256": "51514fa964cc0241322b7fb0898d057781fd9338a20cf3aa12dac8fe2baf8da1",
+    "supplied_ek_sha256": "01b06f352e6b3578beb14e24ca60b8c2eed805374415edabeb10a36de7afad7f",
+    "openssl_ek_sha256": "3916987c7f0fe89a67db13498f20c91e7ab1c34bc5797bd74ea2880359d4ae17"
+  },
+  {
+    "name": "kat_5",
+    "seed_match": true,
+    "canonicalized_secret_matches_openssl": true,
+    "supplied_ek_matches_openssl": false,
+    "rho_matches_openssl": true,
+    "supplied_dk_tail_ek_hash_z_layout_valid": true,
+    "openssl_dk_sha256": "a85d63b537b39968feab203fd61ec13bfafae22bed927951387ee4f95e9ff8f2",
+    "canonicalized_supplied_dk_sha256": "da1d5a39b3a8475e43795ba4a18e3abcfc5229bcd41bcb2175ad3ca3747f4524",
+    "supplied_ek_sha256": "9bd27ae96d49046ffb18b5dd24a31d671a6d6701f7f5b88e2931f35109c1f72d",
+    "openssl_ek_sha256": "f03bea3eb54d7a7d06d1065d36145ea1deaac99c224fd4a6154b54532be1e277"
+  }
+]

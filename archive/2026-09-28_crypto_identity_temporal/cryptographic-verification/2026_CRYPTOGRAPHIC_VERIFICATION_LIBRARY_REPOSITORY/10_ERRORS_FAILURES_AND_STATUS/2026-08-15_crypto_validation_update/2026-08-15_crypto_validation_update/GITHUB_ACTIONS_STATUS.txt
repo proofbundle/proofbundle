@@ -1,0 +1,10 @@
+GITHUB ACTIONS EXECUTION STATUS
+
+Corrective run: 31882966824
+Branch: verification/2026-08-15-crypto-precompiled-shards
+Commit: e48d002bf391e4eaaf19deec93f817f7072d0d5d
+
+GitHub annotation:
+"The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings"
+
+No Lean step ran in this corrective attempt. This is runner-allocation/billing refusal, not a theorem failure.

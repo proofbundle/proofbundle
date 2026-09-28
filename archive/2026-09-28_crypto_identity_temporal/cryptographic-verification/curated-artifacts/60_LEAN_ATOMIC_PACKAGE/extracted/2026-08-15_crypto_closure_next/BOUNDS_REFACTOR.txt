@@ -1,0 +1,28 @@
+PARTIAL-ACCESS ELIMINATION / FIN-INDEXED REFACTOR
+
+Both SHA256 2.lean and the embedded SHA implementation in ECDSAP256.lean contain the same 11 live Array.get! uses.
+They occur in four semantic sites:
+
+1. initState: H0.get! i.val
+   H0_size = 8 and i : Fin 8, so this access is directly replaceable by proof-carrying Array.get.
+
+2. schedule initial 16 words: four block.get! accesses per iteration
+   The current type is schedule (block : Array UInt8). The comment promises 64 bytes, but the type does not.
+   Therefore these four accesses CANNOT be proved in-bounds for every value accepted by the current function.
+   The input type must be strengthened (e.g. Block64 subtype / Fin 64 -> UInt8) or the function must return an error/Option for malformed blocks.
+
+3. schedule expansion: w.get! at t-2, t-15, t-7, t-16
+   These are provable from the loop invariant w.size = t for 16 <= t < 64. The refactor must carry that invariant explicitly.
+
+4. compress round fold: K.get! t and w.get! t
+   K_size = 64 is already proved. w requires schedule to return a length-64 proof (or a Fin 64-indexed schedule).
+
+Strong target interface:
+  Block64    := Fin 64 -> UInt8
+  Schedule64 := Fin 64 -> UInt32
+  schedule   : Block64 -> Schedule64
+  compress   : State -> Block64 -> State
+
+The remaining obligation is block construction in hashBlocks: padding gives a multiple-of-64 byte list,
+so each nonempty recursive step must prove at least 64 bytes remain and construct Block64 from the first 64 bytes.
+This closes the real gap rather than replacing get! with a default-returning total function.

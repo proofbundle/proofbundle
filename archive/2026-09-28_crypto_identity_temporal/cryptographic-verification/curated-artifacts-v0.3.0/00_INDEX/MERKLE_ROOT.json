@@ -1,0 +1,29 @@
+{
+  "covered_file_count": 188,
+  "excluded_self_referential_files": [
+    "00_INDEX/FILE_INVENTORY.txt",
+    "00_INDEX/MERKLE_LEAVES.jsonl",
+    "00_INDEX/MERKLE_ROOT.json",
+    "00_INDEX/OTS_STATUS.json",
+    "00_INDEX/PROOFBUNDLE_SEAL.json",
+    "00_INDEX/SHA256SUMS.txt"
+  ],
+  "hash": "SHA-256",
+  "leaf_domain": "ProofBundleLeaf/v1",
+  "levels": [
+    188,
+    94,
+    47,
+    24,
+    12,
+    6,
+    3,
+    2,
+    1
+  ],
+  "node_domain": "ProofBundleNode/v1",
+  "odd_node_rule": "duplicate-last",
+  "ordering": "lexicographic UTF-8 path",
+  "root_sha256": "bebd6f1ca8fdb635985604eb68d08108b99376c305c84a20f7183712358cfe1c",
+  "schema": "proofbundle.merkle/v1"
+}

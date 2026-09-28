@@ -1,0 +1,10 @@
+$ openssl list -asymcipher-algorithms
+RETURN_CODE=0
+
+STDOUT
+  { 1.2.840.113549.1.1.1, 2.5.8.1.1, RSA, rsaEncryption } @ default
+  { 1.2.156.10197.1.301, SM2 } @ default
+
+
+STDERR
+

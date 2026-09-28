@@ -1,0 +1,14 @@
+$ openssl list -skey-managers
+RETURN_CODE=0
+
+STDOUT
+  Name: OpenSSL AES opaque secret key
+    Type: Provider Algorithm
+    IDs: { 2.16.840.1.101.3.4.1, AES } @ default
+  Name: OpenSSL generic opaque secret key
+    Type: Provider Algorithm
+    IDs: GENERIC-SECRET @ default
+
+
+STDERR
+

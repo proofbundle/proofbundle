@@ -1,0 +1,41 @@
+{
+  "package": "ProofBundle cryptographic registry",
+  "date": "2026-08-15",
+  "files": [
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_genesis.json",
+      "sha256": "322ac64cb0aface253995627b5cd18ccb812fcd374426d209fc3597c94d86bdc",
+      "bytes": 311579
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_genesis.mjs",
+      "sha256": "df41c7784aaf367ef4ff3003bd87d3324637e143bda6f31ddb9f4adeb2d4c56d",
+      "bytes": 313085
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_SHA256SUMS.txt",
+      "sha256": "e4e4b437ca1956dc03859bc6a1f504e9c95e34de087b92723b7cc7e687a04bcd",
+      "bytes": 235
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_append_001.json",
+      "sha256": "4828b197fed6d9653988e99289521d3059147e4bcf48ac861ee53871b49dc32b",
+      "bytes": 198300
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_expanded_001.json",
+      "sha256": "d39207e6938e61cd622a59ae66421642548fffa888357f586407f59d87223fa7",
+      "bytes": 508843
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_expanded_001.mjs",
+      "sha256": "24ed7fa98bb5fcbee6720e916c2e4a88645158eb557d39869fd7a4028836b424",
+      "bytes": 509442
+    },
+    {
+      "name": "2026-08-15_proofbundle_crypto_registry_append_001_SHA256SUMS.txt",
+      "sha256": "1b755c4af2e6909c90dfbd63cbedc353b759576e4a7db7287b2a72987d376d02",
+      "bytes": 366
+    }
+  ]
+}

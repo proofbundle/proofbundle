@@ -1,0 +1,9 @@
+{"plugins": [],
+ "package": "si_second",
+ "options": {},
+ "name": "«2026-09-15_SI_SECOND_LEDGER»",
+ "isModule": false,
+ "importArts":
+ {"«2026-09-15_SI_SECOND_KERNEL»":
+  [["/home/claude/2026-09-15_HANDOVER/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.olean"]]},
+ "dynlibs": []}

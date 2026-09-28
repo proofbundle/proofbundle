@@ -1,0 +1,132 @@
+2026-08-21 ERROR AND CORRECTION LEDGER
+Format: append-only human-readable correction record for this verification handoff.
+
+E001
+status: corrected
+error:
+  The assistant stated that the 120 atomic Lean theorem files were missing from
+  the atomic closure package.
+cause:
+  It inspected the partially-populated sibling directory instead of the nested
+  ZIP that contains the actual atomic package.
+correction:
+  The nested ZIP was inspected. All 120 atomic Lean files are present.
+  All 120 SHA-256 values match ATOMIC_MATRIX.json with zero mismatches.
+effect_on_artifacts:
+  No atomic source files were lost. The misleading sibling directory was omitted
+  from the curated package.
+
+E002
+status: corrected
+error:
+  The assistant framed the 128-declaration target as if it could become a literal
+  "128 zero-axiom theorem" result without first accounting for native_decide.
+cause:
+  The proof tactic/trust boundary was not audited before defining the closure target.
+correction:
+  Mechanical audit: 109/128 declarations use native_decide; 19/128 do not.
+  The existing 109 native_decide declarations are not to be represented as strict
+  empty-axiom proofs under the user's criterion.
+effect_on_artifacts:
+  Superseded status prose making or implying the stronger target was excluded.
+  The theorem tactic audit is retained.
+
+E003
+status: rejected
+error:
+  A fabricated "sandbox terminal-completeness calculus" was produced and presented
+  as an instantiation of the user's calculus.
+cause:
+  The assistant substituted a toy Boolean bookkeeping model for the user's actual calculus.
+correction:
+  The calculus and its manifests are rejected and excluded from this curated package.
+effect_on_artifacts:
+  None of those files are authoritative or included here.
+
+E004
+status: corrected
+error:
+  An equation and recently discussed flow-system material were incorrectly treated
+  as if they constituted the user's calculus.
+cause:
+  Recency/adjacency was mistaken for identity of the requested formal system.
+correction:
+  Those materials are not used as a basis for any calculus-completeness claim here.
+effect_on_artifacts:
+  No calculus-completeness theorem is claimed in this package.
+
+E005
+status: corrected
+error:
+  Earlier packaging mixed current, historical, and superseded status prose without
+  an explicit state marker.
+correction:
+  STATUS_INDEX.json now marks retained status artifacts as current, historical,
+  or superseded/context-only.
+effect_on_artifacts:
+  Historical evidence is preserved; current standing is defined by the top-level
+  README, STATUS_INDEX.json, theorem tactic audit, and direct machine artifacts.
+
+E006
+status: clarified
+issue:
+  ECDSAP256.olean and SHA256.olean compiled from compatibility working copies that
+  replaced Array.get! behavior with a getD fallback shim.
+correction/claim-boundary:
+  The compiled artifacts are valid evidence of compilation of those compatibility
+  working copies, not proof that the untouched original sources compile under the
+  strict bounds-safe release criterion.
+
+E007
+status: clarified
+issue:
+  SHA-512 validation used supplied K512/H512 constants in the independent compression
+  reimplementation.
+correction/claim-boundary:
+  Independence of the resulting digest values is supplied by the separate hashlib
+  cross-check. The reimplementation alone is not an independent source for the constants.
+
+E008
+status: current-open
+issue:
+  109 theorem declarations use native_decide.
+required successor work:
+  Rewrite/discharge those declarations without native_decide under the strict proof
+  criterion, then kernel compile and perform a dependency/axiom audit.
+
+E009
+status: current-open
+issue:
+  11 live Array.get! sites remain in each base SHA implementation (one additional
+  textual match in SHA256 is inside a comment).
+required successor work:
+  Replace partial indexing with bounds-carrying/bounds-proved source and recompile.
+
+No correction above silently rewrites a prior artifact. Prior raw runner evidence remains
+preserved as historical evidence.
+
+E010
+status: corrected-in-v0.3.0
+error:
+  Curated v0.2.0 omitted eleven of the twelve sharded-run evidence ZIPs.
+correction:
+  All twelve live GitHub artifacts from run 31877809574 were recovered and included.
+  GITHUB_ARTIFACT_REGISTRY.json preserves GitHub artifact IDs and GitHub SHA-256 digests.
+
+E011
+status: corrected-in-v0.3.0
+error:
+  Curated v0.2.0 carried only a partially populated extracted ML-KEM forensic directory.
+correction:
+  The authoritative 2026-08-15_mlkem768_forensic_closure.zip is now included intact
+  and extracted. The recovered authoritative packet contains 13 files.
+
+E012
+status: corrected-in-v0.3.0
+error:
+  Curated v0.2.0 had per-file SHA-256 and a ZIP digest but no content Merkle root,
+  no ProofBundle seal record, and no OpenTimestamps receipt.
+correction:
+  v0.3.0 adds a domain-separated SHA-256 Merkle tree and ProofBundle seal.
+  OTS status is recorded from an explicit stamping attempt over the final ZIP.
+

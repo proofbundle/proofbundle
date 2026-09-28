@@ -1,0 +1,59 @@
+VERIFY THIS HANDOFF
+
+EXPECTED SHA-256
+
+c606657bb9ffe992d7f64cbcce213c45e78c085d05617ac2330a25cd8e44bbb2  ECDSAP256.olean
+16a4707d5acda0a180ec11ec20872d431470b6bb7a29b2d4ce3e06389e89d2d2  SHA256.olean
+
+1. VERIFY BINARY HASHES
+
+Linux/macOS:
+  sha256sum ECDSAP256.olean SHA256.olean
+
+PowerShell:
+  Get-FileHash ECDSAP256.olean -Algorithm SHA256
+  Get-FileHash SHA256.olean -Algorithm SHA256
+
+2. RECONSTRUCT .OLEAN FROM TEXT COPY
+
+Linux/macOS:
+  base64 -d ECDSAP256.olean.base64.txt > ECDSAP256.reconstructed.olean
+  base64 -d SHA256.olean.base64.txt > SHA256.reconstructed.olean
+
+PowerShell:
+  [IO.File]::WriteAllBytes("ECDSAP256.reconstructed.olean",
+    [Convert]::FromBase64String((Get-Content ECDSAP256.olean.base64.txt -Raw)))
+  [IO.File]::WriteAllBytes("SHA256.reconstructed.olean",
+    [Convert]::FromBase64String((Get-Content SHA256.olean.base64.txt -Raw)))
+
+Then verify:
+  sha256sum ECDSAP256.reconstructed.olean SHA256.reconstructed.olean
+
+The reconstructed hashes must equal the expected hashes above.
+
+3. LEAN VERSION / PROVENANCE
+
+Compiler target:
+  Lean 4.29.1
+
+Earlier GitHub Actions run:
+  run id: 31692431520
+  branch: verification/2026-08-13-crypto-batch
+  head commit: 53ba2fee540920427537323395829a43dc919647
+
+Current successor theorem-shard run:
+  run id: 31877809574
+  branch: verification/2026-08-15-crypto-sharded
+  head commit: baf427ff52737e51e4ea3f95b26cde1b2d0d489b
+
+4. CLAIM BOUNDARY
+
+PASS:
+  ECDSAP256 base compiled.
+  SHA256 base compiled.
+
+NOT YET ESTABLISHED BY THIS HANDOFF:
+  complete theorem-suite compilation,
+  complete hostile-suite compilation,
+  kernel-confirmed zero-axiom census,
+  Fin-indexed / bounds-proved replacement of all partial accesses.

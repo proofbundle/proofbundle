@@ -1,0 +1,63 @@
+{
+  "date": "2026-08-15",
+  "webPrimarySources": [
+    {
+      "source": "NIST SHA-3 Project",
+      "factsUsed": [
+        "competition existed 2007-2012",
+        "Keccak selected",
+        "round-2/final-round lineage"
+      ]
+    },
+    {
+      "source": "NIST Lightweight Cryptography Round 1",
+      "factsUsed": [
+        "56 round-1 candidates"
+      ]
+    },
+    {
+      "source": "NIST Lightweight Cryptography Round 2",
+      "factsUsed": [
+        "32 round-2 candidates"
+      ]
+    },
+    {
+      "source": "NIST Lightweight Cryptography finalist material",
+      "factsUsed": [
+        "10 finalists",
+        "Ascon selected"
+      ]
+    },
+    {
+      "source": "NIST Additional Digital Signatures 2026",
+      "factsUsed": [
+        "nine candidates advanced to round 3"
+      ]
+    },
+    {
+      "source": "IANA COSE",
+      "factsUsed": [
+        "registry updated 2026-08-11"
+      ]
+    },
+    {
+      "source": "IANA TLS Parameters",
+      "factsUsed": [
+        "current public TLS parameter registry"
+      ]
+    },
+    {
+      "source": "IANA SSH Parameters",
+      "factsUsed": [
+        "current public SSH parameter registry"
+      ]
+    }
+  ],
+  "localPrimaryEvidence": [
+    "OpenSSL 3.5.5 live algorithm, object/OID, TLS, curve, provider, encoder/decoder/key-manager inventories",
+    "Node.js v22.16.0 crypto.getCiphers/getHashes/getCurves",
+    "Python 3.13.5 hashlib.algorithms_available",
+    "gpg (GnuPG) 2.4.7 supported algorithm list"
+  ],
+  "admissionRule": "Local availability records never imply security approval. Literature-name records never imply PB implementation. Exact-name graph edges are emitted only for unique normalized exact matches."
+}

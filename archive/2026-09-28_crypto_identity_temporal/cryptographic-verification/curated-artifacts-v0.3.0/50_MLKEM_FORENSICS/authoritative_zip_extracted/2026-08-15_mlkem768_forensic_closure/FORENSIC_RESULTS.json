@@ -1,0 +1,20 @@
+{
+  "canonicalized_secret_matches_openssl": 6,
+  "ciphertext_wrong_domain_exact_matches": 6,
+  "hostiles_byte_executable": 15,
+  "hostiles_byte_executable_verdict_matches": 15,
+  "hostiles_expected_secret_matches": 11,
+  "hostiles_not_byte_executable": [
+    "ek_wrong_size_1183"
+  ],
+  "hostiles_total": 16,
+  "hostiles_with_expected_secret_and_byte_executable": 11,
+  "identified_defect_class": "SampleNTT matrix outputs are treated as coefficient-domain polynomial coefficients; raw CBD secret/error polynomials are multiplied with those values using ordinary negacyclic convolution instead of the required NTT-domain multiplication.",
+  "public_key_wrong_domain_exact_matches": 6,
+  "rho_matches_openssl": 6,
+  "schema": "proofbundle-mlkem768-forensic-closure/1.0",
+  "shared_secret_exact_matches": 6,
+  "standing": "internally coherent alternate/wrong-domain KEM; not byte-compatible FIPS-203 ML-KEM-768",
+  "supplied_public_key_matches_openssl": 0,
+  "vectors": 6
+}

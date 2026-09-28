@@ -1,0 +1,73 @@
+2026-09-15_HANDOVER_LOG_INDEX.txt
+Generated mechanically from each log's own header lines (grep), after the run.
+Reason: 2026-09-15_HANDOVER_RUN.log names the command, not the log file, because run() read $1 after shift 2.
+
+2026-09-15_COQCHK.log
+  == command: coqchk -o -Q . SIC SIC.SI_SECOND_CHECKER_2026_09_15 SIC.run_witness SIC.run_twin_succ_periods SIC.run_twin_empty_corrections SIC.run_twin_other_species SIC.run_twin_same_level SIC.run_malformed_extra_key SIC.run_malformed_trailing_space
+  == exit status: 0
+2026-09-15_COQ_CHECKER_COMPILE_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC SI_SECOND_CHECKER_2026_09_15.v
+  == exit status: 0
+2026-09-15_COQ_RUN_FILES_GENERATE.log
+  == command: bash 2026-09-15_GEN_COQ_RUN_FILES.sh . ../data/witness.json ../data/twin_succ_periods.json ../data/twin_empty_corrections.json ../data/twin_other_species.json ../data/twin_same_level.json ../data/malformed_extra_key.json ../data/malformed_trailing_space.json
+  == exit status: 0
+2026-09-15_COQ_RUN_malformed_extra_key_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_malformed_extra_key.v
+  == exit status: 0
+2026-09-15_COQ_RUN_malformed_trailing_space_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_malformed_trailing_space.v
+  == exit status: 0
+2026-09-15_COQ_RUN_twin_empty_corrections_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_twin_empty_corrections.v
+  == exit status: 0
+2026-09-15_COQ_RUN_twin_other_species_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_twin_other_species.v
+  == exit status: 0
+2026-09-15_COQ_RUN_twin_same_level_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_twin_same_level.v
+  == exit status: 0
+2026-09-15_COQ_RUN_twin_succ_periods_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_twin_succ_periods.v
+  == exit status: 0
+2026-09-15_COQ_RUN_witness_PRINT_ASSUMPTIONS.log
+  == command: coqc -Q . SIC run_witness.v
+  == exit status: 0
+2026-09-15_LAKE_BUILD.log
+  == command: lake -f 2026-09-15_LAKEFILE.lean build -v
+  == exit status: 0
+2026-09-15_LAKE_BUILD_OUTPUT_FILES.log
+  == command: find .lake -type f -printf %10s bytes  %p\n
+  == exit status: 0
+2026-09-15_LEANCHECKER_KERNEL_LEDGER.log
+  == command: lake -f 2026-09-15_LAKEFILE.lean env leanchecker «2026-09-15_SI_SECOND_KERNEL» «2026-09-15_SI_SECOND_LEDGER»
+  == exit status: 0
+2026-09-15_LEANCHECKER_NEGATIVE_CONTROL.log
+  == command: lake -f 2026-09-15_LAKEFILE.lean env leanchecker «2026-09-15_NO_SUCH_MODULE»
+  == exit status: 1
+2026-09-15_LEANCHECKER_WITNESS.log
+  == command: env LEAN_PATH=/home/claude/2026-09-15_HANDOVER/lean:/home/claude/2026-09-15_HANDOVER/lean/.lake/build/lib/lean:/root/.elan/toolchains/leanprover--lean4---v4.34.0/lib/lean leanchecker «2026-09-15_SI_SECOND_WITNESS»
+  == exit status: 0
+2026-09-15_LEAN_AUDIT_PRINT_AXIOMS.log
+  == command: lake -f 2026-09-15_LAKEFILE.lean env lean 2026-09-15_SI_SECOND_AUDIT.lean
+  == exit status: 0
+2026-09-15_LEAN_WITNESS_COMPILE_PRINT_AXIOMS.log
+  == command: lake -f 2026-09-15_LAKEFILE.lean env lean -o 2026-09-15_SI_SECOND_WITNESS.olean -i 2026-09-15_SI_SECOND_WITNESS.ilean 2026-09-15_SI_SECOND_WITNESS.lean
+  == exit status: 0
+2026-09-15_PROOFBUNDLE_TAMPER_MAKE.log
+  == command: python3 -c import json; c=json.load(open("witness.pb.json")); r=c["payload"]["artifacts"][0]["merkle_root_b64u"]; c["payload"]["artifacts"][0]["merkle_root_b64u"]=("A" if r[0]!="A" else "B")+r[1:]; open("witness_tampered_root.pb.json","w").write(json.dumps(c,indent=2)); print("merkle_root_b64u first character", r[0], "->", c["payload"]["artifacts"][0]["merkle_root_b64u"][0])
+  == exit status: 0
+2026-09-15_PROOFBUNDLE_VERIFY.log
+  == command: node /tmp/pb/cli/proofbundle-cli.mjs verify witness.pb.json
+  == exit status: 0
+2026-09-15_PROOFBUNDLE_VERIFY_TAMPERED.log
+  == command: node /tmp/pb/cli/proofbundle-cli.mjs verify witness_tampered_root.pb.json
+  == exit status: 1
+2026-09-15_SHA256_WITNESS_JSON.log
+  == command: sha256sum witness.json
+  == exit status: 0
+2026-09-15_SOURCE_HASHES.log
+  == command: sha256sum lean/2026-09-15_SI_SECOND_KERNEL.lean lean/2026-09-15_SI_SECOND_LEDGER.lean lean/2026-09-15_SI_SECOND_AUDIT.lean lean/2026-09-15_SI_SECOND_WITNESS.lean lean/2026-09-15_LAKEFILE.lean coq/SI_SECOND_CHECKER_2026_09_15.v data/witness.json data/witness.pb.json
+  == exit status: 0
+2026-09-15_TOOL_VERSIONS.log
+  == command: bash -c lean --version; lake --version; coqc --version; coqchk --version; node --version; python3 --version; git -C /tmp/pb log -1 --format="proofbundle commit %H %cI"
+  == exit status: 0

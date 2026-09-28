@@ -1,0 +1,75 @@
+[
+  {
+    "name": "IANA TLS Parameters",
+    "url": "https://www.iana.org/assignments/tls-parameters/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "IANA OpenPGP",
+    "url": "https://www.iana.org/assignments/openpgp/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "IANA HPKE",
+    "url": "https://www.iana.org/assignments/hpke/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "IANA COSE",
+    "url": "https://www.iana.org/assignments/cose/",
+    "observed": "2026-08-16",
+    "mode": "current registry lineage retained in parent + protocol bindings"
+  },
+  {
+    "name": "IANA JOSE",
+    "url": "https://www.iana.org/assignments/jose/",
+    "observed": "2026-08-16",
+    "mode": "current registry lineage retained in parent"
+  },
+  {
+    "name": "IANA EDHOC",
+    "url": "https://www.iana.org/assignments/edhoc/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "IANA MLS",
+    "url": "https://www.iana.org/assignments/mls/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "IANA SFrame",
+    "url": "https://www.iana.org/assignments/sframe/",
+    "observed": "2026-08-16",
+    "mode": "web-verified assignments represented"
+  },
+  {
+    "name": "NIST ACVP",
+    "url": "https://github.com/usnistgov/ACVP",
+    "observed": "2026-08-16",
+    "mode": "profile surface represented"
+  },
+  {
+    "name": "liboqs",
+    "url": "https://github.com/open-quantum-safe/liboqs",
+    "observed": "2026-08-16",
+    "mode": "current header counts/identifier surface represented"
+  },
+  {
+    "name": "W3C WebCrypto Level 2",
+    "url": "https://www.w3.org/TR/WebCryptoAPI/",
+    "observed": "2026-08-16",
+    "mode": "registered algorithm profile represented"
+  },
+  {
+    "name": "CRYPTREC",
+    "url": "https://www.cryptrec.go.jp/en/method.html",
+    "observed": "2026-08-16",
+    "revision": "2026-03-30",
+    "mode": "policy lists represented"
+  }
+]

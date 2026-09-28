@@ -1,0 +1,33 @@
+{
+  "artifact_name": "2026-08-21_crypto_verification_artifacts_curated",
+  "artifact_version": "0.3.0",
+  "claim_boundary": [
+    "This seal authenticates package membership and bytes, not theorem correctness.",
+    "109/128 theorem declarations use native_decide as written.",
+    "No strict zero-axiom closure is claimed.",
+    "Bounds-safe source recompilation and non-native_decide discharge remain open."
+  ],
+  "content_merkle_root_sha256": "bebd6f1ca8fdb635985604eb68d08108b99376c305c84a20f7183712358cfe1c",
+  "hash_algorithm": "SHA-256",
+  "merkle_covered_file_count": 188,
+  "merkle_spec": {
+    "leaf": "SHA256('ProofBundleLeaf/v1\\0' || UTF8(path) || '\\0' || raw_file_sha256)",
+    "node": "SHA256('ProofBundleNode/v1\\0' || left || right)",
+    "odd_node_rule": "duplicate-last",
+    "ordering": "lexicographic UTF-8 path order"
+  },
+  "ots": {
+    "status": "PENDING_ATTEMPT",
+    "target": "final ZIP"
+  },
+  "predecessor": {
+    "sha256": "14131d638ebf187aaabbfde39c93c7c3a33fc784ef2b8f64182ab3757584756b",
+    "version": "0.2.0"
+  },
+  "runner_evidence": {
+    "precompiled_refusal_run_id": 31882966824,
+    "sharded_artifact_count": 12,
+    "sharded_run_id": 31877809574
+  },
+  "schema": "proofbundle.seal/v1"
+}

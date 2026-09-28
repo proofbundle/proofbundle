@@ -1,0 +1,817 @@
+olean
+4.29.1
+f72c35b3f637c8c6571d353742168ab66cc22c00
+Init
+ProofBundle
+Crypto
+SHA256
+hexVal
+hexDecodeAux
+_unsafe_rec
+doubleSha256
+hashBlockList
+_sunfold
+doubleSha256Hex
+padZeros
+sha256Chain
+smallSigma1
+hashBlocksAux
+lG[%O
+match_4
+hmacSha256Hex
+byteToHex
+hashBlocks
+t1Temp
+schedule
+:X2q
+match_1
+K_size
+natToBe64
+stateToBytes
+messageBlocksAux
+nibbleChar
+initState
+bytesToWord
+scheduleWords
+t2Temp
+State
+bigSigma0
+bigSigma1
+Array
+.+ky
+get!
+round
+_sparseCasesOn_1
+paddedBlockCount
+smallSigma0
+sha256
+rotr
+sha256HexBytes
+H0_size
+round_uses_temps
+hexEncode
+wordToBytes
+messageBlocks
+hexDecode
+padList
+Q%Qh
+sha256Hex
+compress
+hmacSha256
+sha256ChainHex
+_proof_1
+Char
+toNat
+Bool
+h RU
+t)0d
+Decidable
+decide
+instLENat
+/@.We9i
+OfNat
+ofNat
+l:"d12
+instOfNatNat
+decLe
+5FN>
+true
+instDecidableEqBool
+HSub
+hSub
+instHSub
+instSubNat
+PcyJ!
+_internal
+_hyg
+List
+UInt8
+_hygCtx
+rest
+cons
+toUInt8
+HAdd
+hAdd
+instHAdd
+instAddNat
+HMul
+hMul
+L4n*
+instHMul
+instMulNat
+ByteArray
+sunfoldMatch
+Unit
+sunfoldMatchAlt
+m`Qh
+String
+toUTF8
+HMod
+hMod
+instHMod
+instMod
+,p)i
+brecOn
+below
+(gb9
+succ
+PProd
+.9@_
+UInt32
+HXor
+hXor
+instHXorOfXorOp
+instXorOpUInt32
+instOfNat
+motive
+fuel
+yCBo
+FMKo
+Nl$w
+casesOn
+unit
+toArray
+H77	
+c^^&
+K%>7
+?\K+
+"\Ua
+Fv;G
+6&.N
+kyai
+[O T
+|zw,
+qB6\
+Xxza
+p	M@
+-p_V
+~xMV
+O<Y/
+IU`@
+c>pq
+{l;B
++iV>
+]olF
+shiftRight
+HAnd
+hAnd
+kp^+j
+instHAndOfAndOp
+instAndOpUInt8
+bytes
+HDiv
+hDiv
+instHDiv
+instDiv
+length
+O6B/
+FP= 
+instAddUInt32
+F|E`
+8E2<
+block
+mkEmpty
+borrowed
+Bind
+bind
+Monad
+toBind
+instMonad
+ForIn
+forIn
+Legacy
+Range
+instForInOfForIn'
+inferInstance
+bUrL
+Membership
+instMembershipNatRange
+instForIn'NatInferInstanceMembershipOfMonad
+\BRa
+zero_lt_one
+push
+instInhabitedUInt8
+PUnit
+ForInStep
+Pure
+pure
+Applicative
+toPure
+toApplicative
+yield
+instInhabitedUInt32
+bFG8
+S?w/
+head
+uF+c
+tail
+size
+PVZg
+8DrW
+6_:N
+HAppend
+hAppend
+instHAppendOfAppend
+instAppend
+nT!r
+4hOk
+e6	'3
+take
+drop
+?Pt0
+h_10
+h_11
+h_12
+h_13
+h_14
+h_15
+h_16
+h_17
+?Pt0
+FRcz
+XUOf
+dite
+instDecidableEqNat
+ndrec_symm
+>P%8
+1tgn
+b-a&
+FP4>
+ [];
+P;NZ
+sQyf
+H#"X
+:j	v#X
+3\D*
+!4`8(
+QZw1
+nZm^
+instHOrOfOrOp
+instOrOpUInt32
+shiftLeft
+toUInt32
+vP7p
+toList
+^xf6
+2Ywl
+N>~w
+u=L=
+=md!
+inst
+$V%v
+I%Vy
+Inhabited
+getD
+default
+P%#N
+hasNotBit
+ctorIdx
+instAndOpUInt32
+Complement
+complement
+instComplementUInt32
+.G(b
+instDecidableEqFin
+O$p	
+Xbbd	
+else
+)jjrB
+-tnO
+~oI~
+h9p<
+tail_ih
+i{^A
+ne_of_beq_eq_false
+land
+refl
+false
+data
+instSubUInt32
+instNeZeroSucc
+intro
+ggs	0
+(gJ#
+ofList
+flatMap
+6K5`
+}fe	
+y*Pms
+KQS0	
+replicate
+PT`G
+$hhf
+<lD=
+Y!hS
+O=v*
+>uur
+"^{	
+ENdS
+instLTNat
+decLt
+X=d	 
+klist
+ipad
+@-K,
+instXorOpUInt8
+Nrn0
+opad
+inner
+|&f	 
+b{Mw
+%S	4
+	Qt"
+NeZero
+Zero
+ofOfNat0
+_boxed
+mapTR
+loop
+_at_
+<\Q`
+spec_0
+spec_1
+_closed_0
+_private
+Data
+Impl
+flatMapTR
+Basic
+forIn'
+("qGR
+_redArg
+.BcK
+_closed_7
+_closed_6
+_closed_5
+_closed_4
+_closed_3
+_closed_2
+_closed_1
+_0A7
+"niJ2
+_boxed_const_1
+_closed_8
+_closed_64
+_closed_63
+_closed_62
+_closed_61
+_closed_60
+_closed_59
+_closed_58
+_closed_57
+_closed_56
+%ewY
+_closed_55
+xd}H
+_closed_54
+_closed_53
+_closed_52
+_closed_51
+_closed_50
+_closed_49
+_closed_48
+_closed_47
+_closed_46
+_closed_45
+4x^>
+_closed_44
+_closed_43
+_closed_42
+_closed_41
+_closed_40
+_closed_39
+_closed_38
+s-v+"
+_closed_37
+_closed_36
+_closed_35
+_closed_34
+_closed_33
+_closed_32
+_closed_31
+_closed_30
+_closed_29
+_closed_28
+_closed_27
+_closed_26
+_closed_25
+_closed_24
+_closed_23
+_closed_22
+_closed_21
+_closed_20
+_closed_19
+_closed_18
+_closed_17
+_closed_16
+_closed_15
+_closed_14
+_closed_13
+_closed_12
+NU(^I
+_closed_11
+_closed_10
+_closed_9
+Lean
+AuxRecursor
+sparseCasesOnExt
+declRangeExt
+namespacesExt
+^`|2
+docStringExt
+Convenience: SHA-256 of the UTF-8 encoding of a string, rendered as a
+lowercase hex string.  This is the form in which most published test
+vectors (including the FIPS 180-4 examples) are stated. 
+The 64-bit big-endian representation of the bit length, as a list of
+eight bytes (FIPS 180-4 section 5.1.1: "append the 64-bit block that is
+equal to the number L written using the binary representation").  Only the
+low 64 bits of `n` are represented, matching the standard's requirement
+that message lengths be below 2^64 bits.  Byte `i` of the result is
+`(n / 2^(8*(7-i))) mod 256`. 
+The `Maj` ("majority") function of FIPS 180-4 section 4.1.2 (equation
+4.3):
+  Maj(x, y, z) = (x AND y) XOR (x AND z) XOR (y AND z).
+For each bit position the output bit is the majority vote of the three
+input bits. 
+The padded message, as a list of bytes (FIPS 180-4 section 5.1.1):
+the message, then `0x80`, then `padZeros` zero bytes, then the 64-bit
+big-endian bit length.  Its length is always a multiple of 64; see
+`SHA256Theorems.pad_length_multiple_of_64`. 
+Padding lifted to `ByteArray` (FIPS 180-4 section 5.1.1).  This is a
+thin wrapper around `padList`; all the mathematical content is in
+`padList`, `padZeros` and `natToBe64`. 
+Auxiliary block iteration with an explicit fuel parameter (so the
+recursion is structural and needs no well-founded-termination proof).
+Each iteration consumes one 64-byte block; the fuel computed in
+`hashBlocks` below always suffices for a fully padded message: a nonempty
+byte list of length `L` that is a multiple of 64 has exactly `L / 64`
+blocks, and `L / 64 <= L / 64 + 1`. 
+Right rotation of a 32-bit word by `n` bits, `ROTR^n(x)` of FIPS 180-4
+section 3.2 item 4: "The right rotate operation ... where x is a w-bit word
+and n is an integer with 0 <= n < w, is defined by ROTR^n(x) = (x >> n) OR
+(x << (w - n))".
+Lean core does not uniformly expose `UInt32.rotateRight`, so we expand the
+rotation into exactly this defining composition of shifts:
+  ROTR^n(x) = (x >> n) OR (x << (32 - n))   for 0 < n < 32.
+All SHA-256 rotation amounts (2, 3, 6, 7, 10, 11, 13, 17, 18, 19, 22, 25)
+satisfy `0 < n < 32`, so the boundary behaviour of the expansion is never
+exercised outside its specified domain. 
+Double SHA-256: `sha256 (sha256 m)`.  Used as the hash function of the
+Bitcoin block chain; a standard countermeasure against length-extension
+attacks on plain SHA-256. 
+Serialise one 32-bit word as four bytes, most significant byte first
+(FIPS 180-4 section 6.2.2 final step: the message digest is the
+concatenation of the eight hash words, each big-endian). 
+The `Ch` ("choose") function of FIPS 180-4 section 4.1.2 (equation 4.2):
+  Ch(x, y, z) = (x AND y) XOR ((NOT x) AND z).
+For each bit position, the bit of `x` selects between the bit of `y` (when
+the `x` bit is 1) and the bit of `z` (when the `x` bit is 0). 
+The capital sigma function `
+0` ("big sigma zero") of FIPS 180-4
+section 4.1.2 (equation 4.4), used in the compression function:
+0(x) = ROTR^2(x) XOR ROTR^13(x) XOR ROTR^22(x). 
+Iterate the compression function over the (padded) message, one 64-byte
+block at a time (FIPS 180-4 section 6.2.2: the message blocks `M(1)` through
+`M(N)` "are processed in order").  The fuel `length / 64 + 1` bounds the
+number of blocks of any message whose length is a multiple of 64 bytes. 
+Iterated hashing rendered as lowercase hex: `sha256ChainHex s n` is the
+hex encoding of `sha256` applied `n` times to the UTF-8 bytes of `s`. 
+The number of zero bytes appended between the `0x80` delimiter and the
+64-bit length field when padding a message of `n` bytes (FIPS 180-4 section
+5.1.1).  Chosen so that `n + 1 + padZeros n + 8 
+ 0 (mod 64)`; equivalently
+`padZeros n` is the unique value in `[0, 64)` with `n + 9 + padZeros n`
+divisible by 64. 
+The capital sigma function `
+1` ("big sigma one") of FIPS 180-4
+section 4.1.2 (equation 4.5), used in the compression function:
+1(x) = ROTR^6(x) XOR ROTR^11(x) XOR ROTR^25(x). 
+The initial state of the SHA-256 computation: the eight words of `H0`
+(FIPS 180-4 section 6.2.1: "Set the initial hash value, H(0)"). 
+One round of the SHA-256 compression function (FIPS 180-4 section
+6.2.2, step 3).  `round st k w` performs a single round with round constant
+`k = K[t]` and schedule word `w = W[t]`, returning the updated vector of
+working variables.  The update is written out variable by variable so that
+each round is explicitly auditable against the standard; the theorem
+`round_uses_temps` in section 10 records the agreement with the named
+temporaries `T1` and `T2`. 
+The number of round constants; SHA-256 performs exactly 64 rounds per
+block (FIPS 180-4 section 6.2.2), one per constant. 
+The numeric value of a hexadecimal digit (both upper- and lowercase
+accepted); other characters map to 0 so the function is total. 
+The round temporary `T1` of FIPS 180-4 section 6.2.2, step 3, exposed
+separately for auditability:
+  T1 = h + 
+1(e) + Ch(e, f, g) + K[t] + W[t].
+`round` above computes exactly this value; this definition allows theorems
+and tests to refer to it directly. 
+HMAC-SHA-256 with the key and message given as strings (UTF-8 encoded),
+rendered as lowercase hex. 
+SHA-256 of a byte string, rendered as lowercase hex.  Companion to
+`sha256Hex`, which hashes the UTF-8 encoding of a string. 
+Decode a hexadecimal string to a `ByteArray`.  Used to write known
+answer tests compactly in the companion theorem files. 
+The 64 round constants of FIPS 180-4 section 4.2.2, in order.
+Derivation of each word: `floor(frac(p^(1/3)) * 2^32)` for successive
+primes `p = 2, 3, 5, 7, ..., 311`. 
+Assemble four bytes into one 32-bit word, most significant byte first
+(FIPS 180-4 section 3.1: "the left-most bit ... is the most significant
+bit").  This is the big-endian reading of the message block, and it is also
+how the padded length field of section 5.1.1 is laid out. 
+Iterated hashing: `sha256Chain m n` applies `sha256` `n` times in
+succession, with `sha256Chain m 0 = m`.  This is the structure of hash
+chains used in protocols such as S/KEY and in proof-of-work style iterated
+hashing constructions. 
+Double SHA-256, rendered as lowercase hex of the digest of the UTF-8
+encoding of the input string. 
+Decode an even-length hexadecimal string to a byte list, two characters
+per byte, high nibble first.  Odd-length tails are discarded. 
+The hexadecimal digit for a nibble value; values above 15 do not occur
+in the uses below but map to `'x'` so the function is total. 
+The initial hash value of FIPS 180-4 section 4.2.1.  Derivation of each
+word: `floor(frac(sqrt(p)) * 2^32)` for the primes `p = 2, 3, 5, 7, 11, 13,
+17, 19`. 
+Serialise the final hash state as 32 bytes: the concatenation of the
+eight words `H(N)_0 .. H(N)_7`, each written big-endian (FIPS 180-4 section
+6.2.2: "the 256-bit message digest ... H(N)_0 || H(N)_1 || ... || H(N)_7"). 
+Right shift of a 32-bit word by `n` bits, `SHR^n(x)` of FIPS 180-4
+section 3.2 item 3.  This is simply `UInt32.shiftRight`; it is given a name
+matching the standard so that the sigma functions below read exactly like
+the equations of section 4.1.2. 
+Fold the compression function over an explicit list of 64-byte blocks.
+This is the mathematical content of `hashBlocks`: `hashBlocks` computes the
+same value by consuming the padded byte string 64 bytes at a time. 
+The round temporary `T2` of FIPS 180-4 section 6.2.2, step 3:
+T2 = 
+0(a) + Maj(a, b, c). 
+The SHA-256 hash function (FIPS 180-4 section 6.2): pad the message,
+process all blocks starting from the initial state, and serialise the final
+state to a 32-byte digest.  The output is always exactly 32 bytes; see
+`SHA256Theorems.sha256_output_length`. 
+Lowercase hex encoding of a byte string (no external dependencies). 
+The message schedule of FIPS 180-4 section 6.2.2, step 1.  The input is
+one 64-byte message block; the output is the array of 64 words `W[t]`.
+`W[0..15]` are read big-endian from the block; `W[16..63]` are computed by
+the recurrence above, implemented as a fold that pushes one word at a time
+onto the schedule array.  Because the loop bounds are the literals 16 and
+64, every `get!` below is in bounds by construction. 
+Auxiliary for `messageBlocks` with explicit fuel, so the recursion is
+structural.  Each step peels one 64-byte block off the front of the list. 
+`round` agrees with the explicitly named temporaries: the new `a` is
+`T1 + T2` and the new `e` is `d + T1` (FIPS 180-4 section 6.2.2, step 3).
+Both equations hold by reflexivity of the definitions. 
+The full compression function of FIPS 180-4 section 6.2.2, steps 2-4:
+fold all 64 rounds over the message schedule of the block, then add the
+resulting working variables back into the incoming hash state word by word
+(the feed-forward, "Compute the i-th intermediate hash value H(i)").  The
+64-round fold is an explicit loop over `t` in `[0, 64)`, so that the number
+of rounds is directly auditable. 
+The two lowercase hexadecimal characters of one byte, high nibble
+first. 
+The hash state: eight 32-bit working variables `a, b, c, d, e, f, g, h`
+(FIPS 180-4 section 6.2.2, step 2), represented as a function from `Fin 8`
+to `UInt32` so that indexing is total and statically bounds-checked.
+Index 0 is `a`, index 1 is `b`, ..., index 7 is `h`. 
+The small sigma function `
+1` of FIPS 180-4 section 4.1.2
+(equation 4.7), used in the message schedule:
+1(x) = ROTR^17(x) XOR ROTR^19(x) XOR SHR^10(x). 
+The full schedule of a block, viewed as a list of the 64 words
+`W[0] .. W[63]` (FIPS 180-4 section 6.2.2, step 1).  This is simply the
+list view of `schedule`; it is provided so that schedule words can be
+pattern-matched and printed by test harnesses that prefer lists. 
+Number of 64-byte blocks needed for a padded message of `n` bytes
+(FIPS 180-4 section 5.1.1): always at least one. 
+HMAC-SHA-256 (RFC 2104) with block size B = 64 bytes:
+  HMAC(K, m) = H( (K0 XOR opad) || H( (K0 XOR ipad) || m ) )
+where `K0` is the key hashed with `sha256` if it is longer than 64 bytes
+and otherwise zero-padded on the right to 64 bytes, `ipad = 0x36` repeated
+64 times and `opad = 0x5c` repeated 64 times.  Note that after the optional
+hashing step the key list is at most 64 bytes long, so the zero-padding
+count `64 - klist.length` below is never truncated. 
+The small sigma function `
+0` of FIPS 180-4 section 4.1.2
+(equation 4.6), used in the message schedule:
+0(x) = ROTR^7(x) XOR ROTR^18(x) XOR SHR^3(x). 
+Split a byte list into consecutive blocks of 64 bytes (FIPS 180-4
+section 5.2.1: "the padded message is parsed into 512-bit blocks").  The
+final block is shorter than 64 bytes only if the input length is not a
+multiple of 64, which never happens for padded messages. 
+The initial hash state has exactly eight words, one for each of the
+working variables a..h (FIPS 180-4 section 6.2.2). 
+DocString
+Extension
+(moe
+ZI%.
+moduleDocExt
+## Section 1: 32-bit word operations (FIPS 180-4 sections 3.2 and 4.1.2)
+SHA-256 operates on 32-bit words.  The operations used are (FIPS 180-4
+sections 2.1 and 3.2): bitwise AND, OR, XOR, complement, addition modulo
+2^32, right shift, and right rotation.  The eight logical functions used by
+the algorithm are defined in section 4.1.2 of the standard; all of them are
+defined here, one definition per equation of the standard.
+## Section 2: the round constants `K` (FIPS 180-4 section 4.2.2)
+The sixty-four 32-bit words `K[0] .. K[63]` represent the first 32 bits of
+the fractional parts of the cube roots of the first sixty-four prime
+numbers.  Each constant below carries a comment recording the prime it is
+derived from, so that the whole table can be regenerated and audited:
+  K[t] = floor( frac( p_t ^ (1/3) ) * 2^32 ),  p_t = t-th prime (0-indexed).
+All 64 values were regenerated from the primes and checked against a
+reference SHA-256 implementation before inclusion; the comments give, for
+every word, the prime, the hexadecimal value, and the decimal value.
+## Section 3: the initial hash value `H0` (FIPS 180-4 section 4.2.1)
+The eight 32-bit words of the initial hash value `H0` are the first 32 bits
+of the fractional parts of the square roots of the first eight prime
+numbers 2, 3, 5, 7, 11, 13, 17, 19:
+  H0[i] = floor( frac( sqrt( p_i ) ) * 2^32 ).
+## Section 4: the message schedule (FIPS 180-4 section 6.2.2, step 1)
+Each 512-bit message block is viewed as sixteen 32-bit big-endian words
+`W[0] .. W[15]`, and then expanded to sixty-four words by the recurrence
+  W[t] = 
+1(W[t-2]) + W[t-7] + 
+0(W[t-15]) + W[t-16],   16 
+ 63,
+where `+` is addition modulo 2^32 and `
+0`, `
+1` are the small sigma
+functions of section 4.1.2.
+## Section 5: the compression function (FIPS 180-4 section 6.2.2)
+The compression function transforms the hash state by 64 rounds, one per
+schedule word and round constant.  Round `t` computes
+  T1 = h + 
+1(e) + Ch(e, f, g) + K[t] + W[t]
+  T2 = 
+0(a) + Maj(a, b, c)
+and updates the working variables by
+  h := g,  g := f,  f := e,  e := d + T1,
+  d := c,  c := b,  b := a,  a := T1 + T2,
+all additions being addition modulo 2^32.
+## Section 6: padding (FIPS 180-4 section 5.1.1)
+Padding is defined on lists of bytes so that the companion theorem file can
+reason about it by list induction.  Given a message of length `L` bits
+(here `L = 8 * l.length` for a byte list `l`), append the bit `1` (the byte
+`0x80`, since all our messages are byte-aligned), then append `k` zero bits
+where `k` is the smallest non-negative solution of `L + 1 + k 
+ 448 (mod
+512)`, then append the 64-bit big-endian representation of `L`.
+Since our messages are byte strings, `k` is always a multiple of 8 and we
+append whole zero bytes.  The number of zero bytes to append is
+`padZeros l.length` below.  The padded length is always a positive multiple
+of 64 bytes; this is proved as `pad_length_multiple_of_64` in
+`SHA256Theorems.lean`.
+## Section 7: block iteration and the top-level hash (FIPS 180-4 section 6.2)
+After padding, the padded message is a sequence of 512-bit blocks
+`M(1), M(2), ..., M(N)`.  The hash computation processes them in order:
+  H(i) = compress(H(i-1), M(i)),   i = 1 .. N,
+starting from `H(0) = H0`, and the digest is the concatenation of the eight
+words of `H(N)`, each serialised big-endian.
+## Section 8: hexadecimal utilities (local, dependency-free)
+Known-answer tests are conventionally written as hex strings.  These
+helpers encode digests to lowercase hex and decode hex strings to bytes, so
+that the theorem files can state vectors in their published form.  They are
+small, total, and use no external dependencies.
+## Section 9: derived constructions
+The following are genuine, fully executable definitions built on `sha256`:
+HMAC (RFC 2104), double SHA-256 (as used in Bitcoin), and iterated hashing.
+They are included both because they are useful in their own right and
+because they exercise `sha256` on structured inputs (64-byte key pads,
+32-byte intermediate digests) that complement the raw test vectors.  The
+correctness of `hmacSha256` is pinned down by RFC 4231 test case 1 in
+`SHA256Theorems.lean`.
+## Section 10: additional auditable accessors and API conveniences
+The definitions in this section are not new primitives: they are alternate
+presentations and conveniences around the core algorithm above, provided so
+that reviewers and downstream users can inspect intermediate values of the
+computation (schedule words, round temporaries, per-block iteration) without
+re-implementing anything.
+reducibilityCore
+recExt
++	70
+Compiler
+inlineAttrs
+ModPkgExt
+]oTLgF
+modPkgExt
+declMapExt
+appendTR
+lengthTR
+replicateTR
+decEq
+tobj
+takeTR
+reverse
+getInternalBorrowed
+foldl
+$J6E
+appendList
+Meta
+Match
+extension
+LCNF
+baseExt
+_uniq
+LwT1
+@wqt
+>+\7
+)tTi
+wuv>
+lcAny
+Vq~v
+zero
+range
+]twZ
+lcErased
+m.ML
+isFalse
+isTrue
+^wo6I
++M54
+(FMWr
+UU+so[
+LwH'
+$C97
+_lXE
+iwwu3;
+x&/A
+K9)I
+\aZ/
+AbC6
++H':
+8;m_8c
+rHI!U
+*3e 
+,.\{
+o	{B
+a.M_
+a5aM
+lPpN
+X2ZE
+getInternal
+monoExt
+*~J<
+cCpw
+z3~G=
+5'iQ=
+FNU8
+^;jK
+isZero
+#H^e
+Fn}y
+:QT^%
+;D,A
+start
+stop
+step
+step_pos
+NHGE
+QuSA
+##l 
+)[>o
+!AZ}
+RqeN
+d	g<
+^k=[
+cIF.ZS
+BDKV
+"z-'#
+M|Z'J
+Aq?j
+{D,	X
+GX$G
+H\-}G
+tkr&X
+CduJ
+:RUV
+)._*{
+ZA,$@
+%5U[
+A[Ic
+D/t!T
+jtnG
+$G),T
+impureSigExt
+tagged
+extraModUses
+Notation
+NotationExtra
+Tactics
+Specialize
+specCacheExt
+type
+PN Y
+e1g6
+)O ^_
+]>6D
+UnreachableBranches
+functionSummariesExt
+defeqAttr
+Constructions
+J1iW
+SparseCasesOn
+$S/4
+sparseCasesOnInfoExt
+Elab
+Structural
+eqnInfoExt
+symbolFrequency
+sineQueNon

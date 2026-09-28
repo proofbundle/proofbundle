@@ -1,0 +1,169 @@
+{
+  "files": [
+    {
+      "path": "2026-08-15_proofbundle_crypto_registry_append_002.json",
+      "bytes": 2704495,
+      "sha256": "38daff3b929bf44231a9e5b549c0b387463a859f219ce79db520336b755b53f1"
+    },
+    {
+      "path": "2026-08-15_proofbundle_crypto_registry_turn_limit.json",
+      "bytes": 3214210,
+      "sha256": "56a42c916eac32aa6018ee0b05d7cb1a69018d26f26b6dc466876a64c7ee06dc"
+    },
+    {
+      "path": "2026-08-15_proofbundle_crypto_registry_turn_limit.jsonl",
+      "bytes": 2797483,
+      "sha256": "999bca90bd6d3272905f3a5c309ae0cd78965735563093d25423505764ceca5c"
+    },
+    {
+      "path": "2026-08-15_proofbundle_crypto_registry_turn_limit.mjs",
+      "bytes": 3215329,
+      "sha256": "e1d6703b69b910c491c21f3c0dc0d582a393628f943ba8808b1e46ace929dfc0"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 1693,
+      "sha256": "7f900aaed90548b6dcc6e0dec8ac2d8e4cec21050807822ea5de7bce1d61f0de"
+    },
+    {
+      "path": "REGISTRY_REPORT.json",
+      "bytes": 2052,
+      "sha256": "b1e1a5483db4085a0b3710c8e8bb4a540df3e143b847f757ff5960167d6cc1fa"
+    },
+    {
+      "path": "source_captures/gpg_version.txt",
+      "bytes": 601,
+      "sha256": "46c2236eefd5bd8cfe6e27808a559f32c6a4e485d0a696a2fb1a2ddc2e66e7b8"
+    },
+    {
+      "path": "source_captures/node_crypto_inventory.txt",
+      "bytes": 4360,
+      "sha256": "1f13740719d2b791cc791f60e85f622edaaee34c36de92ee46b8299bc4c23d3a"
+    },
+    {
+      "path": "source_captures/node_version.txt",
+      "bytes": 51,
+      "sha256": "3bb3abf80aefa609028e54c76d21ea9694f32eb6b16474824e3e7063c8b0b15c"
+    },
+    {
+      "path": "source_captures/openssl_asymcipher.txt",
+      "bytes": 179,
+      "sha256": "a6054082433f9a905bcbd8b8653236790d22f09fa624f0d2275a3c0b72772b13"
+    },
+    {
+      "path": "source_captures/openssl_cipher.txt",
+      "bytes": 9013,
+      "sha256": "4985e1d8c0f170bb677b013c280c77da54d8d651fc07ec3e40b1b98365f531c8"
+    },
+    {
+      "path": "source_captures/openssl_decoder.txt",
+      "bytes": 8161,
+      "sha256": "6b94309b2c1990d9ed043e828f36b37f58fc1b408f1debfbfd1149f50eeccfca"
+    },
+    {
+      "path": "source_captures/openssl_digest.txt",
+      "bytes": 2715,
+      "sha256": "ba45066e98e6cdbf7da404d186d84055cfea05ecaeba73b8a289335947ddf8fc"
+    },
+    {
+      "path": "source_captures/openssl_disabled.txt",
+      "bytes": 113,
+      "sha256": "122fb880de7d04c1302ed2bfa249cd6d946a3aa3379f8d0a0ea66ba626a57d79"
+    },
+    {
+      "path": "source_captures/openssl_ec_curves.txt",
+      "bytes": 4957,
+      "sha256": "e5620887e93834f7c3d8e38bdb4e9679229949203f07717ef72b03685909f21a"
+    },
+    {
+      "path": "source_captures/openssl_encoder.txt",
+      "bytes": 25477,
+      "sha256": "db0edc55f64d0287a9fa1cfec24bc7978cf9647905aacf69534c48b3da9e32a5"
+    },
+    {
+      "path": "source_captures/openssl_kdf.txt",
+      "bytes": 513,
+      "sha256": "fcef3e98936a0afc8c894adb1186b55b0d53ab45c3948cebeece774a1121263b"
+    },
+    {
+      "path": "source_captures/openssl_kem.txt",
+      "bytes": 612,
+      "sha256": "530cf7f882504e1f1b03bda06cf717d0f767529c94896ab1b1b6a7401908a4ce"
+    },
+    {
+      "path": "source_captures/openssl_key-exchange.txt",
+      "bytes": 312,
+      "sha256": "6b32415d13a9dfc25ab8e585e18d5cd2404cbacf6c495eda14d0eb675ab2bf21"
+    },
+    {
+      "path": "source_captures/openssl_key-manager.txt",
+      "bytes": 5644,
+      "sha256": "ff0fe5ccb07fcdb958322905cc6e50e095a8fb1ae1cba503e067dc60b3fce90e"
+    },
+    {
+      "path": "source_captures/openssl_mac.txt",
+      "bytes": 410,
+      "sha256": "7f3676b9f44882c2359a1bcc10ded379320febaf14bfd62435ae341a3740338c"
+    },
+    {
+      "path": "source_captures/openssl_objects.txt",
+      "bytes": 71024,
+      "sha256": "686e92e688c1fe642a5c14f4418d4083ee370dc643c2b00520451c065e2e1fe1"
+    },
+    {
+      "path": "source_captures/openssl_providers.txt",
+      "bytes": 450,
+      "sha256": "559c3c2e72a567c51a5cbc6aa26623c4b46b17ae97a7d1b5ec54c02d5b97446c"
+    },
+    {
+      "path": "source_captures/openssl_public-key.txt",
+      "bytes": 6799,
+      "sha256": "b82b0f67a21d180ad778c2c9e84c26f68b72b3062ae6f8fe840a9fe33e7099d9"
+    },
+    {
+      "path": "source_captures/openssl_random-generator.txt",
+      "bytes": 206,
+      "sha256": "d66a0d239cf4130095bf8f1e57033d37bf0b36221ec07042c23422ec33164613"
+    },
+    {
+      "path": "source_captures/openssl_signature.txt",
+      "bytes": 4537,
+      "sha256": "5b71c4e3533bf00db8c779b0d2d0d8a2c1ee8c14a0c0cbdcf93650f5c1f9e341"
+    },
+    {
+      "path": "source_captures/openssl_store-loader.txt",
+      "bytes": 103,
+      "sha256": "3721c72473d93430a995137021e0a1d2c7837235613de2766106e4d3c0e5bf4b"
+    },
+    {
+      "path": "source_captures/openssl_symmetric-key-manager.txt",
+      "bytes": 283,
+      "sha256": "c5067bc4b81ca77baab7664010e29ab1f612b1632094153b747e7d5044c0fc79"
+    },
+    {
+      "path": "source_captures/openssl_tls_ciphers.txt",
+      "bytes": 26412,
+      "sha256": "985be7f648f9767f13f5d27848d9c43c6385540e96f6d07623c63a01286f1c29"
+    },
+    {
+      "path": "source_captures/openssl_tls_groups.txt",
+      "bytes": 316,
+      "sha256": "bd3ce74cc1224582a49ffb0871955618195c861808a95065e7779acbc1717d62"
+    },
+    {
+      "path": "source_captures/openssl_tls_signature_algorithms.txt",
+      "bytes": 559,
+      "sha256": "269ea85379b4f6636d0c98f739201a957bb890415ce4ba50f3d36d05d93f5320"
+    },
+    {
+      "path": "source_captures/openssl_version.txt",
+      "bytes": 916,
+      "sha256": "744d8b8b2823fa341c8de470b64539801bb85eacc7d4ef5f13255a76b6f0a442"
+    },
+    {
+      "path": "source_captures/python_hashlib_inventory.txt",
+      "bytes": 1353,
+      "sha256": "e67b888fc96e8f8830ae35c132b2549e3dcbe25a4171d2161bbc143b13d770bd"
+    }
+  ]
+}

@@ -1,0 +1,1017 @@
+{
+  "schema": "proofbundle-atomic-lean-plan/1.0",
+  "companion_counts": {
+    "ecdsa": 55,
+    "ecdsa_hostile": 26,
+    "sha256": 39
+  },
+  "base_theorems": {
+    "ecdsa": [
+      "K_size",
+      "H0_size",
+      "round_uses_temps",
+      "p_eq",
+      "a_eq"
+    ],
+    "sha256": [
+      "K_size",
+      "H0_size",
+      "round_uses_temps"
+    ]
+  },
+  "total_theorem_declarations": 128,
+  "shards": [
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "sha256_kat_empty",
+      "source_line": 42,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/sha256_kat_empty.lean",
+      "sha256": "0dae92565f27cc345504c2532c3cbb3459caf926b9fffe22740416dc4227d7a5"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "sha256_kat_abc",
+      "source_line": 48,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/sha256_kat_abc.lean",
+      "sha256": "6c371d5a6f33314781e4d8f4a69139095b14787106c3f42861f156c1eebceb01"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "sha256_kat_abc_bytes",
+      "source_line": 55,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/sha256_kat_abc_bytes.lean",
+      "sha256": "a0213997217ee85caf4dca8ff94c4ff0e4043f513ebe485440107d54ebc6cf2e"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "hmac_sha256_rfc4231_tc1",
+      "source_line": 70,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/hmac_sha256_rfc4231_tc1.lean",
+      "sha256": "ad5d1d4fb41727486a51124241d7cbd9907a739ed2685bf9298580da192aaa12"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "basePoint_onCurve",
+      "source_line": 84,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/basePoint_onCurve.lean",
+      "sha256": "0cd41b0d0cf3bd0b6f988c3047d0fc1edfd61abd9b5ee571f0f80c68aca65b81"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "basePoint_order",
+      "source_line": 88,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/basePoint_order.lean",
+      "sha256": "b9d065c4195d0356cca8a047c6e805f7452a398619c9490bf9aec63681cc8efb"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "basePoint_order_plus_one",
+      "source_line": 92,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/basePoint_order_plus_one.lean",
+      "sha256": "084db6a947579fcf940659a582bd1d5208c74e731fc3eba8689c677df39317be"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "basePoint_validates",
+      "source_line": 97,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/basePoint_validates.lean",
+      "sha256": "b69c0d64d91489ff5371cd1255b33766a1b6161aff5c3627b2c059750433981d"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "infinity_not_valid",
+      "source_line": 101,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/infinity_not_valid.lean",
+      "sha256": "6a81e15f4937edd5b987cbffb45f9674f0a3d87b6bc17acc73cfabc8d927bfba"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "n_odd",
+      "source_line": 105,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/n_odd.lean",
+      "sha256": "b5392cccc9cf68b262143b45eb4e4d9d58653ea1c8a6eb6cb30bbd2d68de4652"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_empty_nonce",
+      "source_line": 119,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_empty_nonce.lean",
+      "sha256": "5f82c15125de75b5e04e1a9c42c5cc716fac0576b522527643522e3b48213aad"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_empty_sign",
+      "source_line": 125,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_empty_sign.lean",
+      "sha256": "69bd448c8e42cb572212d6faaaa8ca332263d6d096aa0df13bf99ea966000c76"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_empty_verify",
+      "source_line": 130,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_empty_verify.lean",
+      "sha256": "1c65dc524f097a480df6c6527a0e4ef3b95ce9a2c76f1de47921fe438063abfd"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_empty_pubkey",
+      "source_line": 136,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_empty_pubkey.lean",
+      "sha256": "c7a656d685e6d67bc9a4b13d8f94ac9265c27589fb101304ff11c2a50772a671"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_empty_verify_full",
+      "source_line": 143,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_empty_verify_full.lean",
+      "sha256": "b6da96936ff3d7ced8a95e6afe1fc22e1b3610478a98c3e2890428af6e641baa"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_msg_nonce",
+      "source_line": 155,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_msg_nonce.lean",
+      "sha256": "19bb9f35596dc11ed5e5af5d423ddd8564c60d8c6b6ffee960bc316a0e3bb454"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_msg_sign",
+      "source_line": 161,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_msg_sign.lean",
+      "sha256": "92013107ff9972afb0f215a649136ebd6ec5e204204da77a7fcf1243a659db69"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_msg_verify",
+      "source_line": 166,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_msg_verify.lean",
+      "sha256": "d6992862bb106bb6ccc0e6671a0e08ae6272d0ea30ae08e9aa86a4a740614668"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_msg_pubkey",
+      "source_line": 172,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_msg_pubkey.lean",
+      "sha256": "c0fb98c2fb9092cc0c292339eef71e14dd0226be67d3e645cd95bedd7ee9209f"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_0_msg_verify_full",
+      "source_line": 179,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_0_msg_verify_full.lean",
+      "sha256": "d5448549daf35df56f900ea8f108cf215edda969eb8431c15fb88370cc0df8a5"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_empty_nonce",
+      "source_line": 191,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_empty_nonce.lean",
+      "sha256": "dd9182f8a4f9d374a204f75955b7fd3c2ebbccc8c924261ac62271dbadf66478"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_empty_sign",
+      "source_line": 197,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_empty_sign.lean",
+      "sha256": "08dc37007a25ead33c86dc2fd6301e6b2a14848a975aff3e78f59b07504b8943"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_empty_verify",
+      "source_line": 202,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_empty_verify.lean",
+      "sha256": "5b5db08f67a1169acfe18c982c7e211f3c5d51c6a3aae4f65175376bf62e9653"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_empty_pubkey",
+      "source_line": 208,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_empty_pubkey.lean",
+      "sha256": "4d928959ece6279a44567f8ef71ec452ee38c3d225af253b23f7df73a5de7161"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_empty_verify_full",
+      "source_line": 215,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_empty_verify_full.lean",
+      "sha256": "ee4ad14aaaa9cac5acc092769b524cb0cc93007c128f935d6dcbb4cdefaeb909"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_msg_nonce",
+      "source_line": 227,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_msg_nonce.lean",
+      "sha256": "a5ce4fd0399339de238dd81ad6d5e758d203b9f6d0f5ba3d51b8f4d8c4d93cc6"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_msg_sign",
+      "source_line": 233,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_msg_sign.lean",
+      "sha256": "d21808e637b42b983b0ee5a4d378be94fb7ec276b1f92d19fed2c7ba0341e099"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_msg_verify",
+      "source_line": 238,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_msg_verify.lean",
+      "sha256": "d30d0cff7f5a02963dfddf4adde833e40888300bbf5a3a9fd6c902e4143b3d61"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_msg_pubkey",
+      "source_line": 244,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_msg_pubkey.lean",
+      "sha256": "86aec2bf35c694c71459c2853e383701383af6b7a292dbcd9995a30022724ff3"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_1_msg_verify_full",
+      "source_line": 251,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_1_msg_verify_full.lean",
+      "sha256": "dd60a6d0425fc67dc1eb6027a012066cdf0451137e42bac3cf549d02131414d7"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_empty_nonce",
+      "source_line": 263,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_empty_nonce.lean",
+      "sha256": "ffa839b4da22e08ce242bfc76e4bf3d207f721040072210abfd8477a03d45ec7"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_empty_sign",
+      "source_line": 269,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_empty_sign.lean",
+      "sha256": "93561d6a1203f53b7bc5813c8f796807aac78846b4ffe61824ec48991f4832b7"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_empty_verify",
+      "source_line": 274,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_empty_verify.lean",
+      "sha256": "4792f25300f4d32463a81796aa62765ec2ff047d141acae2b667b7b372738199"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_empty_pubkey",
+      "source_line": 280,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_empty_pubkey.lean",
+      "sha256": "ba4db16ca1203b6937e3553edc271e65b6c825fb00e01b20a2cb6bf870684c31"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_empty_verify_full",
+      "source_line": 287,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_empty_verify_full.lean",
+      "sha256": "381ef6db0488b62339a38df911fd23a4c5c27108e0ca3a078564309c9b03e363"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_msg_nonce",
+      "source_line": 299,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_msg_nonce.lean",
+      "sha256": "95701c6fb60bd32b51b7f6cd168e6eb10585123ae047112003c02eeb2c6a54db"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_msg_sign",
+      "source_line": 305,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_msg_sign.lean",
+      "sha256": "aa74f69322f65a2e83949697f81204f1038b6ce52a1e88be5b016a56841e4635"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_msg_verify",
+      "source_line": 310,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_msg_verify.lean",
+      "sha256": "08ca633f79991de34cad22f8f2b148f047be42d1720a55f888da66b2f8a2410b"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_msg_pubkey",
+      "source_line": 316,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_msg_pubkey.lean",
+      "sha256": "064a83a722fb3dc7970a9cace11003c89c6ae4766efa7e3bccd2e29b76b8d247"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_2_msg_verify_full",
+      "source_line": 323,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_2_msg_verify_full.lean",
+      "sha256": "f079078532e864de7803f5ecf02a6f47a19c3dab87a24cb2065b3b70a8f86b3d"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_empty_nonce",
+      "source_line": 335,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_empty_nonce.lean",
+      "sha256": "9fba4274eaf20cebb6c847e592d8168c2329717e38a4216ee42a901eae475dc9"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_empty_sign",
+      "source_line": 341,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_empty_sign.lean",
+      "sha256": "f7e9cdc7b2628fdd860cb61c38a549b88bd8f49d6d446741474c87b02097f572"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_empty_verify",
+      "source_line": 346,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_empty_verify.lean",
+      "sha256": "b24c4861420a64b70da5cd04fd392196e2481eaeaf79445f5eb5cd7685c98d36"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_empty_pubkey",
+      "source_line": 352,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_empty_pubkey.lean",
+      "sha256": "6e6fe9072a2cbcf1f7b6cdb2a8e4c989025c49b20f53ceaca1dc3e843b4b2908"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_empty_verify_full",
+      "source_line": 359,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_empty_verify_full.lean",
+      "sha256": "d4b159dcd050c2e20fd44f621d61fe122b5b296d86d55a2c5620f1f51c7cb54f"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_msg_nonce",
+      "source_line": 371,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_msg_nonce.lean",
+      "sha256": "81d0362742cbe01ef4285b89f3186d8c496fc6d2a3959ae67b1da6e66cc644cd"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_msg_sign",
+      "source_line": 377,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_msg_sign.lean",
+      "sha256": "9e39afa8571e630d732dfc6220f15061fdd89eee29dbee221660906147295827"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_msg_verify",
+      "source_line": 382,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_msg_verify.lean",
+      "sha256": "9571d012313fbb2b3ab70ed35f9e9035d0f1e0ec8295e79ab516ad45518af658"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_msg_pubkey",
+      "source_line": 388,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_msg_pubkey.lean",
+      "sha256": "d2a8d7f97e97bd4d57f5f1fdccc02d4ac8e3e6e08eec3f9092c7ed9f172428dd"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_kat_3_msg_verify_full",
+      "source_line": 395,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_kat_3_msg_verify_full.lean",
+      "sha256": "b4c1b00953cddbcfcb818ca84218ed12f94119250a29abe02a991c34832a2274"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_rfc6979_style_sample_nonce",
+      "source_line": 407,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_rfc6979_style_sample_nonce.lean",
+      "sha256": "5739b2a3038839fc9f73050dc8b22e039715f4c00474c3e7f6f984fb06a904bf"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_rfc6979_style_sample_sign",
+      "source_line": 413,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_rfc6979_style_sample_sign.lean",
+      "sha256": "91589efc190c54f9be36ed002b04c1be1c6749e2fa0fad3f90fee5ce1a231f2b"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_rfc6979_style_sample_verify",
+      "source_line": 418,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_rfc6979_style_sample_verify.lean",
+      "sha256": "5e27747f7d1b29d71ce447a812684358d6a1e56af3f3a3fb513917da5570ceca"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_rfc6979_style_sample_pubkey",
+      "source_line": 424,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_rfc6979_style_sample_pubkey.lean",
+      "sha256": "48729fd5a255900d615a391966f8f465f583c87be093aaccaff89d268a118f04"
+    },
+    {
+      "source": "ECDSAP256Theorems(1).lean",
+      "theorem": "kat_rfc6979_style_sample_verify_full",
+      "source_line": 431,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa/kat_rfc6979_style_sample_verify_full.lean",
+      "sha256": "5d3fa5bd63e622ffcd8be73a52f4b3c7723099bc4e47fe9d01e31c2a38996b9d"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_r_zero",
+      "source_line": 46,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_r_zero.lean",
+      "sha256": "fdd6f53caab82aeb8a56737ea8e57558e0853104c27d355fb8d5725aae529e8c"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_s_zero",
+      "source_line": 53,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_s_zero.lean",
+      "sha256": "c04aad7edb4eeeb305b47271bd81b0ff957ffc3e8bd39f561f6183c1e7b60f46"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_r_equals_n",
+      "source_line": 60,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_r_equals_n.lean",
+      "sha256": "95b00cea693efd6a180304e8d1258000b34a1260e5fa5e70a5bbf7fcc9253230"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_s_equals_n",
+      "source_line": 67,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_s_equals_n.lean",
+      "sha256": "b46d232300c71a10c5db2d836b644feb447e9c80390707df96790afdaba41254"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_r_negative_encoding",
+      "source_line": 74,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_r_negative_encoding.lean",
+      "sha256": "8772db8f8f5f4d64ebf8306003a15fce6891fe13530c649ec32d65dda38ff406"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_bitflip_r",
+      "source_line": 81,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_bitflip_r.lean",
+      "sha256": "89675dc431330bfedb460ed4bc0770a7a644660647d7b3e08aecab3d89ee1f09"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_bitflip_s",
+      "source_line": 88,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_bitflip_s.lean",
+      "sha256": "ede58ad86ca018058f75517654808bf6d35e57d19047d3cc4b2bbaffb12029ad"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_wrong_message",
+      "source_line": 95,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_wrong_message.lean",
+      "sha256": "7d3a49ed8d7a86d5bcb7c590fd29a4caddcb183822f071bbbf50d52bb8267390"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_wrong_pubkey",
+      "source_line": 102,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_wrong_pubkey.lean",
+      "sha256": "793de7c454f5ce7c061fdbc78971c9bbff8aeb1dd82d96d9ae9bd7886a330874"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_malleability_s_complement",
+      "source_line": 111,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_malleability_s_complement.lean",
+      "sha256": "b34273b185b612645bd81b1f6ff24fe20f4e69de01e69eab4b8afdf330238365"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_s_above_half_order",
+      "source_line": 121,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_s_above_half_order.lean",
+      "sha256": "744274d6872764c16e41619cd9f623c5ee54e82f74cf25db382e36132ffa593e"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_pubkey_not_on_curve",
+      "source_line": 129,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_pubkey_not_on_curve.lean",
+      "sha256": "c1f446f72e9ea80304148afd637a8a940ed640cf83700cb323c84b6c42e42402"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_pubkey_infinity_encoding",
+      "source_line": 136,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_pubkey_infinity_encoding.lean",
+      "sha256": "593b95587e753770b18ecdd86233fa5644e0abf391be2b10b0514f49172ebf6c"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_pubkey_wrong_curve_p384",
+      "source_line": 143,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_pubkey_wrong_curve_p384.lean",
+      "sha256": "d644d612efcf19a65a57d11cab9d5cf265884988eeff4b589e43df958175d422"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_r_1_s_1",
+      "source_line": 150,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_r_1_s_1.lean",
+      "sha256": "81276bd7a24c5ff188a72e7b209a81f0a8ca2a815f01d0c7494086eb339b1df0"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_s_equals_r",
+      "source_line": 157,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_s_equals_r.lean",
+      "sha256": "2ef14e77ad1ebe6a99762aebf54cd2ed670d8034fb86142d2b6a16bb325746bf"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_swapped_r_s",
+      "source_line": 164,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_swapped_r_s.lean",
+      "sha256": "c741dd85bca4dcbde0202904db42acde5fa2862e9666e8730b5e1a72e7eed678"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_control_valid",
+      "source_line": 169,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_control_valid.lean",
+      "sha256": "c9bfa2ff5d2297acde3929ca4df794e0469d7b58cd55e64a002a4044319aa0f6"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_control_valid_2",
+      "source_line": 174,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_control_valid_2.lean",
+      "sha256": "e20c73663dc7116bfb06c82c94f8478a5c42eeccf00767e97725c4ea78a859d9"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "malleability_complement_verifies",
+      "source_line": 191,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/malleability_complement_verifies.lean",
+      "sha256": "bd861a7b4d7db604397d2765ef6636e38ba8899b173b8c5d6ec65367dbbe80d9"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "malleability_complement_lowS",
+      "source_line": 197,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/malleability_complement_lowS.lean",
+      "sha256": "b7a3fbd2221a752d31ce2a97e73553f3f6a527d71b4ecc99eb0cfbf104bd3612"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_nonce_reuse_pair",
+      "source_line": 223,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_nonce_reuse_pair.lean",
+      "sha256": "47901564607534c76d2b260a876646c9f2ec839a2ce1d912ddb9d0a9c803979f"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_nonce_reuse_nonce_recovery",
+      "source_line": 248,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_nonce_reuse_nonce_recovery.lean",
+      "sha256": "fcdf88f8f8ba2c56ae5a39f29fcbd192558ce08330ff0f6caf68ee60b9f1485e"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_nonce_reuse_key_recovery",
+      "source_line": 256,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_nonce_reuse_key_recovery.lean",
+      "sha256": "c28004a9fd7304e6e2105af3b5a691a4fd970feb079098e9ba5548d52796b942"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_nonce_reuse_r_consistency",
+      "source_line": 263,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_nonce_reuse_r_consistency.lean",
+      "sha256": "40be5fc1e73f0abe7a92b18275cf61aac761a8c0088acb7d9ae9b325b6b148bf"
+    },
+    {
+      "source": "ECDSAP256Hostile(1).lean",
+      "theorem": "hostile_nonce_reuse_both_verify",
+      "source_line": 270,
+      "dependency_theorems": [],
+      "path": "atomic_shards/ecdsa_hostile/hostile_nonce_reuse_both_verify.lean",
+      "sha256": "4b74ca57d17fe80bd3e3636f76cfb80c111f88b83051a19a8335d23efb45443b"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "size_ByteArray_mk",
+      "source_line": 47,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/size_ByteArray_mk.lean",
+      "sha256": "26ed09b4f372aa3b358dbf16c7ee1f36868e69df7bbb72eedfb34bcf405990a9"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "toList_Array_mk",
+      "source_line": 51,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/toList_Array_mk.lean",
+      "sha256": "da7fd874a5cb2d519f5ada80514bec219d0a90e86654bfeae7a7c91e56c946bd"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "padZeros_lt",
+      "source_line": 55,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/padZeros_lt.lean",
+      "sha256": "85b3f294732af334336b60dac29774167f70bbef11c995abd2e51a85eac1ea1d"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "natToBe64_length",
+      "source_line": 60,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/natToBe64_length.lean",
+      "sha256": "2e532c6ad4197cc6f8988369c596ce2e6ccf4b00ac02de3c47d1582848047204"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "padList_length",
+      "source_line": 63,
+      "dependency_theorems": [
+        "natToBe64_length"
+      ],
+      "path": "atomic_shards/sha256/padList_length.lean",
+      "sha256": "98df9c5e5656d013d4f23aab2a8f24e6cda2b1ad2371243fcbd6ae700a25445b"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "pad_size",
+      "source_line": 69,
+      "dependency_theorems": [
+        "size_ByteArray_mk",
+        "toList_Array_mk",
+        "natToBe64_length",
+        "padList_length"
+      ],
+      "path": "atomic_shards/sha256/pad_size.lean",
+      "sha256": "dcdb086a2cec09d3b983b67be63fa64ffaa01fa46df3f5140ed059015d0e986c"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "pad_length_multiple_of_64",
+      "source_line": 78,
+      "dependency_theorems": [
+        "size_ByteArray_mk",
+        "toList_Array_mk",
+        "natToBe64_length",
+        "padList_length",
+        "pad_size"
+      ],
+      "path": "atomic_shards/sha256/pad_length_multiple_of_64.lean",
+      "sha256": "cbff4777032172f9406636478f8e8cb0b248d25613391d3938f9f076c9d0455a"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "stateToBytes_length",
+      "source_line": 85,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/stateToBytes_length.lean",
+      "sha256": "6a68cee284f427644d18eb0b63bc529c1bf3db82f569f91f435c564cf773807c"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "sha256_output_length",
+      "source_line": 90,
+      "dependency_theorems": [
+        "size_ByteArray_mk",
+        "toList_Array_mk",
+        "stateToBytes_length",
+        "padZeros_lt",
+        "natToBe64_length",
+        "append_cancel_aux",
+        "toNat_ofNat_mod",
+        "natToBe64_mod_inj",
+        "pad_injective"
+      ],
+      "path": "atomic_shards/sha256/sha256_output_length.lean",
+      "sha256": "2e2dfdb83fe07433f2f68133ee02a2a65e457e5df741e5ba7608ed31aacbb6d2"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "append_cancel_aux",
+      "source_line": 99,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/append_cancel_aux.lean",
+      "sha256": "7ee7898fbee6bb2f0b126ef8275c49f8f4f8ea27afb11fea8783f22baad88200"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "toNat_ofNat_mod",
+      "source_line": 126,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/toNat_ofNat_mod.lean",
+      "sha256": "fd1b1df9b6db2cdcc0587afeea934f0db35cb7af8672da53694ccb7ca2d253af"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "natToBe64_mod_inj",
+      "source_line": 134,
+      "dependency_theorems": [
+        "toNat_ofNat_mod"
+      ],
+      "path": "atomic_shards/sha256/natToBe64_mod_inj.lean",
+      "sha256": "baa7a1af0cb0a521932c5e26b2fe298180174186d34d356a70872d96bdfd8ce0"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "pad_injective",
+      "source_line": 172,
+      "dependency_theorems": [
+        "toList_Array_mk",
+        "padZeros_lt",
+        "natToBe64_length",
+        "append_cancel_aux",
+        "toNat_ofNat_mod",
+        "natToBe64_mod_inj"
+      ],
+      "path": "atomic_shards/sha256/pad_injective.lean",
+      "sha256": "2a7a251aec181ce409f9626e9cf214efb00c95e3a2e61207b14d1e1b6ca52a4d"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_empty",
+      "source_line": 236,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_empty.lean",
+      "sha256": "14ed2d15b8e2bce31c3ec5ce5173ca14be1d71985b497cf72e183db83f2dffff"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_abc",
+      "source_line": 242,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_abc.lean",
+      "sha256": "bbeb8be9bcffca29340d1e15aa0c010134ff47a2d38015b71ae8550f4888b019"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_fips_ex3_448bit",
+      "source_line": 249,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_fips_ex3_448bit.lean",
+      "sha256": "3855f00607399fd23ac00df546fe5fe5b77cd9151ede05662720742f6735170d"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_fips_ex4_896bit",
+      "source_line": 256,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_fips_ex4_896bit.lean",
+      "sha256": "f1b5877ef4d149cf5c513d24c30f7a9d9a6333332db6466ee9baa5143ddffdec"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_million_a",
+      "source_line": 264,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_million_a.lean",
+      "sha256": "94fdaed3f0aa1f627b03951c8a5df009518b7baf55ece72fad08de1b45dad552"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_1B",
+      "source_line": 271,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_1B.lean",
+      "sha256": "f23109c5f5ddb7e4bc732e6b76667575c53500f498b455f15e611bce7332ad80"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_2B",
+      "source_line": 276,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_2B.lean",
+      "sha256": "b4226370e3fc6db8fc6e86da54621f080bf6be778d37da035f90c9cb6aa13781"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_3B",
+      "source_line": 281,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_3B.lean",
+      "sha256": "38805b46468da5ffa648f11d4b1666d45e4bcb5e39c37cc006f154d8e44ed4b0"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_55B",
+      "source_line": 286,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_55B.lean",
+      "sha256": "d664fd23b75f10680a65ddb1ef9ca903702c1ebe50b60d2d503a520c5cfb0d30"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_56B",
+      "source_line": 291,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_56B.lean",
+      "sha256": "056938ee2517c0a43a99acf172ee88d51c011b29e31b2411059eebbde4ab2ddd"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_57B",
+      "source_line": 296,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_57B.lean",
+      "sha256": "42256f3893feed35b99e86ddb75756fd8d918e1c8d1ff16363f7502d8ce04a82"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_63B",
+      "source_line": 301,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_63B.lean",
+      "sha256": "39a238251505a063d09f0797df7511d4a9507f9a3676792669ff827ac66398e5"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_64B",
+      "source_line": 306,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_64B.lean",
+      "sha256": "5e0dd872f36ef11608746b59ce8d9c6520bbf7feb60fde355cfee87aff57960e"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_65B",
+      "source_line": 311,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_65B.lean",
+      "sha256": "e7fece8bbb4c5884c20e750d2e9e9001193198964ee8f7e9c9a4ca968c7e95b1"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_119B",
+      "source_line": 316,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_119B.lean",
+      "sha256": "dc4e8c7e261d8dc90dbee060954611a7edfc1e9a56ffc2a645d40a515c6f5731"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_120B",
+      "source_line": 321,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_120B.lean",
+      "sha256": "e336d93363d7cf0eb4704fd973b34fcf4567cc6130554c624ae85bd58c6fb791"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_127B",
+      "source_line": 326,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_127B.lean",
+      "sha256": "1fea5fd13128f9bc8cf0109110b041fcdfd30b9ea7f3c42d2e80610e97a59c49"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_128B",
+      "source_line": 331,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_128B.lean",
+      "sha256": "0b058f84849e5bcb25927b98e842945129ad7b1b915ad77f9d39142f33ee65b8"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_129B",
+      "source_line": 336,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_129B.lean",
+      "sha256": "07abf777e61b08c10f57f9524b78dd0b493f77297ad652bae7a178f6e1c86ea2"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_255B",
+      "source_line": 341,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_255B.lean",
+      "sha256": "12865b68414aacfbd7db2071ceba48312c69d7847ac46be4929f314bb4341c5a"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_256B",
+      "source_line": 346,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_256B.lean",
+      "sha256": "16778198932260868fef508ee7111a651370a0b74e3eb52de4e77cddfeb2854b"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "kat_1000B",
+      "source_line": 351,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/kat_1000B.lean",
+      "sha256": "7c5b089c3c6dbbfa286d9dc5cf7c7f381d36d6b4ccd93f697a6256a5794774ed"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "hmac_sha256_rfc4231_case1",
+      "source_line": 365,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/hmac_sha256_rfc4231_case1.lean",
+      "sha256": "38ebb4516274d0b74df55a770c3b788bdd4d7ecef73f6f001f50c5e92703f6f8"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "hmac_sha256_long_key",
+      "source_line": 374,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/hmac_sha256_long_key.lean",
+      "sha256": "8a44788d70018d8c6842094413345be8038db7f4ff48cd73d2ef2abb851aa246"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "double_sha256_empty",
+      "source_line": 383,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/double_sha256_empty.lean",
+      "sha256": "2d532d63756e5d7ed30144520a4e8f8e78f5efabe7fcddc739446762f0f74076"
+    },
+    {
+      "source": "SHA256Theorems(1).lean",
+      "theorem": "sha256_chain_abc_3",
+      "source_line": 390,
+      "dependency_theorems": [],
+      "path": "atomic_shards/sha256/sha256_chain_abc_3.lean",
+      "sha256": "7dc831ec1d73a067b992c1bbd0a77a197a21ab76ec15078e78d14f368b4701fa"
+    }
+  ]
+}

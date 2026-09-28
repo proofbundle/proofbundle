@@ -1,0 +1,13 @@
+#print axioms Nat.land
+#print axioms Nat.lor
+#print axioms Nat.xor
+#print axioms Nat.shiftLeft
+#print axioms Nat.shiftRight
+#print axioms Nat.add
+#print axioms Nat.mul
+#print axioms Nat.mod
+#print axioms Nat.pow
+#print axioms Nat.sub
+#print axioms Nat.decEq
+#print axioms Nat.ble
+#print axioms Nat.bitwise

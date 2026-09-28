@@ -1,0 +1,28 @@
+{
+  "schema": "crypto-validation-receipt/lean-shard-status/1.0",
+  "cancelled_run_id": 31877809574,
+  "cancelled_run_commit": "baf427ff52737e51e4ea3f95b26cde1b2d0d489b",
+  "inspected_artifact": "crypto-shard-ecdsa-sanity",
+  "artifact_zip_sha256": "52ca21c34db605911217d0f5e6f9718556d9d9142d4fcd5272e789d9dafb0e48",
+  "receipt": {
+    "all_printed_theorems_empty_axiom_set": false,
+    "axiom_audit_exit_code": null,
+    "base_exit_code": 0,
+    "empty_axiom_sets_observed": 0,
+    "git_commit": "baf427ff52737e51e4ea3f95b26cde1b2d0d489b",
+    "mode": "ecdsa-range",
+    "schema": "proofbundle-lean-shard-receipt/1.0",
+    "shard": "ecdsa-sanity",
+    "target_exit_code": null,
+    "theorem_count": 0,
+    "workflow_run_id": "31877809574"
+  },
+  "base_olean_sha256_line": "c606657bb9ffe992d7f64cbcce213c45e78c085d05617ac2330a25cd8e44bbb2  ECDSAP256.olean",
+  "base_compile_log_bytes": 0,
+  "target_compile_log_bytes": 0,
+  "interpretation": "Base compilation completed exit 0. The theorem shard started, wrote no target exit code before cancellation, and axiom audit did not run.",
+  "successor_branch": "verification/2026-08-15-crypto-precompiled-shards",
+  "successor_commit": "e48d002bf391e4eaaf19deec93f817f7072d0d5d",
+  "successor_run_id": 31882966824,
+  "successor_runner_status": "NOT_STARTED_BILLING_BLOCK"
+}

@@ -1,0 +1,12 @@
+{
+  "ECDSAP256.lean": {
+    "original_sha256": "897cc0bfccd76c3e8dc7ce0f8596f4d42fd582c209c8c4f7b70d8307122614cb",
+    "transformation": "working-copy-only declaration: def Array.get! := Array.getD",
+    "working_sha256": "c5a8c2732d9cda031bd996a322018b0e9d75b9aaba02e5bdb79c86eaa759561e"
+  },
+  "SHA256.lean": {
+    "original_sha256": "d18407e786d2cc54522fd06afc27be628a26d9589e6eb815a1d3372b1e27b5a4",
+    "transformation": "working-copy-only declaration: def Array.get! := Array.getD",
+    "working_sha256": "58f7097370cd1d20fd6c5f917794586e127b736427463572b1b51be52d3bb90f"
+  }
+}

@@ -1,0 +1,5 @@
+Reversible text encodings of Lean .olean binaries.
+Decode with: base64 -d < FILE.base64.txt > FILE.olean
+
+c606657bb9ffe992d7f64cbcce213c45e78c085d05617ac2330a25cd8e44bbb2  ECDSAP256.olean  868072 bytes  ECDSAP256.olean.base64.txt
+16a4707d5acda0a180ec11ec20872d431470b6bb7a29b2d4ce3e06389e89d2d2  SHA256.olean  561024 bytes  SHA256.olean.base64.txt

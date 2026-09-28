@@ -1,0 +1,87 @@
+2026-08-15 CRYPTO VERIFICATION — CURRENT FRONTIER
+
+CLOSED / ESTABLISHED
+
+1. ECDSA P-256 base implementation
+   - Compiled under Lean 4.29.1 in the compatibility working-copy environment.
+   - Exact .olean preserved separately in the compiled-base handoff.
+   - This does not yet imply all ECDSA theorem companions are kernel/axiom-cleared.
+
+2. SHA-256 base implementation
+   - Compiled under Lean 4.29.1 in the compatibility working-copy environment.
+   - Exact .olean preserved separately.
+   - This does not yet imply all SHA-256 theorem companions are kernel/axiom-cleared.
+
+3. SHA-512 ground truth
+   - Three supplied vectors independently recomputed with a separate compression implementation
+     using the supplied K512/H512 constants.
+   - All three also match hashlib.
+
+4. ML-KEM-768 supplied vector set
+   - Exact defect class identified.
+   - Six raw secrets regenerated from seeds.
+   - Standard NTT of each supplied coefficient-domain secret matches the independent canonical secret.
+   - Six supplied public keys reproduced byte-for-byte by the identified wrong-domain algebra.
+   - Six supplied ciphertexts reproduced byte-for-byte under the same algebra.
+   - Six shared secrets reproduced exactly.
+   - 15/15 byte-executable hostile/control cases reproduce expected verdict classes.
+   - All byte-executable cases supplying an expected secret reproduce it exactly.
+   - Standing: coherent alternate/wrong-domain KEM, NOT byte-compatible FIPS-203 ML-KEM-768.
+   - Original vectors must be preserved; correction should be a successor artifact.
+
+READY / NOT YET KERNEL-EXECUTED
+
+5. Lean theorem census
+   - ECDSA companion: 55
+   - ECDSA hostile: 26
+   - SHA-256 companion: 39
+   - ECDSA base: 5
+   - SHA-256 base: 3
+   - Total: 128 theorem declarations.
+
+6. Atomic theorem package
+   - 55 one-theorem ECDSA companion units.
+   - 26 one-theorem hostile units.
+   - 39 one-theorem SHA-256 units.
+   - BaseAxiomAudit.lean for the 8 theorems already inside compiled base modules.
+   - Each unit is isolated so one expensive native_decide witness cannot consume another theorem's budget.
+
+7. Partial-access elimination
+   - 11 live Array.get! sites identified in each SHA implementation.
+   - initState access is directly bounds-provable from Fin 8 and H0_size.
+   - schedule's four input-block accesses cannot be proved under the current Array UInt8 signature:
+     the claimed 64-byte precondition is not encoded in the type.
+   - schedule expansion requires carrying w.size = t.
+   - compression requires K_size = 64 and a proved 64-word schedule.
+   - Strong target API: Block64 := Fin 64 -> UInt8; Schedule64 := Fin 64 -> UInt32.
+
+EXTERNAL EXECUTION BLOCK
+
+8. GitHub Actions
+   - Corrected precompiled-base successor workflow is staged.
+   - GitHub refused to allocate runners due the account billing/spending block.
+   - No theorem failure occurred in that successor attempt because no job actually started.
+
+9. Local Lean
+   - No Lean 4.29.1 executable is installed in this runtime.
+   - Attempts to stage the exact public Linux toolchain are blocked by this runtime's download gate.
+   - Therefore the atomic theorem units are READY TO RUN but are not represented here as kernel-cleared.
+
+CLAIM BOUNDARY
+
+Do not state:
+  "128 zero-axiom theorems" yet.
+
+May state:
+  - ECDSAP256.lean base compiled under Lean 4.29.1 compatibility working copy.
+  - SHA256.lean base compiled under Lean 4.29.1 compatibility working copy.
+  - 128 theorem declarations have been enumerated and atomized for kernel audit.
+  - no explicit source-level axiom/sorry/admit was found in the inspected companion theorem files.
+  - ML-KEM-768 vector implementation has been exactly forensically reproduced and classified.
+  - SHA-512 ground truth has been independently reproduced.
+
+NEXT MACHINE ACTION WHEN A LEAN 4.29.1 RUNNER IS AVAILABLE
+
+Compile every atomic unit against the known compiled base, then run #print axioms on each successful
+theorem plus BaseAxiomAudit.lean. Preserve each result independently and append the aggregate verdict
+as a successor governance record. Do not overwrite prior cancelled/refused runs.

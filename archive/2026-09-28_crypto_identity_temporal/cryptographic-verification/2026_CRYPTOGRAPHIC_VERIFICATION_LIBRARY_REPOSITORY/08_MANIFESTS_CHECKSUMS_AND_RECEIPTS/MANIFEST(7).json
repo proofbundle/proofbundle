@@ -1,0 +1,54 @@
+{
+  "bundle": "pq-verification",
+  "files": {
+    "RESULTS.txt": {
+      "blake3": "8af4af9de0865daae61da224d6accd2d22adbd3f3ac83d6447b1458f23056bf6",
+      "bytes": 54,
+      "sha256": "05ad80bcdf52ad4729c548079625711b9f10d046c8c6db7807b21fc4fc3e469b",
+      "sha512": "715bf43b0fe663b4bf1658952b19397ddeef7aa899404e6871d1e1d9fc0c2dfe3cf13615b4864249618bbb1fef62c568396b96955d108773c26598934986effa"
+    },
+    "keccak.mjs": {
+      "blake3": "069cab46feb458c172ade2b6a34eadc52cf735bd34324f824278e6ccbb170d9b",
+      "bytes": 5000,
+      "sha256": "0ad043bf020563268609aca3e4f686890cfcee6ec0c1a441994f10bcf8faa307",
+      "sha512": "7f03bd0149f9858c191463fe3d921f4881dd9437e4e247f1ee8603361abc2a07346cd9e0aa1c89a07a8da3a9ea0a0f15b1f29f20dd98b5a3cac7c4aeb436e1ee"
+    },
+    "mlkem.mjs": {
+      "blake3": "e64877a20cb11abd47e69de53f939063b9a330efc6a776392469e5632e775b75",
+      "bytes": 14026,
+      "sha256": "61b6fc67ad806023d0bb61e7f9db5e88460c711cdce9b0857456b1c545bc5e90",
+      "sha512": "4bd149f5ac88ad58671debe0c9c579fbefe35d896fcb2f9aa95b256098f97ee6ea41e0f50dfe6f8d8ade75589f8722fd152ff8f719e16f6c15231e70bf8ac673"
+    },
+    "ref_vectors.json": {
+      "blake3": "a043966466554cc3facae7b2b29ae300fe43e0b178a0f23d3ac1191c79c3e32b",
+      "bytes": 88173,
+      "sha256": "e4a87d50a287c8d8862e663eab75fbbd84d94b3d58024127dc5f90ab77ca2858",
+      "sha512": "01b23ce9caa885adb0a6e88548d2bf708b30862bde92f9c82ae11df72d4d974aad2578a93c351dbc4dc384c3db57cf83138ca47e248c62d8a1701ab1bdffaf46"
+    },
+    "t_keccak.mjs": {
+      "blake3": "aa239414af811733d3422d3821229bfdc8b1b88734e597327af7de52d7eae218",
+      "bytes": 1929,
+      "sha256": "bbd16b43d6489935d07228869b35c454f7cf4a727d6c28775a914f98bcf801aa",
+      "sha512": "bef3b891954074f5a891d8628b9c7a685f94ed91629b015ec2b7f2deaa65a438f909e11a456d70b244ad056875537f34a6d10e31fbced7335aa84a24a14f127a"
+    },
+    "t_mlkem.mjs": {
+      "blake3": "caa0ed2962df29729b622341bda5e040c5b515bee745bf827a5ff18d4e0ef52a",
+      "bytes": 3184,
+      "sha256": "041bf1edcb108e020b34758a489b1fa15c838bef9d2dc47fe0446086829d3d0e",
+      "sha512": "5b9c908064b6a5372e390cd0355adcefd0a83f249665e6c33cc052b4c9f3e5820784bf72f63a154ad5e20527df818282c1f08a66da14a0d10b5ccf9c83478354"
+    },
+    "t_ref.mjs": {
+      "blake3": "335eadb04beff6f9900094eebb968497394ad0ecc3b8a47f62a22ba47610f18c",
+      "bytes": 1111,
+      "sha256": "f56d5958179ef2db1162263829a97e501ec9e22685aac5e8e9ad26bb234b6d09",
+      "sha512": "d969ef076244cc87add345644f92f02bfc2a9ab9a0e3ceaf67d5762b342c7469f6122142b92f8aa878b103cfea65f60b9230d72ebff00b8ee28851649aac3706"
+    }
+  },
+  "generated_utc": "2026-07-28T00:53:05Z",
+  "reference": "kyber-py (independent Python FIPS 203 implementation)",
+  "results": {
+    "keccak_vs_node_crypto": "88/88",
+    "mlkem_structural": "40/40",
+    "mlkem_vs_kyber_py": "45/45 byte-exact"
+  }
+}

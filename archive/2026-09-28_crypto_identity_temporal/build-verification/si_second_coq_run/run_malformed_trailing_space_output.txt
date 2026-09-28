@@ -1,0 +1,5 @@
+     = None
+     : option bool
+result = None
+     : option bool
+Closed under the global context

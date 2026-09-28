@@ -88,3 +88,13 @@ cryptographic artifacts themselves.
   the exact naming-dishonesty pattern this file documents fixing above.
   Each one will be built (or explicitly logged as not-yet-buildable) rather
   than assumed.
+
+## Repo creation blocked by session binding (2026-09-28)
+User confirmed permission to create `proofbundle/rocq-si-second`. `POST /orgs/proofbundle/repos` was refused by the
+session: "sessions are bound to their configured repositories." Not worked around. SI_SECOND sources and run outputs
+live in this repo under build-verification/si_second_coq_run/ (sources/ added) until a separate repo is created
+by the user and attached to the session.
+
+## Prior rocqchk audit read (2026-09-28)
+12 of 13 sections show `Axioms: <none>`; the `mldsa` section is truncated with no verdict. See
+build-verification/prior_rocqchk_and_lean_audit_202608/README.md. Not re-run this session.

@@ -23,3 +23,13 @@ The 2026-08-19 sweep marked sha512, ed25519 and mlkem `BOTH_CLEAN`. That was a t
 
 Not tested: whether the other bundle files (`p256_field.lean`, `multi_agent_orchestration.lean`) build, and whether a
 later snapshot has a fixed preamble. Raw outputs are in `outputs/`.
+
+## Addendum: two more files in the same folder
+`p256_field.lean` and `multi_agent_orchestration.lean` fail alone with `Unknown identifier CPair`: they build on the
+shared preamble in the appendix chain, so they are not standalone either. Their outcome depends on the preamble that
+does not compile (see table above). Outputs not stored separately; first error is the missing preamble.
+
+## Design finding (probe)
+Church-encoded data restricted to `Sort`/Pi cannot be typed consistently in Lean's universe hierarchy: a `CBool : Type 1`
+bit eliminates only into `Type`, so it cannot select between `CBool` values or between words, and `CPair` over words
+moves each layer up one universe. A universe-annotation edit does not repair this. Probe output: `outputs/univ_probe.out`.

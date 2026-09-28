@@ -1,0 +1,15 @@
+univ_probe.lean:8:49: error: Type mismatch
+  cif b ?m.2 ?m.3
+has type
+  ?m.1
+of sort `Type` but is expected to have type
+  CBool
+of sort `Type 1`
+univ_probe.lean:10:28: error: Application type mismatch: The argument
+  Word2
+has type
+  Type 2
+of sort `Type 3` but is expected to have type
+  Type 1
+of sort `Type 2` in the application
+  CPair Word2

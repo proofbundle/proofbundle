@@ -114,3 +114,8 @@ Zip SHA-256 `921c94f42f1941784c52d5a893a74f38835e6d75752625865d95a782412f9c18`, 
   0.9941 (no separation), and L3/L5 as STUB. It prints "v0.3.0" in a v0.3.1 file.
 - The Qwen transcript is speculative chat with no verifiable claims; the Kimi page is a chat export.
 - Not read in full: the 89k-line html/txt rendering and the continuum PDF.
+- Continuum PDF (dated 2026-03-23) lists SHA-256 values for its files. `continuum_final.v` and `fold_real.v` in the bundle
+  (file names dated 2026-04-21, same line and byte counts) recompute to exactly those two values: match.
+- The PDF's own text says `reconstruction_correct` "destructs an axiom that already assumes the conclusion", that the
+  `incompressibility` axiom as formulated has a problem, and that the reconstruction instance is `Admitted`. Independent compile of the file
+  found the same: 1 `Admitted`, 5 axioms/parameters. The document and the compile agree.

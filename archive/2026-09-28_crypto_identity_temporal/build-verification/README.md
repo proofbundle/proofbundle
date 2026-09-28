@@ -1,5 +1,7 @@
 # Build verification log — SHA-2 zero-axiom Lean library
 
+> Snapshot result: describes the inputs as compiled on 2026-09-28, not the current project state. See ../SNAPSHOT_SCOPE.md.
+
 This is a real, adversarial compile attempt, not a relayed claim. It
 contradicts the archive's own header claims for this file. It is
 reported here in full rather than fixed silently, because writing new

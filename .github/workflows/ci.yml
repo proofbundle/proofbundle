@@ -62,6 +62,26 @@ jobs:
       - name: cryptographic implementation tests
         run: npm run test:crypto
 
+  evidence-retention:
+    name: archive evidence retention
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: archived evidence logs stay trackable and ordinary logs stay ignored
+        shell: bash
+        run: |
+          evidence=archive/2026-09-28_crypto_identity_temporal/build-verification/js_crypto_core_test_logs/synthetic-evidence.log
+          ordinary=src/synthetic-runtime.log
+          if git check-ignore --no-index --quiet "$evidence"; then
+            echo "$evidence is unexpectedly ignored"
+            exit 1
+          fi
+          if ! git check-ignore --no-index --quiet "$ordinary"; then
+            echo "$ordinary is unexpectedly trackable"
+            exit 1
+          fi
+          echo "archived evidence .log is trackable; ordinary .log remains ignored"
+
   coq:
     name: coq proofs
     runs-on: ubuntu-latest

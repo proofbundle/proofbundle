@@ -1,5 +1,7 @@
 node_modules/
 *.log
+# Preserve archived build-verification evidence logs; ordinary logs stay ignored.
+!archive/2026-09-28_crypto_identity_temporal/build-verification/**/*.log
 agent/live-bus
 cosign.key
 *.pem

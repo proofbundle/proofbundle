@@ -1,0 +1,22 @@
+TAP version 13
+# PASS "" got=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ref=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+# PASS "abc" got=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad ref=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+# PASS "<56 chars>" got=248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1 ref=248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1
+# PASS "<43 chars>" got=d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592 ref=d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592
+# PASS "<1000000 chars>" got=cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0 ref=cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0
+# 5 pass, 0 fail
+# Subtest: sha256.test.mjs
+ok 1 - sha256.test.mjs
+  ---
+  duration_ms: 198.193402
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 211.842085

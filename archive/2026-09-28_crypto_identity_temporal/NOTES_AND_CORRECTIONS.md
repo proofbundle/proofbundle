@@ -133,3 +133,7 @@ manifest-load run `5196d79324302b15…`, keep-going check run `621cb85117a9b4fb�
   `Value::from_slice`), storage (private-field access, `RwLock::clone`, borrow errors), merkle, keys, monitoring, operators, profiles.
   The remaining 14 were not reached because they depend on a failed crate; their status is unknown.
 - Conclusion for this snapshot: the workspace does not build, so the `BUILD_SUCCESS` claim is not supported. Nothing was patched.
+
+## 2026-09-29 — Mistake: PR #11 content reached `main` without review
+While archiving the drive-side crypto snapshot I pushed `HEAD:main` from the PR #11 branch checkout (`ci/lean-audit-completeness`, head `d44cd71`). `main` advanced from `d3029a8` to `36b4f65`, which contains PR #11's commit `d44cd71` plus the snapshot commit. GitHub marked PR #11 as merged. Nobody approved a merge; `main` had no ruleset applied. Cause: I did not check the current branch before pushing `HEAD` to `main`. Not reverted (a force-push would rewrite shared history without instruction, and a revert would leave PR #11 showing merged while its content is absent). PR #11's content is CI-only (audit index, drift check, `Conformance` import); it passed CI on `d44cd71`. Decision on keeping or reverting is the owner's.
+The snapshot record itself: `build-verification/drive_crypto_accumulation_snapshot/README.md`.

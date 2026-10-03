@@ -1,0 +1,122 @@
+pb_proofs_combined.lean:112:5: error: unexpected token '!'; expected '(', '_' or identifier
+pb_proofs_combined.lean:177:5: error: unexpected token '!'; expected '(', '_' or identifier
+pb_proofs_combined.lean:198:56: error: don't know how to synthesize implicit argument `Val`
+  @BAtom (?m.3 fuel ctx)
+context:
+Bundle Context Key : Type
+stage1 stage2 stage3 stage4 : Bundle → StageResult
+stage5 : Bundle → Key → StageResult
+stage6 : Bundle → Context → StageResult
+stage7 stage8 stage9 : Bundle → StageResult
+Bytes PubKey Signature : Type
+vEd vP256 vP384 vP521 vRSA2 vRSA3 vRSA4 : PubKey → Bytes → Signature → Bool
+Val Ctx : Type
+evalAtom : Ctx → BAtom → Bool
+fuel : Nat
+ctx : Ctx
+⊢ Type
+
+Note: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be
+pb_proofs_combined.lean:199:2: error: Type mismatch
+  fun x x_1 x_2 => ?m.9
+has type
+  (x : ?m.5) → (x_1 : ?m.15 x) → (x_2 : ?m.16 x x_1) → ?m.17 x x_1 x_2
+but is expected to have type
+  Option Bool
+pb_proofs_combined.lean:199:4: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  OfNat BPred 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  BPred
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+pb_proofs_combined.lean:217:9: error: Function expected at
+  evalPred
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  fuel
+
+Hint: The identifier `evalPred` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+pb_proofs_combined.lean:217:39: error: Type mismatch
+  Exists.intro ?m.20 rfl
+has type
+  Exists (Eq ?m.20)
+but is expected to have type
+  ∃ r, ?m.7 = r
+pb_proofs_combined.lean:220:4: error: Function expected at
+  evalPred
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  0
+
+Hint: The identifier `evalPred` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+pb_proofs_combined.lean:223:4: error: Function expected at
+  evalPred
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  (fuel + 1)
+
+Hint: The identifier `evalPred` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+pb_proofs_combined.lean:235:51: warning: unused variable `i`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+pb_proofs_combined.lean:258:2: error: No goals to be solved
+pb_proofs_combined.lean:357:5: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C1`
+pb_proofs_combined.lean:357:28: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C2`
+pb_proofs_combined.lean:358:5: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C3`
+pb_proofs_combined.lean:358:28: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C4`
+pb_proofs_combined.lean:359:5: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C5`
+pb_proofs_combined.lean:365:5: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C1`
+pb_proofs_combined.lean:365:27: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C2`
+pb_proofs_combined.lean:366:5: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C3`
+pb_proofs_combined.lean:366:27: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C4`
+pb_proofs_combined.lean:367:5: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C5`
+pb_proofs_combined.lean:373:5: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C1`
+pb_proofs_combined.lean:373:20: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C2`
+pb_proofs_combined.lean:373:35: error(lean.unknownIdentifier): Unknown identifier `g_preserves_C3`
+pb_proofs_combined.lean:375:5: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C1`
+pb_proofs_combined.lean:375:19: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C2`
+pb_proofs_combined.lean:375:33: error(lean.unknownIdentifier): Unknown identifier `g_reflects_C3`
+pb_proofs_combined.lean:446:2: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (FullE C1e C2e C3e C4e C5e Pi E S I)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+'PBProofs.canon_deterministic' does not depend on any axioms
+'PBProofs.canon_null' does not depend on any axioms
+'PBProofs.canon_bool' does not depend on any axioms
+'PBProofs.canon_num' does not depend on any axioms
+'PBProofs.canon_str' does not depend on any axioms
+pb_proofs_combined.lean:474:14: error(lean.unknownIdentifier): Unknown constant `verify_deterministic`
+'PBProofs.verify_total' does not depend on any axioms
+'PBProofs.outcome_exhaustive' depends on axioms: [propext]
+'PBProofs.outcome_exclusive' does not depend on any axioms
+'PBProofs.dispatch_total' does not depend on any axioms
+pb_proofs_combined.lean:479:14: error(lean.unknownIdentifier): Unknown constant `dispatch_deterministic`
+pb_proofs_combined.lean:480:14: error(lean.unknownIdentifier): Unknown constant `evalPred_terminates`
+pb_proofs_combined.lean:481:14: error(lean.unknownIdentifier): Unknown constant `evalPred_zero`
+pb_proofs_combined.lean:482:14: error(lean.unknownIdentifier): Unknown constant `evalPred_atom`
+'PBProofs.primary_independent_of_side' does not depend on any axioms
+'PBProofs.side_failure_preserves_primary' does not depend on any axioms
+'PBProofs.empty_witnesses_valid' does not depend on any axioms
+'PBProofs.single_witness' depends on axioms: [propext]
+'PBProofs.invalid_witness_invalidates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PBProofs.regulated_implies_lineage' does not depend on any axioms
+'PBProofs.lineage_implies_boundary' does not depend on any axioms
+'PBProofs.boundary_implies_integrity' does not depend on any axioms
+'PBProofs.regulated_implies_integrity' does not depend on any axioms
+'PBProofs.every_digest_has_partner' does not depend on any axioms
+'PBProofs.every_sig_has_partner' does not depend on any axioms
+'PBProofs.gauge_preserves_attribution' depends on axioms: [sorryAx]
+'PBProofs.gauge_reflects_attribution' depends on axioms: [sorryAx]
+'PBProofs.gauge_stability' depends on axioms: [sorryAx]
+'PBProofs.attribution_not_hereditary_down' does not depend on any axioms
+'PBProofs.attribution_not_hereditary_up' does not depend on any axioms
+'PBProofs.attribution_transfers_with_proof' does not depend on any axioms
+'PBProofs.verdict_exclusive_all' does not depend on any axioms
+'PBProofs.verdict_exhaustive_all' depends on axioms: [propext]

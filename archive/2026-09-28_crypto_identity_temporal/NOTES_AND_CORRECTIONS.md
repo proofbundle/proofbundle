@@ -137,3 +137,10 @@ manifest-load run `5196d79324302b15…`, keep-going check run `621cb85117a9b4fb�
 ## 2026-09-29 — Mistake: PR #11 content reached `main` without review
 While archiving the drive-side crypto snapshot I pushed `HEAD:main` from the PR #11 branch checkout (`ci/lean-audit-completeness`, head `d44cd71`). `main` advanced from `d3029a8` to `36b4f65`, which contains PR #11's commit `d44cd71` plus the snapshot commit. GitHub marked PR #11 as merged. Nobody approved a merge; `main` had no ruleset applied. Cause: I did not check the current branch before pushing `HEAD` to `main`. Not reverted (a force-push would rewrite shared history without instruction, and a revert would leave PR #11 showing merged while its content is absent). PR #11's content is CI-only (audit index, drift check, `Conformance` import); it passed CI on `d44cd71`. Decision on keeping or reverting is the owner's.
 The snapshot record itself: `build-verification/drive_crypto_accumulation_snapshot/README.md`.
+
+## 2026-10-03 — VM extract `proofbundle-dev-20260513` (captured 2026-05-17)
+Record: `build-verification/vm_extract_20260517/README.md`. Tarball SHA-256 `a51a218a…c3bcba`, not committed.
+- Decision: `meta/`, `tmux/` and the VM setup script were not committed. They carry the VM's public IP, the cloud project ID, a local service password and account-derived paths.
+- Decision: the upload's `criterion_improvements.v` and several Lean files carry a retired author name in their headers. They were not committed. The corpus already holds `criterion_improvements` with that line replaced.
+- Five of the six Coq developments are already in `corpus/mc108_canonical/`. Recompiling with coqc 8.18.0 reproduced their corpus classification. The one new compiling file, `pb2_robust.v`, was added under `sources/`. It rests on 2 `Admitted` theorems and 17 global `Parameter`s.
+- Found while doing this: running `npm run test:surface` rewrites the committed `ALGORITHM_REGISTRY.json` (621 rows) with the 95 rows in `src/registry/algorithm-registry.mjs`, and rewrites `CRYPTOGRAPHIC_SURFACE.csv`. The test output was reverted, not committed. Which registry is authoritative is open for the owner.

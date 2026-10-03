@@ -1,0 +1,52 @@
+file	sha256_8	coqc_8.18.0_exit	first_error	same_bytes_in_repo_corpus
+coq_2026-05-03_criterion_improvements.v	cce9b7ee	0	[compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/01_proved/consciousness/consciousness__architecture_exclusion_schema__cce9b7ee.v (differs only in the header author line)
+coq_2026-05-03_pb1_robust.v	13fdf0bb	1	Error: In environment [compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/04_uncompiled/crypto_provenance/crypto_provenance__canonicalize_idempotent__13fdf0bb.v
+coq_2026-05-03_pb2_robust.v	bde2ad27	1	Error: Found no subterm matching "PB_LINEAGE_1" in Hprof3. [compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/04_uncompiled/crypto_provenance/crypto_provenance__integrity_profile_terminates_at_5__bde2ad27.v
+coq_2026-05-03_pb3_pb9_robust.v	82362bfa	0	[compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/02_axiom_dependent/crypto_provenance/crypto_provenance__cycle_rejected__82362bfa.v
+coq_2026-05-03_pb_proofs_1248.v	914ed53d	0	[compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/01_proved/lineage_dag/lineage_dag__regulated_implies_lineage__914ed53d.v
+coq_2026-05-03_pb_proofs_3567.v	5b0ad5e2	0	[compiled as a renamed copy; '-' is not legal in a Coq module name]	corpus/mc108_canonical/01_proved/crypto_provenance/crypto_provenance__cycle_detected__5b0ad5e2.v
+criterion_improvements.v	cce9b7ee	0		corpus/mc108_canonical/01_proved/consciousness/consciousness__architecture_exclusion_schema__cce9b7ee.v (differs only in the header author line)
+criterion_improvements_test.v	cce9b7ee	0		corpus/mc108_canonical/01_proved/consciousness/consciousness__architecture_exclusion_schema__cce9b7ee.v (differs only in the header author line)
+pb1_fix.v	51788eee	1	Error: The reference WellFormed was not found in the current environment. 	no
+pb1_fixed.v	73cfbbef	1	Error: The variable H4 was not found in the current environment. 	no
+pb1_new.v	f997b2c5	1	Error: Nested proofs are discouraged and not allowed by default. This error probably means	no
+pb1_original.v	13fdf0bb	1	Error: In environment 	corpus/mc108_canonical/04_uncompiled/crypto_provenance/crypto_provenance__canonicalize_idempotent__13fdf0bb.v
+pb1_robust.v	13fdf0bb	1	Error: In environment 	corpus/mc108_canonical/04_uncompiled/crypto_provenance/crypto_provenance__canonicalize_idempotent__13fdf0bb.v
+pb1_robust_clean.v	1928de3d	1	Error: Nested proofs are discouraged and not allowed by default. This error probably means	no
+pb1_robust_final.v	5aa3853e	1	Error: The variable kvs was not found in the current environment. 	no
+pb1_robust_test.v	4c3a3a73	1	Error: Syntax error: illegal begin of vernac. 	no
+pb2_robust.v	085974d0	0		no
+pb2_robust_fixed.v	085974d0	0		no
+pb3_pb9_robust.v	82362bfa	0		corpus/mc108_canonical/02_axiom_dependent/crypto_provenance/crypto_provenance__cycle_rejected__82362bfa.v
+pb_proofs_1248.v	914ed53d	0		corpus/mc108_canonical/01_proved/lineage_dag/lineage_dag__regulated_implies_lineage__914ed53d.v
+pb_proofs_1248_fixed.v	914ed53d	0		corpus/mc108_canonical/01_proved/lineage_dag/lineage_dag__regulated_implies_lineage__914ed53d.v
+pb_proofs_3567.v	5b0ad5e2	0		corpus/mc108_canonical/01_proved/crypto_provenance/crypto_provenance__cycle_detected__5b0ad5e2.v
+pb_proofs_3567_final.v	5b0ad5e2	0		corpus/mc108_canonical/01_proved/crypto_provenance/crypto_provenance__cycle_detected__5b0ad5e2.v
+pb_proofs_3567_fixed.v	e5057d2e	1	Error: Cannot infer the type of fuel in environment: 	no
+pb_proofs_3567_test.v	d5ac39a7	1	Error: Cannot infer the type of fuel in environment: 	no
+test_assert.v	ca4dbc26	0		no
+test_cycle.v	6785d440	1	Error: Cannot infer the type of fuel. 	no
+test_cycle2.v	fde4d52a	1	Error: Cannot infer the type of fuel. 	no
+test_cycle3.v	6693101c	1	Error: Cannot infer the type of fuel. 	no
+test_cycle4.v	7f63636c	0		no
+test_depind.v	dd6d2cb4	0		no
+test_forall_impl.v	7b9bd3ec	0		no
+test_forall_impl2.v	19a712e1	0		no
+test_helper.v	e2c8fc7c	1	Error: In environment 	no
+test_helper2.v	a01cd99c	1	Error: The variable H3 was not found in the current environment. 	no
+test_in.v	3720c042	0		no
+test_ind.v	7d7ea70b	0		no
+test_indhwf.v	3d526c74	0		no
+test_inv.v	a334deb9	0		no
+test_inv2.v	bd11b1a5	0		no
+test_invf.v	78ad8461	0		no
+test_names.v	1879d1df	0		no
+test_names2.v	98769ad7	1	Error: In environment 	no
+test_obj.v	d2ba5301	1	Error: In environment 	no
+test_obj2.v	2dc48287	1	Error: Recursive definition of IH is ill-formed. 	no
+test_obj3.v	fa5bafe5	1	Error: Recursive definition of IH is ill-formed. 	no
+test_obj4.v	9a3c64ee	1	Error: In environment 	no
+test_obj5.v	f54bb9a5	1	Error: In environment 	no
+test_obj6.v	ecad1780	1	Error: Recursive definition of IH is ill-formed. 	no
+test_obj7.v	2bc9c9da	1	Error: In environment 	no
+test_pb1.v	1058e6d8	1	Error: Cannot find a physical path bound to logical path pb1_robust. 	no

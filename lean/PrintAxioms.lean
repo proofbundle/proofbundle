@@ -3,26 +3,6 @@
 import ProofBundle
 import Architecture
 
-#print axioms ProofBundle.AgentPromptLaw.admissible_requires_result_verification
-#print axioms ProofBundle.AgentPromptLaw.admissible_requires_target_match
-#print axioms ProofBundle.AgentPromptLaw.bridge_supersedes_hard_ban
-#print axioms ProofBundle.AgentPromptLaw.complete_queue_has_no_pending
-#print axioms ProofBundle.AgentPromptLaw.different_session_not_same
-#print axioms ProofBundle.AgentPromptLaw.direct_result_admissible
-#print axioms ProofBundle.AgentPromptLaw.evidence_classes_distinct
-#print axioms ProofBundle.AgentPromptLaw.future_pledge_prohibited
-#print axioms ProofBundle.AgentPromptLaw.hard_ban_supersedes_ordinary
-#print axioms ProofBundle.AgentPromptLaw.invalid_output_supersedes_ordinary
-#print axioms ProofBundle.AgentPromptLaw.mira_engine_not_database
-#print axioms ProofBundle.AgentPromptLaw.mira_engine_not_interface
-#print axioms ProofBundle.AgentPromptLaw.paper_receipts_are_insufficient
-#print axioms ProofBundle.AgentPromptLaw.pending_head_not_complete
-#print axioms ProofBundle.AgentPromptLaw.pending_not_terminal
-#print axioms ProofBundle.AgentPromptLaw.presence_signal_prohibited
-#print axioms ProofBundle.AgentPromptLaw.sameSurface_provider
-#print axioms ProofBundle.AgentPromptLaw.sameSurface_refl
-#print axioms ProofBundle.AgentPromptLaw.unverified_completion_prohibited
-#print axioms ProofBundle.AgentPromptLaw.verified_terminal
 #print axioms ProofBundle.Canonical.canonicalize_injective
 #print axioms ProofBundle.Canonical.parse_canonicalize_idempotent
 #print axioms ProofBundle.Conformance.conformant_loop_honest

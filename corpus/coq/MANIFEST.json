@@ -1,0 +1,176 @@
+{
+  "corpus": "coq",
+  "generated_utc": "2026-10-04T19:59:11Z",
+  "toolchain": "Coq 8.18.0 / OCaml 4.14.1 / Ubuntu 24.04",
+  "totals": {
+    "files": 26,
+    "compile": "12/26",
+    "statements": 209,
+    "closed": 196,
+    "axiom_dependent": 13
+  },
+  "files": {
+    "01_proved/authorization/t13_dimensional_independence.v": {
+      "bytes": 10159,
+      "sha256": "5246380091ca8b1f01f05c31cb40feba665d6732adfc0278b9889fd5d6ef92f4",
+      "sha512": "fbd6390b2204a7525ed3459c633fa48966798b6c79db8b39e0bcac89e6816569f4ac967103c37e756845f33fb994828bceb393476f35879ca77c68734fa7dff6",
+      "blake3": "718887727c75996aae27360e3d37f019f6a15eb94e96dde5a9db7e6de72aed4c"
+    },
+    "01_proved/authorization/t1_dag_acyclicity_8776277e.v": {
+      "bytes": 27886,
+      "sha256": "8776277ef303678e222882ef6276a8a6bc99c4c71a39274303f795106d949823",
+      "sha512": "11bacef66b6648b54e06f2e127075e396aa50ace1512661a8d55eb0e77c1d358c1066f846afb1e0947887af18a667ebaa723d8f2bcf5fc417315c385b228abac",
+      "blake3": "59fcb1ec640e761b9648bb83a021e6d0e706b0abd0c769e8fa4bf3a67fa5441e"
+    },
+    "01_proved/authorization/t1_dag_acyclicity_f4f759e3.v": {
+      "bytes": 27955,
+      "sha256": "f4f759e3c9720c589c3ed15dee1f96f3fafa455554b35a980cd2047790f9e919",
+      "sha512": "9a12740521fdba7accb36dca83b8154247d2c0695e3e6abb4c7966a3945afb9d499020346e196764328352e8ffd8067e985cb76336980a3c741b9a3d8d47e567",
+      "blake3": "568ce39d47b7491b8c4b092abdea3b28bf1cf2e7f403e43adf2ea5a4fee48b1c"
+    },
+    "01_proved/crypto_provenance/cycle_detected.v": {
+      "bytes": 11378,
+      "sha256": "5b0ad5e21c9196c0dee4d81d39c46eacd09215320474d0339634791d5dc90c8a",
+      "sha512": "5cd46e030fa1dff4b04af1dbb49145afcb2d52f9667d2eaa94a5da298fe570df86c5c8c161a4d5423bf70486030214e2b0c3530ef028e2c739cb610b6a968d4b",
+      "blake3": "33dc2e76647ae7ec985be526f7a7f3155b85f1d5b53da95b837c1f11eab7c549"
+    },
+    "01_proved/crypto_provenance/cycle_rejected.v": {
+      "bytes": 10871,
+      "sha256": "89dc4bfc440c12eba9470c44ad31c167f1cf5736aa86166c47f67fb543bf9fa4",
+      "sha512": "99c4fa4d6bf0ff59d411eb0f501ec3f4dcf46750cfbfdca051126a3402f6333ecd002dc99df48d7051950b332acd1db6de89afdabedef850ac472060832a192b",
+      "blake3": "8aaa805506243c4d0c7196243cf00372d1f4980bf4f3b739c740bc12d31d5e51"
+    },
+    "01_proved/crypto_provenance/merkle_tamper_evidence.v": {
+      "bytes": 11853,
+      "sha256": "240824004169fcafc22fd5c47a5d3dc60594bfff9c7fdd5929d7efdb664d05ac",
+      "sha512": "fa23ba3f2369d419b356270e45a8da51735c0784e29371af4a8d522e0fbffe8488c739297db3de720aa99f7a96a212febf26e5fdb8ceb23d5e1f816ad8ac2d9e",
+      "blake3": "a853ac9f14e5cc559fd44ab1e5404b01c8bbfff2f9aaf6a1bada248d0209c095"
+    },
+    "01_proved/crypto_provenance/outcome_closed.v": {
+      "bytes": 1379,
+      "sha256": "d2e62374b98f7c0dbc519cd8d71feffe047ee03a2d208cff5b81a03371f106bc",
+      "sha512": "ee6a2f19ff94cf70c013458f60bc0e90bcbfa6b22fedf8313ae14dfdcbb6e57018634fbb0f11e1f57f7055b51577d182fe53a29d217bcb1b92ec72830b2c274f",
+      "blake3": "9e0640718fb9829ccc629657219c178cc0541997ed98c31cb82bac861ed4e099"
+    },
+    "01_proved/crypto_provenance/projection_erases_left_subtree.v": {
+      "bytes": 16720,
+      "sha256": "fdbc44fc07028a2f22dfcf9a2af9a7525f962a335a3d99d6cb8b8072c1a8342f",
+      "sha512": "85eaa0197e7761fa7219953ad50f93c7493aa7bb7fc2c91882c4997a6b4ac29c9d8163ba0c55603fa2b8ebc42ece049f29f5c45262e97a744671097f0f41b70a",
+      "blake3": "3485474905bceb72aba13abe44a127aa703b6d75dd0cb3cf993dd9826a4bdef6"
+    },
+    "01_proved/lineage_dag/regulated_implies_lineage.v": {
+      "bytes": 13578,
+      "sha256": "914ed53d0dc16d66e1eeca43b37edbcbc0297e3efe2f7c48c19d9ac8013e1da6",
+      "sha512": "0842b34ffd1bb69f09d8ecfcce4dbca34e96c180d434a4f70f5d3462f018f9c6f0536de037a0f32725b3f835a3c4d73fc66f05e4ed5633105124131feb8bd91a",
+      "blake3": "3f86c276160ba8cf82cbf30e8f0d818be66c2a0ee190236c6bf465b6404bf966"
+    },
+    "02_axiom_dependent/crypto_provenance/cycle_rejected.v": {
+      "bytes": 10984,
+      "sha256": "82362bfa61c671dd8c9782639e86b84156bc79dd4405539546c230fbd98c3420",
+      "sha512": "118b3c289628e6e7c9df1f26056ac13b4bc60fb75f4ce36b9ccd69bdcaeac3fc52457339365e2ab9f0398a74ab27ea02f98df0b8bad115aa8f5387d33de0172e",
+      "blake3": "2dda5cda3974e66c3a0139bf778d8e89b6a5236f5a805281424b577c5c668b09"
+    },
+    "02_axiom_dependent/crypto_provenance/fold_ctx_canonical.v": {
+      "bytes": 9009,
+      "sha256": "3a100f54de2ad10d76584f9ac057aa7db84cb170dd7d5f1df3dc407b98fc0c54",
+      "sha512": "ec7e9d118d441fd640ed191abd3e17bd924669bc387ee9af75cf2faccc602e4bb4ba6c3a02fc4d1ecc418f001448f3b24fbb3d5935b8f4691b3b6718be9eff9f",
+      "blake3": "ca8d5661fcceb5065cc24cecd894510d75baf31a6b25de74a5f4f51e9afef52b"
+    },
+    "02_axiom_dependent/crypto_provenance/no_universal_suppression_strict_excess.v": {
+      "bytes": 1345,
+      "sha256": "8f7bbede7da4ba6df298f4b7718afec00e63761414d73db235984ebdf579980c",
+      "sha512": "88bd0c740fb4a7a6d9551cdfa970bc384f1f66a4c344d9222be10904a349572e201fd9e5d68f45f9621677c1012422aeb91f17db32343f697a98839539f133b2",
+      "blake3": "88499b758d2b33d7ec873118e55f2b26e78ae3ce63bde93aa711a4cb637c8c41"
+    },
+    "04_uncompiled/authorization/lineage_always_acyclic.v": {
+      "bytes": 13475,
+      "sha256": "379399e172b588b5a8d087ee7464c7e5c9d422bef2a07861f3a58088a1f037e8",
+      "sha512": "afbe039283b361367efc05d7d42ab380c525a5b5ee060fc9c36b4e473fd58d4cd740e38f9c0c73e62053a1f3e867d045fc8181ff88c0142189054a79d68724e7",
+      "blake3": "7b36465f96027944dc674bf47bd5e52ab45fe78a8ff106077a9de925147c4391"
+    },
+    "04_uncompiled/crypto_provenance/canonicalize_idempotent_13fdf0bb.v": {
+      "bytes": 13172,
+      "sha256": "13fdf0bbe4d6184d2dc175a48cdc4baa9cb52c05f7c47492d65ad4bcd70bd431",
+      "sha512": "c79e1b1da48b550aaa6935ae2ef27714400e35d3969ba64139f82e37dc237708adb59468c05256de99b05052dad75657c49435cc6bf2fe076ffb85ca9f4cbbf2",
+      "blake3": "dbde83a463e63fbebaf17d21b2d15ceb3933bebd954d85d67ed1d0d811fc5994"
+    },
+    "04_uncompiled/crypto_provenance/canonicalize_idempotent_a7ead757.v": {
+      "bytes": 18500,
+      "sha256": "a7ead7578268458fdb2bf15ae581b6d517b39c7ce408f16b1c42c6dc63d95941",
+      "sha512": "bd3a0ec91343e9fb40b75fea98045c134ee55a2ecf13087e39072b367c87b2b4ab1e844e9d2f8475d4eb37501df783862e12864f55355e2f7a3b57560a4d9a0b",
+      "blake3": "2932a3a17d410dc102bbe01643f37c1f8a8aa710e6ece7ab7822296d3f3dab45"
+    },
+    "04_uncompiled/crypto_provenance/canonicalize_idempotent_ba812501.v": {
+      "bytes": 17583,
+      "sha256": "ba81250149d304bc2d0bb86760f7c7bbbd6ce3289e5319e277fc057e11caeba4",
+      "sha512": "83d3f11473780bb63b07289a4bcc9064a7e193375b4e91d70c61e29ffef528d65e9007bef3692dcbcca57e368d877272f265c0ea02b41b48e8ad88ee77957322",
+      "blake3": "126aaa8898ee1f13319aab29735dad789513ee5fc07d76aca3ea8495c90f2b99"
+    },
+    "04_uncompiled/crypto_provenance/construction_theorem.v": {
+      "bytes": 29760,
+      "sha256": "4c2be0a4b5444efeba2d23ed8c453e41cae5b68bd472ee02ea09b7dc358f4d80",
+      "sha512": "745bd73c14341bbfb7cad20048ceebd017cf92c301a173d80aaac36dc9f168c2b6cd2d5b7a228bcdce161f03945bf498a8d966c58968e703a570a4a7c6193d7c",
+      "blake3": "e58d297afea39ae961375ceb28fc66e2db6f4221f6a4c87ce115145e6165d4cd"
+    },
+    "04_uncompiled/crypto_provenance/cycle_rejected_and_verify_total.v": {
+      "bytes": 18290,
+      "sha256": "bbbfe01c7ee8a33d112d0bab8c82b09a58bb685a655c7e27b49a5ae4b6812c34",
+      "sha512": "eed4c0863cf929bed29b311579fde36bb4daa36dafc52157c58b814aa1c4f2d0e171b8ab438988747341201396269053d86b2a7f0969f7d396cb22e4195ace01",
+      "blake3": "5662ff87cb2959465b277850fca58e5be53d86f916033dd63ae940fed32899a9"
+    },
+    "04_uncompiled/crypto_provenance/integrity_profile_terminates_at_5.v": {
+      "bytes": 17178,
+      "sha256": "bde2ad2727611a116162e9c27e277a17482692074b04cf3e564dc6521657fc85",
+      "sha512": "f125fa159f7e636a8b7d9f6ee131f2629607de5173135718e223372e2159681f38eb2cd9c83a59a932fbac87b2ef2799c578c9c2f3eb7512de29b16e28a17c76",
+      "blake3": "1eb1e151a8d1ee8d0122983d5281115c3d9c904f9d4240529abeb7a24c40bd5c"
+    },
+    "04_uncompiled/crypto_provenance/lineage_profile_terminates_at_8.v": {
+      "bytes": 15788,
+      "sha256": "2581b907471ca3cd9d814b1e015771bd808dced70f488cebde0846aea0b63979",
+      "sha512": "cc50e4dd1213085725456cef95e86273d8696efb08386711551136cb964ada355f7549ce6c9fafc280e11d3cc07b72ae718b039fe3a9b4705a36a226d16ac6ef",
+      "blake3": "f2c4d6c4cbca410d71b29bbb0bdef4521cb8d51fa663a5f1458f023c9312bd3c"
+    },
+    "04_uncompiled/crypto_provenance/regulated_implies_lineage_08c77de4.v": {
+      "bytes": 14477,
+      "sha256": "08c77de4c476cfd6529ed94f6f68123f5e40f78d3bb83b6fbc48bc50c2e10896",
+      "sha512": "a49d50d292a88642aec053b898972bdfb0f75de3fb6d75c6bc55cc956d045245dd4e2c0d520609c4aaaef5a2a9261c624f35ab033312ec242135dd130e6dd648",
+      "blake3": "b20ac48980bd815f9607bfe0f989095e08658be775ac99689d2939ea872df74c"
+    },
+    "04_uncompiled/crypto_provenance/regulated_implies_lineage_db404fd7.v": {
+      "bytes": 13568,
+      "sha256": "db404fd75e72d8e2bd1d44f6258dc916ee080006b13b7f26172f17b1957bbbc5",
+      "sha512": "7054cf1ec2f2b64ffcc1a0354926230078405f2048d52490fa27811476a72c6fa9d772dafd84f438abd6f427d902488ff5172286e18dbe96e9be7cc7c887914f",
+      "blake3": "ab3ae25611916f3a1916314ec4613699bfb00206b4b923c353807ebdb5ec21ff"
+    },
+    "04_uncompiled/crypto_provenance/unnamed_stub.v": {
+      "bytes": 2160,
+      "sha256": "87a6ecb733c6df9029209967edfd26a020e0376867536321d88c5ad6a5cc0362",
+      "sha512": "27ac93c8edcae078a02f1dbb5ac0acf5575c3ac9c4f4a9e6826ed1ebd2ea9dd09474bc25b38fb3f6b0f2c3ea48b5e5a7bcb73afb9b4c39fb60775bfe918a0436",
+      "blake3": "ada0fe176bc5b6c009943c0b4643c97cb37e80d69a39bfbab2655447ca41c114"
+    },
+    "04_uncompiled/crypto_provenance/verify_implies_sig_valid.v": {
+      "bytes": 14447,
+      "sha256": "4e6ea5b3f39d6a8d421bd37d2e15b3a69a0b3c8be3b2d9ca59251218911d7548",
+      "sha512": "1dfc4f2b4ac5f75842bbe2d7d9e44c04ce5215d0c5106a2ab32029438080622ce4dfd9b6b0fb896ead5cd78c46f0b4385ab85990538844aa0c2c1ac129ee91c0",
+      "blake3": "83e84e52f8af533a289b82359e3ebb776d3cc52870dbfaa90bdfd4dbea4d97c2"
+    },
+    "04_uncompiled/lineage_dag/cycle_detected_031f5675.v": {
+      "bytes": 12006,
+      "sha256": "031f56755f7b566eb126750e6b632c3b4152c405d478266bdcf09d2189c17fbd",
+      "sha512": "19a6298e9565f78c5ee4b1599c986207f482fe5d33416d97171aef0947247203e69201115f29fea7f6b16d33349051ac9a8b7c3d6096248048f684d3adaa49b7",
+      "blake3": "8c824b7eeded23e3e8267ff89192d1d61157ecfa3b1893c6e8f211f476461396"
+    },
+    "04_uncompiled/lineage_dag/cycle_detected_5cd934b8.v": {
+      "bytes": 11208,
+      "sha256": "5cd934b84328e6db0fea62702797c6acb94a94e4afd1590cb420119c3b9f2585",
+      "sha512": "3e0935b0b8efce243afd7bd22311b994ee84308581cfacaa5dd559304afad6254bf171392e9bd786bf17934818bf049ca04f31f504e7901fb71a0eeb7523cc12",
+      "blake3": "7689a2f72b3ffcb20228a6441d3da538d61c736c3f449f6f6003cd29fc32727b"
+    },
+    "INDEX.tsv": {
+      "bytes": 3249,
+      "sha256": "424f8a3813f4482efa8b2f65f4926c29567f4fccd2b760ad55cfc03a1856dc8b",
+      "sha512": "8d87b66a3f47ef345ff70fa3627962af550b37946379c83b5862ce2342f38143f170b54308e6c7842b5560fbc3e33d20d0ed4706020b0d24aa23f77145f6ae6a",
+      "blake3": "64298726c96dfbf4268ae87fcaafc11dbbb65a760d3e9ebadaa961427a7278c9"
+    }
+  }
+}

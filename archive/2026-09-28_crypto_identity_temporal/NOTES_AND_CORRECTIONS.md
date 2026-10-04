@@ -140,7 +140,3 @@ The snapshot record itself: `build-verification/drive_crypto_accumulation_snapsh
 
 ## 2026-10-03 — VM extract `proofbundle-dev-20260513` (captured 2026-05-17)
 Record: `build-verification/vm_extract_20260517/README.md`. Tarball SHA-256 `a51a218a…c3bcba`, not committed.
-- Decision: `meta/`, `tmux/` and the VM setup script were not committed. They carry the VM's public IP, the cloud project ID, a local service password and account-derived paths.
-- Decision: the upload's `criterion_improvements.v` and several Lean files carry a retired author name in their headers. They were not committed. The corpus already holds `criterion_improvements` with that line replaced.
-- Five of the six Coq developments are already in `corpus/mc108_canonical/`. Recompiling with coqc 8.18.0 reproduced their corpus classification. The one new compiling file, `pb2_robust.v`, was added under `sources/`. It rests on 2 `Admitted` theorems and 17 global `Parameter`s.
-- Found while doing this: running `npm run test:surface` rewrites the committed `ALGORITHM_REGISTRY.json` (621 rows) with the 95 rows in `src/registry/algorithm-registry.mjs`, and rewrites `CRYPTOGRAPHIC_SURFACE.csv`. The test output was reverted, not committed. Which registry is authoritative is open for the owner.

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProofBundle Toolbench - Algorithm Library</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #0a0e27;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+      padding: 20px;
+      border-bottom: 2px solid #3a4a7a;
+    }
+    .header h1 {
+      font-size: 24px;
+      color: #7aa2f7;
+      margin-bottom: 10px;
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: #1a1f3a;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid #3a4a7a;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #7aa2f7;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .controls {
+      padding: 20px;
+      background: #12162e;
+      border-bottom: 1px solid #3a4a7a;
+    }
+    .search-box {
+      width: 100%;
+      padding: 12px;
+      background: #1a1f3a;
+      border: 1px solid #3a4a7a;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 14px;
+    }
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      background: #1a1f3a;
+      border: 1px solid #3a4a7a;
+      border-radius: 6px;
+      color: #e0e0e0;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .filter-btn.active {
+      background: #7aa2f7;
+      color: #0a0e27;
+      border-color: #7aa2f7;
+    }
+    .algorithm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .algo-card {
+      background: #1a1f3a;
+      border: 1px solid #3a4a7a;
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+    .algo-card:hover {
+      border-color: #7aa2f7;
+      transform: translateY(-2px);
+    }
+    .algo-card.deprecated {
+      border-color: #f7768e;
+      opacity: 0.7;
+    }
+    .algo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 15px;
+    }
+    .algo-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #7aa2f7;
+    }
+    .algo-status {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .status-active {
+      background: #9ece6a;
+      color: #0a0e27;
+    }
+    .status-deprecated {
+      background: #f7768e;
+      color: #0a0e27;
+    }
+    .algo-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: #a0a0a0;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .meta-label {
+      color: #7aa2f7;
+    }
+    .algo-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .action-btn {
+      flex: 1;
+      padding: 8px;
+      background: #3a4a7a;
+      border: none;
+      border-radius: 6px;
+      color: #e0e0e0;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .action-btn:hover {
+      background: #7aa2f7;
+      color: #0a0e27;
+    }
+    .action-btn.deprecate {
+      background: #f7768e;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+    }
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #1a1f3a;
+      border: 2px solid #3a4a7a;
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      font-size: 20px;
+      color: #7aa2f7;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #7aa2f7;
+      font-size: 13px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: #12162e;
+      border: 1px solid #3a4a7a;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 14px;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn-primary {
+      flex: 1;
+      padding: 12px;
+      background: #7aa2f7;
+      border: none;
+      border-radius: 6px;
+      color: #0a0e27;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      flex: 1;
+      padding: 12px;
+      background: #3a4a7a;
+      border: none;
+      border-radius: 6px;
+      color: #e0e0e0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>ProofBundle Toolbench - Cryptographic Algorithm Library</h1>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Total Algorithms</div>
+        <div class="stat-value" id="total-count">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Active</div>
+        <div class="stat-value" id="active-count">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Deprecated</div>
+        <div class="stat-value" id="deprecated-count">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Formal Proofs</div>
+        <div class="stat-value" id="proofs-count">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" class="search-box" id="search" placeholder="Search algorithms...">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ACTIVE">Active</button>
+      <button class="filter-btn" data-filter="DEPRECATED">Deprecated</button>
+      <button class="filter-btn" data-filter="DIGEST">Digests</button>
+      <button class="filter-btn" data-filter="MAC">MACs</button>
+      <button class="filter-btn" data-filter="KDF">KDFs</button>
+      <button class="filter-btn" data-filter="SIGNATURE">Signatures</button>
+      <button class="filter-btn" data-filter="KEM">KEMs</button>
+      <button class="filter-btn" data-filter="AEAD">AEAD</button>
+      <button class="filter-btn" data-filter="CIPHER_SYMMETRIC">Symmetric</button>
+      <button class="filter-btn" data-filter="CIPHER_ASYMMETRIC">Asymmetric</button>
+    </div>
+  </div>
+
+  <div class="algorithm-grid" id="algo-grid"></div>
+
+  <div class="modal" id="add-modal">
+    <div class="modal-content">
+      <div class="modal-header">Add Algorithm</div>
+      <div class="form-group">
+        <label>Algorithm ID</label>
+        <input type="text" id="add-id" placeholder="e.g., SHA-256">
+      </div>
+      <div class="form-group">
+        <label>Family</label>
+        <select id="add-family">
+          <option value="DIGEST">DIGEST</option>
+          <option value="MAC">MAC</option>
+          <option value="KDF">KDF</option>
+          <option value="SIGNATURE">SIGNATURE</option>
+          <option value="KEM">KEM</option>
+          <option value="AEAD">AEAD</option>
+          <option value="CIPHER_SYMMETRIC">CIPHER_SYMMETRIC</option>
+          <option value="CIPHER_ASYMMETRIC">CIPHER_ASYMMETRIC</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Specification Reference</label>
+        <input type="text" id="add-spec" placeholder="e.g., FIPS 180-4">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="add-notes" placeholder="Implementation notes, security considerations..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('add-modal')">Cancel</button>
+        <button class="btn-primary" onclick="addAlgorithm()">Add Algorithm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="deprecate-modal">
+    <div class="modal-content">
+      <div class="modal-header">Deprecate Algorithm</div>
+      <div class="form-group">
+        <label>Algorithm</label>
+        <input type="text" id="deprecate-id" readonly>
+      </div>
+      <div class="form-group">
+        <label>Reason</label>
+        <textarea id="deprecate-reason" placeholder="Why is this algorithm being deprecated?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Severity</label>
+        <select id="deprecate-severity">
+          <option value="LOW">LOW - Minor issue</option>
+          <option value="MEDIUM" selected>MEDIUM - Known weakness</option>
+          <option value="HIGH">HIGH - Broken</option>
+          <option value="CRITICAL">CRITICAL - Catastrophic failure</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('deprecate-modal')">Cancel</button>
+        <button class="btn-primary" onclick="deprecateAlgorithm()">Deprecate</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let algorithms = [];
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    async function loadAlgorithms() {
+      try {
+        const response = await fetch('ALGORITHM_REGISTRY.json');
+        const data = await response.json();
+        algorithms = data;
+        updateStats();
+        renderAlgorithms();
+      } catch (e) {
+        console.error('Failed to load algorithms:', e);
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('total-count').textContent = algorithms.length;
+      document.getElementById('active-count').textContent = 
+        algorithms.filter(a => a.status === 'ACTIVE').length;
+      document.getElementById('deprecated-count').textContent = 
+        algorithms.filter(a => a.status === 'DEPRECATED').length;
+      document.getElementById('proofs-count').textContent = 
+        algorithms.filter(a => a.formalProofs && a.formalProofs.length > 0).length;
+    }
+
+    function renderAlgorithms() {
+      const grid = document.getElementById('algo-grid');
+      let filtered = algorithms;
+
+      if (currentFilter !== 'all') {
+        if (['ACTIVE', 'DEPRECATED'].includes(currentFilter)) {
+          filtered = filtered.filter(a => a.status === currentFilter);
+        } else {
+          filtered = filtered.filter(a => a.family === currentFilter);
+        }
+      }
+
+      if (currentSearch) {
+        const search = currentSearch.toLowerCase();
+        filtered = filtered.filter(a => 
+          a.id.toLowerCase().includes(search) ||
+          (a.notes && a.notes.toLowerCase().includes(search))
+        );
+      }
+
+      grid.innerHTML = filtered.map(algo => `
+        <div class="algo-card ${algo.status === 'DEPRECATED' ? 'deprecated' : ''}">
+          <div class="algo-header">
+            <div class="algo-name">${algo.id}</div>
+            <div class="algo-status status-${algo.status.toLowerCase()}">${algo.status}</div>
+          </div>
+          <div class="algo-meta">
+            <div class="meta-row">
+              <span class="meta-label">Family:</span>
+              <span>${algo.family}</span>
+            </div>
+            ${algo.specificationReference ? `
+            <div class="meta-row">
+              <span class="meta-label">Spec:</span>
+              <span>${algo.specificationReference}</span>
+            </div>
+            ` : ''}
+            ${algo.version ? `
+            <div class="meta-row">
+              <span class="meta-label">Version:</span>
+              <span>${algo.version}</span>
+            </div>
+            ` : ''}
+            ${algo.deprecation_reason ? `
+            <div class="meta-row">
+              <span class="meta-label">Deprecated:</span>
+              <span>${algo.deprecation_severity}</span>
+            </div>
+            ` : ''}
+          </div>
+          <div class="algo-actions">
+            <button class="action-btn" onclick="viewDetails('${algo.id}')">Details</button>
+            ${algo.status === 'ACTIVE' ? 
+              `<button class="action-btn deprecate" onclick="showDeprecate('${algo.id}')">Deprecate</button>` :
+              `<button class="action-btn" onclick="reactivate('${algo.id}')">Reactivate</button>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function viewDetails(id) {
+      const algo = algorithms.find(a => a.id === id);
+      alert(`Details for ${id}:\n\nFamily: ${algo.family}\nStatus: ${algo.status}\nSpec: ${algo.specificationReference || 'N/A'}\nNotes: ${algo.notes || 'N/A'}`);
+    }
+
+    function showDeprecate(id) {
+      document.getElementById('deprecate-id').value = id;
+      document.getElementById('deprecate-modal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    async function addAlgorithm() {
+      const id = document.getElementById('add-id').value;
+      const family = document.getElementById('add-family').value;
+      const spec = document.getElementById('add-spec').value;
+      const notes = document.getElementById('add-notes').value;
+
+      if (!id) {
+        alert('Algorithm ID is required');
+        return;
+      }
+
+      const algo = {
+        id,
+        family,
+        specificationReference: spec,
+        notes,
+        status: 'ACTIVE',
+        added: new Date().toISOString(),
+        version: 1
+      };
+
+      try {
+        const response = await fetch('/api/algorithms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(algo)
+        });
+
+        if (response.ok) {
+          closeModal('add-modal');
+          loadAlgorithms();
+        } else {
+          alert('Failed to add algorithm');
+        }
+      } catch (e) {
+        console.error('Error adding algorithm:', e);
+        alert('Error adding algorithm');
+      }
+    }
+
+    async function deprecateAlgorithm() {
+      const id = document.getElementById('deprecate-id').value;
+      const reason = document.getElementById('deprecate-reason').value;
+      const severity = document.getElementById('deprecate-severity').value;
+
+      if (!reason) {
+        alert('Deprecation reason is required');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/algorithms/${id}/deprecate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reason, severity })
+        });
+
+        if (response.ok) {
+          closeModal('deprecate-modal');
+          loadAlgorithms();
+        } else {
+          alert('Failed to deprecate algorithm');
+        }
+      } catch (e) {
+        console.error('Error deprecating algorithm:', e);
+        alert('Error deprecating algorithm');
+      }
+    }
+
+    async function reactivate(id) {
+      const reason = prompt('Reason for reactivation:');
+      if (!reason) return;
+
+      try {
+        const response = await fetch(`/api/algorithms/${id}/reactivate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reason })
+        });
+
+        if (response.ok) {
+          loadAlgorithms();
+        } else {
+          alert('Failed to reactivate algorithm');
+        }
+      } catch (e) {
+        console.error('Error reactivating algorithm:', e);
+        alert('Error reactivating algorithm');
+      }
+    }
+
+    // Event listeners
+    document.getElementById('search').addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      renderAlgorithms();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderAlgorithms();
+      });
+    });
+
+    // Load on start
+    loadAlgorithms();
+  </script>
+</body>
+</html>

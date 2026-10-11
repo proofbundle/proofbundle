@@ -3376,6 +3376,22 @@ async function verifyCore(bundle, opts) {
   if (!sigInfo(sigAlg))
     return fail('MALFORMED', 'Algorithm check', `unknown sig_alg "${sigAlg}"`);
 
+  if (!legacy && bundle.hdr.profile === 'PB-GENO-1') {
+    if (digestAlg !== 'SHA3-384' || sigAlg !== 'ECDSA-P384') {
+      return fail('POLICY-DENIED', 'PB-GENO-1 algorithm suite',
+        `PB-GENO-1 requires SHA3-384 + ECDSA-P384 primary + Ed25519 witness; got ${digestAlg} + ${sigAlg}`);
+    }
+    const w = bundle.seal.witness;
+    if (!w) {
+      return fail('POLICY-DENIED', 'Dual-signature requirement',
+        'PB-GENO-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
+    }
+    if (w.sig_alg !== 'Ed25519') {
+      return fail('POLICY-DENIED', 'PB-GENO-1 witness algorithm',
+        `PB-GENO-1 requires Ed25519 witness; got ${w.sig_alg || 'missing'}`);
+    }
+  }
+
   /* 4 — signature + digest + merkle */
   try {
     if (legacy) {
@@ -3909,8 +3925,14 @@ async function otsSubmitToCalendar(digestBytes32, calendarUrl) {
   });
   if (!res.ok) throw new Error('OTS calendar returned ' + res.status);
   const timestampBytes = new Uint8Array(await res.arrayBuffer());
-  /* Prepend the OTS file magic + version + digest so the result is a valid .ots file */
-  return concatBytes(OTS_MAGIC, Uint8Array.from([0x01]), otsVarbytes(digestBytes32), timestampBytes);
+  /* Prepend the same .ots file header used by the offline path: magic + version + SHA256 op + raw digest. */
+  return concatBytes(
+    OTS_MAGIC,
+    Uint8Array.from([0x01]),
+    Uint8Array.from([OTS_OP_SHA256]),
+    digestBytes32,
+    timestampBytes
+  );
 }
 
 /* ---- RFC 3161 Time-Stamp Protocol ----
@@ -4484,6 +4506,9 @@ async function runSelfTests() {
     T('dual-signature: both flipped → INVALID-SIGNATURE', eq((await verifyCore(gpxFlip(gpxFlip(gpxB, 'p'), 'w'), {})).outcome, 'INVALID-SIGNATURE'));
     const gpxNoW = JSON.parse(JSON.stringify(gpxB)); delete gpxNoW.seal.witness;
     T('dual-signature policy: PB-GENO-1 without witness → POLICY-DENIED', eq((await verifyCore(gpxNoW, {})).outcome, 'POLICY-DENIED'));
+    const gpxWrongSuite = await sealCore({ hdr: { profile: 'PB-GENO-1' }, meta: {}, payload: { r: 'wrong-suite' } }, 'SHA-256', 'Ed25519', key);
+    gpxWrongSuite.seal.witness = gpxB.seal.witness;
+    T('PB-GENO-1 wrong algorithm suite → POLICY-DENIED', eq((await verifyCore(gpxWrongSuite, {})).outcome, 'POLICY-DENIED'));
 
   /* baseline digest sanity check (post-registry, pre-render) */
     T('SHA-256 sanity check — reproducible on neutral payload',

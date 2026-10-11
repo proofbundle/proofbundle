@@ -1,0 +1,22 @@
+# Build artifacts
+*.o
+*.obj
+*.exe
+*.out
+build/
+dist/
+
+# Proof artifacts
+*.olean
+*.vo
+*.checked
+*.proof
+
+# Test artifacts
+*.log
+*.tmp
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db

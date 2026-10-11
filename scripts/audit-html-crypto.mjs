@@ -228,7 +228,7 @@ for (const scope of ['classical', 'pq']) {
     { passed: result.cases, failed: 0 });
 }
 
-/* Reproduce the PB-GENO-1 verifier's missing algorithm-binding check. */
+/* Regression probe for the PB-GENO-1 algorithm-binding check. */
 const alternatePrimary = await win.eval(`sigKeygen('Ed25519')`);
 win.__PB_AUDIT_ALT_PRIMARY__ = alternatePrimary;
 const alternateBundle = win.eval(`({ hdr:{profile:'PB-GENO-1'}, meta:{}, payload:{audit:'alternate algorithms'} })`);
@@ -249,10 +249,11 @@ const alternateOutcome = await win.eval(`verifyCore(window.__PB_AUDIT_ALT_BUNDLE
 findings.push({
   id: 'PBHTML-F001',
   severity: 'HIGH',
-  title: 'PB-GENO-1 verifier does not bind the required algorithm suite',
-  reproduced: alternateOutcome.outcome === 'VERIFIED',
+  title: 'PB-GENO-1 verifier binds the required algorithm suite',
+  reproduced: alternateOutcome.outcome !== 'VERIFIED',
+  status: alternateOutcome.outcome !== 'VERIFIED' ? 'CLOSED' : 'REOPENED',
   observation: `A PB-GENO-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned ${alternateOutcome.outcome}.`,
-  required: 'PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile.',
+  required: 'Hold: PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile.',
 });
 
 /* PB-CANON-JSON-1 domain probe.
@@ -317,10 +318,13 @@ const otsHeadersMatch = hex(offlineOts.slice(0, otsPrefixLength)) === hex(networ
 findings.push({
   id: 'PBHTML-F003',
   severity: 'HIGH',
-  title: 'Offline and network OpenTimestamps paths emit incompatible file headers',
-  reproduced: !otsHeadersMatch,
+  title: 'Offline and network OpenTimestamps paths emit compatible file headers',
+  reproduced: otsHeadersMatch,
+  status: otsHeadersMatch ? 'CLOSED' : 'REOPENED',
   observation: `Offline header begins ${hex(offlineOts.slice(0, otsPrefixLength))}; network header begins ${hex(networkOts.slice(0, otsPrefixLength))}.`,
-  required: 'Validate both serializers byte-for-byte against the reference OpenTimestamps implementation and add parsing, upgrading, and Bitcoin attestation verification tests.',
+  required: otsHeadersMatch
+    ? 'Hold: offline and network OTS serializers must keep identical magic/version/hash-op/digest headers.'
+    : 'Validate both serializers byte-for-byte against the reference OpenTimestamps implementation and add parsing, upgrading, and Bitcoin attestation verification tests.',
 });
 
 /* Confirm the documented RFC 3161 limitation is present, not silently resolved. */

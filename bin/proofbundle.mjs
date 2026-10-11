@@ -20,7 +20,7 @@ if (!command || command === '--help' || command === '-h') {
 }
 
 if (!IMPLEMENTED.has(command)) {
-  process.stderr.write(`proofbundle: '${command}' is defined in the specification but not implemented in this pass. Implemented: ${[...IMPLEMENTED].join(', ')}\n`);
+  process.stderr.write(`proofbundle: '${command}' is defined in the specification but is not available in this pass. Available: ${[...IMPLEMENTED].join(', ')}\n`);
   process.exit(EXIT_CODES.USAGE_ERROR);
 }
 

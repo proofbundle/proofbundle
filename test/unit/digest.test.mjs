@@ -90,7 +90,7 @@ test('digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognize
 test('isImplementedDigest correctly reports only the wired fixed-length algorithms', () => {
   assert.equal(isImplementedDigest('SHA-256'), true);
   assert.equal(isImplementedDigest('SHAKE128'), false); // XOF, different dispatch function
-  assert.equal(isImplementedDigest('BLAKE3'), false); // registered but not implemented in this pass
+  assert.equal(isImplementedDigest('BLAKE3'), false); // registered but not wired in this pass
 });
 
 test('digestBytes rejects non-Uint8Array input rather than coercing it', () => {

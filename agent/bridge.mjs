@@ -345,10 +345,17 @@ export async function stamp({ minEntries = 1 } = {}) {
   const first = batchEnvelopes[0].seq, last = batchEnvelopes[batchEnvelopes.length - 1].seq;
   const batchId = `batch-${first}-${last}`;
   const batchFile = join(BATCHES_DIR, `${batchId}.json`);
+  // leaf_hashes must be the actual tree leaves (domain-separated hashLeaf, as
+  // returned by merkleRoot().leaves) — NOT envelopeHash(). Before 2026-10-01
+  // this wrote envelopeHash() values, which do not hash up to merkle_root, so
+  // any verifier recomputing the root from leaf_hashes failed. Values fixed;
+  // field name and schema unchanged. (Historical batch files pre-fix carry
+  // envelopeHash values in this field — recompute from the lineage if needed.)
+  const { leaves: treeLeaves } = merkleRoot(batchEnvelopes);
   const batch = {
     batch_id: batchId, first_seq: first, last_seq: last,
     merkle_root: root, envelope_count: batchEnvelopes.length,
-    leaf_hashes: batchEnvelopes.map(e => envelopeHash(e)),
+    leaf_hashes: treeLeaves,
     created_at: new Date().toISOString(),
   };
   writeFileSync(batchFile, canonicalJSON(batch));
@@ -368,9 +375,14 @@ export function inclusionProof(seq) {
   const batchEnvelopes = log.filter(e => e.seq >= fromSeq);
   const idx = batchEnvelopes.findIndex(e => e.seq === seq);
   if (idx < 0) return { error: 'NOT_BATCHED', detail: `seq ${seq} not in any open batch` };
-  const { root } = merkleRoot(batchEnvelopes);
+  const { root, leaves } = merkleRoot(batchEnvelopes);
   const proof = merkleProof(batchEnvelopes, idx);
-  const leaf = envelopeHash(batchEnvelopes[idx]);
+  // The tree is built over domain-separated leaf hashes (lineage.mjs
+  // hashLeaf: SHA-256("PB-AGENT-1\0" || canonical)), NOT over raw
+  // envelopeHash() values. Passing envelopeHash here made every proof
+  // verify false (pre-2026-10-01 bug). merkleRoot().leaves are the tree
+  // leaves in envelope order — use them.
+  const leaf = leaves[idx];
   const ok = verifyProof(leaf, proof, root);
   return {
     seq, batch: `batch-${batchEnvelopes[0].seq}-${batchEnvelopes[batchEnvelopes.length - 1].seq}`,

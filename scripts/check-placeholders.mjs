@@ -7,6 +7,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOTS = ['src', 'bin', 'scripts', 'test'];
+const SELF = 'scripts/check-placeholders.mjs';
 const PATTERNS = [
   [/\bsorry\b/, 'sorry'],
   [/\badmit\b/i, 'admit'],
@@ -34,6 +35,7 @@ for (const root of ROOTS) {
   let files;
   try { files = walk(root); } catch { continue; }
   for (const f of files) {
+    if (f === SELF) continue;
     const text = readFileSync(f, 'utf-8');
     for (const [re, label] of PATTERNS) {
       if (re.test(text)) { findings.push(`${f}: matches pattern '${label}'`); hits++; }

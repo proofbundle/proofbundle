@@ -6331,7 +6331,7 @@ function bridgeExportLineage() {
 function restartBridgePolling() {
   if (BRIDGE_STATE.timer) clearInterval(BRIDGE_STATE.timer);
   BRIDGE_STATE.timer = null;
-  if (BRIDGE_STATE.polling) BRIDGE_STATE.timer = setInterval(refreshBridgeConsole, bridgeCfg().poll * 1000);
+  if (BRIDGE_STATE.polling) BRIDGE_STATE.timer = setInterval(() => { if (!document.hidden && !document.getElementById('panel-chat')?.classList.contains('active')) refreshBridgeConsole(); }, bridgeCfg().poll * 1000);
 }
 function toggleBridgePolling() {
   BRIDGE_STATE.polling = !BRIDGE_STATE.polling;
@@ -6367,9 +6367,14 @@ function init() {
   heroInit();
   verifyDropInit();
   runSelfTests();
-  if (!window.aletheiaDesktop) refreshAgentLineage();
-  if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) if (!window.aletheiaDesktop) setInterval(refreshAgentLineage, 5000);
-  if (!window.aletheiaDesktop) initBridgeConsole(); else restoreBridgeConfig();
+  const roomRequested = new URLSearchParams(location.search).get('tab') === 'chat';
+  if (!window.aletheiaDesktop && !roomRequested) {
+    refreshAgentLineage();
+    setInterval(() => {
+      if (!document.hidden && !document.getElementById('panel-chat')?.classList.contains('active')) refreshAgentLineage();
+    }, 5000);
+    initBridgeConsole();
+  } else restoreBridgeConfig();
 }
 
 async function refreshAgentLineage() {

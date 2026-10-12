@@ -1,0 +1,35 @@
+{
+  "actor": "Rowan",
+  "observed_at": "2026-10-12T14:27:55.833951+00:00",
+  "scope": "Existing local vector and algorithm tests, not formal proofs or a cryptographic security audit",
+  "records": [
+    {
+      "script": "scripts/verify-vectors.mjs",
+      "script_sha256": "234352553942d94fdba50f1e1871f7a713b004c2562ecaae1da99fbe4c9a3e9b",
+      "returncode": 0,
+      "output_sha256": "3a72362d90b9524ff26e3cff4f68f0fd03f394b9c0af3237f369d964e44f3ede",
+      "output_file": "reports/algorithm-synthesis/verify-vectors.txt"
+    },
+    {
+      "script": "crypto/t_blake3.mjs",
+      "script_sha256": "203d57def96097de92232e3068836d008ed38723fc3bc3908074b848e175b320",
+      "returncode": 0,
+      "output_sha256": "ef7d9e76d39cc5fc92532f0c9f217365948e790948f7210b836b1481b449a8a7",
+      "output_file": "reports/algorithm-synthesis/t_blake3.txt"
+    },
+    {
+      "script": "crypto/t_ecdsa.mjs",
+      "script_sha256": "f8a41c86f047034140e3150721356078282b4e0dfd5523f87f0d482ceb4e265c",
+      "returncode": 0,
+      "output_sha256": "137e3513327db5927dbfb990ee0c9b9cc784307898af41cb47693a4d0f380104",
+      "output_file": "reports/algorithm-synthesis/t_ecdsa.txt"
+    },
+    {
+      "script": "crypto/t_mldsa.mjs",
+      "script_sha256": "325ecb2ec76eeed12755a5e3425e6eba06c4fd323a750a2f2b70ed5292a036df",
+      "returncode": 0,
+      "output_sha256": "47d945b0fdc3d4bf55534699b8663353b5ba3214561d2a56ec9464e7487da11f",
+      "output_file": "reports/algorithm-synthesis/t_mldsa.txt"
+    }
+  ]
+}

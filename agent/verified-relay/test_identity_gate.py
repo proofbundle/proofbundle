@@ -4,6 +4,7 @@ import unittest
 import os
 import json
 import hashlib
+import uuid
 from pathlib import Path
 import identity_gate as gate
 os.environ.setdefault('PB_AGENT_ROOT', str(Path.home()/'pb/work/bridge-reestablish-20261011/test-identities'))
@@ -40,7 +41,7 @@ class IdentityGateChecks(unittest.TestCase):
         env=self.envelope();env['payload']['encrypted']=False
         with self.assertRaises(ValueError):gate.verify_request(env,self.verifier)
     def test_model_attribution_correction_preserves_identity_and_prior_evidence(self):
-        name='proofbundle-relay-test-attribution'
+        name='proofbundle-relay-test-attribution-'+uuid.uuid4().hex[:12]
         before=gate.register(name,'test-thread')
         path=Path(os.environ['PB_AGENT_ROOT'])/name/'aibom.json'
         raw=path.read_bytes();digest=hashlib.sha256(raw).hexdigest()

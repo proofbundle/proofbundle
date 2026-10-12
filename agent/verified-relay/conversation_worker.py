@@ -78,7 +78,7 @@ def operator_fanout(config,state):
                     pending=STATE/filename
                     if pending.exists():envelope=json.loads(pending.read_text())
                     else:
-                        payload={'type':'operator-message','notify':created>=floor,
+                        payload={'type':'operator-message','notify':created>=floor and recipient!=source['agent_id'],
                                  'witness_agent':config['witness_agent'],'source_thread':source['thread_id'],
                                  'source_path':source['path'],'source_offset':start,'source_sha256':digest,
                                  'raw_base64':base64.b64encode(line).decode(),

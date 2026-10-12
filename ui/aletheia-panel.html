@@ -1,0 +1,68 @@
+<div class="tab-panel" id="panel-aletheia">
+  <div class="aletheia-heading"><div><h2>ProofBundle</h2><p>ProofBundle custody · verifier relay · native RLM evidence</p></div><span class="badge">Local workbench</span></div>
+  <div class="notice mono" style="overflow-wrap:anywhere">Application file: <span id="aletheia-entry-path">/home/falsealias/src/proofbundle/proofbundle.html</span></div>
+  <div id="aletheia-save-state" class="notice" role="status" aria-live="polite">Custody storage loading.</div>
+  <div class="library-stats aletheia-stats">
+    <div class="library-stat"><b id="aletheia-count-artifacts">0</b><span>active artifacts</span></div>
+    <div class="library-stat"><b id="aletheia-count-receipts">0</b><span>agent records retained</span></div>
+    <div class="library-stat"><b id="aletheia-count-rlm">0</b><span>native RLM captures</span></div>
+    <div class="library-stat"><b id="aletheia-count-events">0</b><span>custody events</span></div>
+    <div class="library-stat"><b id="aletheia-count-algorithms">0</b><span>algorithm source records</span></div>
+    <div class="library-stat"><b id="aletheia-count-vectors">0</b><span>captured vector cases</span></div>
+  </div>
+  <div class="aletheia-layer-actions">
+    <button class="btn btn-primary" onclick="libraryPick()">Capture artifacts</button>
+    <button class="btn btn-secondary" onclick="switchTab('bridge',document.querySelector('[data-title=&quot;Bridge&quot;]'));refreshBridgeConsole()">Bridge console</button>
+    <button class="btn btn-secondary" onclick="switchTab('claims',document.querySelector('[data-title=&quot;Claims&quot;]'))">Native claims</button>
+    <button class="btn btn-secondary" onclick="ProofBundle.verify()">Check retained custody</button>
+    <button class="btn btn-secondary" onclick="exportArchive()">Export sealed archive</button>
+    <button class="btn btn-secondary" onclick="ProofBundle.appendCatalogue()">Append native algorithm/vector archive</button>
+  </div>
+  <p id="aletheia-signing-status" class="algo-note">Signing scope loading.</p>
+  <p id="aletheia-catalogue-status" class="algo-note" role="status" aria-live="polite">Algorithm registration, captured vectors, executable providers, and observed test results remain separate states.</p>
+  <p id="aletheia-coverage" class="algo-note" aria-live="polite">Capture coverage loading.</p>
+  <section id="proofbundle-current-tests" class="notice">Archive execution evidence loading.</section>
+  <div class="aletheia-workspace">
+    <section class="aletheia-timeline-pane" aria-labelledby="aletheia-timeline-heading">
+      <div class="aletheia-section-heading"><h3 id="aletheia-timeline-heading">Custody and source records</h3>
+        <label class="label" for="aletheia-filter">Layer</label>
+        <select id="aletheia-filter"><option value="">All layers</option><option>Custody</option><option>Artifact</option><option>Retained artifact</option><option>RLM</option><option>Historical state</option><option>Algorithm</option><option>Vector set</option><option>Bridge</option><option>Execution result</option></select>
+      </div>
+      <label class="label" for="aletheia-record-query">Find a record</label><input id="aletheia-record-query" placeholder="algorithm, source, action, or identifier">
+      <div id="aletheia-timeline" class="aletheia-table-wrap"><div class="empty">No captured records.</div></div>
+      <div class="aletheia-page-controls"><button class="btn btn-secondary btn-sm" onclick="ProofBundle.page(-1)">Previous</button><span id="aletheia-page-status" class="algo-note"></span><button class="btn btn-secondary btn-sm" onclick="ProofBundle.page(1)">Next</button></div>
+    </section>
+    <section class="aletheia-inspector-pane" aria-labelledby="aletheia-inspector-title">
+      <h3 id="aletheia-inspector-title">Native record inspector</h3>
+      <p class="algo-note">Original schemas, hashes, identities, source references, boundary results, and proof assumptions remain retained. Large records use bounded previews; complete originals remain in the archive. Observation and certification have separate evidence states.</p>
+      <div id="aletheia-record-summary"><p>Selection opens the record's source, identity, scope, and evidence state.</p></div>
+      <button class="btn btn-primary btn-sm" id="aletheia-run-vector" hidden onclick="ProofBundle.runSelectedVectors()">Execute supported vector cases</button>
+      <details class="aletheia-native-details"><summary>Bounded native record preview and hashes</summary><pre id="aletheia-inspector" class="aletheia-inspector" tabindex="0">No record selected.</pre></details>
+      <button class="btn btn-secondary btn-sm" onclick="copyEl('aletheia-inspector')">Copy record</button>
+      <textarea id="aletheia-manual-copy" class="aletheia-manual-copy" rows="5" readonly hidden aria-label="Selected value for manual copy"></textarea>
+    </section>
+  </div>
+  <div class="aletheia-workspace aletheia-capture-forms">
+    <section aria-labelledby="aletheia-rlm-heading">
+      <h3 id="aletheia-rlm-heading">RLM source capture</h3>
+      <p>Read-only queries retain complete native result records, source identifiers, SQL, parameters, and result hashes. The existing memory databases and source files remain unchanged.</p>
+      <form id="aletheia-query-form">
+        <div class="form-row"><label class="label" for="aletheia-source">Native source</label><select id="aletheia-source"><option value="">Source service unavailable</option></select></div>
+        <div class="form-row"><label class="label" for="aletheia-query">Query</label><input id="aletheia-query" maxlength="500" placeholder="ProofBundle boundary" required></div>
+        <button class="btn btn-primary" type="submit">Query and retain results</button>
+      </form>
+      <div id="aletheia-query-status" class="algo-note" role="status" aria-live="polite"></div>
+      <details class="aletheia-source-details"><summary>Source paths and established RLM scripts</summary><pre id="aletheia-source-status">Source metadata loading.</pre></details>
+    </section>
+    <section aria-labelledby="aletheia-origin-heading">
+      <h3 id="aletheia-origin-heading">Provenance supplements</h3>
+      <p>Origin records remain immutable. Later source, authority, consent, or context assertions become separately retained supplements. An assertion does not automatically grant authorization or a verified verdict.</p>
+      <form id="aletheia-origin-form">
+        <div class="form-row"><label class="label" for="aletheia-origin-artifact">Artifact</label><select id="aletheia-origin-artifact"></select></div>
+        <div class="form-row"><label class="label" for="aletheia-origin-statement">Supplement statement</label><textarea id="aletheia-origin-statement" rows="3" required></textarea></div>
+        <button class="btn btn-secondary" type="submit">Retain supplement</button>
+      </form>
+    </section>
+  </div>
+  <div id="aletheia-archive-status" class="notice" role="status" aria-live="polite">Sealed archives include artifacts and bytes, native state, agent observations, bridge actions, RLM captures, and retained history. Private signing keys and authentication tokens are outside automatic custody.</div>
+</div>

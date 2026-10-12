@@ -93,7 +93,7 @@ app.whenReady().then(async () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate([{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]));
   ipcMain.handle('aletheia:local', (event, operation, args) => {
     requireFrame(event);
-    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport'].includes(operation)) throw new Error('Unsupported local operation');
+    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport','runLinkedConformance','linkedConformanceReport','outcomeDefinitions','bindSourceAliases'].includes(operation)) throw new Error('Unsupported local operation');
     return localCall(operation, args);
   });
   ipcMain.handle('aletheia:clipboard-write', async (event, text) => {
@@ -150,6 +150,20 @@ app.whenReady().then(async () => {
     if(counts!==staged.snapshot.counts.artifacts)throw new Error('Restored artifact count mismatch');
     fs.writeFileSync(join(state,'proofbundle-archive-restore-verification.json'),JSON.stringify({schema:'ProofBundleNativeArchiveRestoreVerification/v1',observed_at:new Date().toISOString(),outcome:'PASSED',seal_outcome:verified.outcome,source:path,restored_artifacts:counts,collections:staged.snapshot.counts,scope:'Independent native renderer; all original custody signatures, state checksum, record hashes, and artifact native Merkle/content-address commitments checked before publication.'},null,2)+'\n');
     console.log('Archive restoration PASSED');worker.kill();app.exit(0);return;
+  }
+  if (process.argv.includes('--measure-outcomes')) {
+    await win.webContents.executeJavaScript('window.ALETHEIA_READY');
+    const result=await win.webContents.executeJavaScript('Aletheia.runOutcomeCoverage()');
+    fs.writeFileSync(join(state,'native-outcome-coverage.json'),JSON.stringify(result));
+    console.log(JSON.stringify({native_outcome_coverage:result.matrix}));
+  }
+  if (process.argv.includes('--connect-implementations')) {
+    await win.webContents.executeJavaScript('window.ALETHEIA_READY');
+    const report=await win.webContents.executeJavaScript('Aletheia.connectImplementations(false)');
+    console.log(JSON.stringify({linked_conformance:report.totals,independent_probes:report.independent_probe_totals}));
+    const outcomes=await win.webContents.executeJavaScript('Aletheia.runOutcomeCoverage()');
+    console.log(JSON.stringify({outcome_coverage:outcomes.matrix}));
+    fs.writeFileSync(join(state,'linked-workbench.png'),(await win.webContents.capturePage()).toPNG());
   }
   if (process.argv.includes('--append-snapshots')) {
     await win.webContents.executeJavaScript('window.ALETHEIA_READY');

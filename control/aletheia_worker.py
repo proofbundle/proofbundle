@@ -52,6 +52,47 @@ def dispatch(store, operation, args):
     if operation == 'snapshotTestReport':
         report = pathlib.Path('/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-10-11/w-2/work/archive-snapshot-checks/report.json')
         return json.loads(report.read_text())
+    if operation == 'runLinkedConformance':
+        from linked_conformance import run_linked
+        index=CustodyStore(store.root/'implementation-index')
+        index.blobs=store.blobs
+        report=run_linked(index)
+        target=store.root/'linked-conformance';target.mkdir(exist_ok=True)
+        raw=json.dumps(report,separators=(',',':')).encode()
+        with (target/(report['id']+'.json')).open('wb') as f:
+            f.write(raw);f.flush();__import__('os').fsync(f.fileno())
+        return report
+    if operation == 'linkedConformanceReport':
+        reports=sorted((store.root/'linked-conformance').glob('*.json'), key=lambda p:p.stat().st_mtime_ns)
+        if not reports: raise FileNotFoundError('No linked execution receipt retained')
+        return json.loads(reports[-1].read_text())
+    if operation == 'bindSourceAliases':
+        import os,hashlib
+        rows=[]
+        for binding in args['bindings']:
+            store.check_key(binding['key']);store.check_key(binding['source_key'])
+            source=store.blobs/binding['source_key'];raw=source.read_bytes()
+            if len(raw)!=binding['size'] or digest(raw)!=binding['sha256']:raise ValueError('Source alias byte mismatch')
+            target=store.blobs/binding['key']
+            if target.exists():
+                if digest(target.read_bytes())!=binding['sha256']:raise ValueError('Immutable alias conflict')
+            else:os.link(source,target)
+            rows.append(binding)
+        fd=os.open(store.blobs,os.O_DIRECTORY)
+        try:os.fsync(fd)
+        finally:os.close(fd)
+        with store.connect() as db:
+            for row in rows:
+                prior=db.execute('SELECT sha256,size FROM blobs WHERE key=?',(row['key'],)).fetchone()
+                if prior and (prior['sha256']!=row['sha256'] or prior['size']!=row['size']):raise ValueError('Immutable alias metadata conflict')
+                if not prior:db.execute('INSERT INTO blobs VALUES (?,?,?,?)',(row['key'],row['sha256'],row['size'],__import__('time').strftime('%Y-%m-%dT%H:%M:%SZ',__import__('time').gmtime())))
+        return {'bound':len(rows),'scope':'Verified byte-identical local source blobs; durable aliases precede checkpoint publication'}
+    if operation == 'outcomeDefinitions':
+        from linked_conformance import capture
+        import re
+        source=pathlib.Path(__file__).resolve().parents[1]/'src/verdict/verdict.mjs'
+        record=capture(store,source,'outcome-definition')
+        return {'source':record,'namespace':'ProofBundle modular verdict enum','outcomes':re.findall(r"  '([^']+)',",source.read_text())}
     if operation == 'runArchiveVectors':
         sets = args['sets']
         for item in sets: store.check_key(item['blob_ref'])

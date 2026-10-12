@@ -21,9 +21,9 @@ html = html.replace('<nav class="sb-nav" id="tabs">', '<nav class="sb-nav" id="t
 html = html.replace('<main>', '<main>' + wrap('PANEL', panel));
 // Initialize the original application only after its Library constants exist.
 // Legacy-state rendering must not strand those declarations in their TDZ.
-html = html.replaceAll('\ninit();\n', '\n');
+html = html.replace(/\n(?:if \(new URLSearchParams\(location\.search\)\.get\('embed'\) !== '1'\) )?init\(\);\n/g, '\n');
 const coreEnd = html.lastIndexOf('</script>');
-html = html.slice(0, coreEnd) + '\ninit();\n' + html.slice(coreEnd);
+html = html.slice(0, coreEnd) + "\nif (new URLSearchParams(location.search).get('embed') !== '1') init();\n" + html.slice(coreEnd);
 const end = html.lastIndexOf('</body>');
 html = html.slice(0, end) + wrap('SCRIPT', '<script>\n' + script + '\n</script>') + html.slice(end);
 html = html.replace('<title>ProofBundle — Provenance & Compliance Verification</title>', '<title>ProofBundle · archive workbench</title>');
@@ -45,5 +45,7 @@ html = html.replaceAll('`Legacy boot ${pass}/${R.length}', '`Boot checks: ${pass
 html = html.replace('<div class="tab-panel" id="panel-vectors">', '<div class="tab-panel" id="panel-vectors">'+(html.includes('id="proofbundle-vector-current"')?'':'<section id="proofbundle-vector-current" class="notice"></section>'));
 html=html.replace('id="ledger-import-file" accept=".json,application/json"','id="ledger-import-file" accept=".json,.zip,application/json,application/zip"');
 html=html.replace(/(<!-- END ALETHEIA CSS -->)\s+(<script>)/,'$1\n\n$2');
+const sourcePathRow='<div class="algo-note mono" style="overflow-wrap:anywhere">${esc(x.source_ref?.path || x.source_path || "Original filesystem path unavailable")}</div>';
+while(html.includes(sourcePathRow+sourcePathRow))html=html.replaceAll(sourcePathRow+sourcePathRow,sourcePathRow);
 writeFileSync(file, html);
 console.log('Aletheia sources embedded in proofbundle.html');

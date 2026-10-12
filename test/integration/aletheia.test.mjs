@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { webcrypto, generateKeyPairSync, sign } from 'node:crypto';
 import { File, Blob } from 'node:buffer';
+import {spawnSync} from 'node:child_process';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { IDBFactory, IDBDatabase, IDBObjectStore } from 'fake-indexeddb';
 
@@ -173,4 +174,20 @@ test('display refreshes and custody append do not load the full event history', 
     assert.equal(w.Aletheia.status.error, null);
     assert.equal(w.document.querySelector('#aletheia-count-events').textContent, '2');
   } finally { IDBObjectStore.prototype.getAll = getAll; dom.window.close(); }
+});
+
+
+test('native source commitment acceleration matches actual HTML domains, lengths, chunks and odd promotion', async()=>{
+ const {dom,w}=await boot();
+ try {
+  const fixtures=['', '61', '00'.repeat(8), 'ab'.repeat(17), 'ff'.repeat(33)];
+  const script="import sys,json;sys.path.insert(0,'control');from linked_conformance import native_commitment;print(json.dumps([native_commitment(bytes.fromhex(s),8) for s in json.load(sys.stdin)]))";
+  const result=spawnSync('python3',['-B','-c',script],{input:JSON.stringify(fixtures),encoding:'utf8'});assert.equal(result.status,0,result.stderr);
+  const expected=JSON.parse(result.stdout);
+  for(let i=0;i<fixtures.length;i++){
+   w.__commitment_fixture=new File([Buffer.from(fixtures[i],'hex')],'fixture.bin');
+   const actual=await w.eval("hashFileEntry({file:window.__commitment_fixture,size:window.__commitment_fixture.size},'SHA-256',8)");
+   for(const key of ['root_b64u','chunks','content_address'])assert.equal(actual[key],expected[i][key],key+' fixture '+i);
+  }
+ }finally{dom.window.close();}
 });

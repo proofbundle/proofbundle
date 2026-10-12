@@ -9,7 +9,7 @@
   const DB_NAME = 'aletheia-proofbundle-custody-v1';
   const FIELDS = ['claims', 'predictions', 'store', 'chain', 'agentReceipts',
     'bridgeActions', 'bridgeObservations', 'rlmCaptures', 'origins', 'supplements',
-    'catalogueSources', 'algorithmSources', 'vectorSets', 'conformanceRuns'];
+    'catalogueSources', 'algorithmSources', 'vectorSets', 'conformanceRuns', 'implementationRuns', 'outcomeRuns'];
   const original = { persistState, restoreState, chainAppend, buildArchiveBundle,
     libraryDb, bridgeFetch, bridgeLog, refreshOrchestrator, submitClaim,
     updateClaimStatus, removeStored, clearLedger, registerBundle };
@@ -17,7 +17,7 @@
   const status = { local: 'loading', mirror: 'connecting', error: null, pending: 0 };
   for (const key of FIELDS) if (!Array.isArray(STATE[key])) STATE[key] = [];
   let db, ready, tail = Promise.resolve(), chainTail = Promise.resolve();
-  let nativeCheckpointFlight=null;
+  let nativeCheckpointFlight=null, checkpointHold=0;
   let mirrorTimer, mirrorRunning = false, mirrorDirty = false, serverAvailable = false;
   let selected = null, inspectorRows = [], signingIdentity = null, observationHashes = new Map();
   let cryptoAudit=null;
@@ -825,7 +825,7 @@
     if (complete) await verifyEvents(payload.custody?.events || []);
     if (complete && await hash(state) !== payload.state_sha256) throw new Error('Archive application-state checksum mismatch');
     if (complete && (!Array.isArray(payload.artifacts) || !Array.isArray(payload.custody?.events) ||
-        !Array.isArray(payload.custody?.retained) || FIELDS.some(field => !Array.isArray(state[field]))))
+        !Array.isArray(payload.custody?.retained) || FIELDS.some(field => state[field] !== undefined && !Array.isArray(state[field]))))
       throw new Error('Complete archive omits a required native custody collection');
     const artifacts = [];
     for (const encoded of payload.artifacts || []) {
@@ -975,6 +975,7 @@
   function scheduleMirror() {
     if (!serverAvailable) return;
     mirrorDirty = true;
+    if(checkpointHold)return;
     clearTimeout(mirrorTimer); mirrorTimer = setTimeout(mirror, 500);
   }
 
@@ -1074,7 +1075,7 @@
     byId('aletheia-count-rlm').textContent = (STATE.rlmCaptures || []).length;
     byId('aletheia-count-events').textContent = eventCount;
     byId('aletheia-count-algorithms').textContent = STATE.algorithmSources.length;
-    byId('aletheia-count-vectors').textContent = STATE.vectorSets.reduce((n, set) => n + (set.vector_count || 0), 0);
+    byId('aletheia-count-vectors').textContent = STATE.implementationRuns.at(-1)?.totals.captured ?? STATE.vectorSets.reduce((n, set) => n + (set.vector_count || 0), 0);
     renderCurrentEvidence();
     byId('aletheia-entry-path').textContent = signingIdentity?.runtime_context?.entry_path || location.href;
     byId('aletheia-signing-status').textContent = signingIdentity ? 'Local custody key fingerprint: ' + (signingIdentity.fingerprint_sha256 || signingIdentity.public_key_raw_b64u) +
@@ -1099,6 +1100,8 @@
         verification: (record.vector_count ?? 'unknown') + ' cases captured; execution not asserted', record })),
       ...STATE.bridgeObservations.slice(-20).reverse().map(record => ({ title: record.kind,
         category: 'Bridge', time: record.observed_at, reference: record.id, verification: record.verification, record })),
+      ...STATE.implementationRuns.flatMap(run=>run.results.map(record=>({title:'Linked provider · '+record.algorithm_id,category:'Execution result',time:run.observed_at,reference:record.provider?.sha256,verification:record.executed+' invoked · '+record.totals.failed+' source mismatches',record}))),
+      ...STATE.outcomeRuns.map(record=>({title:'Native typed outcome matrix',category:'Execution result',time:record.observed_at,reference:record.artifact_sha256,verification:record.matrix.length+' outcomes measured',record})),
       ...STATE.conformanceRuns.map(record => ({ title: 'Vector execution · ' + record.algorithm_id,
         category: 'Execution result', time: record.observed_at, reference: record.source_sha256,
         verification: record.passed + ' passed · ' + record.failed + ' failed · ' + record.unsupported + ' unsupported', record })),
@@ -1304,16 +1307,112 @@
     await retain('archive-conformance-determinations',null,result);
     await renderWorkbench();return result;
   }
+  async function executionTransaction(name,run) {
+    await ready;checkpointHold++;clearTimeout(mirrorTimer);
+    try{return await run();}catch(error){await retain(name+'-failure',null,{error:error.message});byId('aletheia-catalogue-status').textContent='Execution incomplete: '+error.message;throw error;}
+    finally{checkpointHold--;if(mirrorDirty&&!checkpointHold)scheduleMirror();}
+  }
+  const connectImplementations=execute=>executionTransaction('linked-conformance',()=>connectImplementationsInner(execute));
+  const runOutcomeCoverage=()=>executionTransaction('native-outcome',runOutcomeCoverageInner);
+  async function captureExecutionSources(files, sourceId) {
+    let batch=[];
+    const commit=async()=>{const records=batch;batch=[];await retain('implementation-source-batch',sourceId,{files:records.map(r=>({artifact_id:r.id,source_refs:r.source_refs}))},null,tx=>{for(const r of records)tx.objectStore('artifacts').put(r);});};
+    for(let i=0;i<files.length;i++) {
+      const source=files[i];
+      const response=await api('/api/aletheia/blob/'+source.blob_ref),bytes=await response.arrayBuffer();
+      if(hexOf(await digestBytes('SHA-256',new Uint8Array(bytes)))!==source.sha256)throw new Error('Implementation source byte mismatch: '+source.path);
+      const file=new File([bytes],source.name,{type:'application/octet-stream'});
+      let h=source.native_commitment;
+      if(h){const leaves=[];for(let offset=0;offset<Math.max(1,bytes.byteLength);offset+=1048576)leaves.push(await leafHashBytes(new Uint8Array(bytes.slice(offset,offset+1048576)),'SHA-256'));const root=b64uEncode(await rootFromLeafHashes(leaves,'SHA-256'));if(root!==h.root_b64u||leaves.length!==h.chunks)throw new Error('Native Merkle commitment mismatch');}
+      else h=await hashFileEntry({file,size:file.size},'SHA-256',1048576);
+      const id='sha256:'+h.root_b64u;
+      const prior=batch.find(r=>r.id===id)||await libraryGet(id);
+      const refs=[...(prior?.source_refs||(prior?.source_ref?[prior.source_ref]:[]))];
+      if(refs.some(r=>r.path===source.path&&r.sha256===source.sha256))continue;
+      refs.push(source);
+      const record={...prior,id,name:prior?.name||source.name,size:file.size,mime:file.type,kind:source.kind,
+        tags:[...new Set([...(prior?.tags||[]),source.kind])],notes:prior?.notes||'',imported_at:prior?.imported_at||now(),updated_at:now(),digest_alg:'SHA-256',chunk_size:1048576,
+        chunks:h.chunks,merkle_root_b64u:h.root_b64u,content_address:h.content_address,blob:file,source_ref:prior?.source_ref||source,source_refs:refs};
+      const at=batch.findIndex(r=>r.id===id);if(at<0)batch.push(record);else batch[at]=record;
+      if(batch.length>=100){await commit();console.info('PB-DIAG implementation sources captured '+(i+1)+'/'+files.length);}
+      byId('aletheia-catalogue-status').textContent='Implementation source capture '+(i+1)+'/'+files.length+' · '+source.path;
+      if(i%50===0)await pbYieldToUi();
+    }
+    if(batch.length)await commit();
+  }
+  async function connectImplementationsInner(execute=true) {
+    await ready;
+    if(!window.aletheiaDesktop)throw new Error('Local desktop execution required');
+    await retain('linked-conformance-request',null,{operation:execute?'execute captured providers':'retain existing execution receipt'});
+    const report=await aletheiaDesktop.call(execute?'runLinkedConformance':'linkedConformanceReport');
+    await captureExecutionSources(report.files,report.id);
+    const aliases=[];for(const source of report.files){if(source.native_commitment)aliases.push({key:await hash('sha256:'+source.native_commitment.root_b64u),source_key:source.blob_ref,sha256:source.sha256,size:source.size});}
+    for(let offset=0;offset<aliases.length;offset+=100)await aletheiaDesktop.call('bindSourceAliases',{bindings:aliases.slice(offset,offset+100)});
+    const definitions=await aletheiaDesktop.call('outcomeDefinitions');
+    await captureExecutionSources([definitions.source],report.id);
+    const capturedPaths=new Set(STATE.vectorSets.map(v=>v.path+':'+v.sha256));
+    for(const f of report.files.filter(f=>f.kind==='conformance-vectors'))if(!capturedPaths.has(f.path+':'+f.sha256)){STATE.vectorSets.push({...f,id:f.sha256,algorithm_id:f.algorithm_id,observed_at:report.observed_at,status:'source captured; linked execution receipt separate'});capturedPaths.add(f.path+':'+f.sha256);}
+    const registryIds=new Set(STATE.algorithmSources.map(a=>a.capture.registry_sha256+':'+a.id));
+    for(const a of report.algorithms){const d=a.source_determination;if(!registryIds.has(report.registry.sha256+':'+d.id))STATE.algorithmSources.push({...d,capture:{registry_sha256:report.registry.sha256,source_path:report.registry.path,observed_at:report.observed_at}});}
+    STATE.implementationRuns.push({...report,outcome_definitions:definitions});
+    await retain('linked-conformance-result',report.id,{...report,outcome_definitions:definitions});
+    byId('aletheia-catalogue-status').textContent=report.totals.executed+' actual vector invocations; '+report.totals.blocked+' cases blocked with per-case reasons. Provider and vector bytes retained.';
+    await renderWorkbench();return report;
+  }
+  async function runOutcomeCoverageInner() {
+    await ready;
+    const started=now();await retain('native-outcome-execution-request',null,{provider:'Current renderer verifyCore',scopes:['classical','pq'],additional:'Dual-signature disagreement'});
+    const cases=[];
+    for(const scope of ['classical','pq'])for(const [digest,signature] of PB_RUN_SCOPES[scope].pairs) {
+      byId('aletheia-catalogue-status').textContent='Native outcome execution · '+digest+' × '+signature+' · '+cases.length+' completed cases';
+      const built=await buildRunnerCases(digest,signature);
+      for(const c of built){const actual=await verifyCore(c.bundle,c.opts);cases.push({scope,digest,signature,expected:c.expected,actual:actual.outcome,standing:actual.outcome===c.expected?'passed':'failed',bundle:c.bundle,options:c.opts,trace:actual.trace});}
+      await pbYieldToUi();
+    }
+    const built=await buildRunnerCases('SHA-256','Ed25519');
+    const bundle=JSON.parse(JSON.stringify(built[0].bundle));
+    const witnessKey=await sigKeygen('Ed25519');
+    bundle.seal.witness={sig_alg:'Ed25519',pub_b64u:witnessKey.pub,signature_b64u:b64uEncode(await sigSign('Ed25519',b64uDecode(bundle.seal.digest_b64u),witnessKey.priv))};
+    // Corrupt only the witness signature; the primary and covered envelope remain valid.
+    const sig=bundle.seal.witness.signature_b64u;bundle.seal.witness.signature_b64u=(sig[0]==='A'?'B':'A')+sig.slice(1);
+    const actual=await verifyCore(bundle,built[0].opts);
+    cases.push({scope:'dual-signature disagreement',digest:'SHA-256',signature:'Ed25519',expected:'INDETERMINATE',actual:actual.outcome,standing:actual.outcome==='INDETERMINATE'?'passed':'failed',bundle,options:built[0].opts,trace:actual.trace});
+    const native=['VERIFIED','INVALID-SIGNATURE','MALFORMED','UNKNOWN-VERSION','EXPIRED','OUT-OF-BOUNDS','MISSING-SIDE-INFO','RESOURCE-EXHAUSTED','LINEAGE-INVALID','POLICY-DENIED','INDETERMINATE'];
+    const matrix=native.map(outcome=>({outcome,expected:cases.filter(c=>c.expected===outcome).length,observed:cases.filter(c=>c.actual===outcome).length,passed:cases.filter(c=>c.expected===outcome&&c.standing==='passed').length,failed:cases.filter(c=>c.expected===outcome&&c.standing==='failed').length}));
+    const result={schema:'ProofBundleNativeOutcomeCoverage/v1',id:makeId(),started_at:started,observed_at:now(),provider:'Current local renderer verifyCore',artifact_sha256:signingIdentity?.runtime_context?.artifact_sha256||null,matrix,cases,
+      source_manifest:{anchor:PB_MANIFEST_ANCHOR,source_sha256:PB_MANIFEST_SOURCE_SHA,expected_counts:vecTallies(loadVectorManifest()).expected},scope:'Generated live engine cases; frozen manifest rows remain historical source declarations, not replayed original payloads. Native HTML outcomes and modular verdict enum remain separate namespaces.'};
+    STATE.outcomeRuns.push(result);await retain('native-outcome-execution-result',result.id,result);await renderWorkbench();return result;
+  }
+  function renderLinkedEvidence() {
+    const report=STATE.implementationRuns.at(-1),outcomes=STATE.outcomeRuns.at(-1),target=byId('proofbundle-linked-execution');if(!target)return;
+    let html='<h3>Implementation execution and typed outcomes</h3>';
+    if(report){const t=report.totals;html+='<p>'+t.executed+' actual vector invocations across '+t.algorithms_with_execution+' algorithms · '+t.passed+' source expectations matched · '+t.failed+' source expectations failed · '+t.observed+' observations without a precise oracle · '+t.blocked+' blocked cases. Archive retention is separate from execution coverage.</p><p>Independent standard and message-binding probes: '+report.independent_probe_totals.passed+' passed · '+report.independent_probe_totals.failed+' failed. A source-answer match does not establish standard conformance.</p><label class="label">Find an implementation or execution discrepancy</label><input id="proofbundle-provider-search" placeholder="algorithm, status, source path" oninput="Aletheia.renderProviders(this.value)"><div id="proofbundle-provider-table"></div>';
+      const digestRuns=report.proofbundle_digest_execution?.results||[];if(digestRuns.length)html+='<h4>Actual ProofBundle modular digest provider</h4><table class="mini-table"><thead><tr><th>Algorithm</th><th>Invoked</th><th>Source match</th><th>Source mismatch</th><th>Blocked</th></tr></thead><tbody>'+digestRuns.map(r=>'<tr><td>'+esc(r.algorithm)+'</td><td>'+r.executed+'</td><td>'+r.passed+'</td><td>'+r.failed+'</td><td>'+r.blocked+'</td></tr>').join('')+'</tbody></table><p>These results use ProofBundle src/digest, with captured provider hashes checked before and after execution. They remain separate from the archived Python provider.</p>';
+      const defs=report.outcome_definitions;html+='<details><summary>'+defs.outcomes.length+' modular verdict definitions · separate source namespace</summary><p>'+defs.outcomes.map(esc).join(' · ')+'</p><p>'+esc(defs.source.path)+' · '+esc(defs.source.sha256)+'</p><p>Definition retention does not establish an executable verifier branch or an observed result.</p></details>';
+    }else html+='<p>No linked provider execution receipt retained.</p>';
+    if(outcomes)html+='<h4>Native HTML verifier outcomes</h4><p>Provider artifact SHA-256 ('+(outcomes.artifact_sha256===signingIdentity?.runtime_context?.artifact_sha256?'current loaded artifact':'earlier loaded artifact')+'): '+esc(outcomes.artifact_sha256||'unavailable')+'</p><table class="mini-table"><thead><tr><th>Outcome</th><th>Expected</th><th>Observed</th><th>Matched</th><th>Mismatch</th></tr></thead><tbody>'+outcomes.matrix.map(r=>'<tr><td>'+esc(r.outcome)+'</td><td>'+r.expected+'</td><td>'+r.observed+'</td><td>'+r.passed+'</td><td>'+r.failed+'</td></tr>').join('')+'</tbody></table><p>'+esc(outcomes.scope)+'</p>';
+    else html+='<p>Native typed outcome execution has no retained receipt yet.</p>';
+    target.innerHTML=html;if(report)renderProviders('');
+  }
+  function renderProviders(query='') {
+    const report=STATE.implementationRuns.at(-1),target=byId('proofbundle-provider-table');if(!report||!target)return;
+    const snapshotFiles=STATE.catalogueSources.flatMap(s=>s.files||[]);
+    const rows=report.algorithms.map((m,i)=>{const id=m.algorithm_id.toLowerCase();const family=id==='sha256'?'sha256':/^sha(384|512)$/.test(id)?'sha512':id==='blake3'?'blake3':id.startsWith('blake2')?'blake2':/^(sha3|shake|keccak)/.test(id)?'keccak':id.includes('ecdsa')?'ecdsa':id.startsWith('ml-kem')?'mlkem':id.startsWith('ml-dsa')?'mldsa':null;const snapshotLinks=family?snapshotFiles.filter(f=>(f.name===family+'.mjs'||f.name===family+' (1).mjs')):[];const snapshotTests=family?STATE.conformanceRuns.filter(r=>r.kind==='snapshot-test'&&r.test_path?.endsWith('/'+family+'.test.mjs')):[];return {m,r:report.results[i],snapshotLinks,snapshotTests};}).filter(({m,r})=>JSON.stringify([m.algorithm_id,m.source_determination.implementationStatus,m.selected_provider?.path,r.totals,r.independent_probes]).toLowerCase().includes(query.toLowerCase()));
+    target.innerHTML='<p>'+rows.length+' matching algorithms; first 50 shown. Complete results retained in each expandable record.</p><table class="mini-table"><thead><tr><th>Algorithm / source declaration</th><th>Actual provider</th><th>Execution</th></tr></thead><tbody>'+rows.slice(0,50).map(({m,r,snapshotLinks,snapshotTests})=>'<tr><td>'+esc(m.algorithm_id)+'<br>'+esc(m.source_determination.implementationStatus)+'</td><td>'+esc(m.selected_provider?.path||'No mapped Python provider')+'<br><small>'+esc(m.selected_provider?.sha256||'')+'</small></td><td>'+r.executed+' invoked; '+r.totals.passed+' matched; '+r.totals.failed+' failed; '+r.totals.blocked+' blocked<details><summary>Provider links, determinations, case outcomes, and blockers</summary><pre style="max-height:320px;overflow:auto;white-space:pre-wrap">'+esc(JSON.stringify({source_determination:m.source_determination,snapshot_family_source_links:snapshotLinks,snapshot_program_receipts:snapshotTests,snapshot_link_scope:'Family source links and their program receipts; these do not assert execution of the skeleton vectors by a snapshot module',providers:m.providers,vector_files:m.vector_files,determination_files:m.determination_files,provider_error:r.provider_error,independent_probes:r.independent_probes,cases:r.cases.slice(0,20),case_count:r.cases.length,preview_scope:'First 20 cases; complete per-algorithm record retained in Execution result inspector'},null,2))+'</pre></details></td></tr>').join('')+'</tbody></table>';
+  }
+
   function renderCurrentEvidence() {
+    renderLinkedEvidence();
     const snapshotRuns=STATE.conformanceRuns.filter(r=>r.kind==='snapshot-test');
     const vectorRuns=new Map();for(const run of STATE.conformanceRuns.filter(r=>r.kind!=='snapshot-test')) vectorRuns.set(run.source_path||run.vector_set_id||run.source_sha256,run);
     const current=[...vectorRuns.values()],totals=Object.fromEntries(['passed','failed','unsupported'].map(k=>[k,current.reduce((n,r)=>n+(r[k]||0),0)]));
-    const captured=STATE.vectorSets.reduce((n,r)=>n+(r.vector_count||0),0);
-    const executed=current.reduce((n,r)=>n+(r.cases?.length||0),0);
-    const text='Conformance: '+totals.passed+' pass · '+totals.failed+' fail · '+totals.unsupported+' unsupported';
-    const badge=byId('selftest-badge');if(badge&&badge.textContent!==text){badge.textContent=text;badge.className='selftest-badge '+(totals.failed?'st-bad':'');badge.title='Latest execution per captured vector file; archived cases: '+captured+'; executed cases: '+executed;}
+    const captured=STATE.implementationRuns.at(-1)?.totals.captured ?? STATE.vectorSets.reduce((n,r)=>n+(r.vector_count||0),0);
+    const executed=current.reduce((n,r)=>n+(r.cases?.filter(c=>c.standing==='passed'||c.standing==='failed').length||0),0);
+    const linked=STATE.implementationRuns.at(-1);
+    const text=linked?'Execution: '+linked.totals.executed+' invoked · '+linked.totals.failed+' source mismatches':'Adapter: '+executed+' executed · '+totals.unsupported+' blocked';
+    const badge=byId('selftest-badge');if(badge&&badge.textContent!==text){badge.textContent=text;badge.className='selftest-badge '+((linked?.totals.failed||totals.failed)?'st-bad':'');badge.title='Latest execution per captured vector file; archived cases: '+captured+'; executed cases: '+executed;}
     const boot=window.PB_SELFTEST||[];
-    const summary='<h3>Current tests and conformance</h3><p><b>'+captured.toLocaleString()+' archived vector cases</b> in '+STATE.vectorSets.length+' source files. '+current.length+' files executed by the named provider; '+executed.toLocaleString()+' case executions.</p><p>'+totals.passed+' passed · '+totals.failed+' failed · '+totals.unsupported+' unsupported. Unsupported cases remain unresolved.</p><p>'+snapshotRuns.length+' snapshot test-program runs: '+snapshotRuns.reduce((n,r)=>n+(r.passed||0),0)+' passing assertion executions, '+snapshotRuns.reduce((n,r)=>n+(r.failed||0),0)+' failing assertions. Repeated snapshots remain separate runs, not distinct test definitions.</p><p>Current browser boot diagnostics: '+boot.filter(r=>r.ok).length+' passed, '+boot.filter(r=>!r.ok).length+' failed. Boot diagnostics are one limited suite.</p>';
+    const summary='<h3>Retained adapter and test receipts</h3><p><b>'+captured.toLocaleString()+' archived vector cases</b> in '+STATE.vectorSets.length+' source files. '+current.length+' files submitted to the digest/canonical adapter; '+executed.toLocaleString()+' case executions.</p><p>'+totals.passed+' passed · '+totals.failed+' failed · '+totals.unsupported+' unsupported. Unsupported cases remain unresolved.</p><p>'+snapshotRuns.length+' snapshot test-program runs: '+snapshotRuns.reduce((n,r)=>n+(r.passed||0),0)+' passing assertion executions, '+snapshotRuns.reduce((n,r)=>n+(r.failed||0),0)+' failing assertions. Repeated snapshots remain separate runs, not distinct test definitions.</p><p>Current browser boot diagnostics: '+boot.filter(r=>r.ok).length+' passed, '+boot.filter(r=>!r.ok).length+' failed. Boot diagnostics are one limited suite.</p>';
     let auditSummary='';if(cryptoAudit){const current=cryptoAudit.artifact.sha256===signingIdentity?.runtime_context?.artifact_sha256;const open=cryptoAudit.findings.filter(f=>!String(f.status||'').startsWith('CLOSED'));auditSummary='<p>Native HTML audit ('+(current?'current loaded artifact':'earlier artifact; source hash differs')+'): '+cryptoAudit.summary.conformance_passed+'/'+cryptoAudit.summary.conformance_cases+' executed conformance cases; '+cryptoAudit.summary.functional_audit_checks.passed+'/'+cryptoAudit.summary.functional_audit_checks.total+' functional checks. '+open.length+' unresolved assurance finding(s): '+open.map(f=>esc(f.id+' · '+f.title)).join('; ')+'.</p>'; }
     byId('proofbundle-current-tests').innerHTML=summary+auditSummary;
     const vectorPanel=byId('proofbundle-vector-current');if(vectorPanel)vectorPanel.innerHTML=summary+auditSummary;
@@ -1327,8 +1426,9 @@
   window.Aletheia = { select: selectRecord, refresh: renderWorkbench, search: searchRlm,
     supplement: addSupplement, verify: verifyCustody, flush, archivePayload, restoreArchive,
     readSnapshot: async () => { await flush(); return readSnapshot(); }, verifyEvents,
-    retain, stateSnapshot, status, mirror, copyValue, restoreRecordCheckpoint:recoverRecordCheckpoint, checkpoint:mirrorRecords, exportNativeArchive, appendCatalogue, appendSnapshots, runArchiveVectors, runSelectedVectors,
+    retain, stateSnapshot, status, mirror, copyValue, restoreRecordCheckpoint:recoverRecordCheckpoint, checkpoint:mirrorRecords, exportNativeArchive, appendCatalogue, appendSnapshots, runArchiveVectors, runSelectedVectors, connectImplementations, runOutcomeCoverage, renderProviders,
     page: direction => { page = Math.max(0, page + direction); renderWorkbench(); } };
+  window.ProofBundle = window.Aletheia;
   ready = bootstrap();
   window.ALETHEIA_READY = ready;
   ready.catch(storageFailure);

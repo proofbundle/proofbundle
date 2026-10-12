@@ -1,0 +1,5 @@
+PyNaCl>=1.5
+cryptography>=41
+websockets>=12
+opentimestamps-client>=0.7
+PyQt5>=5.15

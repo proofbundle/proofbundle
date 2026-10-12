@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesh Chatter — pb rail panel</title>
+<style>
+  :root{
+    --bg:#0b0e14; --bg2:#11151f; --bg3:#161b28; --line:#232a3b;
+    --fg:#d7dce6; --dim:#8b93a7; --faint:#5b6373;
+    --ok:#4ade80; --bad:#f87171; --warn:#fbbf24; --acc:#7aa2f7; --vio:#c084fc;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 var(--mono)}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{display:flex;align-items:baseline;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--bg2);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+  header h1{font-size:16px;margin:0;letter-spacing:.5px}
+  header .sub{color:var(--dim);font-size:12px}
+  header .spacer{flex:1}
+  .pill{font-size:11px;padding:2px 10px;border:1px solid var(--line);border-radius:99px;color:var(--dim)}
+  .pill.ok{color:var(--ok);border-color:var(--ok)}
+  .pill.bad{color:var(--bad);border-color:var(--bad)}
+  .pill.warn{color:var(--warn);border-color:var(--warn)}
+  main{max-width:1240px;margin:0 auto;padding:18px 20px 60px;display:grid;gap:18px}
+  section{background:var(--bg2);border:1px solid var(--line);border-radius:8px}
+  section>h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin:0;padding:10px 14px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline}
+  section>h2 .note{font-weight:400;text-transform:none;letter-spacing:0;color:var(--faint);font-size:11px}
+  .body{padding:12px 14px}
+  .strips{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:900px){.strips,.grid2{grid-template-columns:1fr}}
+  .strip{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .kv{display:flex;flex-direction:column;gap:1px}
+  .kv .k{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+  .kv .v{font-size:15px;font-variant-numeric:tabular-nums}
+  .v.ok{color:var(--ok)} .v.bad{color:var(--bad)} .v.warn{color:var(--warn)}
+  .absent{color:var(--faint);font-style:italic}
+  .alertbox{border:1px solid var(--bad);background:rgba(248,113,113,.08);border-radius:6px;padding:6px 10px;color:var(--bad);font-size:12px}
+  .srcpath{font-size:11px;color:var(--faint)}
+  .feed{max-height:420px;overflow-y:auto;font-size:12px}
+  .frow{display:grid;grid-template-columns:78px 62px 46px 150px 86px 78px 1fr 60px;gap:8px;padding:3px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+  .frow .ts{color:var(--faint);font-variant-numeric:tabular-nums}
+  .frow .srcb{font-size:10px;padding:1px 6px;border-radius:4px;border:1px solid var(--line);text-align:center}
+  .srcb.bus{color:var(--acc);border-color:var(--acc)}
+  .srcb.lineage{color:var(--vio);border-color:var(--vio)}
+  .frow .seq{color:var(--dim);font-variant-numeric:tabular-nums}
+  .frow .frm{color:var(--acc)} .frow .dst{color:var(--vio)} .frow .arrow{color:var(--faint)}
+  .frow .kind{color:var(--dim)}
+  .frow .subj{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .frow .hashp{color:var(--faint);font-size:11px}
+  .flag{font-size:10px;padding:0 5px;border-radius:4px;border:1px solid var(--line);color:var(--dim);margin-right:3px;display:inline-block}
+  .flag.on{color:var(--ok);border-color:var(--ok)}
+  .flag.off{color:var(--faint)}
+  .flag.na{color:var(--faint);border-style:dotted}
+  .frow button{background:transparent;border:1px solid var(--line);color:var(--fg);font:inherit;font-size:11px;padding:1px 8px;border-radius:5px;cursor:pointer}
+  .frow button:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+  .frow button:disabled{opacity:.35;cursor:not-allowed}
+  .empty{color:var(--faint);font-style:italic;padding:6px 0}
+  .err{color:var(--bad)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  label{display:block;font-size:11px;color:var(--dim);margin:8px 0 3px;text-transform:uppercase;letter-spacing:1px}
+  input[type=text],textarea,select{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit;font-size:12px}
+  textarea{resize:vertical}
+  textarea:focus,input:focus,select:focus{outline:1px solid var(--acc)}
+  button.act{background:var(--bg3);border:1px solid var(--acc);color:var(--acc);font:inherit;font-size:12px;padding:6px 16px;border-radius:6px;cursor:pointer;margin-top:10px}
+  button.act:hover:not(:disabled){background:rgba(122,162,247,.12)}
+  button.act:disabled{opacity:.4;cursor:not-allowed}
+  .result{margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12px;white-space:pre-wrap;word-break:break-all;max-height:220px;overflow-y:auto}
+  .result .g{color:var(--ok)} .result .r{color:var(--bad)} .result .d{color:var(--dim)}
+  .lanes{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+  .lane{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .lane .name{font-weight:700}
+  .lane .name .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+  .dot.on{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+  .dot.off{background:var(--bad)}
+  .lane .meta{color:var(--dim);font-size:12px;margin-top:4px;word-break:break-all}
+  .jobs{max-height:260px;overflow-y:auto;font-size:12px}
+  .jrow{padding:4px 0;border-bottom:1px dashed var(--line);word-break:break-all}
+  .jrow .cmd{color:var(--fg)} .jrow .st{float:right}
+  table.alg{width:100%;border-collapse:collapse;font-size:12px}
+  table.alg th,table.alg td{text-align:left;padding:4px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.alg th{color:var(--dim);font-weight:400;text-transform:uppercase;font-size:10px;letter-spacing:1px}
+  table.alg td.nm{color:var(--acc);white-space:nowrap}
+  .st-active{color:var(--ok)} .st-withdrawn{color:var(--bad)} .st-other{color:var(--warn)}
+  /* ---- terminal section (task_0014) ----------------------------------- */
+  #live-mode{font-size:11px;padding:2px 10px;border:1px solid var(--line);border-radius:99px;color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0;margin-left:auto}
+  #live-mode.push{color:var(--ok);border-color:var(--ok)}
+  #live-mode.poll{color:var(--warn);border-color:var(--warn)}
+  #live-mode.down{color:var(--bad);border-color:var(--bad)}
+  #live-mode .why{color:var(--faint);margin-left:8px;text-transform:none}
+  .termsess{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:8px 10px;cursor:pointer;text-align:left;color:var(--fg);font:inherit;font-size:12px;width:100%;display:block}
+  .termsess:hover{border-color:var(--acc)}
+  .termsess.sel{border-color:var(--acc);background:rgba(122,162,247,.10)}
+  .termsess .t1{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .termsess .tty{color:var(--acc);font-weight:700}
+  .termsess .ttl{color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px}
+  .termsess .meta{color:var(--faint);font-size:11px;margin-top:3px;word-break:break-all}
+  .termsess .dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+  .dot.on{background:var(--ok)} .dot.off{background:var(--bad)} .dot.none{background:var(--faint)}
+  .feedlabel{color:var(--warn);border:1px dashed var(--warn);border-radius:4px;padding:0 5px;font-size:10px;white-space:nowrap}
+  .tsend{color:var(--ok);border:1px solid var(--ok)}
+  .tbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .tbar .grow{flex:1;min-width:180px}
+  .tkeys{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+  .tkeys button{background:var(--bg3);border:1px solid var(--line);color:var(--fg);font:inherit;font-size:11px;padding:2px 8px;border-radius:5px;cursor:pointer}
+  .tkeys button:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+  .tkeys button:disabled{opacity:.35;cursor:not-allowed}
+  .tscreen{background:#07090e;border:1px solid var(--line);border-radius:6px;padding:10px 12px;height:460px;overflow-y:auto;font-size:12px;line-height:1.45;white-space:pre-wrap;word-break:break-word;margin-top:10px}
+  .tscreen:focus{outline:1px solid var(--acc)}
+  .tscreen .l{color:#b8c0d0}
+  .tscreen .l.user{color:var(--ok)}
+  .tscreen .l.tool{color:var(--acc)}
+  .tscreen .l.res{color:var(--vio)}
+  .tscreen .l.new{background:rgba(122,162,247,.10)}
+  .tscreen .echo{color:var(--faint);font-style:italic}
+  .tscreen .sysline{color:var(--warn);font-style:italic}
+  .tstat{color:var(--dim);font-size:11px;margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+  .tstat .g{color:var(--ok)} .tstat .r{color:var(--bad)} .tstat .w{color:var(--warn)}
+  .tsrc{font-size:11px;color:var(--faint);word-break:break-all;margin-top:4px}
+  .honest{border:1px solid var(--line);background:var(--bg3);border-left:2px solid var(--warn);border-radius:4px;padding:8px 10px;font-size:11px;color:var(--dim);margin-top:10px}
+  .honest b{color:var(--warn);font-weight:400}
+  footer{color:var(--faint);font-size:11px;text-align:center;padding:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>MESH CHATTER</h1>
+  <span class="sub">unified pb rail panel · directive 2026-10-02</span>
+  <span class="pill" id="hb">…</span>
+  <span class="pill" id="live-mode">live: connecting…</span>
+  <span class="pill" id="bridge-mode">bridge: …</span>
+  <span class="spacer"></span>
+  <a href="/proofbundle">/proofbundle →</a>
+  <span class="pill">8788 revoked/absent expected</span>
+</header>
+<main>
+  <section>
+    <h2>Verify <span class="note" id="verify-src"></span></h2>
+    <div class="body strip" id="verify-strip"><span class="empty">…</span></div>
+  </section>
+  <section>
+    <h2>Capacity <span class="note" id="load-src"></span></h2>
+    <div class="body strip" id="load-strip"><span class="empty">…</span></div>
+  </section>
+  <section>
+    <h2>Rail traffic <span class="note">pushed section of the same live frame · all three producers (api log, bus, transcript) with their own status</span></h2>
+    <div class="body">
+      <div class="strip" id="traffic-strip"><span class="empty">…</span></div>
+      <div class="feed" id="traffic-feed" style="margin-top:10px"><span class="empty">…</span></div>
+      <div class="srcpath" id="traffic-src"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Mesh chatter <span class="note">merged: 8788 lineage tail + 8791 bus_tail · 2s poll · envelope metadata only — ciphertext/ek/nonce never rendered</span></h2>
+    <div class="body">
+      <div class="frow" style="color:var(--faint);font-size:10px;text-transform:uppercase;letter-spacing:1px">
+        <span>ts</span><span>src</span><span>seq</span><span>from → to</span><span>kind</span><span>flags</span><span>subject / hash</span><span></span>
+      </div>
+      <div class="feed" id="feed"><span class="empty">loading…</span></div>
+      <div class="srcpath" id="feed-src"></div>
+    </div>
+  </section>
+  <div class="grid2">
+    <section>
+      <h2>Compose <span class="note">POST 8791 /api/send</span></h2>
+      <div class="body">
+        <label>to (lane)</label><input type="text" id="send-to" list="lanes-list" placeholder="ops">
+        <datalist id="lanes-list"></datalist>
+        <label>subject</label><input type="text" id="send-subject" placeholder="hello">
+        <label>body</label><textarea id="send-body" rows="3" placeholder="plain text body"></textarea>
+        <button class="act" id="send-btn">send</button>
+        <div class="result" id="send-result"><span class="d">no send yet</span></div>
+        <h2 style="border:0;padding:14px 0 0">Encrypted verifier console <span class="note">signed encrypted ingress → verifier → encrypted recipient delivery</span></h2>
+        <label>agentId (registered signer)</label><input type="text" id="seal-agent" list="agents-list" placeholder="agent id with local identity">
+        <datalist id="agents-list"></datalist>
+        <label>payloadType</label>
+        <select id="seal-type"><option>work</option><option>browse</option><option>registry</option><option>note</option></select>
+        <label>payload (JSON)</label><textarea id="seal-payload" rows="2">{&quot;note&quot;:&quot;panel seal&quot;}</textarea>
+        <label>to (bridge recipient, optional)</label><input type="text" id="seal-to" list="agents-list" placeholder="recipient agent id">
+        <label><input type="checkbox" id="seal-encrypt" style="width:auto"> encrypt (sealed to recipient — routing to further recipients is rejected by the bridge)</label>
+        <button class="act" id="seal-btn">encrypt to verifier</button>
+        <button class="act" id="route-btn" disabled>route</button>
+        <div class="result" id="seal-result"><span class="d">no seal yet</span></div>
+      </div>
+    </section>
+    <section>
+      <h2>Verify console <span class="note">identity, signature, digest, decryption and routing</span></h2>
+      <div class="body">
+        <label>envelope JSON</label>
+        <textarea id="verify-in" rows="8" placeholder='{"version":"PB-ENVELOPE-1","seq":…}'></textarea>
+        <button class="act" id="verify-btn">verify ingress</button>
+        <div class="result" id="verify-result"><span class="d">no verification yet</span></div>
+      </div>
+    </section>
+  </div>
+  <section>
+    <h2>Lanes <span class="note">GET 8791 /api/state</span></h2>
+    <div class="body"><div class="lanes" id="lanes"><span class="empty">…</span></div></div>
+  </section>
+  <section>
+    <h2>Jobs <span class="note">from /api/state.jobs</span></h2>
+    <div class="body"><div class="jobs" id="jobs"><span class="empty">…</span></div></div>
+  </section>
+  <section>
+    <h2>Terminal <span class="note">sessions: GET 8791 /api/term/sessions · screen: /api/term/screen + /api/term/ws · input: /api/term/send</span></h2>
+    <div class="body">
+      <div class="lanes" id="term-sessions"><span class="empty">loading sessions…</span></div>
+      <div class="honest" id="term-honest">
+        <b>Screen feed is transcript-backed, not a raw kernel PTY tap.</b>
+        A pty cannot be read for another process's terminal (<code>/dev/pts/N</code> is mode <code>crw--w----</code>), so the output below is each session's own captured agent transcript, and a tty with no transcript is refused with a reason rather than faked. Keystrokes are real: they are written into the owning Konsole session via <code>org.kde.konsole.Session.sendText</code>.
+      </div>
+      <div class="tbar">
+        <span class="feedlabel" id="term-mode">screen: not attached</span>
+        <input type="text" id="term-input" class="grow" placeholder="type here, ENTER sends · or click the screen and type into it" disabled>
+        <button class="act" id="term-send" style="margin-top:0" disabled>send</button>
+        <button class="act" id="term-attach" style="margin-top:0" disabled>focus window</button>
+      </div>
+      <div class="tkeys" id="term-keys">
+        <button data-key="ENTER" disabled>ENTER</button>
+        <button data-key="CTRL_C" disabled>CTRL_C</button>
+        <button data-key="CTRL_D" disabled>CTRL_D</button>
+        <button data-key="TAB" disabled>TAB</button>
+        <button data-key="ESC" disabled>ESC</button>
+        <button data-key="UP" disabled>↑</button>
+        <button data-key="DOWN" disabled>↓</button>
+        <button data-key="RIGHT" disabled>→</button>
+        <button data-key="LEFT" disabled>←</button>
+        <button data-key="BACKSPACE" disabled>⌫</button>
+        <button data-key="PGUP" disabled>pgup</button>
+        <button data-key="PGDN" disabled>pgdn</button>
+      </div>
+      <div class="tscreen" id="term-screen" tabindex="0"><span class="echo">no session attached — click one above.</span></div>
+      <div class="tstat" id="term-stat"></div>
+      <div class="tsrc" id="term-sendlog"></div>
+      <div class="tsrc" id="term-src"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Algorithms <span class="note">GET 8791 /api/algorithms · registry is declared-not-exercised evidence only</span></h2>
+    <div class="body" style="max-height:300px;overflow-y:auto"><table class="alg" id="alg"><tr><td class="empty">…</td></tr></table></div>
+  </section>
+</main>
+<footer>pb rail panel · single file · vanilla JS · no external deps · renders only what endpoints return</footer>
+<script>
+(function(){
+"use strict";
+var RAIL="http://127.0.0.1:8791";
+var BRIDGE="http://127.0.0.1:8791";
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function shortTs(ts){var m=/T(\d{2}:\d{2}:\d{2})/.exec(String(ts||""));return m?m[1]:String(ts||"?");}
+function tval(ts){var t=Date.parse(ts);return isNaN(t)?0:t;}
+
+/* ---- bridge access chain ----------------------------------------------
+   1. 8791 /api/bridge proxy (rail-api is adding it; absent today)
+   2. direct 8788 fetch
+   3. honest blocked/absent status — never fabricate data.            */
+var bridgeMode="…";
+function setBridgeMode(m,cls){bridgeMode=m;$("bridge-mode").textContent="bridge: "+m;$("bridge-mode").className="pill "+(cls||"");}
+function bridgeFetch(path,opts){
+  opts=opts||{};
+  var init={method:opts.method||"GET",cache:"no-store"};
+  if(init.method==="POST"){init.headers={"Content-Type":"application/json"};init.body=JSON.stringify(opts.body||{});}
+  return fetch(RAIL+path,init).then(function(r){
+    if(r.status===404){var e=new Error("no such route");e.absent=true;throw e;}
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    setBridgeMode("via 8791 /api/bridge","ok");
+    return r.json();
+  }).catch(function(e){
+    if(e&&e.absent){
+      return fetch(BRIDGE+path,init).then(function(r){
+        if(!r.ok)throw new Error("HTTP "+r.status);
+        setBridgeMode("via 8788 direct","warn");
+        return r.json();
+      }).catch(function(e2){
+        /* GET /api/bridge proxies reads; POSTs (/seal,/verify,/route) have no
+           proxy yet and 8788 sends no CORS headers, so cross-origin POSTs
+           fail in-browser. Say exactly that — never fake success. */
+        setBridgeMode((opts.method==="POST"?"POST proxy absent on 8791 /api/bridge; ":"")+
+          "direct 8788 "+(e2&&e2.message==="HTTP 404"?"404":"CORS-blocked from this origin"),"bad");
+        throw e2;
+      });
+    }
+    setBridgeMode("unreachable: "+e.message,"bad");
+    throw e;
+  });
+}
+/* ---- state (8791, same-origin): lanes + jobs + bus_tail -------------- */
+var lanesSet={},stateInFlight=false,lastBeat=0;
+function applyState(d){
+  lastBeat=Date.now();
+  renderLanes(d.lanes||[]);
+  renderJobs(d.jobs||[]);
+  renderBus(d.bus_tail||[]);
+}
+function pollState(){
+  if(stateInFlight)return; /* /api/state can take >2s under load; never pile up */
+  stateInFlight=true;
+  fetch(RAIL+"/api/state",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+  .then(function(d){applyState(d);stateInFlight=false;})
+  .catch(function(e){
+    stateInFlight=false;
+    $("hb").textContent="rail-api: "+e.message;$("hb").className="pill bad";
+  });
+}
+function renderLanes(lanes){
+  lanesSet={};$("lanes-list").innerHTML=lanes.map(function(l){return "<option value=\""+esc(l.lane)+"\">";}).join("");
+  var h="";
+  lanes.forEach(function(l){
+    lanesSet[l.lane]=true;
+    h+='<div class="lane"><div class="name"><span class="dot '+(l.live?"on":"off")+'"></span>'+esc(l.lane)+'</div>'+
+       '<div class="meta">'+esc(l.provider)+(l.model?" · "+esc(l.model):"")+(l.route?"<br>"+esc(l.route):"")+'</div></div>';
+  });
+  $("lanes").innerHTML=h||'<span class="empty">no lanes returned</span>';
+}
+function renderJobs(jobs){
+  var h="";
+  jobs.forEach(function(j){
+    h+='<div class="jrow"><span class="st '+(j.ok?"st-active":"st-other")+'">'+esc(j.status||j.state||"?")+'</span>'+
+       '<span class="cmd">'+esc(j.cmd||JSON.stringify(j).slice(0,120))+'</span></div>';
+  });
+  $("jobs").innerHTML=h||'<span class="empty">no jobs returned</span>';
+}
+/* ---- verify strip + capacity strip + lineage (8791 /api/bridge aggregate) */
+function fetchJSON(url,init){
+  return fetch(url,init||{cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error("HTTP "+r.status+(r.status===404?" (no such route)":""));
+    return r.json();
+  });
+}
+function applyBridge(d,src){
+  var ov=d.overview||{},lg=d.lineage||{};
+  if(ov.absent){
+    $("verify-strip").innerHTML='<span class="absent">absent — '+esc(ov.reason||"bridge target unreachable")+'</span>';
+  }else{
+    $("verify-strip").innerHTML='<div class="kv"><span class="k">chain_ok</span><span class="v '+(ov.chain_ok?"ok":"bad")+'">'+esc(ov.chain_ok)+'</span></div>'+
+      '<div class="kv"><span class="k">last_seq</span><span class="v">'+esc(ov.last_seq)+'</span></div>'+
+      '<div class="kv"><span class="k">entries</span><span class="v">'+esc(ov.entries)+'</span></div>'+
+      '<div class="kv"><span class="k">agents_registered</span><span class="v">'+esc(ov.agents_registered)+'</span></div>'+
+      (ov.forked!=null?'<div class="kv"><span class="k">forked</span><span class="v '+(ov.forked?"bad":"ok")+'">'+esc(ov.forked)+'</span></div>':'');
+  }
+  $("verify-src").textContent="GET "+src+" · overview";
+  if(lg.absent||!lg.tail){lineageRows=[];}
+  else{
+    lineageRows=lg.tail.map(function(r){
+      /* lineage tail exposes metadata only: encrypted/signature_valid are not in the tail schema */
+      return {type:"lineage",seq:r.seq,ts:r.ts,from:r.agent||"?",to:r.to||"",kind:r.payload_type||"?",
+              subject:"",encrypted:null,sig:null,hash:r.hash_preview||""};
+    });
+  }
+  renderFeed();
+}
+function pollBridge(){
+  fetchJSON(RAIL+"/api/bridge?n=50")
+    .then(function(d){setBridgeMode("via 8791 /api/bridge","ok");applyBridge(d,"8791 /api/bridge");})
+    .catch(function(){
+      /* proxy absent/unreachable: try 8788 direct (same-origin only in practice — CORS) */
+      Promise.all([fetchJSON(BRIDGE+"/api/overview"),fetchJSON(BRIDGE+"/api/lineage/tail?n=50")])
+        .then(function(a){setBridgeMode("via 8788 direct","warn");applyBridge({overview:a[0],lineage:a[1]},"8788 direct");})
+        .catch(function(e){
+          setBridgeMode("absent ("+e.message+")","bad");
+          $("verify-strip").innerHTML='<span class="absent">absent — 8788 broker revoked/expected absent · '+esc(e.message)+'</span>';
+          $("verify-src").textContent="unavailable";
+          lineageRows=[];renderFeed();
+        });
+    });
+}
+/* Capacity has TWO real sources and the panel shows which one it used:
+   orch.telemetry (pushed every frame, read live from /proc + hwmon) and
+   /api/load (the load-watch log, appended ~1/min). applyOrch owns the
+   strip while frames arrive; this runs at a slow reconciliation cadence so
+   the strip still has real data if the orch section ever goes missing,
+   and so the slower log-side source stays visible. It is NOT a duplicate
+   2s poll of the same thing. */
+function renderLoadLog(d){
+  $("load-src").textContent="GET 8791 /api/load · "+(d.writer||d.source||"")+" · "+(d.count!=null?d.count+" samples":"")+
+    " · reconciliation (live value comes from ws /api/live orch.telemetry)";
+  var L=d.latest||{},flags=(L.flags||[]).join(",")||"—";
+  var alertOn=(d.alert===true)||(L.flags||[]).some(function(f){return f&&f!=="ok";});
+  var h='<div class="kv"><span class="k">load1</span><span class="v '+(L.load1>8?"warn":"")+'">'+esc(L.load1!=null?L.load1:"—")+'</span></div>'+
+    '<div class="kv"><span class="k">mem_avail_MiB</span><span class="v">'+esc(L.mem_avail_MiB!=null?L.mem_avail_MiB:"—")+'</span></div>'+
+    '<div class="kv"><span class="k">swap MiB free/total</span><span class="v">'+esc(L.swap_free_MiB!=null?L.swap_free_MiB:"—")+"/"+esc(L.swap_total_MiB!=null?L.swap_total_MiB:"—")+'</span></div>'+
+    '<div class="kv"><span class="k">root_free_GiB</span><span class="v '+(L.root_free_GiB!=null&&L.root_free_GiB<5?"bad":"")+'">'+esc(L.root_free_GiB!=null?L.root_free_GiB:"—")+'</span></div>'+
+    '<div class="kv"><span class="k">flags @ '+esc(L.ts||"?")+'</span><span class="v '+(alertOn?"bad":"ok")+'">'+esc(flags)+'</span></div>';
+  if(alertOn)h='<div class="alertbox">⚠ ALERT: load-watch flags '+esc(flags)+'</div>'+h;
+  $("load-strip").innerHTML=h;
+}
+function pollLoad(){
+  if(!orchSeen){                 /* only when the pushed section is missing */
+    fetch(RAIL+"/api/load",{cache:"no-store"}).then(function(r){
+      if(r.status===404){$("load-strip").innerHTML='<span class="absent">absent</span>';$("load-src").textContent="GET 8791 /api/load → no such route";return null;}
+      if(!r.ok)throw new Error("HTTP "+r.status);
+      return r.json();
+    }).then(function(d){if(d)renderLoadLog(d);})
+      .catch(function(e){
+        $("load-strip").innerHTML='<span class="err">unreachable: '+esc(e.message)+'</span>';$("load-src").textContent="error";
+      });
+  }
+}
+/* ---- mesh chatter: merge lineage tail (8788) + bus_tail (8791) -------- */
+var busRows=[],lineageRows=[],follow=true;
+function busEncrypted(bodyStr){
+  /* peek ONLY for the encrypted boolean — the values are never rendered */
+  try{var b=JSON.parse(bodyStr);return b&&typeof b==="object"&&"ct"in b;}catch(e){return null;}
+}
+function renderBus(tail){
+  busRows=tail.map(function(r){
+    return {type:"bus",seq:r.seq,ts:r.ts,from:r.src||"?",to:Array.isArray(r.to)?r.to.join(","):(r.to||""),
+            kind:r.kind||"?",subject:r.subject||"",encrypted:busEncrypted(r.body),sig:null,hash:(r.hash||"").slice(0,16)};
+  });
+  renderFeed();
+}
+function flag(v,label){
+  if(v===null||v===undefined)return '<span class="flag na" title="not exposed by this endpoint">'+label+": —</span>";
+  return '<span class="flag '+(v?"on":"off")+'">'+label+": "+(v?"yes":"no")+"</span>";
+}
+function renderFeed(){
+  var rows=busRows.concat(lineageRows);
+  rows.sort(function(a,b){return tval(b.ts)-tval(a.ts);});
+  rows=rows.slice(0,200);
+  $("feed-src").textContent=busRows.length+" bus rows (8791 /api/state.bus_tail) + "+lineageRows.length+" lineage rows ("+
+    (lineageRows.length?"8791 /api/bridge lineage tail":"not returned — see bridge pill")+") · sorted newest-first";
+  if(!rows.length){$("feed").innerHTML='<span class="empty">no rows returned</span>';return;}
+  var h="";
+  rows.forEach(function(r){
+    var canAck=lanesSet[r.from];
+    h+='<div class="frow"><span class="ts">'+esc(shortTs(r.ts))+'</span>'+
+      '<span class="srcb '+r.type+'">'+r.type+'</span>'+
+      '<span class="seq">#'+esc(r.seq)+'</span>'+
+      '<span><span class="frm">'+esc(r.from)+'</span> <span class="arrow">→</span> <span class="dst">'+esc(r.to||"(log)")+'</span></span>'+
+      '<span class="kind">'+esc(r.kind)+'</span>'+
+      '<span>'+flag(r.encrypted,"enc")+flag(r.sig,"sig")+'</span>'+
+      '<span class="subj" title="'+esc(r.subject)+'">'+esc(r.subject||r.hash)+'</span>'+
+      '<span><button '+(canAck?"":"disabled ")+(canAck?"":"title='from is not a rail lane' ")+'data-ack-seq="'+esc(r.seq)+'" data-ack-to="'+esc(r.from)+'">ack</button></span></div>';
+  });
+  $("feed").innerHTML=h;
+  Array.prototype.forEach.call($("feed").querySelectorAll("button[data-ack-seq]"),function(b){
+    b.onclick=function(){ack(b.getAttribute("data-ack-to"),b.getAttribute("data-ack-seq"),b);};
+  });
+  if(follow)$("feed").scrollTop=0;
+}
+function ack(to,seq,btn){
+  btn.disabled=true;btn.textContent="…";
+  fetch(RAIL+"/api/send",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({to:to,subject:"ack",body:"ack seq #"+seq+" — mesh chatter panel",reply_to:parseInt(seq,10)||seq})})
+  .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+  .then(function(res){
+    if(res.ok&&res.j.ok){btn.textContent="✓ seq "+res.j.seq;}
+    else{btn.textContent="✗";logBusErrorLocal("ack to "+to+" failed: "+JSON.stringify(res.j).slice(0,200));}
+  }).catch(function(e){btn.textContent="✗";logBusErrorLocal("ack to "+to+" network error: "+e.message);});
+}
+/* mistakes are logged as bus error records via /api/send (console is fallback only) */
+function logBusErrorLocal(msg){
+  console.error("bus error:",msg);
+  fetch(RAIL+"/api/send",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({to:"ops",subject:"error: mesh chatter panel",body:String(msg).slice(0,400)})})
+  .catch(function(){/* console record above stands if the bus itself is down */});
+}
+/* registered-agent datalist (bridge; may be CORS-blocked from this origin) */
+bridgeFetch("/api/agents").then(function(d){
+  $("agents-list").innerHTML=(d.registered||[]).map(function(a){return '<option value="'+esc(a.id)+'">';}).join("");
+}).catch(function(){/* datalist stays empty — free text still works */});
+
+/* ---- compose: POST 8791 /api/send ------------------------------------- */
+$("send-btn").onclick=function(){
+  var to=$("send-to").value.trim(),subject=$("send-subject").value,body=$("send-body").value;
+  $("send-result").innerHTML='<span class="d">sending…</span>';
+  fetch(RAIL+"/api/send",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({to:to,subject:subject,body:body})})
+  .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+  .then(function(res){
+    if(res.ok&&res.j.ok){
+      $("send-result").innerHTML='<span class="g">✓ sent seq '+esc(res.j.seq)+' ops→'+esc(res.j.to)+
+        ' · digest '+esc(String(res.j.digest||"").slice(0,16))+'… · delivered='+esc(res.j.delivered)+'</span>';
+    }else{
+      $("send-result").innerHTML='<span class="r">✗ '+esc(JSON.stringify(res.j))+'</span>';
+      logBusErrorLocal("send to "+to+" rejected: "+JSON.stringify(res.j).slice(0,200));
+    }
+  }).catch(function(e){$("send-result").innerHTML='<span class="r">✗ network: '+esc(e.message)+'</span>';});
+};
+/* ---- seal + route: POST 8788 /seal then /route ------------------------ */
+var lastEnvelope=null;
+$("seal-btn").onclick=function(){
+  var agent=$("seal-agent").value.trim(),to=$("seal-to").value.trim();
+  var payload;try{payload=JSON.parse($("seal-payload").value);}catch(e){$("seal-result").innerHTML='<span class="r">✗ payload is not valid JSON: '+esc(e.message)+'</span>';return;}
+  var body={agentId:agent,payload:payload,payloadType:$("seal-type").value,encrypt:$("seal-encrypt").checked};
+  if(to)body.to=to;
+  $("seal-result").innerHTML='<span class="d">sealing…</span>';$("route-btn").disabled=true;
+  bridgeFetch("/seal",{method:"POST",body:body}).then(function(d){
+    if(d.error){$("seal-result").innerHTML='<span class="r">✗ '+esc(d.error)+": "+esc(d.detail||"")+'</span>';return;}
+    lastEnvelope=d.envelope;
+    var rc=d.receipt||{};
+    $("seal-result").innerHTML='<span class="g">Encrypted ingress prepared. Submit to verify and deliver.</span>';
+    $("route-btn").disabled=false;
+  }).catch(function(e){$("seal-result").innerHTML='<span class="r">✗ seal unreachable: '+esc(e.message)+'</span>';});
+};
+$("route-btn").onclick=function(){
+  if(!lastEnvelope){$("seal-result").innerHTML='<span class="r">✗ seal first</span>';return;}
+  var to=$("seal-to").value.trim();
+  if(!to){$("seal-result").innerHTML='<span class="r">✗ route needs a recipient</span>';return;}
+  bridgeFetch("/route",{method:"POST",body:{to:to,envelope:lastEnvelope}}).then(function(d){
+    if(d.error){$("seal-result").innerHTML+='<div><span class="r">route ✗ '+esc(d.error)+": "+esc(d.detail||"").slice(0,180)+'</span></div>';}
+    else{$("seal-result").innerHTML+='<div><span class="g">route ✓ seq '+esc(d.seq)+' → '+esc(d.to)+'</span></div>';}
+  }).catch(function(e){$("seal-result").innerHTML+='<div><span class="r">route ✗ unreachable: '+esc(e.message)+'</span></div>';});
+};
+/* ---- verify console: POST 8788 /verify -------------------------------- */
+$("verify-btn").onclick=function(){
+  var env;try{env=JSON.parse($("verify-in").value);}catch(e){$("verify-result").innerHTML='<span class="r">✗ not valid JSON: '+esc(e.message)+'</span>';return;}
+  $("verify-result").innerHTML='<span class="d">verifying…</span>';
+  bridgeFetch("/verify",{method:"POST",body:{envelope:env}}).then(function(d){
+    if(d.error){$("verify-result").innerHTML='<span class="r">✗ '+esc(d.error)+": "+esc(d.detail||"")+'</span>';return;}
+    $("verify-result").textContent=JSON.stringify({accepted:d.accepted,receipt:d.receipt},null,2);
+  }).catch(function(e){$("verify-result").innerHTML='<span class="r">✗ verify unreachable: '+esc(e.message)+'</span>';});
+};
+/* ---- algorithms table -------------------------------------------------- */
+function pollAlgorithms(){
+  fetch(RAIL+"/api/algorithms",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+  .then(function(d){
+    var a=d.algorithms||{},h="<tr><th>name</th><th>family</th><th>status</th><th>where used</th><th>note</th></tr>";
+    Object.keys(a).forEach(function(k){
+      var st=a[k].status||"?",cls=st==="active"?"st-active":(st==="withdrawn"?"st-withdrawn":"st-other");
+      h+="<tr><td class='nm'>"+esc(k)+"</td><td>"+esc(a[k].family)+"</td><td class='"+cls+"'>"+esc(st)+"</td><td>"+esc(a[k].where_used||"")+"</td><td class='srcpath'>"+esc(a[k].note||"")+"</td></tr>";
+    });
+    $("alg").innerHTML=h;
+  }).catch(function(e){$("alg").innerHTML="<tr><td class='err'>"+esc(e.message)+"</td></tr>";});
+}
+/* =====================================================================
+   LIVE TRANSPORT (task_0014)
+   One websocket to ws://host/api/live pushes a frame every ~2s whose
+   sections are the SAME producers the old per-panel polls called:
+     traffic   -> /api/traffic      heartbeat -> /api/heartbeat
+     orch      -> /api/orch         term      -> /api/term/sessions
+   GET /api/live returns byte-identical sections with mode:"json-poll",
+   so it is a real fallback (not a degraded one) when the socket cannot
+   open. Exactly one transport is active at a time: the poller only
+   starts when the socket is not open, and the socket is only opened
+   when the poller is not running. No duplicate requests are ever in
+   flight, which matters because the server coalesces identical calls.
+   ===================================================================== */
+var liveSock=null,liveMode="idle",liveBackoff=1000,livePollTimer=null,liveReconnectTimer=null;
+var liveKinds="traffic,heartbeat,orch,term";   /* what the old 4 polls covered */
+var liveFrames=0,liveLastFrame=0,liveNote="",orchSeen=false;
+
+function setLiveMode(mode,why){
+  liveMode=mode;
+  var p=$("live-mode");
+  p.className="pill "+(mode==="push"?"push":(mode==="poll"?"poll":(mode==="down"?"down":"warn")));
+  var label=(mode==="push"?"live: PUSH (ws /api/live)":(mode==="poll"?"live: POLL (GET /api/live)":"live: "+mode.toUpperCase()));
+  p.innerHTML=esc(label)+(why?'<span class="why">'+esc(why)+"</span>":"");
+}
+/* one frame -> every panel, whatever the transport was */
+function applyLiveFrame(f){
+  if(!f||f.type!=="live")return;
+  liveFrames++;liveLastFrame=Date.now();
+  if(f.note)liveNote=String(f.note);
+  if(f.heartbeat)applyHeartbeat(f.heartbeat);
+  if(f.orch)applyOrch(f.orch);
+  if(f.term)renderTermSessions(f.term.sessions||[],(f.term.error?f.term.error:null));
+  /* traffic is a NEW section this panel did not poll before; the mesh
+     chatter feed keeps its own /api/state bus_tail + bridge lineage. */
+  if(f.traffic)renderTraffic(f.traffic);
+  if(f.traffic&&f.traffic.error)renderTrafficError(f.traffic.error);
+}
+function startLivePoll(why){
+  if(livePollTimer)return;              /* already polling: never double up */
+  setLiveMode("poll",why);
+  var tick=function(){
+    fetch(RAIL+"/api/live?kinds="+encodeURIComponent(liveKinds),{cache:"no-store"})
+      .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+      .then(applyLiveFrame)
+      .catch(function(e){setLiveMode("down","poll failed: "+e.message);});
+  };
+  tick();
+  livePollTimer=setInterval(tick,2000);
+}
+function stopLivePoll(){
+  if(livePollTimer){clearInterval(livePollTimer);livePollTimer=null;}
+}
+function stopLiveSock(){
+  if(liveSock){var s=liveSock;liveSock=null;try{s.close();}catch(e){}}
+}
+function openLiveSock(){
+  if(liveSock)return;
+  var url="ws://"+location.host+"/api/live?kinds="+encodeURIComponent(liveKinds);
+  var ws;
+  try{ws=new WebSocket(url);}catch(e){startLivePoll("WebSocket constructor failed: "+e.message);return;}
+  liveSock=ws;
+  setLiveMode("connecting","opening ws /api/live");
+  var opened=false;
+  ws.onopen=function(){
+    opened=true;liveBackoff=1000;stopLivePoll();
+    setLiveMode("push","frames every ~2s");
+  };
+  ws.onmessage=function(ev){
+    var f;try{f=JSON.parse(ev.data);}catch(e){return;}
+    if(f.type==="pong")return;
+    if(f.type==="live"){setLiveMode("push","frames every ~2s");applyLiveFrame(f);}
+  };
+  ws.onerror=function(){ /* onclose carries the reason; do not double-report */ };
+  ws.onclose=function(ev){
+    if(liveSock===ws)liveSock=null;
+    if(!opened){
+      /* never opened: polling is the honest fallback and we say so */
+      startLivePoll("ws unavailable ("+((ev&&ev.reason)||(ev&&ev.code)||"no connection")+") — polling GET /api/live");
+    }else{
+      startLivePoll("ws dropped after "+liveFrames+" frames — polling GET /api/live");
+      liveReconnectTimer=setTimeout(function(){stopLivePoll();openLiveSock();},
+        Math.min(15000,liveBackoff));
+      liveBackoff=Math.min(15000,liveBackoff*2);
+    }
+  };
+}
+
+/* ---- heartbeat strip (was a 1s local age ticker over /api/state) ----- */
+function applyHeartbeat(hb){
+  if(!hb||hb.error){$("hb").textContent="heartbeat: "+(hb&&hb.error?hb.error:"not in frame");$("hb").className="pill bad";return;}
+  lastBeat=Date.now();
+  $("hb").textContent="rail-api "+(hb.healthy?"healthy":"degraded")+" · beat "+hb.beat+" · "+Math.round(hb.uptime_s||0)+"s up";
+  $("hb").className="pill "+(hb.healthy?"ok":"warn");
+  $("hb").title=(hb.services||[]).map(function(s){return s.service+": "+(s.alive?"alive":"DOWN")+" — "+s.detail;}).join("\n");
+}
+/* ---- capacity strip: orch.telemetry is the live /proc-backed source;
+       the load-watch log is appended only ~once a minute, so the pushed
+       telemetry is what the strip reports, and it says which it used. -- */
+function applyOrch(o){
+  if(!o||o.error){$("load-strip").innerHTML='<span class="err">orch: '+esc((o&&o.error)||"not in frame")+"</span>";$("load-src").textContent="error";return;}
+  orchSeen=true;
+  var t=o.telemetry||{};
+  var h='<div class="kv"><span class="k">load1</span><span class="v '+(t.load1>t.load_limit?"warn":"")+'">'+esc(t.load1)+" / "+esc(t.load_limit)+'</span></div>'+
+    '<div class="kv"><span class="k">mem_pct</span><span class="v '+(t.mem_pct>85?"bad":"")+'">'+esc(t.mem_pct)+"%</span></div>"+
+    '<div class="kv"><span class="k">thermal_c</span><span class="v '+(t.thermal_c>=t.thermal_alarm_c?"bad":"")+'">'+esc(t.thermal_c)+" / "+esc(t.thermal_alarm_c)+'</span></div>'+
+    '<div class="kv"><span class="k">heavy jobs</span><span class="v">'+esc(o.heavy_running)+" / "+esc(o.max_heavy)+'</span></div>'+
+    '<div class="kv"><span class="k">lanes live</span><span class="v ok">'+esc((o.lanes||[]).filter(function(l){return l.live;}).length)+" / "+esc((o.lanes||[]).length)+'</span></div>'+
+    '<div class="kv"><span class="k">uptime_s</span><span class="v">'+esc(Math.round(t.uptime_s||0))+"</span></div>";
+  var warn=[];
+  if(t.thermal_c>=t.thermal_alarm_c)warn.push("thermal "+t.thermal_c+"C >= alarm "+t.thermal_alarm_c);
+  if(t.load1>t.load_limit)warn.push("load1 "+t.load1+" > limit "+t.load_limit);
+  if(warn.length)h='<div class="alertbox">⚠ ALERT: '+esc(warn.join(" · "))+"</div>"+h;
+  $("load-strip").innerHTML=h;
+  $("load-src").textContent="ws /api/live → orch.telemetry · "+esc(o.source||"")+" · "+esc(t.now||"");
+}
+/* ---- traffic: the new section the old 4 polls never had --------------- */
+function renderTraffic(t){
+  var rows=t.rows||[],sc=t.source_status||{};
+  var svc=Object.keys(sc).filter(function(k){return sc[k]==="ok"||sc[k]==="bad";});
+  var bad=svc.filter(function(k){return sc[k]==="bad";});
+  $("traffic-strip").innerHTML=
+    '<div class="kv"><span class="k">rows</span><span class="v">'+esc(t.count!=null?t.count:rows.length)+"</span></div>"+
+    '<div class="kv"><span class="k">sources</span><span class="v">'+esc((t.sources||[]).join(" · ")||"—")+"</span></div>"+
+    '<div class="kv"><span class="k">elapsed_ms</span><span class="v '+(sc.over_budget?"warn":"")+'">'+esc(sc.elapsed_ms!=null?sc.elapsed_ms:"—")+" / budget "+(t.budget_s!=null?t.budget_s:"—")+"</span></div>"+
+    '<div class="kv"><span class="k">source status</span><span class="v '+(bad.length?"bad":"ok")+'">'+esc(svc.join(" ")||"—")+"</span></div>";
+  var body="";
+  if(!rows.length){body='<span class="empty">no traffic rows in this frame</span>';}
+  else{
+    body='<div class="frow" style="grid-template-columns:78px 62px 62px 52px 96px 1fr;color:var(--faint);font-size:10px;text-transform:uppercase;letter-spacing:1px">'+
+      "<span>ts</span><span>source</span><span>lane</span><span>kind</span><span>dir</span><span>text</span></div>";
+    rows.slice(0,60).forEach(function(r){
+      body+='<div class="frow" style="grid-template-columns:78px 62px 62px 52px 96px 1fr">'+
+        '<span class="ts">'+esc(shortTs(r.ts))+"</span>"+
+        '<span class="srcb '+(r.source==="bus"?"bus":(r.source==="transcript"?"lineage":""))+'">'+esc(r.source)+"</span>"+
+        '<span class="kind">'+esc(r.lane)+'</span><span class="kind">'+esc(r.kind)+"</span>"+
+        '<span class="kind">'+esc(r.dir)+'</span><span class="subj" title="'+esc(r.text)+'">'+esc(r.text)+"</span></div>";
+    });
+  }
+  $("traffic-feed").innerHTML=body;
+  $("traffic-src").textContent="ws /api/live → traffic · newest-first · sources "+(t.sources||[]).join(",");
+}
+function renderTrafficError(e){
+  $("traffic-strip").innerHTML='<span class="err">'+esc(e)+"</span>";
+  $("traffic-feed").innerHTML='<span class="err">traffic section failed: '+esc(e)+"</span>";
+  $("traffic-src").textContent="error";
+}
+
+/* =====================================================================
+   TERMINAL (task_0014)
+   Real interactivity, and honest about what "screen" means on this host:
+     · sessions  GET  /api/term/sessions  (also rides the live frame)
+     · screen    WS   /api/term/ws?tty=…  -> hello/screen/delta/keepalive
+       fallback GET  /api/term/screen?tty=… when the socket cannot open
+     · input     POST /api/term/send {tty,keys}  (konsole sendText into the
+                 real pty) — over the term socket when it is up, over the
+                 POST route when it is not.
+   The output is that session's own captured transcript. It is labelled as
+   such everywhere and a tty with no transcript is refused with the server's
+   own reason. No line is ever invented or replayed from nowhere: sent
+   keystrokes are shown as this panel's own italic "sent" line, explicitly
+   marked as a local record, never as pty echo.
+   ===================================================================== */
+var termTTY=null,termSock=null,termLines=[],termSource="",termLabel="",termNote="";
+var termDeltas=0,termFollow=true,termLastSend=null,termPollTimer=null;
+var TERM_MAX_LINES=400;
+
+function termStatus(cls,text){$("term-mode").className="feedlabel"+(cls?" "+cls:"");$("term-mode").textContent=text;}
+function termStat(html){$("term-stat").innerHTML=html;}
+function setTermKeysEnabled(on){
+  Array.prototype.forEach.call($("term-keys").querySelectorAll("button"),function(b){b.disabled=!on;});
+}
+
+/* ---- session list: the live frame already carries this, so a separate
+       /api/term/sessions fetch happens ONLY when the first frame lands
+       with none — never on a 2s timer alongside the socket. ------------- */
+var termSessionsFetched=false;
+function renderTermSessions(list,err){
+  list=list||[];
+  if(!list.length&&!termSessionsFetched){
+    termSessionsFetched=true;
+    fetch(RAIL+"/api/term/sessions",{cache:"no-store"})
+      .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+      .then(function(d){termLabel=d.feed_label||"";renderTermSessions(d.sessions||[],null);})
+      .catch(function(e){$("term-sessions").innerHTML='<span class="err">sessions unreachable: '+esc(e.message)+"</span>";});
+    return;
+  }
+  var h="";
+  list.forEach(function(s){
+    h+='<button class="termsess'+(s.tty===termTTY?" sel":"")+'" data-tty="'+esc(s.tty)+'" title="'+esc("svc "+s.svc+" "+s.session+"; input via "+s.input+"; feed: "+(s.feed_label||"?"))+'">'+
+      '<span class="t1"><span class="dot '+(s.live?"on":"off")+'"></span>'+
+      '<span class="tty">'+esc(s.tty)+"</span>"+
+      '<span class="ttl">'+esc(s.title||"(untitled)")+"</span>"+
+      (s.lane?'<span class="srcb lineage">'+esc(s.lane)+"</span>":"")+
+      '<span class="feedlabel">'+esc(s.feed_label||"")+"</span></span>"+
+      '<span class="meta">pid '+esc(s.shell_pid)+(s.fg_pid&&s.fg_pid!==s.shell_pid?" · fg "+esc(s.fg_pid):"")+
+      " · "+esc(s.svc)+" · in: "+esc(s.input)+"</span></button>";
+  });
+  if(!h)h='<span class="empty">'+(err?"sessions section failed: "+esc(err):"no konsole sessions returned")+"</span>";
+  $("term-sessions").innerHTML=h;
+  Array.prototype.forEach.call($("term-sessions").querySelectorAll("button[data-tty]"),function(b){
+    b.onclick=function(){termSelect(b.getAttribute("data-tty"));};
+  });
+}
+
+/* ---- attach: HTTP screen first (so something real shows instantly),
+       then upgrade the same tty to a push socket for live deltas. ------ */
+function termSelect(tty){
+  if(!tty)return;
+  termCloseSock();
+  termTTY=tty;termLines=[];termSource="";termNote="";termDeltas=0;
+  $("term-screen").innerHTML='<span class="echo">attaching to '+esc(tty)+"…</span>";
+  termStatus("","screen: attaching to "+tty);
+  $("term-src").textContent="";
+  $("term-input").disabled=true;$("term-send").disabled=true;
+  setTermKeysEnabled(false);
+  fetchJSON(RAIL+"/api/term/screen?tty="+encodeURIComponent(tty))
+    .then(function(d){
+      if(!d.ok){
+        /* the server refused with a reason. Show exactly that, no screen. */
+        termLines=[];termSource="";
+        $("term-screen").innerHTML='<div class="sysline">✗ no screen for '+esc(tty)+": "+esc(d.error||"refused")+"</div>"+
+          (d.note?'<div class="echo">'+esc(d.note)+"</div>":"");
+        termStatus("","screen: refused — "+tty+" · keystrokes still real");
+        termStat('<span class="r">no transcript-backed feed</span> · input still goes to the real pty via konsole sendText');
+        $("term-input").disabled=false;$("term-send").disabled=false;
+        return;
+      }
+      if(d.empty){
+        termLines=[];
+        $("term-screen").innerHTML='<div class="sysline">transcript is real but currently empty</div>'+
+          '<div class="echo">'+esc(d.note||"")+"</div>";
+      }else{
+        termLines=(d.lines||[]).slice(-TERM_MAX_LINES);
+        renderTermScreen(null);
+      }
+      termSource=d.source||"";termLabel=d.source_label||termLabel;
+      termStatus("tsend","screen: transcript-backed (not raw pty) · "+tty);
+      $("term-input").disabled=false;$("term-send").disabled=false;
+      setTermKeysEnabled(true);
+      $("term-screen").focus();
+      openTermSock();
+    })
+    .catch(function(e){
+      $("term-screen").innerHTML='<div class="sysline">✗ screen unreachable: '+esc(e.message)+"</div>";
+      termStatus("","screen: unreachable — "+tty);
+    });
+}
+function renderTermScreen(highlightFrom){
+  var h="",base=(highlightFrom==null)?termLines.length:highlightFrom;
+  for(var i=0;i<termLines.length;i++){
+    var t=String(termLines[i]),cls="l";
+    if(/^\[tool /.test(t))cls+=" tool";
+    else if(/^\[tool_result\]/.test(t))cls+=" res";
+    else if(/^(user|human):/.test(t))cls+=" user";
+    h+='<div class="'+cls+(i>=base&&highlightFrom!=null?" new":"")+'">'+esc(t)+"</div>";
+  }
+  if(!h)h='<span class="echo">no lines in this feed yet</span>';
+  $("term-screen").innerHTML=h;
+  if(termFollow)$("term-screen").scrollTop=$("term-screen").scrollHeight;
+}
+function openTermSock(){
+  if(!termTTY)return;
+  termCloseSock();
+  var myTty=termTTY;
+  var url="ws://"+location.host+"/api/term/ws?tty="+encodeURIComponent(myTty);
+  var ws;
+  try{ws=new WebSocket(url);}catch(e){termScreenFallback("WebSocket failed: "+e.message);return;}
+  termSock=ws;
+  ws.onopen=function(){termStatus("tsend","screen: LIVE ws /api/term/ws · "+myTty+" · transcript-backed (not raw pty)");};
+  ws.onmessage=function(ev){
+    if(termTTY!==myTty)return;                 /* a newer attach won */
+    var f;try{f=JSON.parse(ev.data);}catch(e){return;}
+    if(f.type==="hello"){
+      if(f.source){termSource=f.source;termLabel=f.source_label||termLabel;}
+      if(f.note)termNote=f.note;
+      $("term-src").textContent="source: "+(termSource||"(not named)")+(termNote?" — "+termNote:"");
+    }else if(f.type==="screen"||f.type==="delta"){
+      var lines=f.lines||[];
+      if(f.type==="screen"){termLines=lines.slice(-TERM_MAX_LINES);renderTermScreen(null);}
+      else{
+        var from=termLines.length;
+        termLines=termLines.concat(lines);
+        if(termLines.length>TERM_MAX_LINES)termLines=termLines.slice(-TERM_MAX_LINES);
+        termDeltas++;renderTermScreen(from);
+      }
+      termStat('<span class="g">streaming</span> · '+termLines.length+" lines · "+termDeltas+" delta frame"+(termDeltas===1?"":"s")+' · <span class="w">'+esc(termLabel)+"</span>");
+    }else if(f.type==="error"){
+      termStatus("","screen: refused — "+myTty);
+      $("term-screen").innerHTML='<div class="sysline">✗ '+esc(f.error||"refused")+"</div>"+
+        (f.note?'<div class="echo">'+esc(f.note)+"</div>":"");
+      termStat('<span class="r">no transcript-backed feed for this tty</span>');
+    }else if(f.type==="ack"&&f.op==="keys"){
+      if(f.ok){termStat('<span class="g">sent ✓</span> over ws · <span class="w">'+esc(termLabel)+"</span>");}
+      else{termStat('<span class="r">send refused: '+esc(f.error||"unknown")+"</span>");}
+    }
+  };
+  ws.onclose=function(){
+    if(termSock===ws)termSock=null;
+    if(termTTY===myTty)termScreenFallback("socket closed — GET /api/term/screen");
+  };
+  ws.onerror=function(){};
+}
+/* socket down: the documented GET route keeps the screen real, at a
+   slower cadence, and the visible label says which path is live. */
+function termScreenFallback(why){
+  if(!termTTY||termSock)return;
+  var myTty=termTTY;
+  termStatus("","screen: POLL /api/term/screen · "+myTty+" · "+why);
+  var tick=function(){
+    if(termSock||termTTY!==myTty)return;
+    fetchJSON(RAIL+"/api/term/screen?tty="+encodeURIComponent(myTty))
+      .then(function(d){
+        if(d.ok&&!d.empty){termLines=(d.lines||[]).slice(-TERM_MAX_LINES);renderTermScreen(null);}
+        else if(d.empty){termLines=[];$("term-screen").innerHTML='<div class="sysline">transcript real but currently empty</div>';}
+        termStat('<span class="w">polling (not push)</span> · '+esc(why));
+      })
+      .catch(function(e){termStatus("","screen: poll failed — "+e.message);});
+  };
+  tick();
+  if(termPollTimer)clearInterval(termPollTimer);
+  termPollTimer=setInterval(tick,2000);
+}
+function termCloseSock(){
+  if(termPollTimer){clearInterval(termPollTimer);termPollTimer=null;}
+  if(termSock){var s=termSock;termSock=null;try{s.close();}catch(e){}}
+}
+
+/* ---- input: real keystrokes into the real pty ------------------------- */
+function keyToName(k){
+  var m={Enter:"ENTER",Escape:"ESC",Tab:"TAB",Backspace:"BACKSPACE",ArrowUp:"UP",ArrowDown:"DOWN",
+         ArrowLeft:"LEFT",ArrowRight:"RIGHT",PageUp:"PGUP",PageDown:"PGDN",Delete:"DELETE"};
+  return m[k]||null;
+}
+/* Record what this panel sent. Explicitly a LOCAL record: a pty does not
+   echo back to us, so this is never presented as captured output. */
+function noteSent(keys,via){
+  var shown=String(keys).replace(/\r/g,"⏎").replace(/\x03/g,"^C").replace(/\x04/g,"^D").replace(/\x1b/g,"ESC").replace(/\x7f/g,"⌫");
+  $("term-sendlog").innerHTML='<span class="echo">panel sent via '+esc(via)+": "+esc(shown)+"</span>";
+}
+function termSend(keys){
+  if(!termTTY||keys==null||keys==="")return;
+  if(termSock&&termSock.readyState===1){
+    noteSent(keys,"ws → konsole sendText");
+    termSock.send(JSON.stringify({op:"keys",tty:termTTY,keys:keys}));
+    return;
+  }
+  noteSent(keys,"POST /api/term/send → konsole sendText");
+  fetch(RAIL+"/api/term/send",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({tty:termTTY,keys:keys})})
+    .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+    .then(function(res){
+      if(res.ok&&res.j.ok)termStat('<span class="g">sent ✓ '+esc(res.j.bytes)+"B</span> · "+esc(res.j.transport||"")+" → "+esc(res.j.svc||"")+" "+esc(res.j.session||""));
+      else termStat('<span class="r">send refused: '+esc(res.j.error||JSON.stringify(res.j))+"</span>");
+    })
+    .catch(function(e){termStat('<span class="r">send unreachable: '+esc(e.message)+"</span>");});
+}
+$("term-send").onclick=function(){
+  termSend($("term-input").value);$("term-input").value="";$("term-screen").focus();
+};
+$("term-input").onkeydown=function(e){
+  if(e.key==="Enter"){e.preventDefault();termSend($("term-input").value);$("term-input").value="";}
+};
+Array.prototype.forEach.call($("term-keys").querySelectorAll("button[data-key]"),function(b){
+  b.onclick=function(){termSend(b.getAttribute("data-key"));};
+});
+/* keystrokes typed straight into the screen pane (it is focusable) */
+$("term-screen").addEventListener("keydown",function(e){
+  if(!termTTY||e.altKey||e.metaKey)return;
+  if(e.ctrlKey){
+    var m={c:"CTRL_C",d:"CTRL_D",z:"CTRL_Z",l:"CTRL_L",u:"CTRL_U",k:"CTRL_K",w:"CTRL_W",a:"CTRL_A",e:"CTRL_E"};
+    var n=m[e.key.toLowerCase()];
+    if(n){e.preventDefault();termSend(n);}
+    return;
+  }
+  var name=keyToName(e.key);
+  if(name){e.preventDefault();termSend(name);return;}
+  if(e.key.length===1){e.preventDefault();termSend(e.key);}
+});
+$("term-screen").addEventListener("scroll",function(){
+  var el=$("term-screen");
+  termFollow=(el.scrollHeight-el.scrollTop-el.clientHeight)<40;
+});
+$("term-screen").addEventListener("click",function(){$("term-screen").focus();});
+$("term-attach").onclick=function(){
+  if(!termTTY)return;
+  fetch(RAIL+"/api/term/attach",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({tty:termTTY})})
+    .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+    .then(function(res){
+      if(res.ok&&res.j.ok)termStat('<span class="g">focused '+esc(res.j.svc)+" "+esc(res.j.session)+"</span>");
+      else termStat('<span class="r">attach refused: '+esc(res.j.error||JSON.stringify(res.j))+"</span>");
+    })
+    .catch(function(e){termStat('<span class="r">attach unreachable: '+esc(e.message)+"</span>");});
+};
+/* ONE transport, not four polls: the websocket is opened first and the
+   poller only exists as its visible fallback. pollState/pollBridge keep
+   their own timers because /api/state (bus_tail + jobs) and the 8788
+   lineage tail are NOT sections of the live frame — dropping their polls
+   would silently break two existing panels. */
+setInterval(function(){                 /* local staleness gauge only */
+  if(liveMode==="push"&&!lastBeat)return;
+  if(!lastBeat){$("hb").textContent="rail-api: waiting";$("hb").className="pill warn";return;}
+  if(liveLastFrame&&Date.now()-liveLastFrame>8000&&liveMode==="push"){
+    $("hb").textContent="rail-api: no frame for "+Math.round((Date.now()-liveLastFrame)/1000)+"s";
+    $("hb").className="pill bad";return;
+  }
+},1000);
+pollState();pollBridge();pollAlgorithms();pollLoad();
+setInterval(pollState,2000);      /* /api/state: bus_tail + jobs */
+setInterval(pollBridge,2000);     /* 8791 /api/bridge: overview + lineage */
+setInterval(pollAlgorithms,60000);
+setInterval(pollLoad,60000);      /* capacity reconciliation, only if orch is absent */
+openLiveSock();                   /* the 2s /api/load poll is gone: orch rides the frame */
+
+
+
+
+})();
+</script>
+
+</body>
+</html>

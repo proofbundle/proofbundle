@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""Stamp exact lane-bus hash preimages, then cumulative RFC6962 roots. Preserve originals."""
+import argparse,datetime,fcntl,hashlib,json,os,pathlib,subprocess,sys
+HOME=pathlib.Path.home(); BUS=HOME/'pb/live/bus'; OUT=BUS/'ots/preimage-v1'; ROOTS=BUS/'ots/merkle-preimage-v1'; OTS=HOME/'.local/bin/ots'
+def canon(x): return json.dumps(x,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()
+def mth(leaves):
+ if not leaves:return hashlib.sha256(b'').digest()
+ if len(leaves)==1:return leaves[0]
+ k=1
+ while k*2<len(leaves):k*=2
+ return hashlib.sha256(b'\x01'+mth(leaves[:k])+mth(leaves[k:])).digest()
+def proof(path):
+ from opentimestamps.core.timestamp import DetachedTimestampFile
+ from opentimestamps.core.serialize import StreamDeserializationContext
+ with open(path,'rb') as f:return DetachedTimestampFile.deserialize(StreamDeserializationContext(f))
+def status():
+ roots=sorted(ROOTS.glob('root-*.json'))
+ return {'preimage':'canonical JSON excluding hash; UTF-8; no newline','sequence_proofs':len(list(OUT.glob('sequence-*.json.ots'))),'root_files':len(roots),'latest_root':json.loads(roots[-1].read_text()) if roots else None,'latest_root_proof':str(roots[-1])+'.ots' if roots else None,'status':'calendar-submitted; inspect proof for Bitcoin attestation'}
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('command',choices=['stamp','status','check','upgrade'],nargs='?',default='stamp');a=ap.parse_args()
+ if a.command=='status':print(json.dumps(status()));return
+ ROOTS.mkdir(parents=True,exist_ok=True);OUT.mkdir(parents=True,exist_ok=True)
+ with open(ROOTS/'.lock','a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  if a.command=='upgrade':
+   paths=[]
+   for directory in (OUT,ROOTS):
+    for path in directory.glob('*.ots'):
+     original=path.with_suffix(path.suffix+'.submitted')
+     if not original.exists():
+      with open(original,'xb') as f:f.write(path.read_bytes())
+     paths.append(path)
+   for n in range(0,len(paths),200):
+    subprocess.run([str(OTS),'upgrade']+[str(p) for p in paths[n:n+200]],timeout=180,check=False,capture_output=True)
+   return
+  records=[];prev='genesis'
+  with open(BUS/'messages.ndjson','rb') as f:
+   for n,line in enumerate(f,1):
+    if not line.strip():raise ValueError('blank ledger line')
+    r=json.loads(line);data=canon({k:v for k,v in r.items() if k!='hash'})
+    if r['seq']!=n or r['prev_hash']!=prev or hashlib.sha256(data).hexdigest()!=r['hash']:raise ValueError('ledger mismatch seq %d'%n)
+    records.append(r);prev=r['hash']
+  if not records:return
+  tip=records[-1]['seq']; base=[str(HOME/'pb/bin/pb-seq-ots'),'--ledger',str(BUS/'messages.ndjson'),'--out',str(OUT),'--preimage','lane-bus','--to-seq',str(tip)]
+  subprocess.run(base+(['--check'] if a.command=='check' else []),check=True,timeout=600)
+  root=mth([hashlib.sha256(b'\x00'+bytes.fromhex(r['hash'])).digest() for r in records]).hex()
+  path=ROOTS/('root-%08d.json'%tip)
+  if a.command=='check':
+   obj=json.loads(path.read_text());assert obj['root']==root and obj['to']==tip
+   assert proof(str(path)+'.ots').file_digest.hex()==hashlib.sha256(path.read_bytes()).hexdigest()
+   print(json.dumps({'verified':True,'to':tip,'root':root}));return
+  obj={'schema':'ProofBundleBusMerkle/v1','from':1,'to':tip,'leaves':len(records),'root':root,'tip_hash':prev,'leaf_encoding':'SHA256(0x00 || raw record SHA256)','node_encoding':'SHA256(0x01 || left || right)','algorithm':'merkle.rfc6962.sha256.v1','sequence_preimage':'canonical JSON excluding hash','sequence_proofs_checked':len(records),'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+  if path.exists():
+   old=json.loads(path.read_text());assert old['root']==root and old['tip_hash']==prev
+  else:
+   with open(path,'xb') as f:f.write(canon(obj))
+  if not pathlib.Path(str(path)+'.ots').exists():subprocess.run([str(OTS),'stamp',str(path)],check=True,timeout=60)
+  assert proof(str(path)+'.ots').file_digest.hex()==hashlib.sha256(path.read_bytes()).hexdigest()
+  print(json.dumps(status()))
+if __name__=='__main__':main()

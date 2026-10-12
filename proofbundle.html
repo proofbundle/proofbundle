@@ -1582,7 +1582,7 @@ var PBSHA256=(function(){
     <div class="form-grid" style="grid-template-columns:1fr 160px 160px">
       <div>
         <label class="label">Endpoint</label>
-        <input type="text" id="bridge-endpoint" value="http://127.0.0.1:8788" oninput="saveBridgeConfig()">
+        <input type="text" id="bridge-endpoint" value="http://127.0.0.1:8791" oninput="saveBridgeConfig()">
       </div>
       <div>
         <label class="label">Poll seconds</label>
@@ -1685,7 +1685,7 @@ var PBSHA256=(function(){
         <div class="bridge-tile-v" style="font-size:13px">Ed25519 signing + X25519-HKDF-SHA256-ChaCha20Poly1305 encryption, implemented. <span class="badge badge-orange">no server</span> — local broker guarded (exit 81), not restarted here.</div>
       </div>
       <div class="bridge-tile">
-        <div class="bridge-tile-k">Bridge panel target (127.0.0.1:8788)</div>
+        <div class="bridge-tile-k">Bridge panel target (127.0.0.1:8791)</div>
         <div class="bridge-tile-v" style="font-size:13px">Tunneled to pb-moe-02. Serves <code>ProofBundleBridgeEvent/v2</code> telemetry, unsigned at the source. Different protocol from the sealed mesh above despite sharing a port.</div>
       </div>
       <div class="bridge-tile">
@@ -6000,7 +6000,7 @@ function heroVerifyNow(i) {
 const BRIDGE_STATE = { polling: true, timer: null, lastEnvelope: null, lastLineage: null };
 function bridgeCfg() {
   return {
-    endpoint: (document.getElementById('bridge-endpoint')?.value || 'http://127.0.0.1:8788').replace(/\/+$/, ''),
+    endpoint: (document.getElementById('bridge-endpoint')?.value || 'http://127.0.0.1:8791').replace(/\/+$/, ''),
     local: document.getElementById('bridge-agent-id')?.value || 'codex-desktop-current',
     recipient: document.getElementById('bridge-recipient-id')?.value || 'peer-codex-agent',
     poll: Math.max(1, Number(document.getElementById('bridge-poll-seconds')?.value || 5)),
@@ -6021,7 +6021,7 @@ function saveBridgeConfig() {
 function restoreBridgeConfig() {
   try {
     const c = JSON.parse(localStorage.getItem('pb.bridge.console') || '{}');
-    if (c.endpoint && document.getElementById('bridge-endpoint')) document.getElementById('bridge-endpoint').value = c.endpoint;
+    if (c.endpoint && !c.endpoint.includes(':8788') && document.getElementById('bridge-endpoint')) document.getElementById('bridge-endpoint').value = c.endpoint;
     if (c.local && document.getElementById('bridge-agent-id')) document.getElementById('bridge-agent-id').value = c.local;
     if (c.recipient && document.getElementById('bridge-recipient-id')) document.getElementById('bridge-recipient-id').value = c.recipient;
     if (c.poll && document.getElementById('bridge-poll-seconds')) document.getElementById('bridge-poll-seconds').value = c.poll;
@@ -6083,8 +6083,8 @@ const ORCH_KIND_BADGE = { error: 'badge-red', msg: 'badge-blue', register: 'badg
 async function refreshOrchestrator() {
   try {
     const [lanesRes, busRes] = await Promise.all([
-      fetch('agent/live-bus/LANES.json', { cache: 'no-store' }),
-      fetch('agent/live-bus/messages.ndjson', { cache: 'no-store' }),
+      fetch('/agent/live-bus/LANES.json', { cache: 'no-store' }),
+      fetch('/agent/live-bus/messages.ndjson', { cache: 'no-store' }),
     ]);
     ORCH_STATE.lanes = lanesRes.ok ? (await lanesRes.json()).lanes || {} : {};
     const text = busRes.ok ? await busRes.text() : '';
@@ -6166,7 +6166,7 @@ function orchBuildCommand() {
   const subject = document.getElementById('orch-subject').value;
   const body = document.getElementById('orch-body').value;
   const q = s => `'${String(s).replace(/'/g, `'\\''`)}'`;
-  const cmd = `pb-lane-bus send --from ${q(from)} --to ${q(to)} --subject ${q(subject)} --body ${q(body)}`;
+  const cmd = `pb-rail send --from ${q(from)} --to ${q(to)} --subject ${q(subject)} --body ${q(body)}`;
   document.getElementById('orch-command').value = cmd;
 }
 
@@ -6199,7 +6199,7 @@ function bridgePayload() {
 async function bridgeSeal(encrypt) {
   const c = bridgeCfg();
   try {
-    const body = { agentId: c.local, payloadType: 'bridge-gui', payload: bridgePayload() };
+    const body = { agentId: c.local, to: c.recipient, payloadType: 'bridge-gui', payload: bridgePayload(), encrypt: true };
     if (encrypt) { body.encrypt = true; body.to = c.recipient; }
     const data = await bridgeFetch('/seal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     BRIDGE_STATE.lastEnvelope = data.envelope || data;
@@ -6278,7 +6278,7 @@ function init() {
 async function refreshAgentLineage() {
   const box=document.getElementById('agent-live'); if(!box)return;
   try {
-    const res=await fetch('http://127.0.0.1:8788/lineage/export',{cache:'no-store'});
+    const res=await fetch('http://127.0.0.1:8791/lineage/export',{cache:'no-store'});
     if(!res.ok)throw new Error('bridge HTTP '+res.status);
     const data=await res.json(), entries=Array.isArray(data.entries)?data.entries:[];
     // Schema is ProofBundleBridgeEvent/v2 (from live bridge, verified against 34

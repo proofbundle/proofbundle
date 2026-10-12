@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.key
+*.pem
+*.der
+*.seed
+controller.json
+config.json
+state.json
+*.jsonl
+*.ndjson
+*.ots
+live/
+test-identities/

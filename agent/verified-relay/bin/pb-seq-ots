@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""pb-seq-ots - an OpenTimestamps proof for EVERY sequence of an append-only ledger.
+
+Operator directive 2026-10-02: "OTS stamps on every sequence".
+
+For each ledger line not yet stamped, write the exact line bytes to
+<out>/sequence-<NNNNNNNN>.json and `ots stamp` all new files in ONE call. The client
+builds a local Merkle tree, makes one calendar submission per calendar, and
+writes an individual .ots proof per file - so every record has its own
+independently verifiable proof without one calendar request per record.
+
+  pb-seq-ots --ledger PATH --out DIR [--bus-receipt LANE]
+
+--bus-receipt appends one receipt per batch to the lane bus (only use it for
+the lane bus itself, and it never receipts a batch made only of its own
+earlier receipts, so it cannot feed itself forever).
+Append-only: existing seq files and proofs are never rewritten.
+"""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+import subprocess
+import sys
+
+OTS = os.environ.get("PB_OTS_BIN", os.path.expanduser("~/.local/bin/ots"))
+LANEBUS = os.path.expanduser("~/pb/bin/pb-lane-bus")
+SUBJECT = "OTS_SEQ_SUBMITTED"
+CHUNK = 400
+
+
+def preimage(rec):
+    return json.dumps({k: v for k, v in rec.items() if k != "hash"},
+                      sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+
+def proof_digest(path):
+    from opentimestamps.core.timestamp import DetachedTimestampFile
+    from opentimestamps.core.serialize import StreamDeserializationContext
+    with open(path, "rb") as f:
+        return DetachedTimestampFile.deserialize(StreamDeserializationContext(f)).file_digest.hex()
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--ledger", required=True)
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--bus-receipt")
+    ap.add_argument("--preimage", choices=["record", "lane-bus"], default="record")
+    ap.add_argument("--from-seq", type=int, default=1)
+    ap.add_argument("--to-seq", type=int)
+    ap.add_argument("--check", action="store_true")
+    a = ap.parse_args()
+    os.makedirs(a.out, exist_ok=True)
+    lock = open(os.path.join(a.out, ".stamp.lock"), "a")
+    fcntl.flock(lock, fcntl.LOCK_EX)
+    new, kinds = [], []
+    failures = []
+    with open(a.ledger, "rb") as fh:
+        for n, raw in enumerate(fh, 1):
+            line = raw.rstrip(b"\n")
+            if not line.strip():
+                continue
+            try:
+                rec = json.loads(line)
+                sequence = int(rec.get("sequence", rec.get("seq", n)))
+            except Exception:
+                rec, sequence = {}, n
+            if sequence < a.from_seq or (a.to_seq is not None and sequence > a.to_seq):
+                continue
+            expected = line
+            if a.preimage == "lane-bus":
+                if not rec or "hash" not in rec:
+                    raise ValueError("invalid lane bus record at line %d" % n)
+                expected = preimage(rec)
+                if hashlib.sha256(expected).hexdigest() != rec["hash"]:
+                    raise ValueError("record hash mismatch seq %d" % sequence)
+            path = os.path.join(a.out, "sequence-%08d.json" % sequence)
+            if os.path.exists(path):
+                with open(path, "rb") as prior:
+                    if prior.read() != expected:
+                        raise ValueError("existing preimage differs at seq %d; preserved" % sequence)
+            elif not a.check:
+                with open(path, "xb") as out:
+                    out.write(expected)
+            if os.path.exists(path + ".ots"):
+                if proof_digest(path + ".ots") != hashlib.sha256(expected).hexdigest():
+                    raise ValueError("OTS proof digest mismatch at seq %d" % sequence)
+                continue
+            if a.check:
+                failures.append(sequence)
+                continue
+            new.append((sequence, path))
+            kinds.append((rec.get("kind"), str(rec.get("subject", ""))))
+    if a.check:
+        print(json.dumps({"verified": not failures, "missing_proofs": failures, "preimage": a.preimage}))
+        return 1 if failures else 0
+    if not new:
+        print("nothing new")
+        return 0
+    ok = 0
+    for i in range(0, len(new), CHUNK):
+        part = new[i:i + CHUNK]
+        r = subprocess.run([OTS, "stamp"] + [p for _, p in part],
+                           capture_output=True, text=True, timeout=600)
+        stamped = [q for q, p in part if os.path.exists(p + ".ots") and proof_digest(p + ".ots") == hashlib.sha256(open(p,"rb").read()).hexdigest()]
+        ok += len(stamped)
+        print("batch sequence %d..%d stamped %d/%d rc=%d" % (part[0][0], part[-1][0], len(stamped), len(part), r.returncode))
+        if r.returncode != 0:
+            print(r.stderr[-800:], file=sys.stderr)
+    only_own = all(k == "receipt" and s.startswith(SUBJECT) for k, s in kinds)
+    if a.bus_receipt and ok and not only_own:
+        body = {"status": SUBJECT, "sequences": [new[0][0], new[-1][0]], "count": ok,
+                "out_dir": a.out, "ledger": a.ledger,
+                "note": "one .ots proof per sequence; calendar commitment only until upgraded"}
+        subprocess.run([LANEBUS, "send", "--from", a.bus_receipt, "--to", "ops", "--kind", "receipt",
+                        "--subject", "%s sequence %d..%d (%d proofs)" % (SUBJECT, new[0][0], new[-1][0], ok),
+                        "--body", json.dumps(body, sort_keys=True), "--ref",
+                        hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest(),
+                        "--alg", "ots=ots.opentimestamps.v1"], check=False)
+    return 0 if ok == len(new) else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

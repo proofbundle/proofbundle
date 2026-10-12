@@ -1,0 +1,678 @@
+#!/usr/bin/env python3
+"""pb-lane-bus - append-only lane message bus for cross-agent communication.
+
+NOT the ProofBundle broker. The sealed HTTP broker on 127.0.0.1:8788 was
+withdrawn by operator decree 2026-09-23
+(~/pb/memory/notes/2026-09-23-proofbundle-law-revoked.md) and both of its
+entrypoints are hard-guarded. This tool is a file-based transport with a
+tamper-evident hash chain. It mints no keys, issues no seals, claims no OTS
+timestamp, asserts no evidence authority, and must never be presented as
+ProofBundle. What it does: record what one lane said to another, and let any
+lane re-check that the record is unchanged since it was written.
+
+Layout (root $PB_BUS_ROOT, default ~/pb/live/bus):
+  messages.ndjson     append-only, one JSON object per line, seq-ordered
+  inbox/<lane>/       unread messages addressed to <lane>
+  inbox/<lane>/read/  messages <lane> has already fetched
+  HEAD                last seq written
+  .lock               flock target; makes concurrent lane writes safe
+
+Commands:
+  send   --from L --to L[,L2] --subject S (--body T | --body-file F)
+         [--reply-to SEQ] [--ref PATH|SHA]
+  poll   --lane L [--clear] [--all]
+  log    [--tail N] [--lane L]
+  verify
+  lanes
+
+Read is fetch-and-clear per lane: a lane reads its own inbox, never a peer's.
+"""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+import shutil
+import sys
+import tempfile
+from datetime import datetime, timezone
+
+ROOT = os.environ.get("PB_BUS_ROOT", os.path.expanduser("~/pb/live/bus"))
+MESSAGES = os.path.join(ROOT, "messages.ndjson")
+INBOX = os.path.join(ROOT, "inbox")
+HEAD = os.path.join(ROOT, "HEAD")
+LOCK = os.path.join(ROOT, ".lock")
+
+
+def now():
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+
+def canon(obj):
+    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def record_hash(rec):
+    body = {k: v for k, v in rec.items() if k != "hash"}
+    return hashlib.sha256(canon(body).encode()).hexdigest()
+
+
+def ensure():
+    os.makedirs(INBOX, exist_ok=True)
+    open(MESSAGES, "a").close()
+    if not os.path.exists(LOCK):
+        open(LOCK, "a").close()
+
+
+def read_all():
+    recs = []
+    if not os.path.exists(MESSAGES):
+        return recs
+    with open(MESSAGES, "r", encoding="utf-8") as fh:
+        for n, line in enumerate(fh, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                recs.append(json.loads(line))
+            except Exception as exc:
+                sys.stderr.write(f"pb-lane-bus: unparseable line {n}: {exc}\n")
+    return recs
+
+
+def tail_hash():
+    recs = read_all()
+    if not recs:
+        return 0, "genesis"
+    last = recs[-1]
+    return int(last.get("seq", 0)), last.get("hash", "genesis")
+
+
+def die(msg, rc=2):
+    sys.stderr.write(f"pb-lane-bus: {msg}\n")
+    sys.exit(rc)
+
+
+ALGS = os.path.join(ROOT, "ALGORITHMS.json")
+LANES = os.path.join(ROOT, "LANES.json")
+VMS = os.path.join(ROOT, "PRODUCTION_VMS.json")
+
+CHAIN_ALG = "chain.prevhash-json.v1"
+HASH_ALG = "hash.sha256.v1"
+MERKLE_ALG = "merkle.rfc6962.sha256.v1"
+
+
+def load_json(path, default):
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return default
+
+
+def save_json(path, obj):
+    """Write obj to path atomically, with a UNIQUE temp per writer.
+
+    Was: `tmp = path + ".tmp"`. Two concurrent writers then shared one temp
+    inode: the loser's os.replace raised FileNotFoundError and the winner's
+    file could hold a concatenation of both documents. That made load_json
+    fall back to its default, and a later register rebuilt the registry with
+    a single lane. Incident 2026-10-09 (bus seq 1408-1411); callers that do
+    read-modify-write over the same JSON also hold LOCK across the whole
+    transaction.
+    """
+    d = os.path.dirname(path) or "."
+    fd, tmp = tempfile.mkstemp(dir=d, prefix=os.path.basename(path) + ".tmp.")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(obj, fh, indent=2, sort_keys=True)
+            fh.write("\n")
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def known_lanes():
+    return sorted(load_json(LANES, {}).get("lanes", {}).keys())
+
+
+# --- write ----------------------------------------------------------------
+
+def append_record(rec):
+    """Append one record under an exclusive lock.
+
+    The lock exists because several lanes write concurrently; read-tip ->
+    append with no atomicity is exactly the race that forks a chain, and a
+    forked chain cannot be verified afterwards.
+    """
+    ensure()
+    with open(LOCK, "a") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        try:
+            seq, prev = tail_hash()
+            rec["seq"] = seq + 1
+            rec["prev_hash"] = prev
+            rec.setdefault("ts", now())
+            # Merge, don't clobber (seq 116 / work order seq 636): a caller may
+            # cite the algorithms that actually produced the record (e.g. a rail
+            # envelope's kem/aead/sig). chain/hash stay mandatory and cannot be
+            # overridden. Unregistered ids are refused BEFORE the append, because
+            # an append-only log cannot be repaired once verify would fail.
+            caller = rec.get("alg") if isinstance(rec.get("alg"), dict) else {}
+            merged = {k: v for k, v in caller.items() if k not in ("chain", "hash")}
+            merged["chain"] = CHAIN_ALG
+            merged["hash"] = HASH_ALG
+            registered = load_json(ALGS, {}).get("algorithms", {})
+            bad = [f"{k}={v}" for k, v in merged.items() if v not in registered]
+            if bad:
+                die(f"refusing append: alg ids not in {ALGS}: {', '.join(bad)}")
+            rec["alg"] = merged
+            rec["hash"] = record_hash(rec)
+            with open(MESSAGES, "a", encoding="utf-8") as fh:
+                fh.write(canon(rec) + "\n")
+            with open(HEAD, "w", encoding="utf-8") as fh:
+                fh.write(str(rec["seq"]) + "\n")
+            for lane in rec.get("to", []):
+                d = os.path.join(INBOX, lane)
+                os.makedirs(d, exist_ok=True)
+                with open(os.path.join(d, f"{rec['seq']:08d}.json"), "w",
+                          encoding="utf-8") as fh:
+                    json.dump(rec, fh, indent=2, ensure_ascii=False)
+                    fh.write("\n")
+        finally:
+            fcntl.flock(lk, fcntl.LOCK_UN)
+    return rec
+
+
+def cmd_send(a):
+    body = ""
+    if a.body_file:
+        try:
+            with open(a.body_file, "r", encoding="utf-8") as fh:
+                body = fh.read()
+        except Exception as exc:
+            die(f"cannot read --body-file: {exc}")
+    elif a.body is not None:
+        body = a.body
+    if not body.strip():
+        die("empty body; pass --body or --body-file")
+    if a.to.strip() == "all":
+        # Exclude the sender: a lane's own message does not belong in its own
+        # unread queue. Added 2026-09-24 after the first fanout put the
+        # sender's own sends in its inbox.
+        to = [l for l in known_lanes() if l != a.src]
+        if not to:
+            die("no registered lanes to broadcast to; run register first")
+    else:
+        to = [x.strip() for x in a.to.split(",") if x.strip()]
+    if not to:
+        die("--to is required")
+    rec = {
+        "kind": a.kind or "msg",
+        "src": a.src,
+        "to": to,
+        "subject": a.subject,
+        "body": body,
+        "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
+        "bytes": len(body.encode()),
+        "reply_to": a.reply_to,
+        "ref": a.ref,
+    }
+    if getattr(a, "alg", None):
+        alg = {}
+        for item in a.alg:
+            slot, sep, aid = item.partition("=")
+            if not sep or not slot.strip() or not aid.strip():
+                die(f"--alg expects SLOT=ID, got {item!r}")
+            alg[slot.strip()] = aid.strip()
+        rec["alg"] = alg
+    if a.severity:
+        rec["severity"] = a.severity
+    if a.status:
+        rec["status"] = a.status
+    rec = append_record(rec)
+    print(f"seq {rec['seq']}  kind={rec['kind']}  {a.src} -> {','.join(to)}")
+    print(f"body_sha256 {rec['body_sha256']}")
+    print(f"hash        {rec['hash']}")
+    print(f"prev_hash   {rec['prev_hash']}")
+    return 0
+
+
+def cmd_error(a):
+    a.kind = "error"
+    a.subject = a.subject or a.what
+    a.body = (f"WHAT: {a.what}\n"
+              f"LANE: {a.lane}\n"
+              f"SEVERITY: {a.severity}\n"
+              f"STATUS: {a.status}\n"
+              f"EVIDENCE: {a.evidence or '(none stated)'}\n"
+              f"FALSIFIER: {a.falsifier or '(none stated)'}\n"
+              f"DETECTED_BY: {a.detected_by}\n")
+    a.src = a.lane
+    a.body_file = None
+    a.to = a.to or "all"
+    a.reply_to = None
+    a.ref = a.ref or a.evidence
+    if a.to.strip() == "all":
+        a.to = ",".join([l for l in known_lanes() if l != a.lane]) or a.lane
+    return cmd_send(a)
+
+
+# --- read -----------------------------------------------------------------
+
+def cmd_poll(a):
+    """Read this lane's inbox.
+
+    Read-only safe, deliberately: a lane polling its mail must not need write
+    access. Fixed 2026-09-24 after the codex lane, running under `-s read-only`,
+    hit `OSError: [Errno 30] Read-only file system` here - this function used to
+    call ensure(), which opens the log for append. Reading mail must never
+    require the right to write. Evidence: ~/pb/live/bus/messages.ndjson seq 42.
+    """
+    d = os.path.join(INBOX, a.lane)
+    if not os.path.isdir(d):
+        print(f"lane {a.lane}: 0 unread (no inbox directory yet)")
+        return 0
+    files = sorted(f for f in os.listdir(d) if f.endswith(".json"))
+    recs = []
+    for f in files:
+        rec = load_json(os.path.join(d, f), None)
+        if rec:
+            recs.append((f, rec))
+    tries = 0
+    try:
+        with open(HEAD) as fh:
+            tries = int(fh.read().strip() or 0)
+    except Exception:
+        tries = 0
+    print(f"lane {a.lane}: {len(recs)} unread  bus_tip={tries}")
+    for f, rec in recs:
+        print("-" * 72)
+        print(f"seq {rec.get('seq')}  {rec.get('ts')}  kind={rec.get('kind')}  "
+              f"from={rec.get('src')}")
+        print(f"subject: {rec.get('subject')}")
+        if rec.get("reply_to"):
+            print(f"reply_to: {rec['reply_to']}")
+        if rec.get("ref"):
+            print(f"ref: {rec['ref']}")
+        print(rec.get("body", ""))
+        print(f"body_sha256 {rec.get('body_sha256')}")
+        print(f"hash {rec.get('hash')}")
+    if a.clear and recs:
+        rd = os.path.join(d, "read")
+        os.makedirs(rd, exist_ok=True)
+        for f, _ in recs:
+            shutil.move(os.path.join(d, f), os.path.join(rd, f))
+        print(f"cleared {len(recs)} -> {rd}")
+    return 0
+
+
+def cmd_log(a):
+    recs = read_all()
+    if a.lane:
+        recs = [r for r in recs
+                if r.get("src") == a.lane or a.lane in (r.get("to") or [])]
+    if a.tail:
+        recs = recs[-a.tail:]
+    for r in recs:
+        first = (r.get("body") or "").strip().splitlines()
+        head = first[0][:70] if first else ""
+        print(f"{r.get('seq'):>5} {r.get('ts','')[:19]} {str(r.get('kind')):7} "
+              f"{str(r.get('src')):8} -> {','.join(r.get('to') or []):22} "
+              f"{str(r.get('subject'))[:34]:34} | {head}")
+    print(f"({len(recs)} records shown)")
+    return 0
+
+
+def cmd_errors(a):
+    recs = [r for r in read_all() if r.get("kind") == "error"]
+    if a.open_only:
+        recs = [r for r in recs if r.get("status", "open") == "open"]
+    print(f"{len(recs)} error records")
+    for r in recs:
+        print(f"seq {r['seq']:>4} {r.get('ts','')[:19]} sev={r.get('severity','-'):4} "
+              f"status={r.get('status','-'):7} lane={r.get('src')}")
+        for line in (r.get("body") or "").splitlines():
+            print(f"    {line}")
+    return 0
+
+
+# --- verify ---------------------------------------------------------------
+
+def cmd_verify(a):
+    recs = read_all()
+    algs = load_json(ALGS, {}).get("algorithms", {})
+    fails = []
+    for i, rec in enumerate(recs, 1):
+        if rec.get("seq") != i:
+            fails.append(f"seq {rec.get('seq')} at line {i} (expected {i}) - gap or reorder")
+        exp_prev = recs[i - 2]["hash"] if i > 1 else "genesis"
+        if rec.get("prev_hash") != exp_prev:
+            fails.append(f"seq {rec.get('seq')} prev_hash {str(rec.get('prev_hash'))[:16]} "
+                         f"!= {exp_prev[:16]} - fork or edit")
+        if record_hash(rec) != rec.get("hash"):
+            fails.append(f"seq {rec.get('seq')} hash does not recompute - body altered")
+        for slot, aid in (rec.get("alg") or {}).items():
+            if aid not in algs:
+                fails.append(f"seq {rec.get('seq')} alg.{slot}={aid} absent from ALGORITHMS.json")
+    print(f"records={len(recs)}  chain={CHAIN_ALG}  registry_algs={len(algs)}")
+    if fails:
+        print(f"RESULT FAIL ({len(fails)} problems)")
+        for f in fails[:40]:
+            print(f"  {f}")
+        return 1
+    print("RESULT PASS - seq contiguous, prev_hash linked, every hash recomputes, "
+          "every referenced algorithm resolves")
+    return 0
+
+
+def leaf_hash(hexhash):
+    return hashlib.sha256(b"\x00" + bytes.fromhex(hexhash)).digest()
+
+
+def node_hash(left, right):
+    return hashlib.sha256(b"\x01" + left + right).digest()
+
+
+def mth(leaves):
+    """RFC 6962 Merkle tree hash."""
+    if not leaves:
+        return hashlib.sha256(b"").digest()
+    if len(leaves) == 1:
+        return leaves[0]
+    k = 1
+    while k * 2 < len(leaves):
+        k *= 2
+    return node_hash(mth(leaves[:k]), mth(leaves[k:]))
+
+
+def cmd_merkle(a):
+    recs = read_all()
+    if a.frm:
+        recs = [r for r in recs if r.get("seq") >= a.frm]
+    if a.to:
+        recs = [r for r in recs if r.get("seq") <= a.to]
+    leaves = [leaf_hash(r["hash"]) for r in recs]
+    root = mth(leaves).hex()
+    first = recs[0]["seq"] if recs else 0
+    last = recs[-1]["seq"] if recs else 0
+    print(f"alg        {MERKLE_ALG}")
+    print(f"leaf set   seq {first}..{last}")
+    print(f"leaf count {len(recs)}")
+    print(f"root       {root}")
+    if a.record:
+        body = json.dumps({"alg": MERKLE_ALG, "root": root, "from": first,
+                           "to": last, "leaves": len(recs),
+                           "note": "root covers the leaf set above; this record "
+                                   "is seq > to and is therefore NOT inside it"},
+                          sort_keys=True)
+        append_record({"kind": "root", "src": a.src, "to": known_lanes() or [a.src],
+                       "subject": f"merkle root seq {first}..{last}",
+                       "body": body,
+                       "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
+                       "bytes": len(body.encode()), "reply_to": None, "ref": None})
+        print("recorded as a new bus record (kind=root)")
+    return 0
+
+
+# --- registries -----------------------------------------------------------
+
+def cmd_algorithms(a):
+    reg = load_json(ALGS, None)
+    if reg is None:
+        die(f"no algorithm registry at {ALGS}", 1)
+    algs = reg.get("algorithms", {})
+    if a.check:
+        fails = []
+        for aid, e in algs.items():
+            for k in ("family", "status", "note"):
+                if not e.get(k):
+                    fails.append(f"{aid}: missing {k}")
+            if e.get("status") not in ("active", "declared-not-exercised", "withdrawn"):
+                fails.append(f"{aid}: unknown status {e.get('status')!r}")
+        used = {}
+        for r in read_all():
+            for slot, aid in (r.get("alg") or {}).items():
+                used.setdefault(aid, 0)
+                used[aid] += 1
+                if aid not in algs:
+                    fails.append(f"seq {r.get('seq')} references unregistered {aid}")
+        print(f"registry={len(algs)} algorithms; referenced in log: "
+              f"{', '.join(f'{k}x{v}' for k, v in sorted(used.items())) or 'none'}")
+        if fails:
+            print(f"RESULT FAIL ({len(fails)})")
+            for f in fails:
+                print(f"  {f}")
+            return 1
+        print("RESULT PASS - every registry entry complete, every referenced "
+              "algorithm resolves")
+        return 0
+    print(f"{reg.get('registry','(unnamed)')}  version {reg.get('version')}")
+    print(f"{'id':34} {'family':12} {'status':24} where_used")
+    for aid in sorted(algs):
+        e = algs[aid]
+        print(f"{aid:34} {e.get('family',''):12} {e.get('status',''):24} "
+              f"{e.get('where_used','')}")
+    print("\ndeclared-not-exercised means: named in this registry, but no record in "
+          "this log was produced by it. Do not cite it as evidence of work done.")
+    return 0
+
+
+def cmd_register(a):
+    # The whole read-modify-write over LANES.json is transactional under LOCK.
+    # Without this, two registers that both read the old file and then save
+    # lose one lane (last-write-wins), even with a unique temp. The lock is
+    # released before append_record, which takes the same lock itself and
+    # would otherwise deadlock (flock is not reentrant across two fds).
+    ensure()
+    with open(LOCK, "a") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        try:
+            reg = load_json(LANES, {"lanes": {}})
+            lanes = reg.setdefault("lanes", {})
+            entry = lanes.get(a.lane, {})
+            entry.update({"lane": a.lane, "role": a.role or entry.get("role"),
+                          "model": a.model or entry.get("model"),
+                          "provider": a.provider or entry.get("provider"),
+                          "updated_at": now()})
+            entry.setdefault("registered_at", now())
+            if a.cli:
+                entry["cli"] = a.cli
+            lanes[a.lane] = entry
+            reg["updated_at"] = now()
+            save_json(LANES, reg)
+        finally:
+            fcntl.flock(lk, fcntl.LOCK_UN)
+    body = canon(entry)
+    rec = append_record({"kind": "register", "src": "bus", "to": [a.lane],
+                         "subject": f"lane registered: {a.lane}", "body": body,
+                         "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
+                         "bytes": len(body.encode()), "reply_to": None, "ref": LANES})
+    print(f"registered {a.lane}  seq {rec['seq']}")
+    return 0
+
+
+def cmd_lanes(a):
+    reg = load_json(LANES, {"lanes": {}}).get("lanes", {})
+    print(f"{'lane':10} {'model':16} {'provider':10} {'pending':>7} inbox")
+    for lane in sorted(reg):
+        d = os.path.join(INBOX, lane)
+        pend = len([f for f in os.listdir(d) if f.endswith(".json")]) \
+            if os.path.isdir(d) else 0
+        e = reg[lane]
+        print(f"{lane:10} {str(e.get('model'))[:16]:16} {str(e.get('provider'))[:10]:10} "
+              f"{pend:>7} {d}")
+    return 0
+
+
+def cmd_vm(a):
+    # Same transactional read-modify-write as cmd_register; release LOCK before
+    # append_record takes it again (flock is not reentrant across two fds).
+    ensure()
+    with open(LOCK, "a") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        try:
+            reg = load_json(VMS, {"vms": {}})
+            vms = reg.setdefault("vms", {})
+            e = vms.setdefault(a.name, {"name": a.name, "observations": []})
+            obs = {"ts": now(), "state": a.state, "source": a.source, "note": a.note}
+            e["observations"].append(obs)
+            e["last_observed"] = obs
+            reg["updated_at"] = now()
+            save_json(VMS, reg)
+        finally:
+            fcntl.flock(lk, fcntl.LOCK_UN)
+    body = canon(obs)
+    rec = append_record({"kind": "vm", "src": a.src or "bus", "to": known_lanes() or [],
+                         "subject": f"vm {a.name}: {a.state}", "body": body,
+                         "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
+                         "bytes": len(body.encode()), "reply_to": None, "ref": VMS})
+    print(f"vm {a.name} state={a.state} recorded seq {rec['seq']}")
+    return 0
+
+
+def cmd_vms(a):
+    reg = load_json(VMS, {"vms": {}})
+    print(f"{reg.get('registry','production vms')}  updated {reg.get('updated_at')}")
+    for name in sorted(reg.get("vms", {})):
+        e = reg["vms"][name]
+        o = e.get("last_observed") or {}
+        n = len(e.get("observations") or [])
+        print(f"{name:22} state={str(o.get('state')):14} obs={n:>3} "
+              f"at={str(o.get('ts'))[:19]} src={str(o.get('source'))[:40]}")
+        if o.get("note"):
+            print(f"{'':22} note: {o['note']}")
+    print("state is an observation with a timestamp and a source, never a standing fact.")
+    return 0
+
+
+def cmd_status(a):
+    recs = read_all()
+    counts = {}
+    for r in recs:
+        counts[r.get("kind", "?")] = counts.get(r.get("kind", "?"), 0) + 1
+    errs = [r for r in recs
+            if r.get("kind") == "error" and r.get("status", "open") == "open"]
+    print(f"bus         {ROOT}")
+    print(f"tip         {recs[-1]['seq'] if recs else 0}")
+    print(f"records     {len(recs)}   " +
+          "  ".join(f"{k}={v}" for k, v in sorted(counts.items())))
+    print(f"open errors {len(errs)}")
+    for lane in known_lanes():
+        d = os.path.join(INBOX, lane)
+        pend = len([f for f in os.listdir(d) if f.endswith(".json")]) \
+            if os.path.isdir(d) else 0
+        print(f"  {lane:10} pending={pend}")
+    return 0
+
+
+def main():
+    p = argparse.ArgumentParser(
+        prog="pb-lane-bus", description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd")
+
+    s = sub.add_parser("send", help="append a message for one or more lanes")
+    s.add_argument("--from", dest="src", required=True)
+    s.add_argument("--to", required=True, help="lane, lane1,lane2, or all")
+    s.add_argument("--subject", required=True)
+    s.add_argument("--body")
+    s.add_argument("--body-file")
+    s.add_argument("--reply-to", dest="reply_to", type=int)
+    s.add_argument("--ref")
+    s.add_argument("--kind")
+    s.add_argument("--severity")
+    s.add_argument("--status")
+    s.add_argument("--alg", action="append", metavar="SLOT=ID",
+                   help="cite an algorithm that produced this record (repeatable); "
+                        "chain/hash are always set by the bus")
+    s.set_defaults(fn=cmd_send)
+
+    e = sub.add_parser("error", help="log a mistake or error (never deleted)")
+    e.add_argument("--lane", required=True)
+    e.add_argument("--what", required=True)
+    e.add_argument("--evidence")
+    e.add_argument("--falsifier")
+    e.add_argument("--severity", default="med")
+    e.add_argument("--status", default="open")
+    e.add_argument("--detected-by", dest="detected_by", default="agent")
+    e.add_argument("--subject")
+    e.add_argument("--to", default="all")
+    e.add_argument("--ref")
+    e.set_defaults(fn=cmd_error, body=None, body_file=None, reply_to=None,
+                   src=None, kind=None)
+
+    q = sub.add_parser("poll", help="read this lane's inbox")
+    q.add_argument("--lane", required=True)
+    q.add_argument("--clear", action="store_true")
+    q.set_defaults(fn=cmd_poll)
+
+    q = sub.add_parser("log", help="whole bus, newest last")
+    q.add_argument("--tail", type=int)
+    q.add_argument("--lane")
+    q.set_defaults(fn=cmd_log)
+
+    q = sub.add_parser("errors", help="list logged mistakes and errors")
+    q.add_argument("--open", dest="open_only", action="store_true")
+    q.set_defaults(fn=cmd_errors)
+
+    q = sub.add_parser("verify", help="recheck the hash chain end to end")
+    q.set_defaults(fn=cmd_verify)
+
+    q = sub.add_parser("merkle", help="RFC 6962 root over the log")
+    q.add_argument("--from", dest="frm", type=int)
+    q.add_argument("--to", type=int)
+    q.add_argument("--record", action="store_true")
+    q.add_argument("--src", default="bus")
+    q.set_defaults(fn=cmd_merkle)
+
+    q = sub.add_parser("algorithms", help="algorithm registry")
+    q.add_argument("--check", action="store_true")
+    q.set_defaults(fn=cmd_algorithms)
+
+    q = sub.add_parser("register", help="register a lane")
+    q.add_argument("--lane", required=True)
+    q.add_argument("--role")
+    q.add_argument("--model")
+    q.add_argument("--provider")
+    q.add_argument("--cli")
+    q.set_defaults(fn=cmd_register)
+
+    q = sub.add_parser("lanes", help="registered lanes and pending inbox counts")
+    q.set_defaults(fn=cmd_lanes)
+
+    q = sub.add_parser("vm", help="record a production VM observation")
+    q.add_argument("--name", required=True)
+    q.add_argument("--state", required=True)
+    q.add_argument("--source", required=True)
+    q.add_argument("--note")
+    q.add_argument("--src", default="bus")
+    q.set_defaults(fn=cmd_vm)
+
+    q = sub.add_parser("vms", help="production VM registry")
+    q.set_defaults(fn=cmd_vms)
+
+    q = sub.add_parser("status", help="tip, counts, pending inboxes")
+    q.set_defaults(fn=cmd_status)
+
+    a = p.parse_args()
+    if not getattr(a, "fn", None):
+        p.print_help()
+        print()
+        return cmd_status(a)
+    return a.fn(a)
+
+
+if __name__ == "__main__":
+    # Behave like a normal unix filter: exit on a closed pipe instead of
+    # printing a BrokenPipeError traceback when piped into head/tail.
+    try:
+        import signal as _signal
+        _signal.signal(_signal.SIGPIPE, _signal.SIG_DFL)
+    except Exception:
+        pass
+    sys.exit(main())

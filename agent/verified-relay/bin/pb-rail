@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""pb-rail — thin CLI over the pb-rail API (127.0.0.1:8791). Owner: rail-api.
+
+Mirrors every GET/POST route of ~/pb/rail/api.py as subcommands:
+  send | wake | status | jobs | ots | algorithms | tools | proofbundle
+"""
+import argparse
+import json
+import sys
+import urllib.error
+import urllib.request
+
+BASE = "http://127.0.0.1:8791"
+
+
+def call(method, path, obj=None):
+    data = json.dumps(obj).encode() if obj is not None else None
+    req = urllib.request.Request(BASE + path, data=data, method=method,
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=300) as r:
+            raw = r.read().decode()
+            ctype = r.headers.get("Content-Type", "")
+            return json.loads(raw) if "json" in ctype else raw
+    except urllib.error.HTTPError as e:
+        try:
+            return json.loads(e.read().decode())
+        except Exception:
+            return {"error": "HTTP %d" % e.code}
+    except urllib.error.URLError as e:
+        print("pb-rail: API not reachable at %s (%s)\n"
+              "start it:  setsid nohup python3 ~/pb/rail/api.py "
+              ">> ~/pb/live/rail/api.log 2>&1 &" % (BASE, e.reason),
+              file=sys.stderr)
+        sys.exit(2)
+
+
+def main():
+    ap = argparse.ArgumentParser(prog="pb-rail",
+                                 description="pb-rail lane bus CLI")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    s = sub.add_parser("send", help="POST /api/send (from ops lane)")
+    s.add_argument("--from", dest="frm", default="ops")
+    s.add_argument("--to", required=True)
+    s.add_argument("--subject", required=True)
+    s.add_argument("--body", required=True)
+    s.add_argument("--reply-to", type=int, default=None)
+
+    w = sub.add_parser("wake", help="POST /api/wake (launch fallback)")
+    w.add_argument("--lane", required=True)
+
+    sub.add_parser("status", help="GET /api/state")
+    sub.add_parser("jobs", help="GET /api/jobs")
+    sub.add_parser("algorithms", help="GET /api/algorithms")
+    sub.add_parser("proofbundle", help="GET /proofbundle (first 40 lines)")
+    sub.add_parser("load", help="GET /api/load (load-watch.log tail)")      # task_0004
+    sub.add_parser("bridge", help="GET /api/bridge (8788 overview+lineage)")  # task_0004
+
+    o = sub.add_parser("ots", help="POST /api/ots/stamp")
+    o.add_argument("envelope_digest")
+
+    t = sub.add_parser("tools", help="POST /api/tools/<kind>")
+    t.add_argument("kind", choices=["ddrescue", "bulk_extractor"])
+    t.add_argument("args", nargs=argparse.REMAINDER,
+                   help="argv passed through to the job runner")
+
+    r = sub.add_parser("register", help="register signing/AIBOM/encryption identity")
+    r.add_argument("--agent", required=True)
+    r.add_argument("--thread")
+    for name in ("seal", "submit", "verify"):
+        r = sub.add_parser(name, help="encrypted verifier " + name)
+        r.add_argument("--file", required=True, help="JSON request file; secrets never in argv")
+    r = sub.add_parser("inbox")
+    r.add_argument("--agent", required=True)
+    sub.add_parser("attestations")
+    a = ap.parse_args()
+    if a.cmd == "register":
+        out = call("POST", "/api/agent/register", {"agent_id": a.agent, "thread_id": a.thread})
+    elif a.cmd in ("seal", "submit", "verify"):
+        with open(a.file) as f:
+            obj = json.load(f)
+        if a.cmd != "seal" and "envelope" not in obj:
+            obj = {"envelope": obj}
+        out = call("POST", "/api/envelope/" + a.cmd, obj)
+    elif a.cmd == "inbox":
+        import urllib.parse
+        out = call("GET", "/api/inbox?agent_id=" + urllib.parse.quote(a.agent))
+    elif a.cmd == "attestations":
+        out = call("GET", "/api/attestations")
+    elif a.cmd == "send":
+        out = call("POST", "/api/send", {"from": a.frm, "to": a.to, "subject": a.subject,
+                                         "body": a.body, "reply_to": a.reply_to})
+    elif a.cmd == "wake":
+        out = call("POST", "/api/wake", {"lane": a.lane})
+    elif a.cmd == "status":
+        out = call("GET", "/api/state")
+    elif a.cmd == "jobs":
+        out = call("GET", "/api/jobs")
+    elif a.cmd == "algorithms":
+        out = call("GET", "/api/algorithms")
+    elif a.cmd == "load":                     # task_0004
+        out = call("GET", "/api/load")
+    elif a.cmd == "bridge":                   # task_0004
+        out = call("GET", "/api/bridge")
+    elif a.cmd == "proofbundle":
+        out = call("GET", "/proofbundle")
+        print("\n".join(str(out).splitlines()[:40]) if isinstance(out, str)
+              else json.dumps(out, indent=1))
+        return
+    elif a.cmd == "ots":
+        out = call("POST", "/api/ots/stamp",
+                   {"envelope_digest": a.envelope_digest})
+    elif a.cmd == "tools":
+        out = call("POST", "/api/tools/" + a.kind, {"args": list(a.args)})
+    print(json.dumps(out, indent=1))
+    sys.exit(0 if out.get("ok", True) else 1)
+
+
+if __name__ == "__main__":
+    main()

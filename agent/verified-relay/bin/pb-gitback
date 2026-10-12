@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Proactive gitback of the shared memory tree.
+# Append-only policy: never force-push, never rewrite history, never delete files.
+set -euo pipefail
+
+PB_ROOT="${PB_ROOT:-$HOME/pb}"
+MEM_DIR="${PB_MEMORY_DIR:-$PB_ROOT/memory}"
+MSG="${1:-gitback: proactive memory snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ)}"
+AGENT_LABEL="${PB_AGENT_LABEL:-unknown}"
+SESSION_ID="${PB_SESSION_ID:-}"
+
+if [[ "$(git -C "$MEM_DIR" rev-parse --is-inside-work-tree 2>/dev/null || true)" != "true" ]]; then
+  echo "pb-gitback: no git repo at $MEM_DIR" >&2
+  exit 1
+fi
+
+cd "$MEM_DIR"
+
+# Ensure identity for local commits
+git config user.email >/dev/null 2>&1 || git config user.email "memory-gitback@local"
+git config user.name  >/dev/null 2>&1 || git config user.name  "pb-memory-gitback"
+
+# Stage everything except ignored secrets
+git add -A
+
+if git diff --cached --quiet; then
+  echo "pb-gitback: clean (nothing to commit)"
+  exit 0
+fi
+
+FULL_MSG="$MSG
+agent: $AGENT_LABEL
+session: ${SESSION_ID:-none}
+host: $(hostname 2>/dev/null || echo unknown)
+cwd: ${PB_CWD:-$PWD}
+"
+
+git commit -m "$FULL_MSG" >/dev/null
+REV=$(git rev-parse --short HEAD)
+echo "pb-gitback: committed $REV ($AGENT_LABEL)"
+
+# Optional remote push when configured
+if git remote get-url origin >/dev/null 2>&1; then
+  if [[ "${PB_GITBACK_PUSH:-0}" == "1" ]]; then
+    git push origin HEAD 2>&1 | sed 's/^/pb-gitback: /' || {
+      echo "pb-gitback: push failed (local commit retained)" >&2
+      exit 0
+    }
+  fi
+fi

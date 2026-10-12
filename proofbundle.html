@@ -600,6 +600,10 @@ body.adv-mode .mode-text { color: var(--text0); border-color: var(--blue); }
 .bridge-workspace{display:grid;grid-template-columns:250px minmax(0,1.5fr) minmax(300px,1fr);gap:12px;margin:18px 0}.bridge-pane{border:1px solid var(--border);border-radius:8px;background:var(--surface);min-height:430px;overflow:hidden}.bridge-pane-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700}.bridge-pane-body{max-height:620px;overflow:auto;padding:10px}.bridge-agent{padding:10px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px}.bridge-agent b{font-size:12px}.bridge-agent-meta{font-size:10px;color:var(--text2);margin-top:4px;word-break:break-word}.bridge-event{border-left:3px solid var(--border);padding:9px 10px;margin-bottom:9px;background:var(--surface2);border-radius:0 6px 6px 0}.bridge-event.type-code{border-left-color:var(--accent)}.bridge-event.type-proof{border-left-color:var(--green)}.bridge-event.type-error{border-left-color:var(--red)}.bridge-event-head{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:var(--text2)}.bridge-event-message{font-size:12px;white-space:pre-wrap;word-break:break-word;margin-top:5px}.bridge-code{font:11px var(--mono);white-space:pre-wrap;word-break:break-word;background:var(--code-bg);padding:9px;border-radius:5px;margin-top:7px;max-height:260px;overflow:auto}.bridge-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bridge-proof-stat{padding:9px;border:1px solid var(--border);border-radius:6px}.bridge-proof-stat b{display:block;font:600 15px var(--mono)}.bridge-proof-stat span{font-size:9px;color:var(--text2)}
 @media(max-width:1050px){.bridge-workspace{grid-template-columns:220px 1fr}.bridge-workspace>.bridge-pane:last-child{grid-column:1/-1}}@media(max-width:700px){.bridge-workspace{grid-template-columns:1fr}.bridge-workspace>.bridge-pane:last-child{grid-column:auto}}
 
+
+/* ProofBundle shared room */
+.pb-room-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px}.pb-room-feed{height:52vh;min-height:260px;overflow:auto;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--bg1)}.pb-room-message{padding:12px 14px;margin:0 0 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg2)}.pb-room-message.operator{border-left:3px solid var(--blue)}.pb-room-message header{display:flex;gap:12px;justify-content:space-between;color:var(--text2);font-size:12px}.pb-room-message header b{color:var(--text0)}.pb-room-text{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}.pb-room-receipt{font-size:11px;color:var(--text2);margin-top:9px;overflow-wrap:anywhere}.pb-room-compose{margin-top:14px}.pb-room-compose textarea{width:100%;min-height:100px}.pb-room-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}.pb-room-agent{padding:10px 0;border-bottom:1px solid var(--border)}.pb-room-agent small{display:block;color:var(--text2);overflow-wrap:anywhere}.pb-room-notice{color:var(--text2);font-size:12px;margin:12px 0}@media(max-width:850px){.pb-room-layout{grid-template-columns:1fr}.pb-room-feed{height:45vh}}
+
 </style>
 <!-- ALETHEIA CSS -->
 <style>
@@ -927,6 +931,7 @@ var PBSHA256=(function(){
     <button class="sb-adv-only" data-title="Compliance certification" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>Certification</span></button>
     <button data-title="Artifact library" onclick="switchTab('library',this); renderLibrary()"><span class="sb-ico">▣</span><span>Library</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
+    <button data-title="Chat room" onclick="switchTab('chat',this);ProofBundleRoom.open()"><span class="sb-ico">◌</span><span>Chat room</span></button>
     <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
     <button data-title="Multi-agent orchestration" onclick="switchTab('orchestrator',this); refreshOrchestrator(); orchStartPolling()"><span class="sb-ico">⬡</span><span>Orchestrator</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
@@ -1616,6 +1621,24 @@ var PBSHA256=(function(){
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- BRIDGE TAB                                                     -->
 <!-- ══════════════════════════════════════════════════════════════ -->
+
+<div class="tab-panel" id="panel-chat">
+  <h2>Shared chat room</h2>
+  <p>Talk to the agents together. Your message goes to every room participant; their replies appear in this conversation.</p>
+  <div class="pb-room-layout">
+    <section>
+      <div id="pb-room-feed" class="pb-room-feed" role="log" aria-label="Shared agent conversation" aria-live="polite"><div class="empty">Connecting to the room…</div></div>
+      <form id="pb-room-compose" class="pb-room-compose">
+        <label class="label" for="pb-room-text">Message everyone</label>
+        <textarea id="pb-room-text" maxlength="32000" placeholder="Write to all agents… Enter to send · Shift+Enter for a new line" required></textarea>
+        <div class="pb-room-controls"><button id="pb-room-send" class="btn btn-primary" type="submit">Send to everyone</button><button class="btn btn-secondary" type="button" onclick="ProofBundleRoom.refresh()">Reconnect</button><span id="pb-room-status" role="status">Connecting…</span></div>
+        <div class="pb-room-notice">Room messages are visible to you and the participants. Ledger receipts show acceptance; an agent's response shows that it answered.</div>
+      </form>
+    </section>
+    <aside class="card"><div class="card-title">Participants</div><div id="pb-room-agents">Loading registered agents…</div><p class="pb-room-notice">Registration does not establish that an agent is currently responding.</p></aside>
+  </div>
+</div>
+
 <div class="tab-panel" id="panel-bridge">
   <h2>Bridge console</h2>
   <p>Watch the local ProofBundle verifier relay, inspect the lineage, register explicit lane identities, seal messages, route envelopes, read inboxes, and verify the chain. This console does not claim inherited identity; it only reports what the verifier endpoint confirms.</p>
@@ -7844,5 +7867,56 @@ init();
 
 </script>
 <!-- END ALETHEIA SCRIPT -->
+
+<script id="proofbundle-shared-room">
+window.ProofBundleRoom = (() => {
+  let cursor=0, flight=null, sending=false, timer=null, retryId=null, retryText=null;
+  const seen=new Set();
+  const by=id=>document.getElementById(id);
+  const status=(text)=>{by('pb-room-status').textContent=text};
+  async function api(path, options={}){
+    const endpoint=bridgeCfg().endpoint.replace(/\/$/,'');
+    const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),90000);
+    try{const r=await fetch(endpoint+path,{cache:'no-store',...options,signal:controller.signal});const data=await r.json();if(!r.ok)throw new Error(data.error||'HTTP '+r.status);return data;}finally{clearTimeout(timeout)}
+  }
+  function show(data){
+    if(Array.isArray(data.agents)){
+      const box=by('pb-room-agents');box.replaceChildren();
+      for(const a of data.agents){const d=document.createElement('div');d.className='pb-room-agent';const b=document.createElement('b');b.textContent=a.name||a.id;const detail=document.createElement('small');detail.textContent=(a.state||'registered')+' · '+a.id;d.append(b,detail);box.append(d)}
+      if(!data.agents.length)box.textContent='No participants registered';
+    }
+    const feed=by('pb-room-feed'), stick=feed.scrollHeight-feed.scrollTop-feed.clientHeight<80;
+    for(const m of data.messages||[]){const key=String(m.id??m.seq);if(seen.has(key))continue;if(!seen.size)feed.replaceChildren();seen.add(key);
+      const article=document.createElement('article');article.className='pb-room-message'+(m.from==='operator'||m.from==='ops'?' operator':'');
+      const header=document.createElement('header'),name=document.createElement('b'),time=document.createElement('time');name.textContent=m.name||m.from;time.textContent=m.created_at||'';header.append(name,time);
+      const body=document.createElement('div');body.className='pb-room-text';body.textContent=m.text||'';
+      const receipt=document.createElement('div');receipt.className='pb-room-receipt';receipt.textContent=(m.reply_to?'Reply to '+m.reply_to+' · ':'')+(m.receipts||[]).map(r=>'#'+r.seq+' · '+String(r.hash||'').slice(0,16)+' · '+(r.to||'room')).join(' | ');
+      article.append(header,body,receipt);feed.append(article);
+    }
+    if(!seen.size)feed.textContent='The room is ready. Send the first message to everyone.';
+    while(feed.children.length>300){feed.firstElementChild.remove()}
+    while(seen.size>2000)seen.delete(seen.values().next().value)
+    if(stick)feed.scrollTop=feed.scrollHeight;
+    if(Number.isInteger(data.cursor))cursor=data.cursor;
+  }
+  async function refresh(){
+    if(flight)return flight;
+    flight=(async()=>{try{const d=await api('/api/chat/room?after='+cursor+'&limit=100');show(d);status('Connected · '+(d.agents||[]).length+' participants');if(d.has_more)setTimeout(refresh,0)}catch(e){status('Room unavailable: '+e.message)}finally{flight=null}})();return flight;
+  }
+  async function send(event){
+    event.preventDefault();if(sending)return;const input=by('pb-room-text'),text=input.value;if(!text.trim())return;
+    if(retryText!==text){retryText=text;retryId=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)}
+    sending=true;by('pb-room-send').disabled=true;status('Sending to participants…');
+    try{const d=await api('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,client_id:retryId,reply_to:null})});if(d.accepted!==true)throw new Error(d.error||'Message was not accepted');show({messages:d.messages||[d.message||d]});if(input.value===text)input.value='';retryId=null;retryText=null;status('Accepted into the ledger');await refresh()}catch(e){status('Send failed: '+e.message+' · your text is retained')}finally{sending=false;by('pb-room-send').disabled=false}
+  }
+  function open(){if(location.protocol==='file:'){location.assign('http://127.0.0.1:8791/proofbundle?tab=chat');return}refresh();by('pb-room-text').focus()}
+  by('pb-room-compose').addEventListener('submit',send);
+  by('pb-room-text').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();by('pb-room-compose').requestSubmit()}});
+  timer=setInterval(()=>{if(!document.hidden&&by('panel-chat').classList.contains('active'))refresh()},3000);
+  const q=new URLSearchParams(location.search);if(q.get('tab')==='chat'){switchTab('chat',document.querySelector('[data-title="Chat room"]'));open()}
+  return {open,refresh};
+})();
+</script>
+
 </body>
 </html>

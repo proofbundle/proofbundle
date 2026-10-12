@@ -76,6 +76,17 @@ class CustodyTests(unittest.TestCase):
         self.assertEqual(restarted.checkpoint_record_page(receipt['id'],'retained')['records'][0]['raw_json'],record)
 
 
+    def test_record_batch_is_atomic_immutable_and_restartable(self):
+        draft=self.store.begin_record_checkpoint({'schema':'AletheiaCustodySnapshot/v1','state':{}})
+        rows=[{'kind':'retained','ordinal':i,'raw_json':json.dumps({'id':str(i),'message':'Ω😺'})} for i in range(3)]
+        result=self.store.put_checkpoint_records(draft['id'],rows)
+        self.assertEqual(len(result['records']),3)
+        with self.assertRaises(ValueError):self.store.put_checkpoint_records(draft['id'],[{'kind':'retained','ordinal':3,'raw_json':'{"id":"would-roll-back"}'},{**rows[0],'raw_json':'{"id":"conflict"}'}])
+        self.assertEqual(len(self.store.checkpoint_record_page(draft['id'],'retained')['records']),3)
+        receipt=self.store.finish_record_checkpoint(draft['id'],{'artifacts':0,'events':0,'retained':3})
+        restarted=CustodyStore(self.root/'custody',{'fixture':self.source})
+        self.assertEqual(restarted.latest()['id'],receipt['id'])
+
     def test_chunked_checkpoint_record_preserves_exact_unicode_json(self):
         draft=self.store.begin_record_checkpoint({'schema':'AletheiaCustodySnapshot/v1','state':{},'state_sha256':'fixture'})
         raw='{"id":"large-source","message":"'+('Ω😺abc'*80000)+'"}'

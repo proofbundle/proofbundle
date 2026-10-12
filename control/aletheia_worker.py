@@ -131,6 +131,7 @@ def dispatch(store, operation, args):
     if operation == 'checkpointRecordInfo':return store.checkpoint_record_info(args['id'],args['kind'],args['ordinal'],reader=True)
     if operation == 'checkpointReaderChunk':return store.checkpoint_reader_chunk(args['reader_id'],args['offset'])
     if operation == 'checkpointRecordChunk':return store.checkpoint_record_chunk(args['id'],args['kind'],args['ordinal'],args['offset'])
+    if operation == 'checkpointRecords':return store.put_checkpoint_records(args['id'],args['items'])
     if operation == 'checkpointRecord': return store.put_checkpoint_record(args['id'],args['kind'],args['ordinal'],args['raw_json'])
     if operation == 'finishRecordCheckpoint': return store.finish_record_checkpoint(args['id'],args['counts'])
     if operation == 'checkpointRecordPage': return store.checkpoint_record_page(args['id'],args['kind'],args.get('offset',0),args.get('limit',20))

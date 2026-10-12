@@ -313,6 +313,28 @@ class CustodyStore:
             if not prior:db.execute('INSERT INTO checkpoint_records VALUES (?,?,?,?,?,?)',(snapshot_id,kind,ordinal,record.get('id'),raw_json,sha))
         return {'sha256':sha,'kind':kind,'ordinal':ordinal,'bytes':len(raw_json.encode())}
 
+    def put_checkpoint_records(self, snapshot_id, items):
+        if not isinstance(items,list) or not 1<=len(items)<=100:raise ValueError('Checkpoint batch must contain 1..100 records')
+        if sum(len(item['raw_json'].encode()) for item in items)>2*1024*1024:raise ValueError('Checkpoint batch exceeds 2 MiB')
+        saved=[]
+        with self.connect() as db:
+            if not db.execute('SELECT 1 FROM checkpoint_drafts WHERE id=?',(snapshot_id,)).fetchone():raise ValueError('Unknown checkpoint draft')
+            for item in items:
+                kind,ordinal,raw=item['kind'],item['ordinal'],item['raw_json']
+                if kind not in ['artifacts','events','retained'] or not isinstance(ordinal,int) or ordinal<0:raise ValueError('Invalid checkpoint member')
+                record=json.loads(raw);sha=digest(raw)
+                if kind=='artifacts':
+                    ref=record.get('blob_ref')
+                    if ref:
+                        self.check_key(ref);blob=db.execute('SELECT * FROM blobs WHERE key=?',(ref,)).fetchone()
+                        if not blob or not (self.blobs/ref).is_file() or blob['size']!=record.get('size') or blob['sha256']!=record.get('blob_sha256'):raise ValueError('Checkpoint artifact bytes mismatch')
+                    elif not record.get('missing_bytes'):raise ValueError('Artifact bytes need a reference or explicit absence')
+                prior=db.execute('SELECT sha256 FROM checkpoint_records WHERE snapshot_id=? AND kind=? AND ordinal=?',(snapshot_id,kind,ordinal)).fetchone()
+                if prior and prior['sha256']!=sha:raise ValueError('Checkpoint record cannot overwrite different bytes')
+                if not prior:db.execute('INSERT INTO checkpoint_records VALUES (?,?,?,?,?,?)',(snapshot_id,kind,ordinal,record.get('id'),raw,sha))
+                saved.append({'sha256':sha,'kind':kind,'ordinal':ordinal,'bytes':len(raw.encode())})
+        return {'records':saved,'bytes':sum(r['bytes'] for r in saved)}
+
     def finish_record_checkpoint(self, snapshot_id, expected):
         import hashlib
         with self.connect() as db:

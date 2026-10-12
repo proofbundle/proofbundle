@@ -1089,6 +1089,7 @@ var PBSHA256=(function(){
 
 
 
+
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- HOME / HERO — drop to seal                                     -->
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -6704,9 +6705,11 @@ window.ProofBundleRoom = (() => {
 
 
 
+
 if (new URLSearchParams(location.search).get('embed') !== '1') init();
 </script>
 <!-- PB-ALGORITHM-SYNTHESIS-END -->
+
 
 
 
@@ -7624,7 +7627,8 @@ if (new URLSearchParams(location.search).get('embed') !== '1') init();
       const meta=await request(tx.objectStore('meta').get('workspace'));
       const header={schema:'AletheiaCustodySnapshot/v1',state:meta.state,state_sha256:meta.state_sha256};
       const draft=await aletheiaDesktop.call('beginRecordCheckpoint',{header});
-      const counts={artifacts:0,events:0,retained:0};let totalBytes=0;
+      const counts={artifacts:0,events:0,retained:0};let totalBytes=0,recordBatch=[],batchBytes=0;
+      const flushBatch=async()=>{if(!recordBatch.length)return;const records=recordBatch;recordBatch=[];batchBytes=0;const result=await aletheiaDesktop.call('checkpointRecords',{id:draft.id,items:records});totalBytes+=result.bytes;};
       for(const kind of ['artifacts','events','retained']) {
         await new Promise((resolve,reject)=>{
           active(()=>{
@@ -7644,15 +7648,17 @@ if (new URLSearchParams(location.search).get('embed') !== '1') init();
               const raw=JSON.stringify(record);
               let receipt;
               if(raw.length>262144){
+                await flushBatch();
                 const upload=await aletheiaDesktop.call('beginCheckpointRecord',{id:draft.id,kind,ordinal:counts[kind]});
                 for(let offset=0;offset<raw.length;){let end=Math.min(raw.length,offset+262144);if(end<raw.length&&raw.charCodeAt(end-1)>=0xD800&&raw.charCodeAt(end-1)<=0xDBFF)end--;await aletheiaDesktop.call('appendCheckpointRecord',{upload_id:upload.upload_id,chunk:raw.slice(offset,end)});offset=end;}
                 receipt=await aletheiaDesktop.call('finishCheckpointRecord',{upload_id:upload.upload_id});
-              }else receipt=await aletheiaDesktop.call('checkpointRecord',{id:draft.id,kind,ordinal:counts[kind],raw_json:raw});
+              }else{recordBatch.push({kind,ordinal:counts[kind],raw_json:raw});batchBytes+=utf8(raw).length;if(recordBatch.length>=100||batchBytes>=1048576)await flushBatch();receipt={bytes:0};}
               totalBytes+=receipt.bytes;counts[kind]++;await active(()=>row.continue());
             })().catch(reject);
           };
           }).catch(reject);
         });
+        await flushBatch();
         console.info('PB-DIAG SQLite checkpoint '+kind+' '+counts[kind]+' records; serialized bytes so far '+totalBytes);
       }
       const receipt=await aletheiaDesktop.call('finishRecordCheckpoint',{id:draft.id,counts});

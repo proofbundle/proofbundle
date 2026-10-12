@@ -93,7 +93,7 @@ app.whenReady().then(async () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate([{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]));
   ipcMain.handle('aletheia:local', (event, operation, args) => {
     requireFrame(event);
-    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport','runLinkedConformance','linkedConformanceReport','outcomeDefinitions','bindSourceAliases'].includes(operation)) throw new Error('Unsupported local operation');
+    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport','runLinkedConformance','linkedConformanceReport','outcomeDefinitions','bindSourceAliases','checkpointRecords'].includes(operation)) throw new Error('Unsupported local operation');
     return localCall(operation, args);
   });
   ipcMain.handle('aletheia:clipboard-write', async (event, text) => {
@@ -174,6 +174,7 @@ app.whenReady().then(async () => {
     const records=await win.webContents.executeJavaScript('(async()=>{const db=await libraryDb();const result=[];for(let sequence=1144;sequence<=1184;sequence++){const event=await new Promise((resolve,reject)=>{const r=db.transaction(\"events\").objectStore(\"events\").index(\"sequence\").get(sequence);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});if(event)result.push({sequence:event.sequence,action:event.action,payload_fields:Object.entries(event.payload||{}).map(([key,value])=>({key,type:typeof value,length:typeof value===\"string\"||Array.isArray(value)?value.length:null})),serialized_bytes:JSON.stringify(event).length});}return result;})()');
     console.log(JSON.stringify({archive_diagnostic:records}));
   }
+  if(process.argv.includes('--checkpoint-once')){await win.webContents.executeJavaScript('window.ALETHEIA_READY');const receipt=await win.webContents.executeJavaScript('Aletheia.checkpoint()');console.log(JSON.stringify({completed_checkpoint:receipt}));fs.writeFileSync(join(state,'current-checkpoint-receipt.json'),JSON.stringify(receipt));}
   if(process.argv.includes('--verify-archive-storage')) await require('./archive-storage-verification.cjs')({win,state,localCall});
   if (process.argv.includes('--verify-archive-stability')) {
     require('./archive-stability.cjs')({win,localCall,state,identity,key}).catch(error => console.error('Archive stability failed: ' + error.stack));

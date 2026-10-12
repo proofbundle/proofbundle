@@ -1630,7 +1630,7 @@ var PBSHA256=(function(){
       <div id="pb-room-feed" class="pb-room-feed" role="log" aria-label="Shared agent conversation" aria-live="polite"><div class="empty">Connecting to the room…</div></div>
       <form id="pb-room-compose" class="pb-room-compose">
         <label class="label" for="pb-room-text">Message everyone</label>
-        <textarea id="pb-room-text" maxlength="32000" placeholder="Write to all agents… Enter to send · Shift+Enter for a new line" required></textarea>
+        <textarea id="pb-room-text" maxlength="8192" placeholder="Write to all agents… Enter to send · Shift+Enter for a new line" required></textarea>
         <div class="pb-room-controls"><button id="pb-room-send" class="btn btn-primary" type="submit">Send to everyone</button><button class="btn btn-secondary" type="button" onclick="ProofBundleRoom.refresh()">Reconnect</button><span id="pb-room-status" role="status">Connecting…</span></div>
         <div class="pb-room-notice">Room messages are visible to you and the participants. Ledger receipts show acceptance; an agent's response shows that it answered.</div>
       </form>
@@ -7912,6 +7912,7 @@ window.ProofBundleRoom = (() => {
   }
   async function send(event){
     event.preventDefault();if(sending)return;const input=by('pb-room-text'),text=input.value;if(!text.trim())return;
+    if(new TextEncoder().encode(text).length>8192){status('Message exceeds the room limit of 8192 UTF-8 bytes; your draft is retained');return}
     if(retryText!==text){retryText=text;retryId=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)}
     sending=true;by('pb-room-send').disabled=true;status('Sending to participants…');
     try{const d=await api('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,client_id:retryId,reply_to:null})});if(d.accepted!==true)throw new Error(d.error||'Message was not accepted');show({messages:d.messages||[d.message||d]});if(input.value===text)input.value='';retryId=null;retryText=null;status('Accepted into the ledger');await refresh()}catch(e){status('Send failed: '+e.message+' · your text is retained')}finally{sending=false;by('pb-room-send').disabled=false}

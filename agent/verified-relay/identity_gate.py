@@ -16,13 +16,19 @@ def _call(op, **values):
         raise ValueError(result.stderr.strip() or 'identity gate failed')
     return json.loads(result.stdout)
 
-def register(agent_id, thread_id=None):
+def register(agent_id, thread_id=None, provider=None, model=None, source=None):
     root=Path(os.environ.get('PB_AGENT_ROOT',str(Path.home()/'.proofbundle/agent')))
     lock_path = root/'.communication-register.lock'
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     with lock_path.open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        return _call('register', agent_id=agent_id, thread_id=thread_id)
+        return _call('register', agent_id=agent_id, thread_id=thread_id, provider=provider, model=model, source=source)
+
+def correct_model_card(agent_id, provider, model, source):
+    root=Path(os.environ.get('PB_AGENT_ROOT',str(Path.home()/'.proofbundle/agent')))
+    with (root/'.communication-register.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        return _call('correct-model-card', agent_id=agent_id, provider=provider, model=model, source=source)
 
 def identity(agent_id):
     return _call('identity', agent_id=agent_id)

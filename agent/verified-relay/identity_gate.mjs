@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Local integration of existing ProofBundle identity, AIBOM and envelope primitives.
 // JSON stdin/stdout. Private keys stay in the established agent key directory.
-import {readFileSync,writeFileSync,existsSync,mkdirSync,appendFileSync,statSync,realpathSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync,mkdirSync,appendFileSync,statSync,realpathSync,renameSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {join} from 'node:path';
 import {homedir} from 'node:os';
@@ -43,12 +43,17 @@ export function verify_identity(agentId){
   return {agent_id:agentId,thread_id:binding.thread_id,key_fingerprint:identity.key_fingerprint,pubkey:identity.pubkey,enc_pubkey:binding.enc_pubkey,pq_binding:pqBinding,aibom_artifact:bom.artifact,aibom_digest:bom.bom_seal.digest_b64u,aibom:bom,binding,verified:true};
 }
 
-export function register(agentId,threadId=null){
+function modelCard(threadId,provider=null,model=null,source=null){
+  for(const value of [provider,model,source])if(value!==null&&(typeof value!=='string'||!value.trim()||value.length>2048))throw Error('invalid model attribution');
+  return {provider:provider??'unverified',model:model??'unverified',role:'agent',thread_id:threadId,declared_by:'local-conversation-binding',source:source??'not supplied'};
+}
+export function register(agentId,threadId=null,provider=null,model=null,source=null){
+  const card=modelCard(threadId,provider,model,source);
   const dir=idPath(agentId);mkdirSync(dir,{recursive:true});
   const identity=loadOrCreateIdentity(agentId,ROOT);
   if(!existsSync(join(dir,'aibom.json'))){
     const bom=buildAibom({artifact:`urn:proofbundle:communication:${agentId}`,generatedAt:new Date().toISOString(),
-      modelCards:threadId?[{provider:'OpenAI',role:'agent',thread_id:threadId,declared_by:'local-conversation-binding'}]:[],
+      modelCards:threadId?[card]:[],
       custodyChain:`agent:${agentId} fp:${identity.key_fingerprint}`,attestationRecord:'Local communication registration; no prior identity inheritance asserted',
       publicKeyRaw:Buffer.from(identity.pubkey,'hex').subarray(-32),signer:d=>sign(null,Buffer.from(d),key(agentId))});
     if(verifyAibom(bom).length)throw Error('new AIBOM verification failed');
@@ -73,6 +78,30 @@ export function register(agentId,threadId=null){
   const result=verify_identity(agentId);
   if(result.thread_id!==threadId)throw Error('existing identity has a different thread binding');
   return result;
+}
+
+// Explicit correction: retain the exact prior signed artifact and link it in
+// the new signed AIBOM. Registration alone never rewrites existing evidence.
+export function correct_model_card(agentId,provider,model,source){
+  if(!provider||!model||!source)throw Error('correction requires provider, model and source');
+  const previous=verify_identity(agentId),dir=idPath(agentId);
+  const card=modelCard(previous.thread_id,provider,model,source);
+  if(canonicalJSON(previous.aibom.model_cards)===canonicalJSON([card]))return previous;
+  const bytes=readFileSync(join(dir,'aibom.json')),digest=hash(bytes);
+  const archive=join(dir,'aibom-history');mkdirSync(archive,{recursive:true});
+  const saved=join(archive,digest+'.json');
+  if(existsSync(saved)){if(!readFileSync(saved).equals(bytes))throw Error('prior artifact archive mismatch');}
+  else putOnce(saved,bytes);
+  const bom=buildAibom({artifact:previous.aibom.artifact,generatedAt:new Date().toISOString(),
+    ancestry:[...previous.aibom.ancestry,{artifact_sha256:digest,bom_digest:previous.aibom_digest,relation:'model-card-correction'}],
+    modelCards:[card],custodyChain:previous.aibom.custody_chain,
+    attestationRecord:'Explicit model attribution correction; prior signed AIBOM preserved by SHA-256; signing and encryption identities retained',
+    publicKeyRaw:Buffer.from(previous.pubkey,'hex').subarray(-32),signer:d=>sign(null,Buffer.from(d),key(agentId))});
+  if(verifyAibom(bom).length)throw Error('corrected AIBOM verification failed');
+  appendFileSync(join(ROOT,'aibom-ledger.ndjson'),JSON.stringify(bom)+'\n');
+  const pending=join(dir,'aibom-correction-'+randomBytes(8).toString('hex')+'.json');
+  putOnce(pending,JSON.stringify(bom,null,2)+'\n');renameSync(pending,join(dir,'aibom.json'));
+  return verify_identity(agentId);
 }
 
 function encryptedEnvelope(sender,payload,recipient,profile){
@@ -142,7 +171,8 @@ export function verify_receipt(receipt,envelope,verifierId=DEFAULT_VERIFIER){
 if(process.argv[1]&&realpathSync(fileURLToPath(import.meta.url))===realpathSync(process.argv[1])){
   try{
     const input=JSON.parse(readFileSync(0,'utf8')),op=input.op;let result;
-    if(op==='register')result=register(input.agent_id,input.thread_id??null);
+    if(op==='register')result=register(input.agent_id,input.thread_id??null,input.provider??null,input.model??null,input.source??null);
+    else if(op==='correct-model-card')result=correct_model_card(input.agent_id,input.provider,input.model,input.source);
     else if(op==='identity')result=verify_identity(input.agent_id);
     else if(op==='seal')result=seal_request(input.frm,input.to,input.payload,input.verifier??DEFAULT_VERIFIER,input.profile??null);
     else if(op==='verify')result=verify_request(input.envelope,input.verifier??DEFAULT_VERIFIER);

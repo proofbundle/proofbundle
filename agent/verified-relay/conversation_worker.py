@@ -7,6 +7,7 @@ Capture batches never notify agents. Directed verified messages generate one not
 import argparse,asyncio,base64,fcntl,hashlib,json,os,pathlib,time,urllib.request,datetime
 import websockets
 import identity_gate
+from cline_source import message_spans
 
 HOME=pathlib.Path.home()
 STATE=HOME/'pb/live/conversation-worker'
@@ -34,11 +35,26 @@ def operator_fanout(config,state):
     for source in config['sources']:
         offset=0
         with open(source['path'],'rb') as f:
-            for line in f:
+            if source.get('transport')=='cline':
+                raw=f.read();json.loads(raw)
+                items=message_spans(raw)
+            else:items=((None,line,None) for line in f)
+            for native_start,line,native_row in items:
                 start=offset;offset+=len(line)
-                if not line.endswith(b'\n'):break
-                row=json.loads(line);p=row.get('payload',{})
-                if source.get('transport')=='qwen':
+                if native_start is not None:start=native_start
+                elif not line.endswith(b'\n'):break
+                row=native_row if native_row is not None else json.loads(line);p=row.get('payload',{})
+                if source.get('transport')=='cline':
+                    if row.get('role')!='user':continue
+                    content=row.get('content',[])
+                    # Native tool results use role=user too, but are not operator input.
+                    if not content or any(i.get('type')!='text' for i in content):continue
+                    text='\n'.join(i.get('text','') for i in content)
+                    visible=text.split('>',1)[-1] if text.startswith('<user_input ') else text
+                    if ('This is a peer notification' in text or
+                        visible.startswith(('Encrypted ProofBundle inbox','ProofBundle relay notification from Codex lane B'))):continue
+                    created=row.get('ts',0)/1000
+                elif source.get('transport')=='qwen':
                     message=row.get('message',{})
                     if row.get('type')!='user' or message.get('role')!='user':continue
                     content=message.get('content',message.get('parts',[]))
@@ -67,6 +83,8 @@ def operator_fanout(config,state):
                                  'source_path':source['path'],'source_offset':start,'source_sha256':digest,
                                  'raw_base64':base64.b64encode(line).decode(),
                                  'attribution':'Agent witnessed exact native user record; operator did not cryptographically sign this capture.'}
+                        if source.get('transport')=='cline':
+                            payload.update(source_format='cline-native-json-message-span',source_snapshot_sha256=hashlib.sha256(raw).hexdigest())
                         envelope=identity_gate.seal_request(config['witness_agent'],recipient,payload)
                         atom(pending,envelope)
                     accepted=request('/api/envelope/submit',{'envelope':envelope})
@@ -75,7 +93,8 @@ def operator_fanout(config,state):
                     atom(STATE/'state.json',state);count+=1
                     if count>=16:return
 
-def capture(source,witness,cursor):
+def capture(source,witness,cursor,state):
+    if source.get('transport')=='cline':return capture_cline(source,witness,cursor,state)
     path=pathlib.Path(source['path'])
     with path.open('rb') as f:
         start=cursor.get('offset',0)
@@ -106,6 +125,46 @@ def capture(source,witness,cursor):
     if not result.get('accepted'):raise ValueError('capture not accepted')
     cursor.update(offset=end,last_start=rows[-1]['offset'],last_sha256=rows[-1]['sha256'],last_seq=result['seq'])
     # Pending encrypted envelope remains as a retry/recovery source; never deleted.
+    return True
+
+def capture_cline(source,witness,cursor,state):
+    # JSON snapshots are identified as snapshots, never as append-only JSONL.
+    # All encrypted chunks are retained before any append so a later native
+    # rewrite cannot destroy an unfinished snapshot capture.
+    pending_path=cursor.get('snapshot_pending')
+    if pending_path:
+        batch=json.loads(pathlib.Path(pending_path).read_text())
+    else:
+        metadata=json.loads(pathlib.Path(source['session_file']).read_bytes())
+        if metadata.get('status')!='idle':return False
+        raw=pathlib.Path(source['path']).read_bytes();json.loads(raw)
+        digest=hashlib.sha256(raw).hexdigest()
+        if cursor.get('snapshot_sha256')==digest:return False
+        ident=hashlib.sha256((source['path']+digest).encode()).hexdigest()
+        pending_path=str(STATE/(ident+'.snapshot.pending.json'))
+        if pathlib.Path(pending_path).exists():batch=json.loads(pathlib.Path(pending_path).read_text())
+        else:
+            envelopes=[];chunk_size=196608
+            for start in range(0,len(raw),chunk_size):
+                chunk=raw[start:start+chunk_size]
+                payload={'type':'transcript-witness','notify':False,'source_format':'cline-native-json-snapshot',
+                    'witness_agent':witness,'source_thread':source['thread_id'],'source_path':source['path'],
+                    'snapshot_sha256':digest,'snapshot_bytes':len(raw),'start':start,'end':start+len(chunk),
+                    'chunk_sha256':hashlib.sha256(chunk).hexdigest(),'raw_base64':base64.b64encode(chunk).decode(),
+                    'attribution':'Agent witnessed native snapshot bytes; not an operator signature.'}
+                envelopes.append(identity_gate.seal_request(witness,source['agent_id'],payload))
+            batch={'snapshot_sha256':digest,'snapshot_bytes':len(raw),'envelopes':envelopes}
+            atom(pathlib.Path(pending_path),batch)
+        cursor.update(snapshot_pending=pending_path,snapshot_next_chunk=0)
+        atom(STATE/'state.json',state)
+    index=cursor.get('snapshot_next_chunk',0)
+    if index<len(batch['envelopes']):
+        out=request('/api/envelope/submit',{'envelope':batch['envelopes'][index]})
+        if not out.get('accepted'):raise ValueError('snapshot chunk not accepted')
+        cursor.update(snapshot_next_chunk=index+1,last_seq=out['seq'])
+    if cursor['snapshot_next_chunk']==len(batch['envelopes']):
+        cursor.update(snapshot_sha256=batch['snapshot_sha256'],snapshot_bytes=batch['snapshot_bytes'])
+        cursor.pop('snapshot_pending',None);cursor.pop('snapshot_next_chunk',None)
     return True
 
 class NativeClient:
@@ -143,7 +202,7 @@ async def cycle(config,state,notify=True):
     changed=False
     for source in config['sources']:
         cursor=state.setdefault('sources',{}).setdefault(source['thread_id'],{})
-        if capture(source,config['witness_agent'],cursor):changed=True
+        if capture(source,config['witness_agent'],cursor,state):changed=True
         atom(STATE/'state.json',state)
     operator_fanout(config,state)
     if not notify:return changed

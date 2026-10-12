@@ -2,6 +2,8 @@
 import copy
 import unittest
 import os
+import json
+import hashlib
 from pathlib import Path
 import identity_gate as gate
 os.environ.setdefault('PB_AGENT_ROOT', str(Path.home()/'pb/work/bridge-reestablish-20261011/test-identities'))
@@ -37,5 +39,20 @@ class IdentityGateChecks(unittest.TestCase):
     def test_plaintext_rejected(self):
         env=self.envelope();env['payload']['encrypted']=False
         with self.assertRaises(ValueError):gate.verify_request(env,self.verifier)
+    def test_model_attribution_correction_preserves_identity_and_prior_evidence(self):
+        name='proofbundle-relay-test-attribution'
+        before=gate.register(name,'test-thread')
+        path=Path(os.environ['PB_AGENT_ROOT'])/name/'aibom.json'
+        raw=path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
+        after=gate.correct_model_card(name,'minimax-cn-coding-plan','MiniMax-M3.1-Flash-Preview','test native session metadata')
+        self.assertEqual(after['key_fingerprint'],before['key_fingerprint'])
+        self.assertEqual(after['enc_pubkey'],before['enc_pubkey'])
+        self.assertEqual(after['pq_binding'],before['pq_binding'])
+        self.assertEqual((path.parent/'aibom-history'/(digest+'.json')).read_bytes(),raw)
+        self.assertEqual(after['aibom']['model_cards'][0]['provider'],'minimax-cn-coding-plan')
+        self.assertEqual(after['aibom']['ancestry'][-1]['artifact_sha256'],digest)
+        again=gate.correct_model_card(name,'minimax-cn-coding-plan','MiniMax-M3.1-Flash-Preview','test native session metadata')
+        self.assertEqual(again['aibom_digest'],after['aibom_digest'])
+        with self.assertRaises(ValueError):gate.correct_model_card(name,'minimax','','missing model')
 
 if __name__=='__main__':unittest.main()

@@ -35,7 +35,7 @@ The existing HTML crypto audit passes 66 boot checks, 24 functional checks and 6
 
 ## Git reconciliation
 
-At inspection, local `main` was `3b6cf5b`; cached `github/main` was `56c5cb7`; cached `origin/main` was `7d44e7c`. Local main and cached github/main had 23 and 8 exclusive commits respectively. Relative to cached github/main, the local tree lacked 2,227 archive paths. Those cached refs are not a fresh remote observation.
+At initial inspection, local `main` was `3b6cf5b`; cached `github/main` was `56c5cb7`; cached `origin/main` was `7d44e7c`. Local main and cached github/main had 8 and 23 exclusive commits respectively. Relative to cached github/main, the local tree lacked 2,227 archive paths, plus one script. Independent ancestry review identifies these as additions on the cached GitHub branch after the common ancestor, rather than deletions of shared ancestral files. Those cached refs are not a fresh remote observation. The synthesis commit subsequently adds another local commit.
 
 The historical registry survives in Git even though the current JSON has 95 rows. This synthesis recovers its declarations without overwriting the operational registry. The separate `/home/falsealias/proofbundle-registry` working tree had no commits at inspection. The synthesis preserves and attributes its registry records; it does not claim that all underlying proof-source repositories have been imported into the application history.
 

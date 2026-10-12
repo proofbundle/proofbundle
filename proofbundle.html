@@ -7896,7 +7896,9 @@ window.ProofBundleRoom = (() => {
       const header=document.createElement('header'),name=document.createElement('b'),time=document.createElement('time');name.textContent=m.name||m.from;time.textContent=m.created_at||'';header.append(name,time);
       const body=document.createElement('div');body.className='pb-room-text';body.textContent=m.text||'';
       const receipt=document.createElement('div');receipt.className='pb-room-receipt';receipt.textContent=(m.reply_to?'Reply to '+m.reply_to+' · ':'')+(m.receipts||[]).map(r=>'#'+r.seq+' · '+String(r.hash||'').slice(0,16)+' · '+(r.to||'room')).join(' | ');
-      article.append(header,body,receipt);feed.append(article);
+      article.append(header,body,receipt);
+      if((m.receipts||[]).length){const details=document.createElement('details'),summary=document.createElement('summary'),full=document.createElement('pre');summary.textContent='Full ledger receipts';full.className='pb-room-receipt';full.textContent=(m.receipts||[]).map(r=>'Sequence: '+r.seq+'\nSHA-256: '+String(r.hash||'')+'\nRecipient: '+(r.to||'room')).join('\n\n');details.append(summary,full);article.append(details)}
+      feed.append(article);
     }
     if(!seen.size)feed.textContent='The room is ready. Send the first message to everyone.';
     while(feed.children.length>300){feed.firstElementChild.remove()}

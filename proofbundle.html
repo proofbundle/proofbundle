@@ -604,6 +604,15 @@ body.adv-mode .mode-text { color: var(--text0); border-color: var(--blue); }
 /* ProofBundle shared room */
 .pb-room-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px}.pb-room-feed{height:52vh;min-height:260px;overflow:auto;padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--bg1)}.pb-room-message{padding:12px 14px;margin:0 0 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg2)}.pb-room-message.operator{border-left:3px solid var(--blue)}.pb-room-message header{display:flex;gap:12px;justify-content:space-between;color:var(--text2);font-size:12px}.pb-room-message header b{color:var(--text0)}.pb-room-text{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}.pb-room-receipt{font-size:11px;color:var(--text2);margin-top:9px;overflow-wrap:anywhere}.pb-room-compose{margin-top:14px}.pb-room-compose textarea{width:100%;min-height:100px}.pb-room-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}.pb-room-agent{padding:10px 0;border-bottom:1px solid var(--border)}.pb-room-agent small{display:block;color:var(--text2);overflow-wrap:anywhere}.pb-room-notice{color:var(--text2);font-size:12px;margin:12px 0}@media(max-width:850px){.pb-room-layout{grid-template-columns:1fr}.pb-room-feed{height:45vh}}
 
+
+/* Conversations refinement: inherits ProofBundle's theme. */
+#panel-chat{max-width:1120px;margin:0 auto;padding-top:8px}.pb-conversation-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.pb-conversation-heading h2{font-size:30px;font-weight:550;letter-spacing:-.045em;margin:6px 0 0}.pb-conversation-kicker{font-size:10px;letter-spacing:.16em;color:var(--text2)}.pb-room-reconnect{border-radius:50%;height:34px;width:34px;padding:0;font-size:19px}.pb-participant-strip{display:flex;gap:8px;flex-wrap:wrap;min-height:32px;margin-bottom:22px}.pb-participant-strip .pb-room-agent{display:flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:30px;padding:6px 11px;background:transparent}.pb-room-agent b{font-size:11px;font-weight:500}.pb-participant-dot{width:5px;height:5px;border-radius:50%;background:var(--text2)}.pb-participant-dot.joined{background:var(--cyan)}.pb-conversation-surface{background:var(--bg1);border:1px solid var(--border);border-radius:16px;overflow:hidden}.pb-room-feed{height:calc(100vh - 370px);min-height:260px;max-height:760px;padding:26px 28px;border:0;border-radius:0;background:transparent;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}.pb-room-message{position:relative;border:0;border-radius:0;background:transparent;padding:0 0 22px 42px;margin-bottom:18px;max-width:100%}.pb-room-message.operator{border:0}.pb-room-avatar{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--bg3);color:var(--cyan);font-size:11px;font-weight:700}.pb-room-message.operator .pb-room-avatar{color:var(--blue)}.pb-room-message header{justify-content:flex-start;align-items:center;gap:12px;font-size:11px;line-height:22px}.pb-room-message header b{font-weight:600;font-size:12px}.pb-room-message header time{color:var(--text2);font-size:10px}.pb-room-text{font-size:14px;line-height:1.7;color:var(--text0);margin-top:5px}.pb-room-message>.pb-room-receipt{display:none}.pb-room-message details{margin-top:9px}.pb-room-message summary{cursor:pointer;font-size:10px;color:var(--text2);list-style:none}.pb-room-message summary:before{content:'↳ ';color:var(--text2)}.pb-room-message details pre{white-space:pre-wrap;line-height:1.65;background:var(--bg0);padding:12px;border-radius:8px}.pb-room-compose{margin:0;border-top:1px solid var(--border);padding:16px 22px 14px;background:var(--bg2)}.pb-room-compose .label{font-size:10px;color:var(--text2);margin-bottom:8px;text-transform:none;letter-spacing:0}.pb-room-compose textarea{min-height:64px;max-height:200px;border:0;padding:0;background:transparent;color:var(--text0);resize:vertical;font:14px/1.6 var(--font-ui);box-shadow:none;outline:none}.pb-room-compose textarea:focus{border:0;box-shadow:none}.pb-room-controls{justify-content:flex-end;margin-top:10px;gap:15px}.pb-room-controls #pb-room-status{margin-right:auto;font-size:10px;color:var(--text2);max-width:55%;overflow-wrap:anywhere}.pb-room-keyboard{font-size:10px;color:var(--text2)}.pb-room-controls .btn-primary{border-radius:9px;padding:9px 16px;font-size:12px}.pb-room-notice{font-size:10px;text-align:center;color:var(--text2);margin-top:12px}@media(max-width:700px){.pb-room-feed{padding:20px 14px;height:calc(100vh - 350px)}.pb-room-compose{padding:14px}.pb-room-keyboard{display:none}.pb-conversation-heading h2{font-size:25px}}
+
+
+.pb-conversation-frame{width:100%;height:calc(100vh - 110px);min-height:500px;border:0;border-radius:12px;background:var(--bg0)}.pb-room-embedded #sidebar,.pb-room-embedded .topbar{display:none}.pb-room-embedded main{padding:14px 0 0;width:100%;background:var(--bg0)}.pb-room-embedded #panel-chat{padding:0 12px}.pb-room-embedded .pb-room-feed{height:calc(100vh - 275px)}
+:root[data-theme="light"] body{background:var(--bg0)}:root[data-theme="light"] #sidebar,:root[data-theme="light"] .topbar{background:var(--bg1)}
+
+.pb-room-embedded #app-main{height:100vh;overflow:hidden}.pb-room-embedded main{height:100%;padding:14px;overflow:hidden;display:flex}.pb-room-embedded #panel-chat{display:flex;flex-direction:column;width:100%;height:100%;padding:0;min-height:0}.pb-room-embedded .pb-conversation-heading{margin-bottom:12px;flex-shrink:0}.pb-room-embedded .pb-participant-strip{margin-bottom:14px;flex-shrink:0}.pb-room-embedded .pb-conversation-surface{flex:1;min-height:0;display:flex;flex-direction:column}.pb-room-embedded .pb-room-feed{flex:1;height:auto;min-height:100px}.pb-room-embedded .pb-room-compose{flex-shrink:0}.pb-room-embedded .pb-room-notice{flex-shrink:0;margin-top:9px}
 </style>
 <!-- ALETHEIA CSS -->
 <style>
@@ -931,7 +940,7 @@ var PBSHA256=(function(){
     <button class="sb-adv-only" data-title="Compliance certification" onclick="switchTab('euaia',this)"><span class="sb-ico">§</span><span>Certification</span></button>
     <button data-title="Artifact library" onclick="switchTab('library',this); renderLibrary()"><span class="sb-ico">▣</span><span>Library</span></button>
     <button data-title="History" onclick="switchTab('ledger',this)"><span class="sb-ico">≡</span><span>History</span></button>
-    <button data-title="Chat room" onclick="switchTab('chat',this);ProofBundleRoom.open()"><span class="sb-ico">◌</span><span>Chat room</span></button>
+    <button data-title="Conversations" onclick="switchTab('chat',this);ProofBundleRoom.open()"><span class="sb-ico">◌</span><span>Conversations</span></button>
     <button data-title="Bridge" onclick="switchTab('bridge',this); refreshBridgeConsole()"><span class="sb-ico">⇄</span><span>Bridge</span></button>
     <button data-title="Multi-agent orchestration" onclick="switchTab('orchestrator',this); refreshOrchestrator(); orchStartPolling()"><span class="sb-ico">⬡</span><span>Orchestrator</span></button>
     <div class="sb-group-label sb-adv-only">Advanced</div>
@@ -1623,20 +1632,17 @@ var PBSHA256=(function(){
 <!-- ══════════════════════════════════════════════════════════════ -->
 
 <div class="tab-panel" id="panel-chat">
-  <h2>Shared chat room</h2>
-  <p>Talk to the agents together. Your message goes to every room participant; their replies appear in this conversation.</p>
-  <div class="pb-room-layout">
-    <section>
-      <div id="pb-room-feed" class="pb-room-feed" role="log" aria-label="Shared agent conversation" aria-live="polite"><div class="empty">Connecting to the room…</div></div>
-      <form id="pb-room-compose" class="pb-room-compose">
-        <label class="label" for="pb-room-text">Message everyone</label>
-        <textarea id="pb-room-text" maxlength="8192" placeholder="Write to all agents… Enter to send · Shift+Enter for a new line" required></textarea>
-        <div class="pb-room-controls"><button id="pb-room-send" class="btn btn-primary" type="submit">Send to everyone</button><button class="btn btn-secondary" type="button" onclick="ProofBundleRoom.refresh()">Reconnect</button><span id="pb-room-status" role="status">Connecting…</span></div>
-        <div class="pb-room-notice">Room messages are visible to you and the participants. Ledger receipts show acceptance; an agent's response shows that it answered.</div>
-      </form>
-    </section>
-    <aside class="card"><div class="card-title">Participants</div><div id="pb-room-agents">Loading registered agents…</div><p class="pb-room-notice">Registration does not establish that an agent is currently responding.</p></aside>
-  </div>
+  <header class="pb-conversation-heading"><div><div class="pb-conversation-kicker">PROOFBUNDLE / TOGETHER</div><h2>Conversations</h2></div><button class="btn btn-secondary pb-room-reconnect" type="button" onclick="ProofBundleRoom.refresh()" title="Reconnect to the local relay">↻</button></header>
+  <div id="pb-room-agents" class="pb-participant-strip" aria-label="Conversation participants">Connecting participants…</div>
+  <section class="pb-conversation-surface">
+    <div id="pb-room-feed" class="pb-room-feed" role="log" aria-label="Shared agent conversation" aria-live="polite"><div class="empty">Connecting…</div></div>
+    <form id="pb-room-compose" class="pb-room-compose">
+      <label class="label" for="pb-room-text">To everyone</label>
+      <textarea id="pb-room-text" maxlength="8192" placeholder="Speak with everyone…" required></textarea>
+      <div class="pb-room-controls"><span id="pb-room-status" role="status">Connecting…</span><span class="pb-room-keyboard">Enter to send · Shift+Enter for a new line</span><button id="pb-room-send" class="btn btn-primary" type="submit">Send ↗</button></div>
+    </form>
+  </section>
+  <div class="pb-room-notice">Shared with the participants · signed agent replies · ledger receipts on each message</div>
 </div>
 
 <div class="tab-panel" id="panel-bridge">
@@ -6490,7 +6496,7 @@ if (new URLSearchParams(location.search).get('tab') === 'bridge') {
 
 
 
-init();
+if (new URLSearchParams(location.search).get('embed') !== '1') init();
 </script>
 
 
@@ -6534,6 +6540,7 @@ init();
  */
 (() => {
   'use strict';
+  if (new URLSearchParams(location.search).get('embed') === '1') return;
   // Hidden/minimized windows must still make progress during archive checks.
   pbYieldToUi=()=>new Promise(resolve=>{const timer=setTimeout(resolve,25);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>{clearTimeout(timer);setTimeout(resolve,0);});});
   const DB_NAME = 'aletheia-proofbundle-custody-v1';
@@ -7875,7 +7882,7 @@ init();
 
 <script id="proofbundle-shared-room">
 window.ProofBundleRoom = (() => {
-  let cursor=0, flight=null, sending=false, timer=null, retryId=null, retryText=null;
+  let cursor=0, flight=null, sending=false, timer=null, retryId=null, retryText=null, embedded=false;
   const seen=new Set();
   const by=id=>document.getElementById(id);
   const status=(text)=>{by('pb-room-status').textContent=text};
@@ -7887,41 +7894,52 @@ window.ProofBundleRoom = (() => {
   function show(data){
     if(Array.isArray(data.agents)){
       const box=by('pb-room-agents');box.replaceChildren();
-      for(const a of data.agents){const d=document.createElement('div');d.className='pb-room-agent';const b=document.createElement('b');b.textContent=a.name||a.id;const detail=document.createElement('small');detail.textContent=(a.state||'registered')+' · '+a.id;d.append(b,detail);box.append(d)}
+      for(const a of data.agents){const d=document.createElement('div');d.className='pb-room-agent';const b=document.createElement('b');b.textContent=a.name||a.id;const dot=document.createElement('span');dot.className='pb-participant-dot'+(a.state==='joined'?' joined':'');d.title=a.id+' · '+(a.state||'registered');d.append(dot,b);box.append(d)}
       if(!data.agents.length)box.textContent='No participants registered';
     }
     const feed=by('pb-room-feed'), stick=feed.scrollHeight-feed.scrollTop-feed.clientHeight<80;
     for(const m of data.messages||[]){const key=String(m.id??m.seq);if(seen.has(key))continue;if(!seen.size)feed.replaceChildren();seen.add(key);
-      const article=document.createElement('article');article.className='pb-room-message'+(m.from==='operator'||m.from==='ops'?' operator':'');
-      const header=document.createElement('header'),name=document.createElement('b'),time=document.createElement('time');name.textContent=m.name||m.from;time.textContent=m.created_at||'';header.append(name,time);
+      const article=document.createElement('article');article.className='pb-room-message'+(m.from==='operator'||m.from==='ops'||m.from==='proofbundle-room-gateway-20261012'?' operator':'');
+      const header=document.createElement('header'),name=document.createElement('b'),time=document.createElement('time');name.textContent=m.from==='proofbundle-room-gateway-20261012'?'You':(m.name||m.from);time.textContent=m.created_at?new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';time.title=m.created_at||'';header.append(name,time);
       const body=document.createElement('div');body.className='pb-room-text';body.textContent=m.text||'';
       const receipt=document.createElement('div');receipt.className='pb-room-receipt';receipt.textContent=(m.reply_to?'Reply to '+m.reply_to+' · ':'')+(m.receipts||[]).map(r=>'#'+r.seq+' · '+String(r.hash||'').slice(0,16)+' · '+(r.to||'room')).join(' | ');
-      article.append(header,body,receipt);
-      if((m.receipts||[]).length){const details=document.createElement('details'),summary=document.createElement('summary'),full=document.createElement('pre');summary.textContent='Full ledger receipts';full.className='pb-room-receipt';full.textContent=(m.receipts||[]).map(r=>'Sequence: '+r.seq+'\nSHA-256: '+String(r.hash||'')+'\nRecipient: '+(r.to||'room')).join('\n\n');details.append(summary,full);article.append(details)}
+      const avatar=document.createElement('span');avatar.className='pb-room-avatar';avatar.textContent=(m.name||m.from||'?').slice(0,1).toUpperCase();article.append(avatar,header,body,receipt);
+      if((m.receipts||[]).length){const details=document.createElement('details'),summary=document.createElement('summary'),full=document.createElement('pre');summary.textContent='Ledger · '+(m.receipts||[]).map(r=>'#'+r.seq).join(' / ');full.className='pb-room-receipt';full.textContent=(m.receipts||[]).map(r=>'Sequence: '+r.seq+'\nSHA-256: '+String(r.hash||'')+'\nRecipient: '+(r.to||'room')).join('\n\n');details.append(summary,full);article.append(details)}
       feed.append(article);
     }
-    if(!seen.size)feed.textContent='The room is ready. Send the first message to everyone.';
+    if(!seen.size)feed.textContent='Everyone, in one conversation. Send the first message.';
     while(feed.children.length>300){feed.firstElementChild.remove()}
     while(seen.size>2000)seen.delete(seen.values().next().value)
     if(stick)feed.scrollTop=feed.scrollHeight;
     if(Number.isInteger(data.cursor))cursor=data.cursor;
   }
   async function refresh(){
+    if(embedded)return;
     if(flight)return flight;
-    flight=(async()=>{try{const d=await api('/api/chat/room?after='+cursor+'&limit=100');show(d);status('Connected · '+(d.agents||[]).length+' participants');if(d.has_more)setTimeout(refresh,0)}catch(e){status('Room unavailable: '+e.message)}finally{flight=null}})();return flight;
+    flight=(async()=>{try{const d=await api('/api/chat/room?after='+cursor+'&limit=100');show(d);status('Connected · '+(d.agents||[]).length+' participants');if(d.has_more)setTimeout(refresh,0)}catch(e){status('Connection unavailable: '+e.message)}finally{flight=null}})();return flight;
   }
   async function send(event){
     event.preventDefault();if(sending)return;const input=by('pb-room-text'),text=input.value;if(!text.trim())return;
-    if(new TextEncoder().encode(text).length>8192){status('Message exceeds the room limit of 8192 UTF-8 bytes; your draft is retained');return}
+    if(new TextEncoder().encode(text).length>8192){status('Message exceeds 8192 UTF-8 bytes; your draft is retained');return}
     if(retryText!==text){retryText=text;retryId=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)}
     sending=true;by('pb-room-send').disabled=true;status('Sending to participants…');
     try{const d=await api('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,client_id:retryId,reply_to:null})});if(d.accepted!==true)throw new Error(d.error||'Message was not accepted');show({messages:d.messages||[d.message||d]});if(input.value===text)input.value='';retryId=null;retryText=null;status('Accepted into the ledger');await refresh()}catch(e){status('Send failed: '+e.message+' · your text is retained')}finally{sending=false;by('pb-room-send').disabled=false}
   }
-  function open(){if(location.protocol==='file:'){location.assign('http://127.0.0.1:8791/proofbundle?tab=chat');return}refresh();by('pb-room-text').focus()}
+  function open(){
+    if(location.protocol==='file:'){
+      if(embedded)return;embedded=true;
+      const frame=document.createElement('iframe');frame.title='ProofBundle conversations';frame.className='pb-conversation-frame';
+      frame.src='http://127.0.0.1:8791/proofbundle?tab=chat&embed=1&theme='+encodeURIComponent(document.documentElement.getAttribute('data-theme')||'dark');
+      by('panel-chat').replaceChildren(frame);
+      new MutationObserver(()=>frame.contentWindow?.postMessage({type:'ProofBundleTheme',theme:document.documentElement.getAttribute('data-theme')},'http://127.0.0.1:8791')).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+      return;
+    }
+    refresh();by('pb-room-text').focus();
+  }
   by('pb-room-compose').addEventListener('submit',send);
   by('pb-room-text').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();by('pb-room-compose').requestSubmit()}});
-  timer=setInterval(()=>{if(!document.hidden&&by('panel-chat').classList.contains('active'))refresh()},3000);
-  const q=new URLSearchParams(location.search);if(q.get('tab')==='chat'){switchTab('chat',document.querySelector('[data-title="Chat room"]'));open()}
+  timer=setInterval(()=>{if(!embedded&&!document.hidden&&by('panel-chat').classList.contains('active'))refresh()},3000);
+  const q=new URLSearchParams(location.search);if(q.get('embed')==='1'){document.body.classList.add('pb-room-embedded');if(['light','dark'].includes(q.get('theme')))document.documentElement.setAttribute('data-theme',q.get('theme'));addEventListener('message',e=>{if(e.source===parent&&e.data?.type==='ProofBundleTheme'&&['light','dark'].includes(e.data.theme))document.documentElement.setAttribute('data-theme',e.data.theme)})}if(q.get('tab')==='chat'){switchTab('chat',document.querySelector('[data-title="Conversations"]'));open()}
   return {open,refresh};
 })();
 </script>

@@ -1,6 +1,16 @@
 <div class="tab-panel" id="panel-aletheia">
   <div class="aletheia-heading"><div><h2>ProofBundle</h2><p>ProofBundle custody · verifier relay · native RLM evidence</p></div><span class="badge">Local workbench</span></div>
-  <div class="notice mono" style="overflow-wrap:anywhere">Application file: <span id="aletheia-entry-path">/home/falsealias/src/proofbundle/proofbundle.html</span></div>
+  <div class="notice mono" style="overflow-wrap:anywhere">Application file: <span id="aletheia-entry-path">Loading actual application path…</span></div>
+  <section id="proofbundle-computer" class="notice">
+    <h3>Files · This computer</h3>
+    <p>Live mounted drives and directories. Retained archive artifacts remain in the custody view below. Directory browsing records metadata; file bytes are captured through Capture artifacts.</p>
+    <div id="proofbundle-locations" class="aletheia-layer-actions"></div>
+    <form id="proofbundle-path-form" style="display:flex;gap:8px"><input id="proofbundle-directory" aria-label="Absolute directory path" style="flex:1;min-width:0" placeholder="Absolute directory path"><button class="btn btn-primary">Open directory</button></form>
+    <div class="aletheia-layer-actions"><button id="proofbundle-parent" class="btn btn-secondary">Parent directory</button><button id="proofbundle-refresh-directory" class="btn btn-secondary">Refresh</button><input id="proofbundle-directory-filter" aria-label="Filter names in this directory" placeholder="Filter names in this directory"><button id="proofbundle-filter-directory" class="btn btn-secondary">Filter</button></div>
+    <p id="proofbundle-directory-status" role="status"></p>
+    <div style="max-height:420px;overflow:auto"><table class="mini-table"><thead><tr><th>Name</th><th>Kind</th><th>Bytes</th><th>Modified</th><th>Actual path</th><th>Files window</th></tr></thead><tbody id="proofbundle-directory-rows"></tbody></table></div>
+    <div class="aletheia-layer-actions"><button id="proofbundle-directory-prev" class="btn btn-secondary">Previous page</button><button id="proofbundle-directory-next" class="btn btn-secondary">Next page</button></div>
+  </section>
   <div id="aletheia-save-state" class="notice" role="status" aria-live="polite">Custody storage loading.</div>
   <div class="library-stats aletheia-stats">
     <div class="library-stat"><b id="aletheia-count-artifacts">0</b><span>active artifacts</span></div>

@@ -48,8 +48,7 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.send_json(200 if value else 404, value or {'error': 'No saved checkpoint'})
             if path == '/api/aletheia/sources':
                 return self.send_json(200, {'sources': self.store.source_status(),
-                    'scripts': [{'path': '/home/falsealias/pb/bin/pb-memory-recall', 'available': pathlib.Path('/home/falsealias/pb/bin/pb-memory-recall').is_file()},
-                                {'path': '/home/falsealias/pb/bin/pb-memory-resolve', 'available': pathlib.Path('/home/falsealias/pb/bin/pb-memory-resolve').is_file()}]})
+                    'scripts': [{'path':value,'available':pathlib.Path(value).is_file()} for value in self.store.profile.get('scripts', [])]})
             if path.startswith('/api/aletheia/blob/'):
                 key = path.rsplit('/', 1)[-1]
                 self.store.check_key(key)

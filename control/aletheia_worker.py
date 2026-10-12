@@ -9,12 +9,12 @@ import sys
 import tempfile
 import uuid
 import subprocess
-from aletheia_store import CustodyStore, SOURCE_PATHS, canonical
+from aletheia_store import CustodyStore, canonical
 from aletheia_store import digest
 
 
-def bridge_snapshot(limit=100):
-    source = pathlib.Path('/home/falsealias/pb/bridge-live/ledger.jsonl')
+def bridge_snapshot(store, limit=100):
+    source = store.profile_path('bridge_ledger')
     if not source.is_file(): raise FileNotFoundError('Local native bridge ledger is unavailable')
     stat = source.stat()
     start = max(0, stat.st_size - 2 * 1024 * 1024)
@@ -43,18 +43,20 @@ def dispatch(store, operation, args):
     if operation == 'sources':
         return {'sources': store.source_status(), 'scripts': [
             {'path': p, 'available': pathlib.Path(p).is_file()} for p in
-            ['/home/falsealias/pb/bin/pb-memory-recall', '/home/falsealias/pb/bin/pb-memory-resolve']]}
+            store.profile.get('scripts', [])]}
     if operation == 'search': return store.search(args['source'], args['query'], args.get('limit', 6))
+    if operation == 'snapshotSources': return {'sources': [{'index':i,'path':value} for i,value in enumerate(store.profile.get('snapshots', []))]}
     if operation == 'sourceSnapshot': return store.source_snapshot(int(args['index']))
     if operation == 'cryptoAuditReport':
-        path=pathlib.Path('/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-10-11/w-2/work/proofbundle-current-crypto-audit.json')
+        path=pathlib.Path(store.profile.get('reports', {}).get('cryptoAuditReport', str(store.root/'cryptoAuditReport.json')))
         return json.loads(path.read_text())
     if operation == 'snapshotTestReport':
-        report = pathlib.Path('/home/falsealias/.local/share/ChatGPT-Separate-Account/isolated-home/Documents/Codex/2026-10-11/w-2/work/archive-snapshot-checks/report.json')
+        report = pathlib.Path(store.profile.get('reports', {}).get('snapshotTestReport', str(store.root/'snapshotTestReport.json')))
         return json.loads(report.read_text())
     if operation == 'runLinkedConformance':
         from linked_conformance import run_linked
         index=CustodyStore(store.root/'implementation-index')
+        index.profile=store.profile
         index.blobs=store.blobs
         report=run_linked(index)
         target=store.root/'linked-conformance';target.mkdir(exist_ok=True)
@@ -101,7 +103,7 @@ def dispatch(store, operation, args):
         if result.returncode: raise ValueError(result.stderr.decode(errors='replace')[:1000])
         return json.loads(result.stdout)
     if operation == 'catalogue': return store.catalogue()
-    if operation == 'bridgeSnapshot': return bridge_snapshot(args.get('limit', 100))
+    if operation == 'bridgeSnapshot': return bridge_snapshot(store, args.get('limit', 100))
     if operation == 'runVectors':
         store.check_key(args['key'])
         source = store.blobs / args['key']

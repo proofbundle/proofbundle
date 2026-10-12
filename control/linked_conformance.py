@@ -2,7 +2,6 @@
 Source declarations remain untouched. Execution and standard-reference probes are separate.
 """
 import base64,struct,ast,concurrent.futures,hashlib,io,json,pathlib,subprocess,time,uuid,os,tempfile,sqlite3
-REGISTRY=pathlib.Path('/home/falsealias/pb/ProofBundle-Crypto-Skeletons/ALGORITHM_REGISTRY.json')
 RUNNER=pathlib.Path(__file__).with_name('linked_case_runner.py').resolve()
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def extract(raw,path):
@@ -88,7 +87,8 @@ def flush_sources(store):
 
 def run_linked(store):
  store._source_capture_pending={}
- raw=REGISTRY.read_bytes();registry=capture(store,REGISTRY,'algorithm-registry');algorithms=json.loads(raw)
+ registry_path=store.profile_path('registry')
+ raw=registry_path.read_bytes();registry=capture(store,registry_path,'algorithm-registry');algorithms=json.loads(raw)
  dispatcher=capture(store,pathlib.Path(__file__).resolve(),'execution-dispatcher')
  files=[registry,dispatcher];jobs=[];mappings=[]
  for a in algorithms:

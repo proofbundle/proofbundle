@@ -16,7 +16,7 @@
     "test:all": "npm run selftest && npm run test:crypto && npm run test:surface && npm run test:html-crypto",
     "desktop": "electron desktop/main.cjs",
     "build:desktop": "node scripts/embed-aletheia.mjs",
-    "test:desktop": "node --test test/integration/aletheia.test.mjs && python3 -B -m unittest discover -s test/integration -p \"*_test.py\""
+    "test:desktop": "node --test test/integration/aletheia.test.mjs test/integration/filesystem.test.cjs && python3 -B -m unittest discover -s test/integration -p \"*_test.py\""
   },
   "dependencies": {
     "jsdom": "^24.1.3"

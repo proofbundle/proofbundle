@@ -7,6 +7,7 @@ const { join, resolve } = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { randomUUID, generateKeyPairSync, createPrivateKey, createPublicKey, sign, createHash } = require('node:crypto');
 const fs = require('node:fs');
+const filesystem = require('./filesystem.cjs');
 const root = resolve(__dirname, '..');
 const entry = join(root, 'proofbundle.html');
 app.setName('ProofBundle');
@@ -93,8 +94,15 @@ app.whenReady().then(async () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate([{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]));
   ipcMain.handle('aletheia:local', (event, operation, args) => {
     requireFrame(event);
-    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport','runLinkedConformance','linkedConformanceReport','outcomeDefinitions','bindSourceAliases','checkpointRecords'].includes(operation)) throw new Error('Unsupported local operation');
+    if (!['status', 'latest', 'sources', 'search', 'checkpoint', 'putBlob', 'getBlob', 'beginBlob', 'appendBlob', 'finishBlob', 'abortBlob', 'catalogue', 'bridgeSnapshot', 'runVectors', 'runArchiveVectors', 'sourceSnapshot', 'snapshotSources', 'snapshotTestReport','beginRecordCheckpoint','checkpointRecord','finishRecordCheckpoint','checkpointRecordPage','archiveManifest','exportArchiveZip','inspectArchiveZip','stageArchiveZip','beginCheckpointRecord','appendCheckpointRecord','finishCheckpointRecord','checkpointRecordInfo','checkpointRecordChunk','checkpointReaderChunk','cryptoAuditReport','runLinkedConformance','linkedConformanceReport','outcomeDefinitions','bindSourceAliases','checkpointRecords'].includes(operation)) throw new Error('Unsupported local operation');
     return localCall(operation, args);
+  });
+  ipcMain.handle('proofbundle:filesystem', async (event, operation, args = {}) => {
+    requireFrame(event);
+    if (operation === 'locations') return filesystem.locations();
+    if (operation === 'browse') return filesystem.browse(args);
+    if (operation === 'reveal') { const path = filesystem.absolute(args.path); await fs.promises.lstat(path); shell.showItemInFolder(path); return {path}; }
+    throw new Error('Unsupported filesystem operation');
   });
   ipcMain.handle('aletheia:clipboard-write', async (event, text) => {
     requireFrame(event); if (typeof text !== 'string') throw new Error('Clipboard text is required');
@@ -129,6 +137,8 @@ app.whenReady().then(async () => {
       try {
         const memory = await win.webContents.executeJavaScript('performance.memory ? ({used:performance.memory.usedJSHeapSize,limit:performance.memory.jsHeapSizeLimit}) : null');
         fs.writeFileSync(join(state,'workbench-current.png'), (await win.webContents.capturePage()).toPNG());
+        const display = await win.webContents.executeJavaScript(`(async()=>{const db=await libraryDb();const count=name=>new Promise((resolve,reject)=>{const request=db.transaction(name).objectStore(name).count();request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});return {directory:document.getElementById('proofbundle-directory').value,directory_status:document.getElementById('proofbundle-directory-status').textContent,displayed_entries:document.getElementById('proofbundle-directory-rows').children.length,artifacts:await count('artifacts'),events:await count('events'),observed_at:new Date().toISOString()};})()`);
+        fs.writeFileSync(join(state,'filesystem-display-check.json'),JSON.stringify(display,null,2));
         console.log(JSON.stringify({workbench:'visible', screenshot:join(state,'workbench-current.png'), memory}));
       } catch(error) { console.error(error); }
     }, 10000);

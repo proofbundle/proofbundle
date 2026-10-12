@@ -16,11 +16,7 @@ import uuid
 from contextlib import contextmanager
 
 REPO = pathlib.Path(__file__).resolve().parents[1]
-SOURCE_PATHS = {
-    'mira': '/media/falsealias/raid2tb/mira-brain/runtime_db.sqlite3',
-    'rlm-archive': '/media/falsealias/Windows/Users/alib90/everything_rlm_20260629.sqlite3',
-    'transcripts': '/media/falsealias/IMAGES-A/transcripts/transcripts.db',
-}
+
 
 
 def canonical(value):
@@ -42,7 +38,9 @@ class CustodyStore:
         self.blobs = self.root / 'blobs'
         self.blobs.mkdir(exist_ok=True, mode=0o700)
         self.database = self.root / 'custody.sqlite3'
-        self.sources = {k: pathlib.Path(v) for k, v in (sources or SOURCE_PATHS).items()}
+        profile_path = self.root / 'local-profile.json'
+        self.profile = json.loads(profile_path.read_text()) if profile_path.is_file() else {}
+        self.sources = {k: pathlib.Path(v) for k, v in (sources if sources is not None else self.profile.get('sources', {})).items()}
         with self.connect() as db:
             db.executescript('''
                 CREATE TABLE IF NOT EXISTS blobs (
@@ -62,6 +60,11 @@ class CustodyStore:
                     payload TEXT NOT NULL, sha256 TEXT NOT NULL);
             ''')
         os.chmod(self.database, 0o600)
+
+    def profile_path(self, key):
+        value = self.profile.get(key)
+        if not value or not pathlib.Path(value).is_absolute(): raise ValueError('Local profile requires an absolute ' + key + ' path')
+        return pathlib.Path(value)
 
     @contextmanager
     def connect(self):
@@ -152,7 +155,7 @@ class CustodyStore:
 
     def catalogue(self):
         """Capture the native registry and its declared vector files without executing them."""
-        registry = pathlib.Path('/home/falsealias/pb/ProofBundle-Crypto-Skeletons/ALGORITHM_REGISTRY.json')
+        registry = self.profile_path('registry')
         if not registry.is_file(): raise FileNotFoundError('Native algorithm registry is unavailable')
         raw = registry.read_bytes()
         algorithms = json.loads(raw)
@@ -257,7 +260,7 @@ class CustodyStore:
 
     def source_snapshot(self, index):
         import io
-        roots = [pathlib.Path('/media/falsealias/IMAGES-B/Crypto_Accumulation_Algorithms/crypto_core_active/crypto_core_from_scratch_copy'), pathlib.Path('/media/falsealias/IMAGES-B/Crypto_Accumulation_Algorithms/crypto_consolidation_2026-08-15/00_drive_pulls/ProofBundle_Crypto_Core_Evidence_20260729/original/crypto_core_from_scratch_20260727')]
+        roots = [pathlib.Path(value) for value in self.profile.get('snapshots', [])]
         if index not in range(len(roots)): raise ValueError('Unknown authorized archive snapshot')
         root = roots[index]
         import re

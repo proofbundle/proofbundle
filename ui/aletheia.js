@@ -1253,7 +1253,8 @@
   async function appendSnapshots() {
     await ready;
     const indicator=byId('aletheia-catalogue-status');
-    for(let sourceIndex=0;sourceIndex<2;sourceIndex++) {
+    const configured=await aletheiaDesktop.call('snapshotSources');
+    for(const {index:sourceIndex} of configured.sources) {
       let source=await aletheiaDesktop.call('sourceSnapshot',{index:sourceIndex});
       if(STATE.catalogueSources.some(s=>s.id===source.id&&s.capture_status==='complete')) continue;
       const priorSource=STATE.catalogueSources.find(s=>s.id===source.id);if(priorSource){Object.assign(priorSource,source);source=priorSource;}else STATE.catalogueSources.push(source);
@@ -1295,7 +1296,7 @@
       if(!STATE.conformanceRuns.some(r=>r.receipt_id===identity)) STATE.conformanceRuns.push({...result,receipt_id:identity,kind:'snapshot-test',algorithm_id:result.test_path.split('/').at(-1)});
     }
     await retain('snapshot-test-determinations',null,{source_snapshots:report.source_snapshots,determinations:report.test_determinations,scope:'Fresh program assertion executions, with repeated snapshot runs retained separately.'});
-    indicator.textContent='Both supplied archive snapshots retained. Private-key source documents remain recorded as explicit exclusions; originals remain at source.';
+    indicator.textContent=''+configured.sources.length+' configured archive snapshots retained. Private-key source documents remain recorded as explicit exclusions; originals remain at source.';
     await runArchiveVectors();
     await mirror(); await renderWorkbench();
   }
@@ -1426,15 +1427,50 @@
     }
   }
 
+  let filesystemPage = null, filesystemRequest = 0;
+  async function browseComputer(path, offset=0) {
+    const target=byId('proofbundle-directory-status'), requestId=++filesystemRequest;
+    if(!window.aletheiaDesktop?.filesystem){target.textContent='Live filesystem access requires the local desktop application.';return;}
+    target.textContent='Reading directory metadata…';
+    try {
+      const result=await aletheiaDesktop.filesystem('browse',{path,offset,query:byId('proofbundle-directory-filter').value});
+      if(requestId!==filesystemRequest)return;
+      filesystemPage=result;byId('proofbundle-directory').value=result.path;
+      const body=byId('proofbundle-directory-rows');body.replaceChildren();
+      for(const item of result.entries){
+        const row=document.createElement('tr');
+        const name=document.createElement('td'), button=document.createElement('button');button.className='btn btn-secondary btn-sm';button.textContent=item.name;
+        button.onclick=()=>{if(item.kind==='directory'||item.target_kind==='directory')browseComputer(item.path);else aletheiaDesktop.filesystem('reveal',{path:item.path}).catch(error=>target.textContent=error.message);};name.append(button);row.append(name);
+        for(const value of [item.kind,item.size??'—',item.modified_at??'—',item.path]){const cell=document.createElement('td');cell.textContent=String(value);cell.style.overflowWrap='anywhere';row.append(cell);}
+        const reveal=document.createElement('td'), show=document.createElement('button');show.className='btn btn-secondary btn-sm';show.textContent='Show';show.onclick=()=>aletheiaDesktop.filesystem('reveal',{path:item.path}).catch(error=>target.textContent=error.message);reveal.append(show);row.append(reveal);body.append(row);
+      }
+      byId('proofbundle-directory-prev').disabled=!result.offset;byId('proofbundle-directory-next').disabled=!result.more;
+      target.textContent=result.entries.length+' entries on this page · '+result.path+' · observed '+result.observed_at+(result.more?' · additional entries available':' · end of directory')+'. This is directory membership, not conformance coverage.';
+      await retain('filesystem-directory-observation',makeId(),result);
+    }catch(error){if(requestId===filesystemRequest)target.textContent='Directory unavailable: '+error.message;}
+  }
+  async function loadComputer() {
+    if(!window.aletheiaDesktop?.filesystem){byId('proofbundle-directory-status').textContent='Live filesystem access requires the local desktop application.';return;}
+    try {const locations=await aletheiaDesktop.filesystem('locations');const target=byId('proofbundle-locations');target.replaceChildren();for(const location of locations){const button=document.createElement('button');button.className='btn btn-secondary';button.textContent=location.label;button.title=location.path;button.onclick=()=>{byId('proofbundle-directory-filter').value='';browseComputer(location.path);};target.append(button);}await browseComputer(locations.find(location=>location.label==='Computer')?.path||locations[0]?.path);}catch(error){byId('proofbundle-directory-status').textContent=error.message;}
+  }
+  const libraryNavigation=document.querySelector('[data-title="Artifact library"]');
+  if(libraryNavigation){const computerNavigation=document.createElement('button');computerNavigation.dataset.title='This computer';computerNavigation.innerHTML='<span class="sb-ico">▤</span><span>This computer</span>';computerNavigation.onclick=()=>{switchTab('aletheia',document.querySelector('[data-title="ProofBundle workbench"]'));byId('proofbundle-computer').scrollIntoView({block:'start'});};libraryNavigation.before(computerNavigation);const label=libraryNavigation.querySelector('span:last-child');if(label)label.textContent='Captured artifacts';}
+  byId('proofbundle-path-form').onsubmit=event=>{event.preventDefault();browseComputer(byId('proofbundle-directory').value);};
+  byId('proofbundle-parent').onclick=()=>{if(filesystemPage){byId('proofbundle-directory-filter').value='';browseComputer(filesystemPage.parent);}};
+  byId('proofbundle-refresh-directory').onclick=()=>browseComputer(byId('proofbundle-directory').value);
+  byId('proofbundle-filter-directory').onclick=()=>browseComputer(byId('proofbundle-directory').value);
+  byId('proofbundle-directory-prev').onclick=()=>browseComputer(filesystemPage.path,Math.max(0,filesystemPage.offset-filesystemPage.limit));
+  byId('proofbundle-directory-next').onclick=()=>browseComputer(filesystemPage.path,filesystemPage.offset+filesystemPage.limit);
   window.Aletheia = { select: selectRecord, refresh: renderWorkbench, search: searchRlm,
     supplement: addSupplement, verify: verifyCustody, flush, archivePayload, restoreArchive,
     readSnapshot: async () => { await flush(); return readSnapshot(); }, verifyEvents,
     retain, stateSnapshot, status, mirror, copyValue, restoreRecordCheckpoint:recoverRecordCheckpoint, checkpoint:mirrorRecords, exportNativeArchive, appendCatalogue, appendSnapshots, runArchiveVectors, runSelectedVectors, connectImplementations, runOutcomeCoverage, renderProviders,
-    page: direction => { page = Math.max(0, page + direction); renderWorkbench(); } };
+    browseComputer, loadComputer, page: direction => { page = Math.max(0, page + direction); renderWorkbench(); } };
   window.ProofBundle = window.Aletheia;
   ready = bootstrap();
   window.ALETHEIA_READY = ready;
   ready.catch(storageFailure);
+  ready.then(loadComputer).catch(storageFailure);
   byId('aletheia-query-form').addEventListener('submit', searchRlm);
   byId('aletheia-origin-form').addEventListener('submit', addSupplement);
   byId('aletheia-filter').addEventListener('change', () => { page = 0; renderWorkbench(); });

@@ -61,5 +61,11 @@
   el('p',`${data.summary.historical_duplicate_rows} repeated identifier rows are preserved in the historical view.`,boundaries);
   for(const limit of data.limits)el('p',limit,boundaries);
   for(const source of data.sources)el('p',`${source.id} · SHA-256 ${source.sha256}`,boundaries);
+  if(data.source_gitback) {
+    const saved=el('details',undefined,host);el('summary','Preserved source development',saved);
+    for(const repo of data.source_gitback.repositories) {
+      el('p',`${repo.repository.split('/').pop()} · commit ${repo.after} · ${repo.files.length} preserved files`,saved);
+    }
+  }
   render();
 })();

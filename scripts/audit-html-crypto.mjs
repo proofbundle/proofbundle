@@ -9,13 +9,14 @@
 
 import { createHash, webcrypto } from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { JSDOM, VirtualConsole } from 'jsdom';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, '..');
-const artifactPath = join(repo, 'proofbundle.html');
+if (process.argv.length > 3) throw new Error('Usage: audit-html-crypto.mjs [HTML path]');
+const artifactPath = process.argv[2] ? resolve(process.argv[2]) : join(repo, 'proofbundle.html');
 const htmlBytes = readFileSync(artifactPath);
 const html = htmlBytes.toString('utf8');
 
@@ -347,7 +348,7 @@ const receipt = {
   started_at: startedAt,
   completed_at: new Date().toISOString(),
   artifact: {
-    path: 'proofbundle.html',
+    path: relative(repo, artifactPath),
     bytes: htmlBytes.length,
     sha256: hashHex('sha256', htmlBytes),
     sha512: hashHex('sha512', htmlBytes),

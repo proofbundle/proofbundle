@@ -18,7 +18,9 @@ begin='<!-- PB-ALGORITHM-SYNTHESIS-BEGIN -->'
 end='<!-- PB-ALGORITHM-SYNTHESIS-END -->'
 if begin in html:
     assert html.count(begin)==html.count(end)==1
-    left,rest=html.split(begin);_,right=rest.split(end);html=left+right
+    left,rest=html.split(begin);_,right=rest.split(end)
+    if right.startswith('\n'):right=right[1:]
+    html=left+right
 encoded=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')
 js=(root/'ui/algorithm-synthesis.js').read_text()
 block=f'{begin}\n<script id="pb-algorithm-synthesis-data" type="application/json">{encoded}</script>\n<script>\n{js}\n</script>\n{end}\n'

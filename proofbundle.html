@@ -1088,6 +1088,7 @@ var PBSHA256=(function(){
 
 
 
+
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- HOME / HERO — drop to seal                                     -->
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -6702,9 +6703,11 @@ window.ProofBundleRoom = (() => {
 
 
 
+
 if (new URLSearchParams(location.search).get('embed') !== '1') init();
 </script>
 <!-- PB-ALGORITHM-SYNTHESIS-END -->
+
 
 
 
@@ -8102,17 +8105,17 @@ if (new URLSearchParams(location.search).get('embed') !== '1') init();
     const matrix=native.map(outcome=>({outcome,expected:cases.filter(c=>c.expected===outcome).length,observed:cases.filter(c=>c.actual===outcome).length,passed:cases.filter(c=>c.expected===outcome&&c.standing==='passed').length,failed:cases.filter(c=>c.expected===outcome&&c.standing==='failed').length}));
     const result={schema:'ProofBundleNativeOutcomeCoverage/v1',id:makeId(),started_at:started,observed_at:now(),provider:'Current local renderer verifyCore',artifact_sha256:signingIdentity?.runtime_context?.artifact_sha256||null,matrix,cases,
       source_manifest:{anchor:PB_MANIFEST_ANCHOR,source_sha256:PB_MANIFEST_SOURCE_SHA,expected_counts:vecTallies(loadVectorManifest()).expected},scope:'Generated live engine cases; frozen manifest rows remain historical source declarations, not replayed original payloads. Native HTML outcomes and modular verdict enum remain separate namespaces.'};
-    STATE.outcomeRuns.push(result);await retain('native-outcome-execution-result',result.id,result);await renderWorkbench();return result;
+    STATE.outcomeRuns.push(result);await retain('native-outcome-execution-result',result.id,result);byId('aletheia-catalogue-status').textContent=cases.length+' native engine cases completed · '+matrix.filter(r=>r.observed>0).length+' terminal outcomes observed · '+matrix.reduce((n,r)=>n+r.failed,0)+' outcome mismatches';await renderWorkbench();return result;
   }
   function renderLinkedEvidence() {
     const report=STATE.implementationRuns.at(-1),outcomes=STATE.outcomeRuns.at(-1),target=byId('proofbundle-linked-execution');if(!target)return;
     let html='<h3>Implementation execution and typed outcomes</h3>';
-    if(report){const t=report.totals;html+='<p>'+t.executed+' actual vector invocations across '+t.algorithms_with_execution+' algorithms · '+t.passed+' source expectations matched · '+t.failed+' source expectations failed · '+t.observed+' observations without a precise oracle · '+t.blocked+' blocked cases. Archive retention is separate from execution coverage.</p><p>Independent standard and message-binding probes: '+report.independent_probe_totals.passed+' passed · '+report.independent_probe_totals.failed+' failed. A source-answer match does not establish standard conformance.</p><label class="label">Find an implementation or execution discrepancy</label><input id="proofbundle-provider-search" placeholder="algorithm, status, source path" oninput="Aletheia.renderProviders(this.value)"><div id="proofbundle-provider-table"></div>';
+    if(outcomes)html+='<h4>Native HTML verifier outcomes</h4><p>Provider artifact SHA-256 ('+(outcomes.artifact_sha256===signingIdentity?.runtime_context?.artifact_sha256?'current loaded artifact':'earlier loaded artifact')+'): '+esc(outcomes.artifact_sha256||'unavailable')+'</p><table class="mini-table"><thead><tr><th>Outcome</th><th>Expected</th><th>Observed</th><th>Matched</th><th>Mismatch</th></tr></thead><tbody>'+outcomes.matrix.map(r=>'<tr><td>'+esc(r.outcome)+'</td><td>'+r.expected+'</td><td>'+r.observed+'</td><td>'+r.passed+'</td><td>'+r.failed+'</td></tr>').join('')+'</tbody></table><p>'+esc(outcomes.scope)+'</p>';
+    else html+='<p>Native typed outcome execution has no retained receipt yet.</p>';
+    if(report){const t=report.totals;html+='<p>'+t.executed+' actual vector invocations across '+t.algorithms_with_execution+' algorithms · '+t.passed+' source expectations matched · '+t.failed+' source expectations failed · '+t.observed+' observations without a precise oracle · '+t.blocked+' blocked cases. Archive retention is separate from execution coverage.</p><p>Independent standard and message-binding probes: '+report.independent_probe_totals.passed+' passed · '+report.independent_probe_totals.failed+' failed. A source-answer match does not establish standard conformance.</p><label class="label">Find an implementation or execution discrepancy</label><input id="proofbundle-provider-search" placeholder="algorithm, status, source path" oninput="Aletheia.renderProviders(this.value)"><div id="proofbundle-provider-table" style="max-height:550px;overflow:auto"></div>';
       const digestRuns=report.proofbundle_digest_execution?.results||[];if(digestRuns.length)html+='<h4>Actual ProofBundle modular digest provider</h4><table class="mini-table"><thead><tr><th>Algorithm</th><th>Invoked</th><th>Source match</th><th>Source mismatch</th><th>Blocked</th></tr></thead><tbody>'+digestRuns.map(r=>'<tr><td>'+esc(r.algorithm)+'</td><td>'+r.executed+'</td><td>'+r.passed+'</td><td>'+r.failed+'</td><td>'+r.blocked+'</td></tr>').join('')+'</tbody></table><p>These results use ProofBundle src/digest, with captured provider hashes checked before and after execution. They remain separate from the archived Python provider.</p>';
       const defs=report.outcome_definitions;html+='<details><summary>'+defs.outcomes.length+' modular verdict definitions · separate source namespace</summary><p>'+defs.outcomes.map(esc).join(' · ')+'</p><p>'+esc(defs.source.path)+' · '+esc(defs.source.sha256)+'</p><p>Definition retention does not establish an executable verifier branch or an observed result.</p></details>';
     }else html+='<p>No linked provider execution receipt retained.</p>';
-    if(outcomes)html+='<h4>Native HTML verifier outcomes</h4><p>Provider artifact SHA-256 ('+(outcomes.artifact_sha256===signingIdentity?.runtime_context?.artifact_sha256?'current loaded artifact':'earlier loaded artifact')+'): '+esc(outcomes.artifact_sha256||'unavailable')+'</p><table class="mini-table"><thead><tr><th>Outcome</th><th>Expected</th><th>Observed</th><th>Matched</th><th>Mismatch</th></tr></thead><tbody>'+outcomes.matrix.map(r=>'<tr><td>'+esc(r.outcome)+'</td><td>'+r.expected+'</td><td>'+r.observed+'</td><td>'+r.passed+'</td><td>'+r.failed+'</td></tr>').join('')+'</tbody></table><p>'+esc(outcomes.scope)+'</p>';
-    else html+='<p>Native typed outcome execution has no retained receipt yet.</p>';
     target.innerHTML=html;if(report)renderProviders('');
   }
   function renderProviders(query='') {

@@ -72,7 +72,7 @@ function entry(id, overrides) {
   return Object.freeze({ ...base, ...overrides });
 }
 
-function digestEntry(id, { digestLength, moduleFn, vectorFile, status, klass = 'NODE_NATIVE', notes }) {
+function digestEntry(id, { digestLength, moduleFn, vectorFile, status, klass = 'PURE_MJS', notes }) {
   return entry(id, {
     canonicalName: id,
     primitiveFamily: 'DIGEST',
@@ -107,8 +107,8 @@ const DIGESTS = [
   // them as keyed constructions (a MAC), not fixed-function digests, even
   // though the spec's own algorithm list names them under both headings.
   // One canonical id per algorithm; see the MAC section for the entry.
-  digestEntry('BLAKE2b-512', { digestLength: 64, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2b-512.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2b512'). Cross-checked against Python hashlib.blake2b, a separate implementation from Node/OpenSSL." }),
-  digestEntry('BLAKE2s-256', { digestLength: 32, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2s-256.json', status: 'COMPLETE', notes: "NODE_NATIVE via node:crypto createHash('blake2s256'). Cross-checked against Python hashlib.blake2s, a separate implementation from Node/OpenSSL." }),
+  digestEntry('BLAKE2b-512', { digestLength: 64, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2b-512.json', status: 'COMPLETE', notes: "Scratch crypto/blake2.mjs via src/digest/blake2.mjs. Execution evidence is recorded separately." }),
+  digestEntry('BLAKE2s-256', { digestLength: 32, moduleFn: 'src/digest/blake2.mjs', vectorFile: 'blake2s-256.json', status: 'COMPLETE', notes: "Scratch crypto/blake2.mjs via src/digest/blake2.mjs. Execution evidence is recorded separately." }),
   entry('BLAKE3', { canonicalName: 'BLAKE3', primitiveFamily: 'DIGEST', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', allowedOperations: ['digest'], digestLength: 32, domainSeparationTag: 'n/a — fixed-function digest', implementationModulePaths: ['crypto/blake3.mjs'], testVectorPaths: ['crypto/blake3.mjs'], failureVerdicts: ['UNKNOWN_ALGORITHM', 'DIGEST_MISMATCH'], interoperabilityNotes: 'From-scratch BLAKE3 per official spec. Tree hash with extendable output.' }),
   entry('Keccak-256', { canonicalName: 'Keccak-256', primitiveFamily: 'DIGEST', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', allowedOperations: ['digest'], digestLength: 32, domainSeparationTag: 'n/a — fixed-function digest', implementationModulePaths: ['crypto/keccak-raw.mjs'], testVectorPaths: ['crypto/keccak-raw.mjs'], failureVerdicts: ['UNKNOWN_ALGORITHM', 'DIGEST_MISMATCH'], interoperabilityNotes: 'Pre-FIPS 202 Keccak with 0x01 padding (vs SHA3 0x06). Used by Ethereum.' }),
   entry('Keccak-512', { canonicalName: 'Keccak-512', primitiveFamily: 'DIGEST', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', allowedOperations: ['digest'], digestLength: 64, domainSeparationTag: 'n/a — fixed-function digest', implementationModulePaths: ['crypto/keccak-raw.mjs'], testVectorPaths: ['crypto/keccak-raw.mjs'], failureVerdicts: ['UNKNOWN_ALGORITHM', 'DIGEST_MISMATCH'], interoperabilityNotes: 'Pre-FIPS 202 Keccak with 0x01 padding.' }),
@@ -150,7 +150,7 @@ const CLASSICAL_SIG = [
   entry('ECDSA-P-256-SHA-256', { canonicalName: 'ECDSA-P-256-SHA-256', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-256 with SHA-256.' }),
   entry('ECDSA-P-384-SHA-384', { canonicalName: 'ECDSA-P-384-SHA-384', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-384 with SHA-384.' }),
   entry('ECDSA-P-521-SHA-512', { canonicalName: 'ECDSA-P-521-SHA-512', primitiveFamily: 'SIGNATURE', implementationClass: 'PURE_MJS', implementationStatus: 'COMPLETE', implementationModulePaths: ['crypto/ecdsa.mjs'], testVectorPaths: ['crypto/ecdsa.mjs'], interoperabilityNotes: 'From-scratch ECDSA on NIST P-521 with SHA-512.' }),
-  stub('RSA-PSS-SHA-256', 'SIGNATURE', 'Not implemented in this pass.'),
+  entry('RSA-PSS-SHA-256',{canonicalName:'RSA-PSS-SHA-256',primitiveFamily:'SIGNATURE',implementationClass:'PURE_MJS',implementationStatus:'COMPLETE',implementationModulePaths:['crypto/rsa-pss.mjs'],testVectorPaths:['crypto/t_native_profile.mjs'],allowedOperations:['keygen','sign','verify'],interoperabilityNotes:'Scratch RSA-PSS/SHA-256, 32-byte salt, 2048/3072/4096-bit keys. Primality, timing and refinement obligations are recorded separately.'}),
   stub('RSA-PSS-SHA-384', 'SIGNATURE', 'Not implemented in this pass.'),
   stub('RSA-PSS-SHA-512', 'SIGNATURE', 'Not implemented in this pass.'),
 ];
@@ -186,7 +186,12 @@ const KEM = [
 ];
 
 const AEAD = ['AES-128-GCM', 'AES-192-GCM', 'AES-256-GCM', 'ChaCha20-Poly1305', 'XChaCha20-Poly1305', 'AES-KeyWrap']
-  .map((id) => stub(id, 'AEAD', 'Not implemented in this pass; AES-*-GCM is available NODE_NATIVE in principle.'))
+  .map((id) => ['AES-256-GCM','ChaCha20-Poly1305'].includes(id) ? entry(id,{
+    canonicalName:id,primitiveFamily:'AEAD',implementationClass:'PURE_MJS',implementationStatus:'COMPLETE',
+    allowedOperations:['encrypt','decrypt'],implementationModulePaths:[id==='AES-256-GCM'?'crypto/aes256-gcm.mjs':'crypto/chacha20-poly1305.mjs'],
+    testVectorPaths:['crypto/t_native_profile.mjs'],failureVerdicts:['MALFORMED','INVALID_SIGNATURE'],
+    interoperabilityNotes:'Scratch implementation, 96-bit nonce and 128-bit tag. Execution evidence and formal obligations remain separate.'
+  }) : stub(id,'AEAD','Recognized algorithm; no implementation in this pass.'))
   .concat([entry('AES-256-GCM-SIV', { canonicalName: 'AES-256-GCM-SIV', primitiveFamily: 'AEAD', implementationClass: 'VETTED_PROVIDER', implementationStatus: 'NOT_IMPLEMENTED', interoperabilityNotes: 'No native Node support and no provider wired; requires an external library.' })]);
 
 const HYBRID_SIG_PROFILES = [

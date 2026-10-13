@@ -17,7 +17,7 @@ import { execFile, execFileSync } from 'node:child_process';
 import { promisify } from 'node:util';
 import { existsSync, appendFileSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { createHash } from 'node:crypto';
+import { createHash } from '../crypto/hash.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -78,16 +78,24 @@ export async function submitForStamping(batchFile, statusFile, batchId, { timeou
  * `ots info` on an upgraded timestamp includes "Bitcoin block <N>".
  * @returns {{ state, block_height }|null} null if no .ots file exists yet
  */
-export async function checkUpgrade(otsFile) {
+export async function checkUpgrade(otsFile, {run=execFileAsync}={}) {
   if (!existsSync(otsFile)) return null;
   let stdout;
   try {
-    ({ stdout } = await execFileAsync('ots', ['info', otsFile], { timeout: 30000 }));
+    ({ stdout } = await run('ots', ['info', otsFile], { timeout: 30000 }));
   } catch {
     return { state: 'submitted', block_height: null }; // ots CLI missing/failed — don't overclaim
   }
   const m = stdout.match(/Bitcoin block (\d+)/);
-  if (m) return { state: 'upgraded', block_height: Number(m[1]) };
+  if (m) {
+    try {
+      const result=await run('ots',['verify',otsFile],{timeout:30000});
+      const output=(result.stdout||'')+'\n'+(result.stderr||'');
+      const verified=output.match(/Success! Bitcoin block (\d+) attests existence as of ([^\r\n]+)/);
+      if(!verified)return {state:'submitted',block_height:Number(m[1]),verified:false,reason:'Verifier returned no successful Bitcoin attestation'};
+      return {state:'upgraded',block_height:Number(verified[1]),verified:true,verification_output:output.trim()};
+    }catch(error){return {state:'submitted',block_height:Number(m[1]),verified:false,reason:'Bitcoin attestation present; detached timestamp verification failed: '+error.message};}
+  }
   return { state: 'submitted', block_height: null };
 }
 
@@ -121,11 +129,11 @@ export async function otsCheck({ batchesDir, statusFile }) {
         block_height: res.block_height,
       });
       current[batchId] = { batch_id: batchId, to: res.state, block_height: res.block_height };
-    } else if (res.block_height && !prev?.block_height) {
-      recordTransition(statusFile, batchId, res.state, 'upgraded', {
+    } else if (res.verified && res.block_height && !prev?.block_height) {
+      recordTransition(statusFile, batchId, res.state, res.state, {
         block_height: res.block_height,
       });
-      current[batchId] = { batch_id: batchId, to: 'upgraded', block_height: res.block_height };
+      current[batchId] = { batch_id: batchId, to: res.state, block_height: res.block_height };
     }
   }
   return current;

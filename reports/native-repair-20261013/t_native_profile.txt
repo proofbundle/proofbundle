@@ -1,0 +1,11 @@
+{
+  "suite": "native-profile",
+  "checks": 210,
+  "failed": 0,
+  "reference_role": "test-only independent oracle",
+  "published_vectors": [
+    "RFC 8439 sections 2.1.1/2.3.2/2.5.2",
+    "FIPS 197 AES-256",
+    "SP 800-38D GCM"
+  ]
+}

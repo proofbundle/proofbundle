@@ -1,0 +1,110 @@
+[
+  {
+    "command": [
+      "node",
+      "crypto/t_sha256.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:34.613131+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_sha256.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_sha512.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:34.677029+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_sha512.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_ed25519.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:35.041671+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_ed25519.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_ecdsa.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:35.807251+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_ecdsa.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_keccak.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:36.573072+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_keccak.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_mlkem.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:37.438513+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_mlkem.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_mldsa.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:41.359368+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_mldsa.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_blake2.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:43.677424+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_blake2.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_blake3.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:44.192018+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_blake3.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_native_profile.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:44.256018+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_native_profile.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_vault_stream.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:44.520290+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_vault_stream.txt"
+  },
+  {
+    "command": [
+      "node",
+      "crypto/t_aibom.mjs"
+    ],
+    "started_at": "2026-10-13T13:46:46.738316+00:00",
+    "exit_code": 0,
+    "output": "reports/native-repair-20261013/t_aibom.txt"
+  }
+]

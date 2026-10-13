@@ -1,0 +1,451 @@
+{
+  "schema": "ProofBundleCryptographicBasis/v1",
+  "basis_date": "2026-10-13",
+  "source_authority": "Normative specifications and pinned native vector files; generated narratives are derivatives",
+  "runtime": {
+    "crypto_computation": "Scratch source modules embedded in HTML; compatibility providers explicitly identified",
+    "entropy": "OS crypto.getRandomValues only",
+    "standalone_requires_node": false,
+    "optional_node": "Development runner and local transport/filesystem adapters"
+  },
+  "conformance": {
+    "nist_sample_cases": 855,
+    "nist_failed": 0,
+    "receipt": "reports/native-repair-20261013/nist-acvp.json",
+    "certification": "No CAVP or FIPS module certification claimed"
+  },
+  "formal_basis": {
+    "scope": "Eight abstract Lean interface/model theorems, all axiom-free in this audit; not JavaScript implementation refinement",
+    "audit": "lean/NativeBasisAudit.lean",
+    "receipt": "reports/native-repair-20261013/lean-native-basis-axioms.txt"
+  },
+  "profiles": [
+    {
+      "id": "SHA-2",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/sha256.mjs",
+          "sha256": "89679e864f459fead95e460aaac7c8d33a24ac566fc20bca5c7beccc03a699d1"
+        },
+        {
+          "path": "crypto/sha512.mjs",
+          "sha256": "b4fc13ce413b57e7437c9cd5bef4d2b64705e71d83b56e9e23bf86601b9d07cc"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/180-4/upd1/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_sha256.txt",
+        "reports/native-repair-20261013/t_sha512.txt",
+        "reports/native-repair-20261013/t_native_profile.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Compression function and padding refinement",
+        "Streaming/one-shot equivalence for arbitrary chunk boundaries",
+        "Length limits and counter overflow"
+      ]
+    },
+    {
+      "id": "Keccak / SHA-3 / SHAKE",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/keccak.mjs",
+          "sha256": "b81c7a1d640f4558a1d71eca5420b7cba853aedef10b39bcd0678f18992f4e14"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/202/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_keccak.txt",
+        "reports/native-repair-20261013/nist-acvp.json"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Permutation round and lane-index refinement",
+        "Domain suffix and multi-rate padding correctness",
+        "XOF absorb/squeeze equivalence; SHA-3 is not raw Keccak"
+      ]
+    },
+    {
+      "id": "BLAKE2 / BLAKE3",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/blake2.mjs",
+          "sha256": "5ad5e2652320f09ce426bfbdc16a6190f222752eb67925524c2433716cd8bb51"
+        },
+        {
+          "path": "crypto/blake3.mjs",
+          "sha256": "df353bf51abbf09c1d9756e774a6a822e2ef37d04920891b9e924130d25bbf27"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc7693.html",
+        "https://github.com/BLAKE3-team/BLAKE3-specs"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_blake2.txt",
+        "reports/native-repair-20261013/t_blake3.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Counter, final-block and tree-combination refinement",
+        "Streaming equivalence and supported digest lengths"
+      ]
+    },
+    {
+      "id": "Ed25519 / local identity",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/ed25519.mjs",
+          "sha256": "ca74e48e5d168807a43180b12a4b58b5833cd06b73394f8132666904e03f90e2"
+        },
+        {
+          "path": "crypto/aibom.mjs",
+          "sha256": "0efd442ae785b8cdd57e8019b0273aba876ba771e0a12cc67b6bd16dbd921898"
+        },
+        {
+          "path": "agent/identity.mjs",
+          "sha256": "126bfc2d661962d626de088e9da0d6d3f81ae94694b3d65993bf148e9fd24d27"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8032.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_ed25519.txt",
+        "reports/native-repair-20261013/t_native_profile.txt",
+        "reports/native-repair-20261013/surface.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Curve arithmetic, scalar reduction and encoding refinement",
+        "Canonical point and low-order rejection profile",
+        "Entropy and persistent key binding",
+        "Recorder signature does not prove source authorship or operator endorsement"
+      ]
+    },
+    {
+      "id": "ECDSA P-256/384/521",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/ecdsa.mjs",
+          "sha256": "175d954cb92a3333ae0bc78c5531949248bc497e2fd51bd962256c4a0aceb425"
+        },
+        {
+          "path": "crypto/der.mjs",
+          "sha256": "cc2014a4c53d483489c6c1047e19a83102e3dd5636a7671eaff51586855c955b"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc6979.html",
+        "https://csrc.nist.gov/pubs/fips/186-5/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/rfc6979.json",
+        "reports/native-repair-20261013/t_ecdsa.txt",
+        "reports/native-repair-20261013/t_native_profile.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Curve and group arithmetic refinement",
+        "RFC6979 curve-selected HMAC nonce derivation",
+        "DER/key validation and scalar bounds",
+        "Variable-time BigInt: no timing guarantee"
+      ]
+    },
+    {
+      "id": "RSA-PSS / SHA-256",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/rsa-pss.mjs",
+          "sha256": "1f92a663a40e8111fdad5c745e0136fc7f617e38c8b787d3800c462405c84fcf"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8017.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_native_profile.txt",
+        "reports/native-repair-20261013/rsa-keygen.json",
+        "reports/native-repair-20261013/html-audit.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "PSS encoding, salt length and modulus-bit boundaries",
+        "Imported DER key validation",
+        "Probable-prime key generation, CRT and blinding correctness",
+        "Variable-time modular arithmetic"
+      ]
+    },
+    {
+      "id": "X25519 / relay envelope",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/x25519.mjs",
+          "sha256": "b5253b1a92fb7fde7937e87fbd07c688fc39ffd4c9e749b5dbca03203b8995e0"
+        },
+        {
+          "path": "agent/envelope.mjs",
+          "sha256": "953ce3008669cf7a5d3479927ec035b2615d298d6ff4e51ccdac9185e20020fc"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc7748.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/surface.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Ladder refinement, clamping and input high-bit mask",
+        "All-zero shared-secret rejection",
+        "Composition with HKDF, AEAD and signed envelope",
+        "Legacy wire format compatibility"
+      ]
+    },
+    {
+      "id": "ML-KEM-512/768/1024",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/mlkem.mjs",
+          "sha256": "73a7d3bd25ad78bd8061535bf9a306228d6d34e09f7663870b0b5e579ae58808"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/203/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/nist-acvp.json",
+        "vectors/nist-acvp/SOURCE_MANIFEST.json"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "NTT/polynomial arithmetic, sampling, compression and encoding refinement",
+        "Key input checks and implicit rejection",
+        "Encapsulation randomness and domain separation",
+        "Track normative errata and revision changes"
+      ]
+    },
+    {
+      "id": "ML-DSA-44/65/87",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/mldsa.mjs",
+          "sha256": "f71f01382a9d7c29ccb8ba3be5dce15ccf65b00c2b4ee868c9d26ee239ba0a60"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/204/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/nist-acvp.json",
+        "vectors/nist-acvp/SOURCE_MANIFEST.json"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "NTT, hint/decomposition and rejection-sampling refinement",
+        "Pure/prehash/context/external-mu profiles remain explicit",
+        "Canonical signature encoding and bounds",
+        "Timing and randomness analysis"
+      ]
+    },
+    {
+      "id": "ChaCha20 / Poly1305 / AEAD",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/chacha20-poly1305.mjs",
+          "sha256": "7b0daf1348a41af9bc99a1ebe3ddce0a98625b838ba71a01fbf58dd1bf03dfc3"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8439.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_native_profile.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Quarter-round and block-function refinement",
+        "Poly1305 clamp, arithmetic and reduction",
+        "AAD/ciphertext pad and length encoding",
+        "Key/nonce uniqueness and counter bounds",
+        "Authentication before plaintext release; timing analysis"
+      ]
+    },
+    {
+      "id": "AES-256 / GCM",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/aes256-gcm.mjs",
+          "sha256": "7015f85445b36b86e38903fa579f6c36e13cf707e04be95fb1143ed21347609d"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/197/final",
+        "https://csrc.nist.gov/pubs/sp/800/38/d/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_native_profile.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "S-box, AES key schedule and 14-round refinement",
+        "GHASH field representation and length encoding",
+        "96-bit nonce / 128-bit tag profile only",
+        "Nonce uniqueness, per-key bounds and authentication before release",
+        "Table/BigInt timing remains unproven"
+      ]
+    },
+    {
+      "id": "HKDF / encryption layers",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "crypto/hkdf.mjs",
+          "sha256": "c73415f731c8b95277e19940c268e00ce44fff320ae927cfc2b71f03b9aafd94"
+        },
+        {
+          "path": "crypto/hmac.mjs",
+          "sha256": "f0eb73f0a1552152c0f617dfc072579a3bc40925de3238fdb57de09314f4b40b"
+        },
+        {
+          "path": "crypto/vault-stream.mjs",
+          "sha256": "df7958b7622979a240436393491979d9dca3532241bdcb003e0a5c0fec9f0013"
+        },
+        {
+          "path": "src/browser-native.js",
+          "sha256": "77b607b6f2916d7e8bce7ec0f4a38839c913e4d6a177607ffd3afcac5b79317c"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc5869.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/t_vault_stream.txt",
+        "reports/native-repair-20261013/surface.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Canonical header binds algorithm, recipient, KEM ciphertext, salt and nonce as AAD",
+        "Signed outer encrypted receipt binds ciphertext; key encapsulation alone does not authenticate sender",
+        "KDF output/limit and protocol domain separation",
+        "PB-VAULT-1 custom SHAKE record KDF is not standardized HKDF",
+        "Streaming finalization, truncation, order and record reuse"
+      ]
+    },
+    {
+      "id": "Canonical JSON / commitments / receipts",
+      "scope": "Scratch JavaScript implementation",
+      "sources": [
+        {
+          "path": "src/canonical/canonical-json.mjs",
+          "sha256": "e2eb1a88d8b20a56086c11b5d2e65057347b5611ab8be6eb3ff896a7f2652aa8"
+        },
+        {
+          "path": "src/encoding/base64url.mjs",
+          "sha256": "5a7ab1cc3339a1d7f4a49e96420f481b9274d2a972416eb59d92f78c4f7aaccd"
+        }
+      ],
+      "normative_sources": [
+        "https://www.rfc-editor.org/rfc/rfc8785.html",
+        "https://www.rfc-editor.org/rfc/rfc6962.html"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/surface.txt",
+        "reports/native-repair-20261013/html-audit.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Hash UTF-8 bytes of canonical JSON; never hash a pretty-printed object interchangeably",
+        "Reject duplicates, lone surrogates, cycles, sparse arrays, undefined and non-finite numbers",
+        "Explicit ECMAScript numeric domain and UTF-16 property ordering",
+        "Bind profile and exclude only specified seal fields; Merkle domain separation",
+        "JavaScript serializer/parser refinement remains open"
+      ]
+    },
+    {
+      "id": "OpenTimestamps",
+      "scope": "Optional external verifier adapter; not a scratch Bitcoin verifier",
+      "sources": [
+        {
+          "path": "agent/ots.mjs",
+          "sha256": "d7c1ef2796f53a5c78586bebc93aab6dfb43a2aa0861b78bc5bae825fe95f583"
+        }
+      ],
+      "normative_sources": [
+        "https://github.com/opentimestamps/opentimestamps-client"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/surface.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Bind exact detached target bytes to .ots file",
+        "Calendar submission is not Bitcoin verification",
+        "Verify operation path, Bitcoin header Merkle root and chain evidence",
+        "Instrument success marker is an adapter contract; transcript text alone is not an anchor",
+        "RFC3161 response retention is unverified; CMS, imprint/nonce and certificate-chain verification are not implemented",
+        "No external timestamp was submitted or Bitcoin anchor established by this repair"
+      ]
+    },
+    {
+      "id": "File browser / custody",
+      "scope": "Browser permission and custody workflow",
+      "sources": [
+        {
+          "path": "src/browser-native.js",
+          "sha256": "77b607b6f2916d7e8bce7ec0f4a38839c913e4d6a177607ffd3afcac5b79317c"
+        }
+      ],
+      "normative_sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/browser-workflows.json"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Bounded read-only folder permission and preserved relative paths",
+        "Original file bytes remain unchanged",
+        "Persistent key and receipt continuity across reloads",
+        "Captured bytes, source attribution, declaration and verification are separate states"
+      ]
+    },
+    {
+      "id": "Falcon / SLH-DSA compatibility",
+      "scope": "Bundled third-party compatibility providers; separate from native basis",
+      "sources": [
+        {
+          "path": "proofbundle.html",
+          "binding": "Final shipped HTML hash in release receipt; not embedded recursively"
+        }
+      ],
+      "normative_sources": [
+        "https://csrc.nist.gov/pubs/fips/205/final"
+      ],
+      "evidence": [
+        "reports/native-repair-20261013/html-audit.txt"
+      ],
+      "formal_implementation_refinement": "OPEN",
+      "obligations": [
+        "Bundled providers are not scratch implementations",
+        "Legacy algorithm names do not establish final-standard conformance",
+        "Full vector and implementation-refinement evidence required per exact profile"
+      ]
+    }
+  ]
+}

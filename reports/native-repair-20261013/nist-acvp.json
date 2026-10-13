@@ -1,0 +1,57 @@
+{
+  "schema": "ProofBundleConformanceReceipt/v1",
+  "source_repository": "https://github.com/usnistgov/ACVP-Server",
+  "source_commit": "975de31eb83d87039ec88934fdc47d8c312b892d",
+  "implementation_sources": [
+    {
+      "path": "crypto/mlkem.mjs",
+      "sha256": "73a7d3bd25ad78bd8061535bf9a306228d6d34e09f7663870b0b5e579ae58808"
+    },
+    {
+      "path": "crypto/mldsa.mjs",
+      "sha256": "f71f01382a9d7c29ccb8ba3be5dce15ccf65b00c2b4ee868c9d26ee239ba0a60"
+    },
+    {
+      "path": "crypto/keccak.mjs",
+      "sha256": "b81c7a1d640f4558a1d71eca5420b7cba853aedef10b39bcd0678f18992f4e14"
+    },
+    {
+      "path": "crypto/sha256.mjs",
+      "sha256": "89679e864f459fead95e460aaac7c8d33a24ac566fc20bca5c7beccc03a699d1"
+    },
+    {
+      "path": "crypto/sha512.mjs",
+      "sha256": "b4fc13ce413b57e7437c9cd5bef4d2b64705e71d83b56e9e23bf86601b9d07cc"
+    }
+  ],
+  "executed_at": "2026-10-13T14:46:33.057Z",
+  "scope": "NIST ACVP published sample vectors; not CAVP or FIPS module certification",
+  "results": [
+    {
+      "suite": "ML-KEM-keyGen-FIPS203",
+      "passed": 75,
+      "failed": 0
+    },
+    {
+      "suite": "ML-KEM-encapDecap-FIPS203",
+      "passed": 165,
+      "failed": 0
+    },
+    {
+      "suite": "ML-DSA-keyGen-FIPS204",
+      "passed": 75,
+      "failed": 0
+    },
+    {
+      "suite": "ML-DSA-sigGen-FIPS204",
+      "passed": 360,
+      "failed": 0
+    },
+    {
+      "suite": "ML-DSA-sigVer-FIPS204",
+      "passed": 180,
+      "failed": 0
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,3 @@
+
+87 official KAT checks (87 known-answer fields from the upstream BLAKE3 test vectors), 46 structural checks
+133 pass, 0 fail

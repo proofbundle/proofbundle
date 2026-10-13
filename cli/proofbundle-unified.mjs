@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import {parseJSON} from '../src/canonical/canonical-json.mjs';
 /* ProofBundle Unified CLI — extends the existing engine CLI with two new
    subcommands that were not present before:
 
@@ -52,7 +53,7 @@ function delegate(sub, rest) {
 
 async function bootEngineForConsole() {
   const { JSDOM, VirtualConsole } = await import('jsdom');
-  const { webcrypto } = await import('node:crypto');
+  const {randomBytes,randomUUID}=await import('../crypto/random.mjs');
   const html = readFileSync(ENGINE_PATH, 'utf-8');
   const vc = new VirtualConsole();
   vc.on('jsdomError', (e) => { if (!/canvas|clearRect/i.test(e.message)) console.error('[engine]', e.message); });
@@ -63,8 +64,8 @@ async function bootEngineForConsole() {
       const ne = new TextEncoder(), nd = new TextDecoder();
       if (!window.TextEncoder) window.TextEncoder = class { encode(s) { const b = ne.encode(s); const o = new PageU8(b.length); o.set(b); return o; } };
       if (!window.TextDecoder) window.TextDecoder = class { decode(b) { return nd.decode(b); } };
-      const grv = (a) => { const t = new Uint8Array(a.length); webcrypto.getRandomValues(t); a.set(t); return a; };
-      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, subtle: webcrypto.subtle, randomUUID: () => webcrypto.randomUUID() } }); } catch {}
+      const grv = (a) => { const t = randomBytes(a.length); a.set(t); return a; };
+      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, randomUUID } }); } catch {}
       if (!window.matchMedia) window.matchMedia = () => ({ matches: false, media: '', addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent() { return false; } });
       window.HTMLCanvasElement.prototype.getContext = () => null;
       if (!window.CryptoKey) window.CryptoKey = globalThis.CryptoKey;
@@ -147,7 +148,7 @@ async function evalConsoleLine(line, win) {
       }
       case 'algs': {
         const out = await win.eval('JSON.stringify({ digests: PB_DIGESTS.map(d => d.id), sigs: PB_SIGS.map(s => s.id) })');
-        return JSON.stringify(JSON.parse(out), null, 2);
+        return JSON.stringify(parseJSON(out), null, 2);
       }
       case 'keygen': {
         const alg = rest[0] || 'Ed25519';
@@ -169,16 +170,16 @@ async function evalConsoleLine(line, win) {
         const digestAlg = parsed.digest || 'SHA-256';
         const sigAlg = parsed.sig || 'Ed25519';
         if (!existsSync(inputPath)) return `error: ${inputPath} not found`;
-        const bundle = JSON.parse(readFileSync(inputPath, 'utf-8'));
+        const bundle = parseJSON(readFileSync(inputPath, 'utf-8'));
         bundle.hdr = bundle.hdr || {};
         if (!bundle.hdr.profile) bundle.hdr.profile = 'PB-INTEGRITY-1';
         let key;
-        if (parsed.key && existsSync(parsed.key)) key = JSON.parse(readFileSync(parsed.key, 'utf-8'));
+        if (parsed.key && existsSync(parsed.key)) key = parseJSON(readFileSync(parsed.key, 'utf-8'));
         else {
           key = await win.eval(`sigKeygen(${JSON.stringify(sigAlg)})`);
           writeFileSync('proofbundle-key.json', JSON.stringify(key, null, 2));
         }
-        win.__PB_BUNDLE__ = bundle; win.__PB_KEY__ = key;
+        win.__PB_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(bundle))})`); win.__PB_KEY__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(key))})`);
         const sealed = await win.eval(`sealCore(window.__PB_BUNDLE__, ${JSON.stringify(digestAlg)}, ${JSON.stringify(sigAlg)}, window.__PB_KEY__)`);
         const outJson = JSON.stringify(sealed, null, 2);
         if (parsed.out) { writeFileSync(parsed.out, outJson); return `sealed → ${parsed.out}`; }
@@ -189,16 +190,16 @@ async function evalConsoleLine(line, win) {
         if (!bundlePath) return 'usage: verify <bundle.json> [--context ctx.json]';
         const parsed = parseArgs(rest.slice(1));
         if (!existsSync(bundlePath)) return `error: ${bundlePath} not found`;
-        const bundle = JSON.parse(readFileSync(bundlePath, 'utf-8'));
-        const ctx = parsed.context && existsSync(parsed.context) ? JSON.parse(readFileSync(parsed.context, 'utf-8')) : {};
-        win.__PB_BUNDLE__ = bundle; win.__PB_CTX__ = ctx;
+        const bundle = parseJSON(readFileSync(bundlePath, 'utf-8'));
+        const ctx = parsed.context && existsSync(parsed.context) ? parseJSON(readFileSync(parsed.context, 'utf-8')) : {};
+        win.__PB_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(bundle))})`); win.__PB_CTX__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(ctx))})`);
         const out = await win.eval(`verifyCore(window.__PB_BUNDLE__, { context: window.__PB_CTX__ })`);
         return JSON.stringify(out, null, 2);
       }
       case 'load': {
         if (!rest[0]) return 'usage: load <file.json>';
         if (!existsSync(rest[0])) return `error: ${rest[0]} not found`;
-        return JSON.stringify(JSON.parse(readFileSync(rest[0], 'utf-8')), null, 2);
+        return JSON.stringify(parseJSON(readFileSync(rest[0], 'utf-8')), null, 2);
       }
       default:
         return `unknown command: ${cmd} (try 'help')`;
@@ -232,10 +233,10 @@ async function buildItinerary(args) {
   let actions;
   if (actionsPath.endsWith('.jsonl')) {
     actions = text.split('\n').filter(Boolean).map((l, i) => {
-      try { return JSON.parse(l); } catch (e) { throw new Error(`bad JSONL on line ${i + 1}: ${e.message}`); }
+      try { return parseJSON(l); } catch (e) { throw new Error(`bad JSONL on line ${i + 1}: ${e.message}`); }
     });
   } else {
-    actions = JSON.parse(text);
+    actions = parseJSON(text);
   }
   if (!Array.isArray(actions)) throw new Error('actions input must be an array or JSONL');
 
@@ -247,7 +248,7 @@ async function buildItinerary(args) {
     const ts = a.ts || builtAt;
     const summary = a.summary || a.command || a.kind || 'action';
     const record = { ...a, ts, summary };
-    win.__PB_ACTION__ = record;
+    win.__PB_ACTION__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(record))})`);
     const fp = await win.eval('digestBytes("SHA3-384", utf8(canonicalJSON(window.__PB_ACTION__))).then(hexOf)');
     enriched.push({ ...record, sha3_384: fp });
   }
@@ -266,9 +267,9 @@ async function buildItinerary(args) {
     payload: { kind: 'itinerary', title, actions: enriched },
   };
   env.hdr.profile = 'PB-INTEGRITY-1';
-  win.__PB_ENV__ = env; win.__PB_KEY__ = key;
+  win.__PB_ENV__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(env))})`); win.__PB_KEY__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(key))})`);
   const sealed = await win.eval('sealCore(window.__PB_ENV__, "SHA3-384", "Ed25519", window.__PB_KEY__)');
-  win.__PB_SEALED__ = sealed;
+  win.__PB_SEALED__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(sealed))})`);
   const verification = await win.eval('verifyCore(window.__PB_SEALED__, {})');
   if (verification.outcome !== 'VERIFIED') {
     throw new Error(`generated itinerary envelope did not verify: ${verification.outcome}`);

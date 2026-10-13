@@ -1,0 +1,106 @@
+
+> proofbundle@1.0.0 test:surface
+> node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs
+
+✔ hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack (3.097898ms)
+✔ hostile: nesting just at the default depth bound is accepted (0.964834ms)
+✔ hostile: a custom maxDepth is honored (0.244723ms)
+✔ hostile: very large flat array parses and canonicalizes correctly (no silent truncation) (48.221717ms)
+✔ hostile: object with many keys — no key silently dropped, no silent cap (15.390627ms)
+✔ hostile: negative-zero and positive-zero canonicalize to the identical byte sequence (0.248971ms)
+✔ hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds (0.300444ms)
+✔ hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded (0.220871ms)
+✔ hostile: hex input with embedded null byte or control character is rejected, not silently stripped (0.242336ms)
+✔ hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted (0.342257ms)
+✔ hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown (0.30738ms)
+✔ hostile: string with maximum-codepoint characters round-trips through canonicalization (0.492864ms)
+✔ hostile: repeated backslash-quote sequences do not desynchronize the string scanner (0.150393ms)
+✔ hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution (0.182155ms)
+✔ rejects: duplicate top-level key (1.414308ms)
+✔ rejects: duplicate key differing only in later value (0.15006ms)
+✔ rejects: trailing comma in object (0.111623ms)
+✔ rejects: trailing comma in array (0.141488ms)
+✔ rejects: unquoted key (0.138998ms)
+✔ rejects: single-quoted string (0.438275ms)
+✔ rejects: leading zero integer (0.155094ms)
+✔ rejects: leading zero in fraction position is fine but leading zero in int is not (0.156117ms)
+✔ rejects: leading zero rejected inside a container, via the container's own trailing-token check (0.202645ms)
+✔ rejects: bare NaN (0.175866ms)
+✔ rejects: bare Infinity (0.111411ms)
+✔ rejects: unterminated string (0.13555ms)
+✔ rejects: unescaped control character in string (0.121749ms)
+✔ rejects: invalid escape (0.116271ms)
+✔ rejects: trailing garbage after valid value (0.161133ms)
+✔ rejects: empty input (0.131007ms)
+✔ rejects: unpaired high surrogate via \u escape (0.157531ms)
+✔ canonicalizeValue rejects a plain object even if structurally value-like (0.26744ms)
+✔ canonicalizeValue rejects a function, symbol, and bigint (0.26392ms)
+✔ concatBytes joins in order (2.72909ms)
+✔ equalBytes true for identical content, false for length or content mismatch (0.357167ms)
+✔ constantTimeEqual agrees with equalBytes on all test cases (0.233517ms)
+✔ assertLength / assertMaxLength enforce bounds (0.488231ms)
+✔ varint round-trips across boundary values (0.418389ms)
+✔ varint rejects negative and non-integer (0.44279ms)
+✔ varint decode rejects overlong (non-minimal) encoding (0.209054ms)
+✔ varint decode rejects truncated input (0.310477ms)
+✔ utf8 round-trips ASCII and multi-byte text (0.363899ms)
+✔ utf8Decode rejects invalid byte sequences (fatal mode) (0.452335ms)
+✔ hasLoneSurrogate detects unpaired surrogates, not valid pairs (0.226949ms)
+✔ hex round-trips and rejects non-canonical input (0.449811ms)
+✔ base64 round-trips and rejects non-canonical padding (0.602447ms)
+✔ base64url round-trips and rejects standard-alphabet characters (0.263605ms)
+✔ object keys are sorted regardless of input order (2.150851ms)
+✔ idempotence: canonicalizing canonical output reproduces it byte-for-byte (0.537916ms)
+✔ determinism: same semantic input always yields identical bytes (0.254832ms)
+✔ whitespace is insignificant to the canonical form (0.243888ms)
+✔ duplicate object keys are rejected, not silently resolved to the last value (0.751926ms)
+✔ nested duplicate keys are rejected (0.247843ms)
+✔ non-finite number literals are rejected by the grammar itself (0.442061ms)
+✔ leading zeros in numbers are rejected (not valid JSON grammar) (0.256089ms)
+✔ negative zero canonicalizes to "0" (0.468616ms)
+✔ minimal integer encoding: no trailing .0 for integral values (0.296916ms)
+✔ trailing data after a JSON value is rejected (0.270108ms)
+✔ unpaired surrogate in a string is rejected (0.282007ms)
+✔ empty object and empty array canonicalize correctly (0.192429ms)
+✔ string escaping round-trips through parse and canonicalize (0.172533ms)
+✔ canonicalizeValue rejects plain objects (Map is required for the object domain) (0.217894ms)
+✔ canonicalizeValue rejects undefined and non-finite numbers directly (0.249457ms)
+✔ array order is preserved (arrays are not sorted, only object keys are) (0.203093ms)
+✔ SHA-256 empty-string known-answer value matches FIPS 180-4 (2.39411ms)
+✔ SHA-224 empty-string known-answer value matches FIPS 180-4 (0.301396ms)
+✔ SHA3-256 empty-string known-answer value matches FIPS 202 (1.118526ms)
+✔ SHA3-224 empty-string known-answer value matches FIPS 202 (cross-checked vs Python hashlib) (0.791522ms)
+✔ BLAKE2b-512 / BLAKE2s-256 empty-string known-answer values (cross-checked vs Python hashlib) (1.482722ms)
+✔ every wired SHA-2 variant agrees with node:crypto across message lengths (15.317984ms)
+✔ SHA3-224/256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL) (18.414037ms)
+✔ SHAKE128/256 produce the requested output length and agree with node:crypto (2.533458ms)
+✔ digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback (0.603439ms)
+✔ digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched (0.410701ms)
+✔ isImplementedDigest correctly reports only the wired fixed-length algorithms (0.159678ms)
+✔ digestBytes rejects non-Uint8Array input rather than coercing it (0.140162ms)
+✔ scratch streaming hashes match independent references across block boundaries (100.160663ms)
+✔ AI-BOM verification rejects signature-only alteration and forged low-order key (24.755009ms)
+✔ relay encryption retains its wire format and authenticates before returning plaintext (14.480286ms)
+✔ plain objects canonicalize without discarding unsupported values (0.403582ms)
+✔ Agent filesystem identifiers cannot traverse custody roots (0.264483ms)
+✔ OTS info alone, failed verify, or silent zero exit cannot establish anchoring (1.932915ms)
+✔ OTS success marker comes from detached verify output, including stderr (0.34145ms)
+✔ pending calendar and missing proof remain unverified (1.212667ms)
+ℹ tests 84
+ℹ suites 0
+ℹ pass 84
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.267938
+verify-vectors: 265 pass, 0 fail
+registry: 95 entries, 0 validation errors
+by implementation_status: {
+  "COMPLETE": 47,
+  "RECOGNIZE_ONLY": 2,
+  "NOT_IMPLEMENTED": 29,
+  "BLOCKED": 17
+}
+CRYPTOGRAPHIC_SURFACE.csv: 95 rows written
+rows with a critical-issue flag: 0

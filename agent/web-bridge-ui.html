@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ProofBundle Web Bridge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0b0e14; --panel:#131824; --edge:#232c3d; --fg:#d5dbe7; --dim:#7b8698;
+          --ok:#3fb96b; --bad:#e0564b; --accent:#5aa0f2; --mono:ui-monospace,'Cascadia Mono','JetBrains Mono',monospace; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 var(--mono); }
+  header { display:flex; align-items:baseline; gap:16px; padding:14px 20px;
+           border-bottom:1px solid var(--edge); background:var(--panel); flex-wrap:wrap; }
+  header h1 { font-size:16px; margin:0; letter-spacing:.5px; }
+  .pill { padding:2px 10px; border-radius:99px; border:1px solid var(--edge); font-size:12px; }
+  .pill.ok { color:var(--ok); border-color:var(--ok); }
+  .pill.bad { color:var(--bad); border-color:var(--bad); }
+  .pill.dim { color:var(--dim); }
+  main { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:14px; padding:14px 20px; }
+  section { background:var(--panel); border:1px solid var(--edge); border-radius:8px; padding:14px; }
+  section h2 { margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--dim); }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th,td { text-align:left; padding:4px 6px; border-bottom:1px solid var(--edge); vertical-align:top; }
+  th { color:var(--dim); font-weight:normal; }
+  input,select,textarea,button { background:var(--bg); color:var(--fg); border:1px solid var(--edge);
+           border-radius:6px; padding:6px 8px; font:inherit; font-size:13px; }
+  textarea { width:100%; min-height:90px; resize:vertical; }
+  button { cursor:pointer; background:#1a2233; }
+  button:hover { border-color:var(--accent); }
+  label { display:block; color:var(--dim); font-size:12px; margin:8px 0 2px; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:end; }
+  .row > * { flex:1; min-width:120px; }
+  pre { background:var(--bg); border:1px solid var(--edge); border-radius:6px; padding:8px;
+        overflow:auto; max-height:260px; font-size:12px; white-space:pre-wrap; word-break:break-all; }
+  .ok { color:var(--ok); } .bad { color:var(--bad); } .dim { color:var(--dim); }
+  a { color:var(--accent); }
+</style>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--fg:#18263e;--dim:#63718a;--edge:#dce3ef;--accent:#285fe5;--ok:#14785a;--bad:#b63740}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);line-height:1.6}header{background:#fff;padding:24px 32px;gap:12px;border-bottom:1px solid var(--edge);flex-wrap:wrap}header h1{font-size:22px;letter-spacing:-.025em;margin-right:auto}main{max-width:1320px;margin:0 auto;padding:32px;gap:24px}section{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:24px}h2{font-size:16px;font-weight:650;margin:0 0 16px}input,select,textarea{background:#fff;min-height:40px;padding:10px 12px;border-radius:7px;font:13px system-ui}button{background:#edf2f9;min-height:40px;color:var(--fg);border-radius:7px;padding:10px 16px;font-weight:600}button:hover{background:#e4ecf8}pre{padding:14px;background:#f7f9fc;border-radius:8px;font:12px/1.7 ui-monospace,Consolas,monospace}label{font-size:12px;margin-bottom:6px}.pill{font:11px ui-monospace;border-radius:6px;padding:5px 9px}table{font-size:12px}td,th{padding:10px 8px}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.bridge-app-link{color:#fff;background:var(--accent);border-radius:7px;padding:9px 14px;text-decoration:none;font-size:13px;font-weight:600}.bridge-lead{padding:24px 32px 0;max-width:1320px;margin:auto;color:var(--dim)}@media(max-width:700px){header{padding:18px 16px}main{padding:20px 16px;grid-template-columns:1fr}.bridge-lead{padding:20px 16px 0}.row{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header>
+  <h1>ProofBundle · Web Bridge</h1><a class="bridge-app-link" href="/proofbundle.html">Open application</a>
+  <span class="pill dim" id="h-health">…</span>
+  <span class="pill dim" id="h-chain">…</span>
+  <span class="pill dim" id="h-fork">…</span>
+  <span class="pill dim" id="h-seq">…</span>
+  <span class="pill dim" id="h-state">…</span>
+</header>
+<p class="bridge-lead">Connected agent identities, signed envelopes, and retained lineage. Offline file custody and key registration are available in the application.</p><main>
+  <section id="s-agents">
+    <h2>Agents on this machine</h2>
+    <div id="agents">loading…</div>
+    <h2 style="margin-top:14px">Register identity</h2>
+    <div class="row">
+      <div><label>agent_id</label><input id="reg-id" placeholder="claude, kimi, glm…"></div>
+      <div style="flex:0"><button onclick="doRegister()">Register with relay</button></div>
+    </div>
+    <pre id="reg-out" class="dim">new Ed25519 + X25519 (+ ML-KEM-768) keys are generated locally, 0600, under ~/.proofbundle/agent/</pre>
+  </section>
+
+  <section id="s-seal">
+    <h2>Seal into lineage</h2>
+    <div class="row">
+      <div><label>agent_id (must be registered)</label><select id="seal-agent"></select></div>
+      <div><label>payload_type</label>
+        <select id="seal-type">
+          <option>work</option><option>attestation</option><option>handoff</option>
+          <option>prediction</option><option>verdict</option>
+        </select></div>
+      <div><label>to (optional — auto-routes to inbox)</label><input id="seal-to" placeholder=""></div>
+    </div>
+    <label>payload (JSON)</label>
+    <textarea id="seal-payload" spellcheck="false">{ "note": "" }</textarea>
+    <div class="row" style="margin-top:8px">
+      <div style="flex:0"><button onclick="doSeal()">Seal envelope</button></div>
+    </div>
+    <pre id="seal-out" class="dim">seq + prev_hash are assigned from the chain tip before signing; the signature covers them</pre>
+  </section>
+
+  <section id="s-verify">
+    <h2>Verify an envelope</h2>
+    <label>envelope (JSON, as returned by /seal or read from lineage)</label>
+    <textarea id="verify-env" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:8px">
+      <div style="flex:0"><button onclick="doVerify()">Verify envelope</button></div>
+      <div style="flex:0"><button onclick="doForkCheck()">fork check (/lineage/export)</button></div>
+    </div>
+    <pre id="verify-out" class="dim">signature + lineage + registry pubkey binding</pre>
+  </section>
+
+  <section id="s-lineage">
+    <h2>Lineage tail <button style="float:right" onclick="loadTail()">refresh</button></h2>
+    <div id="tail">loading…</div>
+  </section>
+
+  <section id="s-inbox">
+    <h2>Route &amp; inbox</h2>
+    <div class="row">
+      <div><label>agent_id</label><select id="inbox-agent"></select></div>
+      <div style="flex:0"><button onclick="doInbox()">fetch + clear /inbox</button></div>
+    </div>
+    <pre id="inbox-out" class="dim">delivered envelopes (fetch clears)</pre>
+    <h2 style="margin-top:14px">Merkle batch / OTS</h2>
+    <div class="row">
+      <div style="flex:0"><button onclick="doStamp()">/stamp (batch unanchored → OTS)</button></div>
+      <div style="flex:0"><button onclick="doLineageInfo()">/lineage status</button></div>
+    </div>
+    <pre id="stamp-out" class="dim">RFC 6962 root over unanchored envelopes; OTS: pending → submitted → upgraded</pre>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+async function api(path, opts) {
+  const r = await fetch(path, opts ? { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify(opts) } : undefined);
+  return r.json();
+}
+function show(id, obj, isErr) {
+  const el = $(id);
+  el.className = isErr ? 'bad' : '';
+  el.textContent = typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2);
+}
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+async function loadOverview() {
+  try {
+    const o = await api('/api/overview');
+    $('h-health').textContent = o.ok ? '● online' : '○ down';
+    $('h-health').className = 'pill ' + (o.ok ? 'ok' : 'bad');
+    $('h-chain').textContent = o.entries + ' envelopes, chain ' + (o.chain_ok ? 'ok' : 'BROKEN');
+    $('h-chain').className = 'pill ' + (o.chain_ok ? 'ok' : 'bad');
+    $('h-fork').textContent = o.forked ? 'FORK DETECTED' : 'no fork';
+    $('h-fork').className = 'pill ' + (o.forked ? 'bad' : 'ok');
+    $('h-seq').textContent = 'last seq ' + (o.last_seq ?? '—');
+    $('h-seq').className = 'pill dim';
+    $('h-state').textContent = o.state_dir;
+    $('h-state').className = 'pill dim';
+  } catch (e) {
+    $('h-health').textContent = '○ unreachable';
+    $('h-health').className = 'pill bad';
+  }
+}
+
+async function loadAgents() {
+  const a = await api('/api/agents');
+  let h = '<table><tr><th>agent</th><th>fingerprint</th><th>registered</th><th>enc</th><th>pq</th><th>aibom</th></tr>';
+  for (const r of a.registered)
+    h += '<tr><td>' + esc(r.id) + '</td><td class="dim">' + esc((r.fingerprint||'').slice(0,18)) + '…</td><td class="dim">'
+       + esc((r.registered_at||'').slice(0,10)) + '</td><td>' + (r.has_enc?'✓':'—') + '</td><td class="dim">'
+       + esc(r.pq_alg||'—') + '</td><td>' + (r.aibom_verified===true?'<span class="ok">✓</span>':r.aibom_verified===false?'<span class="bad">✗</span>':'—') + '</td></tr>';
+  if (!a.registered.length) h += '<tr><td colspan="6" class="dim">none registered yet</td></tr>';
+  h += '</table>';
+  if (a.launchers.agents.length) {
+    h += '<h2 style="margin-top:12px">Known launchers (proofbundle-agents)</h2><table><tr><th>id</th><th>command</th><th>enabled</th></tr>';
+    for (const l of a.launchers.agents)
+      h += '<tr><td>' + esc(l.id) + '</td><td class="dim">' + esc(l.command) + '</td><td>' + (l.enabled?'<span class="ok">✓</span>':'<span class="bad">✗</span>') + '</td></tr>';
+    h += '</table>';
+  }
+  $('agents').innerHTML = h;
+  const opts = a.registered.map(r => '<option>' + esc(r.id) + '</option>').join('');
+  $('seal-agent').innerHTML = opts || '<option value="">— register one first —</option>';
+  $('inbox-agent').innerHTML = opts || '<option value="">—</option>';
+}
+
+async function loadTail() {
+  const t = await api('/api/lineage/tail?n=40');
+  let h = '<table><tr><th>seq</th><th>ts</th><th>agent</th><th>type</th><th>to</th><th>payload hash</th></tr>';
+  for (const e of t.tail)
+    h += '<tr><td>' + e.seq + '</td><td class="dim">' + esc((e.ts||'').replace('T',' ').slice(0,19)) + '</td><td>'
+       + esc(e.agent||'') + '</td><td>' + esc(e.payload_type||'') + '</td><td class="dim">' + esc(e.to||'') + '</td><td class="dim">'
+       + esc(e.hash_preview||'') + '…</td></tr>';
+  if (!t.tail.length) h += '<tr><td colspan="6" class="dim">lineage is empty</td></tr>';
+  $('tail').innerHTML = h + '</table><div class="dim" style="margin-top:4px">total: ' + t.total + ' envelopes</div>';
+}
+
+async function doRegister() {
+  const id = $('reg-id').value.trim();
+  if (!id) return show('reg-out', 'agent_id required', true);
+  const r = await api('/register', { agent_id: id });
+  show('reg-out', r, !!r.error);
+  loadAgents(); loadOverview();
+}
+
+async function doSeal() {
+  let payload;
+  try { payload = JSON.parse($('seal-payload').value); }
+  catch { return show('seal-out', 'payload is not valid JSON', true); }
+  const body = { agentId: $('seal-agent').value, payloadType: $('seal-type').value, payload };
+  const to = $('seal-to').value.trim();
+  if (to) body.to = to;
+  const r = await api('/seal', body);
+  show('seal-out', r, !!r.error);
+  if(r.envelope)$('verify-env').value=JSON.stringify(r.envelope,null,2);
+  if (!r.error) { loadOverview(); loadTail(); }
+}
+
+async function doVerify() {
+  let env;
+  try { env = JSON.parse($('verify-env').value); }
+  catch { return show('verify-out', 'not valid JSON', true); }
+  const r = await api('/verify', { envelope: env });
+  show('verify-out', r, r.valid === false || !!r.error);
+}
+
+async function doForkCheck() {
+  show('verify-out', 'running full fork check over the lineage (this parses the whole log)…');
+  const r = await api('/lineage/export');
+  show('verify-out', { entries:r.entries, chain_ok:r.chain_ok, forked:r.forked, tips:r.tips, duplicate_seqs:r.duplicate_seqs }, r.forked);
+}
+
+async function doInbox() {
+  const id = $('inbox-agent').value;
+  if (!id) return show('inbox-out', 'pick an agent', true);
+  const r = await api('/inbox/' + encodeURIComponent(id));
+  show('inbox-out', r, !!r.error);
+}
+
+async function doStamp() { show('stamp-out', await api('/stamp', {})); }
+async function doLineageInfo() { show('stamp-out', await api('/lineage')); }
+
+loadOverview(); loadAgents().catch(e=>show('agents','Relay unavailable: '+e.message,true)); loadTail().catch(e=>show('tail','Lineage unavailable: '+e.message,true));
+setInterval(() => { loadOverview(); }, 15000);
+</script>
+</body>
+</html>

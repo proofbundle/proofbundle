@@ -56,17 +56,11 @@ const H0_384 = [
   0x67332667ffc00b31n, 0x8eb44a8768581511n, 0xdb0c2e0d64f98fa7n, 0x47b5481dbefa4fa4n,
 ];
 
-function compress(msgBytes, initH, outLen) {
-  if (!(msgBytes instanceof Uint8Array)) {
-    msgBytes = new TextEncoder().encode(msgBytes);
-  }
-  const M = pad(msgBytes);
-  const H = initH.slice();
+function compress(msgBytes, initH, outLen) { return streamingHash(initH, outLen).update(msgBytes).digest(); }
+function compressBlock(H, block) {
   const W = new Array(80);
-  const dv = new DataView(M.buffer);
-
-  for (let block = 0; block < M.length; block += 128) {
-    for (let t = 0; t < 16; t++) W[t] = dv.getBigUint64(block + t * 8, false);
+  const dv = new DataView(block.buffer,block.byteOffset,block.byteLength);
+    for (let t = 0; t < 16; t++) W[t] = dv.getBigUint64(t * 8, false);
     for (let t = 16; t < 80; t++) {
       const s0 = rotr(W[t - 15], 1n) ^ rotr(W[t - 15], 8n) ^ shr(W[t - 15], 7n);
       const s1 = rotr(W[t - 2], 19n) ^ rotr(W[t - 2], 61n) ^ shr(W[t - 2], 6n);
@@ -86,13 +80,16 @@ function compress(msgBytes, initH, outLen) {
     }
     H[0] = (H[0] + a) & MASK64; H[1] = (H[1] + b) & MASK64; H[2] = (H[2] + c) & MASK64; H[3] = (H[3] + d) & MASK64;
     H[4] = (H[4] + e) & MASK64; H[5] = (H[5] + f) & MASK64; H[6] = (H[6] + g) & MASK64; H[7] = (H[7] + h) & MASK64;
-  }
 
-  const out = new Uint8Array(outLen);
-  const outDv = new DataView(out.buffer);
-  for (let i = 0; i < outLen / 8; i++) outDv.setBigUint64(i * 8, H[i], false);
-  return out;
 }
+function streamingHash(initial, outputLength) {
+ const H=initial.slice(),pending=new Uint8Array(128);let used=0,total=0n,done=false;
+ const api={update(input){if(done)throw new Error('Hash already finalized');if(!(input instanceof Uint8Array))input=new TextEncoder().encode(input);total+=BigInt(input.length);let at=0;
+  while(at<input.length){const n=Math.min(128-used,input.length-at);pending.set(input.subarray(at,at+n),used);used+=n;at+=n;if(used===128){compressBlock(H,pending);used=0;}}return api;},
+ digest(){if(done)throw new Error('Hash already finalized');done=true;const bits=total*8n;if(bits>=(1n<<128n))throw new RangeError('Hash length overflow');const tail=new Uint8Array(used+1+((128-16-1-used)%128+128)%128+16);tail.set(pending.subarray(0,used));tail[used]=128;const view=new DataView(tail.buffer);view.setBigUint64(tail.length-16,bits>>64n,false);view.setBigUint64(tail.length-8,bits&((1n<<64n)-1n),false);
+  for(let at=0;at<tail.length;at+=128)compressBlock(H,tail.subarray(at,at+128));const result=new Uint8Array(64),out=new DataView(result.buffer);for(let i=0;i<8;i++)out.setBigUint64(i*8,H[i],false);return result.slice(0,outputLength);}};return api;
+}
+
 
 export function sha512(msgBytes) {
   return compress(msgBytes, H0, 64);
@@ -101,6 +98,19 @@ export function sha512(msgBytes) {
 export function sha384(msgBytes) {
   return compress(msgBytes, H0_384, 48);
 }
+export function createSHA384() { return streamingHash(H0_384,48); }
+export function createSHA512() { return streamingHash(H0,64); }
+
+// FIPS 180-4 section 5.3.6: generate the distinct SHA-512/t initial state.
+function truncationIV(bits) {
+  const modified = H0.map(x => x ^ 0xa5a5a5a5a5a5a5a5n);
+  const digest = compress(new TextEncoder().encode(`SHA-512/${bits}`), modified, 64);
+  const view = new DataView(digest.buffer, digest.byteOffset, digest.byteLength);
+  return Array.from({length:8}, (_,i) => view.getBigUint64(i * 8, false));
+}
+const H0_224 = truncationIV(224), H0_256 = truncationIV(256);
+export function sha512_224(msgBytes) { return compress(msgBytes, H0_224, 64).slice(0,28); }
+export function sha512_256(msgBytes) { return compress(msgBytes, H0_256, 64).slice(0,32); }
 
 export function sha512hex(msgBytes) {
   return Array.from(sha512(msgBytes)).map(b => b.toString(16).padStart(2, '0')).join('');

@@ -9,10 +9,10 @@
  * wrapping is one fixed 16/12-byte prefix around the raw 32-byte key — no
  * ASN.1 library needed, just a Buffer.concat. The actual signing math comes
  * from crypto/ed25519.mjs (from-scratch, RFC 8032), not node:crypto.
- * node:crypto appears here only for randomBytes (OS entropy), same
+ * OS entropy comes from crypto.getRandomValues, same
  * convention already used for ML-KEM keygen in pb-spawn-register.mjs.
  */
-import { randomBytes } from 'node:crypto';
+import { randomBytes } from '../crypto/random.mjs';
 import { mkdirSync, writeFileSync, readFileSync, existsSync, chmodSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
@@ -29,8 +29,9 @@ const SPKI_PREFIX = Buffer.from('302a300506032b6570032100', 'hex');
 
 const derWrapPriv = (seed32) => Buffer.concat([PKCS8_PREFIX, Buffer.from(seed32)]);
 const derWrapPub = (pub32) => Buffer.concat([SPKI_PREFIX, Buffer.from(pub32)]);
-const derUnwrapPriv = (der) => new Uint8Array(der.subarray(der.length - 32));
-const derUnwrapPub = (der) => new Uint8Array(der.subarray(der.length - 32));
+function unwrap(der,prefix){if(!(der instanceof Uint8Array)||der.length!==prefix.length+32||!prefix.every((x,i)=>der[i]===x))throw new Error('Ed25519 DER key format');return new Uint8Array(der.subarray(prefix.length));}
+const derUnwrapPriv = der => unwrap(der,PKCS8_PREFIX);
+const derUnwrapPub = der => unwrap(der,SPKI_PREFIX);
 
 /** Key fingerprint: SHA-256(SPKI public key) first 16 bytes, hex (32 chars). */
 export function fingerprint(publicKeyDer) {
@@ -38,8 +39,13 @@ export function fingerprint(publicKeyDer) {
 }
 
 /** Create or load an agent identity. Returns identity + privateKeyDer. */
-export function loadOrCreateIdentity(agentId) {
-  const dir = join(AGENT_DIR, agentId);
+export function assertAgentId(agentId){
+ if(typeof agentId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$/.test(agentId)){const error=new TypeError('Invalid agent identifier');error.status=400;throw error;}return agentId;
+}
+
+export function loadOrCreateIdentity(agentId, {agentRoot=AGENT_DIR}={}) {
+  assertAgentId(agentId);
+  const dir = join(agentRoot, agentId);
   const identityFile = join(dir, 'identity.json');
   const secretFile = join(dir, 'secret.key');
 
@@ -64,7 +70,7 @@ export function loadOrCreateIdentity(agentId) {
     created_at: createdAt,
   };
   writeFileSync(identityFile, JSON.stringify(identity, null, 2));
-  writeFileSync(secretFile, privDer);
+  writeFileSync(secretFile, privDer, {mode:0o600,flag:'wx'});
   chmodSync(secretFile, 0o600);
   return { ...identity, privateKeyDer: privDer };
 }
@@ -77,9 +83,11 @@ export function sign(privateKeyDer, message) {
 
 /** Verify an Ed25519 signature against an SPKI DER public key (hex or Buffer). */
 export function verify(publicKeyDerOrHex, message, signature) {
+  try {
   const der = typeof publicKeyDerOrHex === 'string'
     ? Buffer.from(publicKeyDerOrHex, 'hex')
     : publicKeyDerOrHex;
   const pub = derUnwrapPub(der);
   return edVerify(new Uint8Array(signature), new Uint8Array(message), pub);
+  }catch{return false;}
 }

@@ -15,9 +15,10 @@
  *   encrypted metadata and encrypted terminal digest record
  *   SHA-256/SHA-384/BLAKE2b-512 range digests plus PB BLAKE3 chunk Merkle root
  */
-import {
-  createCipheriv, createDecipheriv, createHash, randomBytes,
-} from 'node:crypto';
+import {createHash} from './hash.mjs';
+import {canonicalizeObject,parseJSON} from '../src/canonical/canonical-json.mjs';
+import {randomBytes} from './random.mjs';
+import {chacha20poly1305Seal,chacha20poly1305Open} from './chacha20-poly1305.mjs';
 import { open, stat } from 'node:fs/promises';
 import { execFile as execFileCallback } from 'node:child_process';
 import { spawn } from 'node:child_process';
@@ -35,11 +36,7 @@ const TYPE_DATA = 2;
 const TYPE_FINAL = 3;
 const execFile = promisify(execFileCallback);
 
-function canonicalJSON(obj) {
-  if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-  if (Array.isArray(obj)) return '[' + obj.map(canonicalJSON).join(',') + ']';
-  return '{' + Object.keys(obj).sort().map(k => JSON.stringify(k) + ':' + canonicalJSON(obj[k])).join(',') + '}';
-}
+function canonicalJSON(obj) {return new TextDecoder().decode(canonicalizeObject(obj));}
 
 function concat(...xs) { return Buffer.concat(xs.map(x => Buffer.from(x))); }
 function u32(n) { const b = Buffer.alloc(4); b.writeUInt32BE(n); return b; }
@@ -62,20 +59,13 @@ function recordAAD(headerDigest, type, index, plaintextLength) {
 function nonceFor(prefix, index) { return concat(prefix, u64(index)); }
 
 function encryptRecord({ type, index, plaintext, sharedSecret, salt, noncePrefix, headerDigest }) {
-  const key = deriveRecordKey(sharedSecret, salt, index);
-  const cipher = createCipheriv('chacha20-poly1305', key, nonceFor(noncePrefix, index), { authTagLength: 16 });
-  cipher.setAAD(recordAAD(headerDigest, type, index, plaintext.length));
-  const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()]);
-  return concat(Buffer.from([type]), u64(index), u32(plaintext.length), ciphertext, cipher.getAuthTag());
+ const encrypted=chacha20poly1305Seal(deriveRecordKey(sharedSecret,salt,index),nonceFor(noncePrefix,index),new Uint8Array(plaintext),new Uint8Array(recordAAD(headerDigest,type,index,plaintext.length)));
+ return concat(Buffer.from([type]),u64(index),u32(plaintext.length),encrypted.ciphertext,encrypted.tag);
 }
 
 function decryptRecord({ record, sharedSecret, salt, noncePrefix, headerDigest }) {
-  const { type, index, plaintextLength, ciphertext, tag } = record;
-  const key = deriveRecordKey(sharedSecret, salt, index);
-  const decipher = createDecipheriv('chacha20-poly1305', key, nonceFor(noncePrefix, index), { authTagLength: 16 });
-  decipher.setAAD(recordAAD(headerDigest, type, index, plaintextLength));
-  decipher.setAuthTag(tag);
-  return Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+ const key=deriveRecordKey(sharedSecret,salt,record.index);
+ return Buffer.from(chacha20poly1305Open(key,nonceFor(noncePrefix,record.index),record.ciphertext,record.tag,recordAAD(headerDigest,record.type,record.index,record.plaintextLength)));
 }
 
 function leafHash(chunk) { return Buffer.from(blake3(chunk, 32)); }
@@ -323,7 +313,7 @@ export function decryptVaultBytes(bytes, recipientDecapsKey) {
   if (!bytes.subarray(0, VAULT_MAGIC.length).equals(VAULT_MAGIC)) throw new Error('bad vault magic');
   const headerLength = bytes.readUInt32BE(VAULT_MAGIC.length);
   const headerStart = VAULT_MAGIC.length + 4, headerEnd = headerStart + headerLength;
-  const headerBytes = bytes.subarray(headerStart, headerEnd), header = JSON.parse(headerBytes.toString('utf8'));
+  const headerBytes = bytes.subarray(headerStart, headerEnd), header = parseJSON(headerBytes.toString('utf8'));
   if (header.profile !== VAULT_PROFILE) throw new Error('unsupported vault profile');
   const salt = fromHex(header.salt, 'salt'), noncePrefix = fromHex(header.nonce_prefix, 'nonce_prefix');
   const sharedSecret = mlkemDecapsulate(recipientDecapsKey, fromHex(header.kem_ciphertext, 'kem_ciphertext'), 'ML-KEM-768');

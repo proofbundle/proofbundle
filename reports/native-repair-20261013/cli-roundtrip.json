@@ -1,0 +1,16 @@
+{
+  "schema": "ProofBundleCLIWorkflowReceipt/v1",
+  "scope": "Synthetic QA input; actual CLI keygen/seal/verify calls",
+  "roundtrip": "VERIFIED",
+  "tamper": "INVALID-SIGNATURE",
+  "sources": [
+    {
+      "path": "cli/proofbundle-cli.mjs",
+      "sha256": "7782d14e6f6693d24fcca9256f4cfe32acef60d0e49fd480762600671e769248"
+    },
+    {
+      "path": "cli/proofbundle-unified.mjs",
+      "sha256": "93d2cf572bc7347a43e81d4c18115c58a7cc6dc23924e5ebc56903985d1526da"
+    }
+  ]
+}

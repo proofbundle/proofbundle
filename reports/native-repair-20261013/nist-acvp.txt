@@ -1,0 +1,5 @@
+ML-KEM-keyGen-FIPS203 75 passed 0 failed
+ML-KEM-encapDecap-FIPS203 165 passed 0 failed
+ML-DSA-keyGen-FIPS204 75 passed 0 failed
+ML-DSA-sigGen-FIPS204 360 passed 0 failed
+ML-DSA-sigVer-FIPS204 180 passed 0 failed

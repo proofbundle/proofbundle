@@ -44,11 +44,15 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
-import { generateKeyPairSync } from 'node:crypto';
+import {randomBytes} from '../crypto/random.mjs';
+import {x25519Keygen} from '../crypto/x25519.mjs';
+import {mlkemKeygen} from '../crypto/mlkem.mjs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { loadOrCreateIdentity } from './identity.mjs';
 import { seal, verifyEnvelope, envelopeHash, canonicalJSON } from './envelope.mjs';
+import {parseJSON} from '../src/canonical/canonical-json.mjs';
+import {assertAgentId} from './identity.mjs';
 import { merkleRoot, merkleProof, verifyProof } from './lineage.mjs';
 import { isExpired, verifyCommit } from './prediction.mjs';
 import { recordTransition, readStatuses, submitForStamping, otsCheck } from './ots.mjs';
@@ -160,19 +164,18 @@ export async function registerAgent(agentId, aibom = null) {
   }
 
   if (!existsSync(encSecret)) {
-    const enc = generateKeyPairSync('x25519');
-    writeFileSync(encSecret, enc.privateKey.export({ type: 'pkcs8', format: 'der' }));
+    const enc = x25519Keygen(randomBytes(32));
+    writeFileSync(encSecret, Buffer.concat([Buffer.from('302e020100300506032b656e04220420','hex'),Buffer.from(enc.privateKey)]));
     chmodSync(encSecret, 0o600);
-    full.enc_pubkey = enc.publicKey.export({ type: 'spki', format: 'der' }).subarray(12).toString('hex'); // raw 32B
-    // PQ (ML-KEM-768) keypair — keygen works on Node 24, encapsulation does
-    // not (crypto.kem lands in Node 25). Stored now so the algorithm is
-    // versioned in via kx field, never silently swapped later.
+    full.enc_pubkey = Buffer.from(enc.publicKey).toString('hex'); // raw 32B
+    // Scratch ML-KEM-768 keys. Existing keys and algorithm identifiers
+    // are retained rather than silently changing the persisted profile.
     try {
-      const pq = generateKeyPairSync('ml-kem-768');
-      writeFileSync(join(dir, 'pq.key'), pq.privateKey.export({ type: 'pkcs8', format: 'der' }));
+      const pq = mlkemKeygen(randomBytes(64),'ML-KEM-768');
+      writeFileSync(join(dir, 'pq.key'), Buffer.from(pq.decapsKey));
       chmodSync(join(dir, 'pq.key'), 0o600);
-      full.pq_pubkey = pq.publicKey.export({ type: 'spki', format: 'der' }).toString('hex');
-      full.pq_alg = 'ml-kem-768';
+      full.pq_pubkey = Buffer.from(pq.encapsKey).toString('hex');
+      full.pq_alg = 'ml-kem-768';full.pq_key_format='raw-fips203';
     } catch { /* PQ keygen unavailable — classical only */ }
     full.updated_at = new Date().toISOString();
     writeFileSync(idFile, JSON.stringify(full, null, 2));
@@ -187,7 +190,7 @@ export async function registerAgent(agentId, aibom = null) {
 }
 
 export function getIdentity(agentId) {
-  return loadRegistry().agents[agentId] || null;
+  try{assertAgentId(agentId);}catch{return null;}const agents=loadRegistry().agents;return Object.hasOwn(agents,agentId)?agents[agentId]:null;
 }
 
 /** Load an agent's private signing key (bridge-local use only). */
@@ -246,6 +249,7 @@ export function checkLog(log) {
  * under the advisory append lock. Returns { envelope, receipt } or { error }.
  */
 export async function sealAndAppend({ agentId, payload, payloadType = 'work', to = null, encrypt = false, prediction = null }) {
+  assertAgentId(agentId);
   if (!existsSync(join(AGENT_DIR, agentId, 'identity.json')))
     return { error: 'UNEXPECTED_SIGNER', detail: `agent not registered: ${agentId}` };
 
@@ -454,8 +458,8 @@ async function readBody(req) {
   const chunks = [];
   for await (const c of req) chunks.push(c);
   if (!chunks.length) return {};
-  try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); }
-  catch { throw new Error('invalid JSON body'); }
+  try { return parseJSON(Buffer.concat(chunks).toString('utf8')); }
+  catch { const error=new Error('invalid JSON body');error.status=400;throw error; }
 }
 
 export function createServer({ port = DEFAULT_PORT } = {}) {
@@ -499,7 +503,7 @@ export function createServer({ port = DEFAULT_PORT } = {}) {
       }
 
       if (req.method === 'GET' && path.startsWith('/inbox/')) {
-        const id = decodeURIComponent(path.slice('/inbox/'.length));
+        const id = assertAgentId(decodeURIComponent(path.slice('/inbox/'.length)));
         const f = join(INBOX_DIR, `${id}.jsonl`);
         const items = existsSync(f)
           ? readFileSync(f, 'utf8').split('\n').filter(l => l.trim()).map(l => JSON.parse(l)) : [];
@@ -567,7 +571,7 @@ export function createServer({ port = DEFAULT_PORT } = {}) {
 
       return json(res, 404, { error: 'NOT_FOUND', detail: `${req.method} ${path}` });
     } catch (e) {
-      return json(res, 500, { error: 'INTERNAL', detail: e.message });
+      return json(res,e.status||500,{error:e.status===400?'BAD_REQUEST':'INTERNAL',detail:e.message});
     }
   });
 }

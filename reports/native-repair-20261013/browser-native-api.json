@@ -1,0 +1,93 @@
+{
+  "identity": {
+    "id": "browser-807a43d861c6406533b94c7f",
+    "algorithm": "Ed25519",
+    "public_key_raw_b64u": "dEF3Y2Y-wAnhFRVW91u-Bz-Z_SbI-tIJ4P5ufBnDFkg",
+    "fingerprint_sha256": "807a43d861c6406533b94c7fb370c7406ebc6466de6099cd8f8f4316bcd406bf",
+    "created_at": "2026-10-13T14:40:35.774Z",
+    "scope": "Local browser custody recorder; model authorship and operator endorsement are separate."
+  },
+  "selftest": {
+    "total": 66,
+    "failed": []
+  },
+  "checks": [
+    {
+      "parameter": "ML-KEM-512",
+      "cipher": "ChaCha20-Poly1305",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-512",
+      "cipher": "ChaCha20-Poly1305",
+      "tampered_tag_rejected": true
+    },
+    {
+      "parameter": "ML-KEM-512",
+      "cipher": "AES-256-GCM",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-512",
+      "cipher": "AES-256-GCM",
+      "tampered_tag_rejected": true
+    },
+    {
+      "parameter": "ML-KEM-768",
+      "cipher": "ChaCha20-Poly1305",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-768",
+      "cipher": "ChaCha20-Poly1305",
+      "tampered_tag_rejected": true
+    },
+    {
+      "parameter": "ML-KEM-768",
+      "cipher": "AES-256-GCM",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-768",
+      "cipher": "AES-256-GCM",
+      "tampered_tag_rejected": true
+    },
+    {
+      "parameter": "ML-KEM-1024",
+      "cipher": "ChaCha20-Poly1305",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-1024",
+      "cipher": "ChaCha20-Poly1305",
+      "tampered_tag_rejected": true
+    },
+    {
+      "parameter": "ML-KEM-1024",
+      "cipher": "AES-256-GCM",
+      "roundtrip": true
+    },
+    {
+      "parameter": "ML-KEM-1024",
+      "cipher": "AES-256-GCM",
+      "tampered_tag_rejected": true
+    },
+    {
+      "canonical_case": "duplicate",
+      "rejected": true
+    },
+    {
+      "canonical_case": "surrogate",
+      "rejected": true
+    },
+    {
+      "mldsa44": true
+    }
+  ],
+  "signingStatus": "Local custody key fingerprint: 807a43d861c6406533b94c7fb370c7406ebc6466de6099cd8f8f4316bcd406bf. External agent authorship and handshake remain separate.",
+  "body": "◆ProofBundle\nPB 2.2\n▤\nFiles\n⌑\nEncrypt\n◇\nIdentity\n✦\nSeal\n✓\nVerify\n▣\nCaptured artifacts\n◈\nEvidence\n≡\nHistory\nAdapter: 0 executed · 0 blocked\n◐ Theme\nSeal a file\nLocal files · signed receipts\nDeveloper\nSeal a file\n\nDrop in a document, image, model, or dataset. ProofBundle gives it a cryptographic receipt you — or anyone — can check later. It never leaves your device.\n\n⬇\nDrop files here to seal\nor click to choose files — processed on your device\nEach seal enters History with its digest, signature, public key, and verification trace.",
+  "overflow": false,
+  "identity_survives_reload": true,
+  "mobileOverflow": false,
+  "errors": []
+}

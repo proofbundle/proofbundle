@@ -1,0 +1,184 @@
+{
+  "schema": "ProofBundleCryptoSourceManifest/v1",
+  "modules": [
+    {
+      "path": "crypto/sha256.mjs",
+      "sha256": "89679e864f459fead95e460aaac7c8d33a24ac566fc20bca5c7beccc03a699d1",
+      "exports": [
+        "sha224",
+        "sha256",
+        "sha256hex",
+        "createSHA256"
+      ]
+    },
+    {
+      "path": "crypto/sha512.mjs",
+      "sha256": "b4fc13ce413b57e7437c9cd5bef4d2b64705e71d83b56e9e23bf86601b9d07cc",
+      "exports": [
+        "sha384",
+        "sha512",
+        "sha512_224",
+        "sha512_256",
+        "createSHA384",
+        "createSHA512"
+      ]
+    },
+    {
+      "path": "crypto/keccak.mjs",
+      "sha256": "b81c7a1d640f4558a1d71eca5420b7cba853aedef10b39bcd0678f18992f4e14",
+      "exports": [
+        "sha3_224",
+        "sha3_256",
+        "sha3_384",
+        "sha3_512",
+        "shake128",
+        "shake256"
+      ]
+    },
+    {
+      "path": "crypto/blake2.mjs",
+      "sha256": "5ad5e2652320f09ce426bfbdc16a6190f222752eb67925524c2433716cd8bb51",
+      "exports": [
+        "blake2b",
+        "blake2s",
+        "createBlake2b"
+      ]
+    },
+    {
+      "path": "crypto/blake3.mjs",
+      "sha256": "df353bf51abbf09c1d9756e774a6a822e2ef37d04920891b9e924130d25bbf27",
+      "exports": [
+        "blake3"
+      ]
+    },
+    {
+      "path": "crypto/ed25519.mjs",
+      "sha256": "ca74e48e5d168807a43180b12a4b58b5833cd06b73394f8132666904e03f90e2",
+      "exports": [
+        "keyPairFromSeed",
+        "sign",
+        "verify"
+      ]
+    },
+    {
+      "path": "crypto/ecdsa.mjs",
+      "sha256": "175d954cb92a3333ae0bc78c5531949248bc497e2fd51bd962256c4a0aceb425",
+      "exports": [
+        "ecdsaKeygen",
+        "ecdsaSign",
+        "ecdsaVerify"
+      ]
+    },
+    {
+      "path": "crypto/der.mjs",
+      "sha256": "cc2014a4c53d483489c6c1047e19a83102e3dd5636a7671eaff51586855c955b",
+      "exports": [
+        "wrapEcPrivate",
+        "unwrapEcPrivate"
+      ]
+    },
+    {
+      "path": "crypto/rsa-pss.mjs",
+      "sha256": "1f92a663a40e8111fdad5c745e0136fc7f617e38c8b787d3800c462405c84fcf",
+      "exports": [
+        "rsaKeygen",
+        "rsaPssSign",
+        "rsaPssVerify"
+      ]
+    },
+    {
+      "path": "crypto/hmac.mjs",
+      "sha256": "f0eb73f0a1552152c0f617dfc072579a3bc40925de3238fdb57de09314f4b40b",
+      "exports": [
+        "hmac",
+        "hmacSha256"
+      ]
+    },
+    {
+      "path": "crypto/hkdf.mjs",
+      "sha256": "c73415f731c8b95277e19940c268e00ce44fff320ae927cfc2b71f03b9aafd94",
+      "exports": [
+        "hkdfSha256"
+      ]
+    },
+    {
+      "path": "crypto/mlkem.mjs",
+      "sha256": "73a7d3bd25ad78bd8061535bf9a306228d6d34e09f7663870b0b5e579ae58808",
+      "exports": [
+        "PARAMS",
+        "mlkemKeygen",
+        "mlkemEncapsulate",
+        "mlkemDecapsulate"
+      ]
+    },
+    {
+      "path": "crypto/mldsa.mjs",
+      "sha256": "f71f01382a9d7c29ccb8ba3be5dce15ccf65b00c2b4ee868c9d26ee239ba0a60",
+      "exports": [
+        "mldsaKeygen",
+        "mldsaSign",
+        "mldsaVerify"
+      ]
+    },
+    {
+      "path": "crypto/x25519.mjs",
+      "sha256": "b5253b1a92fb7fde7937e87fbd07c688fc39ffd4c9e749b5dbca03203b8995e0",
+      "exports": [
+        "x25519Keygen",
+        "x25519Shared"
+      ]
+    },
+    {
+      "path": "crypto/chacha20-poly1305.mjs",
+      "sha256": "7b0daf1348a41af9bc99a1ebe3ddce0a98625b838ba71a01fbf58dd1bf03dfc3",
+      "exports": [
+        "chacha20poly1305Seal",
+        "chacha20poly1305Open",
+        "poly1305",
+        "chacha20Block"
+      ]
+    },
+    {
+      "path": "crypto/aes256-gcm.mjs",
+      "sha256": "7015f85445b36b86e38903fa579f6c36e13cf707e04be95fb1143ed21347609d",
+      "exports": [
+        "aes256gcmSeal",
+        "aes256gcmOpen"
+      ]
+    },
+    {
+      "path": "src/bytes/utf8.mjs",
+      "sha256": "ed54c7d3211be1db85d7617135b2549d7b9bb71bc2744eb120c7da8d7ebc96e6",
+      "exports": [
+        "hasLoneSurrogate"
+      ]
+    },
+    {
+      "path": "src/canonical/canonical-json.mjs",
+      "sha256": "e2eb1a88d8b20a56086c11b5d2e65057347b5611ab8be6eb3ff896a7f2652aa8",
+      "exports": [
+        "canonicalizeObject",
+        "canonicalizeText",
+        "parseJSON"
+      ]
+    },
+    {
+      "path": "src/encoding/base64url.mjs",
+      "sha256": "5a7ab1cc3339a1d7f4a49e96420f481b9274d2a972416eb59d92f78c4f7aaccd",
+      "exports": [
+        "bytesToBase64url",
+        "base64urlToBytes"
+      ]
+    },
+    {
+      "path": "crypto/aibom.mjs",
+      "sha256": "0efd442ae785b8cdd57e8019b0273aba876ba771e0a12cc67b6bd16dbd921898",
+      "exports": [
+        "buildAibom",
+        "verifyAibom",
+        "canonical",
+        "gateNorm"
+      ]
+    }
+  ]
+}

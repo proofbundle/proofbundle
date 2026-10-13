@@ -30,17 +30,11 @@ function pad(msgBytes) {
   return out;
 }
 
-export function sha256(msgBytes) {
-  if (!(msgBytes instanceof Uint8Array)) {
-    msgBytes = new TextEncoder().encode(msgBytes);
-  }
-  const M = pad(msgBytes);
-  const H = H0.slice();
+function sha2(msgBytes, initial, outputBytes) { return streamingHash(initial, outputBytes).update(msgBytes).digest(); }
+function compressBlock(H, block) {
   const W = new Uint32Array(64);
-  const dv = new DataView(M.buffer);
-
-  for (let block = 0; block < M.length; block += 64) {
-    for (let t = 0; t < 16; t++) W[t] = dv.getUint32(block + t * 4, false);
+  const dv = new DataView(block.buffer,block.byteOffset,block.byteLength);
+    for (let t = 0; t < 16; t++) W[t] = dv.getUint32(t * 4, false);
     for (let t = 16; t < 64; t++) {
       const s0 = rotr(W[t - 15], 7) ^ rotr(W[t - 15], 18) ^ (W[t - 15] >>> 3);
       const s1 = rotr(W[t - 2], 17) ^ rotr(W[t - 2], 19) ^ (W[t - 2] >>> 10);
@@ -60,12 +54,22 @@ export function sha256(msgBytes) {
     }
     H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
     H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
-  }
 
-  const out = new Uint8Array(32);
-  const outDv = new DataView(out.buffer);
-  for (let i = 0; i < 8; i++) outDv.setUint32(i * 4, H[i], false);
-  return out;
+}
+function streamingHash(initial, outputLength) {
+ const H=initial.slice(),pending=new Uint8Array(64);let used=0,total=0n,done=false;
+ const api={update(input){if(done)throw new Error('Hash already finalized');if(!(input instanceof Uint8Array))input=new TextEncoder().encode(input);total+=BigInt(input.length);let at=0;
+  while(at<input.length){const n=Math.min(64-used,input.length-at);pending.set(input.subarray(at,at+n),used);used+=n;at+=n;if(used===64){compressBlock(H,pending);used=0;}}return api;},
+ digest(){if(done)throw new Error('Hash already finalized');done=true;const bits=total*8n;if(bits>=(1n<<64n))throw new RangeError('Hash length overflow');const tail=new Uint8Array(used+1+((64-8-1-used)%64+64)%64+8);tail.set(pending.subarray(0,used));tail[used]=128;const view=new DataView(tail.buffer);view.setBigUint64(tail.length-8,bits,false);
+  for(let at=0;at<tail.length;at+=64)compressBlock(H,tail.subarray(at,at+64));const result=new Uint8Array(32),out=new DataView(result.buffer);for(let i=0;i<8;i++)out.setUint32(i*4,H[i],false);return result.slice(0,outputLength);}};return api;
+}
+
+
+export function sha256(msgBytes) { return sha2(msgBytes, H0, 32); }
+export function createSHA256() { return streamingHash(H0,32); }
+export function sha224(msgBytes) {
+  return sha2(msgBytes, new Uint32Array([0xc1059ed8,0x367cd507,0x3070dd17,0xf70e5939,
+    0xffc00b31,0x68581511,0x64f98fa7,0xbefa4fa4]), 28);
 }
 
 export function sha256hex(msgBytes) {

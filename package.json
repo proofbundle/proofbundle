@@ -2,7 +2,7 @@
   "name": "proofbundle",
   "version": "1.0.0",
   "private": false,
-  "description": "Formal compliance evaluation and cryptographically signed certification for artifacts and agent actions.",
+  "description": "Local files, signed cryptographic receipts, encryption, and verifiable history.",
   "license": "GPL-3.0-or-later",
   "type": "module",
   "bin": {
@@ -10,15 +10,17 @@
   },
   "scripts": {
     "selftest": "node cli/proofbundle-cli.mjs selftest",
-    "test:crypto": "cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs && node t_vault_stream.mjs",
+    "test:crypto": "(cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs && node t_vault_stream.mjs) && npm run test:native && npm run test:html-crypto",
     "test:surface": "node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs",
     "test:html-crypto": "node scripts/audit-html-crypto.mjs proofbundle.html",
-    "test:all": "npm run selftest && npm run test:crypto && npm run test:surface && npm run test:html-crypto"
+    "test:all": "npm run selftest && npm run test:crypto && npm run test:surface",
+    "test:native": "node crypto/t_native_profile.mjs && node scripts/verify-rfc6979.mjs && node scripts/verify-nist-acvp.mjs",
+    "build:html": "node scripts/embed-native-crypto.mjs && python3 scripts/connect-native-crypto.py && python3 scripts/embed-browser-workspace.py"
   },
   "dependencies": {
     "jsdom": "^24.1.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }

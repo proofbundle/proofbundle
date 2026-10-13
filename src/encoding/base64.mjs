@@ -5,11 +5,12 @@
 // than trusting it to reject malformed input the way a canonical decoder
 // must.
 
+import {bytesToBase64url,base64urlToBytes} from './base64url.mjs';
 const B64_RE = /^[A-Za-z0-9+/]*={0,2}$/;
 
 export function bytesToBase64(bytes) {
   if (!(bytes instanceof Uint8Array)) throw new TypeError('bytesToBase64: expected Uint8Array');
-  return Buffer.from(bytes).toString('base64');
+  const encoded=bytesToBase64url(bytes).replace(/-/g,'+').replace(/_/g,'/');return encoded+'='.repeat((4-encoded.length%4)%4);
 }
 
 export function base64ToBytes(str) {
@@ -20,9 +21,9 @@ export function base64ToBytes(str) {
   if (padIdx !== -1 && padIdx < str.length - 2) {
     throw new RangeError('base64ToBytes: padding character before final two positions');
   }
-  const decoded = Buffer.from(str, 'base64');
+  const decoded=base64urlToBytes(str.replace(/=+$/,'').replace(/\+/g,'-').replace(/\//g,'_'));
   // Re-encode and compare: catches non-canonical trailing bits Buffer accepts silently.
-  if (decoded.toString('base64') !== str) {
+  if (bytesToBase64(decoded) !== str) {
     throw new RangeError('base64ToBytes: non-canonical encoding (non-zero padding bits)');
   }
   return new Uint8Array(decoded);

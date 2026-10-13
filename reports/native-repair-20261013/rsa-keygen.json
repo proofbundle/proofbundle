@@ -1,0 +1,22 @@
+{
+  "schema": "ProofBundleConformanceReceipt/v1",
+  "executed_at": "2026-10-13T14:20:31.503Z",
+  "scope": "Scratch key generation and signing; independent test-only verifier",
+  "results": [
+    {
+      "bits": 2048,
+      "verified": true,
+      "duration_ms": 789
+    },
+    {
+      "bits": 3072,
+      "verified": true,
+      "duration_ms": 1196
+    },
+    {
+      "bits": 4096,
+      "verified": true,
+      "duration_ms": 11598
+    }
+  ]
+}

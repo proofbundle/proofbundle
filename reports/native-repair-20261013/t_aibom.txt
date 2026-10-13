@@ -1,0 +1,8 @@
+sha3-384("abc")      : MATCHES FIPS 202
+gate_norm(ones(10))  : 3.1622776601683795 == record on Drive
+self-verify          : no problems
+field set            : matches PB-AI-BOM-1
+bom_seal field set   : matches PB-AI-BOM-1
+tamper control       : mutation refuted
+
+ALL PASS

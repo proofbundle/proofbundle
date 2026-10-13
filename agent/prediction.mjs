@@ -9,7 +9,7 @@
  * This is the falsifiable prediction ledger from ProofBundle, applied
  * to agent work.
  */
-import { createHash } from 'node:crypto';
+import { createHash } from '../crypto/hash.mjs';
 import { canonicalJSON } from './envelope.mjs';
 
 /** SHA-256 hex of canonical JSON. */

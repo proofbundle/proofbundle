@@ -1,0 +1,531 @@
+{
+  "schema": "PROOFBUNDLE-HTML-CRYPTO-AUDIT-1",
+  "started_at": "2026-10-13T14:33:51.882Z",
+  "completed_at": "2026-10-13T14:34:23.494Z",
+  "artifact": {
+    "path": "proofbundle.html",
+    "bytes": 1503283,
+    "sha256": "a7e468e9443d6962f89d7146e5350b5fcaf85f44099fa51d9991abe0433b4bf3",
+    "sha512": "83395be38d9a09e1c0c2ab0235a6bd3b208d6956a2fe3c9a415d84a5f6e4537b431fe4ed8071cc3062c49faff84729f4a4cd186c7aef7ec934c4ec10f3d96ad0"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "webcrypto": "subtle getter blocked; platform entropy only",
+    "jsdom": "24.x dependency resolved by package-lock.json"
+  },
+  "summary": {
+    "embedded_boot_selftests": {
+      "passed": 66,
+      "total": 66
+    },
+    "functional_audit_checks": {
+      "passed": 25,
+      "total": 25
+    },
+    "digest_dispatch_entries": 9,
+    "signature_dispatch_entries": 10,
+    "conformance_cases": 660,
+    "conformance_passed": 660,
+    "reproduced_security_findings": 0,
+    "engine_errors": 0
+  },
+  "digest_results": [
+    {
+      "id": "SHA-256",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "SHA-384",
+      "engine": "proofbundle",
+      "bytes": 48,
+      "ok": true,
+      "actual": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d",
+      "expected": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d"
+    },
+    {
+      "id": "SHA-512",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420",
+      "expected": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420"
+    },
+    {
+      "id": "SHA3-256",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1",
+      "expected": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1"
+    },
+    {
+      "id": "SHA3-384",
+      "engine": "proofbundle",
+      "bytes": 48,
+      "ok": true,
+      "actual": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b",
+      "expected": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b"
+    },
+    {
+      "id": "SHA3-512",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6",
+      "expected": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6"
+    },
+    {
+      "id": "BLAKE2b",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0",
+      "expected": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0"
+    },
+    {
+      "id": "BLAKE2s",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670",
+      "expected": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670"
+    },
+    {
+      "id": "BLAKE3",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12",
+      "expected": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12"
+    }
+  ],
+  "signature_results": [
+    {
+      "id": "Ed25519",
+      "engine": "proofbundle",
+      "standard": "RFC 8032",
+      "private_bytes": 32,
+      "public_bytes": 32,
+      "signature_bytes": 64,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 16,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P256",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 79,
+      "public_bytes": 65,
+      "signature_bytes": 64,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 21,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P384",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 89,
+      "public_bytes": 97,
+      "signature_bytes": 96,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 46,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P521",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 107,
+      "public_bytes": 133,
+      "signature_bytes": 132,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 94,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-2048",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 1219,
+      "public_bytes": 294,
+      "signature_bytes": 256,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 1029,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-3072",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 1794,
+      "public_bytes": 422,
+      "signature_bytes": 384,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 641,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-4096",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 2374,
+      "public_bytes": 550,
+      "signature_bytes": 512,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 5285,
+      "ok": true
+    },
+    {
+      "id": "Dilithium2",
+      "engine": "proofbundle",
+      "standard": "FIPS 204 (ML-DSA-44)",
+      "private_bytes": 2560,
+      "public_bytes": 1312,
+      "signature_bytes": 2420,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 171,
+      "ok": true
+    },
+    {
+      "id": "Falcon512",
+      "engine": "noble",
+      "standard": "FN-DSA draft (Falcon-512)",
+      "private_bytes": 1281,
+      "public_bytes": 897,
+      "signature_bytes": 659,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 195,
+      "ok": true
+    },
+    {
+      "id": "SPHINCS+-256",
+      "engine": "noble",
+      "standard": "FIPS 205 (SLH-DSA-SHA2-128f)",
+      "private_bytes": 64,
+      "public_bytes": 32,
+      "signature_bytes": 17088,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 277,
+      "ok": true
+    }
+  ],
+  "conformance_results": [
+    {
+      "scope": "classical",
+      "pairs": 63,
+      "cases": 630,
+      "passed": 630,
+      "failed": 0,
+      "failures": []
+    },
+    {
+      "scope": "pq",
+      "pairs": 3,
+      "cases": 30,
+      "passed": 30,
+      "failed": 0,
+      "failures": []
+    }
+  ],
+  "functional_checks": [
+    {
+      "id": "digest:SHA-256",
+      "category": "digest",
+      "ok": true,
+      "observed": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "digest:SHA-384",
+      "category": "digest",
+      "ok": true,
+      "observed": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d",
+      "expected": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d"
+    },
+    {
+      "id": "digest:SHA-512",
+      "category": "digest",
+      "ok": true,
+      "observed": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420",
+      "expected": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420"
+    },
+    {
+      "id": "digest:SHA3-256",
+      "category": "digest",
+      "ok": true,
+      "observed": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1",
+      "expected": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1"
+    },
+    {
+      "id": "digest:SHA3-384",
+      "category": "digest",
+      "ok": true,
+      "observed": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b",
+      "expected": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b"
+    },
+    {
+      "id": "digest:SHA3-512",
+      "category": "digest",
+      "ok": true,
+      "observed": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6",
+      "expected": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6"
+    },
+    {
+      "id": "digest:BLAKE2b",
+      "category": "digest",
+      "ok": true,
+      "observed": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0",
+      "expected": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0"
+    },
+    {
+      "id": "digest:BLAKE2s",
+      "category": "digest",
+      "ok": true,
+      "observed": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670",
+      "expected": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670"
+    },
+    {
+      "id": "digest:BLAKE3",
+      "category": "digest",
+      "ok": true,
+      "observed": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12",
+      "expected": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12"
+    },
+    {
+      "id": "xof:SHAKE128",
+      "category": "xof",
+      "ok": true,
+      "observed": "659cec14244499b2605786b1c60fad9f28e45a0113b38649c902e72e438c25ff0c4876c6486f41e24ffb867268bcce892e14aab9a7add625ab0c8fc99e1844c6",
+      "expected": "659cec14244499b2605786b1c60fad9f28e45a0113b38649c902e72e438c25ff0c4876c6486f41e24ffb867268bcce892e14aab9a7add625ab0c8fc99e1844c6"
+    },
+    {
+      "id": "xof:SHAKE256",
+      "category": "xof",
+      "ok": true,
+      "observed": "f35cd9db0fdafd2ec4c8d044e1d5efc4bbc77e031826555ef1efe42b8c51d81d425a9b3dfc03b7a7d2c9228bc128b37fb0b5d294bf3ecbc9f2c9f35a893fccf6",
+      "expected": "f35cd9db0fdafd2ec4c8d044e1d5efc4bbc77e031826555ef1efe42b8c51d81d425a9b3dfc03b7a7d2c9228bc128b37fb0b5d294bf3ecbc9f2c9f35a893fccf6"
+    },
+    {
+      "id": "digest:SHA-256:pure-js",
+      "category": "digest",
+      "ok": true,
+      "observed": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "signature:Ed25519",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P256",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P384",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P521",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-2048",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-3072",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-4096",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:Dilithium2",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:Falcon512",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:SPHINCS+-256",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "conformance:classical",
+      "category": "seal-verify",
+      "ok": true,
+      "observed": {
+        "passed": 630,
+        "failed": 0
+      },
+      "expected": {
+        "passed": 630,
+        "failed": 0
+      }
+    },
+    {
+      "id": "conformance:pq",
+      "category": "seal-verify",
+      "ok": true,
+      "observed": {
+        "passed": 30,
+        "failed": 0
+      },
+      "expected": {
+        "passed": 30,
+        "failed": 0
+      }
+    },
+    {
+      "id": "timestamp:forged-rfc3161",
+      "category": "negative",
+      "ok": true,
+      "observed": null,
+      "expected": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "PBHTML-F001",
+      "severity": "HIGH",
+      "title": "PB-GENO-1 verifier does not bind the required algorithm suite",
+      "reproduced": false,
+      "observation": "A PB-GENO-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned POLICY-DENIED.",
+      "required": "PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile."
+    },
+    {
+      "id": "PBHTML-F002",
+      "severity": "MEDIUM",
+      "title": "PB-CANON-JSON-1 domain is enforced by the 4f710a2 guard (finding closed)",
+      "reproduced": false,
+      "status": "CLOSED-BY-4f710a2",
+      "observation": "Per-value guard rejects: {\"undefinedValue\":true,\"undefinedInObject\":true,\"undefinedInArray\":true,\"nonFiniteNumber\":true,\"functionValue\":true}; [] vs [undefined] still non-injective pre-rejection: null (null = no longer comparable, both throw).",
+      "required": "Hold: any future edit that stops throwing on these inputs reopens PBHTML-F002."
+    },
+    {
+      "id": "PBHTML-F003",
+      "severity": "HIGH",
+      "title": "Offline and network OpenTimestamps paths emit incompatible file headers",
+      "reproduced": false,
+      "observation": "Offline header begins 004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5; network header begins 004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5.",
+      "required": "Validate both serializers byte-for-byte against the reference OpenTimestamps implementation and add parsing, upgrading, and Bitcoin attestation verification tests."
+    },
+    {
+      "id": "PBHTML-F004",
+      "severity": "HIGH",
+      "title": "RFC 3161 response path extracts asserted time without verifying the CMS signature or certificate chain",
+      "reproduced": false,
+      "observation": "A synthetic byte string with no TimeStampResp or CMS signature produced no time.",
+      "required": "Parse TimeStampResp structurally, bind the message imprint and nonce, and verify the CMS signature and trust chain before reporting an anchored time."
+    }
+  ],
+  "engine_errors": []
+}

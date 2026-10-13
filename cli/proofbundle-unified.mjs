@@ -52,7 +52,7 @@ function delegate(sub, rest) {
 
 async function bootEngineForConsole() {
   const { JSDOM, VirtualConsole } = await import('jsdom');
-  const { webcrypto } = await import('node:crypto');
+  const {randomBytes,randomUUID}=await import('../crypto/random.mjs');
   const html = readFileSync(ENGINE_PATH, 'utf-8');
   const vc = new VirtualConsole();
   vc.on('jsdomError', (e) => { if (!/canvas|clearRect/i.test(e.message)) console.error('[engine]', e.message); });
@@ -63,8 +63,8 @@ async function bootEngineForConsole() {
       const ne = new TextEncoder(), nd = new TextDecoder();
       if (!window.TextEncoder) window.TextEncoder = class { encode(s) { const b = ne.encode(s); const o = new PageU8(b.length); o.set(b); return o; } };
       if (!window.TextDecoder) window.TextDecoder = class { decode(b) { return nd.decode(b); } };
-      const grv = (a) => { const t = new Uint8Array(a.length); webcrypto.getRandomValues(t); a.set(t); return a; };
-      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, subtle: webcrypto.subtle, randomUUID: () => webcrypto.randomUUID() } }); } catch {}
+      const grv = (a) => { const t = randomBytes(a.length); a.set(t); return a; };
+      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, randomUUID } }); } catch {}
       if (!window.matchMedia) window.matchMedia = () => ({ matches: false, media: '', addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent() { return false; } });
       window.HTMLCanvasElement.prototype.getContext = () => null;
       if (!window.CryptoKey) window.CryptoKey = globalThis.CryptoKey;

@@ -1,0 +1,23 @@
+{
+  "schema": "ProofBundleBridgeWorkflowReceipt/v1",
+  "executed_at": "2026-10-13T14:33:37.113Z",
+  "scope": "Isolated QA state; production bridge untouched",
+  "checks": [
+    "Same HTML served at /app",
+    "Console renders",
+    "Relay registration",
+    "Envelope sealing",
+    "Envelope verification"
+  ],
+  "verification": {
+    "valid": true,
+    "reason": null,
+    "in_lineage": true,
+    "seq": 3
+  },
+  "errors": [],
+  "test_source": {
+    "path": "test/browser/bridge-workflows.mjs",
+    "sha256": "e1edccb392940a713cdfc0d217e5e6ac175d602a9e2e893116f786829ac49ae2"
+  }
+}

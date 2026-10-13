@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ProofBundle CLI — runs the exact same engine that ships in the browser,
-   headlessly, via jsdom + Node's native WebCrypto. No reimplementation,
+   headlessly via jsdom. Cryptographic computations use embedded scratch providers. No reimplementation,
    no drift: this calls the same sealCore/verifyCore/runSelfTests functions
    that the HTML page calls, so CLI-sealed and browser-sealed bundles are
    byte-for-byte interchangeable.
@@ -13,7 +13,7 @@
 */
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { webcrypto } from 'node:crypto';
+import {randomBytes,randomUUID} from '../crypto/random.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -49,8 +49,8 @@ async function bootEngine() {
       const ne = new TextEncoder(), nd = new TextDecoder();
       if (!window.TextEncoder) window.TextEncoder = class { encode(s) { const b = ne.encode(s); const o = new PageU8(b.length); o.set(b); return o; } };
       if (!window.TextDecoder) window.TextDecoder = class { decode(b) { return nd.decode(b); } };
-      const grv = (a) => { const t = new Uint8Array(a.length); webcrypto.getRandomValues(t); a.set(t); return a; };
-      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, subtle: webcrypto.subtle, randomUUID: () => webcrypto.randomUUID() } }); } catch {}
+      const grv = (a) => { const t = randomBytes(a.length); a.set(t); return a; };
+      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, randomUUID } }); } catch {}
       if (!window.matchMedia) window.matchMedia = () => ({ matches: false, media: '', addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent() { return false; } });
       window.HTMLCanvasElement.prototype.getContext = () => null;
       if (!window.CryptoKey) window.CryptoKey = globalThis.CryptoKey;

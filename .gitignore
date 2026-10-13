@@ -19,3 +19,7 @@ lean/.lake/
 .lia.cache
 
 /rust/target/
+
+# Local development dependencies (directory or worktree symlink).
+node_modules
+reports/browser-qa/

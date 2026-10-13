@@ -1,0 +1,25 @@
+{
+  "schema": "ProofBundleBrowserWorkflowReceipt/v1",
+  "executed_at": "2026-10-13T14:33:34.874Z",
+  "html_sha256": "a7e468e9443d6962f89d7146e5350b5fcaf85f44099fa51d9991abe0433b4bf3",
+  "platform_crypto": "subtle blocked",
+  "browser": "151.0.7922.137",
+  "checks": [
+    "Single-file UI seal uses persistent identity",
+    "UI-produced file receipt verifies",
+    "Receipt download",
+    "Directory fallback preserves nested relative paths",
+    "ML-KEM768/ChaCha file encryption and signed download",
+    "Signed receipt + AEAD decryption returns exact file bytes",
+    "Tampered outer receipt rejected",
+    "Distinct registration pairs, stable keys, signed AI-BOM/state, public-only export",
+    "Recorder and recipient keys survive reload",
+    "Embedded ledger available offline",
+    "Website desktop/mobile no overflow"
+  ],
+  "errors": [],
+  "test_source": {
+    "path": "test/browser/native-workflows.mjs",
+    "sha256": "656dfe8dbf88719b1cbde904d6444a44cf7affb53343af30fe730f9772ce32d0"
+  }
+}

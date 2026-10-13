@@ -15,7 +15,9 @@
 // full 8-layer NTT is possible, and multiplication in the NTT domain is
 // literally coordinatewise (no 2x2 base-case multiply as in ML-KEM).
 
-import { shake128, shake256 } from './keccak.mjs';
+import { shake128, shake256,sha3_224,sha3_256,sha3_384,sha3_512 } from './keccak.mjs';
+import {sha224,sha256} from './sha256.mjs';
+import {sha384,sha512,sha512_224,sha512_256} from './sha512.mjs';
 
 const N = 256;              // polynomial degree
 const Q = 8380417;          // modulus, 2^23 - 2^13 + 1
@@ -590,13 +592,21 @@ function keygenInternal(xi, paramName) {
   return { publicKey: pk, privateKey: sk };
 }
 
-function signInternal(sk, message, rnd, paramName) {
+function prepareMessage(message,options){
+ if(options.internal)return message;
+ const context=options.context||new Uint8Array();if(!(context instanceof Uint8Array)||context.length>255)throw new Error('ML-DSA context length');
+ if(!options.preHash)return concat(Uint8Array.of(0,context.length),context,message);
+ const hashes={'SHA2-256':[1,sha256],'SHA2-384':[2,sha384],'SHA2-512':[3,sha512],'SHA2-224':[4,sha224],'SHA2-512/224':[5,sha512_224],'SHA2-512/256':[6,sha512_256],'SHA3-224':[7,sha3_224],'SHA3-256':[8,sha3_256],'SHA3-384':[9,sha3_384],'SHA3-512':[10,sha3_512],'SHAKE-128':[11,m=>shake128(m,32)],'SHAKE-256':[12,m=>shake256(m,64)]};
+ const hash=hashes[options.preHash];if(!hash)throw new Error('Unknown HashML-DSA prehash');
+ return concat(Uint8Array.of(1,context.length),context,Uint8Array.of(6,9,0x60,0x86,0x48,1,0x65,3,4,2,hash[0]),hash[1](message));
+}
+function messageRepresentative(tr,message,options){if(options.externalMu){if(message.length!==64)throw new Error('ML-DSA mu length');return message;}return shake256(concat(tr,prepareMessage(message,options)),64);}
+function signInternal(sk, message, rnd, paramName,options={}) {
   const prm = PARAMS[paramName];
   const { rho, K, tr, s1, s2, t0 } = skDecode(sk, prm);
   const s1Hat = vecNTT(s1), s2Hat = vecNTT(s2), t0Hat = vecNTT(t0);
 
-  const Mprime = concat(new Uint8Array([0, 0]), message); // domain=0 (pure), ctx-len=0 (empty ctx)
-  const mu = shake256(concat(tr, Mprime), 64);
+  const mu = messageRepresentative(tr,message,options);
   const rhoDoublePrime = shake256(concat(K, rnd, mu), 64);
   const A = expandA(rho, prm.k, prm.l);
 
@@ -638,7 +648,7 @@ function signInternal(sk, message, rnd, paramName) {
   return result;
 }
 
-function verifyInternal(pk, message, sig, paramName) {
+function verifyInternal(pk, message, sig, paramName,options={}) {
   const prm = PARAMS[paramName];
   if (pk.length !== pkLength(prm)) return false;
   if (sig.length !== sigLength(prm)) return false;
@@ -652,8 +662,7 @@ function verifyInternal(pk, message, sig, paramName) {
   if (countOnesVec(h) > prm.omega) return false;
 
   const tr = shake256(pk, 64);
-  const Mprime = concat(new Uint8Array([0, 0]), message);
-  const mu = shake256(concat(tr, Mprime), 64);
+  const mu = messageRepresentative(tr,message,options);
 
   const A = expandA(rho, prm.k, prm.l);
   const c = sampleInBall(cTilde, prm.tau);
@@ -677,20 +686,22 @@ function verifyInternal(pk, message, sig, paramName) {
 
 export function mldsaKeygen(seed32, paramName = 'ML-DSA-44') {
   if (!PARAMS[paramName]) throw new Error(`unknown parameter set "${paramName}"`);
-  if (seed32.length !== 32) throw new Error('keygen requires a 32-byte seed');
+  if (!(seed32 instanceof Uint8Array) || seed32.length !== 32) throw new Error('keygen requires a 32-byte seed');
   return keygenInternal(seed32, paramName);
 }
 
-export function mldsaSign(privateKey, message, rnd32, paramName = 'ML-DSA-44') {
+export function mldsaSign(privateKey, message, rnd32, paramName = 'ML-DSA-44',options={}) {
   if (!PARAMS[paramName]) throw new Error(`unknown parameter set "${paramName}"`);
-  if (rnd32.length !== 32) throw new Error('sign requires a 32-byte rnd');
-  return signInternal(privateKey, toBytes(message), rnd32, paramName);
+  if (!(rnd32 instanceof Uint8Array) || rnd32.length !== 32) throw new Error('sign requires a 32-byte rnd');
+  if (!(privateKey instanceof Uint8Array)) throw new TypeError('ML-DSA private key bytes');
+  return signInternal(privateKey, toBytes(message), rnd32, paramName,options);
 }
 
-export function mldsaVerify(publicKey, message, signature, paramName = 'ML-DSA-44') {
+export function mldsaVerify(publicKey, message, signature, paramName = 'ML-DSA-44',options={}) {
   if (!PARAMS[paramName]) throw new Error(`unknown parameter set "${paramName}"`);
   try {
-    return verifyInternal(publicKey, toBytes(message), signature, paramName);
+    if (!(publicKey instanceof Uint8Array) || !(signature instanceof Uint8Array)) return false;
+    return verifyInternal(publicKey, toBytes(message), signature, paramName,options);
   } catch {
     return false;
   }

@@ -254,5 +254,5 @@ export function blake3DeriveKey(context, keyMaterial, outLen = 32) {
 }
 
 export function blake3Hex(input, outLen = 32) {
-  return Buffer.from(blake3(input, outLen)).toString('hex');
+  return Array.from(blake3(input,outLen), b=>b.toString(16).padStart(2,'0')).join('');
 }

@@ -1,0 +1,11 @@
+// Small, bounded DER helpers for the key encodings supported by the application.
+export function concatBytes(...arrays){const out=new Uint8Array(arrays.reduce((n,a)=>n+a.length,0));let at=0;for(const a of arrays){out.set(a,at);at+=a.length;}return out;}
+export function der(tag,body){const lengths=[];for(let n=body.length;n;n>>>=8)lengths.unshift(n&255);return concatBytes(Uint8Array.of(tag),body.length<128?Uint8Array.of(body.length):Uint8Array.of(128|lengths.length,...lengths),body);}
+export function derChildren(bytes){if(!(bytes instanceof Uint8Array)||bytes.length>16384)throw new Error('DER input limit');const nodes=[];let at=0;while(at<bytes.length){const tag=bytes[at++];let length=bytes[at++];if(length===undefined)throw new Error('DER truncated');if(length&128){const count=length&127;if(!count||count>4||at+count>bytes.length)throw new Error('DER length');length=0;for(let i=0;i<count;i++)length=length*256+bytes[at++];if(length<128)throw new Error('DER nonminimal length');}if(at+length>bytes.length)throw new Error('DER truncated');nodes.push({tag,body:bytes.slice(at,at+length)});at+=length;}return nodes;}
+const oidCurve={
+ 'P-256':Uint8Array.of(6,8,0x2a,0x86,0x48,0xce,0x3d,3,1,7),
+ 'P-384':Uint8Array.of(6,5,0x2b,0x81,4,0,0x22),
+ 'P-521':Uint8Array.of(6,5,0x2b,0x81,4,0,0x23),
+};
+export function wrapEcPrivate(raw,curve){const oid=oidCurve[curve];if(!oid)throw new Error('Unknown curve');const inner=der(0x30,concatBytes(Uint8Array.of(2,1,1),der(4,raw),der(0xa0,oid)));return der(0x30,concatBytes(Uint8Array.of(2,1,0),der(0x30,concatBytes(Uint8Array.of(6,7,0x2a,0x86,0x48,0xce,0x3d,2,1),oid)),der(4,inner)));}
+export function unwrapEcPrivate(input,curve){const len={'P-256':32,'P-384':48,'P-521':66}[curve];if(input.length===len)return input;const outer=derChildren(input);if(outer.length!==1||outer[0].tag!==0x30)throw new Error('EC private DER');const parts=derChildren(outer[0].body);if(parts[2]?.tag!==4)throw new Error('EC PKCS8');const oid=oidCurve[curve],alg=parts[1]?.body;if(!alg||!alg.slice(-oid.length).every((x,i)=>x===oid[i]))throw new Error('EC curve mismatch');const inner=derChildren(parts[2].body);const secret=derChildren(inner[0].body)[1];if(secret?.tag!==4||secret.body.length!==len)throw new Error('EC private length');return secret.body;}

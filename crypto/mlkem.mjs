@@ -410,15 +410,28 @@ export function decapsInternal(dk, c, paramName = 'ML-KEM-768') {
 // testable; nothing here reaches for an ambient entropy source.
 
 export function mlkemKeygen(seed64, paramName = 'ML-KEM-768') {
-  if (seed64.length !== 64) throw new Error('keygen requires 64 bytes (d || z)');
+  if(!PARAMS[paramName])throw new Error('Unknown ML-KEM parameter set');
+  if (!(seed64 instanceof Uint8Array)||seed64.length !== 64) throw new Error('keygen requires 64 bytes (d || z)');
   return keyGenInternal(seed64.slice(0, 32), seed64.slice(32, 64), paramName);
 }
 
 export function mlkemEncapsulate(encapsKey, seed32, paramName = 'ML-KEM-768') {
-  if (seed32.length !== 32) throw new Error('encapsulate requires a 32-byte seed');
+  if(!mlkemCheckEncapsulationKey(encapsKey,paramName))throw new Error('ML-KEM encapsulation key check failed');
+  if (!(seed32 instanceof Uint8Array)||seed32.length !== 32) throw new Error('encapsulate requires a 32-byte seed');
   return encapsInternal(encapsKey, seed32, paramName);
 }
 
 export function mlkemDecapsulate(decapsKey, ciphertext, paramName = 'ML-KEM-768') {
+  if(!mlkemCheckDecapsulationKey(decapsKey,paramName))throw new Error('ML-KEM decapsulation key check failed');
+  const p=PARAMS[paramName];if(!(ciphertext instanceof Uint8Array)||ciphertext.length!==32*(p.du*p.k+p.dv))throw new Error('ML-KEM ciphertext length');
   return decapsInternal(decapsKey, ciphertext, paramName);
+}
+
+export function mlkemCheckEncapsulationKey(key,paramName='ML-KEM-768'){
+ const p=PARAMS[paramName];if(!p||!(key instanceof Uint8Array)||key.length!==384*p.k+32)return false;
+ for(let at=0;at<384*p.k;at+=3){const a=key[at]|((key[at+1]&15)<<8),b=(key[at+1]>>4)|(key[at+2]<<4);if(a>=3329||b>=3329)return false;}return true;
+}
+export function mlkemCheckDecapsulationKey(key,paramName='ML-KEM-768'){
+ const p=PARAMS[paramName];if(!p||!(key instanceof Uint8Array)||key.length!==768*p.k+96)return false;
+ const ek=key.slice(384*p.k,768*p.k+32),expected=sha3_256(ek),stored=key.slice(768*p.k+32,768*p.k+64);let diff=0;for(let i=0;i<32;i++)diff|=expected[i]^stored[i];return diff===0;
 }

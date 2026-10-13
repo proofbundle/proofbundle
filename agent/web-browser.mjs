@@ -8,11 +8,12 @@ import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { homedir } from 'node:os';
 
 const PORT = Number(process.env.PB_BROWSER_PORT || 8792);
-const BRIDGE = process.env.PB_WEB_BRIDGE || 'http://127.0.0.1:8788';
+const BRIDGE = process.env.PB_WEB_BRIDGE || 'http://127.0.0.1:8791';
 const CHROME = '/opt/google/chrome/chrome';
-const ROOT = '/media/falsealias/WIN-NVME-500G/browser-bridge';
+const ROOT = process.env.PB_BROWSER_ROOT || path.join(homedir(), 'pb/live/browser-bridge');
 const SHOTS = path.join(ROOT, 'shots');
 const PROFILE = path.join(ROOT, 'profile');
 for (const d of [ROOT, SHOTS, PROFILE]) fs.mkdirSync(d, { recursive: true });
@@ -29,10 +30,13 @@ async function seal(payload, lane) {
   try {
     const res = await fetch(`${BRIDGE}/seal`, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ agentId: lane, payloadType: 'browse', payload })
+      body: JSON.stringify({ agentId: lane, to: lane, payloadType: 'browse', payload: { ...payload, type: "browser-provenance", notify: false }, encrypt: true })
     });
     if (!res.ok) return { sealed: false, error: `bridge HTTP ${res.status}` };
-    return { sealed: true, receipt: await res.json() };
+    const ingress = await res.json();
+    const accepted = await fetch(`${BRIDGE}/api/envelope/submit`, {method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({envelope:ingress.envelope})});
+    if(!accepted.ok) return {sealed:false,error:`verifier HTTP ${accepted.status}`};
+    return {sealed:true,receipt:await accepted.json()};
   } catch (e) { return { sealed: false, error: String(e) }; }
 }
 
@@ -86,7 +90,7 @@ Artifacts: ${SHOTS}</p></body>`);
   const body = await readBody(req);
   if (!body) return json(res, 400, { error: 'bad json' });
   const lane = String(body.lane || '');
-  if (!/^[a-z0-9][a-z0-9_-]{0,31}$/.test(lane)) return json(res, 400, { error: 'lane required (registered lane id)' });
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,159}$/.test(lane)) return json(res, 400, { error: 'lane required (registered lane id)' });
   const action = u.pathname.slice('/browse/'.length);
 
   if (action === 'status') {

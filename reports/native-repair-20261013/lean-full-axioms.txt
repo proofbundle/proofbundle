@@ -1,3 +1,5 @@
+Public derivative: protected model identifiers withheld; axiom verdicts unchanged. Raw local source SHA-256: 00e46865de17691045e76a9c5bf107ec8b8fad42887ccd6b15f24693c2dc1175
+
 'ProofBundle.AgentPromptLaw.admissible_requires_result_verification' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.admissible_requires_target_match' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.bridge_supersedes_hard_ban' does not depend on any axioms
@@ -8,8 +10,8 @@
 'ProofBundle.AgentPromptLaw.future_pledge_prohibited' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.hard_ban_supersedes_ordinary' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.invalid_output_supersedes_ordinary' does not depend on any axioms
-'ProofBundle.AgentPromptLaw.mira_engine_not_database' does not depend on any axioms
-'ProofBundle.AgentPromptLaw.mira_engine_not_interface' does not depend on any axioms
+'ProofBundle.AgentPromptLaw.[identifier withheld]_engine_not_database' does not depend on any axioms
+'ProofBundle.AgentPromptLaw.[identifier withheld]_engine_not_interface' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.paper_receipts_are_insufficient' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.pending_head_not_complete' does not depend on any axioms
 'ProofBundle.AgentPromptLaw.pending_not_terminal' does not depend on any axioms

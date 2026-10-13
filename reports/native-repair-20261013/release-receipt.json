@@ -267,17 +267,17 @@
     {
       "path": "reports/native-repair-20261013/html-audit.json",
       "bytes": 17327,
-      "sha256": "9533ee335446db30b8af0d7a19424a3252cc7b1d0c68bb97aac98c192b1b80ca"
+      "sha256": "e2b5f0af95c4f53a59d69c1ba479f52300ccf4c5b3d965056beac615090c7caa"
     },
     {
       "path": "reports/native-repair-20261013/html-audit.txt",
       "bytes": 17420,
-      "sha256": "dd38032ae5d2f2eeaf10e219188418ffe7b5aa7babc41a0685b72902e5f6d4cd"
+      "sha256": "d57695c2a4f670fc1b1347f5f79a9a7e4c47e5f9ad5d70dec52c8f456db88bc5"
     },
     {
       "path": "reports/native-repair-20261013/lean-axioms.txt",
-      "bytes": 7990,
-      "sha256": "7c56bce94eeb52f44221f9de2eec6c22a9b5d511253e3754dcf50c103731a946"
+      "bytes": 8199,
+      "sha256": "390d3b47b858a4291ef803b0d39bf32b358d93fa6e2022feb21d136037069d55"
     },
     {
       "path": "reports/native-repair-20261013/lean-build.txt",
@@ -286,8 +286,8 @@
     },
     {
       "path": "reports/native-repair-20261013/lean-full-axioms.txt",
-      "bytes": 6364,
-      "sha256": "00e46865de17691045e76a9c5bf107ec8b8fad42887ccd6b15f24693c2dc1175"
+      "bytes": 6573,
+      "sha256": "e98adb35eabd69f533a16180e5c3b3cec1b206faca24a225169f5d097fd0270f"
     },
     {
       "path": "reports/native-repair-20261013/lean-full-build.txt",

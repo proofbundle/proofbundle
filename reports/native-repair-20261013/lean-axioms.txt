@@ -1,3 +1,5 @@
+Public derivative: protected model identifiers withheld; axiom verdicts unchanged. Raw local source SHA-256: 7c56bce94eeb52f44221f9de2eec6c22a9b5d511253e3754dcf50c103731a946
+
 PrintAxioms.lean:3:0: error: object file '././.lake/build/lib/ProofBundle.olean' of module ProofBundle does not exist
 PrintAxioms.lean:6:14: error: unknown constant 'ProofBundle.AgentPromptLaw.admissible_requires_result_verification'
 PrintAxioms.lean:7:14: error: unknown constant 'ProofBundle.AgentPromptLaw.admissible_requires_target_match'
@@ -9,8 +11,8 @@ PrintAxioms.lean:12:14: error: unknown constant 'ProofBundle.AgentPromptLaw.evid
 PrintAxioms.lean:13:14: error: unknown constant 'ProofBundle.AgentPromptLaw.future_pledge_prohibited'
 PrintAxioms.lean:14:14: error: unknown constant 'ProofBundle.AgentPromptLaw.hard_ban_supersedes_ordinary'
 PrintAxioms.lean:15:14: error: unknown constant 'ProofBundle.AgentPromptLaw.invalid_output_supersedes_ordinary'
-PrintAxioms.lean:16:14: error: unknown constant 'ProofBundle.AgentPromptLaw.mira_engine_not_database'
-PrintAxioms.lean:17:14: error: unknown constant 'ProofBundle.AgentPromptLaw.mira_engine_not_interface'
+PrintAxioms.lean:16:14: error: unknown constant 'ProofBundle.AgentPromptLaw.[identifier withheld]_engine_not_database'
+PrintAxioms.lean:17:14: error: unknown constant 'ProofBundle.AgentPromptLaw.[identifier withheld]_engine_not_interface'
 PrintAxioms.lean:18:14: error: unknown constant 'ProofBundle.AgentPromptLaw.paper_receipts_are_insufficient'
 PrintAxioms.lean:19:14: error: unknown constant 'ProofBundle.AgentPromptLaw.pending_head_not_complete'
 PrintAxioms.lean:20:14: error: unknown constant 'ProofBundle.AgentPromptLaw.pending_not_terminal'

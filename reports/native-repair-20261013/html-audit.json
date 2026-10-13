@@ -1,12 +1,12 @@
 {
   "schema": "PROOFBUNDLE-HTML-CRYPTO-AUDIT-1",
-  "started_at": "2026-10-13T14:33:51.882Z",
-  "completed_at": "2026-10-13T14:34:23.494Z",
+  "started_at": "2026-10-13T14:50:15.088Z",
+  "completed_at": "2026-10-13T14:50:46.610Z",
   "artifact": {
     "path": "proofbundle.html",
     "bytes": 1503283,
-    "sha256": "a7e468e9443d6962f89d7146e5350b5fcaf85f44099fa51d9991abe0433b4bf3",
-    "sha512": "83395be38d9a09e1c0c2ab0235a6bd3b208d6956a2fe3c9a415d84a5f6e4537b431fe4ed8071cc3062c49faff84729f4a4cd186c7aef7ec934c4ec10f3d96ad0"
+    "sha256": "8ee5acef846afbeec22373e1beb11fb934af2c9ff17b04f41d421961656519c9",
+    "sha512": "59f86d288d5e8676cae7a8b43f4726ab877f60f806182c3a3a1ba11da38578bb5da28162ee1abdbf912cc450fe3263e9088c367a4a4603805c54a677e64cf06e"
   },
   "environment": {
     "node": "v24.19.0",
@@ -125,7 +125,7 @@
       "signature_bytes": 64,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 21,
+      "elapsed_ms": 22,
       "ok": true
     },
     {
@@ -137,7 +137,7 @@
       "signature_bytes": 96,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 46,
+      "elapsed_ms": 62,
       "ok": true
     },
     {
@@ -149,19 +149,19 @@
       "signature_bytes": 132,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 94,
+      "elapsed_ms": 95,
       "ok": true
     },
     {
       "id": "RSA-PSS-2048",
       "engine": "proofbundle",
       "standard": "RFC 8017",
-      "private_bytes": 1219,
+      "private_bytes": 1218,
       "public_bytes": 294,
       "signature_bytes": 256,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 1029,
+      "elapsed_ms": 482,
       "ok": true
     },
     {
@@ -173,7 +173,7 @@
       "signature_bytes": 384,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 641,
+      "elapsed_ms": 4372,
       "ok": true
     },
     {
@@ -185,7 +185,7 @@
       "signature_bytes": 512,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 5285,
+      "elapsed_ms": 3134,
       "ok": true
     },
     {
@@ -197,7 +197,7 @@
       "signature_bytes": 2420,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 171,
+      "elapsed_ms": 248,
       "ok": true
     },
     {
@@ -206,10 +206,10 @@
       "standard": "FN-DSA draft (Falcon-512)",
       "private_bytes": 1281,
       "public_bytes": 897,
-      "signature_bytes": 659,
+      "signature_bytes": 654,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 195,
+      "elapsed_ms": 154,
       "ok": true
     },
     {
@@ -221,7 +221,7 @@
       "signature_bytes": 17088,
       "valid_round_trip": true,
       "tampered_signature_accepted": false,
-      "elapsed_ms": 277,
+      "elapsed_ms": 274,
       "ok": true
     }
   ],

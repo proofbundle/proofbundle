@@ -38,8 +38,8 @@ export function fingerprint(publicKeyDer) {
 }
 
 /** Create or load an agent identity. Returns identity + privateKeyDer. */
-export function loadOrCreateIdentity(agentId) {
-  const dir = join(AGENT_DIR, agentId);
+export function loadOrCreateIdentity(agentId, agentRoot = AGENT_DIR) {
+  const dir = join(agentRoot, agentId);
   const identityFile = join(dir, 'identity.json');
   const secretFile = join(dir, 'secret.key');
 

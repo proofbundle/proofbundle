@@ -37,7 +37,11 @@
     "browser_workflow_checks": 11,
     "bridge_workflow_checks": 5,
     "lean_native_model_axiom_free": 8,
-    "lean_broader_model_axiom_free": 84
+    "lean_broader_model_axiom_free": 84,
+    "cli_roundtrip_and_tamper": {
+      "roundtrip": "VERIFIED",
+      "tamper": "INVALID-SIGNATURE"
+    }
   },
   "limits": [
     "No FIPS module certification or full JavaScript primitive-refinement proof",
@@ -438,6 +442,21 @@
       "path": "package-lock.json",
       "bytes": 28186,
       "sha256": "66f07c927516163163ef6c926759c86ae81a74534f43957cc3310b6a2891f996"
+    },
+    {
+      "path": "cli/proofbundle-cli.mjs",
+      "bytes": 8469,
+      "sha256": "7782d14e6f6693d24fcca9256f4cfe32acef60d0e49fd480762600671e769248"
+    },
+    {
+      "path": "cli/proofbundle-unified.mjs",
+      "bytes": 20327,
+      "sha256": "93d2cf572bc7347a43e81d4c18115c58a7cc6dc23924e5ebc56903985d1526da"
+    },
+    {
+      "path": "reports/native-repair-20261013/cli-roundtrip.json",
+      "bytes": 478,
+      "sha256": "2b74e4bc3ae63c9fc1e80c9e640edea4bd1cb375e79b032850499f347be33b31"
     }
   ]
 }

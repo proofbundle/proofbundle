@@ -1,7 +1,7 @@
 {
   "schema": "ProofBundleBrowserWorkflowReceipt/v1",
-  "executed_at": "2026-10-13T14:33:34.874Z",
-  "html_sha256": "a7e468e9443d6962f89d7146e5350b5fcaf85f44099fa51d9991abe0433b4bf3",
+  "executed_at": "2026-10-13T14:47:39.893Z",
+  "html_sha256": "8ee5acef846afbeec22373e1beb11fb934af2c9ff17b04f41d421961656519c9",
   "platform_crypto": "subtle blocked",
   "browser": "151.0.7922.137",
   "checks": [

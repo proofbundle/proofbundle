@@ -52,6 +52,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadOrCreateIdentity } from './identity.mjs';
 import { seal, verifyEnvelope, envelopeHash, canonicalJSON } from './envelope.mjs';
 import {parseJSON} from '../src/canonical/canonical-json.mjs';
+import {assertAgentId} from './identity.mjs';
 import { merkleRoot, merkleProof, verifyProof } from './lineage.mjs';
 import { isExpired, verifyCommit } from './prediction.mjs';
 import { recordTransition, readStatuses, submitForStamping, otsCheck } from './ots.mjs';
@@ -189,7 +190,7 @@ export async function registerAgent(agentId, aibom = null) {
 }
 
 export function getIdentity(agentId) {
-  return loadRegistry().agents[agentId] || null;
+  try{assertAgentId(agentId);}catch{return null;}const agents=loadRegistry().agents;return Object.hasOwn(agents,agentId)?agents[agentId]:null;
 }
 
 /** Load an agent's private signing key (bridge-local use only). */
@@ -248,6 +249,7 @@ export function checkLog(log) {
  * under the advisory append lock. Returns { envelope, receipt } or { error }.
  */
 export async function sealAndAppend({ agentId, payload, payloadType = 'work', to = null, encrypt = false, prediction = null }) {
+  assertAgentId(agentId);
   if (!existsSync(join(AGENT_DIR, agentId, 'identity.json')))
     return { error: 'UNEXPECTED_SIGNER', detail: `agent not registered: ${agentId}` };
 
@@ -501,7 +503,7 @@ export function createServer({ port = DEFAULT_PORT } = {}) {
       }
 
       if (req.method === 'GET' && path.startsWith('/inbox/')) {
-        const id = decodeURIComponent(path.slice('/inbox/'.length));
+        const id = assertAgentId(decodeURIComponent(path.slice('/inbox/'.length)));
         const f = join(INBOX_DIR, `${id}.jsonl`);
         const items = existsSync(f)
           ? readFileSync(f, 'utf8').split('\n').filter(l => l.trim()).map(l => JSON.parse(l)) : [];

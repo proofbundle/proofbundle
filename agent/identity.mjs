@@ -39,7 +39,12 @@ export function fingerprint(publicKeyDer) {
 }
 
 /** Create or load an agent identity. Returns identity + privateKeyDer. */
+export function assertAgentId(agentId){
+ if(typeof agentId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$/.test(agentId)){const error=new TypeError('Invalid agent identifier');error.status=400;throw error;}return agentId;
+}
+
 export function loadOrCreateIdentity(agentId, {agentRoot=AGENT_DIR}={}) {
+  assertAgentId(agentId);
   const dir = join(agentRoot, agentId);
   const identityFile = join(dir, 'identity.json');
   const secretFile = join(dir, 'secret.key');

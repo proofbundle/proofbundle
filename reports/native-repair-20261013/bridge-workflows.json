@@ -1,6 +1,6 @@
 {
   "schema": "ProofBundleBridgeWorkflowReceipt/v1",
-  "executed_at": "2026-10-13T14:33:37.113Z",
+  "executed_at": "2026-10-13T14:47:42.261Z",
   "scope": "Isolated QA state; production bridge untouched",
   "checks": [
     "Same HTML served at /app",
@@ -13,7 +13,7 @@
     "valid": true,
     "reason": null,
     "in_lineage": true,
-    "seq": 3
+    "seq": 4
   },
   "errors": [],
   "test_source": {

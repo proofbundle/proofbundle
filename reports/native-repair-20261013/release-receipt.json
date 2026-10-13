@@ -1,6 +1,6 @@
 {
   "schema": "ProofBundleRepairArtifactReceipt/v1",
-  "created_at": "2026-10-13T14:41:12.749982+00:00",
+  "created_at": "2026-10-13T14:49:32.324389+00:00",
   "base_commit": "56c5cb748fdbd58420a94d8103bfd5b6ab882054",
   "actor": "Codex; commit metadata is not a spawn-time identity proof",
   "scope": "Local application, public site source, native crypto and optional bridge; no production bridge service changed",
@@ -18,7 +18,7 @@
       "failed": 0
     },
     "modular_unit_negative_hostile": {
-      "passed": 83,
+      "passed": 84,
       "failed": 0
     },
     "frozen_vectors": {
@@ -52,7 +52,7 @@
     {
       "path": "proofbundle.html",
       "bytes": 1503283,
-      "sha256": "a7e468e9443d6962f89d7146e5350b5fcaf85f44099fa51d9991abe0433b4bf3"
+      "sha256": "8ee5acef846afbeec22373e1beb11fb934af2c9ff17b04f41d421961656519c9"
     },
     {
       "path": "index.html",
@@ -67,7 +67,7 @@
     {
       "path": "CRYPTOGRAPHIC_BASIS.json",
       "bytes": 16476,
-      "sha256": "9b1febe306eabb4f0971c3a6b6947aa4d007c6bd39587612b15f52c639a4d039"
+      "sha256": "6ea2b5cfe611af62b9b8a91f5078df252aeb768f33c80aae906732bb1b595757"
     },
     {
       "path": "CRYPTOGRAPHIC_BASIS.md",
@@ -247,7 +247,7 @@
     {
       "path": "reports/native-repair-20261013/bridge-workflows.json",
       "bytes": 583,
-      "sha256": "87ff86da27fec0f5184b2d5529873dced2c23ea7e7b82651acb983881f46d529"
+      "sha256": "b5b939058af1013481e1875ca06b7fdb81b3ffa096decf80d0b8571c0e0a1f37"
     },
     {
       "path": "reports/native-repair-20261013/browser-native-api.json",
@@ -257,7 +257,7 @@
     {
       "path": "reports/native-repair-20261013/browser-workflows.json",
       "bytes": 1004,
-      "sha256": "65f0008bf0750d640b0bc3d6cc62dd551dd46c0b02e86addafdeecd17560a952"
+      "sha256": "bb355168cd49d3659d71ef6ff66742d2d9573fa27cac355c79cbe7cd08d153d4"
     },
     {
       "path": "reports/native-repair-20261013/coq-check.txt",
@@ -307,7 +307,7 @@
     {
       "path": "reports/native-repair-20261013/nist-acvp.json",
       "bytes": 1500,
-      "sha256": "63437147c38bfcaf06945d5653e62287829022d07eed579cf2c7545cf06a0498"
+      "sha256": "cfa7675b6abca29777fa80f2b0df9689dc9a39a3ac300064bda28adaa6463dba"
     },
     {
       "path": "reports/native-repair-20261013/nist-acvp.txt",
@@ -317,7 +317,7 @@
     {
       "path": "reports/native-repair-20261013/rfc6979.json",
       "bytes": 513,
-      "sha256": "073a2537f1e267cf485d3dd3375acabd56b4c252027b72f8d5bd3fc2f1be6812"
+      "sha256": "6904570de6095604c7f2a0fc87b49f5dbea06bc0d6a6588774ae9c8d302fd751"
     },
     {
       "path": "reports/native-repair-20261013/rfc6979.txt",
@@ -331,8 +331,8 @@
     },
     {
       "path": "reports/native-repair-20261013/surface.txt",
-      "bytes": 7200,
-      "sha256": "4e9e1e1054d590133927e0248c08674c681556162fdd49a2cca2055b1ecd02c1"
+      "bytes": 7276,
+      "sha256": "31be426639d24358689e000237f410f9d4e86962744f2967fcceeeef1836bb46"
     },
     {
       "path": "reports/native-repair-20261013/t_aibom.txt",
@@ -393,6 +393,51 @@
       "path": "reports/native-repair-20261013/t_vault_stream.txt",
       "bytes": 33,
       "sha256": "5713bda914916f828ea0650b47b8fdb7f3c502122910239e08326f1a96d23a3a"
+    },
+    {
+      "path": "agent/identity.mjs",
+      "bytes": 4267,
+      "sha256": "126bfc2d661962d626de088e9da0d6d3f81ae94694b3d65993bf148e9fd24d27"
+    },
+    {
+      "path": "agent/bridge.mjs",
+      "bytes": 27592,
+      "sha256": "d28f4e34f6f6db2e1e5ab2f343732edbe2b57ddc91a169223603b7fd07c75e19"
+    },
+    {
+      "path": "agent/web-bridge.mjs",
+      "bytes": 7824,
+      "sha256": "39a5ea5bae84988dbf6450771db02a09a5d94a6fb28504c5b4ed26a3f3697864"
+    },
+    {
+      "path": "agent/web-bridge-ui.html",
+      "bytes": 12928,
+      "sha256": "4b5165a1c9d2f92df73be3ef084d9ab5c9e351348bb68627635a5bf4d93d5435"
+    },
+    {
+      "path": "test/unit/native-custody.test.mjs",
+      "bytes": 3828,
+      "sha256": "72a5218a17eaec36319f17a5b4bb37e3100a48174c0afd73714923dca7f8da3b"
+    },
+    {
+      "path": "WHAT_PROOFBUNDLE_IS.md",
+      "bytes": 2456,
+      "sha256": "3fcb4eea23701756fbd7a29edf8a66c84d2b052bb87eeadb1a03f7a709fdc1d2"
+    },
+    {
+      "path": "CURRENT_STATE_PROOFS.md",
+      "bytes": 8817,
+      "sha256": "812be715c8f5da4a2596076c4ca212d5cd785955d69f9804487edf6577276c41"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1292,
+      "sha256": "0feffb9dc1a6e7cf3952278d32e17d1cfdb2e7503e99ae2e1eb11216d00e1eff"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 28186,
+      "sha256": "66f07c927516163163ef6c926759c86ae81a74534f43957cc3310b6a2891f996"
     }
   ]
 }

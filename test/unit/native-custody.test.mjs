@@ -27,3 +27,6 @@ test('plain objects canonicalize without discarding unsupported values',()=>{
  const text=value=>new TextDecoder().decode(canonicalizeObject(value));assert.equal(text({b:1,a:-0}),'{"a":0,"b":1}');
  assert.throws(()=>text({a:undefined}));assert.throws(()=>text({a:'\ud800'}));assert.throws(()=>text({a:new Date()}));assert.throws(()=>text(Array(2)));assert.throws(()=>parseJSON('{"a":1,"a":2}'));
 });
+
+import {assertAgentId} from '../../agent/identity.mjs';
+test('Agent filesystem identifiers cannot traverse custody roots',()=>{for(const id of ['../escape','a/b','a\\b','..','__proto__',''])assert.throws(()=>assertAgentId(id));assert.equal(assertAgentId('codex-qa.1'),'codex-qa.1');});

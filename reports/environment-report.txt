@@ -44,9 +44,7 @@ just not on PATH by default. Not currently added to shell PATH/profile.
 No runnable `isabelle` binary found anywhere searched (`/`, home, both raid2tb
 opam roots, Windows mount). Only found: scattered `.thy` source files (e.g.
 under raid2tb Windows mount `CLEAN_PROJECT/_DUPLICATES_REVIEW/`) and one
-unextracted archive whose filename references Isabelle
-(`recovered_files.90/f99560187_consciousness_criterion_with_isabelle_tar.gz`,
-not inspected). Isabelle theory *sources* exist in the corpus; an Isabelle
+unextracted archive whose filename references Isabelle (not inspected). Isabelle theory *sources* exist in the corpus; an Isabelle
 *installation* to check them does not, as of this report.
 
 ===== SMT solvers =====

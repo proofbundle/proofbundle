@@ -1,5 +1,0 @@
-Require Import ac_appendix.
-Print Assumptions conjunction_blocking.
-Print Assumptions no_entailment.
-Print Assumptions hardening_can_only_remove.
-Print Assumptions attribution_does_not_entail_continuation.

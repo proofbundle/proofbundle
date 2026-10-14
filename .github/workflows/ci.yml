@@ -62,6 +62,35 @@ jobs:
       - name: cryptographic implementation tests
         run: npm run test:crypto
 
+  html-crypto-audit:
+    name: html crypto audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: run HTML crypto audit and keep the JSON receipt
+        run: node scripts/audit-html-crypto.mjs proofbundle.html | tee html-crypto-audit.json > /dev/null
+      - name: fail on any reproduced, unresolved HIGH or CRITICAL finding
+        run: |
+          node -e '
+            const r = JSON.parse(require("fs").readFileSync("html-crypto-audit.json", "utf8"));
+            if (r.engine_errors && r.engine_errors.length) { console.error("engine errors:", r.engine_errors); process.exit(1); }
+            const open = (r.findings || []).filter(f =>
+              ["HIGH", "CRITICAL"].includes(f.severity) && f.reproduced === true && !String(f.status || "").startsWith("CLOSED"));
+            for (const f of open) console.error(`UNRESOLVED ${f.severity} ${f.id}: ${f.title}`);
+            if (open.length) process.exit(1);
+            console.log("no reproduced unresolved HIGH/CRITICAL findings");
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: html-crypto-audit-receipt
+          path: html-crypto-audit.json
+
   coq:
     name: coq proofs
     runs-on: ubuntu-latest

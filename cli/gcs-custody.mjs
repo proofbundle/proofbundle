@@ -3,8 +3,8 @@
 // creates a new manifest directory; no prior evidence or object is rewritten.
 import {createHash} from 'node:crypto';
 import {createReadStream,createWriteStream} from 'node:fs';
-import {mkdir,lstat,open,readFile,stat} from 'node:fs/promises';
-import {basename,join,relative,resolve,sep} from 'node:path';
+import {mkdir,lstat,open,readFile,stat,symlink} from 'node:fs/promises';
+import {basename,dirname,join,relative,resolve,sep} from 'node:path';
 import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import {canonicalizeText} from '../src/canonical/canonical-json.mjs';
@@ -26,6 +26,18 @@ const output=resolve(required('out'));
 const stamp=options.get('stamp')==='yes';
 if(options.has('stamp')&&!['yes','no'].includes(options.get('stamp')))throw Error('--stamp expects yes or no');
 const chunkSize=10000, otsBatchSize=2000;
+// 2026-10-16 (claudicus-max1): receipts no longer go beside the objects. `ots stamp` always writes <file>.ots next to
+// its argument, so the tool stamps a symlink placed in a parallel tree under --receipts-dir (default <out>/receipts);
+// the receipt commits to the object's content hash and lands in the receipts tree. Prior runs wrote receipts into the
+// data tree and mistook bucket-native .ots objects for receipts (manifest-20261016T194812Z); those files are left as they are.
+const receiptsRoot=resolve(options.get('receipts-dir')||join(output,'receipts'));
+
+async function receiptPaths(file){
+  const link=join(receiptsRoot,file.record.local?file.record.local.relative_path:file.path);
+  await mkdir(dirname(link),{recursive:true});
+  try{await symlink(file.path,link);}catch(error){if(error.code!=='EEXIST')throw error;}
+  return {link,receipt:link+'.ots'};
+}
 
 async function* entries(){
   const stream=createReadStream(listing,{encoding:'utf8'});
@@ -108,13 +120,14 @@ async function otsStamp(files,log){
   if(!files.length)return;
   const unstamped=[];
   for(const file of files){
-    try{await stat(file.path+'.ots');file.record.ots={status:'existing_unverified',receipt:file.path+'.ots'};}
+    const {link,receipt}=await receiptPaths(file); file.link=link; file.receipt=receipt;
+    try{const info=await stat(receipt);file.record.ots={status:info.size>0?'existing_receipt':'gap',receipt,bytes:info.size};}
     catch(error){if(error.code!=='ENOENT')throw error;unstamped.push(file);}
   }
   if(!stamp){for(const file of unstamped)file.record.ots={status:'not_submitted'};return;}
   async function invoke(batch){
     const result=await new Promise((done,reject)=>{
-      const child=spawn('ots',['stamp',...batch.map(file=>file.path)],{stdio:['ignore','pipe','pipe']});
+      const child=spawn('ots',['stamp',...batch.map(file=>file.link)],{stdio:['ignore','pipe','pipe']});
       let message='';for(const pipe of [child.stdout,child.stderr])pipe.on('data',block=>{message+=block.toString();if(message.length>65536)message=message.slice(-65536);});
       child.on('error',reject);child.on('close',code=>done({code,message}));
     });
@@ -123,16 +136,15 @@ async function otsStamp(files,log){
   }
   if(unstamped.length){
     const first=await invoke(unstamped);
-    if(first.code!==0){const retry=[];for(const file of unstamped){try{await stat(file.path+'.ots');}catch(error){if(error.code==='ENOENT')retry.push(file);else throw error;}}
+    if(first.code!==0){const retry=[];for(const file of unstamped){try{await stat(file.receipt);}catch(error){if(error.code==='ENOENT')retry.push(file);else throw error;}}
       if(retry.length)await invoke(retry);
     }
   }
   for(const file of unstamped){
-    try{const info=await stat(file.path+'.ots');file.record.ots=info.size>0?{status:'calendar_submitted_pending',receipt:file.path+'.ots',bytes:info.size}:{status:'gap',reason:'zero-byte OTS receipt'};}
+    try{const info=await stat(file.receipt);file.record.ots=info.size>0?{status:'calendar_submitted_pending',receipt:file.receipt,bytes:info.size}:{status:'gap',reason:'zero-byte OTS receipt'};}
     catch(error){file.record.ots={status:'gap',reason:'OTS receipt missing after submission: '+error.message};}
   }
 }
-
 async function main(){
   const sourceInfo=await stat(listing);if(!sourceInfo.isFile())throw Error('Metadata source is not a file');
   const mount=await stat(objects);if(!mount.isDirectory())throw Error('Object destination is not a directory');

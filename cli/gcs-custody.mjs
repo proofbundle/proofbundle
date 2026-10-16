@@ -30,18 +30,28 @@ const chunkSize=10000, otsBatchSize=2000;
 async function* entries(){
   const stream=createReadStream(listing,{encoding:'utf8'});
   const lines=createInterface({input:stream,crlfDelay:Infinity});
-  let current=null,total=null,seen=0;
+  let current=null,total=null,seen=0,prefixes=0;
   for await(const line of lines){
     if(line.startsWith('gs://')){
-      if(current){seen++;yield current;}
+      if(current){ if(current.prefix_header&&!current.size_gcs){prefixes++;} else {delete current.prefix_header;seen++;yield current;} }
       if(!line.endsWith(':'))throw Error('Malformed object header after '+seen+' entries');
       const uri=line.slice(0,-1), prefix='gs://'+bucket+'/';
       if(!uri.startsWith(prefix))throw Error('Unexpected bucket in metadata: '+uri);
       const key=uri.slice(prefix.length);
+      // 2026-10-16 (lane claudicus-max1, after lane deepseek-v4-pro's step-B failure "Unsafe object key: ALIB90/"):
+      // `gsutil ls -L -r` emits a header for every prefix ("gs://b/dir/:" followed by a blank line, no metadata).
+      // Those are not objects and are not counted in the TOTAL line; they are recorded as prefixes and skipped.
+      // A key ending in "/" that DOES carry metadata is a real zero-byte placeholder object and is kept.
+      if(key.endsWith('/')){
+        const inner=key.slice(0,-1);
+        if(inner.includes('\0')||inner.split('/').some(part=>part===''||part==='.'||part==='..'))throw Error('Unsafe object key: '+key);
+        current={bucket,object_path:key,source_uri:uri,prefix_header:true};
+        continue;
+      }
       if(!key||key.includes('\0')||key.split('/').some(part=>part===''||part==='.'||part==='..'))throw Error('Unsafe object key: '+key);
       current={bucket,object_path:key,source_uri:uri};
     }else if(line.startsWith('TOTAL:')){
-      if(current){seen++;yield current;current=null;}
+      if(current){ if(current.prefix_header&&!current.size_gcs){prefixes++;} else {delete current.prefix_header;seen++;yield current;} current=null;}
       const match=/^TOTAL:\s+(\d+)\s+objects,\s+(\d+)\s+bytes/.exec(line);
       if(!match)throw Error('Malformed gsutil total line');
       total=Number(match[1]);
@@ -54,7 +64,8 @@ async function* entries(){
     }
   }
   if(current)throw Error('Metadata listing ended without TOTAL; partial run rejected');
-  if(total===null||total!==seen)throw Error('Metadata count mismatch: listed '+seen+', summary '+total);
+  if(total===null||total!==seen)throw Error('Metadata count mismatch: listed '+seen+', summary '+total+', prefix headers skipped '+prefixes);
+  console.error(JSON.stringify({listing_objects:seen,prefix_headers_skipped:prefixes,summary_total:total}));
 }
 
 async function fileDigests(path){

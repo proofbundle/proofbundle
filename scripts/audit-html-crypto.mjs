@@ -229,10 +229,10 @@ for (const scope of ['classical', 'pq']) {
     { passed: result.cases, failed: 0 });
 }
 
-/* Regression probe for the PB-GENO-1 algorithm-binding check. */
+/* Regression probe for the PB-DUALSIG-P384-1 algorithm-binding check. */
 const alternatePrimary = await win.eval(`sigKeygen('Ed25519')`);
 win.__PB_AUDIT_ALT_PRIMARY__ = alternatePrimary;
-const alternateBundle = win.eval(`({ hdr:{profile:'PB-GENO-1'}, meta:{}, payload:{audit:'alternate algorithms'} })`);
+const alternateBundle = win.eval(`({ hdr:{profile:'PB-DUALSIG-P384-1'}, meta:{}, payload:{audit:'alternate algorithms'} })`);
 win.__PB_AUDIT_ALT_BUNDLE__ = alternateBundle;
 await win.eval(`sealCore(window.__PB_AUDIT_ALT_BUNDLE__, 'SHA-256', 'Ed25519', window.__PB_AUDIT_ALT_PRIMARY__)`);
 const alternateWitness = await win.eval(`sigKeygen('ECDSA-P256')`);
@@ -250,11 +250,11 @@ const alternateOutcome = await win.eval(`verifyCore(window.__PB_AUDIT_ALT_BUNDLE
 findings.push({
   id: 'PBHTML-F001',
   severity: 'HIGH',
-  title: 'PB-GENO-1 verifier binds the required algorithm suite',
+  title: 'PB-DUALSIG-P384-1 verifier binds the required algorithm suite',
   reproduced: alternateOutcome.outcome !== 'VERIFIED',
   status: alternateOutcome.outcome !== 'VERIFIED' ? 'CLOSED' : 'REOPENED',
-  observation: `A PB-GENO-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned ${alternateOutcome.outcome}.`,
-  required: 'Hold: PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile.',
+  observation: `A PB-DUALSIG-P384-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned ${alternateOutcome.outcome}.`,
+  required: 'Hold: PB-DUALSIG-P384-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile.',
 });
 
 /* PB-CANON-JSON-1 domain probe.

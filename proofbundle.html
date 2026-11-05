@@ -1211,13 +1211,13 @@ var PBSHA256=(function(){
 
   <div class="card" style="margin-top:14px">
     <div class="card-title">Dual-signature seal
-      <button class="btn btn-primary btn-sm" id="gpx-seal-btn" onclick="gpxSealUI()">Create dual-signature seal</button>
+      <button class="btn btn-primary btn-sm" id="ds-seal-btn" onclick="dsSealUI()">Create dual-signature seal</button>
     </div>
     <div class="card-desc">Seals the bundle above with two independent signatures — an ECDSA-P384 primary and an Ed25519 witness — both over one SHA3-384 digest of the canonical bundle.
       On verify: both valid → VERIFIED · exactly one valid → INDETERMINATE (needs investigation) · both invalid → INVALID-SIGNATURE.</div>
-    <div id="gpx-seal-out" style="display:none">
-      <div id="gpx-seal-meta" style="margin:8px 0"></div>
-      <pre class="mono" id="gpx-seal-json" style="max-height:260px;overflow:auto;word-break:break-all;white-space:pre-wrap"></pre>
+    <div id="ds-seal-out" style="display:none">
+      <div id="ds-seal-meta" style="margin:8px 0"></div>
+      <pre class="mono" id="ds-seal-json" style="max-height:260px;overflow:auto;word-break:break-all;white-space:pre-wrap"></pre>
     </div>
   </div>
 
@@ -3280,7 +3280,7 @@ async function digestBytes(algId, data) {
 /* ── GENERALIZED MERKLE (RFC 6962 prefixes, digest-parameterized) ── */
 /* ── dual-signature spec — Ch. 6 domain-separated hashing ──
    hash(context, data) = SHA3-384( ASCII(context) || 0x00 || LE64(len) || data ) */
-async function gpxHash(context, data) {
+async function dsHash(context, data) {
   const bytes = typeof data === 'string' ? utf8(data) : data;
   const ctx = utf8(context);
   const d = new Uint8Array(ctx.length + 9 + bytes.length);
@@ -3289,15 +3289,15 @@ async function gpxHash(context, data) {
   d.set(bytes, ctx.length + 9);
   return PBKECCAK.sha3_384(d);
 }
-async function gpxContentAddress(data) { return hexOf(await gpxHash('artifact.content', data)); }
-async function gpxKeyFingerprint(pubB64u) { return hexOf(await gpxHash('key.fingerprint', b64uDecode(pubB64u))); }
+async function dsContentAddress(data) { return hexOf(await dsHash('artifact.content', data)); }
+async function dsKeyFingerprint(pubB64u) { return hexOf(await dsHash('key.fingerprint', b64uDecode(pubB64u))); }
 
 /* Dual-signature seal: ECDSA-P384 primary + Ed25519 witness over one SHA3-384 digest */
-async function sealGeno(bundle, primaryKey, witnessKey) {
+async function sealDualSig(bundle, primaryKey, witnessKey) {
   if (primaryKey.alg !== 'ECDSA-P384') throw new Error('Primary layer must be ECDSA-P384 (Ch. 7)');
   if (witnessKey.alg !== 'Ed25519') throw new Error('Witness layer must be Ed25519 (Ch. 9)');
   bundle.hdr = bundle.hdr || {};
-  bundle.hdr.profile = 'PB-GENO-1';
+  bundle.hdr.profile = 'PB-DUALSIG-P384-1';
   await sealCore(bundle, 'SHA3-384', 'ECDSA-P384', primaryKey);
   const digest = b64uDecode(bundle.seal.digest_b64u);
   bundle.seal.witness = { sig_alg: 'Ed25519', pub_b64u: witnessKey.pub,
@@ -3582,19 +3582,19 @@ async function verifyCore(bundle, opts) {
   if (!sigInfo(sigAlg))
     return fail('MALFORMED', 'Algorithm check', `unknown sig_alg "${sigAlg}"`);
 
-  if (!legacy && bundle.hdr.profile === 'PB-GENO-1') {
+  if (!legacy && bundle.hdr.profile === 'PB-DUALSIG-P384-1') {
     if (digestAlg !== 'SHA3-384' || sigAlg !== 'ECDSA-P384') {
-      return fail('POLICY-DENIED', 'PB-GENO-1 algorithm suite',
-        `PB-GENO-1 requires SHA3-384 + ECDSA-P384 primary + Ed25519 witness; got ${digestAlg} + ${sigAlg}`);
+      return fail('POLICY-DENIED', 'PB-DUALSIG-P384-1 algorithm suite',
+        `PB-DUALSIG-P384-1 requires SHA3-384 + ECDSA-P384 primary + Ed25519 witness; got ${digestAlg} + ${sigAlg}`);
     }
     const w = bundle.seal.witness;
     if (!w) {
       return fail('POLICY-DENIED', 'Dual-signature requirement',
-        'PB-GENO-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
+        'PB-DUALSIG-P384-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
     }
     if (w.sig_alg !== 'Ed25519') {
-      return fail('POLICY-DENIED', 'PB-GENO-1 witness algorithm',
-        `PB-GENO-1 requires Ed25519 witness; got ${w.sig_alg || 'missing'}`);
+      return fail('POLICY-DENIED', 'PB-DUALSIG-P384-1 witness algorithm',
+        `PB-DUALSIG-P384-1 requires Ed25519 witness; got ${w.sig_alg || 'missing'}`);
     }
   }
 
@@ -3627,9 +3627,9 @@ async function verifyCore(bundle, opts) {
             `${ok ? 'primary valid, witness INVALID' : 'primary INVALID, witness valid'} — requires investigation: partial key compromise, implementation mismatch, or targeted algorithm attack`);
         else
           return fail('INVALID-SIGNATURE', 'Dual signature', 'both layers invalid');
-      } else if (bundle.hdr.profile === 'PB-GENO-1') {
+      } else if (bundle.hdr.profile === 'PB-DUALSIG-P384-1') {
         return fail('POLICY-DENIED', 'Dual-signature requirement',
-          'PB-GENO-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
+          'PB-DUALSIG-P384-1 requires an Ed25519 witness layer alongside the ECDSA-P384 primary (dual-signature profile)');
       } else {
         if (!ok) return fail('INVALID-SIGNATURE', 'Signature verification', `${sigAlg} signature over ${digestAlg} digest does not verify`);
         step('Signature verified', `${sigAlg} over ${digestAlg} digest ✓`);
@@ -4699,22 +4699,22 @@ async function runSelfTests() {
 
     /* dual-signature spec */
     T('content-address hash KAT — artifact.content("sample-artifact-payload")',
-      eq(hexOf(await gpxHash('artifact.content', 'sample-artifact-payload')),
+      eq(hexOf(await dsHash('artifact.content', 'sample-artifact-payload')),
          '98c038ac27085416de3b557d16836d355963fb3897a2d34e6d3c007bbb971d260e4e1f049e46d3eddbc60bad75239207'));
-    const gpxPri = await sigKeygen('ECDSA-P384'), gpxWit = await sigKeygen('Ed25519');
-    const gpxB = await sealGeno({ hdr: {}, meta: {}, payload: { r: 'gpx' } }, gpxPri, gpxWit);
-    T('dual-signature seal → VERIFIED (valid+valid)', eq((await verifyCore(gpxB, {})).outcome, 'VERIFIED'));
-    const gpxFlip = (b, which) => { const t2 = JSON.parse(JSON.stringify(b));
+    const dsPri = await sigKeygen('ECDSA-P384'), dsWit = await sigKeygen('Ed25519');
+    const dsB = await sealDualSig({ hdr: {}, meta: {}, payload: { r: 'dualsig' } }, dsPri, dsWit);
+    T('dual-signature seal → VERIFIED (valid+valid)', eq((await verifyCore(dsB, {})).outcome, 'VERIFIED'));
+    const dsFlip = (b, which) => { const t2 = JSON.parse(JSON.stringify(b));
       const tgt = which === 'p' ? t2.seal : t2.seal.witness;
       const sg = b64uDecode(tgt.signature_b64u); sg[0] ^= 0xff; tgt.signature_b64u = b64uEncode(sg); return t2; };
-    T('dual-signature: witness flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'w'), {})).outcome, 'INDETERMINATE'));
-    T('dual-signature: primary flipped → INDETERMINATE', eq((await verifyCore(gpxFlip(gpxB, 'p'), {})).outcome, 'INDETERMINATE'));
-    T('dual-signature: both flipped → INVALID-SIGNATURE', eq((await verifyCore(gpxFlip(gpxFlip(gpxB, 'p'), 'w'), {})).outcome, 'INVALID-SIGNATURE'));
-    const gpxNoW = JSON.parse(JSON.stringify(gpxB)); delete gpxNoW.seal.witness;
-    T('dual-signature policy: PB-GENO-1 without witness → POLICY-DENIED', eq((await verifyCore(gpxNoW, {})).outcome, 'POLICY-DENIED'));
-    const gpxWrongSuite = await sealCore({ hdr: { profile: 'PB-GENO-1' }, meta: {}, payload: { r: 'wrong-suite' } }, 'SHA-256', 'Ed25519', key);
-    gpxWrongSuite.seal.witness = gpxB.seal.witness;
-    T('PB-GENO-1 wrong algorithm suite → POLICY-DENIED', eq((await verifyCore(gpxWrongSuite, {})).outcome, 'POLICY-DENIED'));
+    T('dual-signature: witness flipped → INDETERMINATE', eq((await verifyCore(dsFlip(dsB, 'w'), {})).outcome, 'INDETERMINATE'));
+    T('dual-signature: primary flipped → INDETERMINATE', eq((await verifyCore(dsFlip(dsB, 'p'), {})).outcome, 'INDETERMINATE'));
+    T('dual-signature: both flipped → INVALID-SIGNATURE', eq((await verifyCore(dsFlip(dsFlip(dsB, 'p'), 'w'), {})).outcome, 'INVALID-SIGNATURE'));
+    const dsNoW = JSON.parse(JSON.stringify(dsB)); delete dsNoW.seal.witness;
+    T('dual-signature policy: PB-DUALSIG-P384-1 without witness → POLICY-DENIED', eq((await verifyCore(dsNoW, {})).outcome, 'POLICY-DENIED'));
+    const dsWrongSuite = await sealCore({ hdr: { profile: 'PB-DUALSIG-P384-1' }, meta: {}, payload: { r: 'wrong-suite' } }, 'SHA-256', 'Ed25519', key);
+    dsWrongSuite.seal.witness = dsB.seal.witness;
+    T('PB-DUALSIG-P384-1 wrong algorithm suite → POLICY-DENIED', eq((await verifyCore(dsWrongSuite, {})).outcome, 'POLICY-DENIED'));
 
   /* baseline digest sanity check (post-registry, pre-render) */
     T('SHA-256 sanity check — reproducible on neutral payload',
@@ -5745,28 +5745,28 @@ function renderPredictions() {
 /* ══ Dual-signature seal UI + claim-status composer ══════════ */
 
 /* ── Dual-signature seal (Seal tab) ───────────────────────────────────── */
-let _gpxKeys = null; /* { primary: ECDSA-P384, witness: Ed25519 } — this tab only */
+let _dsKeys = null; /* { primary: ECDSA-P384, witness: Ed25519 } — this tab only */
 
-async function gpxSealUI() {
-  const btn = document.getElementById('gpx-seal-btn');
-  const out = document.getElementById('gpx-seal-out');
+async function dsSealUI() {
+  const btn = document.getElementById('ds-seal-btn');
+  const out = document.getElementById('ds-seal-out');
   btn.disabled = true; btn.innerText = 'Dual-sealing…';
   try {
     let payload;
     try { payload = JSON.parse(document.getElementById('seal-payload').value); }
     catch (e) { notifyError('Payload JSON parse error: ' + e.message); return; }
-    if (!_gpxKeys) _gpxKeys = { primary: await sigKeygen('ECDSA-P384'), witness: await sigKeygen('Ed25519') };
+    if (!_dsKeys) _dsKeys = { primary: await sigKeygen('ECDSA-P384'), witness: await sigKeygen('Ed25519') };
     const bundle = { hdr: {}, meta: { producer_id: (document.getElementById('seal-producer') || {}).value || undefined }, payload };
     if (!bundle.meta.producer_id) delete bundle.meta.producer_id;
-    await sealGeno(bundle, _gpxKeys.primary, _gpxKeys.witness);
+    await sealDualSig(bundle, _dsKeys.primary, _dsKeys.witness);
     if (typeof registerBundle === 'function') await registerBundle(bundle, 'dual-signature-seal');
-    const fpP = await gpxKeyFingerprint(_gpxKeys.primary.pub);
-    const fpW = await gpxKeyFingerprint(_gpxKeys.witness.pub);
+    const fpP = await dsKeyFingerprint(_dsKeys.primary.pub);
+    const fpW = await dsKeyFingerprint(_dsKeys.witness.pub);
     out.style.display = 'block';
-    document.getElementById('gpx-seal-json').innerText = JSON.stringify(bundle, null, 2);
-    document.getElementById('gpx-seal-meta').innerHTML =
+    document.getElementById('ds-seal-json').innerText = JSON.stringify(bundle, null, 2);
+    document.getElementById('ds-seal-meta').innerHTML =
       `<span class="badge badge-green">DUAL-SEALED</span> <span class="mono">${esc(bundle.hdr.bundle_id)}</span>
-       — profile PB-GENO-1 · ECDSA-P384 primary + Ed25519 witness over one SHA3-384 digest (dual-signature profile)
+       — profile PB-DUALSIG-P384-1 · ECDSA-P384 primary + Ed25519 witness over one SHA3-384 digest (dual-signature profile)
        <div class="algo-note mono" style="margin-top:4px">primary key.fingerprint&nbsp; ${esc(fpP.slice(0, 32))}…<br>
        witness key.fingerprint ${esc(fpW.slice(0, 32))}…&nbsp;&nbsp;<span style="opacity:.7">(SHA3-384, domain "key.fingerprint")</span></div>
        <div class="algo-note" style="margin-top:4px">Truth table: both valid → VERIFIED · exactly one valid → INDETERMINATE (investigate) · both invalid → INVALID-SIGNATURE. Paste into Verify to watch it evaluate.</div>`;

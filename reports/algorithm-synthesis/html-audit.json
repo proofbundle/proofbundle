@@ -489,11 +489,11 @@
     {
       "id": "PBHTML-F001",
       "severity": "HIGH",
-      "title": "PB-GENO-1 verifier binds the required algorithm suite",
+      "title": "PB-DUALSIG-P384-1 verifier binds the required algorithm suite",
       "reproduced": true,
       "status": "CLOSED",
-      "observation": "A PB-GENO-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned POLICY-DENIED.",
-      "required": "Hold: PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile."
+      "observation": "A PB-DUALSIG-P384-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned POLICY-DENIED.",
+      "required": "Hold: PB-DUALSIG-P384-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile."
     },
     {
       "id": "PBHTML-F002",

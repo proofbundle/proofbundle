@@ -4261,9 +4261,14 @@ async function anchorViaTSA() {
     const resp = await rfc3161Submit(tsaUrl, req);
     const gt = rfc3161ExtractGenTime(resp);
     dlBytes('proofbundle-head-' + head.slice(0, 8) + '.tsr', resp);
-    if (statusEl) statusEl.innerHTML = gt
-      ? `<span class="badge badge-green">TSA token received</span> <span class="algo-note">asserted time: ${esc(gt.genTime)} · .tsr downloaded</span>`
-      : `<span class="badge badge-green">TSA token received</span> <span class="algo-note">.tsr downloaded (genTime not parsed inline)</span>`;
+    /* PBHTML-F004: the TSA's CMS signature and certificate chain are NOT verified in this app, so the
+       time is shown as asserted and unverified, with the command that does verify the downloaded token. */
+    const tsrName = 'proofbundle-head-' + head.slice(0, 8) + '.tsr';
+    const verifyCmd = `openssl ts -verify -in ${tsrName} -digest ${hexOf(digest)} -CAfile <TSA CA certificate>`;
+    if (statusEl) statusEl.innerHTML = (gt
+      ? `<span class="badge badge-orange">TSA response received · signature NOT verified here</span> <span class="algo-note">asserted (unverified) time: ${esc(gt.genTime)} · .tsr downloaded</span>`
+      : `<span class="badge badge-orange">TSA response received · signature NOT verified here</span> <span class="algo-note">.tsr downloaded (genTime not parsed inline)</span>`)
+      + `<div class="algo-note">Verify the token outside this app: <span class="mono">${esc(verifyCmd)}</span></div>`;
   } catch (e) {
     /* offline fallback: still hand them the DER request they can submit later */
     try {

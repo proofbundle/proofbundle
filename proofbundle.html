@@ -6221,8 +6221,8 @@ const ORCH_KIND_BADGE = { error: 'badge-red', msg: 'badge-blue', register: 'badg
 async function refreshOrchestrator() {
   try {
     const [lanesRes, busRes] = await Promise.all([
-      fetch('/agent/live-bus/LANES.json', { cache: 'no-store' }),
-      fetch('/agent/live-bus/messages.ndjson', { cache: 'no-store' }),
+      fetch('agent/live-feed/LANES.json', { cache: 'no-store' }),
+      fetch('agent/live-feed/messages.ndjson', { cache: 'no-store' }),
     ]);
     ORCH_STATE.lanes = lanesRes.ok ? (await lanesRes.json()).lanes || {} : {};
     const text = busRes.ok ? await busRes.text() : '';
@@ -6409,6 +6409,10 @@ function init() {
   verifyDropInit();
   runSelfTests();
   const roomRequested = new URLSearchParams(location.search).get('tab') === 'chat';
+  if (location.hash === '#orchestrator') {
+    const orchBtn = document.querySelector('nav button[data-title="Multi-agent orchestration"]');
+    if (orchBtn) { switchTab('orchestrator', orchBtn); refreshOrchestrator(); orchStartPolling(); }
+  }
   if (!window.aletheiaDesktop && !roomRequested) {
     refreshAgentLineage();
     setInterval(() => {
@@ -7457,8 +7461,8 @@ if (new URLSearchParams(location.search).get('embed') !== '1') init();
     // An unavailable bus must never erase a previously retained observation.
     try {
       const [lanesResponse, busResponse] = await Promise.all([
-        fetch('agent/live-bus/LANES.json', { cache: 'no-store' }),
-        fetch('agent/live-bus/messages.ndjson', { cache: 'no-store' }),
+        fetch('agent/live-feed/LANES.json', { cache: 'no-store' }),
+        fetch('agent/live-feed/messages.ndjson', { cache: 'no-store' }),
       ]);
       if (!lanesResponse.ok || !busResponse.ok) throw new Error('Orchestrator bus unavailable; retained observations remain available');
       const lanes = (await lanesResponse.json()).lanes || {}, raw = await busResponse.text();

@@ -1693,7 +1693,7 @@ var PBSHA256=(function(){
     <div class="form-grid" style="grid-template-columns:1fr 160px 160px">
       <div>
         <label class="label">Endpoint</label>
-        <input type="text" id="bridge-endpoint" value="http://127.0.0.1:8791" oninput="saveBridgeConfig()">
+        <input type="text" id="bridge-endpoint" value="" placeholder="Optional — your bridge, e.g. http://127.0.0.1:8791" oninput="saveBridgeConfig(); restartBridgePolling()">
       </div>
       <div>
         <label class="label">Poll seconds</label>
@@ -6138,7 +6138,11 @@ function heroVerifyNow(i) {
 const BRIDGE_STATE = { polling: !window.aletheiaDesktop, timer: null, lastEnvelope: null, lastLineage: null };
 function bridgeCfg() {
   return {
-    endpoint: (document.getElementById('bridge-endpoint')?.value || 'http://127.0.0.1:8791').replace(/\/+$/, ''),
+    // 2026-11-05: no default endpoint. A bridge is optional; sealing and verification never need one.
+    // When a bridge serves this page itself (its /proofbundle route), that origin is the bridge.
+    endpoint: (document.getElementById('bridge-endpoint')?.value ||
+      (/^https?:$/.test(location.protocol) && location.pathname.replace(/\/+$/, '') === '/proofbundle' ? location.origin : '')
+    ).trim().replace(/\/+$/, ''),
     local: document.getElementById('bridge-agent-id')?.value || 'codex-desktop-current',
     recipient: document.getElementById('bridge-recipient-id')?.value || 'peer-codex-agent',
     poll: Math.max(1, Number(document.getElementById('bridge-poll-seconds')?.value || 5)),
@@ -6180,9 +6184,18 @@ function bridgeSetStatus(ok, text) {
   const hv = document.getElementById('bridge-health-v'); if (hv) hv.textContent = ok ? 'online' : 'offline';
   const vf = document.getElementById('bridge-flow-verifier'); if (vf) vf.textContent = ok ? bridgeCfg().endpoint : 'offline: ' + (text || 'unreachable');
 }
+function bridgeSetUnconfigured() {
+  const msg = 'No bridge connected (optional). Sealing, verification, files and ledger work fully offline. To watch a live agent bridge, enter its endpoint above.';
+  const st = document.getElementById('bridge-status');
+  if (st) st.innerHTML = '<span class="badge">not connected</span> ' + esc(msg);
+  const hv = document.getElementById('bridge-health-v'); if (hv) hv.textContent = 'not connected';
+  const vf = document.getElementById('bridge-flow-verifier'); if (vf) vf.textContent = 'no bridge configured';
+  for (const id of ['bridge-entries-v', 'bridge-tip-v', 'bridge-root-v']) { const el = document.getElementById(id); if (el) el.textContent = '—'; }
+}
 async function refreshBridgeConsole() {
   if (!document.getElementById('panel-bridge')) return;
   saveBridgeConfig();
+  if (!bridgeCfg().endpoint) { bridgeSetUnconfigured(); return; }
   try {
     const h = await bridgeFetch('/health');
     bridgeSetStatus(true, (h.service || 'bridge') + ' ' + (h.version || ''));
@@ -6372,7 +6385,7 @@ function bridgeExportLineage() {
 function restartBridgePolling() {
   if (BRIDGE_STATE.timer) clearInterval(BRIDGE_STATE.timer);
   BRIDGE_STATE.timer = null;
-  if (BRIDGE_STATE.polling) BRIDGE_STATE.timer = setInterval(() => { if (!document.hidden && !document.getElementById('panel-chat')?.classList.contains('active')) refreshBridgeConsole(); }, bridgeCfg().poll * 1000);
+  if (BRIDGE_STATE.polling && bridgeCfg().endpoint) BRIDGE_STATE.timer = setInterval(() => { if (!document.hidden && !document.getElementById('panel-chat')?.classList.contains('active')) refreshBridgeConsole(); }, bridgeCfg().poll * 1000);
 }
 function toggleBridgePolling() {
   BRIDGE_STATE.polling = !BRIDGE_STATE.polling;
@@ -6425,7 +6438,9 @@ function init() {
 async function refreshAgentLineage() {
   const box=document.getElementById('agent-live'); if(!box)return;
   try {
-    const res=await fetch('http://127.0.0.1:8791/lineage/export',{cache:'no-store'});
+    const ep=bridgeCfg().endpoint;
+    if(!ep){box.textContent='No bridge connected (optional). Agent lineage appears here when an endpoint is set in Bridge.';return;}
+    const res=await fetch(ep+'/lineage/export',{cache:'no-store'});
     if(!res.ok)throw new Error('bridge HTTP '+res.status);
     const data=await res.json(), entries=Array.isArray(data.entries)?data.entries:[];
     // Schema is ProofBundleBridgeEvent/v2 (from live bridge, verified against 34
@@ -6605,7 +6620,7 @@ window.ProofBundleRoom = (() => {
     if(Number.isInteger(data.cursor))cursor=data.cursor;
   }
   async function refresh(){
-    if(embedded)return;
+    if(embedded||!bridgeCfg().endpoint)return;
     if(flight)return flight;
     flight=(async()=>{try{const d=await api('/api/chat/room?after='+cursor+'&limit=100');show(d);status('Connected · '+(d.agents||[]).length+' participants');if(d.has_more)setTimeout(refresh,0)}catch(e){status('Connection unavailable: '+e.message)}finally{flight=null}})();return flight;
   }
@@ -6617,12 +6632,14 @@ window.ProofBundleRoom = (() => {
     try{const d=await api('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,client_id:retryId,reply_to:null})});if(d.accepted!==true)throw new Error(d.error||'Message was not accepted');show({messages:d.messages||[d.message||d]});if(input.value===text)input.value='';retryId=null;retryText=null;status('Accepted into the ledger');await refresh()}catch(e){status('Send failed: '+e.message+' · your text is retained')}finally{sending=false;by('pb-room-send').disabled=false}
   }
   function open(){
+    const ep=bridgeCfg().endpoint;
+    if(!ep){status('No bridge connected (optional). Conversations need a bridge endpoint, set in Bridge.');return;}
     if(location.protocol==='file:'){
       if(embedded)return;embedded=true;
       const frame=document.createElement('iframe');frame.title='ProofBundle conversations';frame.className='pb-conversation-frame';
-      frame.src='http://127.0.0.1:8791/proofbundle?tab=chat&embed=1&theme='+encodeURIComponent(document.documentElement.getAttribute('data-theme')||'dark');
+      frame.src=ep+'/proofbundle?tab=chat&embed=1&theme='+encodeURIComponent(document.documentElement.getAttribute('data-theme')||'dark');
       by('panel-chat').replaceChildren(frame);
-      new MutationObserver(()=>frame.contentWindow?.postMessage({type:'ProofBundleTheme',theme:document.documentElement.getAttribute('data-theme')},'http://127.0.0.1:8791')).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+      new MutationObserver(()=>frame.contentWindow?.postMessage({type:'ProofBundleTheme',theme:document.documentElement.getAttribute('data-theme')},new URL(ep).origin)).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
       return;
     }
     refresh();by('pb-room-text').focus();

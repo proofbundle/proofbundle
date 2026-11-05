@@ -1,0 +1,125 @@
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:51:3: error: failed to synthesize instance
+  HShiftRight Word Nat ?m.6361
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:51:17: error: failed to synthesize instance
+  HShiftLeft Word Nat ?m.6379
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:103:33: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  0 + ?n
+block : Vec Word 16
+fuel i : Nat
+acc : Array Word
+h : acc.size = i
+h2 : i ≤ 64
+h3 : i + 0 = 64
+⊢ i = 64
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:111:18: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  i + fuel + 1
+block : Vec Word 16
+fuel✝ i : Nat
+acc : Array Word
+h : acc.size = i
+h2 : i ≤ 64
+fuel : Nat
+h3 : i + (fuel + 1) = 64
+hi : i < 16
+w : Word := block.get ⟨i, hi⟩
+⊢ i + 1 + fuel = 64
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:116:27: error: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.10362 : Prop
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:116:29: error: invalid universe level, ?u.10486 is not greater than 0
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:119:27: error: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.10499 : Prop
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:119:29: error: invalid universe level, ?u.10604 is not greater than 0
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:122:27: error: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.10617 : Prop
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:122:29: error: invalid universe level, ?u.10722 is not greater than 0
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:125:27: error: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.10735 : Prop
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:125:29: error: invalid universe level, ?u.10840 is not greater than 0
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:134:18: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  i + fuel + 1
+block : Vec Word 16
+fuel✝ i : Nat
+acc : Array Word
+h : acc.size = i
+h2 : i ≤ 64
+fuel : Nat
+h3 : i + (fuel + 1) = 64
+hi : ¬i < 16
+hi2 : i < 64
+h16 : i ≥ 16
+h1 : i - 2 < acc.size
+h2_7 : i - 7 < acc.size
+h3_15 : i - 15 < acc.size
+h4_16 : i - 16 < acc.size
+w2 : Word := acc.get ⟨i - 2, h1⟩
+w7 : Word := acc.get ⟨i - 7, h2_7⟩
+w15 : Word := acc.get ⟨i - 15, h3_15⟩
+w16 : Word := acc.get ⟨i - 16, h4_16⟩
+wi : Word := sigma1 w2 + w7 + sigma0 w15 + w16
+⊢ i + 1 + fuel = 64
+/home/falsealias/pb/lean-crypto-sha2/SHA256Core.lean:173:8: error: expected type must not contain free or meta variables
+  #[hash.words.get ⟨0, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).a,
+        hash.words.get ⟨1, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).b,
+        hash.words.get ⟨2, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).c,
+        hash.words.get ⟨3, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).d,
+        hash.words.get ⟨4, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).e,
+        hash.words.get ⟨5, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).f,
+        hash.words.get ⟨6, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).g,
+        hash.words.get ⟨7, ⋯⟩ +
+          (rounds 64 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).h].size =
+    8

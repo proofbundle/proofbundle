@@ -8,27 +8,20 @@
  *   - lineage hash chain (sequenced, tamper-evident)
  *   - optional falsifiable prediction
  */
-import {
-  createHash, createHmac, generateKeyPairSync, randomBytes, diffieHellman,
-  createPrivateKey, createPublicKey,
-  hkdfSync, createCipheriv, createDecipheriv,
-} from 'node:crypto';
+import {createHash} from '../crypto/hash.mjs';
+import {randomBytes} from '../crypto/random.mjs';
+import {x25519Keygen,x25519Shared} from '../crypto/x25519.mjs';
+import {hkdfSha256} from '../crypto/hkdf.mjs';
+import {chacha20poly1305Seal,chacha20poly1305Open} from '../crypto/chacha20-poly1305.mjs';
+import {canonicalizeObject,parseJSON} from '../src/canonical/canonical-json.mjs';
 import { sign as edSign, verify as edVerify, fingerprint } from './identity.mjs';
 
 const VERSION = 'PB-AGENT-1';
-// Key encapsulation algorithm id. v1 is classical X25519 (Node 24 has ml-kem-768
-// keygen but no crypto.kem encapsulation API until Node 25; PQ hybrid is
-// versioned in via this field when it lands — no silent algorithm changes).
+// Classical X25519/HKDF/ChaCha wire profile; scratch providers preserve it.
 export const KX_ALG = 'x25519-hkdf-sha256-chacha20poly1305-v1';
 
 /** Canonical JSON encoding (deterministic key order, no whitespace). */
-export function canonicalJSON(obj) {
-  if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-  if (Array.isArray(obj))
-    return '[' + obj.map(canonicalJSON).join(',') + ']';
-  const keys = Object.keys(obj).sort();
-  return '{' + keys.map(k => JSON.stringify(k) + ':' + canonicalJSON(obj[k])).join(',') + '}';
-}
+export function canonicalJSON(object) {return new TextDecoder().decode(canonicalizeObject(object));}
 
 /** SHA-256 of a string or Buffer, hex. */
 function sha256(data) {
@@ -164,37 +157,12 @@ export function envelopeHash(envelope) {
  * @param {string} recipientEncPubKeyHex — raw 32-byte X25519 public key, hex
  */
 export function encryptPayload(plaintext, recipientEncPubKeyHex) {
-  const eph = generateKeyPairSync('x25519');
-  // eph.privateKey is already a usable KeyObject — exporting it to PKCS8 DER
-  // and immediately re-importing via createPrivateKey was a no-op round trip
-  // that throws "DECODER routines::unsupported" on this Node/OpenSSL. Found
-  // live: this was the first real encrypt:true call in the whole session:
-  // every prior test used encrypt:false, so the bug was never exercised.
-  const ephPriv = eph.privateKey;
-  // X25519 raw public key -> KeyObject for ECDH
-  const pubDer = Buffer.concat([
-    Buffer.from('302a300506032b656e032100', 'hex'),
-    Buffer.from(recipientEncPubKeyHex, 'hex'),
-  ]);
-  const recipPub = createPublicKey({ key: pubDer, format: 'der', type: 'spki' });
-  const shared = diffieHellman({ privateKey: ephPriv, publicKey: recipPub });
-  const salt = randomBytes(32); // independent of plaintext — carries no guessable information
-  const key = Buffer.from(hkdfSync('sha256', shared, salt, Buffer.from(KX_ALG, 'utf8'), 32));
-  const nonce = randomBytes(12);
-  const cipher = createCipheriv('chacha20-poly1305', key, nonce, { authTagLength: 16 });
-  cipher.setAAD(salt);
-  const ct = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final(), cipher.getAuthTag()]);
-  const ephPubRaw = eph.publicKey.export({ type: 'spki', format: 'der' }).subarray(12); // last 32 bytes = raw
-  return {
-    encoding: 'canonical-json',
-    encrypted: true,
-    kx: KX_ALG,
-    ciphertext: ct.toString('hex'),
-    encapsulated_key: ephPubRaw.toString('hex'), // ephemeral X25519 public key
-    nonce: nonce.toString('hex'),
-    kx_salt: salt.toString('hex'), // random, unrelated to plaintext — see doc comment above
-    body: null,
-  };
+ if(typeof recipientEncPubKeyHex!=='string'||!/^[0-9a-f]{64}$/i.test(recipientEncPubKeyHex))throw new Error('X25519 recipient key length/encoding');
+ const eph=x25519Keygen(randomBytes(32)),shared=x25519Shared(eph.privateKey,new Uint8Array(Buffer.from(recipientEncPubKeyHex,'hex')));
+ if(shared.every(x=>x===0))throw new Error('X25519 low-order recipient key');
+ const salt=randomBytes(32),nonce=randomBytes(12),key=hkdfSha256(shared,32,salt,new TextEncoder().encode(KX_ALG));
+ const encrypted=chacha20poly1305Seal(key,nonce,new TextEncoder().encode(plaintext),salt),ciphertext=Buffer.concat([Buffer.from(encrypted.ciphertext),Buffer.from(encrypted.tag)]);
+ return {encoding:'canonical-json',encrypted:true,kx:KX_ALG,ciphertext:ciphertext.toString('hex'),encapsulated_key:Buffer.from(eph.publicKey).toString('hex'),nonce:nonce.toString('hex'),kx_salt:salt.toString('hex'),body:null};
 }
 
 /**
@@ -204,27 +172,12 @@ export function encryptPayload(plaintext, recipientEncPubKeyHex) {
  * @returns {object} the decrypted plaintext body (parsed canonical JSON)
  */
 export function decryptPayload(payloadField, recipientEncPrivKeyDer) {
-  if (!payloadField.encrypted) throw new Error('payload is not encrypted');
-  if (payloadField.kx !== KX_ALG) throw new Error(`unsupported kx algorithm: ${payloadField.kx}`);
-  const salt = Buffer.from(payloadField.kx_salt, 'hex'); // random, independent of plaintext
-  const ephPubDer = Buffer.concat([
-    Buffer.from('302a300506032b656e032100', 'hex'),
-    Buffer.from(payloadField.encapsulated_key, 'hex'),
-  ]);
-  const ephPub = createPublicKey({ key: ephPubDer, format: 'der', type: 'spki' });
-  const priv = createPrivateKey({ key: recipientEncPrivKeyDer, format: 'der', type: 'pkcs8' });
-  const shared = diffieHellman({ privateKey: priv, publicKey: ephPub });
-  const key = Buffer.from(hkdfSync('sha256', shared, salt, Buffer.from(KX_ALG, 'utf8'), 32));
-  const data = Buffer.from(payloadField.ciphertext, 'hex');
-  const ct = data.subarray(0, data.length - 16);
-  const tag = data.subarray(data.length - 16);
-  const decipher = createDecipheriv('chacha20-poly1305', key, Buffer.from(payloadField.nonce, 'hex'), { authTagLength: 16 });
-  decipher.setAAD(salt);
-  decipher.setAuthTag(tag);
-  // No separate plaintext-hash bind check: setAuthTag + decipher.final() already
-  // throw on any tamper to ciphertext, AAD, or nonce — ChaCha20-Poly1305's auth
-  // tag is the integrity guarantee. A redundant plaintext-hash compare here was
-  // the oracle in the first place; removed, not just hidden.
-  const pt = Buffer.concat([decipher.update(ct), decipher.final()]).toString('utf8');
-  return JSON.parse(pt);
+ if(!payloadField.encrypted||payloadField.kx!==KX_ALG)throw new Error('Unsupported encrypted payload');
+ const prefix=Buffer.from('302e020100300506032b656e04220420','hex'),der=Buffer.from(recipientEncPrivKeyDer);
+ if(der.length!==48||!der.subarray(0,16).equals(prefix))throw new Error('X25519 private DER');
+ const remote=Buffer.from(payloadField.encapsulated_key,'hex');if(remote.length!==32)throw new Error('X25519 ephemeral key length');
+ const shared=x25519Shared(new Uint8Array(der.subarray(16)),new Uint8Array(remote));if(shared.every(x=>x===0))throw new Error('X25519 low-order ephemeral key');
+ const salt=Buffer.from(payloadField.kx_salt,'hex'),nonce=Buffer.from(payloadField.nonce,'hex'),data=Buffer.from(payloadField.ciphertext,'hex');if(salt.length!==32||data.length<16)throw new Error('Encrypted payload length');
+ const key=hkdfSha256(shared,32,salt,new TextEncoder().encode(KX_ALG)),plaintext=chacha20poly1305Open(key,nonce,data.subarray(0,-16),data.subarray(-16),salt);
+ return parseJSON(new TextDecoder('utf-8',{fatal:true}).decode(plaintext));
 }

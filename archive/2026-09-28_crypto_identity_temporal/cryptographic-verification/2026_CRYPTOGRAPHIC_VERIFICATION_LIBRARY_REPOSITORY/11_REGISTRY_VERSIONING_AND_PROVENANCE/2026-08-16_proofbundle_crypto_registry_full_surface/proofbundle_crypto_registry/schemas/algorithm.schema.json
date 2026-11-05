@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "family",
+    "generationPolicy",
+    "id",
+    "implementationStatus",
+    "kind",
+    "name",
+    "quantumClass",
+    "securityStatus",
+    "specificationStatus"
+  ],
+  "additionalProperties": true
+}

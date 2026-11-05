@@ -1,0 +1,14 @@
+$ openssl list -random-generators
+RETURN_CODE=0
+
+STDOUT
+Provided RNGs and seed sources:
+  CTR-DRBG @ default
+  HASH-DRBG @ default
+  HMAC-DRBG @ default
+  SEED-SRC @ default
+  TEST-RAND @ default
+
+
+STDERR
+

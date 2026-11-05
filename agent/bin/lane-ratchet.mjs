@@ -16,7 +16,7 @@
  *   node lane-ratchet.mjs deepseek-v4-pro glm-5.2 "deepseek lane handshake"
  */
 import http from 'node:http';
-import { createHash } from 'node:crypto';
+import { createHash } from '../../crypto/hash.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';

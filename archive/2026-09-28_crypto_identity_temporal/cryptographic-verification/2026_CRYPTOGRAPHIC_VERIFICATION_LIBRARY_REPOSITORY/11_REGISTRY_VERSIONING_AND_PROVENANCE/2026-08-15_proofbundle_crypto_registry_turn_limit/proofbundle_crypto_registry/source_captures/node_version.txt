@@ -1,0 +1,9 @@
+$ node -v
+RETURN_CODE=0
+
+STDOUT
+v22.16.0
+
+
+STDERR
+

@@ -1,0 +1,679 @@
+
+> proofbundle@1.0.0 test:all
+> npm run selftest && npm run test:crypto && npm run test:surface && npm run test:native && npm run test:html-crypto
+
+
+> proofbundle@1.0.0 selftest
+> node cli/proofbundle-cli.mjs selftest
+
+self-test: 66/66 pass
+
+> proofbundle@1.0.0 test:crypto
+> cd crypto && node t_keccak.mjs && node t_mlkem.mjs && node t_ref.mjs && node t_confidential.mjs && node t_vault_stream.mjs
+
+keccak: 146 pass, 0 fail
+mlkem: 40 pass, 0 fail
+cross-implementation: 45 pass, 0 fail  (9 vectors x 5 checks)
+confidential provenance: 96 pass, 0 fail
+PB-VAULT-1: 11 assertions passed
+
+> proofbundle@1.0.0 test:surface
+> node --test test/unit/*.test.mjs test/negative/*.test.mjs test/hostile/*.test.mjs && node scripts/verify-vectors.mjs && node scripts/check-registry.mjs && node scripts/check-coverage.mjs
+
+✔ hostile: deeply nested array is rejected by the explicit depth bound, not by exhausting the engine stack (3.273557ms)
+✔ hostile: nesting just at the default depth bound is accepted (1.027789ms)
+✔ hostile: a custom maxDepth is honored (0.267591ms)
+✔ hostile: very large flat array parses and canonicalizes correctly (no silent truncation) (41.944719ms)
+✔ hostile: object with many keys — no key silently dropped, no silent cap (16.186559ms)
+✔ hostile: negative-zero and positive-zero canonicalize to the identical byte sequence (0.186504ms)
+✔ hostile: varint claiming to continue past a truncated buffer throws rather than reading out of bounds (0.241681ms)
+✔ hostile: varint with an absurd number of continuation bytes is rejected, not allowed to loop unbounded (0.193521ms)
+✔ hostile: hex input with embedded null byte or control character is rejected, not silently stripped (0.256042ms)
+✔ hostile: base64 input with embedded newline (common "friendly" variant) is rejected, not silently accepted (0.337182ms)
+✔ hostile: digest algorithm id crafted to look like a path or injection attempt is treated as simply unknown (0.286445ms)
+✔ hostile: string with maximum-codepoint characters round-trips through canonicalization (0.432796ms)
+✔ hostile: repeated backslash-quote sequences do not desynchronize the string scanner (0.124737ms)
+✔ hostile: object key that is itself the string "__proto__" is treated as an ordinary Map key, not prototype pollution (0.191324ms)
+✔ rejects: duplicate top-level key (2.193115ms)
+✔ rejects: duplicate key differing only in later value (0.24153ms)
+✔ rejects: trailing comma in object (0.157459ms)
+✔ rejects: trailing comma in array (0.204134ms)
+✔ rejects: unquoted key (0.165878ms)
+✔ rejects: single-quoted string (0.231231ms)
+✔ rejects: leading zero integer (0.172864ms)
+✔ rejects: leading zero in fraction position is fine but leading zero in int is not (0.162851ms)
+✔ rejects: leading zero rejected inside a container, via the container's own trailing-token check (0.1904ms)
+✔ rejects: bare NaN (0.273384ms)
+✔ rejects: bare Infinity (0.162123ms)
+✔ rejects: unterminated string (0.168585ms)
+✔ rejects: unescaped control character in string (0.121339ms)
+✔ rejects: invalid escape (0.138162ms)
+✔ rejects: trailing garbage after valid value (0.092837ms)
+✔ rejects: empty input (0.091302ms)
+✔ rejects: unpaired high surrogate via \u escape (0.108179ms)
+✔ canonicalizeValue rejects a plain object even if structurally value-like (0.185522ms)
+✔ canonicalizeValue rejects a function, symbol, and bigint (0.230754ms)
+✔ concatBytes joins in order (2.219468ms)
+✔ equalBytes true for identical content, false for length or content mismatch (0.268945ms)
+✔ constantTimeEqual agrees with equalBytes on all test cases (0.199932ms)
+✔ assertLength / assertMaxLength enforce bounds (0.571899ms)
+✔ varint round-trips across boundary values (0.499076ms)
+✔ varint rejects negative and non-integer (0.209274ms)
+✔ varint decode rejects overlong (non-minimal) encoding (0.179937ms)
+✔ varint decode rejects truncated input (0.295424ms)
+✔ utf8 round-trips ASCII and multi-byte text (0.321788ms)
+✔ utf8Decode rejects invalid byte sequences (fatal mode) (0.373915ms)
+✔ hasLoneSurrogate detects unpaired surrogates, not valid pairs (0.216649ms)
+✔ hex round-trips and rejects non-canonical input (0.409772ms)
+✔ base64 round-trips and rejects non-canonical padding (1.275684ms)
+✔ base64url round-trips and rejects standard-alphabet characters (0.256751ms)
+✔ object keys are sorted regardless of input order (2.146851ms)
+✔ idempotence: canonicalizing canonical output reproduces it byte-for-byte (0.750769ms)
+✔ determinism: same semantic input always yields identical bytes (0.265382ms)
+✔ whitespace is insignificant to the canonical form (0.233858ms)
+✔ duplicate object keys are rejected, not silently resolved to the last value (0.57987ms)
+✔ nested duplicate keys are rejected (0.230853ms)
+✔ non-finite number literals are rejected by the grammar itself (0.613776ms)
+✔ leading zeros in numbers are rejected (not valid JSON grammar) (0.242544ms)
+✔ negative zero canonicalizes to "0" (0.286783ms)
+✔ minimal integer encoding: no trailing .0 for integral values (0.28848ms)
+✔ trailing data after a JSON value is rejected (0.229169ms)
+✔ unpaired surrogate in a string is rejected (0.246209ms)
+✔ empty object and empty array canonicalize correctly (0.160957ms)
+✔ string escaping round-trips through parse and canonicalize (0.16463ms)
+✔ canonicalizeValue rejects plain objects (Map is required for the object domain) (0.189845ms)
+✔ canonicalizeValue rejects undefined and non-finite numbers directly (0.221524ms)
+✔ array order is preserved (arrays are not sorted, only object keys are) (0.204578ms)
+✔ SHA-256 empty-string known-answer value matches FIPS 180-4 (2.643158ms)
+✔ SHA-224 empty-string known-answer value matches FIPS 180-4 (0.359367ms)
+✔ SHA3-256 empty-string known-answer value matches FIPS 202 (1.438424ms)
+✔ SHA3-224 empty-string known-answer value matches FIPS 202 (cross-checked vs Python hashlib) (1.087398ms)
+✔ BLAKE2b-512 / BLAKE2s-256 empty-string known-answer values (cross-checked vs Python hashlib) (1.919135ms)
+✔ every wired SHA-2 variant agrees with node:crypto across message lengths (14.747998ms)
+✔ SHA3-224/256/384/512 agree with node:crypto (independent SHA-3 implementation vs Node OpenSSL) (16.421833ms)
+✔ SHAKE128/256 produce the requested output length and agree with node:crypto (2.511554ms)
+✔ digestBytes throws UnknownAlgorithmError for an unrecognized identifier — no fallback (0.436695ms)
+✔ digestBytes throws ForbiddenAlgorithmError for MD5 and SHA-1 — recognized, never dispatched (0.296351ms)
+✔ isImplementedDigest correctly reports only the wired fixed-length algorithms (0.106672ms)
+✔ digestBytes rejects non-Uint8Array input rather than coercing it (0.09853ms)
+✔ scratch streaming hashes match independent references across block boundaries (105.641265ms)
+✔ AI-BOM verification rejects signature-only alteration and forged low-order key (23.94417ms)
+✔ relay encryption retains its wire format and authenticates before returning plaintext (14.493444ms)
+✔ plain objects canonicalize without discarding unsupported values (0.391066ms)
+✔ OTS info alone, failed verify, or silent zero exit cannot establish anchoring (1.801815ms)
+✔ OTS success marker comes from detached verify output, including stderr (1.440335ms)
+✔ pending calendar and missing proof remain unverified (1.179427ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 83
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 242.06062
+verify-vectors: 265 pass, 0 fail
+registry: 95 entries, 0 validation errors
+by implementation_status: {
+  "COMPLETE": 47,
+  "RECOGNIZE_ONLY": 2,
+  "NOT_IMPLEMENTED": 29,
+  "BLOCKED": 17
+}
+CRYPTOGRAPHIC_SURFACE.csv: 95 rows written
+rows with a critical-issue flag: 0
+
+> proofbundle@1.0.0 test:native
+> node crypto/t_native_profile.mjs && node scripts/verify-rfc6979.mjs && node scripts/verify-nist-acvp.mjs
+
+{
+  "suite": "native-profile",
+  "checks": 210,
+  "failed": 0,
+  "reference_role": "test-only independent oracle",
+  "published_vectors": [
+    "RFC 8439 sections 2.1.1/2.3.2/2.5.2",
+    "FIPS 197 AES-256",
+    "SP 800-38D GCM"
+  ]
+}
+{"schema":"ProofBundleConformanceReceipt/v1","executed_at":"2026-10-13T14:28:14.914Z","suite":"RFC6979 published signatures","passed":6,"failed":0,"fixture_source":"https://www.rfc-editor.org/rfc/rfc6979.txt","fixture_source_sha256":"456e8f17558fdbd206f968b96fc6f1b4a71ea331ab30ad17f711ab3adaa7d701","implementation_sha256":"175d954cb92a3333ae0bc78c5531949248bc497e2fd51bd962256c4a0aceb425","fixture_sha256":"ed82776dc84d2ada8700fd7f170644d1e7e64278d9e8e930751a4b17d11cc6a7"}
+ML-KEM-keyGen-FIPS203 75 passed 0 failed
+ML-KEM-encapDecap-FIPS203 165 passed 0 failed
+ML-DSA-keyGen-FIPS204 75 passed 0 failed
+ML-DSA-sigGen-FIPS204 360 passed 0 failed
+ML-DSA-sigVer-FIPS204 180 passed 0 failed
+
+> proofbundle@1.0.0 test:html-crypto
+> node scripts/audit-html-crypto.mjs proofbundle.html
+
+{
+  "schema": "PROOFBUNDLE-HTML-CRYPTO-AUDIT-1",
+  "started_at": "2026-10-13T14:28:48.164Z",
+  "completed_at": "2026-10-13T14:29:13.431Z",
+  "artifact": {
+    "path": "proofbundle.html",
+    "bytes": 1503117,
+    "sha256": "7f3fa0ff019f076c0bbde2e61b977080e91c9e3c2cf2abb2c3cea8d17788fe7f",
+    "sha512": "745943530b2e520805d45131c9d7c145ae19f65ae267e537eb4c7d4f7f5c1231313b1554272ebafe5a09b902a93547f5144e6b631d1e2aafb5f966a61424306f"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "webcrypto": "subtle getter blocked; platform entropy only",
+    "jsdom": "24.x dependency resolved by package-lock.json"
+  },
+  "summary": {
+    "embedded_boot_selftests": {
+      "passed": 66,
+      "total": 66
+    },
+    "functional_audit_checks": {
+      "passed": 25,
+      "total": 25
+    },
+    "digest_dispatch_entries": 9,
+    "signature_dispatch_entries": 10,
+    "conformance_cases": 660,
+    "conformance_passed": 660,
+    "reproduced_security_findings": 0,
+    "engine_errors": 0
+  },
+  "digest_results": [
+    {
+      "id": "SHA-256",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "SHA-384",
+      "engine": "proofbundle",
+      "bytes": 48,
+      "ok": true,
+      "actual": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d",
+      "expected": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d"
+    },
+    {
+      "id": "SHA-512",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420",
+      "expected": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420"
+    },
+    {
+      "id": "SHA3-256",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1",
+      "expected": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1"
+    },
+    {
+      "id": "SHA3-384",
+      "engine": "proofbundle",
+      "bytes": 48,
+      "ok": true,
+      "actual": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b",
+      "expected": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b"
+    },
+    {
+      "id": "SHA3-512",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6",
+      "expected": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6"
+    },
+    {
+      "id": "BLAKE2b",
+      "engine": "proofbundle",
+      "bytes": 64,
+      "ok": true,
+      "actual": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0",
+      "expected": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0"
+    },
+    {
+      "id": "BLAKE2s",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670",
+      "expected": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670"
+    },
+    {
+      "id": "BLAKE3",
+      "engine": "proofbundle",
+      "bytes": 32,
+      "ok": true,
+      "actual": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12",
+      "expected": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12"
+    }
+  ],
+  "signature_results": [
+    {
+      "id": "Ed25519",
+      "engine": "proofbundle",
+      "standard": "RFC 8032",
+      "private_bytes": 32,
+      "public_bytes": 32,
+      "signature_bytes": 64,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 15,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P256",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 79,
+      "public_bytes": 65,
+      "signature_bytes": 64,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 21,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P384",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 89,
+      "public_bytes": 97,
+      "signature_bytes": 96,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 50,
+      "ok": true
+    },
+    {
+      "id": "ECDSA-P521",
+      "engine": "proofbundle",
+      "standard": "FIPS 186-5",
+      "private_bytes": 107,
+      "public_bytes": 133,
+      "signature_bytes": 132,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 93,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-2048",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 1218,
+      "public_bytes": 294,
+      "signature_bytes": 256,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 644,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-3072",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 1794,
+      "public_bytes": 422,
+      "signature_bytes": 384,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 2275,
+      "ok": true
+    },
+    {
+      "id": "RSA-PSS-4096",
+      "engine": "proofbundle",
+      "standard": "RFC 8017",
+      "private_bytes": 2374,
+      "public_bytes": 550,
+      "signature_bytes": 512,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 4321,
+      "ok": true
+    },
+    {
+      "id": "Dilithium2",
+      "engine": "proofbundle",
+      "standard": "FIPS 204 (ML-DSA-44)",
+      "private_bytes": 2560,
+      "public_bytes": 1312,
+      "signature_bytes": 2420,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 160,
+      "ok": true
+    },
+    {
+      "id": "Falcon512",
+      "engine": "noble",
+      "standard": "FN-DSA draft (Falcon-512)",
+      "private_bytes": 1281,
+      "public_bytes": 897,
+      "signature_bytes": 653,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 178,
+      "ok": true
+    },
+    {
+      "id": "SPHINCS+-256",
+      "engine": "noble",
+      "standard": "FIPS 205 (SLH-DSA-SHA2-128f)",
+      "private_bytes": 64,
+      "public_bytes": 32,
+      "signature_bytes": 17088,
+      "valid_round_trip": true,
+      "tampered_signature_accepted": false,
+      "elapsed_ms": 270,
+      "ok": true
+    }
+  ],
+  "conformance_results": [
+    {
+      "scope": "classical",
+      "pairs": 63,
+      "cases": 630,
+      "passed": 630,
+      "failed": 0,
+      "failures": []
+    },
+    {
+      "scope": "pq",
+      "pairs": 3,
+      "cases": 30,
+      "passed": 30,
+      "failed": 0,
+      "failures": []
+    }
+  ],
+  "functional_checks": [
+    {
+      "id": "digest:SHA-256",
+      "category": "digest",
+      "ok": true,
+      "observed": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "digest:SHA-384",
+      "category": "digest",
+      "ok": true,
+      "observed": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d",
+      "expected": "08706812a9fadc2cdf66bf9dcdf1fb1f3991c5f683dc01969a843967d061276b6b056394e106f53dc96fe94c6e1e083d"
+    },
+    {
+      "id": "digest:SHA-512",
+      "category": "digest",
+      "ok": true,
+      "observed": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420",
+      "expected": "1b9c803e5c539c75a3471bece7d8b963150971f48fd46483a74df75c68b26276b4a46f6adb73193e95e9621cd058558096ca30cf379de35901e628c496170420"
+    },
+    {
+      "id": "digest:SHA3-256",
+      "category": "digest",
+      "ok": true,
+      "observed": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1",
+      "expected": "2ea34fc56b8f3aab38d9fac78fa6c35eb7eac3fc8ab6f77830a6c4b5b33102b1"
+    },
+    {
+      "id": "digest:SHA3-384",
+      "category": "digest",
+      "ok": true,
+      "observed": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b",
+      "expected": "28e45d0ace4ec905dc64742a95c448abb32e8bf2b0863ca39808d5be31975fa8dbbb771b25c0e5cf9573ef084c94d36b"
+    },
+    {
+      "id": "digest:SHA3-512",
+      "category": "digest",
+      "ok": true,
+      "observed": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6",
+      "expected": "0e28f65de05d8282554f2d91ca343d3b6dfcbe0dbb08b3d84bb7900a681863d72765f6ffdb6d7d5e978e3fa00a907bd9cfc800dface00b773bfe729ab48faed6"
+    },
+    {
+      "id": "digest:BLAKE2b",
+      "category": "digest",
+      "ok": true,
+      "observed": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0",
+      "expected": "29deb0890f5ccf9f32a3df929de5f810ea0e00bd8555039f245e719ac09f2cf9fc011c832e8c2e6293076219028bf9aa3cbca368eeaf7aed132ad2db07666cd0"
+    },
+    {
+      "id": "digest:BLAKE2s",
+      "category": "digest",
+      "ok": true,
+      "observed": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670",
+      "expected": "29b014ba7147af51b5340cb5c0c72bc74bc012cd16b0e5bda396581a17593670"
+    },
+    {
+      "id": "digest:BLAKE3",
+      "category": "digest",
+      "ok": true,
+      "observed": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12",
+      "expected": "b424fbcb53499a8f8d35674b19d361d92a24642c0226b5affb91a2db597faf12"
+    },
+    {
+      "id": "xof:SHAKE128",
+      "category": "xof",
+      "ok": true,
+      "observed": "659cec14244499b2605786b1c60fad9f28e45a0113b38649c902e72e438c25ff0c4876c6486f41e24ffb867268bcce892e14aab9a7add625ab0c8fc99e1844c6",
+      "expected": "659cec14244499b2605786b1c60fad9f28e45a0113b38649c902e72e438c25ff0c4876c6486f41e24ffb867268bcce892e14aab9a7add625ab0c8fc99e1844c6"
+    },
+    {
+      "id": "xof:SHAKE256",
+      "category": "xof",
+      "ok": true,
+      "observed": "f35cd9db0fdafd2ec4c8d044e1d5efc4bbc77e031826555ef1efe42b8c51d81d425a9b3dfc03b7a7d2c9228bc128b37fb0b5d294bf3ecbc9f2c9f35a893fccf6",
+      "expected": "f35cd9db0fdafd2ec4c8d044e1d5efc4bbc77e031826555ef1efe42b8c51d81d425a9b3dfc03b7a7d2c9228bc128b37fb0b5d294bf3ecbc9f2c9f35a893fccf6"
+    },
+    {
+      "id": "digest:SHA-256:pure-js",
+      "category": "digest",
+      "ok": true,
+      "observed": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a",
+      "expected": "8fd9c160cbd9818c3adfd36692928f89f3617e06666528eefd5b9b6a68db4f3a"
+    },
+    {
+      "id": "signature:Ed25519",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P256",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P384",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:ECDSA-P521",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-2048",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-3072",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:RSA-PSS-4096",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:Dilithium2",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:Falcon512",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "signature:SPHINCS+-256",
+      "category": "signature",
+      "ok": true,
+      "observed": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      },
+      "expected": {
+        "valid_round_trip": true,
+        "tampered_signature_accepted": false
+      }
+    },
+    {
+      "id": "conformance:classical",
+      "category": "seal-verify",
+      "ok": true,
+      "observed": {
+        "passed": 630,
+        "failed": 0
+      },
+      "expected": {
+        "passed": 630,
+        "failed": 0
+      }
+    },
+    {
+      "id": "conformance:pq",
+      "category": "seal-verify",
+      "ok": true,
+      "observed": {
+        "passed": 30,
+        "failed": 0
+      },
+      "expected": {
+        "passed": 30,
+        "failed": 0
+      }
+    },
+    {
+      "id": "timestamp:forged-rfc3161",
+      "category": "negative",
+      "ok": true,
+      "observed": null,
+      "expected": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "PBHTML-F001",
+      "severity": "HIGH",
+      "title": "PB-GENO-1 verifier does not bind the required algorithm suite",
+      "reproduced": false,
+      "observation": "A PB-GENO-1 bundle using SHA-256 + Ed25519 primary + ECDSA-P256 witness returned POLICY-DENIED.",
+      "required": "PB-GENO-1 verification must require SHA3-384, ECDSA-P384 primary, and Ed25519 witness before accepting the profile."
+    },
+    {
+      "id": "PBHTML-F002",
+      "severity": "MEDIUM",
+      "title": "PB-CANON-JSON-1 domain is enforced by the 4f710a2 guard (finding closed)",
+      "reproduced": false,
+      "status": "CLOSED-BY-4f710a2",
+      "observation": "Per-value guard rejects: {\"undefinedValue\":true,\"undefinedInObject\":true,\"undefinedInArray\":true,\"nonFiniteNumber\":true,\"functionValue\":true}; [] vs [undefined] still non-injective pre-rejection: null (null = no longer comparable, both throw).",
+      "required": "Hold: any future edit that stops throwing on these inputs reopens PBHTML-F002."
+    },
+    {
+      "id": "PBHTML-F003",
+      "severity": "HIGH",
+      "title": "Offline and network OpenTimestamps paths emit incompatible file headers",
+      "reproduced": false,
+      "observation": "Offline header begins 004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5; network header begins 004f70656e54696d657374616d7073000050726f6f6600bf89e2e884e892940108a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5.",
+      "required": "Validate both serializers byte-for-byte against the reference OpenTimestamps implementation and add parsing, upgrading, and Bitcoin attestation verification tests."
+    },
+    {
+      "id": "PBHTML-F004",
+      "severity": "HIGH",
+      "title": "RFC 3161 response path extracts asserted time without verifying the CMS signature or certificate chain",
+      "reproduced": false,
+      "observation": "A synthetic byte string with no TimeStampResp or CMS signature produced no time.",
+      "required": "Parse TimeStampResp structurally, bind the message imprint and nonce, and verify the CMS signature and trust chain before reporting an anchored time."
+    }
+  ],
+  "engine_errors": []
+}

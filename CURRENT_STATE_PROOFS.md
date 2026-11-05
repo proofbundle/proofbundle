@@ -1,3 +1,5 @@
+> Current native repair: see [the source-bound cryptographic basis](CRYPTOGRAPHIC_BASIS.md) and [the artifact receipt](reports/native-repair-20261013/release-receipt.json). The older evidence below remains a dated record; its counters and platform-provider descriptions are not the current implementation state.
+
 # ProofBundle current-state proof chain
 
 Generated from live checks on 2026-08-24. This document separates observations,

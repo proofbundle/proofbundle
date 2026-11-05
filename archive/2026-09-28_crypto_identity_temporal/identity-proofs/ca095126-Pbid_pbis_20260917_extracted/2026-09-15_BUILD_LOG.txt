@@ -1,0 +1,260 @@
+== run started 2026-09-15T18:51:47Z ==
+== toolchain ==
+Lean (version 4.34.0, x86_64-unknown-linux-gnu, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
+Lake version 5.0.0-src+293d5d0 (Lean version 4.34.0)
+
+== kernel source scan: whole words Nat axiom sorry admit import Mathlib native_decide Classical propext ==
+SCAN RESULT: no matches
+
+== clean build: kernel and ledger ==
+info: si_second: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+✔ [2/4] Built «2026-09-15_SI_SECOND_KERNEL» (715ms)
+✔ [3/4] Built «2026-09-15_SI_SECOND_LEDGER» (574ms)
+Build completed successfully (4 jobs).
+exit=0; wall 1.666088669 s (includes lakefile setup)
+
+== audit: every constant in both modules ==
+MODULE «2026-09-15_SI_SECOND_KERNEL»: 461 constants; constants with a non-empty axiom set: 0
+MODULE «2026-09-15_SI_SECOND_LEDGER»: 82 constants; constants with a non-empty axiom set: 0
+KERNEL constants whose own type or value names Nat directly: 172 of 461
+  matching Lean-generated name patterns [_sizeOf_, sizeOf_spec, ctorIdx, ctorElim, .elim, noConfusion, .ofNat, instDecidableEq, _proof_]: 172
+  not matching those patterns (hand-written candidates): 0
+  full list:
+    SISecond.Correction._sizeOf_1
+    SISecond.Correction.ctorIdx
+    SISecond.Correction.mk.sizeOf_spec
+    SISecond.Effect._sizeOf_1
+    SISecond.Effect.collisions.elim
+    SISecond.Effect.collisions.sizeOf_spec
+    SISecond.Effect.ctorElim
+    SISecond.Effect.ctorElimType
+    SISecond.Effect.ctorIdx
+    SISecond.Effect.motion.elim
+    SISecond.Effect.motion.sizeOf_spec
+    SISecond.Effect.noConfusion
+    SISecond.Effect.noConfusionType
+    SISecond.Effect.ofNat
+    SISecond.Effect.otherEffect.elim
+    SISecond.Effect.otherEffect.sizeOf_spec
+    SISecond.Effect.staticFields.elim
+    SISecond.Effect.staticFields.sizeOf_spec
+    SISecond.Effect.thermalRadiation.elim
+    SISecond.Effect.thermalRadiation.sizeOf_spec
+    SISecond.GroundLevel._sizeOf_1
+    SISecond.GroundLevel.ctorElim
+    SISecond.GroundLevel.ctorElimType
+    SISecond.GroundLevel.ctorIdx
+    SISecond.GroundLevel.fFour.elim
+    SISecond.GroundLevel.fFour.sizeOf_spec
+    SISecond.GroundLevel.fThree.elim
+    SISecond.GroundLevel.fThree.sizeOf_spec
+    SISecond.GroundLevel.noConfusion
+    SISecond.GroundLevel.noConfusionType
+    SISecond.GroundLevel.ofNat
+    SISecond.Magnitude._sizeOf_1
+    SISecond.Magnitude.ctorElim
+    SISecond.Magnitude.ctorElimType
+    SISecond.Magnitude.ctorIdx
+    SISecond.Magnitude.nonzero.elim
+    SISecond.Magnitude.nonzero.sizeOf_spec
+    SISecond.Magnitude.zero.elim
+    SISecond.Magnitude.zero.sizeOf_spec
+    SISecond.NoCarrier.End._sizeOf_1
+    SISecond.NoCarrier.End.ctorElim
+    SISecond.NoCarrier.End.ctorElimType
+    SISecond.NoCarrier.End.ctorIdx
+    SISecond.NoCarrier.End.hi.elim
+    SISecond.NoCarrier.End.hi.sizeOf_spec
+    SISecond.NoCarrier.End.lo.elim
+    SISecond.NoCarrier.End.lo.sizeOf_spec
+    SISecond.NoCarrier.End.noConfusion
+    SISecond.NoCarrier.End.noConfusionType
+    SISecond.NoCarrier.End.ofNat
+    SISecond.NoCarrier.Filter._sizeOf_1
+    SISecond.NoCarrier.Filter.ctorElim
+    SISecond.NoCarrier.Filter.ctorElimType
+    SISecond.NoCarrier.Filter.ctorIdx
+    SISecond.NoCarrier.Filter.dirty.elim
+    SISecond.NoCarrier.Filter.dirty.sizeOf_spec
+    SISecond.NoCarrier.Filter.noConfusion
+    SISecond.NoCarrier.Filter.noConfusionType
+    SISecond.NoCarrier.Filter.ofNat
+    SISecond.NoCarrier.Filter.unperturbed.elim
+    SISecond.NoCarrier.Filter.unperturbed.sizeOf_spec
+    SISecond.NoCarrier.instDecidableEqEnd
+    SISecond.NoCarrier.instDecidableEqEnd._proof_1
+    SISecond.NoCarrier.instDecidableEqEnd._proof_2
+    SISecond.NoCarrier.instDecidableEqFilter
+    SISecond.NoCarrier.instDecidableEqFilter._proof_1
+    SISecond.NoCarrier.instDecidableEqFilter._proof_2
+    SISecond.Pos._sizeOf_1
+    SISecond.Pos.ctorElim
+    SISecond.Pos.ctorElimType
+    SISecond.Pos.ctorIdx
+    SISecond.Pos.noConfusionType
+    SISecond.Pos.one.elim
+    SISecond.Pos.one.sizeOf_spec
+    SISecond.Pos.twice.elim
+    SISecond.Pos.twice.sizeOf_spec
+    SISecond.Pos.twicePlusOne.elim
+    SISecond.Pos.twicePlusOne.sizeOf_spec
+    SISecond.Realization._sizeOf_1
+    SISecond.Realization.ctorIdx
+    SISecond.Realization.mk.sizeOf_spec
+    SISecond.Report._sizeOf_1
+    SISecond.Report.correctedToLimit.elim
+    SISecond.Report.correctedToLimit.sizeOf_spec
+    SISecond.Report.ctorElim
+    SISecond.Report.ctorElimType
+    SISecond.Report.ctorIdx
+    SISecond.Report.heldAtLimit.elim
+    SISecond.Report.heldAtLimit.sizeOf_spec
+    SISecond.Report.noConfusion
+    SISecond.Report.noConfusionType
+    SISecond.Report.notControlled.elim
+    SISecond.Report.notControlled.sizeOf_spec
+    SISecond.Report.ofNat
+    SISecond.Shift._sizeOf_1
+    SISecond.Shift.ctorElim
+    SISecond.Shift.ctorElimType
+    SISecond.Shift.ctorIdx
+    SISecond.Shift.nonzero.elim
+    SISecond.Shift.nonzero.sizeOf_spec
+    SISecond.Shift.zero.elim
+    SISecond.Shift.zero.sizeOf_spec
+    SISecond.Sign._sizeOf_1
+    SISecond.Sign.ctorElim
+    SISecond.Sign.ctorElimType
+    SISecond.Sign.ctorIdx
+    SISecond.Sign.minus.elim
+    SISecond.Sign.minus.sizeOf_spec
+    SISecond.Sign.noConfusion
+    SISecond.Sign.noConfusionType
+    SISecond.Sign.ofNat
+    SISecond.Sign.plus.elim
+    SISecond.Sign.plus.sizeOf_spec
+    SISecond.Species._sizeOf_1
+    SISecond.Species.caesium133.elim
+    SISecond.Species.caesium133.sizeOf_spec
+    SISecond.Species.ctorElim
+    SISecond.Species.ctorElimType
+    SISecond.Species.ctorIdx
+    SISecond.Species.noConfusion
+    SISecond.Species.noConfusionType
+    SISecond.Species.ofNat
+    SISecond.Species.otherSpecies.elim
+    SISecond.Species.otherSpecies.sizeOf_spec
+    SISecond.Sublevels._sizeOf_1
+    SISecond.Sublevels.ctorElim
+    SISecond.Sublevels.ctorElimType
+    SISecond.Sublevels.ctorIdx
+    SISecond.Sublevels.noConfusion
+    SISecond.Sublevels.noConfusionType
+    SISecond.Sublevels.ofNat
+    SISecond.Sublevels.otherPair.elim
+    SISecond.Sublevels.otherPair.sizeOf_spec
+    SISecond.Sublevels.zeroToZero.elim
+    SISecond.Sublevels.zeroToZero.sizeOf_spec
+    SISecond.Symbol._sizeOf_1
+    SISecond.Symbol.ctorElim
+    SISecond.Symbol.ctorElimType
+    SISecond.Symbol.ctorIdx
+    SISecond.Symbol.digitOne.elim
+    SISecond.Symbol.digitOne.sizeOf_spec
+    SISecond.Symbol.digitZero.elim
+    SISecond.Symbol.digitZero.sizeOf_spec
+    SISecond.Symbol.noConfusion
+    SISecond.Symbol.noConfusionType
+    SISecond.Symbol.ofNat
+    SISecond.Symbol.stop.elim
+    SISecond.Symbol.stop.sizeOf_spec
+    SISecond.Transition._sizeOf_1
+    SISecond.Transition.ctorIdx
+    SISecond.Transition.mk.sizeOf_spec
+    SISecond.instDecidableEqEffect
+    SISecond.instDecidableEqEffect._proof_1
+    SISecond.instDecidableEqEffect._proof_2
+    SISecond.instDecidableEqGroundLevel
+    SISecond.instDecidableEqGroundLevel._proof_1
+    SISecond.instDecidableEqGroundLevel._proof_2
+    SISecond.instDecidableEqReport
+    SISecond.instDecidableEqReport._proof_1
+    SISecond.instDecidableEqReport._proof_2
+    SISecond.instDecidableEqSign
+    SISecond.instDecidableEqSign._proof_1
+    SISecond.instDecidableEqSign._proof_2
+    SISecond.instDecidableEqSpecies
+    SISecond.instDecidableEqSpecies._proof_1
+    SISecond.instDecidableEqSpecies._proof_2
+    SISecond.instDecidableEqSublevels
+    SISecond.instDecidableEqSublevels._proof_1
+    SISecond.instDecidableEqSublevels._proof_2
+    SISecond.instDecidableEqSymbol
+    SISecond.instDecidableEqSymbol._proof_1
+    SISecond.instDecidableEqSymbol._proof_2
+KERNEL reachability of Nat through referenced constants:
+  SISecond.caesiumPeriodsPerSecond: does not reach Nat
+  SISecond.lightSpeedMetresPerSecond: does not reach Nat
+  SISecond.Pos.mul: does not reach Nat
+  SISecond.periodsFor: does not reach Nat
+  SISecond.IsSecond: does not reach Nat
+  SISecond.IsDuration: does not reach Nat
+  SISecond.MeetsDefinitionForm: does not reach Nat
+  SISecond.decIsSecond: reaches Nat
+  SISecond.formOnlyRecord_isSecond: reaches Nat
+  SISecond.NoCarrier.BareIsSecond: does not reach Nat
+  SISecond.Pos.encode_append_inj: reaches Nat
+'SISecond.formOnlyRecord_isSecond' does not depend on any axioms
+'SISecond.isDuration_iff_count' does not depend on any axioms
+'SISecond.Pos.toNat_mul' does not depend on any axioms
+'SISecond.Pos.toNat_inj' does not depend on any axioms
+'SISecond.run_total' does not depend on any axioms
+'SISecond.run_phase_lt' does not depend on any axioms
+'SISecond.caesium_run_total' does not depend on any axioms
+'SISecond.NoCarrier.bareIsSecond_iff' does not depend on any axioms
+'SISecond.NoCarrier.bare_same_content' does not depend on any axioms
+'SISecond.Pos.encode_append_inj' does not depend on any axioms
+'SISecond.raw64_caesium_count_wrap_seconds' does not depend on any axioms
+exit=0; wall 1.088835887 s
+
+== source sketch defects (expected: compiles; every check passes) ==
+2026-09-15_SOURCE_SKETCH_DEFECTS.lean:111:14: warning: Variable name `n` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _n
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'SketchOne.wrongLock_is_a_value' does not depend on any axioms
+'SketchOne.all_false_filter_is_a_value' does not depend on any axioms
+'SketchOne.witness_unconstrained' does not depend on any axioms
+'SketchTwo.lock_word_value' does not depend on any axioms
+'SketchTwo.duration_ignores_n' does not depend on any axioms
+'SketchTwo.padded_word_same_value' does not depend on any axioms
+'SketchTwo.padded_word_rejected' does not depend on any axioms
+'SketchTwo.word_accepted' does not depend on any axioms
+'SketchTwo.reverse_line_rejected' does not depend on any axioms
+'SketchTwo.tick_at_least_one' does not depend on any axioms
+exit=0; wall .382676046 s
+
+== sorry in a definition (expected: sorry warning; sorryAx in axiom report) ==
+2026-09-15_SOURCE_SKETCH_SORRY.lean:16:4: warning: declaration uses `sorry`
+'ΔνCs_bits' depends on axioms: [sorryAx]
+exit=0
+
+== from as a field name (expected: parse error, nonzero exit) ==
+2026-09-15_SOURCE_SKETCH_PARSE_FAILURE.lean:12:2: error: unexpected token 'from'; expected command
+exit=1
+
+== unary numeral depth probe ==
+[default settings] depth     100: accepted; exit=0; 0.17 s; 801 bytes; first message: (no output)
+[default settings] depth    1000: not accepted; exit=1; 0.19 s; 7,101 bytes; first message: /tmp/tmpl9c13crw/unary_1000.lean:5:1549: error: maximum recursion depth has been reached
+[default settings] depth   10000: not accepted; exit=1; 0.38 s; 70,101 bytes; first message: /tmp/tmpl9c13crw/unary_10000.lean:5:1549: error: maximum recursion depth has been reached
+[default settings] depth  100000: not accepted; exit=1; 3.25 s; 700,101 bytes; first message: /tmp/tmpl9c13crw/unary_100000.lean:5:1549: error: maximum recursion depth has been reached
+[maxRecDepth raised] depth    1000: accepted; exit=0; 0.30 s; 7,134 bytes; first message: (no output)
+[maxRecDepth raised] depth   10000: accepted; exit=0; 1.81 s; 70,134 bytes; first message: (no output)
+[maxRecDepth raised] depth  100000: not accepted; exit=1; 22.77 s; 700,134 bytes; first message: /tmp/tmpl9c13crw/unary_100000.lean:6:31873: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+[maxRecDepth raised] depth 1000000: not accepted; exit=-6; 2.69 s; 7,000,134 bytes; first message: Stack overflow detected. Aborting.
+bytes per nesting level with `open Tick`: 7
+source size for the full numeral: 64,348,422,383 bytes (about 64.3 GB)
+== run finished 2026-09-15T18:52:22Z ==

@@ -1,0 +1,126 @@
+sha512_from_ground.lean:13:19: error: Invalid universe polymorphic resulting type: The resulting universe is not `Prop`, but it may be `Prop` for some parameter values:
+  Sort u
+
+Hint: A possible solution is to use levels of the form `max 1 _` or `_ + 1` to ensure the universe is of the form `Type _`
+sha512_from_ground.lean:15:22: error: Type mismatch
+  (X : Type) → X → X → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+sha512_from_ground.lean:16:22: error: Type mismatch
+  fun X t f => t
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.5 X
+but is expected to have type
+  CBool
+sha512_from_ground.lean:17:22: error: Type mismatch
+  fun X t f => f
+has type
+  (X : ?m.2) → (t : ?m.5 X) → ?m.6 X t → ?m.6 X t
+but is expected to have type
+  CBool
+sha512_from_ground.lean:18:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:19:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:20:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:21:45: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:22:51: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:24:37: error: Type mismatch
+  (X : Type) → (A → B → X) → X
+has type
+  Type 1
+of sort `Type 2` but is expected to have type
+  Type
+of sort `Type 1`
+sha512_from_ground.lean:25:43: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:26:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:27:29: error(lean.unknownIdentifier): Unknown constant `CoeFun`
+sha512_from_ground.lean:29:20: error(lean.unknownIdentifier): Unknown identifier `CBool`
+sha512_from_ground.lean:30:16: error(lean.unknownIdentifier): Unknown identifier `ctrue`
+sha512_from_ground.lean:31:16: error(lean.unknownIdentifier): Unknown identifier `cfalse`
+sha512_from_ground.lean:34:2: error(lean.unknownIdentifier): Unknown identifier `CPair`
+sha512_from_ground.lean:36:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:37:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:37:45: error: unexpected token ')'; expected command
+sha512_from_ground.lean:38:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:38:52: error: unexpected token ')'; expected command
+sha512_from_ground.lean:39:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:39:59: error: unexpected token ')'; expected command
+sha512_from_ground.lean:40:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:40:66: error: unexpected token ')'; expected command
+sha512_from_ground.lean:41:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:41:73: error: unexpected token ')'; expected command
+sha512_from_ground.lean:42:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:42:80: error: unexpected token ')'; expected command
+sha512_from_ground.lean:43:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:43:87: error: unexpected token ')'; expected command
+sha512_from_ground.lean:44:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:44:94: error: unexpected token ')'; expected command
+sha512_from_ground.lean:45:32: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:45:101: error: unexpected token ')'; expected command
+sha512_from_ground.lean:46:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:46:109: error: unexpected token ')'; expected command
+sha512_from_ground.lean:47:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:47:116: error: unexpected token ')'; expected command
+sha512_from_ground.lean:48:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:48:123: error: unexpected token ')'; expected command
+sha512_from_ground.lean:49:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:49:130: error: unexpected token ')'; expected command
+sha512_from_ground.lean:50:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:50:137: error: unexpected token ')'; expected command
+sha512_from_ground.lean:51:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:51:144: error: unexpected token ')'; expected command
+sha512_from_ground.lean:52:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:52:151: error: unexpected token ')'; expected command
+sha512_from_ground.lean:53:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:53:158: error: unexpected token ')'; expected command
+sha512_from_ground.lean:54:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:54:165: error: unexpected token ')'; expected command
+sha512_from_ground.lean:55:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:55:172: error: unexpected token ')'; expected command
+sha512_from_ground.lean:56:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:56:179: error: unexpected token ')'; expected command
+sha512_from_ground.lean:57:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:57:186: error: unexpected token ')'; expected command
+sha512_from_ground.lean:58:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:58:193: error: unexpected token ')'; expected command
+sha512_from_ground.lean:59:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:59:200: error: unexpected token ')'; expected command
+sha512_from_ground.lean:60:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:60:207: error: unexpected token ')'; expected command
+sha512_from_ground.lean:61:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:61:214: error: unexpected token ')'; expected command
+sha512_from_ground.lean:62:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:62:221: error: unexpected token ')'; expected command
+sha512_from_ground.lean:63:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:63:228: error: unexpected token ')'; expected command
+sha512_from_ground.lean:64:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:64:235: error: unexpected token ')'; expected command
+sha512_from_ground.lean:65:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:65:242: error: unexpected token ')'; expected command
+sha512_from_ground.lean:66:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:66:249: error: unexpected token ')'; expected command
+sha512_from_ground.lean:67:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:67:256: error: unexpected token ')'; expected command
+sha512_from_ground.lean:68:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:68:263: error: unexpected token ')'; expected command
+sha512_from_ground.lean:69:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:69:270: error: unexpected token ')'; expected command
+sha512_from_ground.lean:70:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:70:277: error: unexpected token ')'; expected command
+sha512_from_ground.lean:71:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:71:284: error: unexpected token ')'; expected command
+sha512_from_ground.lean:72:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:72:291: error: unexpected token ')'; expected command
+sha512_from_ground.lean:73:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:73:298: error: unexpected token ')'; expected command
+sha512_from_ground.lean:74:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:74:305: error: unexpected token ')'; expected command
+sha512_from_ground.lean:75:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:75:312: error: unexpected token ')'; expected command
+sha512_from_ground.lean:76:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:76:319: error: unexpected token ')'; expected command
+sha512_from_ground.lean:77:33: error(lean.unknownIdentifier): Unknown identifier `cfst`
+sha512_from_ground.lean:77:326: error: unexpected token ')'; expected command
+sha512_from_ground.lean:78:33: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

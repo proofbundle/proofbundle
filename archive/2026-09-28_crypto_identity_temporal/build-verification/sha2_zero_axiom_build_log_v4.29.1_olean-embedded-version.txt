@@ -1,0 +1,67 @@
+✖ [2/22] Building Crypto.Util (577ms)
+trace: .> LEAN_PATH=/tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.29.1/bin/lean /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/Crypto/Util.lean -o /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean/Crypto/Util.olean -i /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean/Crypto/Util.ilean -c /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/ir/Crypto/Util.c --setup /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/ir/Crypto/Util.setup.json --json
+warning: Crypto/Util.lean:15:2: `String.mk` has been deprecated: Use `String.ofList` instead
+warning: Crypto/Util.lean:19:2: `String.mk` has been deprecated: Use `String.ofList` instead
+warning: Crypto/Util.lean:28:2: `String.mk` has been deprecated: Use `String.ofList` instead
+error: Crypto/Util.lean:39:31: Function expected at
+  Vec
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  UInt32
+
+Hint: The identifier `Vec` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Crypto/Util.lean:42:34: Function expected at
+  Vec
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  UInt64
+
+Hint: The identifier `Vec` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Crypto/Util.lean:59:28: Function expected at
+  Vec
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  UInt8
+
+Hint: The identifier `Vec` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Lean exited with code 1
+✖ [4/22] Building Crypto.Vec (606ms)
+trace: .> LEAN_PATH=/tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.29.1/bin/lean /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/Crypto/Vec.lean -o /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean/Crypto/Vec.olean -i /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/lib/lean/Crypto/Vec.ilean -c /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/ir/Crypto/Vec.c --setup /tmp/claude-0/-home-claude/785989a5-cfc2-5c8d-b4ef-e7c917730eee/scratchpad/build-workspace/sha2-zero-axiom/.lake/build/ir/Crypto/Vec.setup.json --json
+error: Crypto/Vec.lean:13:9: Invalid field `get`: The environment does not contain `Array.get`, so it is not possible to project the field `get` from an expression
+  v.data
+of type `Array α`
+error: Crypto/Vec.lean:22:34: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?m.17 ++ ?m.18).size
+in the target expression
+  (v1.data.append v2.data).size = n + m
+
+α : Type
+n m : Nat
+v1 : Vec α n
+v2 : Vec α m
+⊢ (v1.data.append v2.data).size = n + m
+error: Crypto/Vec.lean:25:3: Unknown constant `Array.mkArray`
+error: Crypto/Vec.lean:25:22: Unknown constant `Array.size_mkArray`
+error: Crypto/Vec.lean:44:28: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  v.size
+in the target expression
+  n < n + 1
+
+α : Type
+n : Nat
+v : Vec α n
+x : α
+⊢ n < n + 1
+warning: Crypto/Vec.lean:48:8: declaration uses `sorry`
+warning: Crypto/Vec.lean:53:8: declaration uses `sorry`
+error: Lean exited with code 1
+Some required targets logged failures:
+- Crypto.Util
+- Crypto.Vec
+error: build failed

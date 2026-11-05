@@ -93,6 +93,7 @@ const By = mod(4n * invMod(5n));
 const Bx = xRecoverPositive(By);
 function xRecoverPositive(y) {
   let x = xRecover(y);
+  if(x===0n&&signBit)throw new Error('ed25519: noncanonical zero-x sign bit');
   if ((x & 1n) !== 0n) x = mod(p - x); // RFC 8032 base point has even x
   return x;
 }
@@ -182,6 +183,8 @@ export function sign(message, seed) {
 
 /** RFC 8032 §5.1.7 verify. @returns {boolean} */
 export function verify(signature, message, publicKey) {
+  if(!(signature instanceof Uint8Array)||!(publicKey instanceof Uint8Array)||
+    !(message instanceof Uint8Array)&&typeof message!=='string')return false;
   if (!(message instanceof Uint8Array)) message = new TextEncoder().encode(message);
   if (signature.length !== 64) return false;
   const Renc = signature.slice(0, 32);
@@ -195,6 +198,14 @@ export function verify(signature, message, publicKey) {
     R = decodePoint(Renc);
   } catch {
     return false;
+  }
+
+  // Identity/low-order public keys admit trivial forgeries under a cofactored
+  // equation. This application's identity profile rejects both low-order
+  // keys and low-order R encodings before checking that equation.
+  for(const point of [A,R]){
+    const q=pointToAffine(scalarMul(8n,point));
+    if(q.x===0n&&q.y===1n)return false;
   }
 
   const kHash = sha512(concatBytes(Renc, publicKey, message));

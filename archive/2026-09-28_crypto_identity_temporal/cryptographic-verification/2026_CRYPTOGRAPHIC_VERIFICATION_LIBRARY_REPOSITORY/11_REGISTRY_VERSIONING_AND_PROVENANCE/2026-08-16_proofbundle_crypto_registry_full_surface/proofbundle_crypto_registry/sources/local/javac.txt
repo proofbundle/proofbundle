@@ -1,0 +1,8 @@
+$ javac /mnt/data/2026-08-16_proofbundle_crypto_registry_full_surface/tests/JcaList.java
+RETURN_CODE=0
+
+STDOUT
+
+
+STDERR
+

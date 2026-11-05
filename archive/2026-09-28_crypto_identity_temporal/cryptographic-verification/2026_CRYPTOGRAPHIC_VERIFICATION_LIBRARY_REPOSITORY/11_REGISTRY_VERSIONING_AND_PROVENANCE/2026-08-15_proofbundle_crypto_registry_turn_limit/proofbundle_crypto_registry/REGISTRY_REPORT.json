@@ -1,0 +1,147 @@
+{
+  "entries": 4534,
+  "relationships": 272,
+  "addedThisPass": 3517,
+  "semanticKinds": 98,
+  "topKinds": [
+    [
+      "implementation-capability",
+      1489
+    ],
+    [
+      "identifier-binding",
+      1477
+    ],
+    [
+      "hash",
+      106
+    ],
+    [
+      "block-cipher",
+      95
+    ],
+    [
+      "competition-candidate",
+      85
+    ],
+    [
+      "hazard",
+      70
+    ],
+    [
+      "nist-pqc-submission",
+      69
+    ],
+    [
+      "signature",
+      67
+    ],
+    [
+      "stream-cipher",
+      60
+    ],
+    [
+      "ssh-kex",
+      41
+    ],
+    [
+      "cose-algorithm",
+      36
+    ],
+    [
+      "cryptanalytic-algorithm",
+      36
+    ],
+    [
+      "quantum-cryptography",
+      35
+    ],
+    [
+      "ssh-encryption",
+      35
+    ],
+    [
+      "ikev2-encryption-transform",
+      33
+    ],
+    [
+      "authenticated-encryption",
+      30
+    ],
+    [
+      "mac",
+      30
+    ],
+    [
+      "zero-knowledge",
+      30
+    ],
+    [
+      "ikev2-key-exchange-transform",
+      27
+    ],
+    [
+      "curve-or-group",
+      26
+    ],
+    [
+      "kem",
+      26
+    ],
+    [
+      "kerberos-etype",
+      22
+    ],
+    [
+      "openpgp-algorithm",
+      21
+    ],
+    [
+      "dnssec-algorithm",
+      20
+    ],
+    [
+      "post-quantum-family",
+      20
+    ],
+    [
+      "kerberos-checksum",
+      19
+    ],
+    [
+      "pake",
+      19
+    ],
+    [
+      "mpc",
+      18
+    ],
+    [
+      "hpke-kem",
+      17
+    ],
+    [
+      "ssh-public-key-alg",
+      16
+    ]
+  ],
+  "implementationStatuses": {
+    "UNVERIFIED_IN_PB": 1494,
+    "NEGATIVE_TEST_SENTINEL": 54,
+    "AVAILABLE_IN_LOCAL_OPENSSL": 2651,
+    "AVAILABLE_IN_LOCAL_GNUPG": 24,
+    "AVAILABLE_IN_LOCAL_NODE": 265,
+    "DISABLED_IN_LOCAL_OPENSSL_BUILD": 7,
+    "AVAILABLE_IN_LOCAL_PYTHON": 19,
+    "SIMULATION_OR_ANALYSIS_ONLY": 4,
+    "NONCLASSICAL_HARDWARE_REQUIRED": 16
+  },
+  "quantumClasses": {
+    "classical": 4295,
+    "post_quantum": 182,
+    "quantum_attack": 8,
+    "hybrid": 14,
+    "quantum_native": 35
+  },
+  "sourceCaptureFiles": 27
+}

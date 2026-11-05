@@ -1,0 +1,70 @@
+{
+  "title": "ProofBundle identity patch \u2014 scratch",
+  "date": "2026-09-14",
+  "archive": {
+    "name": "2026-09-14_identity_patch_scratch.zip",
+    "bytes": 31926,
+    "sha256": "e223b9dad2fe6489cae1bb26ce16e689c1eb424a3ba6ab56cc51489e9a6ac467",
+    "sha512": "96612a327e7fac315afe81b01fb4e178298370f44148b79250414a94567a2252345e6ed320fe5715f15135285dcae62d7e5a3bd91f5636279fb8abb2b239b1c6",
+    "blake3": "98a77cc23b88efa34f5306fc212b4f19da1a2459faafa4b40ffb4800a5f40182"
+  },
+  "members": [
+    {
+      "name": "SCRATCH_README.txt",
+      "bytes": 906,
+      "sha256": "c4fddb44bd2c97a6886d5106ec0275373a17a64b2f3abac0ce4aeeeace525495",
+      "sha512": "d75cfa74cd71ade2a993f15e5ff8e7b3f8498b8595a88dd1f820d0b985f8a792f3c223e69977a969e96e0373ed3eed5c2ca97d24c9565f2ab30007a554d756ab",
+      "blake3": "332b0b0257e989ec3e1700ec1cdd6bf9289cda6ce567689bef8201bc75d850c3"
+    },
+    {
+      "name": "patch/apply.py",
+      "bytes": 12811,
+      "sha256": "a6646f44c455e3b2153f00c0cbee921bfba46428f664e5cd2b62e6af00fc5bf4",
+      "sha512": "592a461bffe116d5f57634ab27492785f94508363523f2446dcf65bbbca056689c76b722cc5823aea62872c44f5930e0648942120fdda1ab62c99ec8b20694d3",
+      "blake3": "d314d88ea53adac4203be0abd4a7f785bbdaec34013df2dbad665dbb37a804a7"
+    },
+    {
+      "name": "patch/module.js",
+      "bytes": 28627,
+      "sha256": "bc69d52db242ee1e21ea0406ac09d3112ec89d57b3f47fbe5450d76308f2f82f",
+      "sha512": "8687b6ff7767dd69dbf638dbf272960fae5a0b2bb49e6746d76cb20eb6b8c51a15a88a634962c35fde9627170ccc2b369f7d7728310be8127af1688386936758",
+      "blake3": "3db901fd78ccd56e42dc5412a8388b0f37dcc4212b88544b989a22192d01fb73"
+    },
+    {
+      "name": "baseline.py",
+      "bytes": 2491,
+      "sha256": "b6bf07a766260d99d3943c2ff0b8ec6a7590f8eb55aa3c11f9ea11df33357376",
+      "sha512": "f049e83fe73ca655fa5f78ae7e59aa45a5a35a97d615c47e2a04ffa9d362ed3240c9bf3002fdb3ecf43840ebca296ec2e1f4806ba28c24a57b437e15af306594",
+      "blake3": "75a7e24f4d74fa755e6724bf44a4483f8df8f0752559fd6ef5e2e48a889021a7"
+    },
+    {
+      "name": "kat.py",
+      "bytes": 1330,
+      "sha256": "e0886ecc0e267cdb8a6582b12a888e240bb5842a55cdb66368f7df54d5a3f62b",
+      "sha512": "7e9da246a973739502c7bbed3d3b80cb2d934d1ff55f80741a319e4f5074f02bd765a4132af1796dd85d0ab11adaed8d5966fb903105a5044a02ac3fa8569627",
+      "blake3": "a15529d3d9b227d4ff21ed7bd8b87a4b6fabf456f2bdb799c369b2ce30605b66"
+    },
+    {
+      "name": "run_all.sh",
+      "bytes": 316,
+      "sha256": "e0b6ae1fbc1ec10b186be690ddde2180d3937c9b4f31dab3687b5449c06310a0",
+      "sha512": "682d2b7d20bb0635794621d4d4319f7d5192f86dcc861ba237538a59d5555a53fa19e8a3fc5974db329c56a21dc717657a109abb5dae9fe6f4e8d017ff0f7309",
+      "blake3": "601f5e0f18d3966842da899dc6732a802ca92504ce356ba16533351982786a8a"
+    },
+    {
+      "name": "scratch/keyring.json",
+      "bytes": 23947,
+      "sha256": "2fbff59b87dcf2cf3f4a458fd8cd9f15c7ecf521ea9cb892dad3991473b3666d",
+      "sha512": "88461682d5360fa6ac220f1f2eb7c3a9389dda3195f6ab8911fd8b9f200031f32edc30d9b731373b76527446fca6f1ad29642c9c4ef163eaa1e8d623fed259f7",
+      "blake3": "c92fe01d14d374e707e8078f5afe155598478fbf0eabbf02e5e498617eee2c2e"
+    },
+    {
+      "name": "scratch/registry.pb.json",
+      "bytes": 1393,
+      "sha256": "aaf79098a4b35402730bcd96dea4a731e4a693c810f01eebd1afc3c6a92dd0f9",
+      "sha512": "570ad6f867dc042e8f6193d73c59dc18c90005446ac3902d1ddab0e1009ba62ce8dca67063a106c3f129096c08ec131cd39b93a67fe6c6943a2451a518995719",
+      "blake3": "430f4e24daa911ac53ca52b902ada7e55277ab7614da3ecf51e28e6dc357eeec"
+    }
+  ],
+  "note": "separate from 2026-09-14_MANIFEST.json, which is unchanged"
+}

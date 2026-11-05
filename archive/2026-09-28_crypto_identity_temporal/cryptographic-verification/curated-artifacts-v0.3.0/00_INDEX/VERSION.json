@@ -1,0 +1,19 @@
+{
+  "artifact_name": "2026-08-21_crypto_verification_artifacts_curated",
+  "changes_from_predecessor": [
+    "recovered all twelve GitHub shard evidence ZIPs from run 31877809574",
+    "added live GitHub artifact ID/digest registry for the twelve shard artifacts",
+    "added precompiled-run billing/refusal evidence for run 31882966824",
+    "restored the full authoritative ML-KEM forensic ZIP and extracted packet",
+    "added Merkle custody root and ProofBundle seal record",
+    "added final ZIP SHA-256 sidecar; OTS result recorded separately"
+  ],
+  "date": "2026-08-21",
+  "predecessor": {
+    "sha256": "14131d638ebf187aaabbfde39c93c7c3a33fc784ef2b8f64182ab3757584756b",
+    "version": "0.2.0"
+  },
+  "schema": "proofbundle.crypto-verification.handoff-version/v1",
+  "scope": "curated crypto verification evidence, recovered runner evidence, forensic packet, and prepared Lean closure work",
+  "version": "0.3.0"
+}

@@ -1,0 +1,42 @@
+{
+  "file_count": 984,
+  "total_bytes": 130235315,
+  "extensions": {
+    ".lean": 436,
+    ".txt": 319,
+    ".json": 75,
+    ".zip": 44,
+    ".mjs": 25,
+    ".olean": 16,
+    ".py": 15,
+    ".md": 13,
+    ".log": 10,
+    ".jsonl": 10,
+    "[none]": 6,
+    ".sha256": 6,
+    ".tsv": 2,
+    ".sqlite": 2,
+    ".class": 2,
+    ".java": 2,
+    ".sh": 1
+  },
+  "categories": {
+    "01_IMPLEMENTATIONS": 14,
+    "02_FORMAL": 181,
+    "03_VECTORS_AND_GROUND_TRUTH": 82,
+    "04_HOSTILE_AND_ADVERSARIAL_CASES": 27,
+    "05_BUILD_COMPILE_AND_TOOLCHAIN": 25,
+    "06_AXIOM_AND_ASSUMPTION_AUDITS": 2,
+    "07_CROSS_PROVER_AND_INDEPENDENT_VALIDATION": 145,
+    "08_MANIFESTS_CHECKSUMS_AND_RECEIPTS": 18,
+    "09_DOCUMENTATION_AND_HANDOFFS": 27,
+    "10_ERRORS_FAILURES_AND_STATUS": 33,
+    "11_REGISTRY_VERSIONING_AND_PROVENANCE": 95,
+    "90_ORIGINAL_PACKAGES": 11,
+    "91_ORIGINAL_PACKAGE_TREES": 320,
+    "92_ARCHIVAL_SOURCE_RECORDS": 2,
+    "README.md": 1,
+    "REPOSITORY_POLICY.md": 1
+  },
+  "duplicate_hash_groups": 267
+}

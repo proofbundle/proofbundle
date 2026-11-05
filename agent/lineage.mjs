@@ -4,7 +4,7 @@
  * Each envelope references prev_hash. Batches are Merkle-rooted
  * (RFC 6962-style: domain-separated left/right, SHA-256).
  */
-import { createHash } from 'node:crypto';
+import { createHash } from '../crypto/hash.mjs';
 import { canonicalJSON, envelopeHash } from './envelope.mjs';
 
 const LEAF_PREFIX = Buffer.from('PB-AGENT-1\x00', 'utf8');

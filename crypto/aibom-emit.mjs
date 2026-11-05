@@ -16,7 +16,7 @@
 
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { createPrivateKey, sign as nodeSign } from 'node:crypto';
+import {sign as edSign} from './ed25519.mjs';
 import { buildAibom, verifyAibom } from './aibom.mjs';
 
 const argv = process.argv.slice(2);
@@ -63,14 +63,14 @@ const pkcs8 = Buffer.concat([
   Buffer.from('302e020100300506032b657004220420', 'hex'),
   seed,
 ]);
-const privateKey = createPrivateKey({ key: pkcs8, format: 'der', type: 'pkcs8' });
+
 
 const record = buildAibom({
   artifact,
   generatedAt,
   ancestry: [],           // no continuity chain to any prior agent; see below
   publicKeyRaw: Buffer.from(key.publicKey, 'hex'),
-  signer: (digest) => nodeSign(null, Buffer.from(digest), privateKey),
+  signer: (digest) => edSign(digest,new Uint8Array(seed)),
 });
 
 const problems = verifyAibom(record);

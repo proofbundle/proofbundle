@@ -1,0 +1,20 @@
+LEAN SHARD STATUS
+
+Cancelled run: 31877809574
+Inspected shard: ecdsa-sanity
+Artifact SHA-256: 52ca21c34db605911217d0f5e6f9718556d9d9142d4fcd5272e789d9dafb0e48
+base_exit_code: 0
+target_exit_code: None
+axiom_audit_exit_code: None
+c606657bb9ffe992d7f64cbcce213c45e78c085d05617ac2330a25cd8e44bbb2  ECDSAP256.olean
+base-compile.log bytes: 0
+target-compile.log bytes: 0
+
+Finding: base compile succeeded; theorem target did not return before cancellation; axiom audit did not run.
+
+Corrective successor:
+branch: verification/2026-08-15-crypto-precompiled-shards
+commit: e48d002bf391e4eaaf19deec93f817f7072d0d5d
+run: 31882966824
+design: inherit verified compiled bases, compile theorem shards only, then #print axioms.
+runner status: NOT STARTED because GitHub refused runner allocation on billing/spending status.

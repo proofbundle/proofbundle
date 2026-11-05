@@ -1,0 +1,16 @@
+$ openssl list -disabled
+RETURN_CODE=0
+
+STDOUT
+Disabled algorithms:
+IDEA
+MD2
+MDC2
+RC5
+SCTP
+SSL3
+BROTLI
+
+
+STDERR
+

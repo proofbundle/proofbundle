@@ -1,0 +1,8 @@
+'ProofBundle.Canonical.canonicalize_injective' does not depend on any axioms
+'ProofBundle.Canonical.parse_canonicalize_idempotent' does not depend on any axioms
+'ProofBundle.Digest.digestBytes_deterministic' does not depend on any axioms
+'ProofBundle.Digest.digestBytes_some_implies_implemented' does not depend on any axioms
+'ProofBundle.Verdict.digestMismatch_not_verified' does not depend on any axioms
+'ProofBundle.Verdict.malformed_not_verified' does not depend on any axioms
+'ProofBundle.Verdict.isVerified_soundness' does not depend on any axioms
+'ProofBundle.Temporal.sound_requires_precedence' does not depend on any axioms

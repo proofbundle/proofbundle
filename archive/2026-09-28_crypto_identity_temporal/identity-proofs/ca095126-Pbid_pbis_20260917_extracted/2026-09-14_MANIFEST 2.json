@@ -1,0 +1,53 @@
+{
+  "title": "ProofBundle model-identity patch",
+  "date": "2026-09-14",
+  "input": {
+    "name": "proofbundle_txt.html",
+    "role": "unmodified upload the diff applies to",
+    "bytes": 646618,
+    "sha256": "98656549512762c7b7246a7ff2d0540eefad91470db13c7ce911446330ef4b70",
+    "sha512": "1bf47e80fea67b3434c2b1ea26db6c6dd871ab6c9183abc6e416f1c03524484d9a75ba9c73b0ec74086dec601a7a09097ebc2f37c34e235d26b71ca8b14afa57",
+    "blake3": "ff0e115e8f4565fb41655defa51a774c704c241fef36955a9caee6e8555479d7"
+  },
+  "files": [
+    {
+      "name": "2026-09-14_identity_test_harness.py",
+      "bytes": 22248,
+      "sha256": "ed83d45090832400394b7703422bb5c07bff0f4b9c0c7dd7f51a450390648093",
+      "sha512": "505369d8e701cd7ca6eb0417ed04c438c27888d0a4ecf96e48d12dacab06c0107af28b570066ace05bc927e9b34c4c409213373621645cfc8df5a9c9aebd2760",
+      "blake3": "a2b2fd06e66c66e2a85005c048305805a575fc598330c3f429b27e0e43561a35"
+    },
+    {
+      "name": "2026-09-14_identity_test_log.txt",
+      "bytes": 5497,
+      "sha256": "8449954c4eb0e301c1d3909977280fd939925e2b09d0df9295a4cd78668c2a8a",
+      "sha512": "730c8be5b3edbcb43c83411bcc0e807b12cd0386cc1288103bb96d641b787098e0f456ba37aa0ceb4819ecb8e19e1e36e190da89113916bb523962c92ec3d058",
+      "blake3": "e7f43faf910b31c86887ee4cdcebdaa90bebbf2a85419a88862745b49f5e0205"
+    },
+    {
+      "name": "2026-09-14_identity_test_results.json",
+      "bytes": 9213,
+      "sha256": "1c7dfbb748ba3f30836202f506fdc9fb9928cdf24a4cf21e0589ca4ce429a925",
+      "sha512": "0509d429e67b96c3bb6cec86a4c94b182b16ba4d54bb3f6c2067452a1f68ec01a9829db45f29541ede6c1285abb6388d0719b8869e42fab6691aa0df686f8244",
+      "blake3": "60c61c984be3d23e632e69ebd9f2b0841037e8e4eb69faf35a8896c09e1a7a14"
+    },
+    {
+      "name": "2026-09-14_proofbundle_identity.diff",
+      "bytes": 40905,
+      "sha256": "dd3e7b6a481ce51cf0da326b68c63cca92c4862a27d9db6453c64859c7a52e64",
+      "sha512": "04987d5831aada1f46a62375c1a40de4e562daf9caf6521b7f5a98cdb671c8b68a294168335c4467d53d815288ad8f3cac963d30ff808c00b31a2d1c30f70837",
+      "blake3": "10f672bec7e73a541cea6be128bfcbea271ca8c2c6f56afebab76f3222ddf3a0"
+    },
+    {
+      "name": "2026-09-14_proofbundle_identity.html",
+      "bytes": 682489,
+      "sha256": "504adbb93a5d4ce516958d60b8fcf261aa4fed7a041b7bce88bbc9f621c7f49e",
+      "sha512": "8c0048e69b848aa6ef4b6d61f4875544cb0e62a6603236923ef4c10bcbfa02c77fc6709ad547ab3d2a124e4218e0993b7565a194d91138be98c66e1217cc3f88",
+      "blake3": "9f963c273e35f07365933de654a64fdc139f23dbac9c5667f27484ed271a4ff1"
+    }
+  ],
+  "relations": {
+    "2026-09-14_proofbundle_identity.diff": "patch -p1 applied to the input reproduces 2026-09-14_proofbundle_identity.html byte for byte (checked)",
+    "2026-09-14_identity_test_results.json": "output of the harness run against the input and the patched file"
+  }
+}

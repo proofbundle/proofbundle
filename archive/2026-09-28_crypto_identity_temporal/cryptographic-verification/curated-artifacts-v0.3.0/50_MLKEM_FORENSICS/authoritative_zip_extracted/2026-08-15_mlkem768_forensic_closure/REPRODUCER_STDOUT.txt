@@ -1,0 +1,40 @@
+standard                   [False, False, False, False, False, False] byte_diffs [1142, 1147, 1147, 1146, 1146, 1148]
+standard_trans             [False, False, False, False, False, False] byte_diffs [1148, 1148, 1146, 1149, 1143, 1145]
+nttmul_raws_rawe           [False, False, False, False, False, False] byte_diffs [1149, 1148, 1150, 1152, 1147, 1148]
+nttmul_raws_rawe_trans     [False, False, False, False, False, False] byte_diffs [1146, 1147, 1144, 1149, 1147, 1142]
+nttmul_sh_rawe             [False, False, False, False, False, False] byte_diffs [1146, 1143, 1149, 1145, 1151, 1148]
+nttmul_sh_rawe_trans       [False, False, False, False, False, False] byte_diffs [1147, 1146, 1145, 1148, 1149, 1149]
+point_sh_eh                [False, False, False, False, False, False] byte_diffs [1148, 1150, 1150, 1147, 1147, 1150]
+point_sh_eh_trans          [False, False, False, False, False, False] byte_diffs [1147, 1146, 1151, 1146, 1146, 1142]
+point_raws_rawe            [False, False, False, False, False, False] byte_diffs [1147, 1146, 1144, 1146, 1150, 1148]
+point_raws_rawe_trans      [False, False, False, False, False, False] byte_diffs [1150, 1148, 1146, 1146, 1146, 1148]
+coeff_Ainv_s_e             [False, False, False, False, False, False] byte_diffs [1139, 1150, 1148, 1139, 1147, 1147]
+coeff_Ainv_s_e_trans       [False, False, False, False, False, False] byte_diffs [1149, 1149, 1147, 1145, 1144, 1142]
+coeff_Araw_s_e             [True, True, True, True, True, True] byte_diffs [0, 0, 0, 0, 0, 0]
+coeff_Araw_s_e_trans       [False, False, False, False, False, False] byte_diffs [1144, 1144, 1147, 1148, 1149, 1146]
+
+CUSTOM CIPHERTEXT TEST
+kat_0 ctmatch True diffs 0 ssmatch True
+kat_1 ctmatch True diffs 0 ssmatch True
+kat_2 ctmatch True diffs 0 ssmatch True
+kat_3 ctmatch True diffs 0 ssmatch True
+kat_4 ctmatch True diffs 0 ssmatch True
+kat_5 ctmatch True diffs 0 ssmatch True
+
+HOSTILE CUSTOM DECAP TEST
+bitflip_c1_body IMPLICIT_REJECTION secret_match True verdict_match True
+bitflip_c2 IMPLICIT_REJECTION secret_match True verdict_match True
+bitflip_last_byte IMPLICIT_REJECTION secret_match True verdict_match True
+zero_c1_first_block IMPLICIT_REJECTION secret_match True verdict_match True
+flip_all_first_32 IMPLICIT_REJECTION secret_match True verdict_match True
+boundary_du_compress IMPLICIT_REJECTION secret_match True verdict_match True
+multi_flip IMPLICIT_REJECTION secret_match True verdict_match True
+c1_max_compression IMPLICIT_REJECTION secret_match True verdict_match True
+c2_all_ones_region IMPLICIT_REJECTION secret_match True verdict_match True
+silent_tamper_min IMPLICIT_REJECTION secret_match True verdict_match True
+truncated_ct_1087B REJECT_LENGTH secret_match True verdict_match True
+extended_ct_1089B REJECT_LENGTH secret_match True verdict_match True
+empty_ct REJECT_LENGTH secret_match True verdict_match True
+wrong_dk IMPLICIT_REJECTION secret_match True verdict_match True
+ek_wrong_size_1183 NOT_BYTE_EXECUTABLE expected REJECT (length)
+control_valid ACCEPT secret_match True verdict_match True

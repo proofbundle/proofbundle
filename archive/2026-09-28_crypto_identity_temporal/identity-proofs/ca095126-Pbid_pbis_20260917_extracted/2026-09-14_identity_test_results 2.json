@@ -1,0 +1,306 @@
+{
+  "regression": {
+    "original": {
+      "selftest_pass": 64,
+      "selftest_total": 65,
+      "selftest_failed": [
+        "Ed25519 fallback KAT (RFC 8032 \u00a77.1 vector 1)"
+      ],
+      "matrix": {
+        "pass": 900,
+        "fail": 0,
+        "bad": []
+      }
+    },
+    "patched": {
+      "selftest_pass": 73,
+      "selftest_total": 74,
+      "selftest_failed": [
+        "Ed25519 fallback KAT (RFC 8032 \u00a77.1 vector 1)"
+      ],
+      "matrix": {
+        "pass": 900,
+        "fail": 0,
+        "bad": []
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "patched: every original self-test still present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "patched: failing self-tests are exactly the original ones",
+      "pass": true,
+      "detail": "['Ed25519 fallback KAT (RFC 8032 \u00a77.1 vector 1)']"
+    },
+    {
+      "name": "patched: 9 new identity self-tests pass",
+      "pass": true,
+      "detail": "identity: listed name + its key \u2192 VERIFIED; identity: no registry \u2192 MISSING-SIDE-INFO (name unchecked); identity: JSON round-trip \u2192 VERIFIED; identity: declared key \u2260 signing key \u2192 INVALID-SIGNATURE; identity: same name, unlisted key \u2192 INVALID-SIGNATURE; identity: name not in registry \u2192 POLICY-DENIED; identity: name edited after sealing \u2192 INVALID-SIGNATURE; identity: registry sealed by an unpinned key is refused; identity: hand-built registry object ignored \u2192 MISSING-SIDE-INFO"
+    },
+    {
+      "name": "patched: live conformance matrix unchanged",
+      "pass": true,
+      "detail": "900/900"
+    },
+    {
+      "name": "patched: no page errors at boot",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "one key per name: created once, reused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "asking for a different key type is refused",
+      "pass": true,
+      "detail": "identity \"anthropic/claude-opus-5\" already uses Ed25519 (fp 3e550da7e311ff7e); asked for ECDSA-P256. Keys are not replaced implicitly; remove the identity to start over."
+    },
+    {
+      "name": "two names keep two stable keys (no single-slot overwrite)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "5 parallel signAs on a new name produce one key",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "action chain intact after parallel signAs",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "signAs + pinned registry \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "signAs without registry \u2192 MISSING-SIDE-INFO",
+      "pass": true,
+      "detail": "MISSING-SIDE-INFO"
+    },
+    {
+      "name": "parallel bundles verify against registry",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "algorithm Ed25519: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm ECDSA-P256: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm ECDSA-P384: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm ECDSA-P521: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm RSA-PSS-2048: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm RSA-PSS-3072: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm RSA-PSS-4096: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm Dilithium2: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm Falcon512: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "algorithm SPHINCS+-256: identity seal \u2192 JSON \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "pubOverride: declared key compared with the key that verified \u2192 INVALID-SIGNATURE",
+      "pass": true,
+      "detail": "INVALID-SIGNATURE"
+    },
+    {
+      "name": "  (proposal check on seal.pub_b64u would have passed this bundle)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy v1.1.0 envelope with signer + registry \u2192 VERIFIED",
+      "pass": true,
+      "detail": "VERIFIED"
+    },
+    {
+      "name": "legacy v1.1.0 envelope with signer, no registry \u2192 MISSING-SIDE-INFO",
+      "pass": true,
+      "detail": "MISSING-SIDE-INFO"
+    },
+    {
+      "name": "  (proposal insertion reads bundle.seal.pub_b64u on legacy \u2192 throws)",
+      "pass": true,
+      "detail": "Cannot read properties of undefined (reading 'pub_b64u')"
+    },
+    {
+      "name": "uppercase model name refused",
+      "pass": true,
+      "detail": "model name must be 1\u2013128 characters from a-z 0-9 . _ : / @ + - and start with a letter or digit; got \"Anthropic/Claude\""
+    },
+    {
+      "name": "name \"constructor\" is a fresh identity (no prototype collision)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "undefined inside payload refused before sealing",
+      "pass": true,
+      "detail": "payload holds values that change when written as JSON (undefined, functions, Dates); the seal would not verify after download"
+    },
+    {
+      "name": "16-hex fingerprint refused as a pin",
+      "pass": true,
+      "detail": "pin \"98dbbaaaf3290520\" is not a 64-character hex SHA-256; the 16-character fingerprint is too short to anchor trust"
+    },
+    {
+      "name": "registry with a swapped entry key refused",
+      "pass": true,
+      "detail": "registry seal did not verify: INVALID-SIGNATURE"
+    },
+    {
+      "name": "name not in registry \u2192 POLICY-DENIED",
+      "pass": true,
+      "detail": "POLICY-DENIED"
+    },
+    {
+      "name": "unchecked name does not mask OUT-OF-BOUNDS",
+      "pass": true,
+      "detail": "OUT-OF-BOUNDS"
+    },
+    {
+      "name": "action chain intact at end of API cases",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "keyring downloads with YYYY-MM-DD_ name",
+      "pass": true,
+      "detail": "2026-09-15_pb-identity-keyring.json"
+    },
+    {
+      "name": "after reload: public record restored",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "after reload: private key not loaded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "after reload: signAs refuses instead of making a new key",
+      "pass": true,
+      "detail": "identity \"anthropic/claude-opus-5\" (fp 3e550da7e311ff7e) has no private key loaded in this tab; import the keyring file. No replacement key was made."
+    },
+    {
+      "name": "after reload: key SHA-256 unchanged by the refusal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "after keyring import: signs with the original key",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no page errors in API/custody run",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "UI: identity table lists 2 rows",
+      "pass": true,
+      "detail": "2"
+    },
+    {
+      "name": "UI: registry downloads with YYYY-MM-DD_ name",
+      "pass": true,
+      "detail": "2026-09-15_pb-model-registry.pb.json"
+    },
+    {
+      "name": "UI: editor seal writes meta.signer for the chosen identity",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "UI: pasted meta.signer without identity is refused",
+      "pass": true,
+      "detail": "meta.signer is written by identity sealing. Pick the identity under \"Seal as model identity\", or delete meta.signer from the JSON."
+    },
+    {
+      "name": "UI: Verify tab with pinned registry \u2192 VERIFIED",
+      "pass": true,
+      "detail": "{\"badge\": \"VERIFIED\", \"signer\": [\"Signer identity\", \"Signer name\"]}"
+    },
+    {
+      "name": "UI: Verify tab after \"Stop using registry\" \u2192 MISSING-SIDE-INFO",
+      "pass": true,
+      "detail": "{\"badge\": \"MISSING-SIDE-INFO\", \"signer\": [\"Signer identity\", \"Signer name\"]}"
+    },
+    {
+      "name": "UI: wrong pin leaves no registry in use",
+      "pass": true,
+      "detail": "No registry in use: registry is signed by key 9b84b1d01b8ba42f0e274d2090a13e616c2568f45c154c44ec12eead0dcb8ba2, which is not pinned"
+    },
+    {
+      "name": "UI: Remove deletes the identity",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "UI: action chain intact after UI flow",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "UI: no page errors",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "existing_defects": {
+    "reportInMemory": "VERIFIED",
+    "reportAfterJson": "INVALID-SIGNATURE",
+    "kat_selftest_order": false,
+    "kat_engine_order": true,
+    "race": {
+      "ok": false,
+      "brokenAt": 1,
+      "why": "prev-link mismatch"
+    }
+  }
+}

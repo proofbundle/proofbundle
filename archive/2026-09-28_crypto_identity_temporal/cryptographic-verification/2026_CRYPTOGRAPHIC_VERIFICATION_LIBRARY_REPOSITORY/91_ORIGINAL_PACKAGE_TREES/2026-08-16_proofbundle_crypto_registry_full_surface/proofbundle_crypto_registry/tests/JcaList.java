@@ -1,0 +1,1 @@
+import java.security.*; public class JcaList { public static void main(String[] x){ for(Provider p:Security.getProviders()) for(Provider.Service s:p.getServices()) System.out.println(p.getName()+"\t"+s.getType()+"\t"+s.getAlgorithm()+"\t"+s.getClassName()); }}

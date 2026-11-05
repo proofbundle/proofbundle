@@ -12,7 +12,7 @@
 
 // Curve25519 parameters
 const P = (1n << 255n) - 19n;  // Prime field
-const A24 = 121665n;  // (A + 2) / 4 where A = 486662
+const A24 = 121665n;  // (A - 2) / 4 for the RFC 7748 ladder formula used below.
 
 // Modular arithmetic helpers
 function mod(a, m = P) {
@@ -43,6 +43,7 @@ function assertBytes32(name, bytes) {
 
 function decodeUCoordinate(bytes) {
   assertBytes32('publicKey', bytes);
+  bytes = bytes.slice(); bytes[31] &= 0x7f; // RFC 7748: ignore the top input bit.
   let u = 0n;
   for (let i = 31; i >= 0; i--) {
     u = (u << 8n) | BigInt(bytes[i]);

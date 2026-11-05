@@ -1,0 +1,20 @@
+TAP version 13
+# ML-KEM-512: ek=800 dk=1632 ct=768 ss=9df17c323fbe4a8d...
+# ML-KEM-768: ek=1184 dk=2400 ct=1088 ss=7f43f6b312ac6e07...
+# ML-KEM-1024: ek=1568 dk=3168 ct=1568 ss=2211d59a7307ce5b...
+# 35 pass, 0 fail
+# Subtest: mlkem.test.mjs
+ok 1 - mlkem.test.mjs
+  ---
+  duration_ms: 249.098126
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 260.195024

@@ -1,0 +1,226 @@
+✔ [1/21] Built Crypto.Vec
+✔ [2/21] Built Crypto.Util
+✔ [3/21] Built Crypto.Vec:c.o
+✔ [4/21] Built Crypto.Util:c.o
+✖ [5/21] Building Crypto.SHA512.Core
+trace: .> LEAN_PATH=././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /home/falsealias/.elan/toolchains/leanprover--lean4---v4.8.0/bin/lean ././././Crypto/SHA512/Core.lean -R ./././. -o ././.lake/build/lib/Crypto/SHA512/Core.olean -i ././.lake/build/lib/Crypto/SHA512/Core.ilean -c ././.lake/build/ir/Crypto/SHA512/Core.c --json
+error: ././././Crypto/SHA512/Core.lean:11:3: failed to synthesize instance
+  HShiftRight Word512 Nat ?m.23
+error: ././././Crypto/SHA512/Core.lean:11:17: failed to synthesize instance
+  HShiftLeft Word512 Nat ?m.41
+error: ././././Crypto/SHA512/Core.lean:89:33: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  0 + ?n
+block : Vec Word512 16
+fuel i : Nat
+acc : Array Word512
+h : acc.size = i
+h2 : i ≤ 80
+h3 : i + 0 = 80
+⊢ i = 80
+error: ././././Crypto/SHA512/Core.lean:97:18: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  i + fuel + 1
+block : Vec Word512 16
+fuel✝ i : Nat
+acc : Array Word512
+h : acc.size = i
+h2 : i ≤ 80
+fuel : Nat
+h3 : i + (fuel + 1) = 80
+hi : i < 16
+w : Word512 := block.get ⟨i, hi⟩
+⊢ i + 1 + fuel = 80
+error: ././././Crypto/SHA512/Core.lean:102:27: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.12449 : Prop
+error: ././././Crypto/SHA512/Core.lean:102:29: invalid universe level, ?u.12573 is not greater than 0
+error: ././././Crypto/SHA512/Core.lean:105:27: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.12586 : Prop
+error: ././././Crypto/SHA512/Core.lean:105:29: invalid universe level, ?u.12691 is not greater than 0
+error: ././././Crypto/SHA512/Core.lean:108:27: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.12704 : Prop
+error: ././././Crypto/SHA512/Core.lean:108:29: invalid universe level, ?u.12809 is not greater than 0
+error: ././././Crypto/SHA512/Core.lean:111:27: application type mismatch
+  Nat.sub_lt i
+argument
+  i
+has type
+  Nat : Type
+but is expected to have type
+  0 < ?m.12822 : Prop
+error: ././././Crypto/SHA512/Core.lean:111:29: invalid universe level, ?u.12927 is not greater than 0
+error: ././././Crypto/SHA512/Core.lean:120:18: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  i + fuel + 1
+block : Vec Word512 16
+fuel✝ i : Nat
+acc : Array Word512
+h : acc.size = i
+h2 : i ≤ 80
+fuel : Nat
+h3 : i + (fuel + 1) = 80
+hi : ¬i < 16
+hi2 : i < 80
+h16 : i ≥ 16
+h1 : i - 2 < acc.size
+h2_7 : i - 7 < acc.size
+h3_15 : i - 15 < acc.size
+h4_16 : i - 16 < acc.size
+w2 : Word512 := acc.get ⟨i - 2, h1⟩
+w7 : Word512 := acc.get ⟨i - 7, h2_7⟩
+w15 : Word512 := acc.get ⟨i - 15, h3_15⟩
+w16 : Word512 := acc.get ⟨i - 16, h4_16⟩
+wi : Word512 := sigma1_512 w2 + w7 + sigma0_512 w15 + w16
+⊢ i + 1 + fuel = 80
+error: ././././Crypto/SHA512/Core.lean:158:8: expected type must not contain free or meta variables
+  #[hash.words.get ⟨0, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).a,
+        hash.words.get ⟨1, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).b,
+        hash.words.get ⟨2, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).c,
+        hash.words.get ⟨3, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).d,
+        hash.words.get ⟨4, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).e,
+        hash.words.get ⟨5, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).f,
+        hash.words.get ⟨6, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).g,
+        hash.words.get ⟨7, ⋯⟩ +
+          (rounds 80 0
+              { a := hash.words.get ⟨0, ⋯⟩, b := hash.words.get ⟨1, ⋯⟩, c := hash.words.get ⟨2, ⋯⟩,
+                d := hash.words.get ⟨3, ⋯⟩, e := hash.words.get ⟨4, ⋯⟩, f := hash.words.get ⟨5, ⋯⟩,
+                g := hash.words.get ⟨6, ⋯⟩, h := hash.words.get ⟨7, ⋯⟩ }).h].size =
+    8
+error: Lean exited with code 1
+⚠ [11/21] Built Crypto.SHA256.Core
+warning: ././././Crypto/SHA256/Core.lean:89:47: unused variable `h3`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././Crypto/SHA256/Core.lean:212:6: unused variable `s'`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+✔ [12/21] Built Crypto.SHA256.Core:c.o
+✖ [13/21] Building Crypto.SHA256.Hash
+trace: .> LEAN_PATH=././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /home/falsealias/.elan/toolchains/leanprover--lean4---v4.8.0/bin/lean ././././Crypto/SHA256/Hash.lean -R ./././. -o ././.lake/build/lib/Crypto/SHA256/Hash.olean -i ././.lake/build/lib/Crypto/SHA256/Hash.ilean -c ././.lake/build/ir/Crypto/SHA256/Hash.c --json
+error: ././././Crypto/SHA256/Hash.lean:20:2: tactic 'split' failed
+msgLen : Nat
+⊢ (msgLen + 1 +
+        let r := (msgLen + 1) % 64;
+        if r ≤ 56 then 56 - r else 64 - r + 56) %
+      64 =
+    56
+error: ././././Crypto/SHA256/Hash.lean:79:8: unknown constant 'ByteArray.size_append'
+error: ././././Crypto/SHA256/Hash.lean:118:33: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  0 + ?n
+padded : ByteArray
+start : Nat
+h_bound : start + 63 < padded.size
+fuel i : Nat
+acc : Array Word
+h_acc : acc.size = i
+h_byte : start + 63 < padded.size
+h_i : i + 0 = 16
+⊢ i = 16
+error: ././././Crypto/SHA256/Hash.lean:122:30: type mismatch
+  Nat.succ_le_succ (Nat.zero_le fuel)
+has type
+  Nat.succ 0 ≤ fuel.succ : Prop
+but is expected to have type
+  fuel ≥ 1 : Prop
+error: ././././Crypto/SHA256/Hash.lean:123:35: type mismatch
+  h_i
+has type
+  i + (fuel + 1) = 16 : Prop
+but is expected to have type
+  i + fuel = 16 : Prop
+error: ././././Crypto/SHA256/Hash.lean:131:25: unknown constant 'Nat.le_of_lt_add_one'
+error: ././././Crypto/SHA256/Hash.lean:163:16: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  i + fuel + 1
+padded : ByteArray
+start : Nat
+h_bound : start + 63 < padded.size
+fuel✝ i : Nat
+acc : Array Word
+h_acc : acc.size = i
+h_byte : start + 63 < padded.size
+fuel : Nat
+h_i : i + (fuel + 1) = 16
+hi : i < 16
+hj1 : i * 4 + 3 ≤ 63
+h0 : start + i * 4 < padded.size
+h1 : start + i * 4 + 1 < padded.size
+h2 : start + i * 4 + 2 < padded.size
+h3 : start + i * 4 + 3 < padded.size
+b0 : UInt8 := padded.get ⟨start + i * 4, h0⟩
+b1 : UInt8 := padded.get ⟨start + i * 4 + 1, h1⟩
+b2 : UInt8 := padded.get ⟨start + i * 4 + 2, h2⟩
+b3 : UInt8 := padded.get ⟨start + i * 4 + 3, h3⟩
+w : Word := bytesToWord b0 b1 b2 b3
+h_next : start + 63 < padded.size
+⊢ i + 1 + fuel = 16
+error: ././././Crypto/SHA256/Hash.lean:177:4: type mismatch
+  h_size
+has type
+  padded.size % 64 = 0 : Prop
+but is expected to have type
+  64 ∣ padded.size : Prop
+error: ././././Crypto/SHA256/Hash.lean:190:46: expected type must not contain free or meta variables
+  0 < ?m.8521
+error: ././././Crypto/SHA256/Hash.lean:191:82: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (i + 1) * 64
+msg : ByteArray
+padded : ByteArray := padMessage msg
+h_size : padded.size % 64 = 0
+numBlocks : Nat := padded.size / 64
+h_eq : padded.size = numBlocks * 64
+fuel✝ i : Nat
+hash : Digest
+fuel : Nat
+hi : i < numBlocks
+start : Nat := i * 64
+h1 : i + 1 ≤ numBlocks
+h2 : (i + 1) * 64 ≤ numBlocks * 64
+h3 : i * 64 + 64 = (i + 1) * 64
+h4 : i * 64 + 63 < i * 64 + 64
+⊢ i * 64 + 64 ≤ numBlocks * 64
+error: Lean exited with code 1
+Some builds logged failures:
+- Crypto.SHA512.Core
+- Crypto.SHA256.Hash
+error: build failed

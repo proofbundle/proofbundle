@@ -1,0 +1,49 @@
+{
+  "artifact_status": {
+    "20_COMPILED_OUTPUTS/ECDSAP256.olean": {
+      "qualification": "Compiled compatibility working copy; not strict bounds-safe original-source closure.",
+      "status": "current-compiled-evidence"
+    },
+    "20_COMPILED_OUTPUTS/SHA256.olean": {
+      "qualification": "Compiled compatibility working copy; not strict bounds-safe original-source closure.",
+      "status": "current-compiled-evidence"
+    },
+    "30_RUNNER_EVIDENCE/2026-08-13_crypto_verification_compat2_results.zip": {
+      "status": "historical-raw-evidence"
+    },
+    "30_RUNNER_EVIDENCE/ecdsa-sanity-cancelled.zip": {
+      "status": "historical-raw-evidence"
+    },
+    "40_VALIDATION/LEAN_SHARD_STATUS.txt": {
+      "qualification": "Run-state evidence only; does not define current theorem closure.",
+      "status": "historical"
+    },
+    "40_VALIDATION/MLKEM768_INTEROP_STATUS.txt": {
+      "status": "historical-superseded",
+      "superseded_by": "50_MLKEM_FORENSICS/2026-08-15_mlkem768_forensic_closure/MLKEM768_FORENSIC_ADJUDICATION.txt"
+    },
+    "40_VALIDATION/SHA512_VALIDATION.txt": {
+      "qualification": "Independent digest agreement includes hashlib; supplied K512/H512 were used by the separate reimplementation.",
+      "status": "current-with-qualification"
+    },
+    "60_LEAN_ATOMIC_PACKAGE/2026-08-15_crypto_closure_next.zip": {
+      "qualification": "Contains the complete 120 atomic theorem files; not evidence that they have compiled.",
+      "status": "current-prepared-input"
+    }
+  },
+  "as_of": "2026-08-21",
+  "current_authoritative": [
+    "00_INDEX/README.txt",
+    "00_INDEX/ERROR_AND_CORRECTION_LEDGER.txt",
+    "00_INDEX/STATUS_INDEX.json",
+    "70_THEOREM_AUDIT/2026-08-15_theorem_proof_tactic_audit.json",
+    "70_THEOREM_AUDIT/2026-08-15_theorem_proof_tactic_audit.tsv"
+  ],
+  "explicitly_excluded": [
+    "sandbox terminal-completeness calculus",
+    "superseded 128-zero-axiom framing",
+    "redundant prior handoff/frontier wrapper ZIPs",
+    "misleading partially-populated sibling atomic directory"
+  ],
+  "schema": "proofbundle.crypto-verification.status-index/v1"
+}

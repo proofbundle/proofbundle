@@ -1,0 +1,673 @@
+--- a/proofbundle_txt.html
++++ b/proofbundle_txt.html
+@@ -3627,6 +3627,12 @@
+     <input type="text" id="seal-parent" placeholder="pb-… of an already-sealed bundle" autocomplete="off">
+   </div>
+ 
++  <!-- identity patch 2026-09-14 -->
++  <div class="form-row">
++    <label class="label" for="seal-identity">Seal as model identity (optional: uses that identity's key and writes meta.signer; manage identities under History)</label>
++    <select id="seal-identity"><option value="">None: use the key below</option></select>
++  </div>
++
+   <div class="form-grid" style="grid-template-columns:1fr 1fr">
+     <div>
+       <label class="label">Digest Algorithm</label>
+@@ -4068,6 +4074,39 @@
+     </div>
+   </div>
+ 
++  <!-- identity patch 2026-09-14 -->
++  <div class="card" style="margin-bottom:20px" id="id-panel">
++    <div class="card-title">Model identities</div>
++    <div class="card-desc">One signing key per model name. A bundle sealed under an identity carries the name and the key's SHA-256 inside the signed bytes.
++      That shows which key signed. It does not show who holds the key: you do. A name is checked only against a registry you seal and a verifier pins.
++      Private keys stay in this tab until you export the keyring.</div>
++    <div class="form-grid" style="grid-template-columns:2fr 1fr auto">
++      <div><label class="label" for="id-new-name">Model name</label>
++        <input type="text" id="id-new-name" placeholder="anthropic/claude-opus-5" autocomplete="off" spellcheck="false"></div>
++      <div><label class="label" for="id-new-alg">Key type</label><select id="id-new-alg"></select></div>
++      <div><button class="btn btn-secondary" id="id-create-btn" onclick="idCreateUI()">Create identity</button></div>
++    </div>
++    <div id="id-list" style="margin:10px 0"></div>
++    <div class="btn-row">
++      <button class="btn btn-secondary btn-sm" onclick="idExportKeyringUI()">↓ Export keyring</button>
++      <button class="btn btn-secondary btn-sm" onclick="document.getElementById('id-keyring-file').click()">Import keyring</button>
++      <input type="file" id="id-keyring-file" accept=".json,application/json" style="display:none" onchange="idImportKeyringUI(this)">
++    </div>
++    <label class="label" for="id-operator">Seal a registry of the names above with an operator identity</label>
++    <div class="form-grid" style="grid-template-columns:1fr auto">
++      <select id="id-operator"></select>
++      <button class="btn btn-secondary btn-sm" onclick="idBuildRegistryUI()">↓ Seal registry</button>
++    </div>
++    <label class="label" for="id-registry-file" style="margin-top:12px">Check signer names with a registry: file, plus the full 64-character key SHA-256 of whoever sealed it</label>
++    <input type="file" id="id-registry-file" accept=".json,application/json">
++    <input type="text" id="id-registry-pin" placeholder="64-character SHA-256 of the registry signer's public key" autocomplete="off" spellcheck="false" style="margin-top:6px">
++    <div class="btn-row" style="margin-top:6px">
++      <button class="btn btn-secondary btn-sm" onclick="idLoadRegistryUI()">Load and pin registry</button>
++      <button class="btn btn-secondary btn-sm" onclick="idClearRegistryUI()">Stop using registry</button>
++    </div>
++    <div id="id-registry-status" class="algo-note"></div>
++  </div>
++
+   <hr>
+   <div class="form-row">
+     <label class="label">Sealed archive — the whole state as one bundle</label>
+@@ -5696,6 +5735,17 @@
+     return fail('INVALID-SIGNATURE', 'Signature verification', 'error: ' + e.message);
+   }
+ 
++  /* 4b — signer identity (identity patch 2026-09-14). The declared signer key must be
++     the key that verified the signature: pubOverride when given, else the envelope key.
++     Name resolution against a registry is step 7b. */
++  let idPending = null;
++  if (bundle.meta.signer !== undefined) {
++    const effPub = legacy ? (o.pubOverride || bundle.sig.pub) : (o.pubOverride || bundle.seal.pub_b64u);
++    const ic = await idCheckSigner(bundle.meta.signer, effPub, sigAlg);
++    if (ic.fail) return fail(ic.fail, 'Signer identity', ic.body);
++    step('Signer identity', ic.body);
++  }
++
+   const leaves = [canonicalJSON(bundle.hdr), canonicalJSON(bundle.meta), canonicalJSON(bundle.payload || {})];
+   const root = b64uEncode(await merkleRootAlg(leaves, digestAlg));
+   if (root !== bundle.merkleRoot)
+@@ -5745,10 +5795,19 @@
+     step('Policy check', 'required side attestations present ✓');
+   }
+ 
++  /* 7b — signer name (identity patch 2026-09-14). A failed lookup ends here; an
++     unchecked name is held until after the boundary so it cannot mask OUT-OF-BOUNDS. */
++  if (bundle.meta.signer !== undefined) {
++    const nr = idResolve(bundle.meta.signer, o.registry);
++    if (nr.fail) return fail(nr.fail, 'Signer name', nr.body);
++    if (nr.pending) idPending = nr.body; else step('Signer name', nr.body);
++  }
++
+   /* 8 — boundary */
+   const { outcome, details } = evalBoundary(bundle.meta.boundary, Object.assign({}, context, { __now: nowMs }));
+   const bodyParts = details.map(r => `${r.pred.path} (${r.pred.op}) → ${r.result}`).join(', ');
+   step('Boundary evaluation', bodyParts || 'no predicates', outcome === 'VERIFIED' ? null : outcome);
++  if (outcome === 'VERIFIED' && idPending) return fail('MISSING-SIDE-INFO', 'Signer name', idPending);
+   return { outcome, trace };
+ }
+ 
+@@ -5953,7 +6012,7 @@
+ }
+ async function storeVerify(i) {
+   const e = STATE.store[i];
+-  const { outcome } = await verifyCore(e.bundle, { bundles: storeMap(), maxDepth: 8 });
++  const { outcome } = await verifyCore(e.bundle, { bundles: storeMap(), maxDepth: 8, registry: idActiveRegistry || undefined });
+   await chainAppend('verify', e.bundle.hdr.bundle_id, outcome);
+   const cell = document.getElementById('store-oc-' + i);
+   if (cell) cell.innerHTML = `<span class="badge ${outcomeBadgeClass(outcome)}">${outcome}</span>`;
+@@ -6043,6 +6102,480 @@
+   input.value = '';
+ }
+ 
++/* ══════════════════════════════════════════════════════════════════
++   MODEL IDENTITY — patch 2026-09-14
++   PB-MODEL-ATTEST-1 (bundles signed as a model name)
++   PB-MODEL-REGISTRY-1 (signed list of name → key)
++
++   What it does
++   · One signing key per model name. Created on first use, reused after,
++     never replaced implicitly. Removing a name is an explicit action.
++   · Public halves persist in localStorage ('proofbundle.identity.v1').
++     Private halves stay in this tab's memory, the same rule as _currentKey.
++     Move them with Export keyring / Import keyring. After a reload, signing
++     under a name whose private key is not loaded fails; no new key is made.
++   · meta.signer = { model, sig_alg, key_sha256, key_fingerprint, key_custody }
++     is inside the signed bytes. key_sha256 is the full SHA-256 of the public
++     key and is what verification compares. key_fingerprint (first 16 hex)
++     is for display only: 64 bits is too short to anchor a name.
++
++   What it proves and what it does not
++   · Verify checks that key_sha256 is the key that actually verified the
++     signature (pubOverride included). That shows which key signed.
++   · It does not show who holds the key. Anyone can generate a key and write
++     any model name. A name is checked only against a registry sealed by a
++     key the verifier pins by its full SHA-256. key_custody "operator" means
++     the person running this tool holds the keys, not the model or its
++     provider. Provider-signed entries are not accepted by this build.
++
++   Verify outcomes (existing classes only)
++     meta.signer malformed                          → MALFORMED
++     declared key is not the key that verified      → INVALID-SIGNATURE
++     registry lists the name under other keys only  → INVALID-SIGNATURE
++     registry does not list the name                → POLICY-DENIED
++     no pinned registry, everything else VERIFIED   → MISSING-SIDE-INFO
++   ══════════════════════════════════════════════════════════════════ */
++const PB_ID_LS_KEY = 'proofbundle.identity.v1';
++const PB_ID_ATTEST_PROFILE = 'PB-MODEL-ATTEST-1';
++const PB_ID_REGISTRY_PROFILE = 'PB-MODEL-REGISTRY-1';
++const PB_ID_NAME_RE = /^[a-z0-9][a-z0-9._:\/@+-]{0,127}$/;
++const PB_ID_HEX64_RE = /^[0-9a-f]{64}$/;
++STATE.identities = Object.create(null);   /* model → public record (persisted) */
++const _idPriv = new Map();                 /* model → { priv, key_sha256 } (memory only) */
++const _idCreating = new Map();             /* model → in-flight key creation */
++const _idRegistryBrand = new WeakSet();    /* registry objects produced by idLoadRegistry */
++let _idSignQueue = Promise.resolve();      /* signAs calls run one at a time */
++let idActiveRegistry = null;               /* pinned registry used by Verify and store checks in this tab */
++
++function idEsc(s) {
++  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
++    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
++}
++function idGet(name) {
++  return Object.prototype.hasOwnProperty.call(STATE.identities, name) ? STATE.identities[name] : null;
++}
++function idCheckName(model) {
++  if (typeof model !== 'string' || !PB_ID_NAME_RE.test(model))
++    throw new Error('model name must be 1–128 characters from a-z 0-9 . _ : / @ + - and start with a letter or digit; got ' + JSON.stringify(model));
++  return model;
++}
++function idLocalDate() {
++  const d = new Date();
++  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
++}
++async function idKeySha256(pubB64u) {
++  return hexOf(await digestBytes('SHA-256', b64uDecode(pubB64u)));
++}
++async function idRoundTrip(alg, privB64u, pubB64u) {
++  const msg = utf8('PB-MODEL-ATTEST-1 key check ' + pubB64u);
++  const sig = await sigSign(alg, msg, privB64u);
++  const ok = await sigVerify(alg, msg, sig, pubB64u);
++  const bad = sig.slice(); bad[0] ^= 0xff;
++  const altered = await sigVerify(alg, msg, bad, pubB64u);
++  if (!ok || altered)
++    throw new Error(`${alg} key failed the sign/verify check (valid signature accepted: ${ok}; altered signature accepted: ${altered}); key not used`);
++}
++function idAssertJsonStable(obj) {
++  let rt;
++  try { rt = JSON.parse(JSON.stringify(obj)); }
++  catch (e) { throw new Error('bundle is not JSON-serializable: ' + e.message); }
++  if (canonicalJSON(rt) !== canonicalJSON(obj))
++    throw new Error('payload holds values that change when written as JSON (undefined, functions, Dates); the seal would not verify after download');
++}
++
++/* ── storage ──────────────────────────────────────────────────────── */
++function idPersist() {
++  if (!lsAvail()) return false;
++  try { localStorage.setItem(PB_ID_LS_KEY, JSON.stringify({ v: 1, identities: STATE.identities })); return true; }
++  catch (e) { console.warn('identity persist failed:', e.message); return false; }
++}
++function idRestore() {
++  STATE.identities = Object.create(null);
++  if (!lsAvail()) return false;
++  try {
++    const raw = localStorage.getItem(PB_ID_LS_KEY);
++    if (!raw) return false;
++    const s = JSON.parse(raw);
++    if (!s || s.v !== 1 || !s.identities || typeof s.identities !== 'object') return false;
++    for (const [name, r] of Object.entries(s.identities)) {
++      const shapeOk = r && r.model === name && PB_ID_NAME_RE.test(name) && sigInfo(r.sig_alg) &&
++        typeof r.pub === 'string' && typeof r.key_sha256 === 'string' && PB_ID_HEX64_RE.test(r.key_sha256);
++      if (!shapeOk) { console.warn('identity record skipped, bad shape:', name); continue; }
++      STATE.identities[name] = { model: name, sig_alg: r.sig_alg, pub: r.pub, key_sha256: r.key_sha256,
++        fingerprint: r.key_sha256.slice(0, 16), created_at: typeof r.created_at === 'string' ? r.created_at : null };
++    }
++    return true;
++  } catch (e) { console.warn('identity restore failed:', e.message); return false; }
++}
++
++/* ── records and keys ─────────────────────────────────────────────── */
++function idPublic(name) {
++  const r = idGet(name);
++  return r ? { model: r.model, sig_alg: r.sig_alg, pub: r.pub, key_sha256: r.key_sha256,
++               fingerprint: r.fingerprint, created_at: r.created_at, private_loaded: _idPriv.has(name) } : null;
++}
++function idSignerBlock(rec) {
++  return { model: rec.model, sig_alg: rec.sig_alg, key_sha256: rec.key_sha256,
++           key_fingerprint: rec.key_sha256.slice(0, 16), key_custody: 'operator' };
++}
++async function idMakeRecord(model, key) {
++  const key_sha256 = await idKeySha256(key.pub);
++  return { model: idCheckName(model), sig_alg: key.alg, pub: key.pub, key_sha256, fingerprint: key_sha256.slice(0, 16) };
++}
++async function idKey(model) {
++  const rec = idGet(model), held = _idPriv.get(model);
++  if (!rec) throw new Error(`no identity "${model}" in this browser`);
++  if (!held) throw new Error(`identity "${model}" (fp ${rec.fingerprint}) has no private key loaded in this tab; import the keyring file. No replacement key was made.`);
++  const now = await idKeySha256(rec.pub);
++  if (now !== held.key_sha256 || now !== rec.key_sha256)
++    throw new Error(`identity "${model}": stored public key does not match the loaded private key; refusing to sign`);
++  return { alg: rec.sig_alg, priv: held.priv, pub: rec.pub };
++}
++
++/* Create on first use; reuse after. Never replaces an existing key. */
++async function establishIdentity(model, sigAlg) {
++  const name = idCheckName(model);
++  while (_idCreating.has(name)) await _idCreating.get(name).catch(() => {});
++  const have = idGet(name);
++  if (have) {
++    if (sigAlg && sigAlg !== have.sig_alg)
++      throw new Error(`identity "${name}" already uses ${have.sig_alg} (fp ${have.fingerprint}); asked for ${sigAlg}. Keys are not replaced implicitly; remove the identity to start over.`);
++    await idKey(name);
++    return { created: false, identity: idPublic(name) };
++  }
++  const alg = sigAlg || 'Ed25519';
++  if (!sigInfo(alg)) throw new Error('unknown signature algorithm: ' + alg);
++  const creation = (async () => {
++    const kp = await sigKeygen(alg);
++    await idRoundTrip(alg, kp.priv, kp.pub);
++    const rec = await idMakeRecord(name, kp);
++    rec.created_at = new Date().toISOString();
++    STATE.identities[name] = rec;
++    _idPriv.set(name, { priv: kp.priv, key_sha256: rec.key_sha256 });
++    idPersist();
++    await chainAppend('identity-create', name, `${alg} · fp ${rec.fingerprint} · private key held in this tab until exported`);
++    renderIdentityPanel();
++    return { created: true, identity: idPublic(name) };
++  })();
++  _idCreating.set(name, creation);
++  try { return await creation; } finally { _idCreating.delete(name); }
++}
++
++async function idForget(model) {
++  const rec = idGet(model);
++  if (!rec) return false;
++  delete STATE.identities[model];
++  _idPriv.delete(model);
++  idPersist();
++  await chainAppend('identity-remove', model, `fp ${rec.fingerprint} removed from this browser`);
++  renderIdentityPanel();
++  return true;
++}
++
++/* ── sealing ──────────────────────────────────────────────────────── */
++async function idSealAttest(rec, key, payload, digestAlg) {
++  const bundle = {
++    hdr: { profile: PB_ID_ATTEST_PROFILE },
++    meta: { signer: idSignerBlock(rec) },
++    payload: payload === undefined ? {} : payload,
++  };
++  idAssertJsonStable(bundle);
++  return sealCore(bundle, digestAlg || 'SHA3-256', key.alg, key);
++}
++
++/* Sign a payload as a model name. Calls run one at a time so a batch cannot
++   race key creation or interleave action-chain entries. */
++function signAs(model, payload, digestAlg = 'SHA3-256', sigAlg) {
++  const run = _idSignQueue.then(async () => {
++    const { identity } = await establishIdentity(model, sigAlg);
++    const key = await idKey(identity.model);
++    const bundle = await idSealAttest(idGet(identity.model), key, payload, digestAlg);
++    await registerBundle(bundle, 'sign-as');
++    return bundle;
++  });
++  _idSignQueue = run.catch(() => {});
++  return run;
++}
++
++/* ── registry ─────────────────────────────────────────────────────── */
++async function idSealRegistry(opRec, opKey, recs, digestAlg) {
++  const entries = recs.map(r => ({
++    model: idCheckName(r.model), sig_alg: r.sig_alg, pub_b64u: r.pub, key_sha256: r.key_sha256,
++    key_fingerprint: r.key_sha256.slice(0, 16), status: 'active', attestation: 'operator',
++    attested_by: opRec.key_sha256,
++  })).sort((a, b) => { const x = a.model + '|' + a.key_sha256, y = b.model + '|' + b.key_sha256; return x < y ? -1 : x > y ? 1 : 0; });
++  const bundle = {
++    hdr: { profile: PB_ID_REGISTRY_PROFILE },
++    meta: { registry_operator: { label: opRec.model, key_sha256: opRec.key_sha256 } },
++    payload: { spec: PB_ID_REGISTRY_PROFILE, entries },
++  };
++  return sealCore(bundle, digestAlg || 'SHA3-256', opKey.alg, opKey);
++}
++
++/* Every listed key must have its private half loaded in this tab. idKey ties
++   that private half to the stored public key, so a public record altered in
++   localStorage cannot be written into a registry the operator signs. */
++async function idBuildRegistry(operatorName, modelNames, digestAlg) {
++  const opKey = await idKey(idCheckName(operatorName));
++  const recs = [];
++  for (const n of [...new Set(modelNames)]) { await idKey(idCheckName(n)); recs.push(idGet(n)); }
++  if (!recs.length) throw new Error('no model identities to list');
++  const reg = await idSealRegistry(idGet(operatorName), opKey, recs, digestAlg);
++  await registerBundle(reg, 'identity-registry');
++  return reg;
++}
++
++async function idLoadRegistry(regBundle, pins) {
++  const pinList = (Array.isArray(pins) ? pins : [pins]).map(p => String(p || '').trim().toLowerCase()).filter(Boolean);
++  if (!pinList.length) throw new Error('pin the registry signer key: its full 64-character SHA-256');
++  for (const p of pinList)
++    if (!PB_ID_HEX64_RE.test(p)) throw new Error(`pin "${p}" is not a 64-character hex SHA-256; the 16-character fingerprint is too short to anchor trust`);
++  if (!regBundle || typeof regBundle !== 'object' || !regBundle.hdr || regBundle.hdr.profile !== PB_ID_REGISTRY_PROFILE)
++    throw new Error('not a ' + PB_ID_REGISTRY_PROFILE + ' bundle');
++  if (!regBundle.seal || !regBundle.seal.pub_b64u) throw new Error('registry must carry a v2 seal');
++  if (regBundle.meta && regBundle.meta.signer !== undefined)
++    throw new Error('registry bundles must not carry meta.signer; trust comes from the pinned key');
++  const v = await verifyCore(regBundle, {});
++  if (v.outcome !== 'VERIFIED') throw new Error('registry seal did not verify: ' + v.outcome);
++  const regKey = await idKeySha256(regBundle.seal.pub_b64u);
++  if (!pinList.includes(regKey)) throw new Error(`registry is signed by key ${regKey}, which is not pinned`);
++  const ro = regBundle.meta.registry_operator;
++  if (ro !== undefined && (!ro || ro.key_sha256 !== regKey))
++    throw new Error('meta.registry_operator.key_sha256 does not match the key that sealed the registry');
++  const p = regBundle.payload;
++  if (!p || p.spec !== PB_ID_REGISTRY_PROFILE || !Array.isArray(p.entries))
++    throw new Error(`registry payload must be { spec: "${PB_ID_REGISTRY_PROFILE}", entries: [...] }`);
++  const byModel = new Map(), seen = new Set();
++  for (let i = 0; i < p.entries.length; i++) {
++    const e = p.entries[i], at = 'entry ' + i;
++    if (!e || typeof e !== 'object' || Array.isArray(e)) throw new Error(at + ': not an object');
++    try { idCheckName(e.model); } catch (x) { throw new Error(at + ': ' + x.message); }
++    if (!sigInfo(e.sig_alg)) throw new Error(`${at}: unknown sig_alg ${JSON.stringify(e.sig_alg)}`);
++    if (typeof e.pub_b64u !== 'string' || !e.pub_b64u) throw new Error(at + ': missing pub_b64u');
++    let ks;
++    try { ks = await idKeySha256(e.pub_b64u); } catch (x) { throw new Error(at + ': pub_b64u does not decode'); }
++    if (e.key_sha256 !== ks) throw new Error(at + ': key_sha256 does not match pub_b64u');
++    if (e.key_fingerprint !== ks.slice(0, 16)) throw new Error(at + ': key_fingerprint does not match pub_b64u');
++    if (e.status !== 'active') throw new Error(`${at}: status ${JSON.stringify(e.status)} is not supported by this build (only "active")`);
++    if (e.attestation !== 'operator') throw new Error(`${at}: attestation ${JSON.stringify(e.attestation)} is not supported by this build (only "operator")`);
++    if (e.attested_by !== regKey) throw new Error(at + ': attested_by is not the key that sealed the registry');
++    if (seen.has(e.model + '|' + ks)) throw new Error(`${at}: duplicate entry for ${e.model}`);
++    seen.add(e.model + '|' + ks);
++    if (!byModel.has(e.model)) byModel.set(e.model, []);
++    byModel.get(e.model).push({ sig_alg: e.sig_alg, key_sha256: ks });
++  }
++  const reg = Object.freeze({ bundle_id: String(regBundle.hdr.bundle_id), signer_key_sha256: regKey,
++                              count: p.entries.length, entries: byModel });
++  _idRegistryBrand.add(reg);
++  return reg;
++}
++
++/* ── verification helpers (called from verifyCore) ───────────────── */
++async function idCheckSigner(signer, effPub, sigAlg) {
++  if (!signer || typeof signer !== 'object' || Array.isArray(signer))
++    return { fail: 'MALFORMED', body: 'meta.signer must be an object' };
++  if (typeof signer.model !== 'string' || !PB_ID_NAME_RE.test(signer.model))
++    return { fail: 'MALFORMED', body: 'meta.signer.model is missing or not a valid model name' };
++  if (typeof signer.key_sha256 !== 'string' || !PB_ID_HEX64_RE.test(signer.key_sha256))
++    return { fail: 'MALFORMED', body: 'meta.signer.key_sha256 must be the 64-character lowercase hex SHA-256 of the signing public key' };
++  if (signer.key_fingerprint !== signer.key_sha256.slice(0, 16))
++    return { fail: 'MALFORMED', body: 'meta.signer.key_fingerprint must be the first 16 characters of key_sha256' };
++  if (signer.key_custody !== 'operator')
++    return { fail: 'MALFORMED', body: `meta.signer.key_custody ${JSON.stringify(signer.key_custody)} is not supported by this build (only "operator")` };
++  if (signer.sig_alg !== sigAlg)
++    return { fail: 'INVALID-SIGNATURE', body: `meta.signer.sig_alg ${JSON.stringify(signer.sig_alg)} is not the algorithm that verified the signature (${sigAlg})` };
++  let actual;
++  try { actual = await idKeySha256(effPub); }
++  catch (e) { return { fail: 'MALFORMED', body: 'signing public key does not decode: ' + e.message }; }
++  if (actual !== signer.key_sha256)
++    return { fail: 'INVALID-SIGNATURE', body: `meta.signer.key_sha256 ${signer.key_sha256.slice(0, 16)}… is not the key that verified the signature (${actual.slice(0, 16)}…); the declared signer did not sign this bundle` };
++  return { ok: true, body: `"${signer.model}" · key ${actual.slice(0, 16)}… (${sigAlg}) is the key that verified the signature · custody: operator` };
++}
++function idResolve(signer, registry) {
++  if (!registry)
++    return { pending: true, body: `name "${signer.model}" is asserted by the signer and was not checked against a registry. Load a registry sealed by a pinned key (History → Model identities) to check it.` };
++  if (!_idRegistryBrand.has(registry))
++    return { pending: true, body: `the registry option was not produced by idLoadRegistry and was ignored; name "${signer.model}" not checked` };
++  const reg = `registry ${registry.bundle_id.slice(0, 12)}… sealed by pinned key ${registry.signer_key_sha256.slice(0, 16)}…`;
++  const list = registry.entries.get(signer.model);
++  if (!list || !list.length)
++    return { fail: 'POLICY-DENIED', body: `name "${signer.model}" is not listed in ${reg}` };
++  if (!list.some(x => x.key_sha256 === signer.key_sha256 && x.sig_alg === signer.sig_alg))
++    return { fail: 'INVALID-SIGNATURE', body: `${reg} lists "${signer.model}" under ${list.length} other key(s); this bundle was signed by key ${signer.key_sha256.slice(0, 16)}…` };
++  return { ok: true, body: `"${signer.model}" → key ${signer.key_sha256.slice(0, 16)}… is listed in ${reg} · operator-attested` };
++}
++
++/* ── keyring file ─────────────────────────────────────────────────── */
++function idKeyringDoc() {
++  const identities = Object.keys(STATE.identities).sort().map(n => {
++    const r = STATE.identities[n], held = _idPriv.get(n);
++    const row = { model: n, sig_alg: r.sig_alg, pub_b64u: r.pub, key_sha256: r.key_sha256,
++                  key_fingerprint: r.fingerprint, created_at: r.created_at || null };
++    if (held) row.priv_b64u = held.priv;
++    return row;
++  });
++  return { kind: 'proofbundle-identity-keyring', v: 1, exported_at: new Date().toISOString(),
++    warning: 'PRIVATE KEY MATERIAL: anyone holding this file can sign as every identity in it',
++    private_keys_missing: identities.filter(r => !r.priv_b64u).map(r => r.model), identities };
++}
++async function idImportKeyring(doc) {
++  if (!doc || doc.kind !== 'proofbundle-identity-keyring' || doc.v !== 1 || !Array.isArray(doc.identities))
++    throw new Error('not a proofbundle identity keyring (kind, v, identities)');
++  const loaded = [], publicOnly = [], skipped = [];
++  for (const row of doc.identities) {
++    const model = row && row.model;
++    try {
++      idCheckName(model);
++      if (!sigInfo(row.sig_alg)) throw new Error('unknown sig_alg ' + JSON.stringify(row.sig_alg));
++      if (typeof row.pub_b64u !== 'string' || !row.pub_b64u) throw new Error('missing pub_b64u');
++      const ks = await idKeySha256(row.pub_b64u);
++      if (row.key_sha256 !== undefined && row.key_sha256 !== ks) throw new Error('key_sha256 does not match pub_b64u');
++      const have = idGet(model);
++      if (have && (have.key_sha256 !== ks || have.sig_alg !== row.sig_alg))
++        throw new Error(`this browser already binds the name to key ${have.fingerprint} (${have.sig_alg}); remove it first to replace it`);
++      if (typeof row.priv_b64u === 'string' && row.priv_b64u) {
++        await idRoundTrip(row.sig_alg, row.priv_b64u, row.pub_b64u);
++        _idPriv.set(model, { priv: row.priv_b64u, key_sha256: ks });
++        loaded.push(model);
++      } else publicOnly.push(model);
++      if (!have) STATE.identities[model] = { model, sig_alg: row.sig_alg, pub: row.pub_b64u, key_sha256: ks,
++        fingerprint: ks.slice(0, 16), created_at: typeof row.created_at === 'string' ? row.created_at : null };
++    } catch (e) { skipped.push({ model: String(model), why: e.message }); }
++  }
++  idPersist();
++  await chainAppend('identity-import', `${loaded.length + publicOnly.length} identities`,
++    `${loaded.length} with private keys · ${publicOnly.length} public-only · ${skipped.length} skipped`);
++  renderIdentityPanel();
++  return { loaded, publicOnly, skipped };
++}
++
++/* ── panel ────────────────────────────────────────────────────────── */
++function renderIdentityPanel() {
++  const names = Object.keys(STATE.identities).sort();
++  const list = document.getElementById('id-list');
++  if (list) {
++    list.innerHTML = names.length
++      ? '<table class="mini-table"><thead><tr><th>model</th><th>key type</th><th>key SHA-256</th><th>private key</th><th></th></tr></thead><tbody>' +
++        names.map(n => {
++          const r = STATE.identities[n];
++          return `<tr><td class="mono">${idEsc(n)}</td><td>${idEsc(r.sig_alg)}</td>` +
++            `<td class="mono" title="${idEsc(r.key_sha256)}">${idEsc(r.fingerprint)}… <button class="btn btn-secondary btn-sm" data-id-copy="${idEsc(r.key_sha256)}">Copy full</button></td>` +
++            `<td>${_idPriv.has(n) ? '<span class="badge badge-green">loaded</span>' : '<span class="badge badge-orange">not loaded</span>'}</td>` +
++            `<td><button class="btn btn-secondary btn-sm" data-id-forget="${idEsc(n)}">Remove</button></td></tr>`;
++        }).join('') + '</tbody></table>'
++      : '<div class="algo-note">No identities in this browser yet.</div>';
++  }
++  const fill = (id, entries, noneLabel) => {
++    const sel = document.getElementById(id);
++    if (!sel) return;
++    const keep = sel.value;
++    sel.textContent = '';
++    const none = document.createElement('option'); none.value = ''; none.textContent = noneLabel; sel.appendChild(none);
++    for (const [value, label] of entries) {
++      const o = document.createElement('option'); o.value = value; o.textContent = label; sel.appendChild(o);
++    }
++    if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
++  };
++  fill('seal-identity', names.map(n => [n, _idPriv.has(n) ? `${n} · ${STATE.identities[n].sig_alg}` : `${n} · private key not loaded`]),
++       'None: use the key below');
++  fill('id-operator', names.filter(n => _idPriv.has(n)).map(n => [n, n]), 'Pick an operator identity');
++}
++function idInitUI() {
++  const algSel = document.getElementById('id-new-alg');
++  if (algSel && !algSel.options.length)
++    for (const s of PB_SIGS) { const o = document.createElement('option'); o.value = s.id; o.textContent = s.id; algSel.appendChild(o); }
++  const list = document.getElementById('id-list');
++  if (list && !list._idWired) {
++    list._idWired = true;
++    list.addEventListener('click', async (ev) => {
++      const b = ev.target.closest('button');
++      if (!b) return;
++      if (b.dataset.idCopy) { copyText(b.dataset.idCopy); return; }
++      if (b.dataset.idForget) {
++        const n = b.dataset.idForget;
++        if (!confirm(`Remove identity "${n}" from this browser? If its private key was not exported, it cannot be recovered.`)) return;
++        await idForget(n);
++        notifyOk('Identity removed: ' + n);
++      }
++    });
++  }
++  const box = document.getElementById('id-registry-status');
++  if (box && !box.textContent) box.textContent = 'No registry in use. Signer names on sealed bundles stay unchecked (MISSING-SIDE-INFO).';
++  renderIdentityPanel();
++}
++async function idCreateUI() {
++  const btn = document.getElementById('id-create-btn');
++  const name = document.getElementById('id-new-name').value.trim();
++  const alg = document.getElementById('id-new-alg').value;
++  btn.disabled = true;
++  try {
++    const r = await establishIdentity(name, alg);
++    if (r.created) notifyOk(`Identity created: ${name} · ${r.identity.sig_alg} · fp ${r.identity.fingerprint}. Export the keyring to keep the private key.`);
++    else notifyOk(`Identity already exists with its key loaded: ${name}`);
++  } catch (e) { notifyError('Identity: ' + e.message); }
++  finally { btn.disabled = false; renderIdentityPanel(); }
++}
++async function idExportKeyringUI() {
++  const doc = idKeyringDoc();
++  if (!doc.identities.length) { notifyError('No identities to export.'); return; }
++  dlText(`${idLocalDate()}_pb-identity-keyring.json`, JSON.stringify(doc, null, 2));
++  await chainAppend('identity-export', `${doc.identities.length} identities`,
++    doc.private_keys_missing.length ? 'written public-only: ' + doc.private_keys_missing.join(', ') : 'all private keys included');
++  if (doc.private_keys_missing.length)
++    notifyError('Exported. These had no private key loaded and were written public-only: ' + doc.private_keys_missing.join(', '));
++  else notifyOk(`Keyring exported: ${doc.identities.length} identities with private keys.`);
++}
++async function idImportKeyringUI(input) {
++  try {
++    const f = input.files && input.files[0];
++    if (!f) return;
++    const res = await idImportKeyring(JSON.parse(await f.text()));
++    const msg = `Keyring: ${res.loaded.length} loaded · ${res.publicOnly.length} public-only · ${res.skipped.length} skipped`;
++    if (res.skipped.length) notifyError(msg + '. ' + res.skipped.map(s => s.model + ': ' + s.why).join('; '));
++    else notifyOk(msg);
++  } catch (e) { notifyError('Keyring import failed: ' + e.message); }
++  input.value = '';
++}
++async function idBuildRegistryUI() {
++  const op = document.getElementById('id-operator').value;
++  const box = document.getElementById('id-registry-status');
++  try {
++    if (!op) throw new Error('pick an operator identity whose private key is loaded');
++    const others = Object.keys(STATE.identities).filter(n => n !== op).sort();
++    const listed = others.filter(n => _idPriv.has(n)), unlisted = others.filter(n => !_idPriv.has(n));
++    const reg = await idBuildRegistry(op, listed);
++    dlText(`${idLocalDate()}_pb-model-registry.pb.json`, JSON.stringify(reg, null, 2));
++    if (box) box.innerHTML = `Registry sealed: ${listed.length} name(s). Verifiers pin the operator key SHA-256 ` +
++      `<span class="mono">${idEsc(idGet(op).key_sha256)}</span>.` +
++      (unlisted.length ? ` Not listed, private key not loaded: ${idEsc(unlisted.join(', '))}.` : '');
++    notifyOk(`Registry sealed with ${listed.length} name(s).`);
++  } catch (e) { notifyError('Registry not built: ' + e.message); }
++}
++async function idLoadRegistryUI() {
++  const box = document.getElementById('id-registry-status');
++  try {
++    const fin = document.getElementById('id-registry-file');
++    const f = fin.files && fin.files[0];
++    if (!f) throw new Error('choose a registry file');
++    const reg = await idLoadRegistry(JSON.parse(await f.text()), [document.getElementById('id-registry-pin').value]);
++    idActiveRegistry = reg;
++    const safeId = reg.bundle_id.replace(/[^A-Za-z0-9_-]/g, '?').slice(0, 64);
++    await chainAppend('identity-registry-pin', safeId, `${reg.count} entries · signer ${reg.signer_key_sha256.slice(0, 16)}…`);
++    if (box) box.innerHTML = `Using registry <span class="mono">${idEsc(safeId.slice(0, 16))}…</span> · ${reg.count} entr${reg.count === 1 ? 'y' : 'ies'} · ` +
++      `signer key pinned <span class="mono">${idEsc(reg.signer_key_sha256.slice(0, 16))}…</span>. Applies to Verify and store checks in this tab until reload.`;
++    notifyOk('Registry loaded and pinned for this tab.');
++  } catch (e) {
++    idActiveRegistry = null;
++    if (box) box.textContent = 'No registry in use: ' + e.message;
++    notifyError('Registry not loaded: ' + e.message);
++  }
++}
++function idClearRegistryUI() {
++  idActiveRegistry = null;
++  const box = document.getElementById('id-registry-status');
++  if (box) box.textContent = 'No registry in use. Signer names on sealed bundles stay unchecked (MISSING-SIDE-INFO).';
++}
++
+ /* ── verification certificate ───────────────────────────────────── */
+ async function buildVerifyReport(subject, outcome, trace, digestAlg, sigAlg, key, nowMs) {
+   const report = {
+@@ -6425,10 +6958,25 @@
+   catch (e) { notifyError('Bundle JSON is invalid: ' + e.message); return; }
+ 
+   const digestAlg = document.getElementById('seal-digestalg').value;
+-  const sigAlg = document.getElementById('seal-sigalg').value;
++  let sigAlg = document.getElementById('seal-sigalg').value;
+   const privInput = document.getElementById('seal-privkey').value.trim();
++  /* identity patch 2026-09-14: optional "Seal as model identity" */
++  const idSel = document.getElementById('seal-identity');
++  const idName = idSel ? idSel.value : '';
++  if (!idName && bundle && bundle.meta && bundle.meta.signer !== undefined) {
++    notifyError('meta.signer is written by identity sealing. Pick the identity under "Seal as model identity", or delete meta.signer from the JSON.');
++    return;
++  }
+   let key;
+-  if (_currentKey && _currentKey.alg === sigAlg && (!privInput || privInput === _currentKey.priv)) {
++  if (idName) {
++    try { key = await idKey(idCheckName(idName)); }
++    catch (e) { notifyError('Identity seal failed: ' + e.message); return; }
++    if (key.alg !== sigAlg) {
++      sigAlg = key.alg;
++      document.getElementById('seal-sigalg').value = sigAlg;
++      flashToast(`Signature algorithm set to ${sigAlg} to match the identity's key.`);
++    }
++  } else if (_currentKey && _currentKey.alg === sigAlg && (!privInput || privInput === _currentKey.priv)) {
+     key = _currentKey;
+   } else if (privInput) {
+     /* derive pub where possible; Ed25519 seed → pub; others require generated pair */
+@@ -6452,6 +7000,7 @@
+   const parentEl = document.getElementById('seal-parent');
+   const parentId = parentEl ? parentEl.value.trim() : '';
+   if (parentId) bundle.meta.refs = [{ parent_id: parentId }];
++  if (idName) bundle.meta.signer = idSignerBlock(idGet(idName));
+   try {
+     await sealCore(bundle, digestAlg, sigAlg, key);
+   } catch (e) { notifyError('Seal failed: ' + e.message); return; }
+@@ -6495,7 +7044,7 @@
+ 
+   const nowOpt = isNaN(asof) ? undefined : asof;
+   const { outcome, trace } = await verifyCore(bundle, { context, bundles: bundlesAll,
+-    maxDepth: depth, pubOverride, now: nowOpt });
++    maxDepth: depth, pubOverride, now: nowOpt, registry: idActiveRegistry || undefined });
+   window._lastVerify = { bundle, outcome, trace, now: nowOpt || Date.now() };
+   await chainAppend('verify', (bundle.hdr && bundle.hdr.bundle_id) || '(no id)', outcome);
+   resultDiv.innerHTML = renderVerifyResult(outcome, trace) +
+@@ -6737,6 +7286,28 @@
+     const gpxNoW = JSON.parse(JSON.stringify(gpxB)); delete gpxNoW.seal.witness;
+     T('dual-signature policy: PB-GENO-1 without witness → POLICY-DENIED', eq((await verifyCore(gpxNoW, {})).outcome, 'POLICY-DENIED'));
+ 
++    /* model identity (identity patch 2026-09-14): name bound to key inside the signed bytes */
++    const idOpK = await sigKeygen('Ed25519'), idMK = await sigKeygen('Ed25519'), idXK = await sigKeygen('Ed25519');
++    const idOp = await idMakeRecord('operator/self-test', idOpK);
++    const idM = await idMakeRecord('vendor/model-a', idMK);
++    const idX = await idMakeRecord('vendor/model-a', idXK);
++    const idReg = await idLoadRegistry(await idSealRegistry(idOp, idOpK, [idM]), [idOp.key_sha256]);
++    const idOut = async (b, r) => (await verifyCore(b, r ? { registry: r } : {})).outcome;
++    const idB = await idSealAttest(idM, idMK, { claim: 'self-test' });
++    T('identity: listed name + its key → VERIFIED', eq(await idOut(idB, idReg), 'VERIFIED'));
++    T('identity: no registry → MISSING-SIDE-INFO (name unchecked)', eq(await idOut(idB), 'MISSING-SIDE-INFO'));
++    T('identity: JSON round-trip → VERIFIED', eq(await idOut(JSON.parse(JSON.stringify(idB)), idReg), 'VERIFIED'));
++    T('identity: declared key ≠ signing key → INVALID-SIGNATURE', eq(await idOut(await idSealAttest(idM, idXK, { claim: 'borrowed' }), idReg), 'INVALID-SIGNATURE'));
++    T('identity: same name, unlisted key → INVALID-SIGNATURE', eq(await idOut(await idSealAttest(idX, idXK, { claim: 'impersonation' }), idReg), 'INVALID-SIGNATURE'));
++    T('identity: name not in registry → POLICY-DENIED', eq(await idOut(await idSealAttest(await idMakeRecord('vendor/unlisted', idXK), idXK, {}), idReg), 'POLICY-DENIED'));
++    const idEd = JSON.parse(JSON.stringify(idB)); idEd.meta.signer.model = 'vendor/model-b';
++    T('identity: name edited after sealing → INVALID-SIGNATURE', eq(await idOut(idEd, idReg), 'INVALID-SIGNATURE'));
++    let idPinErr = '';
++    try { await idLoadRegistry(await idSealRegistry(idOp, idOpK, [idM]), [idM.key_sha256]); } catch (e) { idPinErr = e.message; }
++    T('identity: registry sealed by an unpinned key is refused', idPinErr.includes('not pinned'));
++    T('identity: hand-built registry object ignored → MISSING-SIDE-INFO',
++      eq(await idOut(idB, { bundle_id: 'x', signer_key_sha256: idOp.key_sha256, count: 1, entries: new Map([['vendor/model-a', [{ sig_alg: 'Ed25519', key_sha256: idM.key_sha256 }]]]) }), 'MISSING-SIDE-INFO'));
++
+   /* baseline digest sanity check (post-registry, pre-render) */
+     T('SHA-256 sanity check — reproducible on neutral payload',
+       eq(hexOf(await digestBytes('SHA-256', utf8('sample-artifact-payload'))), '28d519b06299a6018dd3ee87538364e8d000b39858962f8dec3d141e447511b7'));
+@@ -8146,6 +8717,7 @@
+   } catch {}
+ 
+   restoreState();
++  idRestore();
+   renderDomains();
+   renderClaims();
+   renderPredictions();
+@@ -8155,6 +8727,7 @@
+   renderEuaiaPanel();
+   renderFilesPanel();
+   renderLedgerPanel();
++  idInitUI();
+   initSyncUI();
+   heroInit();
+   verifyDropInit();

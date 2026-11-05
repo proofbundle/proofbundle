@@ -1,0 +1,59 @@
+[original] self-tests 64/65 failed=['Ed25519 fallback KAT (RFC 8032 §7.1 vector 1)'] matrix 900 pass / 0 fail errors=[]
+[patched] self-tests 73/74 failed=['Ed25519 fallback KAT (RFC 8032 §7.1 vector 1)'] matrix 900 pass / 0 fail errors=[]
+PASS patched: every original self-test still present
+PASS patched: failing self-tests are exactly the original ones  | ['Ed25519 fallback KAT (RFC 8032 §7.1 vector 1)']
+PASS patched: 9 new identity self-tests pass  | identity: listed name + its key → VERIFIED; identity: no registry → MISSING-SIDE-INFO (name unchecked); identity: JSON round-trip → VERIFIED; identity: declared key ≠ signing key → INVALID-SIGNATURE; identity: same name, unlisted key → INVALID-SIGNATURE; identity: name not in registry → POLICY-DENIED; identity: name edited after sealing → INVALID-SIGNATURE; identity: registry sealed by an unpinned key is refused; identity: hand-built registry object ignored → MISSING-SIDE-INFO
+PASS patched: live conformance matrix unchanged  | 900/900
+PASS patched: no page errors at boot
+PASS one key per name: created once, reused
+PASS asking for a different key type is refused  | identity "anthropic/claude-opus-5" already uses Ed25519 (fp 3e550da7e311ff7e); asked for ECDSA-P256. Keys are not replaced implicitly; remove the identity to start over.
+PASS two names keep two stable keys (no single-slot overwrite)
+PASS 5 parallel signAs on a new name produce one key
+PASS action chain intact after parallel signAs
+PASS signAs + pinned registry → VERIFIED  | VERIFIED
+PASS signAs without registry → MISSING-SIDE-INFO  | MISSING-SIDE-INFO
+PASS parallel bundles verify against registry
+PASS algorithm Ed25519: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm ECDSA-P256: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm ECDSA-P384: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm ECDSA-P521: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm RSA-PSS-2048: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm RSA-PSS-3072: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm RSA-PSS-4096: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm Dilithium2: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm Falcon512: identity seal → JSON → VERIFIED  | VERIFIED
+PASS algorithm SPHINCS+-256: identity seal → JSON → VERIFIED  | VERIFIED
+PASS pubOverride: declared key compared with the key that verified → INVALID-SIGNATURE  | INVALID-SIGNATURE
+PASS   (proposal check on seal.pub_b64u would have passed this bundle)
+PASS legacy v1.1.0 envelope with signer + registry → VERIFIED  | VERIFIED
+PASS legacy v1.1.0 envelope with signer, no registry → MISSING-SIDE-INFO  | MISSING-SIDE-INFO
+PASS   (proposal insertion reads bundle.seal.pub_b64u on legacy → throws)  | Cannot read properties of undefined (reading 'pub_b64u')
+PASS uppercase model name refused  | model name must be 1–128 characters from a-z 0-9 . _ : / @ + - and start with a letter or digit; got "Anthropic/Claude"
+PASS name "constructor" is a fresh identity (no prototype collision)
+PASS undefined inside payload refused before sealing  | payload holds values that change when written as JSON (undefined, functions, Dates); the seal would not verify after download
+PASS 16-hex fingerprint refused as a pin  | pin "98dbbaaaf3290520" is not a 64-character hex SHA-256; the 16-character fingerprint is too short to anchor trust
+PASS registry with a swapped entry key refused  | registry seal did not verify: INVALID-SIGNATURE
+PASS name not in registry → POLICY-DENIED  | POLICY-DENIED
+PASS unchecked name does not mask OUT-OF-BOUNDS  | OUT-OF-BOUNDS
+PASS action chain intact at end of API cases
+PASS keyring downloads with YYYY-MM-DD_ name  | 2026-09-15_pb-identity-keyring.json
+PASS after reload: public record restored
+PASS after reload: private key not loaded
+PASS after reload: signAs refuses instead of making a new key  | identity "anthropic/claude-opus-5" (fp 3e550da7e311ff7e) has no private key loaded in this tab; import the keyring file. No replacement key was made.
+PASS after reload: key SHA-256 unchanged by the refusal
+PASS after keyring import: signs with the original key
+PASS no page errors in API/custody run
+PASS UI: identity table lists 2 rows  | 2
+PASS UI: registry downloads with YYYY-MM-DD_ name  | 2026-09-15_pb-model-registry.pb.json
+PASS UI: editor seal writes meta.signer for the chosen identity
+PASS UI: pasted meta.signer without identity is refused  | meta.signer is written by identity sealing. Pick the identity under "Seal as model identity", or delete meta.signer from the JSON.
+PASS UI: Verify tab with pinned registry → VERIFIED  | {"badge": "VERIFIED", "signer": ["Signer identity", "Signer name"]}
+PASS UI: Verify tab after "Stop using registry" → MISSING-SIDE-INFO  | {"badge": "MISSING-SIDE-INFO", "signer": ["Signer identity", "Signer name"]}
+PASS UI: wrong pin leaves no registry in use  | No registry in use: registry is signed by key 9b84b1d01b8ba42f0e274d2090a13e616c2568f45c154c44ec12eead0dcb8ba2, which is not pinned
+PASS UI: Remove deletes the identity
+PASS UI: action chain intact after UI flow
+PASS UI: no page errors
+EXISTING-DEFECT EVIDENCE (not changed by this patch): {"reportInMemory": "VERIFIED", "reportAfterJson": "INVALID-SIGNATURE", "kat_selftest_order": false, "kat_engine_order": true, "race": {"ok": false, "brokenAt": 1, "why": "prev-link mismatch"}}
+
+53/53 checks pass
+HARNESS-EXIT 0

@@ -1,0 +1,32 @@
+2026-08-15 SANDBOX TERMINAL-COMPLETENESS CALCULUS
+
+Lean source:
+  2026-08-15_sandbox_terminal_completeness_calculus.lean
+
+The formal claim is intentionally scope-indexed:
+
+  terminalComplete(current)
+
+and simultaneously:
+
+  ¬ absoluteComplete(current)
+
+The theorem does NOT promote unexecuted Lean obligations to completed proofs.
+
+The least unresolved primitive capability is proved by two directions:
+  1. [lean429Kernel] covers every unresolved obligation.
+  2. Every blocker cover contains lean429Kernel.
+
+Route-specific facts such as GitHub billing or toolchain download access are
+therefore not treated as independent irreducible blockers.
+
+The file also encodes a D1-D5 self-audit:
+  D1: all completed local work is complete and every remaining obligation is declared.
+  D2: the identity-bearing claim is explicitly sandbox-terminal, not absolute.
+  D3: absolute completion is excluded.
+  D4: every remaining obligation has an identified primitive dependency.
+  D5: no remaining obligation is actionable under the present sandbox state.
+
+The source theorem must itself be compiled and #print-axioms audited in a
+Lean 4.29.1 environment before it can be promoted from prepared formalization
+to kernel-checked certificate.

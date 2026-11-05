@@ -1,0 +1,50 @@
+ed25519_sign_verify.lean:26:20: error(lean.unknownIdentifier): Unknown identifier `w32and`
+ed25519_sign_verify.lean:28:20: error(lean.unknownIdentifier): Unknown identifier `w32and`
+ed25519_sign_verify.lean:30:16: error(lean.unknownIdentifier): Unknown identifier `w32or`
+ed25519_sign_verify.lean:31:2: error(lean.unknownIdentifier): Unknown identifier `mkWord255`
+ed25519_sign_verify.lean:35:2: error(lean.unknownIdentifier): Unknown identifier `mkWord256`
+ed25519_sign_verify.lean:42:2: error(lean.unknownIdentifier): Unknown identifier `ed25519_B`
+ed25519_sign_verify.lean:46:50: error: Function expected at
+  CPair
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  ExtPoint
+
+Hint: The identifier `CPair` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+ed25519_sign_verify.lean:54:2: error(lean.unknownIdentifier): Unknown identifier `cpair`
+ed25519_sign_verify.lean:67:2: error(lean.unknownIdentifier): Unknown identifier `w255lt`
+ed25519_sign_verify.lean:72:11: error(lean.unknownIdentifier): Unknown identifier `epX`
+ed25519_sign_verify.lean:73:11: error(lean.unknownIdentifier): Unknown identifier `epY`
+ed25519_sign_verify.lean:74:13: error(lean.unknownIdentifier): Unknown identifier `ed25519_sub`
+ed25519_sign_verify.lean:75:12: error(lean.unknownIdentifier): Unknown identifier `ed25519_mul`
+ed25519_sign_verify.lean:76:12: error(lean.unknownIdentifier): Unknown identifier `ed25519_mul`
+ed25519_sign_verify.lean:77:14: error(lean.unknownIdentifier): Unknown identifier `ed25519_mul`
+ed25519_sign_verify.lean:78:15: error(lean.unknownIdentifier): Unknown identifier `ed25519_mul`
+ed25519_sign_verify.lean:79:13: error(lean.unknownIdentifier): Unknown identifier `ed25519_add`
+ed25519_sign_verify.lean:80:2: error(lean.unknownIdentifier): Unknown identifier `w255eq`
+ed25519_sign_verify.lean:83:42: error: Function expected at
+  CPair
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  ExtPoint
+
+Hint: The identifier `CPair` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+ed25519_sign_verify.lean:84:11: error(lean.unknownIdentifier): Unknown identifier `cfst`
+ed25519_sign_verify.lean:85:11: error(lean.unknownIdentifier): Unknown identifier `csnd`
+ed25519_sign_verify.lean:93:2: error(lean.unknownIdentifier): Unknown identifier `cand`
+ed25519_sign_verify.lean:101:26: error(lean.unknownIdentifier): Unknown identifier `Word32`
+ed25519_sign_verify.lean:102:30: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519_sign_verify.lean:103:30: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519_sign_verify.lean:104:30: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519_sign_verify.lean:105:32: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519_sign_verify.lean:109:2: error(lean.unknownIdentifier): Unknown identifier `CPair`
+ed25519_sign_verify.lean:112:2: error(lean.unknownIdentifier): Unknown identifier `cpair`
+ed25519_sign_verify.lean:114:51: error(lean.unknownIdentifier): Unknown identifier `cfst`
+ed25519_sign_verify.lean:115:48: error(lean.unknownIdentifier): Unknown identifier `cfst`
+ed25519_sign_verify.lean:116:51: error(lean.unknownIdentifier): Unknown identifier `cfst`
+ed25519_sign_verify.lean:117:53: error(lean.unknownIdentifier): Unknown identifier `cfst`
+ed25519_sign_verify.lean:122:16: error(lean.unknownIdentifier): Unknown identifier `cor`

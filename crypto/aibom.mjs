@@ -11,33 +11,24 @@
 // why this is JS and not PowerShell: .NET reports SHA3_384.IsSupported = false
 // on Windows 10 (no CNG SHA3 provider), while keccak.mjs provides it directly.
 //
-// Ed25519 signing is delegated to the Node runtime's own implementation here.
-// Swap it for the from-scratch one by replacing sign() below; the record format
-// does not change.
+// Ed25519 signing and verification use the shared scratch implementation.
 
-import { createHash, generateKeyPairSync, sign as nodeSign } from 'node:crypto';
-// Signing is pluggable. The default uses the Node runtime's Ed25519 because
-// there is no from-scratch Ed25519 in this archive — I searched the repo tree
-// and pb-crypto before assuming one was needed. Supply your own via
-// buildAibom({ signer }) to remove the runtime from the trust boundary;
-// the record format does not change.
+import {sign as edSign,verify as edVerify,keyPairFromSeed} from './ed25519.mjs';
+import {canonicalizeObject} from '../src/canonical/canonical-json.mjs';
+import {bytesToBase64url as b64u,base64urlToBytes} from '../src/encoding/base64url.mjs';
 import { sha3_384 } from './keccak.mjs';
 
-const b64u = (buf) =>
-  Buffer.from(buf).toString('base64')
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-
-/** Deterministic serialisation: keys sorted at every level, no whitespace.
- *  The seal digest is taken over this and nothing else. */
-export function canonical(v) {
-  if (v === null || typeof v !== 'object') return JSON.stringify(v);
-  if (Array.isArray(v)) return '[' + v.map(canonical).join(',') + ']';
-  return '{' + Object.keys(v).sort()
-    .map(k => JSON.stringify(k) + ':' + canonical(v[k])).join(',') + '}';
+export function canonical(value) {return new TextDecoder().decode(canonicalizeObject(value));}
+function seedFromPrivate(key) {
+ let bytes;if(key instanceof Uint8Array)bytes=key;
+ else if(typeof key==='string'){const text=key.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/g,'');bytes=Uint8Array.from(atob(text),c=>c.charCodeAt(0));}
+ else if(key?.export)bytes=new Uint8Array(key.export({format:'der',type:'pkcs8'}));
+ else throw new Error('Raw Ed25519 seed or PKCS8 private key required');
+ if(bytes.length===32)return bytes;
+ const prefix=Uint8Array.from([0x30,0x2e,2,1,0,0x30,5,6,3,0x2b,0x65,0x70,4,0x22,4,0x20]);
+ if(bytes.length!==48||!prefix.every((v,i)=>bytes[i]===v))throw new Error('Ed25519 PKCS8 format');return bytes.slice(16);
 }
 
-/** gate_norm is the Euclidean norm of theta. For theta = ones(10) this is
- *  sqrt(10) = 3.1622776601683795, matching the record on Drive. */
 export function gateNorm(theta) {
   return Math.sqrt(theta.reduce((s, x) => s + x * x, 0));
 }
@@ -90,7 +81,7 @@ export function buildAibom({
       pub_b64u: publicKeyRaw ? b64u(publicKeyRaw) : null,
       signature_b64u: signer
         ? b64u(signer(digest))
-        : (privateKeyPem ? b64u(nodeSign(null, Buffer.from(digest), privateKeyPem)) : null),
+        : (privateKeyPem ? b64u(edSign(digest,seedFromPrivate(privateKeyPem))) : null),
     },
   };
   return record;
@@ -117,25 +108,10 @@ export function verifyAibom(record) {
       problems.push(`gate_norm ${body.gate_norm} != ||theta|| ${gn}`);
     }
   }
+  try {
+    if(bom_seal.sig_alg!=='Ed25519')problems.push('unsupported signature algorithm');
+    else if(!bom_seal.pub_b64u||!bom_seal.signature_b64u)problems.push('missing public key or signature');
+    else if(!edVerify(base64urlToBytes(bom_seal.signature_b64u),sha3_384(canonical(body)),base64urlToBytes(bom_seal.pub_b64u)))problems.push('signature verification failed');
+  }catch{problems.push('malformed public key or signature');}
   return problems;
-}
-
-// Self-check against the known record when run directly.
-if (import.meta.url === `file://${process.argv[1]?.replace(/\\/g, '/')}`) {
-  const kn = sha3_384('abc');
-  const want = 'ec01498288516fc926459f58e2c6ad8df9b473cb0fc08c2596da7cf0e49be4b298d88cea927ac7f539f1edf228376d25';
-  console.log('sha3-384("abc") from keccak.mjs:', Buffer.from(kn).toString('hex') === want ? 'MATCHES FIPS 202' : 'MISMATCH');
-  console.log('gate_norm(ones(10))            :', gateNorm(new Array(10).fill(1)),
-              gateNorm(new Array(10).fill(1)) === 3.1622776601683795 ? '== record on Drive' : '!= record on Drive');
-
-  const { privateKey, publicKey } = generateKeyPairSync('ed25519');
-  const rec = buildAibom({
-    artifact: 'urn:agent:claude-opus-5:proofbundle-session:20260810',
-    generatedAt: '2026-08-10T21:00:00.000Z',
-    privateKeyPem: privateKey,
-    publicKeyRaw: publicKey.export({ type: 'spki', format: 'der' }).slice(-32),
-  });
-  const problems = verifyAibom(rec);
-  console.log('self-verify                    :', problems.length ? problems : 'no problems');
-  console.log(JSON.stringify(rec, null, 1));
 }

@@ -1,12 +1,3 @@
-// BLAKE2b-512 / BLAKE2s-256 via Node's native crypto module (NODE_NATIVE
-// implementation class — OpenSSL's implementation, not reimplemented here).
-
-import { createHash } from 'node:crypto';
-
-function digest(algorithm, bytes) {
-  if (!(bytes instanceof Uint8Array)) throw new TypeError(`${algorithm}: expected Uint8Array input`);
-  return new Uint8Array(createHash(algorithm).update(bytes).digest());
-}
-
-export const blake2b512 = (bytes) => digest('blake2b512', bytes);
-export const blake2s256 = (bytes) => digest('blake2s256', bytes);
+import {blake2b,blake2s} from '../../crypto/blake2.mjs';
+export const blake2b512 = bytes => blake2b(bytes,64);
+export const blake2s256 = bytes => blake2s(bytes,32);

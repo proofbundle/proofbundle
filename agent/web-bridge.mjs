@@ -39,6 +39,7 @@ import {
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const UI_FILE = join(HERE, 'web-bridge-ui.html');
+const APP_FILE = join(HERE,'..','proofbundle.html');
 
 // The library's own request handler, created but never listened on directly —
 // unmatched paths are delegated to it so the historical API is served verbatim.
@@ -110,6 +111,10 @@ function cachedLog() {
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1');
   const path = url.pathname;
+  if(req.method==='GET'&&(path==='/proofbundle.html'||path==='/app')){
+    try{const bytes=readFileSync(APP_FILE);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-cache'});return res.end(bytes);}
+    catch{res.writeHead(503,{'content-type':'text/plain; charset=utf-8'});return res.end('ProofBundle application file is unavailable.');}
+  }
   try {
     // ── Web UI ──
     if (req.method === 'GET' && (path === '/' || path === '/index.html')) {

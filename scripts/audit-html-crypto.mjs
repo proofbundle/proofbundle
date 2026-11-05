@@ -73,7 +73,7 @@ async function boot() {
         configurable: true,
         value: {
           getRandomValues,
-          subtle: webcrypto.subtle,
+          get subtle() { throw new Error('PLATFORM_CRYPTO_FORBIDDEN'); },
           randomUUID: () => webcrypto.randomUUID(),
         },
       });
@@ -293,7 +293,7 @@ findings.push({
   id: 'PBHTML-F002',
   severity: 'MEDIUM',
   title: 'PB-CANON-JSON-1 domain is enforced by the 4f710a2 guard (finding closed)',
-  reproduced: guardHolds,
+  reproduced: !guardHolds,
   status: guardHolds ? 'CLOSED-BY-4f710a2' : 'REOPENED',
   observation: 'Per-value guard rejects: ' + JSON.stringify(rejected) +
     '; [] vs [undefined] still non-injective pre-rejection: ' + nonInjective +
@@ -357,6 +357,8 @@ const forgedRejected = forgedVerdict.verified === false
   && forgedVerdict.genTime === null
   && forgedVerdict.signatureVerified === false;
 
+check('timestamp:forged-rfc3161', 'negative', forgedRejected,
+  forgedVerdict, 'rejected');
 findings.push({
   id: 'PBHTML-F004',
   severity: 'HIGH',
@@ -413,7 +415,7 @@ const receipt = {
   },
   environment: {
     node: process.version,
-    webcrypto: 'node:crypto.webcrypto',
+    webcrypto: 'subtle getter blocked; platform entropy only',
     jsdom: '24.x dependency resolved by package-lock.json',
   },
   summary: {

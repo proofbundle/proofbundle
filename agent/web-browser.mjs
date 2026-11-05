@@ -5,7 +5,7 @@
 // Storage: /media/falsealias/WIN-NVME-500G/browser-bridge/ (root disk is 98% full).
 import http from 'node:http';
 import { execFile } from 'node:child_process';
-import { createHash } from 'node:crypto';
+import { createHash } from '../crypto/hash.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { homedir } from 'node:os';

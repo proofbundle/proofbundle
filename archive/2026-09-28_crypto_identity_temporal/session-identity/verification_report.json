@@ -1,0 +1,13 @@
+{
+  "all_passed": true,
+  "bundle_id": "Z-MLKm1b4ucJEJOk3L1cox5ATM8YQbe0StzJWZPaXUA",
+  "commit_attested": "4a8a099f4e8c1dcbfcec14a103e6116aa96771d6",
+  "generated_at": "2026-09-28T18:19:52.000Z",
+  "public_key_b64u": "1KRCqn-HLu-36rfH4P19HZbKlVZiaYwYuiHV1NE7-uM",
+  "results": {
+    "cryptography_lib_verify": "PASS",
+    "digest_matches": true,
+    "pynacl_independent_verify": "PASS",
+    "tamper_control": "PASS (tampered payload correctly rejected)"
+  }
+}

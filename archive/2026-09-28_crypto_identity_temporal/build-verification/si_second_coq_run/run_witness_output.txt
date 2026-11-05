@@ -1,0 +1,5 @@
+     = Some true
+     : option bool
+result = Some true
+     : option bool
+Closed under the global context

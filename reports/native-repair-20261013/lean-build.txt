@@ -1,0 +1,4 @@
+✔ [3/5] Built ProofBundle.Falsifiable
+✔ [4/5] Built ProofBundle.Temporal
+✔ [5/5] Built ProofBundle.Conformance
+Build completed successfully.

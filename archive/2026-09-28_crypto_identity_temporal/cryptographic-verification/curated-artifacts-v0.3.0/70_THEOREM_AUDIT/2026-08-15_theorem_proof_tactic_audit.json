@@ -1,0 +1,47 @@
+{
+  "total_theorem_declarations": 128,
+  "native_decide": 109,
+  "native_decide_percent": 85.15625,
+  "non_native": 19,
+  "non_native_percent": 14.84375,
+  "by_module": {
+    "ECDSAP256_base": {
+      "total": 5,
+      "native_decide": 2,
+      "non_native": 3
+    },
+    "ECDSA_companion": {
+      "total": 55,
+      "native_decide": 55,
+      "non_native": 0
+    },
+    "ECDSA_hostile": {
+      "total": 26,
+      "native_decide": 26,
+      "non_native": 0
+    },
+    "SHA256_base": {
+      "total": 3,
+      "native_decide": 0,
+      "non_native": 3
+    },
+    "SHA256_companion": {
+      "total": 39,
+      "native_decide": 26,
+      "non_native": 13
+    }
+  },
+  "tactic_classes": {
+    "rfl": 9,
+    "exact": 2,
+    "native_decide": 109,
+    "omega+unfold": 1,
+    "simp+omega": 1,
+    "rw+show": 2,
+    "omega+rw+unfold": 1,
+    "simp+omega+exact+obtain+subst": 1,
+    "direct-term:UInt8.toNat_ofNat'": 1,
+    "simp+omega+obtain": 1
+  },
+  "strict_zero_axiom_implication": "109 native_decide declarations are incompatible with a literal empty #print axioms target unless rewritten; Lean native_decide proofs depend on Lean.ofReduceBool."
+}

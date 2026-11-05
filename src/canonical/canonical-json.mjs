@@ -295,3 +295,27 @@ function utf8EncodeString(str) {
 export function canonicalizeText(text) {
   return canonicalizeValue(strictParseJSON(text));
 }
+
+// Application objects are admitted explicitly; never round-trip through
+// JSON.stringify, which would silently discard unsupported values.
+export function canonicalizeObject(object) {
+  const active=new Set();
+  function admit(v,depth){
+    if(depth>DEFAULT_MAX_DEPTH)throw new RangeError('Canonical JSON depth limit');
+    if(v===null||typeof v==='string'||typeof v==='number'||typeof v==='boolean')return v;
+    if(typeof v!=='object'||v===null)throw new TypeError('Canonical JSON unsupported value');
+    if(active.has(v))throw new TypeError('Canonical JSON cycle');active.add(v);
+    try{
+      if(Array.isArray(v)){for(let i=0;i<v.length;i++)if(!(i in v))throw new TypeError('Canonical JSON sparse array');return v.map(x=>admit(x,depth+1));}
+      if(v instanceof Map)return new Map(Array.from(v,([k,x])=>[k,admit(x,depth+1)]));
+      if(Object.getPrototypeOf(v)!==Object.prototype&&Object.getPrototypeOf(v)!==null)throw new TypeError('Canonical JSON non-JSON object');
+      return new Map(Object.keys(v).map(k=>[k,admit(v[k],depth+1)]));
+    }finally{active.delete(v);}
+  }
+  return canonicalizeValue(admit(object,0));
+}
+
+export function parseJSON(text){
+  function ordinary(v){if(v instanceof Map)return Object.fromEntries(Array.from(v,([k,x])=>[k,ordinary(x)]));if(Array.isArray(v))return v.map(ordinary);return v;}
+  return ordinary(strictParseJSON(text));
+}

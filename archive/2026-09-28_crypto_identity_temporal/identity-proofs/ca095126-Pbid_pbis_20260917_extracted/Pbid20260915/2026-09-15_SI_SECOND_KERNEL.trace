@@ -1,0 +1,31 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["85a7babef9c8a996.olean"],
+  "m": false,
+  "i": "02c35501b628b0f8.ilean",
+  "c": "cfbc3803f8ce9f1e.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=/home/claude/2026-09-15_HANDOVER/lean/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.34.0/bin/lean /home/claude/2026-09-15_HANDOVER/lean/2026-09-15_SI_SECOND_KERNEL.lean -o /home/claude/2026-09-15_HANDOVER/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.olean -i /home/claude/2026-09-15_HANDOVER/lean/.lake/build/lib/lean/2026-09-15_SI_SECOND_KERNEL.ilean -c /home/claude/2026-09-15_HANDOVER/lean/.lake/build/ir/2026-09-15_SI_SECOND_KERNEL.c --setup /home/claude/2026-09-15_HANDOVER/lean/.lake/build/ir/2026-09-15_SI_SECOND_KERNEL.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["deps",
+   [["si_second/SISecond:extraDep",
+     [["@si_second:extraDep", "00000000000006bb"]]],
+    ["imports", "00000000000006bb"]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+   "a1c6c7aa3e9abfe7"],
+  ["/home/claude/2026-09-15_HANDOVER/lean/2026-09-15_SI_SECOND_KERNEL.lean",
+   "8ebfaa436e5de9a1"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: «2026-09-15_SI_SECOND_KERNEL»", "7ec59b2a2e2982f3"],
+  ["Package.id?: (some si_second)", "0018e0019d557bba"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "820ad3b94fcb5fda"}

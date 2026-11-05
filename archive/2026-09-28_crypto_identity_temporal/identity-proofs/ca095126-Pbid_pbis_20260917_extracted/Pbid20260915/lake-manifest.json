@@ -1,0 +1,6 @@
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "si_second",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

@@ -1,0 +1,25 @@
+$ openssl list -kdf-algorithms
+RETURN_CODE=0
+
+STDOUT
+Provided KDFs and PDFs:
+  HKDF @ default
+  TLS13-KDF @ default
+  SSKDF @ default
+  { 1.2.840.113549.1.5.12, PBKDF2 } @ default
+  PKCS12KDF @ default
+  SSHKDF @ default
+  { X942KDF-CONCAT, X963KDF } @ default
+  TLS1-PRF @ default
+  KBKDF @ default
+  { X942KDF, X942KDF-ASN1 } @ default
+  { 1.3.6.1.4.1.11591.4.11, id-scrypt, SCRYPT } @ default
+  KRB5KDF @ default
+  HMAC-DRBG-KDF @ default
+  ARGON2I @ default
+  ARGON2D @ default
+  ARGON2ID @ default
+
+
+STDERR
+

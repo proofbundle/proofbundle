@@ -1,0 +1,23 @@
+ML-KEM-768 INDEPENDENT INTEROP STATUS
+
+Source: mlkem768_ground_truth.json
+SHA-256: c315d206385c63cd7560db38bb5950c2c4f0739c3e9351291a2fefc36ba6adb6
+
+Positive vectors (6):
+- dk[1152:2336] == ek: 6/6
+- dk[2336:2368] == SHA3-256(ek): 6/6
+- dk[-32:] == z: 6/6
+- first 1152 dk bytes decode to 768 12-bit values only in {0,1,2,3327,3328}: 6/6
+- ss == first32(SHA3-512(m || SHA3-256(ek))): 6/6
+
+Hostile implicit-rejection J(z||ct) expected-secret checks: 10/10
+
+OpenSSL 3.5.5 ML-KEM-768 deterministic interop, vector 0:
+- ek: mismatch
+- dk: mismatch
+- ct: mismatch
+- ss from generated key/encap: mismatch
+- supplied ct decapsulation under generated key: mismatch
+
+CLASSIFICATION: INTEROP_DIVERGENCE_LOCALIZED.
+The JSON is internally coherent in its outer KEM layout/hash derivation, but the first PKE-secret component is a coefficient-domain eta1=2 representation rather than the canonical NTT-domain PKE-secret byte representation expected by FIPS 203. Do not label these exact byte strings independently reproduced FIPS-203 vectors yet.

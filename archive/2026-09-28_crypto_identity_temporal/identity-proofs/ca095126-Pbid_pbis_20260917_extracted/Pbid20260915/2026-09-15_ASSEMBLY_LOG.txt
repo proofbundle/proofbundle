@@ -1,0 +1,22 @@
+== assembly 2026-09-16T09:36:55Z
+== cmd: python3 scripts/2026-09-15_MAKE_MANIFEST.py
+manifest entries: 181
+2026-09-15_MANIFEST_VERIFICATION.txt
+Hashes of 2026-09-15_MANIFEST.txt.
+
+file:    2026-09-15_MANIFEST.txt
+bytes:   63600
+sha256:  e4f8feb6e7a3e11894e96a2038687122a065032daf3910b9a4ee57f1d1711f8d
+sha512:  8e0a40fb9f42f813845d4c6dbf4537a3a4aabd8461233603499f518dfa981cd530994db28becd7b588c302582c23f175b894f79ec1d540e9c789ee0cdab967c5
+blake3:  479987eabbd84ebbded2613399eeb437e2814782362a2c3867738ec344f939de
+
+exit 0
+== cmd: python3 2026-09-15_VERIFY.py --rerun --proofbundle-repo /tmp/pb > 2026-09-15_VERIFY_RUN.txt
+verify exit 0
+== cmd: deterministic zip of the bundle directory
+zip entries: 184 (all files except this assembly log, which is written after the zip)
+zip bytes 1433041
+zip sha256 162eabf19492b283c68059340213ea746175e14d6a62ee4e6bb2f18b2327c151
+zip sha512 621a1e7c249e7e6ae5d2c15123f26c5bc3af6f0192d93f3e05b7fadb28a5efde3453656194ebf4635846719a2a8ceabaff5bdad3a93e41457d49b4509d3b7aee
+zip blake3 c284d43cfb2333daf9a252db1166eb229b4fe31bc382d51636259a5d5ced0cb9
+FINISHED

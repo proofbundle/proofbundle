@@ -20,7 +20,7 @@
  *   7. Each agent has full attestation over every action in the mesh
  */
 import http from 'node:http';
-import { createHash } from 'node:crypto';
+import { createHash } from '../crypto/hash.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';

@@ -1,8 +1,8 @@
 // From-scratch ECDSA (FIPS 186-4 appendix D.1.2 / SEC1 v2.0) over the NIST
-// short-Weierstrass curves P-256 (secp256r1) and P-384 (secp384r1).
+// short-Weierstrass curves P-256, P-384 and P-521.
 // Pure JS BigInt field arithmetic, Jacobian-coordinate point arithmetic,
 // RFC 6979 deterministic nonce generation via an HMAC construction built
-// here on top of ./sha256.mjs. No external crypto library, no WebCrypto,
+// here on top of the scratch SHA-2 implementations. No external crypto library, no WebCrypto,
 // no node:crypto (that's for *.test.mjs only, as an independent yardstick).
 //
 // Spec references:
@@ -17,24 +17,9 @@
 // below is specialized for -- this is the standard NIST/SEC1 choice, made
 // because it lets point doubling use a cheaper formula than a general `a`.
 //
-// Design note on hashing: RFC 6979 nonce generation uses HMAC-SHA-256
-// uniformly for BOTH curves, per this project's explicit instruction
-// ("HMAC-SHA-256 is strongly preferred"). The generic RFC 6979 bit-generator
-// (see rfc6979GenerateK below) handles hlen < qlen by looping -- this is
-// explicitly provided for in RFC 6979 section 3.2 step (h.2), so driving a
-// 384-bit nonce off a 256-bit HMAC is spec-legal, just two HMAC calls
-// instead of one. The message digest actually signed ("z" in FIPS 186-4)
-// uses the curve-appropriate hash: SHA-256 for P-256, SHA-384 for P-384
-// (imported from ./sha512.mjs, which exists in this tree). The RFC 6979
-// "h1 = H(m)" fed into the nonce generator is that same curve-appropriate
-// digest (so the nonce is bound to the exact bytes being signed), while the
-// HMAC engine expanding it into k bits is SHA-256 throughout. This is a
-// documented, deliberate deviation from pedantic RFC 6979 (which ties the
-// nonce-generator's internal hash to the message-digest hash); it does not
-// weaken determinism (still fully deterministic, still seeded by both the
-// private key and the message digest) or introduce caller-supplied
-// randomness -- it only means P-384's nonce entropy is expanded through a
-// 256-bit-wide HMAC instead of a 384-bit-wide one.
+// RFC6979 uses the same curve-selected hash for the message digest and
+// nonce HMAC: SHA-256, SHA-384, SHA-512 for P-256, P-384, P-521.
+// Published RFC6979 sample/test signatures are pinned in vectors/rfc6979.json.
 //
 // Constant-time-shaped scalar multiplication: the ladder in scalarMul below
 // performs exactly one point addition and one point doubling per scalar
@@ -63,7 +48,7 @@
 // silently assumed away.
 
 import { sha256 } from './sha256.mjs';
-import { sha384 } from './sha512.mjs';
+import { sha384, sha512 } from './sha512.mjs';
 
 // ---------------------------------------------------------------------------
 // Prime-field arithmetic mod p, generic over the field prime.
@@ -160,11 +145,19 @@ const P384 = defineCurve({
   nHex: 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC7634D81F4372DDF581A0DB248B0A77AECEC196ACCC52973',
 });
 
-const CURVES = { 'P-256': P256, 'P-384': P384 };
+const P521 = defineCurve({
+  name:'P-521',byteLen:66,
+  pHex:'01'+'FF'.repeat(65),
+  bHex:'0051953EB9618E1C9A1F929A21A0B68540EEA2DA725B99B315F3B8B489918EF109E156193951EC7E937B1652C0BD3BB1BF073573DF883D2C34F1EF451FD46B503F00',
+  gxHex:'00C6858E06B70404E9CD9E3ECB662395B4429C648139053FB521F828AF606B4D3DBAA14B5E77EFE75928FE1DC127A2FFA8DE3348B3C1856A429BF97E7E31C2E5BD66',
+  gyHex:'011839296A789A3BC0045C8A5FB42C7D1BD998F54449579B446817AFBD17273E662C97EE72995EF42640C550B9013FAD0761353C7086A272C24088BE94769FD16650',
+  nHex:'01FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA51868783BF2F966B7FCC0148F709A5D03BB5C9B8899C47AEBB6FB71E91386409',
+});
+const CURVES = { 'P-256': P256, 'P-384': P384, 'P-521':P521 };
 
 function getCurve(curveName) {
   const c = CURVES[curveName];
-  if (!c) throw new Error(`unknown curve "${curveName}" (expected 'P-256' or 'P-384')`);
+  if (!c) throw new Error(`unknown curve "${curveName}" (expected 'P-256', 'P-384', or 'P-521')`);
   return c;
 }
 
@@ -335,7 +328,7 @@ function hmacSha256(key, msg) {
 // ---------------------------------------------------------------------------
 // RFC 6979 deterministic nonce generation (HMAC-DRBG), generic over the
 // group order n / its byte length rlen, driven by hmacSha256 throughout
-// (see file header for why). h1Bytes is the message-digest bytes (curve-
+// with the selected message hash. h1Bytes is the message-digest bytes (curve-
 // appropriate hash of the message) to bind the nonce to.
 // ---------------------------------------------------------------------------
 
@@ -353,29 +346,34 @@ function bits2octets(bytes, n, qlenBits, rlen) {
   return int2octets(z1, rlen);
 }
 
+function hmacNonce(curve,key,message){
+ const block=curve.name==='P-256'?64:128,hash=input=>hashForCurve(curve.name,input);
+ if(key.length>block)key=hash(key);const padded=new Uint8Array(block);padded.set(key);const inner=padded.map(x=>x^0x36),outer=padded.map(x=>x^0x5c);return hash(concatBytes(outer,hash(concatBytes(inner,message))));
+}
 function rfc6979GenerateK(curve, privateScalar, h1Bytes, isValidCandidate) {
   const { n, byteLen: rlen } = curve;
-  const qlenBits = rlen * 8;
+  const qlenBits = n.toString(2).length;
   const xOctets = int2octets(privateScalar, rlen);
   const h1Octets = bits2octets(h1Bytes, n, qlenBits, rlen);
 
-  let V = new Uint8Array(32).fill(0x01);
-  let K = new Uint8Array(32).fill(0x00);
-  K = hmacSha256(K, concatBytes(V, Uint8Array.of(0x00), xOctets, h1Octets));
-  V = hmacSha256(K, V);
-  K = hmacSha256(K, concatBytes(V, Uint8Array.of(0x01), xOctets, h1Octets));
-  V = hmacSha256(K, V);
+  const outputLength=hashForCurve(curve.name,new Uint8Array()).length;
+  let V = new Uint8Array(outputLength).fill(0x01);
+  let K = new Uint8Array(outputLength).fill(0x00);
+  K = hmacNonce(curve,K, concatBytes(V, Uint8Array.of(0x00), xOctets, h1Octets));
+  V = hmacNonce(curve,K, V);
+  K = hmacNonce(curve,K, concatBytes(V, Uint8Array.of(0x01), xOctets, h1Octets));
+  V = hmacNonce(curve,K, V);
 
   for (;;) {
     let T = new Uint8Array(0);
     while (T.length * 8 < qlenBits) {
-      V = hmacSha256(K, V);
+      V = hmacNonce(curve,K, V);
       T = concatBytes(T, V);
     }
     const k = bits2int(T, qlenBits);
     if (k >= 1n && k < n && isValidCandidate(k)) return k;
-    K = hmacSha256(K, concatBytes(V, Uint8Array.of(0x00)));
-    V = hmacSha256(K, V);
+    K = hmacNonce(curve,K, concatBytes(V, Uint8Array.of(0x00)));
+    V = hmacNonce(curve,K, V);
   }
 }
 
@@ -400,7 +398,7 @@ function derInteger(v) {
   else {
     const hex = v.toString(16);
     const hexPadded = hex.length % 2 ? '0' + hex : hex;
-    bytes = Uint8Array.from(Buffer.from(hexPadded, 'hex'));
+    bytes = Uint8Array.from(hexPadded.match(/../g),x=>parseInt(x,16));
     if (bytes[0] & 0x80) bytes = concatBytes(Uint8Array.of(0x00), bytes);
   }
   return concatBytes(Uint8Array.of(0x02), derLen(bytes.length), bytes);
@@ -442,12 +440,12 @@ function decodeDER(bytes) {
 
 function hashForCurve(curveName, message) {
   if (typeof message === 'string') message = new TextEncoder().encode(message);
-  return curveName === 'P-384' ? sha384(message) : sha256(message);
+  return curveName === 'P-521' ? sha512(message) : curveName === 'P-384' ? sha384(message) : sha256(message);
 }
 
 // leftmost min(bitlen(hash), bitlen(n)) bits of the hash, as an integer.
 function hashToZ(hashBytes, curve) {
-  const nBits = curve.byteLen * 8; // bitlen(n) == byteLen*8 for both curves (see header)
+  const nBits = curve.n.toString(2).length;
   return bits2int(hashBytes, nBits);
 }
 

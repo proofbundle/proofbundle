@@ -226,6 +226,16 @@ function blake2sCore(msg, key, outLen) {
 export function blake2b(msg, outLen = 64) {
   return blake2bCore(msg, null, outLen);
 }
+export function createBlake2b(outLen=64) {
+  if(!Number.isInteger(outLen)||outLen<1||outLen>64)throw new RangeError('BLAKE2b output length');
+  const h=IV_B.slice(),pending=new Uint8Array(128);h[0]^=0x01010000n^BigInt(outLen);
+  let used=0,total=0n,done=false;
+  const api={update(input){if(done)throw new Error('Hash already finalized');if(!(input instanceof Uint8Array))input=new TextEncoder().encode(input);let at=0;
+    while(at<input.length){if(used===128){fB(h,bytesToWordsLE64(pending),total,false);used=0;}
+      const n=Math.min(128-used,input.length-at);pending.set(input.subarray(at,at+n),used);used+=n;total+=BigInt(n);at+=n;}return api;},
+    digest(){if(done)throw new Error('Hash already finalized');done=true;pending.fill(0,used);fB(h,bytesToWordsLE64(pending),total,true);const out=new Uint8Array(64),view=new DataView(out.buffer);for(let i=0;i<8;i++)view.setBigUint64(i*8,h[i],true);return out.slice(0,outLen);}};
+  return api;
+}
 export function blake2bKeyed(msg, key, outLen = 64) {
   if (typeof key === 'string') key = new TextEncoder().encode(key);
   return blake2bCore(msg, key, outLen);

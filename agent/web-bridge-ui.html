@@ -35,24 +35,28 @@
   .ok { color:var(--ok); } .bad { color:var(--bad); } .dim { color:var(--dim); }
   a { color:var(--accent); }
 </style>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--fg:#18263e;--dim:#63718a;--edge:#dce3ef;--accent:#285fe5;--ok:#14785a;--bad:#b63740}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);line-height:1.6}header{background:#fff;padding:24px 32px;gap:12px;border-bottom:1px solid var(--edge);flex-wrap:wrap}header h1{font-size:22px;letter-spacing:-.025em;margin-right:auto}main{max-width:1320px;margin:0 auto;padding:32px;gap:24px}section{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:24px}h2{font-size:16px;font-weight:650;margin:0 0 16px}input,select,textarea{background:#fff;min-height:40px;padding:10px 12px;border-radius:7px;font:13px system-ui}button{background:#edf2f9;min-height:40px;color:var(--fg);border-radius:7px;padding:10px 16px;font-weight:600}button:hover{background:#e4ecf8}pre{padding:14px;background:#f7f9fc;border-radius:8px;font:12px/1.7 ui-monospace,Consolas,monospace}label{font-size:12px;margin-bottom:6px}.pill{font:11px ui-monospace;border-radius:6px;padding:5px 9px}table{font-size:12px}td,th{padding:10px 8px}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.bridge-app-link{color:#fff;background:var(--accent);border-radius:7px;padding:9px 14px;text-decoration:none;font-size:13px;font-weight:600}.bridge-lead{padding:24px 32px 0;max-width:1320px;margin:auto;color:var(--dim)}@media(max-width:700px){header{padding:18px 16px}main{padding:20px 16px;grid-template-columns:1fr}.bridge-lead{padding:20px 16px 0}.row{flex-wrap:wrap}}
+</style>
 </head>
 <body>
 <header>
-  <h1>⬡ ProofBundle Web Bridge</h1>
+  <h1>ProofBundle · Web Bridge</h1><a class="bridge-app-link" href="/proofbundle.html">Open application</a>
   <span class="pill dim" id="h-health">…</span>
   <span class="pill dim" id="h-chain">…</span>
   <span class="pill dim" id="h-fork">…</span>
   <span class="pill dim" id="h-seq">…</span>
   <span class="pill dim" id="h-state">…</span>
 </header>
-<main>
+<p class="bridge-lead">Connected agent identities, signed envelopes, and retained lineage. Offline file custody and key registration are available in the application.</p><main>
   <section id="s-agents">
     <h2>Agents on this machine</h2>
     <div id="agents">loading…</div>
     <h2 style="margin-top:14px">Register identity</h2>
     <div class="row">
       <div><label>agent_id</label><input id="reg-id" placeholder="claude, kimi, glm…"></div>
-      <div style="flex:0"><button onclick="doRegister()">/register</button></div>
+      <div style="flex:0"><button onclick="doRegister()">Register with relay</button></div>
     </div>
     <pre id="reg-out" class="dim">new Ed25519 + X25519 (+ ML-KEM-768) keys are generated locally, 0600, under ~/.proofbundle/agent/</pre>
   </section>
@@ -71,7 +75,7 @@
     <label>payload (JSON)</label>
     <textarea id="seal-payload" spellcheck="false">{ "note": "" }</textarea>
     <div class="row" style="margin-top:8px">
-      <div style="flex:0"><button onclick="doSeal()">/seal</button></div>
+      <div style="flex:0"><button onclick="doSeal()">Seal envelope</button></div>
     </div>
     <pre id="seal-out" class="dim">seq + prev_hash are assigned from the chain tip before signing; the signature covers them</pre>
   </section>
@@ -81,7 +85,7 @@
     <label>envelope (JSON, as returned by /seal or read from lineage)</label>
     <textarea id="verify-env" spellcheck="false"></textarea>
     <div class="row" style="margin-top:8px">
-      <div style="flex:0"><button onclick="doVerify()">/verify</button></div>
+      <div style="flex:0"><button onclick="doVerify()">Verify envelope</button></div>
       <div style="flex:0"><button onclick="doForkCheck()">fork check (/lineage/export)</button></div>
     </div>
     <pre id="verify-out" class="dim">signature + lineage + registry pubkey binding</pre>
@@ -187,7 +191,8 @@ async function doSeal() {
   const to = $('seal-to').value.trim();
   if (to) body.to = to;
   const r = await api('/seal', body);
-  show('seal-out', r.error ? r : r.receipt, !!r.error);
+  show('seal-out', r, !!r.error);
+  if(r.envelope)$('verify-env').value=JSON.stringify(r.envelope,null,2);
   if (!r.error) { loadOverview(); loadTail(); }
 }
 
@@ -215,7 +220,7 @@ async function doInbox() {
 async function doStamp() { show('stamp-out', await api('/stamp', {})); }
 async function doLineageInfo() { show('stamp-out', await api('/lineage')); }
 
-loadOverview(); loadAgents(); loadTail();
+loadOverview(); loadAgents().catch(e=>show('agents','Relay unavailable: '+e.message,true)); loadTail().catch(e=>show('tail','Lineage unavailable: '+e.message,true));
 setInterval(() => { loadOverview(); }, 15000);
 </script>
 </body>

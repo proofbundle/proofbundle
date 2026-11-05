@@ -1,0 +1,1258 @@
+olean
+4.29.1
+f72c35b3f637c8c6571d353742168ab66cc22c00
+Init
+ProofBundle
+Crypto
+ECDSAP256
+bigSigma0
+hashBlocksAux
+powMod
+hashToInt
+a_eq
+rotr
+sha256HexBytes
+natToBeBytes
+_sunfold
+round
+_proof_1
+nmul
+bits2octets
+recoverPrivFromReuse
+sha256Chain
+stateToBytes
+natToBe64
+Point
+infinity
+elim
+K_size
+hexDecodeAux
+_sparseCasesOn_1
+hashBlockList
+ctorElim
+rfc6979K
+recOn
+compress
+padList
+affine
+messageBlocks
+hexDecode
+instDecidableEqPoint
+decEq
+_proof_5
+sha256Hex
+rfc6979KAux
+nibbleChar
+injEq
+smallSigma1
+_unsafe_rec
+hmacSha256Hex
+isLowS
+match_1
+noConfusion
+yfmz'
+bigSigma1
+onCurve
+pointMulAux
+nsub
+jLeK
+instBEqPoint
+ecdsaVerifyFull
+ecdsaSign
+round_uses_temps
+H0_size
+recoverNonceFromReuse
+messageBlocksAux
+hexVal
+_sizeOf_1
+basePoint
+ninv
+finv
+instReprPoint
+scheduleWords
+initState
+sizeOf_spec
+bytesToWord
+pointDouble
+generateK
+paddedBlockCount
+hmacSha256
+Array
+.+ky
+get!
+powModAux
+pointAdd
+_proof_3
+sha256ChainHex
+nadd
+psd{
+_proof_2
+hashBlocks
+byteToHex
+t1Temp
+_proof_4
+ecdsaVerify
+int2octets
+p_eq
+zB~g
+hexEncode
+repr
+doubleSha256
+doubleSha256Hex
+validatePublicKey
+t2Temp
+fsub
+fmul
+noConfusionType
+match_4
+0,2M
+_sizeOf_inst
+smallSigma0
+sha256
+ *	O)
+ctorIdx
+bytesToNatBE
+_native
+native_decide
+ax_1_1
+fadd
+_sparseCasesOn_2
+schedule
+casesOn
+bits2int
+pointMul
+wordToBytes
+]y	;
+ctorElimType
+padZeros
+7B]`
+State
+UInt32
+HXor
+hXor
+instHXorOfXorOp
+instXorOpUInt32
+OfNat
+ofNat
+l:"d12
+instOfNat
+fuel
+bytes
+List
+UInt8
+brecOn
+c;By
+below
+_hygCtx
+_hyg
+9v$$
+Unit
+instOfNatNat
+uE^<
+succ
+block
+take
+PProd
+drop
+(8mN
+HMod
+hMod
+instHMod
+instMod
+37WL
+ByteArray
+HSub
+hSub
+instHSub
+instSubNat
+of_decide_eq_true
+instDecidableEqNat
+instHOrOfOrOp
+instOrOpUInt32
+shiftRight
+shiftLeft
+instSubUInt32
+String
+PcyJ!
+_internal
+q@)_q
+sunfoldMatch
+fE"~
+sunfoldMatchAlt
+HAppend
+hAppend
+instHAppendOfAppend
+instAppend
+HDiv
+hDiv
+instHDiv
+instDiv
+cons
+PVZg
+lR-F
+NeZero
+Zero
+ofOfNat0
+HAdd
+hAdd
+instHAdd
+instAddNat
+instNeZeroSucc
+H77	
+HMul
+hMul
+L4n*
+instHMul
+instMulNat
+instLENat
+/@.We9i
+decLe
+toList
+data
+xqT/I
+m`Qh
+F|E`
+6a}I
+{Rb	
+8DrW
+6_:N
+motive
+FMKo
+symm
+PULift
+size
+head
+tail
+else
+)jjrB
+hasNotBit
+ne_of_beq_eq_false
+land
+borrowed
+refl
+Bool
+false
+tail_ih
+-HzT
+down
+Gdge
+ndrec
+^13;
+HAnd
+hAnd
+kp^+j
+instHAndOfAndOp
+instAndOpUInt32
+Complement
+complement
+instComplementUInt32
+priv
+replicate
+F8S	
+toArray
+9s9R"@w(
+Bind
+bind
+Monad
+toBind
+instMonad
+ForIn
+forIn
+Legacy
+Range
+instForInOfForIn'
+inferInstance
+bUrL
+Membership
+instMembershipNatRange
+instForIn'NatInferInstanceMembershipOfMonad
+\BRa
+zero_lt_one
+instInhabitedUInt32
+PUnit
+ForInStep
+Pure
+pure
+Applicative
+toPure
+toApplicative
+unit
+yield
+FP= 
+instAddUInt32
+/}o7	P
+length
+PT`G
+-HzT
+-HzT
+S/EGKV&
+-HzT
+-HzT
+6[Z)
+False
+*=)W
+x_eq
+BZ3Oq
+y_eq
+\m*dKY
+toUTF8
+upnH
+?gd2
+? 0(
+A-gD+
+cand
+instBEqOfDecidableEq
+true
+instDecidableEqBool
+M)Xo
+Char
+?Pt0
+eK1%<)%
+>uur
+?Pt0
+propIntro
+Lean
+injEq_helper
+K%>7
+?\K+
+"\Ua
+Fv;G
+6&.N
+kyai
+[O T
+|zw,
+qB6\
+Xxza
+p	M@
+-p_V
+~xMV
+O<Y/
+IU`@
+c>pq
+X8a1
+yCBo
+rest
+b{Mw
+%S	4
+Q~[Z
+{l;B
++iV>
+]olF
+h RU
+t)0d
+M1VL
+base
+BdIj{
+[M4Q
+8y	 
+Prod
+save_info
+uy%{h
+"]4D
+intro
+%{	0
+j|9X
+-HzT
+u<&-
+-HzT
+	~eS
+4hOk
+e6	'3
+"$Yq
+toNat
+Decidable
+decide
+5FN>
+SizeOf
+sizeOf
+instSizeOfNat
+ HK<
+Repr
+h_10
+h_11
+h_12
+h_13
+h_14
+h_15
+h_16
+h_17
+FRcz
+XUOf
+dite
+ndrec_symm
+>P%8
+1tgn
+b-a&
+FP4>
+ [];
+P;NZ
+sQyf
+H#"X
+:j	v#X
+3\D*
+!4`8(
+toUInt32
+vP7p
+1oM:p
+d,j 8
+os]c
+G&i{
+.G(b
+J0%#	
+instDecidableEqFin
+h80#
+instLTNat
+decLt
+klist
+ipad
+@-K,
+instXorOpUInt8
+Nrn0
+opad
+inner
+|&f	 
+inst
+xx7p
+Inhabited
+getD
+default
+-b7"
+,6>#
+]-Do
+3r62(
+noConfusion_of_Nat
+|RNq
+instAndOpUInt8
+6t_]
+_A3)/
+%Tj	p
+^1kW3
+t.U&
+hr+8
+(gJ#
+"9	0
+HPow
+hPow
+instHPow
+instPowNat
+instNatPowNat
+ofList
+flatMap
+toUInt8
+z#o!
+MlBH
+:);6
+okO	
+;2k/
+scMG
+&TO^
+2'n%
+Nl$w
+ed79
+DecidableEq
+kF`9
+foldl
+byte
+bk)(
+1\rY
+isTrue
+isFalse
+*BLY
+1Bi>
+8,'o
+|	'E
+k[}k	
+XdY:9
+mkEmpty
+KHkO
+]XC$
+push
+instInhabitedUInt8
+bFG8
+_d[<
+J-4`
+w|/u
+5k 0
+d?	0
+$?3k	
+prec
+-HzT
+Format
+addAppParen
+group
+<JsB
+nest
+text
+ProofBundle.Crypto.ECDSAP256.Point.infinity
+FlattenBehavior
+allOrNone
+ProofBundle.Crypto.ECDSAP256.Point.affine
+line
+reprArg
+instReprNat
+1.aQ
+blen
+HShiftRight
+hShiftRight
+instHShiftRightOfShiftRight
+instShiftRight
+Ve	 
+}+m4
+6K5`
+}fe	
+kO*M
+cond
+jS&'
+(gb9
+-mk	@
+h9p<
+i{^A
+_boxed
+_closed_0
+-}	Cw
+_closed_11
+w%_.
+_closed_10
+_closed_9
+_closed_8
+_closed_7
+_closed_6
+_closed_5
+_closed_4
+_closed_3
+_closed_2
+_closed_1
+_at_
+$J6E
+spec_0
+or &Pf
+_redArg
+lX/M
+mapTR
+loop
+spec_1
+_private
+Data
+Impl
+flatMapTR
+	qu{
+Basic
+forIn'
+}/vx`
+0hUg0
+c8@NM
+_boxed_const_1
+k+>`
+&;Rc
+efB9
+_closed_64
+_closed_63
+_closed_62
+_closed_61
+_closed_60
+_closed_59
+_closed_58
+,7WY
+_closed_57
+_closed_56
+_closed_55
+sHM_
+_closed_54
+_closed_53
+_closed_52
+_closed_51
+_closed_50
+_closed_49
+_closed_48
+_closed_47
+_closed_46
+_closed_45
+_closed_44
+_closed_43
+_closed_42
+_closed_41
+_closed_40
+_closed_39
+_closed_38
+_closed_37
+_closed_36
+_closed_35
+_closed_34
+k'S3
+_closed_33
+RQ{W
+_closed_32
+_closed_31
+_closed_30
+_closed_29
+_closed_28
+_closed_27
+_closed_26
+_closed_25
+_closed_24
+_closed_23
+#l>/R
+_closed_22
++e;-
+_closed_21
+_closed_20
+_closed_19
+_closed_18
+_closed_17
+_closed_16
+_closed_15
+e;-SW
+_closed_14
+_closed_13
+_closed_12
+auxRecExt
+AuxRecursor
+sparseCasesOnExt
+noConfusionExt
+declRangeExt
+protectedExt
+namespacesExt
+^`|2
+docStringExt
+Double SHA-256, rendered as lowercase hex of the digest of the UTF-8
+encoding of the input string. 
+Iterated hashing: `sha256Chain m n` applies `sha256` `n` times in
+succession, with `sha256Chain m 0 = m`.  This is the structure of hash
+chains used in protocols such as S/KEY and in proof-of-work style iterated
+hashing constructions. 
+The numeric value of a hexadecimal digit (both upper- and lowercase
+accepted); other characters map to 0 so the function is total. 
+Scalar multiplication `k
+P` with 256 bits of fuel; every scalar that
+arises (private keys, nonces, verification scalars, and the group order
+`n` itself in the validation check) is below `2^256`. 
+The base point G of P-256 (ground truth `curve.Gx`, `curve.Gy`). 
+The padded message, as a list of bytes (FIPS 180-4 section 5.1.1):
+the message, then `0x80`, then `padZeros` zero bytes, then the 64-bit
+big-endian bit length.  Its length is always a multiple of 64; see
+`SHA256Theorems.pad_length_multiple_of_64`. 
+`round` agrees with the explicitly named temporaries: the new `a` is
+`T1 + T2` and the new `e` is `d + T1` (FIPS 180-4 section 6.2.2, step 3).
+Both equations hold by reflexivity of the definitions. 
+The capital sigma function `
+0` ("big sigma zero") of FIPS 180-4
+section 4.1.2 (equation 4.4), used in the compression function:
+0(x) = ROTR^2(x) XOR ROTR^13(x) XOR ROTR^22(x). 
+Double SHA-256: `sha256 (sha256 m)`.  Used as the hash function of the
+Bitcoin block chain; a standard countermeasure against length-extension
+attacks on plain SHA-256. 
+SHA-256 of a byte string, rendered as lowercase hex.  Companion to
+`sha256Hex`, which hashes the UTF-8 encoding of a string. 
+HMAC-SHA-256 with the key and message given as strings (UTF-8 encoded),
+rendered as lowercase hex. 
+The integer `z` derived from the message per FIPS 186-5 section 6.4
+hash-truncation rule: `z = bits2int(SHA-256(m))`; for P-256/SHA-256 this
+is the full hash interpreted as a big-endian integer. 
+The nonce itself recovered from a reuse pair:
+`k = (z1 - z2)
+(s1 - s2)
+ mod n`. 
+The initial hash value of FIPS 180-4 section 4.2.1.  Derivation of each
+word: `floor(frac(sqrt(p)) * 2^32)` for the primes `p = 2, 3, 5, 7, 11, 13,
+17, 19`. 
+The SHA-256 hash function (FIPS 180-4 section 6.2): pad the message,
+process all blocks starting from the initial state, and serialise the final
+state to a 32-byte digest.  The output is always exactly 32 bytes; see
+`SHA256Theorems.sha256_output_length`. 
+Point addition `P + Q` in affine coordinates (FIPS 186-4 B.3):
+distinct x-coordinates give slope `
+ = (y
+ - y
+)/(x
+ - x
+)`; equal
+x-coordinates either sum to the point at infinity (`y
+ = -y
+`) or
+delegate to `pointDouble`. 
+The message schedule of FIPS 180-4 section 6.2.2, step 1.  The input is
+one 64-byte message block; the output is the array of 64 words `W[t]`.
+`W[0..15]` are read big-endian from the block; `W[16..63]` are computed by
+the recurrence above, implemented as a fold that pushes one word at a time
+onto the schedule array.  Because the loop bounds are the literals 16 and
+64, every `get!` below is in bounds by construction. 
+Low-s canonicality predicate: `s 
+ n/2` (equivalently `s 
+n is odd).  ECDSA signatures are malleable: `(r, s)` is valid iff
+`(r, n - s)` is valid, because the verification equation only sees
+s` through the x-coordinate.  Neither FIPS 186-5 nor RFC 6979 mandates
+low-s rejection 
+ it is a *policy* (BIP-62/BIP-146 style).  This
+development therefore keeps `ecdsaVerify` policy-free and exposes
+`isLowS` so a deployment can reject high-s signatures explicitly; the
+hostile file documents both malleability probes as "verifies
+mathematically, policy-rejected". 
+Modular exponentiation `x^e mod m` with 264 bits of fuel; every
+exponent used below (`p - 2`, `n - 2`, both 256-bit) halts well within
+the budget. 
+Padding lifted to `ByteArray` (FIPS 180-4 section 5.1.1).  This is a
+thin wrapper around `padList`; all the mathematical content is in
+`padList`, `padZeros` and `natToBe64`. 
+The small sigma function `
+1` of FIPS 180-4 section 4.1.2
+(equation 4.7), used in the message schedule:
+1(x) = ROTR^17(x) XOR ROTR^19(x) XOR SHR^10(x). 
+RFC 6979 section 3.2 step h: the generate-and-test loop of the
+HMAC-DRBG.  Each iteration sets `V = HMAC_K(V)` and tests
+`T = bits2int(V)` as the candidate secret `k`; a candidate outside
+`[1, n-1]` is rejected with `K = HMAC_K(V || 0x00)`, `V = HMAC_K(V)`
+before retrying.  Structurally recursive on 8 rounds of fuel (in
+practice the first candidate is accepted for all ground-truth vectors;
+the fuel-exhausted fallback keeps the function total and is
+unreachable). 
+Point doubling `2P` in affine coordinates (FIPS 186-4 B.3 formula
+for `a 
+ 0` curves): with `
+ = (3x
+ + a)/(2y
+ - 2x
+`, `y
+ - x
+) - y
+`.  A point with `y
+ = 0` doubles
+to the point at infinity. 
+Right shift of a 32-bit word by `n` bits, `SHR^n(x)` of FIPS 180-4
+section 3.2 item 3.  This is simply `UInt32.shiftRight`; it is given a name
+matching the standard so that the sigma functions below read exactly like
+the equations of section 4.1.2. 
+Derivation check: `p` in its published closed form
+`2^256 - 2^224 + 2^192 + 2^96 - 1`. 
+RFC 6979 section 3.2 `int2octets`: the `rolen = 32`-octet big-endian
+encoding of `x mod n`. 
+The x-coordinate of the base point G (ground truth `curve.Gx`). 
+The two lowercase hexadecimal characters of one byte, high nibble
+first. 
+Iterate the compression function over the (padded) message, one 64-byte
+block at a time (FIPS 180-4 section 6.2.2: the message blocks `M(1)` through
+`M(N)` "are processed in order").  The fuel `length / 64 + 1` bounds the
+number of blocks of any message whose length is a multiple of 64 bytes. 
+One round of the SHA-256 compression function (FIPS 180-4 section
+6.2.2, step 3).  `round st k w` performs a single round with round constant
+`k = K[t]` and schedule word `w = W[t]`, returning the updated vector of
+working variables.  The update is written out variable by variable so that
+each round is explicitly auditable against the standard; the theorem
+`round_uses_temps` in section 10 records the agreement with the named
+temporaries `T1` and `T2`. 
+Assemble four bytes into one 32-bit word, most significant byte first
+(FIPS 180-4 section 3.1: "the left-most bit ... is the most significant
+bit").  This is the big-endian reading of the message block, and it is also
+how the padded length field of section 5.1.1 is laid out. 
+The `Ch` ("choose") function of FIPS 180-4 section 4.1.2 (equation 4.2):
+  Ch(x, y, z) = (x AND y) XOR ((NOT x) AND z).
+For each bit position, the bit of `x` selects between the bit of `y` (when
+the `x` bit is 1) and the bit of `z` (when the `x` bit is 0). 
+The initial hash state has exactly eight words, one for each of the
+working variables a..h (FIPS 180-4 section 6.2.2). 
+HMAC-SHA-256 (RFC 2104) with block size B = 64 bytes:
+  HMAC(K, m) = H( (K0 XOR opad) || H( (K0 XOR ipad) || m ) )
+where `K0` is the key hashed with `sha256` if it is longer than 64 bytes
+and otherwise zero-padded on the right to 64 bytes, `ipad = 0x36` repeated
+64 times and `opad = 0x5c` repeated 64 times.  Note that after the optional
+hashing step the key list is at most 64 bytes long, so the zero-padding
+count `64 - klist.length` below is never truncated. 
+FIPS 186-5 section 6.4.1 signature generation with the RFC 6979
+deterministic nonce: `k = rfc6979K(d, m)`, `R = k
+G`, `r = R.x mod n`,
+`s = k
+(z + r
+d) mod n`.  (The FIPS restart conditions `r = 0` and
+`s = 0` are cryptographically unreachable for the KATs and are returned
+verbatim rather than looped on, keeping the definition total.) 
+Private-key recovery from two signatures that reuse the same nonce
+`k` on the same key with the same `r` 
+ the classic ECDSA nonce-reuse
+failure.  With `s1 = k
+(z1 + r
+d)` and `s2 = k
+(z2 + r
+d)`:
+`k = (z1 - z2)
+(s1 - s2)
+ mod n` and then
+`d = (s1
+k - z1)
+ mod n`.  Honest mathematics, included for the
+forensic hostile case. 
+Lowercase hex encoding of a byte string (no external dependencies). 
+The capital sigma function `
+1` ("big sigma one") of FIPS 180-4
+section 4.1.2 (equation 4.5), used in the compression function:
+1(x) = ROTR^6(x) XOR ROTR^11(x) XOR ROTR^25(x). 
+The curve coefficient `a = p - 3` (ground truth `curve.a`).  P-256
+uses `a = -3 mod p` so that point doubling can use the faster `a = -3`
+Jacobian formula; here we use plain affine arithmetic, so `a` appears
+only in the doubling slope and the curve equation. 
+Iterated hashing rendered as lowercase hex: `sha256ChainHex s n` is the
+hex encoding of `sha256` applied `n` times to the UTF-8 bytes of `s`. 
+Scalar addition modulo the group order `n`. 
+RFC 6979 section 3.2 `bits2int`: interpret the byte string as a
+non-negative big-endian integer and, if its bit length exceeds
+`qlen = 256`, keep only the leftmost `qlen` bits.  For a SHA-256 output
+(32 bytes) the bit length is exactly 256 and no shift occurs. 
+The number of zero bytes appended between the `0x80` delimiter and the
+64-bit length field when padding a message of `n` bytes (FIPS 180-4 section
+5.1.1).  Chosen so that `n + 1 + padZeros n + 8 
+ 0 (mod 64)`; equivalently
+`padZeros n` is the unique value in `[0, 64)` with `n + 9 + padZeros n`
+divisible by 64. 
+RFC 6979 section 3.2 `bits2octets`: `z1 = bits2int(h1)`, reduce by a
+single conditional subtraction of `n` (valid because
+`bits2int(h1) < 2^256 < 2n`), then `int2octets`. 
+Field inversion `x^(p-2) mod p` (Fermat's little theorem: for
+`0 < x < p`, `x^(p-1) = 1 mod p`, so `x^(p-2)` is the inverse).  This is
+the "pow fuel" inversion used by the affine point formulas. 
+The 64 round constants of FIPS 180-4 section 4.2.2, in order.
+Derivation of each word: `floor(frac(p^(1/3)) * 2^32)` for successive
+primes `p = 2, 3, 5, 7, ..., 311`. 
+Big-endian byte string to natural number. 
+The y-coordinate of the base point G (ground truth `curve.Gy`). 
+Scalar subtraction modulo `n` (adds `n` before subtracting so the
+`Nat` subtraction never truncates). 
+Field addition modulo `p`. 
+Derivation check: `a = p - 3`. 
+FIPS 186-5 section 6.4.4 signature verification, including **all**
+range checks of the standard: the signature components must satisfy
+`r, s 
+ [1, n-1]` (rejecting `r = 0`, `s = 0`, `r = n`, `s = n`
+outright); then `w = s
+`, `u1 = z
+w mod n`, `u2 = r
+w mod n`,
+`X = u1
+G + u2
+Q`, and the signature is accepted iff `X 
+ infinity` and
+`X.x mod n = r`.  This is the pure mathematical verifier; it does not
+validate the public key (see `ecdsaVerifyFull`) and does not enforce any
+low-s canonicality policy (see `isLowS`). 
+Scalar multiplication `e
+(acc) + ...` 
+ double-and-add over the
+binary expansion of `e`, structurally recursive on the explicit fuel.
+Invariant: returns `acc + e
+(2^k 
+ P)` folded down to `acc0 + e0
+P`. 
+The small sigma function `
+0` of FIPS 180-4 section 4.1.2
+(equation 4.6), used in the message schedule:
+0(x) = ROTR^7(x) XOR ROTR^18(x) XOR SHR^3(x). 
+Fold the compression function over an explicit list of 64-byte blocks.
+This is the mathematical content of `hashBlocks`: `hashBlocks` computes the
+same value by consuming the padded byte string 64 bytes at a time. 
+Auxiliary block iteration with an explicit fuel parameter (so the
+recursion is structural and needs no well-founded-termination proof).
+Each iteration consumes one 64-byte block; the fuel computed in
+`hashBlocks` below always suffices for a fully padded message: a nonempty
+byte list of length `L` that is a multiple of 64 has exactly `L / 64`
+blocks, and `L / 64 <= L / 64 + 1`. 
+The curve coefficient `b` (ground truth `curve.b`; FIPS 186-4
+D.1.2.3, generated verifiably at random per ANSI X9.62). 
+The on-curve predicate: coordinates in range and satisfying the
+curve equation `y
+ + a
+x + b (mod p)` (FIPS 186-4 D.1.1). 
+The hexadecimal digit for a nibble value; values above 15 do not occur
+in the uses below but map to `'x'` so the function is total. 
+Full public-key validation predicate of FIPS 186-5 section 5.6.2.3:
+rejects the point at infinity, off-curve points (invalid-curve attack
+probes), out-of-range coordinates, and points of incorrect order. 
+Decode an even-length hexadecimal string to a byte list, two characters
+per byte, high nibble first.  Odd-length tails are discarded. 
+Scalar inversion `x^(n-2) mod n` modulo the (prime) group order,
+again by Fermat's little theorem.  Used for the `k
+` and `s
+` of
+FIPS 186-5 section 6 and for the RFC 6979/forensic formulas. 
+The hash state: eight 32-bit working variables `a, b, c, d, e, f, g, h`
+(FIPS 180-4 section 6.2.2, step 2), represented as a function from `Fin 8`
+to `UInt32` so that indexing is total and statically bounds-checked.
+Index 0 is `a`, index 1 is `b`, ..., index 7 is `h`. 
+A point on the P-256 curve: either the point at infinity (the group
+identity) or an affine point `(x, y)` with coordinates in GF(p). 
+RFC 6979 section 3.2 `generateK` for ECDSA over P-256 with
+HMAC-SHA-256: given the private key `x` and the message `m` (which is
+first hashed to `h1 = SHA-256(m)` per RFC 6979 section 2.3/3.2 
+ the
+"the input is the hashed message" convention), returns the deterministic
+per-message secret `k 
+ [1, n-1]`.
+Steps a
+g of the RFC, verbatim:
+  V = 0x01 0x01 ... (32 bytes); K = 0x00 0x00 ... (32 bytes);
+  K = HMAC_K(V || 0x00 || int2octets(x) || bits2octets(h1));
+  V = HMAC_K(V);
+  K = HMAC_K(V || 0x01 || int2octets(x) || bits2octets(h1));
+  V = HMAC_K(V);
+then the generate-and-test loop of `rfc6979KAux`. 
+Modular exponentiation `acc * base^e mod m`, square-and-multiply on
+the binary expansion of `e`, structurally recursive on the explicit fuel
+(the bit length budget).  At each step the lowest bit of `e` selects a
+multiplication into the accumulator; `base` is squared and `e` halved. 
+Convenience: SHA-256 of the UTF-8 encoding of a string, rendered as a
+lowercase hex string.  This is the form in which most published test
+vectors (including the FIPS 180-4 examples) are stated. 
+Field multiplication modulo `p`. 
+The order of the base point G (ground truth `curve.n`; FIPS 186-4
+D.1.2.3).  P-256 has cofactor 1, so `n` is also the number of points on
+the curve. 
+Serialise one 32-bit word as four bytes, most significant byte first
+(FIPS 180-4 section 6.2.2 final step: the message digest is the
+concatenation of the eight hash words, each big-endian). 
+Full verification pipeline: FIPS 186-5 section 5.6.2.3 public-key
+validation followed by section 6.4.4 verification with range checks.
+This is the entry point used for the hostile rejection cases. 
+The round temporary `T1` of FIPS 180-4 section 6.2.2, step 3, exposed
+separately for auditability:
+  T1 = h + 
+1(e) + Ch(e, f, g) + K[t] + W[t].
+`round` above computes exactly this value; this definition allows theorems
+and tests to refer to it directly. 
+The full schedule of a block, viewed as a list of the 64 words
+`W[0] .. W[63]` (FIPS 180-4 section 6.2.2, step 1).  This is simply the
+list view of `schedule`; it is provided so that schedule words can be
+pattern-matched and printed by test harnesses that prefer lists. 
+The number of round constants; SHA-256 performs exactly 64 rounds per
+block (FIPS 180-4 section 6.2.2), one per constant. 
+Serialise the final hash state as 32 bytes: the concatenation of the
+eight words `H(N)_0 .. H(N)_7`, each written big-endian (FIPS 180-4 section
+6.2.2: "the 256-bit message digest ... H(N)_0 || H(N)_1 || ... || H(N)_7"). 
+Number of 64-byte blocks needed for a padded message of `n` bytes
+(FIPS 180-4 section 5.1.1): always at least one. 
+Natural number to a big-endian byte string of exactly the given
+length (the fuel is the length budget; the accumulator grows on the
+right so the result is big-endian). 
+The full compression function of FIPS 180-4 section 6.2.2, steps 2-4:
+fold all 64 rounds over the message schedule of the block, then add the
+resulting working variables back into the incoming hash state word by word
+(the feed-forward, "Compute the i-th intermediate hash value H(i)").  The
+64-round fold is an explicit loop over `t` in `[0, 64)`, so that the number
+of rounds is directly auditable. 
+Decode a hexadecimal string to a `ByteArray`.  Used to write known
+answer tests compactly in the companion theorem files. 
+Split a byte list into consecutive blocks of 64 bytes (FIPS 180-4
+section 5.2.1: "the padded message is parsed into 512-bit blocks").  The
+final block is shorter than 64 bytes only if the input length is not a
+multiple of 64, which never happens for padded messages. 
+The `Maj` ("majority") function of FIPS 180-4 section 4.1.2 (equation
+4.3):
+  Maj(x, y, z) = (x AND y) XOR (x AND z) XOR (y AND z).
+For each bit position the output bit is the majority vote of the three
+input bits. 
+The initial state of the SHA-256 computation: the eight words of `H0`
+(FIPS 180-4 section 6.2.1: "Set the initial hash value, H(0)"). 
+Scalar multiplication modulo `n`. 
+Auxiliary for `messageBlocks` with explicit fuel, so the recursion is
+structural.  Each step peels one 64-byte block off the front of the list. 
+Field subtraction modulo `p` (adds `p` before subtracting so the
+`Nat` subtraction never truncates). 
+The field prime `p = 2^256 - 2^224 + 2^192 + 2^96 - 1`
+(ground truth `curve.p`; FIPS 186-4 D.1.2.3). 
+RFC 6979 section 3.2 `generateK` as a named alias of `rfc6979K`
+(the HMAC-DRBG generation procedure), provided for readers following
+the RFC's section 3.2 pseudocode. 
+The round temporary `T2` of FIPS 180-4 section 6.2.2, step 3:
+T2 = 
+0(a) + Maj(a, b, c). 
+The 64-bit big-endian representation of the bit length, as a list of
+eight bytes (FIPS 180-4 section 5.1.1: "append the 64-bit block that is
+equal to the number L written using the binary representation").  Only the
+low 64 bits of `n` are represented, matching the standard's requirement
+that message lengths be below 2^64 bits.  Byte `i` of the result is
+`(n / 2^(8*(7-i))) mod 256`. 
+Right rotation of a 32-bit word by `n` bits, `ROTR^n(x)` of FIPS 180-4
+section 3.2 item 4: "The right rotate operation ... where x is a w-bit word
+and n is an integer with 0 <= n < w, is defined by ROTR^n(x) = (x >> n) OR
+(x << (w - n))".
+Lean core does not uniformly expose `UInt32.rotateRight`, so we expand the
+rotation into exactly this defining composition of shifts:
+  ROTR^n(x) = (x >> n) OR (x << (32 - n))   for 0 < n < 32.
+All SHA-256 rotation amounts (2, 3, 6, 7, 10, 11, 13, 17, 18, 19, 22, 25)
+satisfy `0 < n < 32`, so the boundary behaviour of the expansion is never
+exercised outside its specified domain. 
+DocString
+Extension
+(moe
+ZI%.
+moduleDocExt
+## Section 1: 32-bit word operations (FIPS 180-4 sections 3.2 and 4.1.2)
+SHA-256 operates on 32-bit words.  The operations used are (FIPS 180-4
+sections 2.1 and 3.2): bitwise AND, OR, XOR, complement, addition modulo
+2^32, right shift, and right rotation.  The eight logical functions used by
+the algorithm are defined in section 4.1.2 of the standard; all of them are
+defined here, one definition per equation of the standard.
+## Section 2: the round constants `K` (FIPS 180-4 section 4.2.2)
+The sixty-four 32-bit words `K[0] .. K[63]` represent the first 32 bits of
+the fractional parts of the cube roots of the first sixty-four prime
+numbers.  Each constant below carries a comment recording the prime it is
+derived from, so that the whole table can be regenerated and audited:
+  K[t] = floor( frac( p_t ^ (1/3) ) * 2^32 ),  p_t = t-th prime (0-indexed).
+All 64 values were regenerated from the primes and checked against a
+reference SHA-256 implementation before inclusion; the comments give, for
+every word, the prime, the hexadecimal value, and the decimal value.
+## Section 3: the initial hash value `H0` (FIPS 180-4 section 4.2.1)
+The eight 32-bit words of the initial hash value `H0` are the first 32 bits
+of the fractional parts of the square roots of the first eight prime
+numbers 2, 3, 5, 7, 11, 13, 17, 19:
+  H0[i] = floor( frac( sqrt( p_i ) ) * 2^32 ).
+## Section 4: the message schedule (FIPS 180-4 section 6.2.2, step 1)
+Each 512-bit message block is viewed as sixteen 32-bit big-endian words
+`W[0] .. W[15]`, and then expanded to sixty-four words by the recurrence
+  W[t] = 
+1(W[t-2]) + W[t-7] + 
+0(W[t-15]) + W[t-16],   16 
+ 63,
+where `+` is addition modulo 2^32 and `
+0`, `
+1` are the small sigma
+functions of section 4.1.2.
+## Section 5: the compression function (FIPS 180-4 section 6.2.2)
+The compression function transforms the hash state by 64 rounds, one per
+schedule word and round constant.  Round `t` computes
+  T1 = h + 
+1(e) + Ch(e, f, g) + K[t] + W[t]
+  T2 = 
+0(a) + Maj(a, b, c)
+and updates the working variables by
+  h := g,  g := f,  f := e,  e := d + T1,
+  d := c,  c := b,  b := a,  a := T1 + T2,
+all additions being addition modulo 2^32.
+## Section 6: padding (FIPS 180-4 section 5.1.1)
+Padding is defined on lists of bytes so that the companion theorem file can
+reason about it by list induction.  Given a message of length `L` bits
+(here `L = 8 * l.length` for a byte list `l`), append the bit `1` (the byte
+`0x80`, since all our messages are byte-aligned), then append `k` zero bits
+where `k` is the smallest non-negative solution of `L + 1 + k 
+ 448 (mod
+512)`, then append the 64-bit big-endian representation of `L`.
+Since our messages are byte strings, `k` is always a multiple of 8 and we
+append whole zero bytes.  The number of zero bytes to append is
+`padZeros l.length` below.  The padded length is always a positive multiple
+of 64 bytes; this is proved as `pad_length_multiple_of_64` in
+`ECDSAP256Theorems.lean`.
+## Section 7: block iteration and the top-level hash (FIPS 180-4 section 6.2)
+After padding, the padded message is a sequence of 512-bit blocks
+`M(1), M(2), ..., M(N)`.  The hash computation processes them in order:
+  H(i) = compress(H(i-1), M(i)),   i = 1 .. N,
+starting from `H(0) = H0`, and the digest is the concatenation of the eight
+words of `H(N)`, each serialised big-endian.
+## Section 8: hexadecimal utilities (local, dependency-free)
+Known-answer tests are conventionally written as hex strings.  These
+helpers encode digests to lowercase hex and decode hex strings to bytes, so
+that the theorem files can state vectors in their published form.  They are
+small, total, and use no external dependencies.
+## Section 9: derived constructions
+The following are genuine, fully executable definitions built on `sha256`:
+HMAC (RFC 2104), double SHA-256 (as used in Bitcoin), and iterated hashing.
+They are included both because they are useful in their own right and
+because they exercise `sha256` on structured inputs (64-byte key pads,
+32-byte intermediate digests) that complement the raw test vectors.  The
+correctness of `hmacSha256` is pinned down by RFC 4231 test case 1 in
+`ECDSAP256Theorems.lean`.
+## Section 10: additional auditable accessors and API conveniences
+The definitions in this section are not new primitives: they are alternate
+presentations and conveniences around the core algorithm above, provided so
+that reviewers and downstream users can inspect intermediate values of the
+computation (schedule words, round temporaries, per-block iteration) without
+re-implementing anything.
+## Section EC-1: the P-256 field GF(p) and the group order n
+The NIST curve P-256 (secp256r1) is defined over the prime field GF(p)
+with p = 2^256 - 2^224 + 2^192 + 2^96 - 1 (FIPS 186-4 appendix D.1.2.3,
+carried forward into FIPS 186-5 appendix B.4).  All constants below are
+quoted verbatim (hexadecimal) from `ground_truth.json`, dual-verified
+against OpenSSL and an independent Python model.
+## Section EC-2: the curve, points, and scalar multiplication
+The curve is the short Weierstrass curve `y
+ = x
+ + a
+x + b` over GF(p)
+(FIPS 186-5 section B.4; the equation itself is in FIPS 186-4 D.1.1).
+Points are represented by a dedicated inductive with an explicit point
+at infinity 
+ cleaner than an `Option (Nat 
+ Nat)` encoding because the
+group identity is a first-class constructor.
+## Section EC-3: public-key validation (FIPS 186-5 section 5.6.2.3)
+Full public-key validation for ECDSA: the key must not be the point at
+infinity, its coordinates must lie in GF(p) and satisfy the curve
+equation, and it must have the correct order, witnessed by
+Q = infinity`.  (Since P-256 has cofactor 1 the last condition is
+implied by the others for honest encodings, but FIPS 186-5 section
+5.6.2.3 item 4 requires the check, and it is computed honestly here.)
+## Section EC-4: RFC 6979 section 3.2 
+ deterministic k generation
+Instantiation per RFC 6979 section 3.2 with HMAC-SHA-256 as the PRF:
+`qlen = 256` (bit length of the group order `n`), `holen = 32`,
+`rolen = 32` (octet length of `n`).  Because `qlen = 8
+rolen`, the
+`bits2int` truncation and the `int2octets`/`bits2octets` conversions
+take their simplest form, but they are implemented in full generality
+(with the explicit `qlen` shift) so each equation of the RFC can be read
+off the code.
+## Section EC-5: FIPS 186-5 section 6 
+ ECDSA signing and verification
+The hash of the message is converted to an integer per FIPS 186-5
+section 6.4 ("the leftmost N bits of the hash"): for P-256 with
+SHA-256, `N = 256` and the hash output is exactly 256 bits, so `z` is
+simply the big-endian integer value of `SHA-256(m)` (equivalently
+`bits2int` of RFC 6979).  All subsequent arithmetic on `z` is modulo
+`n`, which subsumes the "z mod n" reduction.
+reducibilityCore
+recExt
++	70
+Compiler
+inlineAttrs
+ModPkgExt
+]oTLgF
+modPkgExt
+declMapExt
+tobj
+reverse
+appendTR
+lengthTR
+replicateTR
+copySlice
+getInternalBorrowed
+reprFast
+append
+takeTR
+appendList
+Meta
+Match
+extension
+instanceExtension
+LCNF
+baseExt
+_uniq
+LwT1
+zero
+@wqt
+lcErased
+>+\7
+)tTi
+wuv>
+lcAny
+)[>o
+Vq~v
+^wo6I
++M54
+(FMWr
+UU+so[
+1#@iME
+$C97
+_lXE
+LwH'
+iwwu3;
+x&/A
+K9)I
+\aZ/
+AbC6
++H':
+8;m_8c
+rHI!U
+*3e 
+,.\{
+o	{B
+a.M_
+a5aM
++BZM
+lPpN
+range
+]twZ
+m.ML
+X2ZE
+Y%`0
+getInternal
+monoExt
+isZero
+)._*{
+M|Z'J
+GX$G
+H\-}G
+D/t!T
+^k=[
+cIF.ZS
+##l 
+z3~G=
+5'iQ=
+tkr&X
+;D,A
+CduJ
+start
+stop
+step
+step_pos
+!AZ}
+0HsuF
+n4/:/TT
++T\<GD
+*~J<
+RqeN
+#Wc$
+A[Ic
+)[1)r
+"z-'#
+:RUV
+NHGE
+Fn}y
+Aq?j
+QuSA
+BDKV
+FNU8
+^;jK
+ZA,$@
+%5U[
+jtnG
+$G),T
+d	g<
+{D,	X
+:QT^%
+#H^e
+< D\g
+cCpw
+impureSigExt
+tagged
+extraModUses
+Notation
+NotationExtra
+Tactics
+Specialize
+specCacheExt
+type
+PN Y
+e1g6
+;wX'
+)O ^_
+M	'=
+]>6D
+UnreachableBranches
+functionSummariesExt
+defeqAttr
+simpExtension
+completionBlackListExt
+Constructions
+J1iW
+SparseCasesOn
+$S/4
+sparseCasesOnInfoExt
+Elab
+Term
+elabAsElim
+Structural
+eqnInfoExt
+HC=o
+methodSpecsAttr
+Grind
+a	U4
+grindExt
+grind
+ground_pat
+symbolFrequency
+sineQueNon
+UUUUUU

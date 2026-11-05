@@ -1,0 +1,261 @@
+{
+  "schema": "crypto-validation-receipt/mlkem768-interop/1.0",
+  "source_file": "mlkem768_ground_truth.json",
+  "source_sha256": "c315d206385c63cd7560db38bb5950c2c4f0739c3e9351291a2fefc36ba6adb6",
+  "params": {
+    "q": 3329,
+    "n": 256,
+    "K": 3,
+    "eta1": 2,
+    "eta2": 2,
+    "du": 10,
+    "dv": 4,
+    "ek_bytes": 1184,
+    "dk_bytes": 2400,
+    "ct_bytes": 1088,
+    "ss_bytes": 32
+  },
+  "vector_structural_findings": [
+    {
+      "name": "kat_0",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    },
+    {
+      "name": "kat_1",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    },
+    {
+      "name": "kat_2",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    },
+    {
+      "name": "kat_3",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    },
+    {
+      "name": "kat_4",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    },
+    {
+      "name": "kat_5",
+      "dk_embeds_ek_at_1152": true,
+      "dk_embeds_H_ek_at_2336": true,
+      "dk_final_32_equals_z": true,
+      "first_1152_decoded_coeff_count": 768,
+      "first_1152_decoded_unique_coefficients": [
+        0,
+        1,
+        2,
+        3327,
+        3328
+      ],
+      "coefficient_domain_eta1_2_signature": true,
+      "ss_equals_first32_SHA3_512_m_Hek": true
+    }
+  ],
+  "hostile_checks": [
+    {
+      "name": "bitflip_c1_body",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "de9990672d1d510bc840c4659f049dc97cd35c9118dd5ea377f0d04aa13c77a4",
+      "J_z_ct": "de9990672d1d510bc840c4659f049dc97cd35c9118dd5ea377f0d04aa13c77a4",
+      "J_matches_expected": true
+    },
+    {
+      "name": "bitflip_c2",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "be9edd6c673b5899fd9fd9687c605159bb023efccd26fd6731001c25057d84f4",
+      "J_z_ct": "be9edd6c673b5899fd9fd9687c605159bb023efccd26fd6731001c25057d84f4",
+      "J_matches_expected": true
+    },
+    {
+      "name": "bitflip_last_byte",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "10ba9f42a7f90cb025922ac06dd24319441a8c5074bb56575383c4ef543e3975",
+      "J_z_ct": "10ba9f42a7f90cb025922ac06dd24319441a8c5074bb56575383c4ef543e3975",
+      "J_matches_expected": true
+    },
+    {
+      "name": "zero_c1_first_block",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "3a261379d4ecffa93cedd709742cedc689f02755fcaebcd5b075fda2699dda8b",
+      "J_z_ct": "3a261379d4ecffa93cedd709742cedc689f02755fcaebcd5b075fda2699dda8b",
+      "J_matches_expected": true
+    },
+    {
+      "name": "flip_all_first_32",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "4f776f6d14cf1a1411dfc960f05e8e341ef360c7bd8b809fbd80ad627f45ca3a",
+      "J_z_ct": "4f776f6d14cf1a1411dfc960f05e8e341ef360c7bd8b809fbd80ad627f45ca3a",
+      "J_matches_expected": true
+    },
+    {
+      "name": "boundary_du_compress",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "fe2fe75e309b5979ee3af39f5ad33e1fa55f68d10e15b3e6614113b57eb260f4",
+      "J_z_ct": "fe2fe75e309b5979ee3af39f5ad33e1fa55f68d10e15b3e6614113b57eb260f4",
+      "J_matches_expected": true
+    },
+    {
+      "name": "multi_flip",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "3ba9c54a70570b01e8df9c1c470043b8725123fe8e258f17f5fe1258e71e4222",
+      "J_z_ct": "3ba9c54a70570b01e8df9c1c470043b8725123fe8e258f17f5fe1258e71e4222",
+      "J_matches_expected": true
+    },
+    {
+      "name": "c1_max_compression",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "bac0226760e9924b4be45a6371aa88b8643f0e4eabcbb6571a9806bb783d83bf",
+      "J_z_ct": "bac0226760e9924b4be45a6371aa88b8643f0e4eabcbb6571a9806bb783d83bf",
+      "J_matches_expected": true
+    },
+    {
+      "name": "c2_all_ones_region",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "f1d7aad0318f5e1378e482521f4c3a1a83e1b0cb1ff5d3293298f1b1fe02ad3f",
+      "J_z_ct": "f1d7aad0318f5e1378e482521f4c3a1a83e1b0cb1ff5d3293298f1b1fe02ad3f",
+      "J_matches_expected": true
+    },
+    {
+      "name": "silent_tamper_min",
+      "expected_verdict": "IMPLICIT_REJECTION (decaps succeeds, yields J(z||ct), never the true secret)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "0d24510c11ee4529e9371508ebe9e77baf6088d159029cb6de61d38fa5a6c4f5",
+      "J_z_ct": "0d24510c11ee4529e9371508ebe9e77baf6088d159029cb6de61d38fa5a6c4f5",
+      "J_matches_expected": true
+    },
+    {
+      "name": "truncated_ct_1087B",
+      "expected_verdict": "REJECT (length)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1087
+    },
+    {
+      "name": "extended_ct_1089B",
+      "expected_verdict": "REJECT (length)",
+      "dk_bytes": 2400,
+      "ct_bytes": 1089
+    },
+    {
+      "name": "empty_ct",
+      "expected_verdict": "REJECT (length)",
+      "dk_bytes": 2400,
+      "ct_bytes": 0
+    },
+    {
+      "name": "wrong_dk",
+      "expected_verdict": "IMPLICIT_REJECTION",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088
+    },
+    {
+      "name": "ek_wrong_size_1183",
+      "expected_verdict": "REJECT (length)"
+    },
+    {
+      "name": "control_valid",
+      "expected_verdict": "ACCEPT",
+      "dk_bytes": 2400,
+      "ct_bytes": 1088,
+      "expected_shared_secret": "afc4daecf3143b7fe3e2d9216ec4c155d41d4eaf6f072828db3e4e360b96c008"
+    }
+  ],
+  "independent_openssl_environment": "OpenSSL 3.5.5 ML-KEM-768",
+  "openssl_vector0_observation": {
+    "deterministic_keygen_ek_match": false,
+    "deterministic_keygen_dk_match": false,
+    "deterministic_encap_ct_match": false,
+    "deterministic_encap_ss_match": false,
+    "decap_supplied_ct_ss_match": false
+  },
+  "classification": {
+    "status": "INTEROP_DIVERGENCE_LOCALIZED",
+    "dk_layout_tail_standard": true,
+    "dk_first_component_appears_coefficient_domain_secret": true,
+    "outer_KEM_key_derivation_matches_FIPS_form": true,
+    "hostile_J_checks_passed": 10,
+    "hostile_J_checks_total": 10,
+    "fips203_byte_for_byte_reproduction_established": false,
+    "note": "Coherent custom/noncanonical PKE-secret representation. First 1152 dk bytes decode to eta1=2 coefficient-domain values rather than canonical NTT-domain PKE secret bytes. OpenSSL 3.5.5 does not reproduce supplied positive-vector bytes from d,z,m."
+  }
+}

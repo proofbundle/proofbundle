@@ -1,0 +1,35 @@
+2026-08-19T18:52:14Z sha256: impl=8 lean=166 rocq=0 sorry=46 native_decide=133 -> PROOF_FAILS_STANDARD
+2026-08-19T18:52:14Z sha512: impl=7 lean=3 rocq=0 sorry=0 native_decide=0 -> BOTH_CLEAN
+2026-08-19T18:52:14Z sha384: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:15Z sha224: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:15Z sha3: impl=1 lean=0 rocq=0 sorry=0 native_decide=0 -> IMPL_ONLY_NO_PROOF
+2026-08-19T18:52:15Z keccak: impl=20 lean=0 rocq=0 sorry=0 native_decide=0 -> IMPL_ONLY_NO_PROOF
+2026-08-19T18:52:15Z shake: impl=1 lean=0 rocq=0 sorry=0 native_decide=0 -> IMPL_ONLY_NO_PROOF
+2026-08-19T18:52:16Z hmac: impl=0 lean=40 rocq=0 sorry=0 native_decide=30 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:16Z hkdf: impl=0 lean=3 rocq=0 sorry=0 native_decide=0 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:17Z ecdsa: impl=0 lean=59 rocq=0 sorry=59 native_decide=59 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:17Z p256: impl=0 lean=68 rocq=0 sorry=59 native_decide=59 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:17Z secp256k1: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:18Z ed25519: impl=5 lean=6 rocq=0 sorry=0 native_decide=0 -> BOTH_CLEAN
+2026-08-19T18:52:18Z x25519: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:18Z mlkem: impl=14 lean=3 rocq=0 sorry=0 native_decide=0 -> BOTH_CLEAN
+2026-08-19T18:52:18Z kyber: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:19Z mldsa: impl=6 lean=0 rocq=0 sorry=0 native_decide=0 -> IMPL_ONLY_NO_PROOF
+2026-08-19T18:52:19Z dilithium: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:19Z chacha20: impl=0 lean=3 rocq=0 sorry=0 native_decide=0 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:19Z poly1305: impl=0 lean=3 rocq=0 sorry=0 native_decide=0 -> PROOF_ONLY_NO_IMPL
+2026-08-19T18:52:20Z aes: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:20Z gcm: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:20Z blake2: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:21Z blake3: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:21Z merkle: impl=4 lean=0 rocq=1 sorry=1 native_decide=0 -> PROOF_FAILS_STANDARD
+2026-08-19T18:52:21Z ripemd: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:21Z base58: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:22Z bech32: impl=0 lean=0 rocq=0 sorry=0 native_decide=0 -> ABSENT
+2026-08-19T18:52:22Z === verdict counts ===
+     13 ABSENT
+      6 PROOF_ONLY_NO_IMPL
+      4 IMPL_ONLY_NO_PROOF
+      3 BOTH_CLEAN
+      2 PROOF_FAILS_STANDARD
+2026-08-19T18:52:22Z DONE -> /media/falsealias/raid2tb/algo_coverage_20260819T185213Z

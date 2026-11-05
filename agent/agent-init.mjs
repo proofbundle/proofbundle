@@ -8,7 +8,7 @@
  *   3. Register state packet / identity packet with bridge
  *   4. Only then can agent seal/route messages
  */
-import { generateKeyPairSync, sign as nodeSign, createPrivateKey } from 'node:crypto';
+import {sign as edSign} from '../crypto/ed25519.mjs';
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
@@ -72,14 +72,7 @@ export async function initializeAgent(agentId, artifactUrn, generatedAt) {
     complianceVector: new Array(10).fill(0),
     theta: new Array(10).fill(1),
     publicKeyRaw: publicKeyDer.slice(-32), // raw 32-byte Ed25519 public key
-    signer: (digest) => {
-      const privateKey = createPrivateKey({
-        key: privateKeyDer,
-        format: 'der',
-        type: 'pkcs8',
-      });
-      return nodeSign(null, Buffer.from(digest), privateKey);
-    },
+    signer: digest => edSign(digest,new Uint8Array(privateKeyDer.subarray(-32))),
   });
 
   // Verify AIBOM self-seals correctly

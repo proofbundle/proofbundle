@@ -1,0 +1,46 @@
+info: crypto-sha2: no previous manifest, creating one from scratch
+✖ [1/21] Building Crypto.Vec
+trace: .> LEAN_PATH=././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /root/.elan/toolchains/leanprover--lean4---v4.8.0/bin/lean ././././Crypto/Vec.lean -R ./././. -o ././.lake/build/lib/Crypto/Vec.olean -i ././.lake/build/lib/Crypto/Vec.ilean -c ././.lake/build/ir/Crypto/Vec.c --json
+error: ././././Crypto/Vec.lean:22:34: unknown constant 'Array.size_append'
+error: ././././Crypto/Vec.lean:22:34: tactic 'rewrite' failed, equality or iff proof expected
+  ?m.828
+α : Type
+n m : Nat
+v1 : Vec α n
+v2 : Vec α m
+⊢ (v1.data.append v2.data).size = n + m
+error: ././././Crypto/Vec.lean:44:28: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  v.size
+α : Type
+n : Nat
+v : Vec α n
+x : α
+⊢ n < n + 1
+error: ././././Crypto/Vec.lean:44:75: unsolved goals
+α : Type
+n : Nat
+v : Vec α n
+x : α
+⊢ (v.data.push x)[n] = x
+error: ././././Crypto/Vec.lean:51:8: unknown constant 'Array.append_get_left'
+error: ././././Crypto/Vec.lean:56:8: unknown constant 'Array.append_get_right'
+error: Lean exited with code 1
+✖ [5/21] Building Crypto.Util
+trace: .> LEAN_PATH=././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /root/.elan/toolchains/leanprover--lean4---v4.8.0/bin/lean ././././Crypto/Util.lean -R ./././. -o ././.lake/build/lib/Crypto/Util.olean -i ././.lake/build/lib/Crypto/Util.ilean -c ././.lake/build/ir/Crypto/Util.c --json
+error: ././././Crypto/Util.lean:39:31: function expected at
+  Vec
+term has type
+  ?m.2224
+error: ././././Crypto/Util.lean:42:34: function expected at
+  Vec
+term has type
+  ?m.2257
+error: ././././Crypto/Util.lean:59:28: function expected at
+  Vec
+term has type
+  ?m.2364
+error: Lean exited with code 1
+Some builds logged failures:
+- Crypto.Vec
+- Crypto.Util
+error: build failed

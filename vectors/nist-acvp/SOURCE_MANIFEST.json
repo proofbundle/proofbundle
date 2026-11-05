@@ -1,0 +1,66 @@
+{
+  "source_repository": "https://github.com/usnistgov/ACVP-Server",
+  "source_commit": "975de31eb83d87039ec88934fdc47d8c312b892d",
+  "files": [
+    {
+      "path": "vectors/nist-acvp/ML-KEM-keyGen-FIPS203/prompt.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-KEM-keyGen-FIPS203/prompt.json",
+      "sha256": "3f9ce34f6c836c77958bad2729e837c3b213f44ac36c3065976e7acca6389523",
+      "bytes": 16066
+    },
+    {
+      "path": "vectors/nist-acvp/ML-KEM-keyGen-FIPS203/expectedResults.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-KEM-keyGen-FIPS203/expectedResults.json",
+      "sha256": "a253d0ad91c95ebea5b409673defef0aa49d65d4ed72286399e2e798ddf073a4",
+      "bytes": 544032
+    },
+    {
+      "path": "vectors/nist-acvp/ML-KEM-encapDecap-FIPS203/prompt.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-KEM-encapDecap-FIPS203/prompt.json",
+      "sha256": "998e22dfb12efb14ce9fdff911ca634b13612819a1806f25da69adba7e16db91",
+      "bytes": 624189
+    },
+    {
+      "path": "vectors/nist-acvp/ML-KEM-encapDecap-FIPS203/expectedResults.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-KEM-encapDecap-FIPS203/expectedResults.json",
+      "sha256": "9089ec6ff2424da9f2782b89b2f831a329a3e28d6e5e24b802b78ff36ac61cdf",
+      "bytes": 190940
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-keyGen-FIPS204/prompt.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-keyGen-FIPS204/prompt.json",
+      "sha256": "43e81ad820e495dbcad086fe27c1008393a8c32100bbbff77c558c3f06dcefef",
+      "bytes": 10062
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-keyGen-FIPS204/expectedResults.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-keyGen-FIPS204/expectedResults.json",
+      "sha256": "361f47ca19d592adcc66ff2cb591686ad785fea157b295648738bed6921a68df",
+      "bytes": 873632
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-sigGen-FIPS204/prompt.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-sigGen-FIPS204/prompt.json",
+      "sha256": "447749d72817b211160d243311ce32302f3023e59c355b0f70be2bd3e9e7830d",
+      "bytes": 5044293
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-sigGen-FIPS204/expectedResults.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-sigGen-FIPS204/expectedResults.json",
+      "sha256": "228d011bbe274aeb93e22eea1e0d57b78f43795cf6a64fb5ef1e626485a0bedb",
+      "bytes": 2511972
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-sigVer-FIPS204/prompt.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-sigVer-FIPS204/prompt.json",
+      "sha256": "e2cba4589389756fa0bea1a7e6837138bf0a81f9d14234c9ee8f6d33caa1654e",
+      "bytes": 3125947
+    },
+    {
+      "path": "vectors/nist-acvp/ML-DSA-sigVer-FIPS204/expectedResults.json",
+      "url": "https://raw.githubusercontent.com/usnistgov/ACVP-Server/975de31eb83d87039ec88934fdc47d8c312b892d/gen-val/json-files/ML-DSA-sigVer-FIPS204/expectedResults.json",
+      "sha256": "e1d84ef1b2f35196278ab0b0ed6a46ec62cc03d2dfa92c564199e1999bfb8ea6",
+      "bytes": 13956
+    }
+  ]
+}

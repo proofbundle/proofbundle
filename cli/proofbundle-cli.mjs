@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+import {parseJSON} from '../src/canonical/canonical-json.mjs';
 /* ProofBundle CLI — runs the exact same engine that ships in the browser,
-   headlessly, via jsdom + Node's native WebCrypto. No reimplementation,
+   headlessly via jsdom. Cryptographic computations use embedded scratch providers. No reimplementation,
    no drift: this calls the same sealCore/verifyCore/runSelfTests functions
    that the HTML page calls, so CLI-sealed and browser-sealed bundles are
    byte-for-byte interchangeable.
@@ -13,7 +14,7 @@
 */
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { webcrypto } from 'node:crypto';
+import {randomBytes,randomUUID} from '../crypto/random.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -49,8 +50,8 @@ async function bootEngine() {
       const ne = new TextEncoder(), nd = new TextDecoder();
       if (!window.TextEncoder) window.TextEncoder = class { encode(s) { const b = ne.encode(s); const o = new PageU8(b.length); o.set(b); return o; } };
       if (!window.TextDecoder) window.TextDecoder = class { decode(b) { return nd.decode(b); } };
-      const grv = (a) => { const t = new Uint8Array(a.length); webcrypto.getRandomValues(t); a.set(t); return a; };
-      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, subtle: webcrypto.subtle, randomUUID: () => webcrypto.randomUUID() } }); } catch {}
+      const grv = (a) => { const t = randomBytes(a.length); a.set(t); return a; };
+      try { Object.defineProperty(window, 'crypto', { configurable: true, value: { getRandomValues: grv, randomUUID } }); } catch {}
       if (!window.matchMedia) window.matchMedia = () => ({ matches: false, media: '', addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent() { return false; } });
       window.HTMLCanvasElement.prototype.getContext = () => null;
       if (!window.CryptoKey) window.CryptoKey = globalThis.CryptoKey;
@@ -105,7 +106,7 @@ async function cmdSeal(args) {
   // does not supply one. Without this, `seal` then `verify` — the sequence this
   // CLI's own usage string documents — produces an unverifiable bundle and no
   // error at seal time. Default to the base integrity profile and say so.
-  const parsedBundle = JSON.parse(bundleJson);
+  const parsedBundle = parseJSON(bundleJson);
   parsedBundle.hdr = parsedBundle.hdr || {};
   if (args.profile) {
     parsedBundle.hdr.profile = args.profile;
@@ -117,7 +118,7 @@ async function cmdSeal(args) {
 
   let key;
   if (args.key && existsSync(args.key)) {
-    key = JSON.parse(readFileSync(args.key, 'utf-8'));
+    key = parseJSON(readFileSync(args.key, 'utf-8'));
   } else {
     key = await win.eval(`sigKeygen(${JSON.stringify(sigAlg)})`);
     const keyOut = args.key || 'proofbundle-key.json';
@@ -125,8 +126,8 @@ async function cmdSeal(args) {
     console.error(`No key supplied — generated new ${sigAlg} keypair, saved to ${keyOut}`);
   }
 
-  win.__PB_CLI_BUNDLE__ = parsedBundle;
-  win.__PB_CLI_KEY__ = key;
+  win.__PB_CLI_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(parsedBundle))})`);
+  win.__PB_CLI_KEY__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(key))})`);
   const sealed = await win.eval(`sealCore(window.__PB_CLI_BUNDLE__, ${JSON.stringify(digestAlg)}, ${JSON.stringify(sigAlg)}, window.__PB_CLI_KEY__)`);
   const out = JSON.stringify(sealed, null, 2);
   if (args.out) { writeFileSync(args.out, out); console.log(`Sealed bundle written to ${args.out}`); }
@@ -138,11 +139,11 @@ async function cmdSeal(args) {
 async function cmdVerify(args) {
   const bundlePath = args._[0];
   if (!bundlePath) { console.error('usage: proofbundle verify <bundle.json> [--context ctx.json]'); process.exit(2); }
-  const bundle = JSON.parse(readFileSync(bundlePath, 'utf-8'));
-  const context = args.context && existsSync(args.context) ? JSON.parse(readFileSync(args.context, 'utf-8')) : {};
+  const bundle = parseJSON(readFileSync(bundlePath, 'utf-8'));
+  const context = args.context && existsSync(args.context) ? parseJSON(readFileSync(args.context, 'utf-8')) : {};
   const win = await bootEngine();
-  win.__PB_CLI_BUNDLE__ = bundle;
-  win.__PB_CLI_CTX__ = context;
+  win.__PB_CLI_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(bundle))})`);
+  win.__PB_CLI_CTX__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(context))})`);
   const result = await win.eval(`verifyCore(window.__PB_CLI_BUNDLE__, { context: window.__PB_CLI_CTX__ })`);
   console.log(JSON.stringify(result, null, 2));
   process.exit(result.outcome === 'VERIFIED' ? 0 : 1);

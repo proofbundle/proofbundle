@@ -1,0 +1,71 @@
+{
+  "head_branch": "verification/2026-08-15-crypto-precompiled-shards",
+  "head_sha": "e48d002bf391e4eaaf19deec93f817f7072d0d5d",
+  "interpretation": "Jobs failed before any workflow steps executed; this is preserved as runner-allocation/billing refusal evidence, not theorem failure.",
+  "jobs": [
+    {
+      "conclusion": "failure",
+      "id": 95008001858,
+      "name": "ecdsa-kat-0-msg"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001869,
+      "name": "ecdsa-sanity",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001883,
+      "name": "ecdsa-kat-1-msg"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001891,
+      "name": "ecdsa-rfc6979-sample"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001892,
+      "name": "ecdsa-kat-3-empty"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001901,
+      "name": "ecdsa-kat-1-empty"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001907,
+      "name": "ecdsa-hostile"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001924,
+      "name": "ecdsa-kat-2-empty"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001928,
+      "name": "sha256-theorems"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001932,
+      "name": "ecdsa-kat-2-msg"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001958,
+      "name": "ecdsa-kat-3-msg"
+    },
+    {
+      "conclusion": "failure",
+      "id": 95008001970,
+      "name": "ecdsa-kat-0-empty"
+    }
+  ],
+  "repo": "FalseAlias/proofbundle",
+  "run_id": 31882966824,
+  "workflow": "Verify 2026-08-15 crypto precompiled-base shards"
+}

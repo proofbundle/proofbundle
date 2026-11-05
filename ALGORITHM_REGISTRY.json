@@ -4,7 +4,7 @@
     "canonicalName": "SHA-224",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -44,7 +44,7 @@
     "canonicalName": "SHA-256",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -84,7 +84,7 @@
     "canonicalName": "SHA-384",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -124,7 +124,7 @@
     "canonicalName": "SHA-512",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -164,7 +164,7 @@
     "canonicalName": "SHA-512/224",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -204,7 +204,7 @@
     "canonicalName": "SHA-512/256",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -564,7 +564,7 @@
     "canonicalName": "BLAKE2b-512",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -596,7 +596,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "NODE_NATIVE via node:crypto createHash('blake2b512'). Cross-checked against Python hashlib.blake2b, a separate implementation from Node/OpenSSL.",
+    "interoperabilityNotes": "Scratch crypto/blake2.mjs via src/digest/blake2.mjs. Execution evidence is recorded separately.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -604,7 +604,7 @@
     "canonicalName": "BLAKE2s-256",
     "aliases": [],
     "primitiveFamily": "DIGEST",
-    "implementationClass": "NODE_NATIVE",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
     "allowedOperations": [
       "digest"
@@ -636,7 +636,7 @@
       "UNKNOWN_ALGORITHM",
       "DIGEST_MISMATCH"
     ],
-    "interoperabilityNotes": "NODE_NATIVE via node:crypto createHash('blake2s256'). Cross-checked against Python hashlib.blake2s, a separate implementation from Node/OpenSSL.",
+    "interoperabilityNotes": "Scratch crypto/blake2.mjs via src/digest/blake2.mjs. Execution evidence is recorded separately.",
     "implementationStatus": "COMPLETE"
   },
   {
@@ -1418,7 +1418,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1451,7 +1451,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1484,7 +1484,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1554,7 +1554,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1673,9 +1673,13 @@
     "canonicalName": "RSA-PSS-SHA-256",
     "aliases": [],
     "primitiveFamily": "SIGNATURE",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
-    "allowedOperations": [],
+    "allowedOperations": [
+      "keygen",
+      "sign",
+      "verify"
+    ],
     "parameterSet": null,
     "digestLength": null,
     "keyLengths": null,
@@ -1691,15 +1695,19 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "crypto/t_native_profile.mjs"
+    ],
+    "implementationModulePaths": [
+      "crypto/rsa-pss.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "Scratch RSA-PSS/SHA-256, 32-byte salt, 2048/3072/4096-bit keys. Primality, timing and refinement obligations are recorded separately.",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "RSA-PSS-SHA-384",
@@ -1731,7 +1739,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1764,7 +1772,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1797,7 +1805,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Classified LEGACY_VERIFY_ONLY per spec; verify-only path not yet built.",
+    "interoperabilityNotes": "Classified LEGACY_VERIFY_ONLY per spec; not implemented (verify-only path not yet built).",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1941,7 +1949,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -1974,7 +1982,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2007,7 +2015,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2040,7 +2048,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2073,7 +2081,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2106,7 +2114,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2139,7 +2147,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2172,7 +2180,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2205,7 +2213,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2238,7 +2246,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2271,7 +2279,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2304,7 +2312,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2312,7 +2320,7 @@
     "canonicalName": "X25519",
     "aliases": [],
     "primitiveFamily": "KEM",
-    "implementationClass": "PURE_MJS",
+    "implementationClass": "VETTED_PROVIDER",
     "securityStatus": "CURRENT",
     "allowedOperations": [],
     "parameterSet": null,
@@ -2330,19 +2338,15 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [
-      "crypto/x25519.mjs"
-    ],
-    "implementationModulePaths": [
-      "crypto/x25519.mjs"
-    ],
+    "testVectorPaths": [],
+    "implementationModulePaths": [],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "RFC 7748 X25519. Pure JS Montgomery ladder, self-tested against RFC 7748 vector and DH agreement.",
-    "implementationStatus": "COMPLETE"
+    "interoperabilityNotes": "Not implemented in this pass.",
+    "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
     "id": "X448",
@@ -2374,7 +2378,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2407,7 +2411,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2440,7 +2444,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2473,7 +2477,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass.",
+    "interoperabilityNotes": "Not implemented in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2617,7 +2621,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Recognized algorithm; no implementation in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2650,7 +2654,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Recognized algorithm; no implementation in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2658,9 +2662,12 @@
     "canonicalName": "AES-256-GCM",
     "aliases": [],
     "primitiveFamily": "AEAD",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
-    "allowedOperations": [],
+    "allowedOperations": [
+      "encrypt",
+      "decrypt"
+    ],
     "parameterSet": null,
     "digestLength": null,
     "keyLengths": null,
@@ -2676,24 +2683,32 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "crypto/t_native_profile.mjs"
+    ],
+    "implementationModulePaths": [
+      "crypto/aes256-gcm.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
-      "UNKNOWN_ALGORITHM"
+      "MALFORMED",
+      "INVALID_SIGNATURE"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "Scratch implementation, 96-bit nonce and 128-bit tag. Execution evidence and formal obligations remain separate.",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "ChaCha20-Poly1305",
     "canonicalName": "ChaCha20-Poly1305",
     "aliases": [],
     "primitiveFamily": "AEAD",
-    "implementationClass": "VETTED_PROVIDER",
+    "implementationClass": "PURE_MJS",
     "securityStatus": "CURRENT",
-    "allowedOperations": [],
+    "allowedOperations": [
+      "encrypt",
+      "decrypt"
+    ],
     "parameterSet": null,
     "digestLength": null,
     "keyLengths": null,
@@ -2709,15 +2724,20 @@
     "verificationPolicy": null,
     "historicalVerificationPolicy": null,
     "deprecation": null,
-    "testVectorPaths": [],
-    "implementationModulePaths": [],
+    "testVectorPaths": [
+      "crypto/t_native_profile.mjs"
+    ],
+    "implementationModulePaths": [
+      "crypto/chacha20-poly1305.mjs"
+    ],
     "formalDefinitionPaths": [],
     "theoremIds": [],
     "failureVerdicts": [
-      "UNKNOWN_ALGORITHM"
+      "MALFORMED",
+      "INVALID_SIGNATURE"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
-    "implementationStatus": "NOT_IMPLEMENTED"
+    "interoperabilityNotes": "Scratch implementation, 96-bit nonce and 128-bit tag. Execution evidence and formal obligations remain separate.",
+    "implementationStatus": "COMPLETE"
   },
   {
     "id": "XChaCha20-Poly1305",
@@ -2749,7 +2769,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Recognized algorithm; no implementation in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {
@@ -2782,7 +2802,7 @@
     "failureVerdicts": [
       "UNKNOWN_ALGORITHM"
     ],
-    "interoperabilityNotes": "Not wired in this pass; AES-*-GCM is available NODE_NATIVE in principle.",
+    "interoperabilityNotes": "Recognized algorithm; no implementation in this pass.",
     "implementationStatus": "NOT_IMPLEMENTED"
   },
   {

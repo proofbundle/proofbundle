@@ -18,12 +18,16 @@ addendum), so sealing is exactly how it always ran:
 - append-only hash-chained lineage (`~/.proofbundle/bridge/lineage.jsonl`),
   advisory O_EXCL append lock, fork detection (tips + duplicate seqs)
 - RFC 6962 Merkle batching (domain-separated leaves/nodes, no odd-node
-  duplication) with OTS states pending → submitted → upgraded
+  duplication) with OTS states pending → submitted → upgraded (successful detached Bitcoin verification required)
 - agent-to-agent routing via per-agent inboxes; encrypted envelopes seal
   per-recipient and are refused by /route (ciphertext is recipient-bound)
 
 The guarded pre-revocation entrypoints (`bin/agent-bridge.mjs`, direct
 `node bridge.mjs`) are untouched and still exit 81.
+
+## Application and recorder
+
+`GET /app` and `GET /proofbundle.html` serve the same standalone HTML shipped in the repository. Ordinary file custody, recipient encryption and local agent registration work without this service. The bridge console is an optional connection to retained relay state. Crypto computation uses the scratch providers; Node supplies HTTP and filesystem transport only.
 
 ## Run
 

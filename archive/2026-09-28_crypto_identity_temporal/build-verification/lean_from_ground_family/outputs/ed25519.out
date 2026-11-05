@@ -1,0 +1,170 @@
+ed25519.lean:15:24: error(lean.unknownIdentifier): Unknown identifier `Word256`
+ed25519.lean:16:62: error(lean.unknownIdentifier): Unknown identifier `mkWord256`
+ed25519.lean:17:37: error(lean.unknownIdentifier): Unknown identifier `w256w0`
+ed25519.lean:18:37: error(lean.unknownIdentifier): Unknown identifier `w256w1`
+ed25519.lean:19:37: error(lean.unknownIdentifier): Unknown identifier `w256w2`
+ed25519.lean:20:37: error(lean.unknownIdentifier): Unknown identifier `w256w3`
+ed25519.lean:21:37: error(lean.unknownIdentifier): Unknown identifier `w256w4`
+ed25519.lean:22:37: error(lean.unknownIdentifier): Unknown identifier `w256w5`
+ed25519.lean:23:37: error(lean.unknownIdentifier): Unknown identifier `w256w6`
+ed25519.lean:24:37: error(lean.unknownIdentifier): Unknown identifier `w256w7`
+ed25519.lean:35:25: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:43:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:49:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:55:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:61:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:67:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:73:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:79:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:85:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:91:27: error(lean.unknownIdentifier): Unknown identifier `mkWord256`
+ed25519.lean:93:38: error(lean.unknownIdentifier): Unknown identifier `w256lt`
+ed25519.lean:94:38: error(lean.unknownIdentifier): Unknown identifier `w256eq`
+ed25519.lean:97:13: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:98:13: error(lean.unknownIdentifier): Unknown identifier `w256sub`
+ed25519.lean:99:2: error(lean.unknownIdentifier): Unknown identifier `cif`
+ed25519.lean:102:14: error(lean.unknownIdentifier): Unknown identifier `w256sub`
+ed25519.lean:103:13: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:104:2: error(lean.unknownIdentifier): Unknown identifier `cif`
+ed25519.lean:110:44: error(lean.unknownIdentifier): Unknown identifier `mul256x256`
+ed25519.lean:125:16: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:126:16: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:127:26: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:128:2: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:144:5: error(lean.unknownIdentifier): Unknown identifier `w32shr1`
+ed25519.lean:145:5: error(lean.unknownIdentifier): Unknown identifier `w512v1`
+ed25519.lean:146:5: error(lean.unknownIdentifier): Unknown identifier `w512v2`
+ed25519.lean:147:5: error(lean.unknownIdentifier): Unknown identifier `w512v3`
+ed25519.lean:148:5: error(lean.unknownIdentifier): Unknown identifier `w512v4`
+ed25519.lean:149:5: error(lean.unknownIdentifier): Unknown identifier `w512v5`
+ed25519.lean:150:5: error(lean.unknownIdentifier): Unknown identifier `w512v6`
+ed25519.lean:151:5: error(lean.unknownIdentifier): Unknown identifier `w512v7`
+ed25519.lean:158:5: error(lean.unknownIdentifier): Unknown identifier `w512v8`
+ed25519.lean:159:5: error(lean.unknownIdentifier): Unknown identifier `w512v9`
+ed25519.lean:160:5: error(lean.unknownIdentifier): Unknown identifier `w512v10`
+ed25519.lean:161:5: error(lean.unknownIdentifier): Unknown identifier `w512v11`
+ed25519.lean:162:5: error(lean.unknownIdentifier): Unknown identifier `w512v12`
+ed25519.lean:163:5: error(lean.unknownIdentifier): Unknown identifier `w512v13`
+ed25519.lean:164:5: error(lean.unknownIdentifier): Unknown identifier `w512v14`
+ed25519.lean:165:5: error(lean.unknownIdentifier): Unknown identifier `w32shr1`
+ed25519.lean:173:13: error(lean.unknownIdentifier): Unknown identifier `w256add`
+ed25519.lean:175:14: error(lean.unknownIdentifier): Unknown identifier `w256sub`
+ed25519.lean:176:14: error(lean.unknownIdentifier): Unknown identifier `w256sub`
+ed25519.lean:177:2: error(lean.unknownIdentifier): Unknown identifier `cif`
+ed25519.lean:189:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:190:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:191:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:192:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:193:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:194:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:195:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:196:23: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:197:27: error: don't know how to synthesize implicit argument `Word32`
+  @mkWord255 ?m.9 edd_w0 edd_w1 edd_w2 edd_w3 edd_w4 edd_w5 edd_w6 edd_w7
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:86: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w7 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:79: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w6 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:72: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w5 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:65: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w4 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:58: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w3 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:51: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w2 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:44: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w1 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:197:37: error: don't know how to synthesize implicit argument `Word32`
+  @edd_w0 ?m.9
+context:
+⊢ Sort ?u.1104
+ed25519.lean:199:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:200:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:201:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:202:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:203:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:204:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:205:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:206:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:207:28: error: don't know how to synthesize implicit argument `Word32`
+  @mkWord255 ?m.9 edBy_w0 edBy_w1 edBy_w2 edBy_w3 edBy_w4 edBy_w5 edBy_w6 edBy_w7
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:94: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w7 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:86: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w6 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:78: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w5 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:70: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w4 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:62: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w3 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:54: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w2 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:46: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w1 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:207:38: error: don't know how to synthesize implicit argument `Word32`
+  @edBy_w0 ?m.9
+context:
+⊢ Sort ?u.1281
+ed25519.lean:209:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:210:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:211:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:212:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:213:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:214:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:215:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:216:24: error(lean.unknownIdentifier): Unknown identifier `mkWord32`
+ed25519.lean:217:28: error: don't know how to synthesize implicit argument `Word32`
+  @mkWord255 ?m.9 edBx_w0 edBx_w1 edBx_w2 edBx_w3 edBx_w4 edBx_w5 edBx_w6 edBx_w7
+context:
+⊢ Sort ?u.1458
+ed25519.lean:217:94: error: don't know how to synthesize implicit argument `Word32`
+  @edBx_w7 ?m.9
+context:
+⊢ Sort ?u.1458
+ed25519.lean:217:86: error: don't know how to synthesize implicit argument `Word32`
+  @edBx_w6 ?m.9
+context:
+⊢ Sort ?u.1458
+ed25519.lean:217:78: error: don't know how to synthesize implicit argument `Word32`
+  @edBx_w5 ?m.9
+context:
+⊢ Sort ?u.1458
+ed25519.lean:217:70: error: don't know how to synthesize implicit argument `Word32`
+  @edBx_w4 ?m.9
+context:
+⊢ Sort ?u.1458
+ed25519.lean:217:62: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

@@ -1,0 +1,20 @@
+TAP version 13
+# ML-DSA-44: pk=1312 sk=2560 sig=2420 cTilde=92e54c3c80c3cded...
+# ML-DSA-65: pk=1952 sk=4032 sig=3309 cTilde=e894bb9abc2b016a...
+# ML-DSA-87: pk=2592 sk=4896 sig=4627 cTilde=cba54efffc5ff650...
+# 51 pass, 0 fail
+# Subtest: mldsa.test.mjs
+ok 1 - mldsa.test.mjs
+  ---
+  duration_ms: 2957.68698
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2969.57524

@@ -1,81 +1,13 @@
-# What ProofBundle Is
+# What ProofBundle is
 
-ProofBundle is a cryptographically signed certification system that resolves
-claims against a canonical registry, binds them to artifacts, implementations,
-identities, policies, formal proofs, assumptions, lineage, and time, and emits
-independently verifiable evidence of what was evaluated, what passed, what
-failed, and what remains externally assumed.
+ProofBundle is a local application for retained file bytes, signed cryptographic receipts, recipient encryption, and verifiable custody history. Its primary surface is the standalone [`proofbundle.html`](proofbundle.html), with the cryptographic source modules embedded in that file. Ordinary use requires a modern browser and local storage; it does not require a server or Node runtime.
 
-It is machine-verifiable compliance infrastructure: computational claims are
-certified from reproducible evidence instead of being accepted through
-institutional assertion alone.
+A receipt binds a specified canonical JSON representation and artifact commitments to a signing key. Verification checks that binding under an explicit profile. The result concerns those bytes and that profile. A recorder's signature does not, by itself, establish the source author's identity, an operator's endorsement, compliance with an external legal regime, or a Bitcoin timestamp.
 
-## The system
+The browser workspace provides file sealing and verification, folder intake, retained artifacts, persistent local Ed25519 identities, local agent-session registration, and ML-KEM recipient encryption with authenticated ciphers. Registration records its actual time and supplied metadata. Missing spawn-time proof remains a provenance gap; registration does not reconstruct unavailable evidence.
 
-ProofBundle joins disciplines that are normally separated:
+The optional web bridge connects to agent identities, signed envelopes and retained relay lineage. It serves the same standalone application at `/app`, plus a companion relay console. That transport is optional. Advanced historical profiles, source archives and formal models remain inspectable, with declarations and executed evidence reported separately.
 
-- a canonical registry identifies algorithms, constructions, protocols,
-  profiles, security states, providers, and permitted operations;
-- implementations and providers expose the executable operations actually
-  used;
-- formal definitions and theorem packages state the properties claimed of
-  those operations;
-- known-answer, structural, negative, hostile-input, interoperability, and
-  conformance tests record what was exercised;
-- printed assumptions identify every dependency the proof chain does not
-  discharge;
-- artifact commitments, identity keys, timestamps, lineage, AI-BOMs, and
-  policy profiles bind the evaluation to a particular act and state;
-- a signed certification carries the result and the evidence required for an
-  independent verifier to reproduce it.
+The [cryptographic basis](CRYPTOGRAPHIC_BASIS.md) identifies normative specifications, source hashes, measured conformance and necessary proof obligations. Published-vector conformance, independent interoperability, hostile-input rejection, browser diagnostics and abstract model theorems are different instruments. Passing them does not establish a blanket security proof or FIPS module certification. Implementation refinement, timing guarantees and full composition proofs remain open where the ledger says so.
 
-The resulting chain is:
-
-```text
-registry identity
-    -> normative specification
-    -> formal definition
-    -> implementation or provider
-    -> tests and independent comparisons
-    -> theorem identifiers and printed assumptions
-    -> profile evaluation
-    -> signed certification
-    -> independent verification
-```
-
-## What a certification says
-
-ProofBundle does not emit an unscoped universal `compliant` bit. A
-certification states that a declared claim was evaluated under an identified
-profile, against identified evidence, using identified algorithms,
-implementations, providers, identities, assumptions, and temporal conditions.
-
-It records both successful and unsuccessful outcomes. A verifier can inspect
-and challenge the artifact digest, signature, identity, registry snapshot,
-profile, provider, vector result, theorem reference, assumption set, lineage,
-boundary environment, temporal anchor, and asserted external fact.
-
-## The registry is not a feature list
-
-An algorithm may be planned, identified, source-present, provider-available,
-wired, executable, vector-tested, interoperability-tested, formally defined,
-theorem-linked, kernel-audited, verification-only, prohibited for generation,
-blocked, deprecated, broken, or release-enabled. These are different states.
-
-In particular, “not wired into one dispatcher” does not mean “not
-implemented,” and “source present” does not mean “certified.” ProofBundle keeps
-those distinctions machine-readable so that implementation, verification, and
-release claims cannot be laundered across layers.
-
-## The product boundary
-
-The standalone HTML client is one instrument for creating and verifying
-bundles. The website is the public entrance. A dispatcher registry is one
-projection. The product is the accumulated system: the registry, cryptographic
-implementations, formalizations, verification evidence, custody records,
-profiles, identities, and signed certification protocol operating together.
-
-ProofBundle therefore sits at the intersection of formal methods,
-cryptographic engineering, software supply-chain security, AI provenance,
-machine identity, policy-as-code, compliance evidence, and independent
-verification.
+Source records are preserved separately from generated summaries and receipts. Historical formal policy models establish properties of their definitions; their presence is not evidence of operator adoption or runtime enforcement. The current public claims are bounded by the [repair receipt](reports/native-repair-20261013/release-receipt.json) and its explicitly recorded limitations.

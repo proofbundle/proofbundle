@@ -1,0 +1,5 @@
+make: Entering directory '/media/falsealias/IMAGES-A/NVME-OFFLOAD/home/pb/work/proofbundle-repair-20261013/coq'
+coqc -q GPXBoundary.v 2>&1 | tee GPXBoundary.coq.log
+bash: line 1: coqc: command not found
+make: *** [Makefile:8: GPXBoundary.vo] Error 127
+make: Leaving directory '/media/falsealias/IMAGES-A/NVME-OFFLOAD/home/pb/work/proofbundle-repair-20261013/coq'

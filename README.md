@@ -1,172 +1,70 @@
-<div align="center">
-
 # ProofBundle
 
-**Machine-verifiable compliance infrastructure.**
-Certify computational claims from reproducible evidence—not institutional
-assertion alone.
+A local application for files, signed receipts, encryption, and verifiable history.
 
-[![ci](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/proofbundle/proofbundle/actions/workflows/ci.yml)
-[![coq](https://img.shields.io/badge/coq%208.18.0-83%20theorems%2C%200%20axioms-brightgreen)](coq/)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/proofbundle/proofbundle)
-[![License](https://img.shields.io/badge/license-GPL--3.0--or--later-243746)](#license)
-[![Signed releases](https://img.shields.io/badge/releases-cryptographically%20signed-brightgreen)](VERIFYING.md)
+[Open the application](https://proofbundle.org/proofbundle.html) · [Website](https://proofbundle.org) · [Cryptographic basis](CRYPTOGRAPHIC_BASIS.md) · [Test receipts](reports/native-repair-20261013/) · [Security](SECURITY.md)
 
-[Live app](https://proofbundle.org) · [Verify a release](VERIFYING.md) · [Security policy](SECURITY.md)
+![ProofBundle application](assets/workspace.png)
 
-Institutional role-signing keys and AI-BOM bindings are published in
-[`AGENT_ROLE_KEYS.json`](AGENT_ROLE_KEYS.json); private signing keys remain in
-protected local custody and are never committed.
+Open [`proofbundle.html`](proofbundle.html) in a modern browser. The standalone file embeds its cryptographic engine; ordinary file sealing, verification, local identity registration, and encryption require no server or Node runtime. Originals and source records remain separate from the receipts derived from them.
 
-</div>
+## The application
 
-> **ProofBundle is a cryptographically signed certification system that resolves
-> claims against a canonical registry, binds them to artifacts, implementations,
-> identities, policies, formal proofs, assumptions, lineage, and time, and emits
-> independently verifiable evidence of what was evaluated, what passed, what
-> failed, and what remains externally assumed.**
+- **Files:** select a folder through the browser's permission boundary, or use the folder-upload fallback. Prepare receipts for selected files and retain their relative paths.
+- **Seal and verify:** sign commitments over canonical JSON, download portable receipts, and inspect typed verification results and custody history.
+- **Identity:** persist a local Ed25519 recorder key, export its public identity and signed AI-BOM, or register a distinct agent session locally. Registration records its actual time and supplied metadata; it does not retroactively establish spawn-time identity.
+- **Encryption:** ML-KEM-512/768/1024 with HKDF-SHA-256 and either AES-256-GCM or ChaCha20-Poly1305. The file workflow verifies the signed outer receipt and authenticates the encrypted payload before releasing plaintext. It reads one selected file into memory. The separate `PB-VAULT-1` implementation handles streaming vault records.
+- **History and evidence:** retained bytes, source records, declarations, executed tests, signatures, and external attestations have separate states.
 
-Read the complete public product definition in
-[WHAT_PROOFBUNDLE_IS.md](WHAT_PROOFBUNDLE_IS.md).
+The optional [web bridge](agent/WEB-BRIDGE.md) serves this same application at `/app` or `/proofbundle.html`, with a companion console for an already configured local relay. Node remains an optional transport/development tool; it supplies no cryptographic computation to the repaired production paths. OS entropy comes from `crypto.getRandomValues`; digest, signature, KEM, key derivation, and authenticated encryption computations use embedded source implementations.
 
-> **Evidence is reported by instrument and scope.** Boot checks, generated
-> conformance cases, frozen vectors, modular tests, interoperability runs,
-> formal builds, axiom audits, and registry validation are distinct evidence
-> sets. No one counter represents ProofBundle's verification surface. See
-> [CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md),
-> [ASSUMPTIONS.md](ASSUMPTIONS.md), and [AUDIT.md](AUDIT.md).
+## Cryptographic basis
 
----
+The [basis ledger](CRYPTOGRAPHIC_BASIS.md) lists normative sources, exact implementations, conformance evidence, and remaining proof obligations. [`CRYPTO_SOURCE_MANIFEST.json`](CRYPTO_SOURCE_MANIFEST.json) identifies source bytes embedded in the HTML. [`CRYPTOGRAPHIC_BASIS.json`](CRYPTOGRAPHIC_BASIS.json) provides the machine-readable ledger.
 
-## What it certifies
+The pinned [NIST ACVP sample corpus](vectors/nist-acvp/SOURCE_MANIFEST.json) exercises all three ML-KEM and ML-DSA parameter sets: **855 cases pass**. Separate tests cover SHA-2, Keccak/SHA-3/SHAKE, BLAKE, RFC 6979 deterministic ECDSA, RFC 8439 ChaCha20/Poly1305, AES-256/GCM, interoperability, canonical-input rejection, signature tampering, streaming hashes, and relay envelopes.
 
-ProofBundle evaluates declared compliance requirements and issues a cryptographically
-signed **certification of compliance**. The certification binds the applicable profile,
-compliance vector, threshold vector, gate result, score, artifact commitment, registry
-state, AI-BOM, verification trace, issuer identity, signature, timestamp, and lineage.
+These are scoped test results, not blanket proofs or FIPS certification. The Lean audit covers eight abstract interface/model theorems without axiom dependencies; it does not prove refinement of the JavaScript crypto. JavaScript timing resistance, primitive refinement, and full protocol-composition proofs remain open. Falcon and SLH-DSA compatibility providers remain bundled third-party implementations and are identified separately from scratch providers.
 
-## Certification and verification operations
+OTS calendar submission is a pending external commitment. A Bitcoin attestation displayed by `ots info` becomes verified only after successful detached-file verification against Bitcoin evidence. The ordinary standalone browser does not require an OTS service and does not manufacture anchored status.
 
-- **Seal any artifact** with a signature over a Merkle-committed digest (RFC 6962-style
-  domain separation).
-- **9 digest algorithms** (SHA-2, SHA-3, BLAKE2/BLAKE3) × **10 signature schemes**,
-  including **post-quantum** (Dilithium/ML-DSA, Falcon, SPHINCS+/SLH-DSA).
-- **Typed verification outcomes** — a receipt returns a named verdict
-  (`VERIFIED`, `INVALID-SIGNATURE`, `OUT-OF-BOUNDS`, `EXPIRED`, `LINEAGE-INVALID`, …),
-  not a guess.
-- **Compliance profiles** — formal rule sets for regulated verticals, with explicit
-  predicates, thresholds, decision procedures, and typed failure results.
-- **Signed compliance certification** — issue a portable, machine-verifiable result
-  bound to the evaluated requirements, evidence, artifact state, AI-BOM, and issuer.
-- **EU AI Act Article 50** machine-readable transparency marking.
-- A **standalone boot harness** that checks the browser client at load; its
-  legacy counter is one instrument and is not the system-wide verification
-  total.
-- **Up to 630 live classical conformance cases** across 9 digests, 7 classical
-  signatures, and 10 outcome classes.
-- A legacy fixture file of 1,097 vectors is included. **436 pass under the
-  current schema**, and all 108 vectors of kind `verified` pass cleanly. The
-  remainder is documented schema drift from `spec_ver 1.0.0` — missing
-  `bundle.seal.pub_b64u` and `bundle.merkleRoot`, and SPKI-wrapped keys where
-  the engine expects raw. See [AUDIT.md](AUDIT.md) entry PB-2026-07-15-002.
+## Reproduce the checks
 
-Every visible conclusion is connected to its machine-verifiable basis. See
-[CURRENT_STATE_PROOFS.md](CURRENT_STATE_PROOFS.md).
+Node is used here as a test runner and, in designated test files, as an independent crypto oracle.
 
-## Try it in 10 seconds
-
-Open [`proofbundle.html`](proofbundle.html) in any modern browser — or visit
-[proofbundle.org](https://proofbundle.org). Drop a file onto **Seal**. Download the
-receipt. Drop that receipt onto **Verify**. You'll see `VERIFIED`.
-
-## Verify from the command line
-
-```bash
+```sh
 npm ci
-node cli/proofbundle-cli.mjs selftest      # runs the legacy standalone boot harness
-node cli/proofbundle-cli.mjs verify receipt.pb.json
+npm run selftest
+npm run test:surface
+node crypto/t_native_profile.mjs
+node scripts/verify-nist-acvp.mjs
+node scripts/verify-rfc6979.mjs
+npm run test:html-crypto
+cd lean
+lake build ProofBundle Architecture
+lake env lean NativeBasisAudit.lean
 ```
 
-## Develop in GitHub Codespaces
+Rebuild the standalone application after changing its native sources:
 
-A ready-to-use dev container is included. Click **Open in GitHub Codespaces** above
-or run `Code: Rebuild and Reopen in Container` locally with the Dev Containers
-extension. The container ships Coq 8.18, Lean 4.11.0, and Node 22, installs `npm`
-dependencies automatically, and can run the full surface test suite plus the Coq
-proof checks without any local toolchain installation.
-
-```bash
-npm run test:surface        # unit / negative / hostile / vector / registry checks
-npm run test:crypto         # from-scratch Keccak + ML-KEM tests
-node cli/proofbundle-cli.mjs selftest
-cd coq && make check        # 83 theorems, 0 axioms
-cd lean && lake build       # pinned Lean 4.11.0 formal tree
+```sh
+node scripts/embed-native-crypto.mjs
+python3 scripts/connect-native-crypto.py
+python3 scripts/embed-browser-workspace.py
 ```
 
-## Install toolchains locally
-
-If you prefer a local environment, run:
-
-```bash
-bash tools/install-toolchains.sh
-```
-
-This idempotent script installs the exact versions used by CI: Node dependencies,
-Coq 8.18.0 via `opam`, and Lean 4.11.0 via `elan`.
-
-## Cryptographically signed releases
-
-Every published release artifact is signed. The public key lives in this repo, and
-[VERIFYING.md](VERIFYING.md) walks through checking a download end to end. A provenance
-tool should hold itself to its own standard — so this one does.
-
-## Certification scope and assumptions
-
-The certification states the result of the selected formal compliance profile over the
-declared evidence and committed artifact state. Its scope, inputs, thresholds, registry
-state, issuer, assumptions, and verification trace are carried with the result. Temporal
-claims identify their clock or external anchor. See [ASSUMPTIONS.md](ASSUMPTIONS.md),
-[TRUST_BOUNDARY.md](TRUST_BOUNDARY.md), and [SECURITY.md](SECURITY.md).
-
-## Formal verification and the proof archive
-
-The formal-methods work behind this project lives in a separate archive. Its verified
-state — which numbers are checked, which are relayed, and which are in circulation but
-should not be published — is recorded in **[docs/CORPUS-STATE.md](docs/CORPUS-STATE.md)**.
-Read that first before quoting any theorem count.
-
-[`crypto/`](crypto/) holds the from-scratch FIPS 202 (SHA-3/SHAKE) and FIPS 203 (ML-KEM)
-implementations, written from the specifications with no external crypto library:
-
-```bash
-npm run test:crypto     # 173 pass — incl. 45 byte-exact checks vs an independent FIPS 203 impl
-```
-
-Note that *zero dependencies* is not yet true of the project as a whole. Accurate today:
-every hash and the KEM are ours and verified against independent implementations;
-the signature schemes still use `noble`/WebCrypto. See [crypto/README.md](crypto/README.md).
+Historical formal work, registries, source archives, and earlier audits remain in the repository and its history. Their presence does not establish that every declaration is implemented, that every archived test was rerun, or that a model-written requirement was adopted by the operator.
 
 ## License
 
-**GPL-3.0-or-later** — copyleft. See [LICENSE-GPL](LICENSE-GPL).
+GPL-3.0-or-later. See [LICENSE](LICENSE). Retained third-party code keeps its applicable notices.
 
-Every Lean formalization under [`lean/`](lean/) is published under
-**GPL-3.0-or-later** and carries an SPDX identifier in the source file. Generated
-Lean downloads emitted by the standalone client carry the same copyleft notice.
+Optional browser workflow checks use Chrome and `playwright-core` as development tools:
 
-A verifier is only worth what its source is worth. Copyleft keeps every
-downstream modification of the verification path open to the same inspection
-the artifacts themselves demand: a closed fork of a provenance tool is a
-provenance tool nobody can check.
+```sh
+npm install --no-save playwright-core
+node test/browser/native-workflows.mjs
+node test/browser/bridge-workflows.mjs
+```
 
-**Prior releases remain dual-licensed under Apache-2.0 OR MIT**
-([LICENSE-APACHE](LICENSE-APACHE), [LICENSE-MIT](LICENSE-MIT)). Those grants are
-irrevocable for code already published under them; the copyleft terms apply
-going forward. Both files are retained deliberately rather than deleted, so the
-licensing history stays legible.
-
----
-
-<div align="center">
-<sub>ProofBundle — formal compliance certification with independent verification.</sub>
-</div>
+`PB_CHROME` selects the Chrome executable; `PB_QA_ROOT` selects persistent QA storage. The bridge check uses an isolated state directory and port 18790. Local browser keys are tied to the browser's storage origin; clearing that storage removes them. Keep deliberately exported recipient decryption keys when encrypted files must remain recoverable.

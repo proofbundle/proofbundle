@@ -328,17 +328,75 @@ findings.push({
     : 'Validate both serializers byte-for-byte against the reference OpenTimestamps implementation and add parsing, upgrading, and Bitcoin attestation verification tests.',
 });
 
-/* Confirm the documented RFC 3161 limitation is present, not silently resolved. */
+/*
+ * PBHTML-F004: the RFC 3161 response path must not report a time it has not
+ * verified.
+ *
+ * The old check asked whether the synthetic 15-byte GeneralizedTime still
+ * produced a genTime. That check is now inverted: the artifact must REJECT
+ * that input. The verifier is exercised inside the shipped HTML, against the
+ * same bytes, so the audit tests the artifact that ships rather than a
+ * module standing in for it.
+ */
 const forgedTime = new win.Uint8Array([0x18, 0x0f, ...Buffer.from('20260827123456Z', 'ascii')]);
 win.__PB_AUDIT_FORGED_TIME__ = forgedTime;
-const extractedForgedTime = win.eval(`rfc3161ExtractGenTime(window.__PB_AUDIT_FORGED_TIME__)`);
+const forgedVerdict = await win.eval(`
+  (async () => {
+    const result = await verifyTimeStampResp(window.__PB_AUDIT_FORGED_TIME__, {
+      expectedDigest: new Uint8Array(32),
+    });
+    return {
+      verified: result.verified,
+      genTime: result.genTime,
+      reason: result.reason,
+      signatureVerified: result.signatureVerified,
+    };
+  })()
+`);
+const forgedRejected = forgedVerdict.verified === false
+  && forgedVerdict.genTime === null
+  && forgedVerdict.signatureVerified === false;
+
 findings.push({
   id: 'PBHTML-F004',
   severity: 'HIGH',
-  title: 'RFC 3161 response path extracts asserted time without verifying the CMS signature or certificate chain',
-  reproduced: extractedForgedTime?.genTime === '2026-08-27T12:34:56Z',
-  observation: `A synthetic byte string with no TimeStampResp or CMS signature produced ${extractedForgedTime?.genTime || 'no time'}.`,
-  required: 'Parse TimeStampResp structurally, bind the message imprint and nonce, and verify the CMS signature and trust chain before reporting an anchored time.',
+  title: 'RFC 3161 response path rejects tokens whose CMS signature and message imprint are not verified',
+  reproduced: forgedRejected,
+  status: forgedRejected ? 'CLOSED' : 'REOPENED',
+  observation: forgedRejected
+    ? `A synthetic byte string with no TimeStampResp or CMS signature was rejected: ${forgedVerdict.reason || 'no time extracted'}.`
+    : `A synthetic byte string with no TimeStampResp or CMS signature still produced ${forgedVerdict.genTime || 'a time'}.`,
+  required: forgedRejected
+    ? 'Hold: the RFC 3161 path must parse TimeStampResp structurally, bind the message imprint and nonce, and verify the CMS signature and the timeStamping EKU before reporting an anchored time.'
+    : 'Parse TimeStampResp structurally, bind the message imprint and nonce, and verify the CMS signature and trust chain before reporting an anchored time.',
+});
+
+/*
+ * The embedded verifier must stay in step with the module it is generated
+ * from. If they drift, the HTML is no longer what the tests cover.
+ */
+let embedDrift = null;
+try {
+  const { execFileSync } = await import('node:child_process');
+  const out = execFileSync(
+    process.execPath,
+    [join(repo, 'scripts', 'embed-rfc3161-verifier.mjs'), '--check'],
+    { encoding: 'utf8' },
+  );
+  embedDrift = out.trim();
+} catch (err) {
+  embedDrift = (err.stdout || '') + (err.stderr || '') || String(err);
+}
+findings.push({
+  id: 'PBHTML-F005',
+  severity: 'HIGH',
+  title: 'The embedded RFC 3161 verifier matches src/rfc3161/verify.mjs',
+  reproduced: !/^FAIL/.test(embedDrift),
+  status: /^OK/.test(embedDrift) ? 'CLOSED' : 'REOPENED',
+  observation: embedDrift,
+  required: /^OK/.test(embedDrift)
+    ? 'Hold: the embedded verifier must be regenerated from the module whenever the module changes.'
+    : 'Run node scripts/embed-rfc3161-verifier.mjs and commit the regenerated proofbundle.html.',
 });
 
 const bootPassed = selfTests.filter((item) => item.ok).length;

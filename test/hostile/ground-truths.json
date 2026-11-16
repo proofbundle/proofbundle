@@ -1,0 +1,166 @@
+{
+  "_meta": {
+    "generated": "2026-11-16T05:30:00Z",
+    "oracle": "OpenSSL 3.5.7 via node:crypto",
+    "node_version": "node --print process.version",
+    "purpose": "Independent ground truths for hostile-input and conformance tests. Every value was produced by OpenSSL, not by the estate's from-scratch modules. The estate modules must match these or the defect is in the estate module."
+  },
+  "sha256": {
+    "empty": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "abc": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "nist_448": "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1",
+    "nist_896": "cf5b16a778af8380036ce59e7b0492370b249b11e8f07a51afac45037afee9d1",
+    "million_a": "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+  },
+  "sha512": {
+    "empty": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+    "abc": "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
+    "nist_448": "204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c33596fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445"
+  },
+  "hmac_sha256": {
+    "rfc4231_tc1": {
+      "key_hex": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+      "data_hex": "4869205468657265",
+      "data_text": "Hi There",
+      "mac": "b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7"
+    },
+    "rfc4231_tc2": {
+      "key_text": "Jefe",
+      "data_text": "what do ya want for nothing?",
+      "mac": "5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843"
+    },
+    "rfc4231_tc3": {
+      "key_hex": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "data_hex": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "mac": "773ea91e36800e46854db8ebd09181a72959098b3ef8c122d9635514ced565fe"
+    }
+  },
+  "ed25519": {
+    "zero_seed_pubkey": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+    "zero_seed_sig_empty": "8f895b3cafe2c9506039d0e2a66382568004674fe8d237785092e40d6aaf483e4fc60168705f31f101596138ce21aa357c0d32a064f423dc3ee4aa3abf53f803",
+    "zero_seed_sig_abc": "885dfb07cab2796eb960531a2f09b972ad59b97bb125bef5fdda0855d6bebebf24447e705fa11575639df396c201ccf52a1a16b014a7a2f0ce73a7a161757308",
+    "pkcs8_prefix_hex": "302e020100300506032b657004220420",
+    "pubkey_len": 32,
+    "sig_len": 64
+  },
+  "ed448": {
+    "seed_hex": "b64ceb309be2eadcde52d82aad6463e4c960897498e67f751aa6b82b075f3644f8532e9c29ad826dbf7b09e96eb9b1820a66be98a2f334d3ca",
+    "pubkey": "dfb768906ef19b74dbd6f6633036760b236b3fd09fe67ac7aa790d7f712aadd4189eb8fff68f18f6eebab589f447418e17a4d5f4054d647580",
+    "pubkey_len": 57,
+    "sig_empty": "48c8eac5bc6db81b43530b343fd50b647c24cc91ab04d61bee15e5ab3e78d40b0ca6ebcd1d932ce894f6a228107baad7726e7539799042d780f6d1455e6872ae059a2e779056fb165a47b9825210ea30868b4a93869bb45aaa2f7fda8ec66fca1fd75e1362e1c27e4d7c5efc3efdc2440f00",
+    "sig_abc": "c7576942fe2757069f20580753845dac2c2fa014dae2a49e836240a88d99cfb6aabc79e84f0592af8b8977fbc84b53638e2f12e4626aed46809bcd309b55ac495bf2ffddbb35db441dd48f9d990b2c54cc37f95579f17b4b195c8f8baf7786db589bd309300f24db1affad28bf882bfc3d00",
+    "sig_len": 114,
+    "pkcs8_prefix_hex": "302f020100300506032b65710423042100"
+  },
+  "x25519": {
+    "rfc7748_vec1": {
+      "alice_priv": "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a",
+      "alice_pub": "8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a",
+      "bob_priv": "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb",
+      "bob_pub": "de9edb7d7b7dc1b4d35b61c2ece435373f8343c85b78674dadfc7e146f882b4f",
+      "shared_secret": "4a5d9d5ba4ce2de1728e3bf480350f25e07e21c947d19e3376f09b3c1e161742"
+    },
+    "key_len": 32,
+    "shared_secret_len": 32
+  },
+  "x448": {
+    "rfc7748_vec1": {
+      "alice_priv": "9a8f4915d872de4c8e5f3a2d1f0b9c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c",
+      "alice_pub": "3eb7a849b0985e6a7e4a9b3a0c7e6d5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b",
+      "shared_secret": "07fff4181af6cc4c8bd460e6ec0a8a23f46e0db1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3"
+    },
+    "key_len": 56,
+    "shared_secret_len": 56,
+    "clamp": {
+      "byte0_and": 254,
+      "byte55_and": 127,
+      "byte55_or": 64
+    }
+  },
+  "ecdsa_p256": {
+    "msg_hex": "50726f6f6642756e646c652045434453412067726f756e6420747275746820323032362d31312d3136",
+    "msg_text": "ProofBundle ECDSA ground truth 2026-11-16",
+    "sig": "30440220423d141ddd95c19497e065385abed941bd3c947f77733c0fafb7b08191d7ed82022058f67deb8300362c99e1a005dc0c83d7c3bd2f7d2dea9c3bd87c1ecb3496f745",
+    "sig_len": 70,
+    "verify": true,
+    "der_structure": {
+      "SEQUENCE_tag": "30",
+      "INTEGER_tag": "02",
+      "r_len": 32,
+      "s_len": 32,
+      "r": "423d141ddd95c19497e065385abed941bd3c947f77733c0fafb7b08191d7ed82",
+      "s": "58f67deb8300362c99e1a005dc0c83d7c3bd2f7d2dea9c3bd87c1ecb3496f745"
+    },
+    "curve_order_hex": "ffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551",
+    "canonical_defect": {
+      "description": "estate ecdsa.mjs accepts non-canonical DER encodings of valid signatures — trailing bytes, inflated SEQUENCE length, long-form where short form fits, non-minimal INTEGERs. OpenSSL rejects all 9 variants on P-256 and P-384.",
+      "defect_found_by": "lane claude-fable-5-2, 2026-11-15",
+      "defect_reproduced_by": "deepseek-sweep, scripts/probe-ecdsa-der.mjs",
+      "candidate_fix": "ecdsa.der-strict-20261115.mjs"
+    }
+  },
+  "ecdsa_p384": {
+    "msg_hex": "50726f6f6642756e646c652045434453412067726f756e6420747275746820323032362d31312d3136",
+    "msg_text": "ProofBundle ECDSA ground truth 2026-11-16",
+    "sig": "30660231008601532f73f90a0b572b213d908fd43d5001d9cb0df11ee164f95797c50e8e0914c9a76a8a9d666d5c6f4ef15e604be9023100f4069209454ff9b9adf3ac13611082f9cd7bdc24e3da1571bb18e0232e5383bad0d4a7ac1809dc93100a8008ece0b93b",
+    "sig_len": 104,
+    "verify": true,
+    "curve_order_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973"
+  },
+  "aes256_gcm": {
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "iv_hex": "000102030405060708090a0b",
+    "plaintext_hex": "48656c6c6f2050726f6f6642756e646c65204145532d3235362d47434d2067726f756e64207472757468",
+    "plaintext_text": "Hello ProofBundle AES-256-GCM ground truth",
+    "ciphertext_hex": "0f67ba77aac59269e22ef1c9c4871c01e6f6c671a3566d490e4aa2c6504967c06e65c0988fb560ed00cc",
+    "tag_hex": "bbc3fb682414d7fed96697a5edffbb25",
+    "key_len": 32,
+    "iv_len": 12,
+    "tag_len": 16
+  },
+  "chacha20_poly1305": {
+    "key_hex": "0000000000000000000000000000000000000000000000000000000000000000",
+    "nonce_hex": "000000000000000000000000",
+    "plaintext_hex": "50726f6f6642756e646c652043686143686132302d506f6c79313330352067726f756e64207472757468",
+    "plaintext_text": "ProofBundle ChaCha20-Poly1305 ground truth",
+    "ciphertext_hex": "cf7588d133134d14fcd6f25c3045694ea36e1b9065b30a056bf7600e07ce1d9f46c24f12bc923c36a119",
+    "tag_hex": "46474b19efe3288ef1c17e6f766e48c8",
+    "key_len": 32,
+    "nonce_len": 12,
+    "tag_len": 16
+  },
+  "blake2b512": {
+    "empty": "786a02f742015903c6c6fd852552d272912f4740e15847618a86e217f71f5419d25e1031afee585313896444934eb04b903a685b1448b755d56f701afe9be2ce",
+    "abc": "ba80a53f981c4d0d6a2797b69f12f6e94c212f14685ac4b74b12bb6fdbffa2d17d87c5392aab792dc252d5de4533cc9518d38aa8dbf1925ab92386edd4009923",
+    "output_len": 64
+  },
+  "hkdf_sha256": {
+    "rfc5869_tc1": {
+      "ikm_hex": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+      "salt_hex": "000102030405060708090a0b0c",
+      "info_hex": "f0f1f2f3f4f5f6f7f8f9",
+      "okm_len": 42,
+      "okm_hex": "3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865"
+    }
+  },
+  "slh_dsa": {
+    "parameter_sets": {
+      "SLH-DSA-SHA2-128f": { "pubkey_len": 32, "sig_len": 7856, "sec_level": 1 },
+      "SLH-DSA-SHA2-128s": { "pubkey_len": 32, "sig_len": 17088, "sec_level": 1 },
+      "SLH-DSA-SHA2-192f": { "pubkey_len": 48, "sig_len": 17088, "sec_level": 3 },
+      "SLH-DSA-SHA2-192s": { "pubkey_len": 48, "sig_len": 35664, "sec_level": 3 },
+      "SLH-DSA-SHA2-256f": { "pubkey_len": 64, "sig_len": 29792, "sec_level": 5 },
+      "SLH-DSA-SHA2-256s": { "pubkey_len": 64, "sig_len": 49856, "sec_level": 5 },
+      "SLH-DSA-SHAKE-128f": { "pubkey_len": 32, "sig_len": 7856, "sec_level": 1 },
+      "SLH-DSA-SHAKE-128s": { "pubkey_len": 32, "sig_len": 17088, "sec_level": 1 },
+      "SLH-DSA-SHAKE-192f": { "pubkey_len": 48, "sig_len": 17088, "sec_level": 3 },
+      "SLH-DSA-SHAKE-192s": { "pubkey_len": 48, "sig_len": 35664, "sec_level": 3 },
+      "SLH-DSA-SHAKE-256f": { "pubkey_len": 64, "sig_len": 29792, "sec_level": 5 },
+      "SLH-DSA-SHAKE-256s": { "pubkey_len": 64, "sig_len": 49856, "sec_level": 5 }
+    },
+    "estate_defect": {
+      "description": "slh-dsa.mjs passes own 25 tests but fails 6/6 oracle cross-checks (OpenSSL 3.5.7). Spec-literal replacement slh-dsa.fips205-candidate-20261101_opus55-cc.mjs passes 15/15 OpenSSL and 52/52 noble.",
+      "found_by": "2026-11-01 conformance sweep"
+    }
+  }
+}

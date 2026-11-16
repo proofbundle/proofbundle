@@ -8,23 +8,25 @@
 import { parseArgs } from '../src/cli/argument-parser.mjs';
 import { runHash } from '../src/cli/commands/hash.mjs';
 import { runCanonicalize } from '../src/cli/commands/canonicalize.mjs';
+import { runVerify } from '../src/cli/commands/verify.mjs';
 import { EXIT_CODES } from '../src/cli/output.mjs';
 
-const IMPLEMENTED = new Set(['hash', 'canonicalize']);
+const IMPLEMENTED = new Set(['hash', 'canonicalize', 'verify']);
 const [, , command, ...rest] = process.argv;
 const args = parseArgs(rest);
 
 if (!command || command === '--help' || command === '-h') {
-  process.stdout.write('proofbundle <command> [options]\n\nImplemented in this pass: hash, canonicalize\n');
+  process.stdout.write('proofbundle <command> [options]\n\nImplemented in this pass: hash, canonicalize, verify\n');
   process.exit(command ? EXIT_CODES.OK : EXIT_CODES.USAGE_ERROR);
 }
 
 if (!IMPLEMENTED.has(command)) {
-  process.stderr.write(`proofbundle: '${command}' is defined in the specification but not implemented in this pass. Implemented: ${[...IMPLEMENTED].join(', ')}\n`);
+  process.stderr.write(`proofbundle: '${command}' is defined in the specification but is not available in this pass. Available: ${[...IMPLEMENTED].join(', ')}\n`);
   process.exit(EXIT_CODES.USAGE_ERROR);
 }
 
 let code;
 if (command === 'hash') code = runHash(args);
 else if (command === 'canonicalize') code = runCanonicalize(args);
+else if (command === 'verify') code = runVerify(args);
 process.exit(code);

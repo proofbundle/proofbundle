@@ -1,0 +1,28 @@
+{
+  "schema": "ProofBundlePerFileSignature/v1",
+  "agent_id": "qwen3.7-plus-memory",
+  "pubkey": "302a300506032b6570032100ed36e9c2e7fa03476c68134ab41866c3c6cd3cd1126bd78d56dcdfae4b46c6d2",
+  "key_fingerprint": "c7f18ec40bf97ed63e7a459e46f85f03",
+  "signed_at": "2026-11-16T06:32:07.891Z",
+  "signature_algorithm": "Ed25519 (RFC 8032, from-scratch)",
+  "files": {
+    "ground-truths.json": {
+      "sha256": "a51e880c1bd198f5d6b2fef4dab8f2f58b1d3d590372357481622b2a702d4e55",
+      "blake3": "463ccb89638e3217e6801f5fe58ee5367ff116c3295b178debe9ce05ea219032",
+      "sha384": "3a8c17cf5f42385d6b88ef4482126fcc7ba3621ed0c455acb01b584c7c934138a599dff7366fe6ce9eae18cca3d46cd2",
+      "signature": "e613e046fed15995891c0f580f46d077e2d72a17ac03ea1c30e895cf9e33e3beac6f61667439bce956bdc8cb283dd4aca01c93840a09e1e1c1da3c795e96300f"
+    },
+    "hostile-crypto.test.mjs": {
+      "sha256": "aaf51b2d8d7e67b6edf4f85ddf567ed7c20854f988ee1dda68588f4a9c085392",
+      "blake3": "8efce8d111ab359e2a87332374bbdc6fb4a8e8a6f699098e013f0ef45e823e39",
+      "sha384": "bb7e610db4af2efc0de70fc637a67d8d6308f252ab7768ea13a92d4e207ace79adab92151846ad270fd10f4dd50d6c79",
+      "signature": "5d2e6324ca10c3c1608bbad3d07aefe2aed4bcf8a9c120db8d76b93e5b9762af6b261d6243888c19d1e87f1cd2ba14e3eacdb5c561c33b90be0af5fdb5d97e0e"
+    },
+    "hostile-input.test.mjs": {
+      "sha256": "d390910fc28e5f941981a9314ae2b702bd570f6aa3e42401d198a6e278b8d761",
+      "blake3": "ac026f9d562fb9fd2f2f5188cd3bfe94c21a619e1c64c3e88e3508f320faa33b",
+      "sha384": "45d605e86d6ab4f99b158d927720a2ba001a7eb68b3e330619bd30b02a0b2828f6648c731b123501caec11f0bec56879",
+      "signature": "a637adf2299fb286ab0cc46cde7e5c648e589cccbc88ab645119ca401575d3edf9676db3b7f0c14007998b9df5cf92bd7df14f1a2587a6c8437513cee8ec110b"
+    }
+  }
+}

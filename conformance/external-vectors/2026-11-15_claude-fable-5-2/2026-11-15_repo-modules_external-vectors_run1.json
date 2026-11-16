@@ -1,0 +1,1129 @@
+{
+ "written_utc": "2026-11-16T07:12:53.063Z",
+ "crypto_dir": "/home/falsealias/src/proofbundle/crypto",
+ "vectors_dir": "wycheproof/testvectors_v1",
+ "node": "v24.19.0",
+ "openssl": "3.5.7",
+ "results": [
+  {
+   "file": "ecdsa_secp256r1_sha256_test.json",
+   "module": "ecdsa.mjs",
+   "module_sha256": "7681f304cbef0d6729997d2bb1f87dca2381dd2e6db726156bda2cce970a5f07",
+   "family": "ECDSA P-256 verify, DER signatures",
+   "cases": 484,
+   "agree": 443,
+   "disagree": [
+    {
+     "tc": 6,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "Legacy: ASN encoding of s misses leading 0",
+     "flags": [
+      "MissingZero"
+     ]
+    },
+    {
+     "tc": 8,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 9,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 10,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses 70 instead of 69",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 11,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses 68 instead of 69",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 12,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 13,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 14,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 15,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**31",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 16,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**32 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 17,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**40 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 18,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**64 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 20,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "replaced sequence [r, s] by an indefinite length tag without termination",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 23,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending 0's to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 25,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending unused 0's to sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 26,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending null value to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 47,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "sequence [r, s] of size 4166 to check for overflows",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 48,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 49,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with truncated delimiter",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 50,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with additional element",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 51,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with truncated element",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 52,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with garbage",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 53,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with nonempty EOC",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 55,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append empty sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 56,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append zero",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 57,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append garbage with high tag number",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 58,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append null with explicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 59,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append null with implicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 62,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "repeating element in sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 67,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of r uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 68,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of r contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 71,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 72,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 84,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "prepending 0's to r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 114,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 115,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 116,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s uses 34 instead of 33",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 118,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 119,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 120,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 128,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "prepending 0's to s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    }
+   ],
+   "second_impl": "openssl",
+   "second_agree": 484,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "ecdsa_secp384r1_sha384_test.json",
+   "module": "ecdsa.mjs",
+   "module_sha256": "7681f304cbef0d6729997d2bb1f87dca2381dd2e6db726156bda2cce970a5f07",
+   "family": "ECDSA P-384 verify, DER signatures",
+   "cases": 504,
+   "agree": 463,
+   "disagree": [
+    {
+     "tc": 6,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "Legacy: ASN encoding of s misses leading 0",
+     "flags": [
+      "MissingZero"
+     ]
+    },
+    {
+     "tc": 8,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 9,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 10,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses 102 instead of 101",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 11,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] uses 100 instead of 101",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 12,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 13,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 14,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 15,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**31",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 16,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**32 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 17,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**40 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 18,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of sequence [r, s] = 2**64 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 20,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "replaced sequence [r, s] by an indefinite length tag without termination",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 23,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending 0's to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 25,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending unused 0's to sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 26,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "appending null value to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 47,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "sequence [r, s] of size 4198 to check for overflows",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 48,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 49,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with truncated delimiter",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 50,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with additional element",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 51,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with truncated element",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 52,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with garbage",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 53,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "indefinite length with nonempty EOC",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 55,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append empty sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 56,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append zero",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 57,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append garbage with high tag number",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 58,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append null with explicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 59,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "append null with implicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 62,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "repeating element in sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 67,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of r uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 68,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of r contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 71,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 72,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 84,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "prepending 0's to r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 114,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 115,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 116,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s uses 50 instead of 49",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 118,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint32 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 119,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "uint64 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 120,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "length of s = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 128,
+     "expected": "invalid",
+     "got": "accept",
+     "comment": "prepending 0's to s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    }
+   ],
+   "second_impl": "openssl",
+   "second_agree": 504,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "ecdsa_secp256r1_sha256_test.json",
+   "module": "ecdsa.der-strict-20261115.mjs",
+   "module_sha256": "6f4d6b8e8798681a5e06772fa33af9d9480ccfda7a69eb959c6b1f8ce1079012",
+   "family": "ECDSA P-256 verify, DER signatures",
+   "cases": 484,
+   "agree": 484,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 484,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "ecdsa_secp384r1_sha384_test.json",
+   "module": "ecdsa.der-strict-20261115.mjs",
+   "module_sha256": "6f4d6b8e8798681a5e06772fa33af9d9480ccfda7a69eb959c6b1f8ce1079012",
+   "family": "ECDSA P-384 verify, DER signatures",
+   "cases": 504,
+   "agree": 504,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 504,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "ed448_test.json",
+   "module": "ed448.mjs",
+   "module_sha256": "fb3a229dd0bdbe0246a88dda86237f9c03148d039ff66c346acc5448d90cb17e",
+   "family": "Ed448 verify",
+   "cases": 87,
+   "agree": 87,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 87,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "x448_test.json",
+   "module": "x448.mjs",
+   "module_sha256": "c6b2c47b8add82cc3dcfe0eab65da231006f9d0ad86fae18c91588d1e46494cd",
+   "family": "X448 shared secret",
+   "cases": 510,
+   "agree": 510,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 510,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "chacha20_poly1305_test.json",
+   "module": "chacha20-poly1305.mjs",
+   "module_sha256": "29aa31c506b408447a167ab5d822dd70395f9e9d14f8b8cb3ef153839436249e",
+   "family": "ChaCha20-Poly1305 open and seal",
+   "cases": 316,
+   "agree": 316,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 316,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {
+    "key 256 iv 0 tag 128 outside the module": 1,
+    "key 256 iv 64 tag 128 outside the module": 1,
+    "key 256 iv 88 tag 128 outside the module": 1,
+    "key 256 iv 104 tag 128 outside the module": 1,
+    "key 256 iv 112 tag 128 outside the module": 1,
+    "key 256 iv 128 tag 128 outside the module": 1,
+    "key 256 iv 192 tag 128 outside the module": 1,
+    "key 256 iv 160 tag 128 outside the module": 1,
+    "key 256 iv 256 tag 128 outside the module": 1
+   }
+  },
+  {
+   "file": "xchacha20_poly1305_test.json",
+   "module": "chacha20-poly1305.mjs",
+   "module_sha256": "29aa31c506b408447a167ab5d822dd70395f9e9d14f8b8cb3ef153839436249e",
+   "family": "XChaCha20-Poly1305 open and seal",
+   "cases": 306,
+   "agree": 306,
+   "disagree": [],
+   "second_impl": "none available in this OpenSSL build",
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_na": 306,
+   "skipped": {
+    "key 256 iv 0 tag 128 outside the module": 1,
+    "key 256 iv 64 tag 128 outside the module": 1,
+    "key 256 iv 88 tag 128 outside the module": 1,
+    "key 256 iv 96 tag 128 outside the module": 1,
+    "key 256 iv 104 tag 128 outside the module": 1,
+    "key 256 iv 112 tag 128 outside the module": 1,
+    "key 256 iv 128 tag 128 outside the module": 1,
+    "key 256 iv 160 tag 128 outside the module": 1,
+    "key 256 iv 256 tag 128 outside the module": 1
+   }
+  },
+  {
+   "file": "aes_gcm_siv_test.json",
+   "module": "aes-gcm-siv.mjs",
+   "module_sha256": "e425ff78e785ee443a4560e6b3e89925934abb7d25347bd29271b5ff2e726111",
+   "family": "AES-GCM-SIV open and seal",
+   "cases": 202,
+   "agree": 202,
+   "disagree": [],
+   "second_impl": "none available in this OpenSSL build",
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_na": 202,
+   "skipped": {}
+  },
+  {
+   "file": "aes_wrap_test.json",
+   "module": "aes-keywrap.mjs",
+   "module_sha256": "7d6bf7a2907a3b34ad5b328f91fdb9c0f85ee9b5dd2ed65b6cc75c1fbfadace9",
+   "family": "AES-KW (RFC 3394) unwrap, and wrap on valid cases",
+   "cases": 165,
+   "agree": 165,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 162,
+   "second_disagree": [
+    {
+     "tc": 22,
+     "expected": "invalid",
+     "second": "accept",
+     "comment": "invalid size of wrapped key"
+    },
+    {
+     "tc": 64,
+     "expected": "invalid",
+     "second": "accept",
+     "comment": "invalid size of wrapped key"
+    },
+    {
+     "tc": 119,
+     "expected": "invalid",
+     "second": "accept",
+     "comment": "invalid size of wrapped key"
+    }
+   ],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "aes_kwp_test.json",
+   "module": "aes-keywrap.mjs",
+   "module_sha256": "7d6bf7a2907a3b34ad5b328f91fdb9c0f85ee9b5dd2ed65b6cc75c1fbfadace9",
+   "family": "AES-KWP (RFC 5649) unwrap, and wrap on valid cases",
+   "cases": 254,
+   "agree": 254,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 254,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_2048_sha256_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 2048 SHA-256",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_2048_sha384_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 2048 SHA-384",
+   "cases": 258,
+   "agree": 258,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 258,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_2048_sha512_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 2048 SHA-512",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_3072_sha256_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 3072 SHA-256",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_3072_sha384_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 3072 SHA-384",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_3072_sha512_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 3072 SHA-512",
+   "cases": 260,
+   "agree": 260,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 260,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_4096_sha256_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 4096 SHA-256",
+   "cases": 258,
+   "agree": 258,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 258,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_4096_sha384_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 4096 SHA-384",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_4096_sha512_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 4096 SHA-512",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_8192_sha256_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 8192 SHA-256",
+   "cases": 258,
+   "agree": 258,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 258,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_8192_sha384_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 8192 SHA-384",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "rsa_signature_8192_sha512_test.json",
+   "module": "rsa-pkcs1-v15-verify.mjs",
+   "module_sha256": "5b65d778d82b02c3d73cfacbe64c3aa86d6251f731d0d5f71bd03f0d218d3d9f",
+   "family": "RSASSA-PKCS1-v1_5 verify 8192 SHA-512",
+   "cases": 259,
+   "agree": 259,
+   "disagree": [],
+   "second_impl": "openssl",
+   "second_agree": 259,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {}
+  },
+  {
+   "file": "scrypt grid",
+   "module": "scrypt.mjs",
+   "module_sha256": "bb2635871c6098bdeae498b6de5bafb7e45a3642f46b149d55a92190dfd2015c",
+   "family": "scrypt against OpenSSL on a parameter grid",
+   "cases": 99,
+   "agree": 99,
+   "disagree": [],
+   "second_impl": "openssl is the reference here",
+   "second_agree": 99,
+   "second_disagree": [],
+   "second_na": 0,
+   "skipped": {},
+   "rfc7914_recalled_vs_openssl": [
+    true,
+    true,
+    true
+   ]
+  }
+ ]
+}

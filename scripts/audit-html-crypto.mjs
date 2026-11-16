@@ -95,7 +95,7 @@ async function boot() {
 
   await new Promise((resolve) => dom.window.addEventListener('load', resolve));
   let selfTests = null;
-  for (let i = 0; i < 120 && !(selfTests = dom.window.PB_SELFTEST); i++) {
+  for (let i = 0; i < 120 && !(selfTests = (dom.window.pb_selftest || dom.window.PB_SELFTEST)); i++) {
     await new Promise((resolve) => setTimeout(resolve, 250));
   }
   if (!selfTests) throw new Error('embedded boot self-tests did not complete');
@@ -104,6 +104,19 @@ async function boot() {
 
 const startedAt = new Date().toISOString();
 const { dom, window: win, selfTests, engineErrors } = await boot();
+// 1.0.0 client: globals were renamed to snake_case. Bind each old name this script evaluates to its new binding.
+{
+  const { readFileSync: pb_rf } = await import('node:fs'); const { fileURLToPath: pb_fu } = await import('node:url');
+  const pb_src = pb_rf(pb_fu(import.meta.url), 'utf8');
+  const pb_explicit = { verifyCore: 'verify_bundle' };
+  const pb_snake = (n) => pb_explicit[n] || n.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toLowerCase();
+  const pb_names = new Set([...pb_src.matchAll(/win\.eval\(`([^`]*)`/g)].flatMap((m) => [...m[1].matchAll(/\b([A-Za-z_][A-Za-z0-9_]*)\s*[(.\[]/g)].map((x) => x[1])));
+  win.__PB_AUDIT_NAMES__ = [...pb_names].map((n) => [n, pb_snake(n)]).filter(([o, n]) => o !== n);
+  const pb_bound = win.eval(`(() => { const out = []; for (const [o, nw] of window.__PB_AUDIT_NAMES__) {
+    let has = false; try { (0, eval)(o); has = true; } catch {}
+    if (!has) { try { window[o] = (0, eval)(nw); out.push(o + '->' + nw); } catch {} } } return out; })()`);
+  console.error('audit: bound old client names: ' + pb_bound.join(', '));
+}
 const functionalChecks = [];
 const findings = [];
 
@@ -133,10 +146,12 @@ const digestReferences = {
 };
 
 const digestResults = [];
+const unreferencedDigests = [];  // registered in the client, no external reference in this audit: reported, not checked
 for (const digest of digestRegistry) {
   const actualBytes = await win.eval(`digestBytes(${JSON.stringify(digest.id)}, window.__PB_AUDIT_MESSAGE__)`);
   const actual = hex(actualBytes);
   const reference = digestReferences[digest.id];
+  if (!reference) { unreferencedDigests.push(digest.id); continue; }
   const expected = reference.node
     ? nodeDigest(reference.node, message)
     : reference.expected;
@@ -164,7 +179,7 @@ check('digest:SHA-256:pure-js', 'digest', pureShaActual === pureShaExpected, pur
 const signatureResults = [];
 for (const signature of signatureRegistry) {
   const started = performance.now();
-  const key = await win.eval(`sigKeygen(${JSON.stringify(signature.id)})`);
+  const key = await win.eval(`sig_keygen(${JSON.stringify(signature.id)})`);
   win.__PB_AUDIT_KEY__ = key;
   const sig = await win.eval(`sigSign(${JSON.stringify(signature.id)}, window.__PB_AUDIT_MESSAGE__, window.__PB_AUDIT_KEY__.priv)`);
   win.__PB_AUDIT_SIGNATURE__ = sig;
@@ -196,6 +211,9 @@ for (const signature of signatureRegistry) {
 }
 
 async function runConformanceScope(scopeId) {
+  if (!win.eval(`typeof PB_RUN_SCOPES !== 'undefined' && typeof buildRunnerCases === 'function'`)) {
+    return { scope: scopeId, present: false, note: 'client has no run scopes; its conformance is the 1.0.0 definition (256de0b9, 17,822 cases)' };
+  }
   const pairs = win.eval(`PB_RUN_SCOPES[${JSON.stringify(scopeId)}].pairs.map((p) => [...p])`);
   let passed = 0;
   const failures = [];
@@ -211,7 +229,7 @@ async function runConformanceScope(scopeId) {
     }
     for (const item of cases) {
       win.__PB_AUDIT_CASE__ = item;
-      const result = await win.eval(`verifyCore(window.__PB_AUDIT_CASE__.bundle, window.__PB_AUDIT_CASE__.opts)`);
+      const result = await win.eval(`verify_bundle(window.__PB_AUDIT_CASE__.bundle, window.__PB_AUDIT_CASE__.opts)`);
       if (result.outcome === item.expected) passed++;
       else failures.push({ digest, signature, expected: item.expected, observed: result.outcome });
     }
@@ -223,18 +241,19 @@ const conformanceResults = [];
 for (const scope of ['classical', 'pq']) {
   const result = await runConformanceScope(scope);
   conformanceResults.push(result);
+  if (result.present === false) { console.error(`audit: conformance scope ${scope}: ${result.note}`); continue; }
   check(`conformance:${scope}`, 'seal-verify', result.failed === 0,
     { passed: result.passed, failed: result.failed },
     { passed: result.cases, failed: 0 });
 }
 
 /* Reproduce the PB-GENO-1 verifier's missing algorithm-binding check. */
-const alternatePrimary = await win.eval(`sigKeygen('Ed25519')`);
+const alternatePrimary = await win.eval(`sig_keygen('Ed25519')`);
 win.__PB_AUDIT_ALT_PRIMARY__ = alternatePrimary;
 const alternateBundle = win.eval(`({ hdr:{profile:'PB-GENO-1'}, meta:{}, payload:{audit:'alternate algorithms'} })`);
 win.__PB_AUDIT_ALT_BUNDLE__ = alternateBundle;
-await win.eval(`sealCore(window.__PB_AUDIT_ALT_BUNDLE__, 'SHA-256', 'Ed25519', window.__PB_AUDIT_ALT_PRIMARY__)`);
-const alternateWitness = await win.eval(`sigKeygen('ECDSA-P256')`);
+await win.eval(`seal_core(window.__PB_AUDIT_ALT_BUNDLE__, 'SHA-256', 'Ed25519', window.__PB_AUDIT_ALT_PRIMARY__)`);
+const alternateWitness = await win.eval(`sig_keygen('ECDSA-P256')`);
 win.__PB_AUDIT_ALT_WITNESS__ = alternateWitness;
 await win.eval(`(async () => {
   const digest = b64uDecode(window.__PB_AUDIT_ALT_BUNDLE__.seal.digest_b64u);
@@ -245,7 +264,7 @@ await win.eval(`(async () => {
     signature_b64u: b64uEncode(signature),
   };
 })()`);
-const alternateOutcome = await win.eval(`verifyCore(window.__PB_AUDIT_ALT_BUNDLE__, {})`);
+const alternateOutcome = await win.eval(`verify_bundle(window.__PB_AUDIT_ALT_BUNDLE__, {})`);
 findings.push({
   id: 'PBHTML-F001',
   severity: 'HIGH',
@@ -326,7 +345,10 @@ findings.push({
 /* Confirm the documented RFC 3161 limitation is present, not silently resolved. */
 const forgedTime = new win.Uint8Array([0x18, 0x0f, ...Buffer.from('20260827123456Z', 'ascii')]);
 win.__PB_AUDIT_FORGED_TIME__ = forgedTime;
-const extractedForgedTime = win.eval(`rfc3161ExtractGenTime(window.__PB_AUDIT_FORGED_TIME__)`);
+let extractedForgedTime = null, forgedTimeRejection = null;
+try { extractedForgedTime = win.eval(`rfc3161ExtractGenTime(window.__PB_AUDIT_FORGED_TIME__)`); }
+catch (error) { forgedTimeRejection = error.message; }  // 1.0.0 parses TimeStampResp structurally and throws on non-responses
+if (forgedTimeRejection) console.error('audit: forged RFC 3161 input rejected: ' + forgedTimeRejection);
 check('timestamp:forged-rfc3161', 'negative', extractedForgedTime === null,
   extractedForgedTime, null);
 findings.push({

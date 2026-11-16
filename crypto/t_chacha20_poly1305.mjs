@@ -13,7 +13,7 @@
 // byte patterns; the generator inputs are the `key`/`nonce`/`msg`/`aad` fields
 // below, so any host can regenerate them.
 import { chacha20Block, chacha20Xor, hchacha20, poly1305, aeadSeal, aeadOpen,
-         xchacha20Poly1305Seal, xchacha20Poly1305Open } from './chacha20-poly1305.mjs';
+         xchacha20Poly1305Seal, xchacha20Poly1305Open } from './chacha20-poly1305-xchacha-20261115.mjs';
 
 let pass = 0, fail = 0;
 function check(label, cond, detail = '') {

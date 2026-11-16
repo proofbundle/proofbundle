@@ -3,7 +3,7 @@
 // Each test asserts the exact failure mode or acceptance criterion.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash, createSign, createVerify, generateKeyPairSync, sign, verify } from 'node:crypto';
+import { createCipheriv, createHash, createSign, createVerify, generateKeyPairSync, sign, verify } from 'node:crypto';
 
 // ============================================================================
 // ECDSA DER canonicalization defects (discovered 2026-11-15 by lane claude-fable-5-2)
@@ -289,7 +289,6 @@ test('hostile: AES-GCM nonce reuse with same key produces identical ciphertext f
   const plaintext = Buffer.from('secret message');
   
   // Encrypt twice with the same key and nonce
-  const { createCipheriv } = require('node:crypto');
   const cipher1 = createCipheriv('aes-256-gcm', key, nonce);
   const ct1 = Buffer.concat([cipher1.update(plaintext), cipher1.final()]);
   const tag1 = cipher1.getAuthTag();

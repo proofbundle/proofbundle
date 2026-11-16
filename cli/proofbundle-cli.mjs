@@ -66,7 +66,7 @@ async function closeEngine(win) {
   // window while that task is still running leaves it executing against a
   // dismantled document and can turn a successful CLI operation into a late
   // uncaught exception. Let the boot task settle before releasing the window.
-  for (let i = 0; i < 120 && !win.PB_SELFTEST; i++) {
+  for (let i = 0; i < 120 && !(win.pb_selftest || win.PB_SELFTEST); i++) {
     await new Promise((r) => setTimeout(r, 250));
   }
   win.close();
@@ -75,7 +75,7 @@ async function closeEngine(win) {
 async function cmdSelftest() {
   const win = await bootEngine();
   let st = null;
-  for (let i = 0; i < 120 && !(st = win.PB_SELFTEST); i++) await new Promise((r) => setTimeout(r, 250));
+  for (let i = 0; i < 120 && !(st = (win.pb_selftest || win.PB_SELFTEST)); i++) await new Promise((r) => setTimeout(r, 250));
   if (!st) { console.error('FAIL: self-tests never completed'); process.exit(1); }
   const pass = st.filter((r) => r.ok).length;
   console.log(`self-test: ${pass}/${st.length} pass`);
@@ -86,7 +86,7 @@ async function cmdSelftest() {
 async function cmdKeygen(args) {
   const sigAlg = args.sig || 'Ed25519';
   const win = await bootEngine();
-  const key = await win.eval(`sigKeygen(${JSON.stringify(sigAlg)})`);
+  const key = await win.eval(`sig_keygen(${JSON.stringify(sigAlg)})`);
   const out = JSON.stringify(key, null, 2);
   if (args.out) { writeFileSync(args.out, out); console.log(`Key written to ${args.out}`); }
   else console.log(out);
@@ -120,15 +120,15 @@ async function cmdSeal(args) {
   if (args.key && existsSync(args.key)) {
     key = parseJSON(readFileSync(args.key, 'utf-8'));
   } else {
-    key = await win.eval(`sigKeygen(${JSON.stringify(sigAlg)})`);
+    key = await win.eval(`sig_keygen(${JSON.stringify(sigAlg)})`);
     const keyOut = args.key || 'proofbundle-key.json';
     writeFileSync(keyOut, JSON.stringify(key, null, 2));
     console.error(`No key supplied — generated new ${sigAlg} keypair, saved to ${keyOut}`);
   }
 
-  win.__PB_CLI_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(parsedBundle))})`);
-  win.__PB_CLI_KEY__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(key))})`);
-  const sealed = await win.eval(`sealCore(window.__PB_CLI_BUNDLE__, ${JSON.stringify(digestAlg)}, ${JSON.stringify(sigAlg)}, window.__PB_CLI_KEY__)`);
+  win.__PB_CLI_BUNDLE__ = win.eval(`parse_native_json(${JSON.stringify(JSON.stringify(parsedBundle))})`);
+  win.__PB_CLI_KEY__ = win.eval(`parse_native_json(${JSON.stringify(JSON.stringify(key))})`);
+  const sealed = await win.eval(`seal_core(window.__PB_CLI_BUNDLE__, ${JSON.stringify(digestAlg)}, ${JSON.stringify(sigAlg)}, window.__PB_CLI_KEY__)`);
   const out = JSON.stringify(sealed, null, 2);
   if (args.out) { writeFileSync(args.out, out); console.log(`Sealed bundle written to ${args.out}`); }
   else console.log(out);
@@ -138,15 +138,19 @@ async function cmdSeal(args) {
 
 async function cmdVerify(args) {
   const bundlePath = args._[0];
-  if (!bundlePath) { console.error('usage: proofbundle verify <bundle.json> [--context ctx.json]'); process.exit(2); }
+  if (!bundlePath) { console.error('usage: proofbundle verify <bundle.json> [--context ctx.json] [--expected-signer pub_b64u]'); process.exit(2); }
   const bundle = parseJSON(readFileSync(bundlePath, 'utf-8'));
   const context = args.context && existsSync(args.context) ? parseJSON(readFileSync(args.context, 'utf-8')) : {};
   const win = await bootEngine();
-  win.__PB_CLI_BUNDLE__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(bundle))})`);
-  win.__PB_CLI_CTX__ = win.eval(`parseNativeJSON(${JSON.stringify(JSON.stringify(context))})`);
-  const result = await win.eval(`verifyCore(window.__PB_CLI_BUNDLE__, { context: window.__PB_CLI_CTX__ })`);
+  win.__PB_CLI_BUNDLE__ = win.eval(`parse_native_json(${JSON.stringify(JSON.stringify(bundle))})`);
+  win.__PB_CLI_CTX__ = win.eval(`parse_native_json(${JSON.stringify(JSON.stringify(context))})`);
+  win.__PB_CLI_SIGNER__ = args['expected-signer'] || null;
+  const result = await win.eval(`verify_bundle(window.__PB_CLI_BUNDLE__, Object.assign({ context: window.__PB_CLI_CTX__ }, window.__PB_CLI_SIGNER__ ? { expected_signer: window.__PB_CLI_SIGNER__ } : {}))`);
   console.log(JSON.stringify(result, null, 2));
-  process.exit(result.outcome === 'VERIFIED' ? 0 : 1);
+  // 1.0.0 verdicts: VERIFIED, or VERIFIED_WITH_WARNINGS when e.g. the signer key is carried in the bundle and no --expected-signer was given.
+  const code = result.code || result.outcome;
+  if (code === 'VERIFIED_WITH_WARNINGS') console.error('verified with warnings: ' + (result.warnings || []).map((w) => w.predicate || w.message).join(', '));
+  process.exit(code === 'VERIFIED' || code === 'VERIFIED_WITH_WARNINGS' ? 0 : 1);
 }
 
 async function cmdBridgeWatch(rest) {

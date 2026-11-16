@@ -1,0 +1,125 @@
+{
+  "_meta": {
+    "generated": "2026-11-16T06:35:59.055Z",
+    "tool": "attest.mjs",
+    "oracle_sha256": "node:crypto createHash sha256",
+    "oracle_sha384": "node:crypto createHash sha384",
+    "oracle_blake3": "estate crypto/blake3.mjs (from-scratch BLAKE3)",
+    "merkle": {
+      "algorithm": "binary SHA-256",
+      "leaf": "SHA-256(sha256_raw || blake3_raw || sha384_raw)",
+      "interior": "SHA-256(left || right)",
+      "odd_promotion": true,
+      "file_count": 15
+    },
+    "ots": "not requested"
+  },
+  "merkle_root": "335fef62352979eb7a01f41a584ce592e544b3df7ab228466dedb55888655ed5",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "484a38d4665270f5de6eabb5b0ac980babd8ca2112ed3f6c30a3f3f8ecf0b9c5",
+      "sha384": "d72458774954e1422a08171e3d399b32f3fac42971131c1a48e22de332eed24cd213ed14c7a731821b2b5e90e1d96235",
+      "blake3": "8783958dec25dd7b6a40f16f73e34e9d7146d159388d0c40dad61f5a925c0cab",
+      "size": 5786
+    },
+    {
+      "file": "README.md.ots",
+      "sha256": "e5a84ee71cc2c1699569480f9a45a4975cf2c83f6bf358b434c3d9cc7a2660ec",
+      "sha384": "0c5cb46d991b33c2c81cabbda265e78082cd7a75c9daf4564d6702e8ca2815fad7ef0c9d79afd42eb8e783398d6be390",
+      "blake3": "39582fca6ff14ce5cab0db65383928c3db16c47f9348e5d7805a4242a3d5238c",
+      "size": 910
+    },
+    {
+      "file": "attest-manifest.signature.json",
+      "sha256": "06849002d25558da44bd0572a743a396b40ee64048fa6ba57140e6c8c8b71b4d",
+      "sha384": "5bbf1d0e6cfec1c9416c166b55467a6e33f2711b28adf8b30dbdaa6f12d5746efa1528ba770a32b36b77de2c88540fdc",
+      "blake3": "0ef848a4d9340ade51f5c5012b29013fc0b974b02279b1cbee5377dadf4c7748",
+      "size": 1166
+    },
+    {
+      "file": "attest-manifest.signature.json.ots",
+      "sha256": "da8db42bc73ad718152789e2571b000935ef718369e59c84fe2c5400509efc12",
+      "sha384": "945d96930c20ba98887685c0a6e910249e7abb05e876a2f3d66e76ebb3347b2e46f58c29410638b6afa6701d9aee850b",
+      "blake3": "0dd2e55978287422a161a2557fae2b17876ede5233fdbd4dac5bd33db3f21ed9",
+      "size": 805
+    },
+    {
+      "file": "attest.mjs.ots",
+      "sha256": "ce49253349fb781c641aea3ef1af1f839fb142b2a9e4db99301eb905c34d08ae",
+      "sha384": "80abb844a63be650e2caf9ba272b7a0ca62dee266180f9256d94e947616f2e4b3d5bc904192d94ca4a606d24ef316ecc",
+      "blake3": "53e41bc89a3d765e0c140e99e4b1d053a96d4b41cc5c27cf0fe9dec6a77bc815",
+      "size": 934
+    },
+    {
+      "file": "ground-truths.json",
+      "sha256": "a51e880c1bd198f5d6b2fef4dab8f2f58b1d3d590372357481622b2a702d4e55",
+      "sha384": "3a8c17cf5f42385d6b88ef4482126fcc7ba3621ed0c455acb01b584c7c934138a599dff7366fe6ce9eae18cca3d46cd2",
+      "blake3": "463ccb89638e3217e6801f5fe58ee5367ff116c3295b178debe9ce05ea219032",
+      "size": 9584
+    },
+    {
+      "file": "ground-truths.json.ots",
+      "sha256": "e2f8b6470f5cc67035ca47df72075cbaabce30ecf6f59961afefedce48643ae1",
+      "sha384": "a9981fb83f537346ff1b6c16248dd495dc2e2d3488f9b1767c3891726e13bf9ac001422644c9683bd3d6794c1bc4701c",
+      "blake3": "8e12498a88c2ac09a86dd571cb7f50cbf1c4884adf7152ccf2d8c60294f73fea",
+      "size": 840
+    },
+    {
+      "file": "hostile-crypto.test.mjs",
+      "sha256": "aaf51b2d8d7e67b6edf4f85ddf567ed7c20854f988ee1dda68588f4a9c085392",
+      "sha384": "bb7e610db4af2efc0de70fc637a67d8d6308f252ab7768ea13a92d4e207ace79adab92151846ad270fd10f4dd50d6c79",
+      "blake3": "8efce8d111ab359e2a87332374bbdc6fb4a8e8a6f699098e013f0ef45e823e39",
+      "size": 14066
+    },
+    {
+      "file": "hostile-crypto.test.mjs.ots",
+      "sha256": "8c27ea8099ed8952e041dcbcef0e6d4e4a543bc545242430195f38f4a98f46f9",
+      "sha384": "fb46cd36faa3eb031322cd6eda351984c0774328284f960faa4ff5748afaf9b663dee7e94c6742b415e3f47d6668d0e3",
+      "blake3": "f79aca0d1458cd06b54ded0a0ffbf86f165a18e899c43d1d099b3dd234be856a",
+      "size": 875
+    },
+    {
+      "file": "hostile-input.test.mjs",
+      "sha256": "d390910fc28e5f941981a9314ae2b702bd570f6aa3e42401d198a6e278b8d761",
+      "sha384": "45d605e86d6ab4f99b158d927720a2ba001a7eb68b3e330619bd30b02a0b2828f6648c731b123501caec11f0bec56879",
+      "blake3": "ac026f9d562fb9fd2f2f5188cd3bfe94c21a619e1c64c3e88e3508f320faa33b",
+      "size": 5207
+    },
+    {
+      "file": "hostile-input.test.mjs.ots",
+      "sha256": "5bbfd10e954a8348a547834885fe57a99b53a2d66fbb432badcd6be6b0234f7e",
+      "sha384": "78edaae22d754c70026509db49f2690939fcf04eb0166b0fd926f9f915e9cc83836be77c25c728e8761f29664d1e8bed",
+      "blake3": "02bb92f5e1b30b49873e58e801384683cb94be02c944289715c9f8b5811c6b77",
+      "size": 945
+    },
+    {
+      "file": "per-file-signatures.json",
+      "sha256": "79a5b1beed64ddaabf87ada318bea6db7bbf5ecb46ada967470a8cbcbe527caf",
+      "sha384": "526512dddb6bb297e92edead41bbe66dc16893bcad945dfe61d16458cb637f9fe01d47a865d1c7bae64232d65d7236c0",
+      "blake3": "a6b96408f7e61e1f39a2feb6d9ec8d5c01cb3d76748981908653b18d88ab8005",
+      "size": 1784
+    },
+    {
+      "file": "per-file-signatures.json.ots",
+      "sha256": "be86dc68be28a29cf0c09062c9ce3750c65e4895b8f4f1d45b7b526438abace3",
+      "sha384": "ef459c272ee7cf80ac2ce16dee25e70904e0b2b84166d287984404cfdac8fcc09ae1aef55e2987fbbf3c33fff2a45cc5",
+      "blake3": "343cfa58b4310fe88b298d92252d9fc1888ba781b7fa4df389b708a883a58abe",
+      "size": 910
+    },
+    {
+      "file": "sign-manifest.mjs",
+      "sha256": "073de0f42f480b00dfcddc09c42c41b71f465d491c9514456bb9f9fd4daf9221",
+      "sha384": "217fa1bdddd514bcd2146038e4b8fa4c39bd17d426a62e69f1b085f5daf6603986ee75896c685f5358acc92e5c0e4e95",
+      "blake3": "cf714e9060fc6462e9d4af2c97c0a38d5a577ec7a2f4ca5bb1ec1fa514478592",
+      "size": 3548
+    },
+    {
+      "file": "sign-manifest.mjs.ots",
+      "sha256": "e0f60dacc332dc3b10ae9a9651bb49a4e9ae01f69fc472abef6b9b1bf28a8afc",
+      "sha384": "47d7105ed22793de6d7e5a0666ca067938f0147ed63f4e53998fb51438c21b557cbdb29978dff29944c13f60e4da5007",
+      "blake3": "c5f50239844d4b78311b642139f5b0a02d3d70e2a489fe1874c73affa68cc44b",
+      "size": 910
+    }
+  ]
+}

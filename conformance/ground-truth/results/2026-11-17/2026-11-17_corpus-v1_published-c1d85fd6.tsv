@@ -1,0 +1,301 @@
+id	category	expected_class	client_code	stage	predicate	message
+CV0001	algorithm-valid	verified	VERIFIED			
+CV0002	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0003	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	Ed25519 signature over the SHA-256 digest does not verify
+CV0004	algorithm-valid	verified	VERIFIED			
+CV0005	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0006	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P256 signature over the SHA-256 digest does not verify
+CV0007	algorithm-valid	verified	VERIFIED			
+CV0008	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0009	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P384 signature over the SHA-256 digest does not verify
+CV0010	algorithm-valid	verified	VERIFIED			
+CV0011	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0012	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P521 signature over the SHA-256 digest does not verify
+CV0013	algorithm-valid	verified	VERIFIED			
+CV0014	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0015	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-2048 signature over the SHA-256 digest does not verify
+CV0016	algorithm-valid	verified	VERIFIED			
+CV0017	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0018	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-3072 signature over the SHA-256 digest does not verify
+CV0019	algorithm-valid	verified	VERIFIED			
+CV0020	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0021	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-4096 signature over the SHA-256 digest does not verify
+CV0022	algorithm-valid	verified	VERIFIED			
+CV0023	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0024	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	Ed25519 signature over the SHA-384 digest does not verify
+CV0025	algorithm-valid	verified	VERIFIED			
+CV0026	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0027	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P256 signature over the SHA-384 digest does not verify
+CV0028	algorithm-valid	verified	VERIFIED			
+CV0029	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0030	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P384 signature over the SHA-384 digest does not verify
+CV0031	algorithm-valid	verified	VERIFIED			
+CV0032	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0033	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P521 signature over the SHA-384 digest does not verify
+CV0034	algorithm-valid	verified	VERIFIED			
+CV0035	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0036	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-2048 signature over the SHA-384 digest does not verify
+CV0037	algorithm-valid	verified	VERIFIED			
+CV0038	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0039	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-3072 signature over the SHA-384 digest does not verify
+CV0040	algorithm-valid	verified	VERIFIED			
+CV0041	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0042	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-4096 signature over the SHA-384 digest does not verify
+CV0043	algorithm-valid	verified	VERIFIED			
+CV0044	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0045	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	Ed25519 signature over the SHA-512 digest does not verify
+CV0046	algorithm-valid	verified	VERIFIED			
+CV0047	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0048	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P256 signature over the SHA-512 digest does not verify
+CV0049	algorithm-valid	verified	VERIFIED			
+CV0050	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0051	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P384 signature over the SHA-512 digest does not verify
+CV0052	algorithm-valid	verified	VERIFIED			
+CV0053	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0054	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P521 signature over the SHA-512 digest does not verify
+CV0055	algorithm-valid	verified	VERIFIED			
+CV0056	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0057	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-2048 signature over the SHA-512 digest does not verify
+CV0058	algorithm-valid	verified	VERIFIED			
+CV0059	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0060	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-3072 signature over the SHA-512 digest does not verify
+CV0061	algorithm-valid	verified	VERIFIED			
+CV0062	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0063	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-4096 signature over the SHA-512 digest does not verify
+CV0064	algorithm-valid	verified	VERIFIED			
+CV0065	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0066	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	Ed25519 signature over the BLAKE3 digest does not verify
+CV0067	algorithm-valid	verified	VERIFIED			
+CV0068	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0069	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P256 signature over the BLAKE3 digest does not verify
+CV0070	algorithm-valid	verified	VERIFIED			
+CV0071	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0072	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P384 signature over the BLAKE3 digest does not verify
+CV0073	algorithm-valid	verified	VERIFIED			
+CV0074	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0075	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P521 signature over the BLAKE3 digest does not verify
+CV0076	algorithm-valid	verified	VERIFIED			
+CV0077	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0078	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-2048 signature over the BLAKE3 digest does not verify
+CV0079	algorithm-valid	verified	VERIFIED			
+CV0080	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0081	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-3072 signature over the BLAKE3 digest does not verify
+CV0082	algorithm-valid	verified	VERIFIED			
+CV0083	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0084	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-4096 signature over the BLAKE3 digest does not verify
+CV0085	algorithm-valid	verified	VERIFIED			
+CV0086	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0087	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	Ed25519 signature over the BLAKE2b digest does not verify
+CV0088	algorithm-valid	verified	VERIFIED			
+CV0089	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0090	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P256 signature over the BLAKE2b digest does not verify
+CV0091	algorithm-valid	verified	VERIFIED			
+CV0092	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0093	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P384 signature over the BLAKE2b digest does not verify
+CV0094	algorithm-valid	verified	VERIFIED			
+CV0095	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0096	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	ECDSA-P521 signature over the BLAKE2b digest does not verify
+CV0097	algorithm-valid	verified	VERIFIED			
+CV0098	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0099	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-2048 signature over the BLAKE2b digest does not verify
+CV0100	algorithm-valid	verified	VERIFIED			
+CV0101	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0102	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-3072 signature over the BLAKE2b digest does not verify
+CV0103	algorithm-valid	verified	VERIFIED			
+CV0104	algorithm-boundary-fail	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0105	algorithm-tamper	invalid-signature	INVALID_SIGNATURE	crypto	signature	RSA-PSS-4096 signature over the BLAKE2b digest does not verify
+CV0106	malformed	malformed	MALFORMED	parse	json	not strict JSON: canonical-json parse error at offset 0: invalid literal
+CV0107	malformed	malformed	MALFORMED	parse	shape.object	bundle is not a JSON object
+CV0108	malformed	malformed	MALFORMED	parse	shape.object	bundle is not a JSON object
+CV0109	malformed	malformed	MALFORMED	parse	shape.object	bundle is not a JSON object
+CV0110	malformed	malformed	MALFORMED	parse	shape.object	bundle is not a JSON object
+CV0111	malformed	malformed	MALFORMED	parse	shape.hdr	missing hdr
+CV0112	malformed	malformed	PAYLOAD_MISSING	parse	shape.payload	a key-beside envelope must carry its payload
+CV0113	malformed	malformed	MALFORMED	parse	shape.meta	missing meta
+CV0114	malformed	malformed	MALFORMED	parse	shape.refs	refs is not an array
+CV0115	malformed	malformed	MISSING_SIGNATURE	parse	shape.seal	the bundle carries no seal — it was never signed
+CV0116	malformed	malformed	MALFORMED	parse	shape.refs	refs is not an array
+CV0117	malformed	malformed	MALFORMED	parse	shape.refs	refs is not an array
+CV0118	malformed	malformed	MALFORMED	parse	shape.hdr	missing hdr
+CV0119	malformed	malformed	MALFORMED	parse	shape.meta	missing meta
+CV0120	malformed	malformed	MISSING_SIGNATURE	parse	shape.seal	the bundle carries no seal — it was never signed
+CV0121	malformed	malformed	MALFORMED	parse	shape.hdr.spec_id	hdr.spec_id must be PROOFBUNDLE (got "NOT-PROOFBUNDLE")
+CV0122	malformed	malformed	MALFORMED	parse	shape.alg_agreement	meta and seal name different digest algorithms
+CV0123	malformed	malformed	MALFORMED	parse	shape.alg_agreement	meta and seal name different signature algorithms
+CV0124	malformed	malformed	MALFORMED	parse	shape.seal.b64u	seal value is not base64url
+CV0125	malformed	malformed	PAYLOAD_MISSING	parse	shape.payload	a key-beside envelope must carry its payload
+CV0126	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.0.0" is not a ProofBundle version
+CV0127	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.9.0" is not a ProofBundle version
+CV0128	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "1.0.1" is not a ProofBundle version
+CV0129	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 1.1.0 is known but not carried by a key_beside envelope
+CV0130	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 2.0.0 is known but not carried by a key_beside envelope
+CV0131	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.0.0" is not a ProofBundle version
+CV0132	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.9.0" is not a ProofBundle version
+CV0133	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "1.0.1" is not a ProofBundle version
+CV0134	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 1.1.0 is known but not carried by a key_beside envelope
+CV0135	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 2.0.0 is known but not carried by a key_beside envelope
+CV0136	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.0.0" is not a ProofBundle version
+CV0137	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.9.0" is not a ProofBundle version
+CV0138	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "1.0.1" is not a ProofBundle version
+CV0139	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 1.1.0 is known but not carried by a key_beside envelope
+CV0140	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 2.0.0 is known but not carried by a key_beside envelope
+CV0141	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.0.0" is not a ProofBundle version
+CV0142	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "0.9.0" is not a ProofBundle version
+CV0143	unknown-version	unknown-version	UNKNOWN_VERSION	gating	version.known	spec_ver "1.0.1" is not a ProofBundle version
+CV0144	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 1.1.0 is known but not carried by a key_beside envelope
+CV0145	unknown-version	unknown-version	UNSUPPORTED_VERSION	gating	version.envelope	spec_ver 2.0.0 is known but not carried by a key_beside envelope
+CV0146	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	profile	profile "PB-FUTURE-99" is not defined
+CV0147	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	encoding	canonical_encoding "PB-CANON-JSON-2" is not defined
+CV0148	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"SHA-999" is not a registered algorithm
+CV0149	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.signature	"SIG-FUTURE" is not a registered algorithm
+CV0150	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	boundary	atom.op	atom "unknown_atom_xyz" is not defined
+CV0151	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"BLAKE3-999" is not a registered algorithm
+CV0152	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	profile	profile "PB-FUTURE-99" is not defined
+CV0153	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	encoding	canonical_encoding "PB-CANON-JSON-2" is not defined
+CV0154	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"SHA-999" is not a registered algorithm
+CV0155	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.signature	"SIG-FUTURE" is not a registered algorithm
+CV0156	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	boundary	atom.op	atom "unknown_atom_xyz" is not defined
+CV0157	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"BLAKE3-999" is not a registered algorithm
+CV0158	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	profile	profile "PB-FUTURE-99" is not defined
+CV0159	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	encoding	canonical_encoding "PB-CANON-JSON-2" is not defined
+CV0160	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"SHA-999" is not a registered algorithm
+CV0161	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.signature	"SIG-FUTURE" is not a registered algorithm
+CV0162	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	boundary	atom.op	atom "unknown_atom_xyz" is not defined
+CV0163	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"BLAKE3-999" is not a registered algorithm
+CV0164	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	profile	profile "PB-FUTURE-99" is not defined
+CV0165	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	encoding	canonical_encoding "PB-CANON-JSON-2" is not defined
+CV0166	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"SHA-999" is not a registered algorithm
+CV0167	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.signature	"SIG-FUTURE" is not a registered algorithm
+CV0168	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	boundary	atom.op	atom "unknown_atom_xyz" is not defined
+CV0169	not-defined-in-this-version	not-defined-in-this-version	UNKNOWN_ALGORITHM	gating	algorithm.digest	"BLAKE3-999" is not a registered algorithm
+CV0170	not-defined-in-this-version	not-defined-in-this-version	NOT_DEFINED	gating	profile	profile "PB-FUTURE-99" is not defined
+CV0171	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0172	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0173	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0174	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0175	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0176	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0177	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0178	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0179	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0180	missing-side-info	missing-side-info	SIDE_INFORMATION_MISSING	auxiliary	side_attestations	required side attestations are absent
+CV0181	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent tkM1TDkEVCwUJvj8YovqWTaPaW3ZLlQxxo34uYUxP_4 is referenced and was not supplied
+CV0182	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 4Fkx2EsTiKaC1L7ywwTlmXdGxlBpoWbTiXSNxw3y8tA is referenced and was not supplied
+CV0183	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent ZymyAifOhUxq8OKhf7WHDWre5ukry2TTWIoCN9QAyRo is referenced and was not supplied
+CV0184	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 8yz5KjYY2ocKaJZWs08lvG-FMEIUg8nwEjJQw7h7Y3M is referenced and was not supplied
+CV0185	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 2A2DnODqQgKZYqIm-2u5ac0VqIKN79cttioaiRSG2gY is referenced and was not supplied
+CV0186	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 5y6uwS7TE1H1fCCdFVHBHpI07fH8HBGHNBRlpSl_fJw is referenced and was not supplied
+CV0187	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 5epADtvxNpJllw7e-cRoE60k-dkb7omsIUTonsuS3ow is referenced and was not supplied
+CV0188	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent 4kjcvdFgAxiOt8LKgN0bOPybIbMvjeIFFuuioQfHJQ8 is referenced and was not supplied
+CV0189	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent GCWzhzdGyQ38KQBWG_jcvgDq03e5r88_MCANHxUyjTs is referenced and was not supplied
+CV0190	missing-side-info	missing-side-info	LINEAGE_MISSING	lineage	parent	parent wNtKp2xCuqI3nabn7s9cyW4k3GrtuXKNkn3SbYEgp64 is referenced and was not supplied
+CV0191	indeterminate	indeterminate	MALFORMED	boundary	atom.arity	equals takes 2 operands, got 1
+CV0192	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	range: bounds must be finite numbers, lo ≤ hi
+CV0193	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	all operand is not an array
+CV0194	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	any operand is not an array
+CV0195	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	before: "not-a-date" is not a timestamp
+CV0196	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	after: "not-a-date" is not a timestamp
+CV0197	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	within: bounds must be timestamps
+CV0198	indeterminate	indeterminate	MALFORMED	boundary	atom.operand	age_lt: not a duration
+CV0199	indeterminate	indeterminate	MALFORMED	boundary	atom.arity	range takes 3 operands, got 2
+CV0200	indeterminate	indeterminate	MALFORMED	boundary	atom.arity	equals takes 2 operands, got 3
+CV0201	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0202	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0203	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0204	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0205	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0206	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0207	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0208	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0209	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0210	indeterminate	indeterminate	EVIDENCE_INCOMPLETE	auxiliary	side_attestations.shape	side_attestations[0] is incomplete
+CV0211	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0212	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0213	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0214	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0215	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0216	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0217	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0218	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0219	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0220	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0221	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0222	lineage-valid	verified	VERIFIED_WITH_WARNINGS			
+CV0223	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent sR5omJ_qaLtGpWIsjkhIM3f2vEGWnQl7dBpXn7apaho does not match the digest the child committed to
+CV0224	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent UF2CokwIyPcTnjVS_h9ZbJ795fm3Xymn5Q5HLhmD_lc does not match the digest the child committed to
+CV0225	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent MRrFAwms_q_eLB7e6SoHHhkLA159M0Osu0CudX-dCJU does not match the digest the child committed to
+CV0226	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent 9-Vji0sa8D7XylQgGcR6ZHBSqOFyvGWxVas7onLuDAk does not match the digest the child committed to
+CV0227	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent wM_A-oTvK-P2T-PxM5YRm0DcNFn-ShvJCQBkZYU-PYw does not match the digest the child committed to
+CV0228	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent nEY95asV45_h9FwXeM4mIKLtSD84cVtj7IPib-ITcNg does not match the digest the child committed to
+CV0229	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent 888RKVynPvqa_-ReBghi9nG9Z5uNA8mnMLs4JjPUW_A does not match the digest the child committed to
+CV0230	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent Yuwq5fQSnO1xMgNKdQnOyyjMpYCZlHiTQScGYFzPw4k does not match the digest the child committed to
+CV0231	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent glswlHH4OMtfAzlZl2-S0W-Qdm6njREJRi2EJW3ieYo does not match the digest the child committed to
+CV0232	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent AttICzirmFts8nOu7myjIkR5Va4I5mBRFmtWR0tRuUQ does not match the digest the child committed to
+CV0233	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent NNMCnUrjSbBXmyzjU-I00_NKSF1KBpHG9Kh_fWgNVi4 does not match the digest the child committed to
+CV0234	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent sA_Wqht-NY4BRDPVGfARFKYnDEUH95-yzMExlUFwIU8 does not match the digest the child committed to
+CV0235	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent kKIx-1XPXRVBPKLS0nV8s1nLTM4vsJTTO5xWUV1xapE does not match the digest the child committed to
+CV0236	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent VL5F7inxEqb1m6or-vW53FnCzNFrD4om8yahMYrxrqw does not match the digest the child committed to
+CV0237	lineage-invalid	lineage-invalid	LINEAGE_INVALID	lineage	parent.digest	parent TpwBMRsef_iTs5EuSOalq0gdqLGvxDbon2rntci8pJA does not match the digest the child committed to
+CV0238	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent KkHQRBt4a7GXTYjmdsGe7Gf2UMfSMj6j1XzlMSwiNkI is referenced and was not supplied
+CV0239	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent Hazv8F6LzrUbM1D_VI0jYuxrSx_Sneole4faLpRex_Q is referenced and was not supplied
+CV0240	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent jEMPLyAg1XAss-h53rj-ovgrGXAt0M3ZamsS5CCKOmI is referenced and was not supplied
+CV0241	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent MAPoorMKJ25XnSoXSXN31mO67g99cxH6RNMLha4W-gs is referenced and was not supplied
+CV0242	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent a_KcFJvT_jftijkJDszblY6B08nU6zWxmSoBSwQb2Bg is referenced and was not supplied
+CV0243	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent qZMSXX3W2WmtxxLUoHjLGM24pNwE04Cl64-K9L9hwoY is referenced and was not supplied
+CV0244	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent wTFFu0rX_Q-ZdPXuuy8tDc3g-LdRBj8ILRBtJrlfNy8 is referenced and was not supplied
+CV0245	lineage-invalid	lineage-invalid	LINEAGE_MISSING	lineage	parent	parent f37ROd6fPWlzKwrcJp5yBMrReW5xBYvEO7qU4z_3BvY is referenced and was not supplied
+CV0246	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 10
+CV0247	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 15
+CV0248	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 20
+CV0249	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 10
+CV0250	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 15
+CV0251	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 20
+CV0252	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 10
+CV0253	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 15
+CV0254	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 20
+CV0255	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	650 canonical bytes > 10
+CV0256	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	651 canonical bytes > 15
+CV0257	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	651 canonical bytes > 20
+CV0258	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	651 canonical bytes > 10
+CV0259	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	651 canonical bytes > 15
+CV0260	resource-exhausted	resource-exhausted	LIMIT_EXCEEDED	parse	limits.max_bundle_bytes	651 canonical bytes > 20
+CV0261	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0262	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0263	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0264	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0265	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0266	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0267	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0268	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0269	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0270	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0271	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0272	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0273	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0274	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0275	policy-denied	policy-denied	POLICY_DENIED	policy	regulated.approval	PB-REGULATED-1 requires a human approval (meta.hitl or side attestations)
+CV0276	temporal-boundary	verified	VERIFIED			
+CV0277	temporal-boundary	verified	VERIFIED			
+CV0278	temporal-boundary	verified	VERIFIED			
+CV0279	temporal-boundary	verified	VERIFIED			
+CV0280	temporal-boundary	verified	VERIFIED			
+CV0281	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0282	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0283	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0284	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0285	temporal-boundary	verified	VERIFIED			
+CV0286	temporal-boundary	verified	VERIFIED			
+CV0287	temporal-boundary	verified	VERIFIED			
+CV0288	temporal-boundary	verified	VERIFIED			
+CV0289	temporal-boundary	verified	VERIFIED			
+CV0290	temporal-boundary	verified	VERIFIED			
+CV0291	temporal-boundary	verified	VERIFIED			
+CV0292	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0293	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0294	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0295	temporal-boundary	out-of-bounds	POLICY_DENIED	boundary	boundary	the boundary predicate is false for the supplied context — the artifact is outside its declared applicability
+CV0296	temporal-boundary	verified	VERIFIED			
+CV0297	temporal-boundary	verified	VERIFIED			
+CV0298	temporal-boundary	verified	VERIFIED			
+CV0299	temporal-boundary	verified	VERIFIED			
+CV0300	temporal-boundary	verified	VERIFIED			

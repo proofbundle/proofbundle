@@ -1,0 +1,301 @@
+id	category	expected	ref_outcome	match	stage	why
+CV0001	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0002	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0003	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	Ed25519 signature does not verify (InvalidSignature)
+CV0004	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0005	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0006	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P256 signature does not verify (InvalidSignature)
+CV0007	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0008	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0009	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P384 signature does not verify (InvalidSignature)
+CV0010	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0011	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0012	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P521 signature does not verify (InvalidSignature)
+CV0013	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0014	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0015	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-2048 signature does not verify (InvalidSignature)
+CV0016	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0017	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0018	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-3072 signature does not verify (InvalidSignature)
+CV0019	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0020	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0021	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-4096 signature does not verify (InvalidSignature)
+CV0022	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0023	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0024	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	Ed25519 signature does not verify (InvalidSignature)
+CV0025	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0026	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0027	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P256 signature does not verify (InvalidSignature)
+CV0028	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0029	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0030	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P384 signature does not verify (InvalidSignature)
+CV0031	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0032	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0033	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P521 signature does not verify (InvalidSignature)
+CV0034	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0035	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0036	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-2048 signature does not verify (InvalidSignature)
+CV0037	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0038	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0039	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-3072 signature does not verify (InvalidSignature)
+CV0040	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0041	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0042	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-4096 signature does not verify (InvalidSignature)
+CV0043	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0044	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0045	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	Ed25519 signature does not verify (InvalidSignature)
+CV0046	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0047	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0048	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P256 signature does not verify (InvalidSignature)
+CV0049	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0050	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0051	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P384 signature does not verify (InvalidSignature)
+CV0052	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0053	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0054	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P521 signature does not verify (InvalidSignature)
+CV0055	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0056	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0057	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-2048 signature does not verify (InvalidSignature)
+CV0058	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0059	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0060	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-3072 signature does not verify (InvalidSignature)
+CV0061	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0062	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0063	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-4096 signature does not verify (InvalidSignature)
+CV0064	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0065	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0066	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	Ed25519 signature does not verify (InvalidSignature)
+CV0067	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0068	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0069	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P256 signature does not verify (InvalidSignature)
+CV0070	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0071	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0072	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P384 signature does not verify (InvalidSignature)
+CV0073	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0074	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0075	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P521 signature does not verify (InvalidSignature)
+CV0076	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0077	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0078	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-2048 signature does not verify (InvalidSignature)
+CV0079	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0080	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0081	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-3072 signature does not verify (InvalidSignature)
+CV0082	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0083	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0084	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-4096 signature does not verify (InvalidSignature)
+CV0085	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0086	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0087	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	Ed25519 signature does not verify (InvalidSignature)
+CV0088	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0089	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0090	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P256 signature does not verify (InvalidSignature)
+CV0091	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0092	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0093	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P384 signature does not verify (InvalidSignature)
+CV0094	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0095	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0096	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	ECDSA-P521 signature does not verify (InvalidSignature)
+CV0097	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0098	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0099	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-2048 signature does not verify (InvalidSignature)
+CV0100	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0101	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0102	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-3072 signature does not verify (InvalidSignature)
+CV0103	algorithm-valid	verified	verified	PASS	-	all stages hold
+CV0104	algorithm-boundary-fail	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0105	algorithm-tamper	invalid-signature	invalid-signature	PASS	integrity	RSA-PSS-4096 signature does not verify (InvalidSignature)
+CV0106	malformed	malformed	malformed	PASS	parse	bundle is not a JSON object
+CV0107	malformed	malformed	malformed	PASS	parse	bundle is not a JSON object
+CV0108	malformed	malformed	malformed	PASS	parse	bundle is not a JSON object
+CV0109	malformed	malformed	malformed	PASS	parse	bundle is not a JSON object
+CV0110	malformed	malformed	malformed	PASS	parse	bundle is not a JSON object
+CV0111	malformed	malformed	malformed	PASS	schema	missing hdr
+CV0112	malformed	malformed	malformed	PASS	schema	missing payload
+CV0113	malformed	malformed	malformed	PASS	schema	missing meta
+CV0114	malformed	malformed	malformed	PASS	schema	missing refs
+CV0115	malformed	malformed	malformed	PASS	schema	missing seal
+CV0116	malformed	malformed	malformed	PASS	schema	refs is not an array
+CV0117	malformed	malformed	malformed	PASS	schema	refs is not an array
+CV0118	malformed	malformed	malformed	PASS	schema	hdr is not an object
+CV0119	malformed	malformed	malformed	PASS	schema	meta is not an object
+CV0120	malformed	malformed	malformed	PASS	schema	seal is not an object
+CV0121	malformed	malformed	malformed	PASS	schema	hdr.spec_id is not PROOFBUNDLE
+CV0122	malformed	malformed	malformed	PASS	schema	meta and seal name different algorithms
+CV0123	malformed	malformed	malformed	PASS	schema	meta and seal name different algorithms
+CV0124	malformed	malformed	malformed	PASS	schema	seal value is not base64url
+CV0125	malformed	malformed	malformed	PASS	schema	payload is not non-empty base64url
+CV0126	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.0.0' is not 1.0.0
+CV0127	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.9.0' is not 1.0.0
+CV0128	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.0.1' is not 1.0.0
+CV0129	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.1.0' is not 1.0.0
+CV0130	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '2.0.0' is not 1.0.0
+CV0131	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.0.0' is not 1.0.0
+CV0132	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.9.0' is not 1.0.0
+CV0133	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.0.1' is not 1.0.0
+CV0134	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.1.0' is not 1.0.0
+CV0135	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '2.0.0' is not 1.0.0
+CV0136	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.0.0' is not 1.0.0
+CV0137	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.9.0' is not 1.0.0
+CV0138	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.0.1' is not 1.0.0
+CV0139	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.1.0' is not 1.0.0
+CV0140	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '2.0.0' is not 1.0.0
+CV0141	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.0.0' is not 1.0.0
+CV0142	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '0.9.0' is not 1.0.0
+CV0143	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.0.1' is not 1.0.0
+CV0144	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '1.1.0' is not 1.0.0
+CV0145	unknown-version	unknown-version	unknown-version	PASS	version	spec_ver '2.0.0' is not 1.0.0
+CV0146	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	profile 'PB-FUTURE-99'
+CV0147	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	encoding 'PB-CANON-JSON-2'
+CV0148	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'SHA-999'
+CV0149	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	sig_alg 'SIG-FUTURE'
+CV0150	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	boundary	atom 'unknown_atom_xyz' not defined in 1.0.0
+CV0151	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'BLAKE3-999'
+CV0152	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	profile 'PB-FUTURE-99'
+CV0153	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	encoding 'PB-CANON-JSON-2'
+CV0154	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'SHA-999'
+CV0155	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	sig_alg 'SIG-FUTURE'
+CV0156	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	boundary	atom 'unknown_atom_xyz' not defined in 1.0.0
+CV0157	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'BLAKE3-999'
+CV0158	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	profile 'PB-FUTURE-99'
+CV0159	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	encoding 'PB-CANON-JSON-2'
+CV0160	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'SHA-999'
+CV0161	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	sig_alg 'SIG-FUTURE'
+CV0162	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	boundary	atom 'unknown_atom_xyz' not defined in 1.0.0
+CV0163	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'BLAKE3-999'
+CV0164	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	profile 'PB-FUTURE-99'
+CV0165	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	encoding 'PB-CANON-JSON-2'
+CV0166	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'SHA-999'
+CV0167	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	sig_alg 'SIG-FUTURE'
+CV0168	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	boundary	atom 'unknown_atom_xyz' not defined in 1.0.0
+CV0169	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	digest_alg 'BLAKE3-999'
+CV0170	not-defined-in-this-version	not-defined-in-this-version	not-defined-in-this-version	PASS	registry	profile 'PB-FUTURE-99'
+CV0171	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0172	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0173	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0174	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0175	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0176	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0177	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0178	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0179	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0180	missing-side-info	missing-side-info	missing-side-info	PASS	side-info	required side attestations absent
+CV0181	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0182	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0183	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0184	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0185	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0186	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0187	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0188	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0189	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0190	missing-side-info	missing-side-info	missing-side-info	PASS	lineage	refs present but no parent bundles supplied
+CV0191	indeterminate	indeterminate	indeterminate	PASS	boundary	equals: expects 2 operands, got 1
+CV0192	indeterminate	indeterminate	indeterminate	PASS	boundary	range: bounds are not numbers
+CV0193	indeterminate	indeterminate	indeterminate	PASS	boundary	all: operand is not an array
+CV0194	indeterminate	indeterminate	indeterminate	PASS	boundary	any: operand is not an array
+CV0195	indeterminate	indeterminate	indeterminate	PASS	boundary	before: Invalid isoformat string: 'not-a-date'
+CV0196	indeterminate	indeterminate	indeterminate	PASS	boundary	after: Invalid isoformat string: 'not-a-date'
+CV0197	indeterminate	indeterminate	indeterminate	PASS	boundary	within: Invalid isoformat string: 'bad-start'
+CV0198	indeterminate	indeterminate	indeterminate	PASS	boundary	age_lt: bad duration
+CV0199	indeterminate	indeterminate	indeterminate	PASS	boundary	range: expects 3 operands, got 2
+CV0200	indeterminate	indeterminate	indeterminate	PASS	boundary	equals: expects 2 operands, got 3
+CV0201	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0202	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0203	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0204	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0205	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0206	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0207	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0208	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0209	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0210	indeterminate	indeterminate	indeterminate	PASS	side-info	side_attestations[0] is malformed
+CV0211	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0212	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0213	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0214	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0215	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0216	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0217	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0218	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0219	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0220	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0221	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0222	lineage-valid	verified	verified	PASS	-	all stages hold
+CV0223	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0224	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0225	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0226	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0227	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0228	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0229	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0230	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0231	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0232	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0233	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0234	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0235	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0236	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0237	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_digest is not the digest of the resolved parent
+CV0238	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0239	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0240	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0241	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0242	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0243	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0244	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0245	lineage-invalid	lineage-invalid	lineage-invalid	PASS	lineage	refs[0].parent_id does not resolve among supplied parents
+CV0246	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 10
+CV0247	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 15
+CV0248	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 20
+CV0249	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 10
+CV0250	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 15
+CV0251	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 20
+CV0252	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 10
+CV0253	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 15
+CV0254	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 20
+CV0255	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	650 canonical bytes > max_bundle_bytes 10
+CV0256	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	651 canonical bytes > max_bundle_bytes 15
+CV0257	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	651 canonical bytes > max_bundle_bytes 20
+CV0258	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	651 canonical bytes > max_bundle_bytes 10
+CV0259	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	651 canonical bytes > max_bundle_bytes 15
+CV0260	resource-exhausted	resource-exhausted	resource-exhausted	PASS	resource-budget	651 canonical bytes > max_bundle_bytes 20
+CV0261	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0262	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0263	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0264	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0265	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0266	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0267	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0268	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0269	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0270	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0271	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0272	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0273	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0274	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0275	policy-denied	policy-denied	policy-denied	PASS	policy	PB-REGULATED-1 requires meta.hitl
+CV0276	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0277	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0278	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0279	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0280	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0281	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0282	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0283	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0284	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0285	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0286	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0287	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0288	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0289	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0290	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0291	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0292	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0293	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0294	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0295	temporal-boundary	out-of-bounds	out-of-bounds	PASS	boundary	boundary predicate false for the supplied context
+CV0296	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0297	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0298	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0299	temporal-boundary	verified	verified	PASS	-	all stages hold
+CV0300	temporal-boundary	verified	verified	PASS	-	all stages hold

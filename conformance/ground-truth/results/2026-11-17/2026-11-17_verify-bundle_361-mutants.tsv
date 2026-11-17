@@ -1,0 +1,362 @@
+id	line	from	to	status	detail
+0000	5434	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0002	5437	!==	===	NOT_DETECTED	
+0004	5441	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0005	5441	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0001	5436	!==	===	NOT_DETECTED	
+0007	5441	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0008	5441	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0009	5441	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0010	5442	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0011	5445	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00073","expected":"INDETERMINATE","actual":"BUNDLE_EXPIRED"}
+0003	5440	||	&&	NOT_DETECTED	
+0006	5441	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17702","expected":"MALFORMED","actual":"INTERNAL_ERROR"}
+0012	5445	&&	||	NOT_DETECTED	
+0013	5448	!==	===	NOT_DETECTED	
+0016	5449	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00002","expected":"VERIFIED_WITH_WARNINGS","actual":"VERIFIED"}
+0017	5449	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0018	5450	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0019	5460	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00012","expected":"NONCANONICAL","actual":"INTERNAL_ERROR"}
+0014	5448	&&	||	NOT_DETECTED	
+0015	5448	!	(removed)	NOT_DETECTED	
+0020	5461	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17795","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0021	5461	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17795","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0022	5463	&&	||	NOT_DETECTED	
+0025	5466	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0026	5468	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0023	5464	&&	||	NOT_DETECTED	
+0024	5464	||	&&	NOT_DETECTED	
+0029	5475	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0030	5475	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0027	5474	>	>=	NOT_DETECTED	
+0028	5474	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17689","expected":"LIMIT_EXCEEDED","actual":"INTERNAL_ERROR"}
+0032	5478	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00093","expected":"LIMIT_EXCEEDED","actual":"VERIFIED_WITH_WARNINGS"}
+0031	5476	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17787","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0035	5482	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0036	5483	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0034	5479	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17793","expected":"VERIFIED","actual":"LIMIT_EXCEEDED"}
+0038	5483	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0039	5484	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0040	5485	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0041	5485	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0033	5478	&&	||	NOT_DETECTED	
+0043	5485	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0044	5485	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0037	5483	||	&&	DETECTED	{"detected_by":"pb-det-001","expected":"MALFORMED","actual":"DIGEST_MISMATCH"}
+0042	5485	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17699","expected":"MALFORMED","actual":"DIGEST_MISMATCH"}
+0045	5485	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17700","expected":"MALFORMED","actual":"DIGEST_MISMATCH"}
+0046	5485	&&	||	NOT_DETECTED	
+0048	5486	&&	||	NOT_DETECTED	
+0050	5486	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0047	5485	!	(removed)	NOT_DETECTED	
+0051	5486	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"MALFORMED"}
+0053	5486	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"MALFORMED"}
+0054	5487	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MISSING_SIGNATURE"}
+0055	5487	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MISSING_SIGNATURE"}
+0049	5486	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0057	5488	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0058	5490	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0059	5491	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MISSING_SIGNATURE"}
+0052	5486	&&	||	NOT_DETECTED	
+0061	5491	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MISSING_SIGNATURE"}
+0062	5492	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0056	5487	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"MISSING_SIGNATURE"}
+0064	5492	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0065	5493	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0060	5491	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17708","expected":"MISSING_SIGNATURE","actual":"INVALID_SIGNATURE"}
+0067	5493	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0068	5494	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"MALFORMED"}
+0063	5492	||	&&	DETECTED	{"detected_by":"pb-det-002","expected":"MALFORMED","actual":"DIGEST_MISMATCH"}
+0070	5494	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"MALFORMED"}
+0071	5494	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0072	5494	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0066	5493	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17705","expected":"MALFORMED","actual":"NONCANONICAL"}
+0074	5494	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0075	5495	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0076	5495	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0077	5496	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0078	5496	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0079	5497	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0080	5499	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00033","expected":"MALFORMED","actual":"VERIFIED_WITH_WARNINGS"}
+0069	5494	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17704","expected":"MALFORMED","actual":"INTERNAL_ERROR"}
+0082	5499	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0083	5501	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0084	5501	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00007","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0073	5494	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17704","expected":"MALFORMED","actual":"INTERNAL_ERROR"}
+0081	5499	&&	||	NOT_DETECTED	
+0087	5507	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0088	5508	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0085	5503	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0086	5504	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0090	5508	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0092	5508	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0093	5509	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"MALFORMED"}
+0089	5508	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17731","expected":"PAYLOAD_MISSING","actual":"VERIFIED"}
+0095	5511	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0096	5511	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0091	5508	||	&&	DETECTED	{"detected_by":"pb-det-004","expected":"PAYLOAD_MISSING","actual":"DIGEST_MISMATCH"}
+0098	5511	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0099	5513	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0100	5513	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0101	5513	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0094	5511	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17714","expected":"PAYLOAD_MISSING","actual":"DIGEST_MISMATCH"}
+0103	5514	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0104	5516	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0097	5511	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17714","expected":"PAYLOAD_MISSING","actual":"DIGEST_MISMATCH"}
+0106	5516	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0102	5513	===	!==	NOT_DETECTED	
+0108	5516	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0105	5516	||	&&	DETECTED	{"detected_by":"pb-det-005","expected":"MALFORMED","actual":"VERIFIED"}
+0110	5516	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0107	5516	||	&&	DETECTED	{"detected_by":"pb-det-005","expected":"MALFORMED","actual":"VERIFIED"}
+0112	5516	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0113	5517	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0114	5518	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0115	5520	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0116	5520	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0117	5524	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0118	5524	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0119	5524	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0120	5525	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0109	5516	||	&&	DETECTED	{"detected_by":"pb-det-006","expected":"MALFORMED","actual":"INTERNAL_ERROR"}
+0122	5525	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0123	5530	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0111	5516	||	&&	DETECTED	{"detected_by":"pb-det-006","expected":"MALFORMED","actual":"INTERNAL_ERROR"}
+0125	5531	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00055","expected":"MALFORMED","actual":"DIGEST_MISMATCH"}
+0126	5531	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0124	5531	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0127	5535	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0128	5537	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0130	5537	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0131	5541	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0132	5542	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"MALFORMED"}
+0133	5543	<	<=	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0134	5543	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"NONCANONICAL"}
+0121	5525	||	&&	DETECTED	{"detected_by":"pb-det-007","expected":"MALFORMED","actual":"VERIFIED_WITH_WARNINGS"}
+0136	5544	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"EVIDENCE_INCOMPLETE"}
+0129	5537	||	&&	DETECTED	{"detected_by":"pb-det-008","expected":"MALFORMED","actual":"NONCANONICAL"}
+0138	5548	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00088","expected":"PAYLOAD_MISSING","actual":"DIGEST_MISMATCH"}
+0139	5552	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0140	5552	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0141	5552	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00012","expected":"NONCANONICAL","actual":"VERIFIED_WITH_WARNINGS"}
+0142	5555	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0143	5555	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0135	5543	<	<=	NOT_DETECTED	
+0137	5548	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17722","expected":"VERIFIED","actual":"PAYLOAD_MISSING"}
+0146	5555	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0147	5559	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0148	5562	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0149	5563	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0150	5563	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NONCANONICAL"}
+0144	5555	&&	||	NOT_DETECTED	
+0145	5555	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17716","expected":"NONCANONICAL","actual":"DIGEST_MISMATCH"}
+0152	5569	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNKNOWN_VERSION"}
+0153	5570	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNSUPPORTED_VERSION"}
+0155	5573	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NOT_DEFINED"}
+0154	5572	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NOT_DEFINED"}
+0157	5574	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNKNOWN_ALGORITHM"}
+0156	5573	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"NOT_DEFINED"}
+0159	5575	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00015","expected":"UNSUPPORTED_ALGORITHM","actual":"DIGEST_MISMATCH"}
+0158	5574	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNKNOWN_ALGORITHM"}
+0160	5576	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00017","expected":"UNSUPPORTED_ALGORITHM","actual":"DIGEST_MISMATCH"}
+0161	5579	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNKNOWN_ALGORITHM"}
+0162	5583	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0163	5587	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0165	5589	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0166	5589	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00025","expected":"VERIFIED_WITH_WARNINGS","actual":"FORBIDDEN_ALGORITHM"}
+0167	5590	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00024","expected":"FORBIDDEN_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0168	5592	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00020","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0151	5565	!==	===	NOT_DETECTED	
+0170	5598	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00025","expected":"VERIFIED_WITH_WARNINGS","actual":"FORBIDDEN_ALGORITHM"}
+0169	5597	>=	>	DETECTED	{"detected_by":"pb-1.0.0-17808","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0171	5598	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17812","expected":"FORBIDDEN_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0164	5587	!==	===	DETECTED	{"detected_by":"pb-1.0.0-17721","expected":"UNKNOWN_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0172	5598	<	<=	DETECTED	{"detected_by":"pb-1.0.0-17812","expected":"FORBIDDEN_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0175	5603	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00020","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0176	5603	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0173	5598	===	!==	NOT_DETECTED	
+0178	5603	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0179	5603	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00020","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0174	5599	===	!==	NOT_DETECTED	
+0181	5604	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00020","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0182	5615	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00004","expected":"UNKNOWN_SIGNER","actual":"VERIFIED_WITH_WARNINGS"}
+0183	5616	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNEXPECTED_SIGNER"}
+0184	5616	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"UNEXPECTED_SIGNER"}
+0185	5617	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00002","expected":"VERIFIED_WITH_WARNINGS","actual":"VERIFIED"}
+0186	5618	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0187	5619	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00004","expected":"UNKNOWN_SIGNER","actual":"VERIFIED"}
+0188	5620	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00004","expected":"UNKNOWN_SIGNER","actual":"INTERNAL_ERROR"}
+0189	5620	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00004","expected":"UNKNOWN_SIGNER","actual":"VERIFIED_WITH_WARNINGS"}
+0177	5603	>=	>	DETECTED	{"detected_by":"pb-1.0.0-17810","expected":"DEPRECATED_ALGORITHM","actual":"VERIFIED_WITH_WARNINGS"}
+0180	5603	>=	>	DETECTED	{"detected_by":"pb-det-014","expected":"VERIFIED_WITH_WARNINGS","actual":"DEPRECATED_ALGORITHM"}
+0191	5622	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00064","expected":"REVOKED_KEY","actual":"VERIFIED"}
+0190	5620	false	true	DETECTED	{"detected_by":"pb-1.0.0-17727","expected":"VERIFIED_WITH_WARNINGS","actual":"UNKNOWN_SIGNER"}
+0192	5622	||	&&	NOT_DETECTED	
+0194	5623	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17728","expected":"VERIFIED","actual":"EXPIRED_KEY"}
+0193	5622	||	&&	NOT_DETECTED	
+0195	5623	||	&&	NOT_DETECTED	
+0197	5624	||	&&	NOT_DETECTED	
+0196	5624	<	<=	DETECTED	{"detected_by":"pb-1.0.0-17729","expected":"VERIFIED","actual":"KEY_NOT_YET_VALID"}
+0199	5628	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0200	5630	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0198	5625	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17726","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0203	5639	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0204	5640	||	&&	DETECTED	{"detected_by":"pb-1.0.0-05755","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0205	5643	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00042","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0206	5647	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"DIGEST_MISMATCH"}
+0207	5650	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"DIGEST_MISMATCH"}
+0208	5652	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0209	5653	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"DIGEST_MISMATCH"}
+0210	5655	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"DIGEST_MISMATCH"}
+0211	5656	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0212	5657	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0213	5658	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00041","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0202	5635	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"INVALID_SIGNATURE"}
+0214	5661	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0201	5631	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17684","expected":"VERIFIED_WITH_WARNINGS","actual":"INTERNAL_ERROR"}
+0216	5661	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0217	5663	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17815","expected":"VERIFIED","actual":"UNEXPECTED_SIGNER"}
+0215	5661	||	&&	DETECTED	{"detected_by":"pb-det-009","expected":"SIDE_INFORMATION_MISSING","actual":"INTERNAL_ERROR"}
+0218	5665	false	true	NOT_DETECTED	
+0221	5674	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0222	5675	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"MALFORMED"}
+0219	5669	&&	||	NOT_DETECTED	
+0224	5675	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"MALFORMED"}
+0220	5670	false	true	NOT_DETECTED	
+0226	5675	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"MALFORMED"}
+0227	5676	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"INSUFFICIENT_SIGNATURES"}
+0228	5677	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"UNEXPECTED_SIGNER"}
+0229	5677	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00035","expected":"UNEXPECTED_SIGNER","actual":"VERIFIED_WITH_WARNINGS"}
+0230	5677	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00032","expected":"VERIFIED","actual":"UNEXPECTED_SIGNER"}
+0231	5682	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0223	5675	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17723","expected":"MALFORMED","actual":"INSUFFICIENT_SIGNATURES"}
+0233	5682	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0225	5675	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17723","expected":"MALFORMED","actual":"INSUFFICIENT_SIGNATURES"}
+0235	5682	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0232	5682	||	&&	DETECTED	{"detected_by":"pb-det-011","expected":"MALFORMED","actual":"UNKNOWN_ALGORITHM"}
+0237	5682	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0234	5682	||	&&	DETECTED	{"detected_by":"pb-det-011","expected":"MALFORMED","actual":"UNKNOWN_ALGORITHM"}
+0236	5682	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17799","expected":"MALFORMED","actual":"INDETERMINATE"}
+0240	5687	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INDETERMINATE"}
+0241	5687	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"INDETERMINATE"}
+0242	5688	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INVALID_SIGNATURE"}
+0238	5684	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17801","expected":"VERIFIED_WITH_WARNINGS","actual":"INDETERMINATE"}
+0244	5699	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00010","expected":"VERIFIED_WITH_WARNINGS","actual":"VERIFIED"}
+0245	5704	<	<=	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INSUFFICIENT_SIGNATURES"}
+0239	5684	false	true	NOT_DETECTED	
+0247	5705	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00117","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0248	5706	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0249	5706	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0243	5691	===	!==	NOT_DETECTED	
+0246	5705	===	!==	NOT_DETECTED	
+0252	5710	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"EVIDENCE_INCOMPLETE"}
+0253	5712	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00067","expected":"CERTIFICATE_INVALID","actual":"EVIDENCE_INCOMPLETE"}
+0250	5707	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17733","expected":"VERIFIED_WITH_WARNINGS","actual":"VERIFIED"}
+0251	5707	||	&&	NOT_DETECTED	
+0256	5721	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0257	5721	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00026","expected":"TIMESTAMP_INVALID","actual":"VERIFIED_WITH_WARNINGS"}
+0258	5721	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00116","expected":"EVIDENCE_INCOMPLETE","actual":"VERIFIED_WITH_WARNINGS"}
+0259	5721	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0260	5721	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0261	5722	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0262	5722	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0263	5722	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0264	5723	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"EVIDENCE_INCOMPLETE"}
+0265	5723	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"EVIDENCE_INCOMPLETE"}
+0254	5714	||	&&	NOT_DETECTED	
+0266	5724	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00026","expected":"TIMESTAMP_INVALID","actual":"VERIFIED_WITH_WARNINGS"}
+0267	5725	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00025","expected":"VERIFIED_WITH_WARNINGS","actual":"TIMESTAMP_INVALID"}
+0269	5726	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00025","expected":"VERIFIED_WITH_WARNINGS","actual":"TIMESTAMP_UNTRUSTED"}
+0255	5715	!==	===	DETECTED	{"detected_by":"pb-1.0.0-17739","expected":"VERIFIED","actual":"MALFORMED"}
+0271	5727	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00028","expected":"TIMESTAMP_INDETERMINATE","actual":"MALFORMED"}
+0272	5728	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00025","expected":"VERIFIED_WITH_WARNINGS","actual":"MALFORMED"}
+0273	5732	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0274	5732	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0275	5732	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0276	5732	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00002","expected":"VERIFIED_WITH_WARNINGS","actual":"VERIFIED"}
+0277	5737	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0268	5725	||	&&	NOT_DETECTED	
+0279	5738	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0270	5726	||	&&	NOT_DETECTED	
+0281	5739	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00090","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0282	5741	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0283	5741	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"MALFORMED"}
+0278	5737	<=	<	DETECTED	{"detected_by":"pb-1.0.0-17751","expected":"BUNDLE_EXPIRED","actual":"VERIFIED_WITH_WARNINGS"}
+0284	5741	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00089","expected":"SIDE_INFORMATION_MISSING","actual":"VERIFIED_WITH_WARNINGS"}
+0285	5743	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00090","expected":"VERIFIED","actual":"POLICY_DENIED"}
+0286	5748	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00095","expected":"EXTERNAL_SERVICE_UNAVAILABLE","actual":"VERIFIED_WITH_WARNINGS"}
+0287	5748	true	false	DETECTED	{"detected_by":"pb-1.0.0-00095","expected":"EXTERNAL_SERVICE_UNAVAILABLE","actual":"VERIFIED_WITH_WARNINGS"}
+0289	5748	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0288	5748	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00095","expected":"EXTERNAL_SERVICE_UNAVAILABLE","actual":"VERIFIED_WITH_WARNINGS"}
+0280	5738	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17755","expected":"VERIFIED","actual":"BUNDLE_NOT_YET_VALID"}
+0291	5750	true	false	DETECTED	{"detected_by":"pb-1.0.0-17757","expected":"SIDE_INFORMATION_MISSING","actual":"VERIFIED_WITH_WARNINGS"}
+0290	5750	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17757","expected":"SIDE_INFORMATION_MISSING","actual":"VERIFIED_WITH_WARNINGS"}
+0292	5752	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17757","expected":"SIDE_INFORMATION_MISSING","actual":"INTERNAL_ERROR"}
+0293	5752	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17757","expected":"SIDE_INFORMATION_MISSING","actual":"INTERNAL_ERROR"}
+0295	5753	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17760","expected":"VERIFIED","actual":"EVIDENCE_INCOMPLETE"}
+0294	5752	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17758","expected":"SIDE_INFORMATION_MISSING","actual":"VERIFIED_WITH_WARNINGS"}
+0296	5753	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17759","expected":"EVIDENCE_INCOMPLETE","actual":"VERIFIED_WITH_WARNINGS"}
+0298	5756	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17762","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0297	5753	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17759","expected":"EVIDENCE_INCOMPLETE","actual":"VERIFIED_WITH_WARNINGS"}
+0299	5756	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17762","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0300	5757	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17762","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0301	5757	&&	||	NOT_DETECTED	
+0304	5767	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00079","expected":"RESOURCE_EXHAUSTED","actual":"VERIFIED_WITH_WARNINGS"}
+0305	5768	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17767","expected":"VERIFIED","actual":"LINEAGE_MISSING"}
+0302	5758	===	!==	NOT_DETECTED	
+0303	5759	!==	===	DETECTED	{"detected_by":"pb-1.0.0-17762","expected":"VERIFIED","actual":"SIDE_INFORMATION_MISSING"}
+0308	5778	||	&&	DETECTED	{"detected_by":"pb-1.0.0-05787","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0306	5769	&&	||	DETECTED	{"detected_by":"pb-det-010","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0310	5779	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0307	5776	&&	||	DETECTED	{"detected_by":"pb-1.0.0-17776","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0311	5784	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00076","expected":"LINEAGE_INVALID","actual":"VERIFIED_WITH_WARNINGS"}
+0313	5787	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"MALFORMED"}
+0312	5786	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"MALFORMED"}
+0314	5790	>	>=	DETECTED	{"detected_by":"pb-1.0.0-00085","expected":"VERIFIED","actual":"RESOURCE_EXHAUSTED"}
+0316	5798	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"LINEAGE_MISSING"}
+0315	5795	>	>=	DETECTED	{"detected_by":"pb-1.0.0-00086","expected":"VERIFIED","actual":"RESOURCE_EXHAUSTED"}
+0317	5800	>	>=	DETECTED	{"detected_by":"pb-1.0.0-00081","expected":"VERIFIED","actual":"RESOURCE_EXHAUSTED"}
+0319	5803	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"INTERNAL_ERROR"}
+0320	5804	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0309	5778	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17777","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0318	5801	>	>=	DETECTED	{"detected_by":"pb-1.0.0-17772","expected":"VERIFIED","actual":"RESOURCE_EXHAUSTED"}
+0321	5804	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17773","expected":"VERIFIED_WITH_WARNINGS","actual":"LINEAGE_INVALID"}
+0324	5805	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"VERIFIED_WITH_WARNINGS"}
+0323	5804	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17773","expected":"VERIFIED_WITH_WARNINGS","actual":"LINEAGE_INVALID"}
+0322	5804	&&	||	NOT_DETECTED	
+0325	5805	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17773","expected":"VERIFIED_WITH_WARNINGS","actual":"LINEAGE_INVALID"}
+0328	5809	true	false	DETECTED	{"detected_by":"pb-1.0.0-00080","expected":"LINEAGE_CYCLE","actual":"LINEAGE_INVALID"}
+0329	5810	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0330	5810	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00075","expected":"VERIFIED","actual":"LINEAGE_INVALID"}
+0326	5806	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17773","expected":"VERIFIED_WITH_WARNINGS","actual":"LINEAGE_INVALID"}
+0327	5806	&&	||	DETECTED	{"detected_by":"pb-det-018","expected":"LINEAGE_INVALID","actual":"VERIFIED_WITH_WARNINGS"}
+0331	5810	!==	===	DETECTED	{"detected_by":"pb-1.0.0-17768","expected":"LINEAGE_INVALID","actual":"VERIFIED_WITH_WARNINGS"}
+0332	5820	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-17781","expected":"POLICY_DENIED","actual":"POLICY_INDETERMINATE"}
+0335	5820	||	&&	DETECTED	{"detected_by":"pb-1.0.0-00092","expected":"POLICY_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0333	5820	||	&&	DETECTED	{"detected_by":"pb-det-016","expected":"POLICY_INDETERMINATE","actual":"VERIFIED"}
+0337	5820	hasOwnProperty	function hasOwnProperty() { [native code] }	DETECTED_CRASH	 Node.js v24.19.0
+0338	5820	false	true	DETECTED	{"detected_by":"pb-1.0.0-00092","expected":"POLICY_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0336	5820	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00092","expected":"POLICY_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0340	5823	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"POLICY_DENIED"}
+0341	5825	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00110","expected":"VERIFIED","actual":"POLICY_DENIED"}
+0342	5825	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00110","expected":"VERIFIED","actual":"POLICY_DENIED"}
+0334	5820	!==	===	DETECTED	{"detected_by":"pb-1.0.0-17781","expected":"POLICY_DENIED","actual":"POLICY_INDETERMINATE"}
+0343	5825	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00111","expected":"POLICY_DENIED","actual":"VERIFIED_WITH_WARNINGS"}
+0344	5825	&&	||	DETECTED	{"detected_by":"pb-1.0.0-00111","expected":"POLICY_DENIED","actual":"INTERNAL_ERROR"}
+0346	5834	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00092","expected":"POLICY_INDETERMINATE","actual":"VERIFIED_WITH_WARNINGS"}
+0339	5820	true	false	DETECTED	{"detected_by":"pb-1.0.0-17781","expected":"POLICY_DENIED","actual":"POLICY_INDETERMINATE"}
+0345	5828	<=	<	DETECTED	{"detected_by":"pb-1.0.0-17778","expected":"POLICY_DENIED","actual":"VERIFIED_WITH_WARNINGS"}
+0349	5838	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"EVIDENCE_INCOMPLETE"}
+0347	5835	===	!==	DETECTED	{"detected_by":"pb-1.0.0-17781","expected":"POLICY_DENIED","actual":"VERIFIED_WITH_WARNINGS"}
+0351	5838	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00001","expected":"VERIFIED","actual":"EVIDENCE_INCOMPLETE"}
+0348	5835	false	true	DETECTED	{"detected_by":"pb-1.0.0-17781","expected":"POLICY_DENIED","actual":"VERIFIED_WITH_WARNINGS"}
+0352	5839	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00096","expected":"NULL","actual":"EVIDENCE_INCOMPLETE"}
+0354	5839	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00096","expected":"NULL","actual":"EVIDENCE_INCOMPLETE"}
+0355	5841	===	!==	DETECTED	{"detected_by":"pb-1.0.0-00096","expected":"NULL","actual":"MALFORMED"}
+0350	5838	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17785","expected":"NULL","actual":"VERIFIED_WITH_WARNINGS"}
+0356	5842	!	(removed)	DETECTED	{"detected_by":"pb-1.0.0-00097","expected":"NEGATIVE","actual":"MALFORMED"}
+0358	5842	!==	===	DETECTED	{"detected_by":"pb-1.0.0-00097","expected":"NEGATIVE","actual":"MALFORMED"}
+0353	5839	||	&&	DETECTED	{"detected_by":"pb-det-017","expected":"EVIDENCE_INCOMPLETE","actual":"NULL"}
+0357	5842	||	&&	DETECTED	{"detected_by":"pb-1.0.0-17786","expected":"MALFORMED","actual":"NEGATIVE"}
+0359	5850	&&	||	NOT_DETECTED	
+0360	5850	||	&&	NOT_DETECTED	

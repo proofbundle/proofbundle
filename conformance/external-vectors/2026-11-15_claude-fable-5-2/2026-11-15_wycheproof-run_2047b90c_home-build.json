@@ -1,0 +1,2121 @@
+{
+ "written_utc": "2026-11-16T04:24:36.537Z",
+ "client": {
+  "path": "/home/falsealias/proofbundle-1.0.0-20261102T084002Z.html",
+  "sha256": "2047b90c6f5d8af55965040128300fe03e87273bae2ebe232dd96df51ac74800",
+  "native_block_sha256": "f4bc8b965142a7b157308bd3754c76b8a77d03515163c004edc0408e2c86a509",
+  "modules": {
+   "crypto/sha256.mjs": "2859bacc5251d528d49eaee0af3bb55421c416c662cf6693846836c3c421f80c",
+   "crypto/sha512.mjs": "f18d5d30cb09cf4e6a6dba7d77809ea7fa1b5248f65d0f92d5aecde058a8a2d8",
+   "crypto/keccak.mjs": "bf45eda733453976a94e086370a71e61513c2ad11178780ef04bc38c2df85055",
+   "crypto/blake2.mjs": "d51da62588230833729c5092333c340799b8e891bdff2277a9f5613aeeba233b",
+   "crypto/blake3.mjs": "25fd74f0d62299b5feaeac8d749e6e73bc746ac5e7366e1602e503d0394d80a6",
+   "crypto/ed25519.mjs": "fab84ff074aa1d4837efe60e1bc95aa2151a7b030a155a121a90a1913c7e8552",
+   "crypto/ecdsa.mjs": "3da785299412a36ce243143c62d38276bf295e9f92acc675b303c3bf8c33d9d8",
+   "crypto/der.mjs": "56d3a27f7e277f0d3e47b9bded78c0a923e06247ccdf19134d208edba86307f0",
+   "crypto/rsa-pss.mjs": "d7963232358d84577077157efdae6fa16385671811fb79c7fe42840d05a2fbd7",
+   "crypto/hmac.mjs": "917d807166bb9bcd436b0d945adbbb8598f50fdc320e462886463044648e8c5a",
+   "crypto/pbkdf2.mjs": "72c9ca677c9e6b5891ceb58ecf768f2e36c497fbb2abd98fe18a59d602bf9897",
+   "crypto/hkdf.mjs": "b0033f728b5f3a6e49f9d028bf3416ef47fb925d3078946e9f82a65a005dbc57",
+   "crypto/mlkem.mjs": "9dbbd044febabd76eab3bfa39add505d3c07fa01dd4aa1354d69b9668e4fe230",
+   "crypto/mldsa.mjs": "1d525a4db3c71e5858f4bb1f8a712904bffa9d82258cb6b1ba745ffeba404f41",
+   "crypto/x25519.mjs": "9e5758f673c2dd180aceec65bd4f8d9ba139ab2da3904fb68da9ee7ae49b4e84",
+   "crypto/chacha20-poly1305.mjs": "0e1fb73f72f665bbdbe377691b23c0ab429fd98313027737e3aefd4deb0c0b6d",
+   "crypto/aes256-gcm.mjs": "b7ca0eace58cfad2b6cf8debc249161ec09ba2248c50b3ee3d35c32f82107cb9",
+   "src/bytes/utf8.mjs": "48ff000c49f89767964790ab7debb530f2223e4c8404eef8ad82fe254de7cd06",
+   "src/canonical/canonical-json.mjs": "070444e1d5252b6827bcb50a7e6f4d688809884f52ffe345408f21bfa84739b7",
+   "src/encoding/base64url.mjs": "e60d32c270e4a84119d0f97f0b63d771e284f6a2f427f37c6addc92ecdf09de0",
+   "crypto/aibom.mjs": "a83fd29df5336cdb19e8bf9aa2a710a97b6cd1f411628443f70157bd619cfaf4",
+   "crypto/compliance-cert.mjs": "b79502b334ca19a87fd6d2cbbcefea37734d688d0ec6c5c523d8dc27e54fe63c"
+  }
+ },
+ "node": "v24.19.0",
+ "openssl": "3.5.7",
+ "vectors_dir": "wycheproof/testvectors_v1",
+ "results": [
+  {
+   "file": "ed25519_test.json",
+   "family": "Ed25519 verify",
+   "note": null,
+   "cases": 210,
+   "client_agree": 210,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 210,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp256r1_sha256_test.json",
+   "family": "ECDSA P-256 verify, der signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 484,
+   "client_agree": 443,
+   "client_disagree": [
+    {
+     "tc": 6,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "Legacy: ASN encoding of s misses leading 0",
+     "flags": [
+      "MissingZero"
+     ]
+    },
+    {
+     "tc": 8,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 9,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 10,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses 70 instead of 69",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 11,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses 68 instead of 69",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 12,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 13,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 14,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 15,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 16,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**32 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 17,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**40 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 18,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**64 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 20,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "replaced sequence [r, s] by an indefinite length tag without termination",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 23,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending 0's to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 25,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending unused 0's to sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 26,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending null value to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 47,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "sequence [r, s] of size 4166 to check for overflows",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 48,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 49,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated delimiter",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 50,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with additional element",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 51,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated element",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 52,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with garbage",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 53,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with nonempty EOC",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 55,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append empty sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 56,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append zero",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 57,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append garbage with high tag number",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 58,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with explicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 59,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with implicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 62,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "repeating element in sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 67,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 68,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 71,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 72,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 84,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 114,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 115,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 116,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses 34 instead of 33",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 118,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 119,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 120,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 128,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    }
+   ],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 484,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp256r1_sha256_p1363_test.json",
+   "family": "ECDSA P-256 verify, ieee-p1363 signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 262,
+   "client_agree": 262,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 262,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp384r1_sha384_test.json",
+   "family": "ECDSA P-384 verify, der signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 504,
+   "client_agree": 463,
+   "client_disagree": [
+    {
+     "tc": 6,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "Legacy: ASN encoding of s misses leading 0",
+     "flags": [
+      "MissingZero"
+     ]
+    },
+    {
+     "tc": 8,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 9,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 10,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses 102 instead of 101",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 11,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] uses 100 instead of 101",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 12,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 13,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 14,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 15,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 16,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**32 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 17,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**40 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 18,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**64 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 20,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "replaced sequence [r, s] by an indefinite length tag without termination",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 23,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending 0's to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 25,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending unused 0's to sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 26,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending null value to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 47,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "sequence [r, s] of size 4198 to check for overflows",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 48,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 49,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated delimiter",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 50,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with additional element",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 51,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated element",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 52,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with garbage",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 53,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with nonempty EOC",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 55,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append empty sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 56,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append zero",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 57,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append garbage with high tag number",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 58,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with explicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 59,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with implicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 62,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "repeating element in sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 67,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 68,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 71,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 72,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 84,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 114,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 115,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 116,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses 50 instead of 49",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 118,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 119,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 120,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 128,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    }
+   ],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 504,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp384r1_sha384_p1363_test.json",
+   "family": "ECDSA P-384 verify, ieee-p1363 signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 280,
+   "client_agree": 280,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 280,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp521r1_sha512_test.json",
+   "family": "ECDSA P-521 verify, der signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 542,
+   "client_agree": 505,
+   "client_disagree": [
+    {
+     "tc": 7,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 10,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 11,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 12,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 13,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**31",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 14,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**32 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 15,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**40 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 16,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of sequence [r, s] = 2**64 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 18,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "replaced sequence [r, s] by an indefinite length tag without termination",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 21,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending 0's to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 23,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending unused 0's to sequence [r, s]",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 24,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "appending null value to sequence [r, s]",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 45,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "sequence [r, s] of size 4231 to check for overflows",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 46,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 47,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated delimiter",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 48,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with additional element",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 49,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with truncated element",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 50,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with garbage",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 51,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "indefinite length with nonempty EOC",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 53,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append empty sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 54,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append zero",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 55,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append garbage with high tag number",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 56,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with explicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 57,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "append null with implicit tag",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 60,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "repeating element in sequence",
+     "flags": [
+      "ModifiedSignature"
+     ]
+    },
+    {
+     "tc": 65,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 66,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of r contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 69,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 70,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 82,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to r",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 112,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses long form encoding",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 113,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s contains a leading 0",
+     "flags": [
+      "BerEncodedSignature"
+     ]
+    },
+    {
+     "tc": 114,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s uses 66 instead of 65",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 116,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint32 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 117,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "uint64 overflow in length of s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 118,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "length of s = 2**31 - 1",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    },
+    {
+     "tc": 126,
+     "expected": "invalid",
+     "client": "accept",
+     "comment": "prepending 0's to s",
+     "flags": [
+      "InvalidEncoding"
+     ]
+    }
+   ],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 542,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "ecdsa_secp521r1_sha512_p1363_test.json",
+   "family": "ECDSA P-521 verify, ieee-p1363 signatures, bytes passed as the application passes them",
+   "note": null,
+   "cases": 318,
+   "client_agree": 318,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 318,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_2048_sha256_mgf1_32_test.json",
+   "family": "RSA-PSS verify SHA-256",
+   "note": null,
+   "cases": 108,
+   "client_agree": 108,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 108,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_3072_sha256_mgf1_32_test.json",
+   "family": "RSA-PSS verify SHA-256",
+   "note": null,
+   "cases": 108,
+   "client_agree": 108,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 108,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_4096_sha256_mgf1_32_test.json",
+   "family": "RSA-PSS verify SHA-256",
+   "note": null,
+   "cases": 108,
+   "client_agree": 108,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 108,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_2048_sha384_mgf1_48_test.json",
+   "family": "RSA-PSS verify SHA-384",
+   "note": null,
+   "cases": 141,
+   "client_agree": 141,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 141,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_4096_sha384_mgf1_48_test.json",
+   "family": "RSA-PSS verify SHA-384",
+   "note": null,
+   "cases": 141,
+   "client_agree": 141,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 141,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_4096_sha512_mgf1_64_test.json",
+   "family": "RSA-PSS verify SHA-512",
+   "note": null,
+   "cases": 179,
+   "client_agree": 179,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 179,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_2048_sha256_mgf1_0_test.json",
+   "family": "RSA-PSS inputs made for another parameter set, judged under the module profile",
+   "note": "expected verdict is OpenSSL with salt length = hash length and MGF1 = message hash",
+   "cases": 103,
+   "client_agree": 103,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 103,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_2048_sha256_mgf1sha1_20_test.json",
+   "family": "RSA-PSS inputs made for another parameter set, judged under the module profile",
+   "note": "expected verdict is OpenSSL with salt length = hash length and MGF1 = message hash",
+   "cases": 108,
+   "client_agree": 108,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 108,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "rsa_pss_4096_sha512_mgf1_32_test.json",
+   "family": "RSA-PSS inputs made for another parameter set, judged under the module profile",
+   "note": "expected verdict is OpenSSL with salt length = hash length and MGF1 = message hash",
+   "cases": 177,
+   "client_agree": 177,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 177,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "x25519_test.json",
+   "family": "X25519 shared secret",
+   "note": null,
+   "cases": 518,
+   "client_agree": 518,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 518,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "chacha20_poly1305_test.json",
+   "family": "ChaCha20-Poly1305 open and seal",
+   "note": null,
+   "cases": 325,
+   "client_agree": 325,
+   "client_disagree": [],
+   "client_throw_on_invalid": 69,
+   "second_impl": "openssl",
+   "second_agree": 316,
+   "second_disagree": [],
+   "second_unavailable": 9,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "aes_gcm_test.json",
+   "family": "AES-256-GCM open and seal",
+   "note": null,
+   "cases": 105,
+   "client_agree": 105,
+   "client_disagree": [],
+   "client_throw_on_invalid": 66,
+   "second_impl": "openssl",
+   "second_agree": 66,
+   "second_disagree": [],
+   "second_unavailable": 39,
+   "skipped": 211,
+   "skip_reasons": {
+    "key size 128 outside the module": 108,
+    "key size 192 outside the module": 103
+   }
+  },
+  {
+   "file": "hkdf_sha256_test.json",
+   "family": "HKDF-SHA-256",
+   "note": null,
+   "cases": 86,
+   "client_agree": 86,
+   "client_disagree": [],
+   "client_throw_on_invalid": 3,
+   "second_impl": "openssl",
+   "second_agree": 86,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha256_test.json",
+   "family": "HMAC-SHA-256, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha384_test.json",
+   "family": "HMAC-SHA-384, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha512_test.json",
+   "family": "HMAC-SHA-512, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha3_256_test.json",
+   "family": "HMAC-SHA3-256, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha3_384_test.json",
+   "family": "HMAC-SHA3-384, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "hmac_sha3_512_test.json",
+   "family": "HMAC-SHA3-512, tag compared at the group tag length",
+   "note": null,
+   "cases": 174,
+   "client_agree": 174,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 174,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "pbkdf2_hmacsha256_test.json",
+   "family": "PBKDF2-HMAC-SHA-256",
+   "note": null,
+   "cases": 59,
+   "client_agree": 59,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 59,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 1,
+   "skip_reasons": {
+    "iteration count above 20000": 1
+   }
+  },
+  {
+   "file": "pbkdf2_hmacsha384_test.json",
+   "family": "PBKDF2-HMAC-SHA-384",
+   "note": null,
+   "cases": 58,
+   "client_agree": 58,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 58,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "pbkdf2_hmacsha512_test.json",
+   "family": "PBKDF2-HMAC-SHA-512",
+   "note": null,
+   "cases": 58,
+   "client_agree": 58,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 58,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_512_test.json",
+   "family": "ML-KEM-512 key generation from seed, then decapsulation",
+   "note": "no second implementation wired",
+   "cases": 200,
+   "client_agree": 200,
+   "client_disagree": [],
+   "client_throw_on_invalid": 40,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 200,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_512_encaps_test.json",
+   "family": "ML-KEM-512 encapsulation with given randomness",
+   "note": "no second implementation wired",
+   "cases": 261,
+   "client_agree": 261,
+   "client_disagree": [],
+   "client_throw_on_invalid": 128,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 261,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_512_semi_expanded_decaps_test.json",
+   "family": "ML-KEM-512 decapsulation with an expanded decapsulation key",
+   "note": "no second implementation wired",
+   "cases": 9,
+   "client_agree": 9,
+   "client_disagree": [],
+   "client_throw_on_invalid": 6,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 9,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_512_keygen_seed_test.json",
+   "family": "ML-KEM-512 key generation from seed",
+   "note": "no second implementation wired",
+   "cases": 100,
+   "client_agree": 100,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 100,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_768_test.json",
+   "family": "ML-KEM-768 key generation from seed, then decapsulation",
+   "note": "no second implementation wired",
+   "cases": 201,
+   "client_agree": 201,
+   "client_disagree": [],
+   "client_throw_on_invalid": 40,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 201,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_768_encaps_test.json",
+   "family": "ML-KEM-768 encapsulation with given randomness",
+   "note": "no second implementation wired",
+   "cases": 265,
+   "client_agree": 265,
+   "client_disagree": [],
+   "client_throw_on_invalid": 132,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 265,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_768_semi_expanded_decaps_test.json",
+   "family": "ML-KEM-768 decapsulation with an expanded decapsulation key",
+   "note": "no second implementation wired",
+   "cases": 9,
+   "client_agree": 9,
+   "client_disagree": [],
+   "client_throw_on_invalid": 6,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 9,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_768_keygen_seed_test.json",
+   "family": "ML-KEM-768 key generation from seed",
+   "note": "no second implementation wired",
+   "cases": 100,
+   "client_agree": 100,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 100,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_1024_test.json",
+   "family": "ML-KEM-1024 key generation from seed, then decapsulation",
+   "note": "no second implementation wired",
+   "cases": 202,
+   "client_agree": 202,
+   "client_disagree": [],
+   "client_throw_on_invalid": 40,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 202,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_1024_encaps_test.json",
+   "family": "ML-KEM-1024 encapsulation with given randomness",
+   "note": "no second implementation wired",
+   "cases": 269,
+   "client_agree": 269,
+   "client_disagree": [],
+   "client_throw_on_invalid": 136,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 269,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_1024_semi_expanded_decaps_test.json",
+   "family": "ML-KEM-1024 decapsulation with an expanded decapsulation key",
+   "note": "no second implementation wired",
+   "cases": 9,
+   "client_agree": 9,
+   "client_disagree": [],
+   "client_throw_on_invalid": 6,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 9,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mlkem_1024_keygen_seed_test.json",
+   "family": "ML-KEM-1024 key generation from seed",
+   "note": "no second implementation wired",
+   "cases": 100,
+   "client_agree": 100,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 100,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_44_verify_test.json",
+   "family": "ML-DSA-44 verify",
+   "note": null,
+   "cases": 180,
+   "client_agree": 180,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 176,
+   "second_disagree": [],
+   "second_unavailable": 4,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_44_sign_seed_test.json",
+   "family": "ML-DSA-44 signing from a seed, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 86,
+   "client_agree": 86,
+   "client_disagree": [],
+   "client_throw_on_invalid": 4,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 86,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_44_sign_noseed_test.json",
+   "family": "ML-DSA-44 signing from an expanded private key, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 73,
+   "client_agree": 73,
+   "client_disagree": [],
+   "client_throw_on_invalid": 3,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 73,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_65_verify_test.json",
+   "family": "ML-DSA-65 verify",
+   "note": null,
+   "cases": 210,
+   "client_agree": 210,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 206,
+   "second_disagree": [],
+   "second_unavailable": 4,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_65_sign_seed_test.json",
+   "family": "ML-DSA-65 signing from a seed, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 105,
+   "client_agree": 105,
+   "client_disagree": [],
+   "client_throw_on_invalid": 4,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 105,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_65_sign_noseed_test.json",
+   "family": "ML-DSA-65 signing from an expanded private key, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 78,
+   "client_agree": 78,
+   "client_disagree": [],
+   "client_throw_on_invalid": 3,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 78,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_87_verify_test.json",
+   "family": "ML-DSA-87 verify",
+   "note": null,
+   "cases": 241,
+   "client_agree": 241,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl",
+   "second_agree": 237,
+   "second_disagree": [],
+   "second_unavailable": 4,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_87_sign_seed_test.json",
+   "family": "ML-DSA-87 signing from a seed, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 96,
+   "client_agree": 96,
+   "client_disagree": [],
+   "client_throw_on_invalid": 4,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 96,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "mldsa_87_sign_noseed_test.json",
+   "family": "ML-DSA-87 signing from an expanded private key, through the message entry and the external-mu entry",
+   "note": "no second implementation wired",
+   "cases": 69,
+   "client_agree": 69,
+   "client_disagree": [],
+   "client_throw_on_invalid": 3,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 69,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "BLAKE3 test_vectors.json",
+   "family": "BLAKE3 hash, 32-byte and 131-byte outputs",
+   "note": "second implementation: none",
+   "cases": 70,
+   "client_agree": 70,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": null,
+   "second_agree": 0,
+   "second_disagree": [],
+   "second_unavailable": 70,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha224",
+   "family": "sha224 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha256",
+   "family": "sha256 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha384",
+   "family": "sha384 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha512",
+   "family": "sha512 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha512_224",
+   "family": "sha512_224 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha512_256",
+   "family": "sha512_256 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha3_224",
+   "family": "sha3_224 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha3_256",
+   "family": "sha3_256 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha3_384",
+   "family": "sha3_384 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest sha3_512",
+   "family": "sha3_512 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest blake2b",
+   "family": "blake2b against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest blake2s",
+   "family": "blake2s against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest shake128/32",
+   "family": "shake128/32 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest shake128/200",
+   "family": "shake128/200 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest shake256/64",
+   "family": "shake256/64 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  },
+  {
+   "file": "digest shake256/300",
+   "family": "shake256/300 against OpenSSL on 314 input lengths",
+   "note": "expected value is OpenSSL output",
+   "cases": 314,
+   "client_agree": 314,
+   "client_disagree": [],
+   "client_throw_on_invalid": 0,
+   "second_impl": "openssl is the reference here",
+   "second_agree": 314,
+   "second_disagree": [],
+   "second_unavailable": 0,
+   "skipped": 0,
+   "skip_reasons": {}
+  }
+ ]
+}

@@ -1,0 +1,312 @@
+section	primitive	category	implemented	corpus_role
+01-hash	SHA-224	hash	true	digest
+01-hash	SHA-256	hash	true	digest
+01-hash	SHA-384	hash	true	digest
+01-hash	SHA-512	hash	true	digest
+01-hash	SHA-512/224	hash	true	digest
+01-hash	SHA-512/256	hash	true	digest
+01-hash	SHA3-224	hash	true	digest
+01-hash	SHA3-256	hash	true	digest
+01-hash	SHA3-384	hash	true	digest
+01-hash	SHA3-512	hash	true	digest
+01-hash	Keccak-256	hash	true	none
+01-hash	BLAKE2b	hash	true	digest
+01-hash	BLAKE2s	hash	true	digest
+01-hash	BLAKE2sp	hash	false	none
+01-hash	BLAKE3	hash	true	digest
+01-hash	BLAKE	hash	false	none
+01-hash	Grøstl	hash	false	none
+01-hash	JH	hash	false	none
+01-hash	Whirlpool	hash	false	none
+01-hash	Streebog	hash	false	none
+01-hash	SM3	hash	true	none
+01-hash	RIPEMD-160	hash	true	none
+01-hash	RIPEMD-320	hash	false	none
+01-hash	Tiger	hash	false	none
+01-hash	SHA-1	hash	true	none
+01-hash	SHA-0	hash	true	none
+01-hash	MD5	hash	true	none
+01-hash	MD4	hash	true	none
+01-hash	MD2	hash	false	none
+01-hash	Poseidon2	hash	false	none
+01-hash	Prime	hash	false	none
+01-hash	MiMC	hash	false	none
+01-hash	Pedersen hash	hash	false	none
+02-hash-xof	SHAKE128	hash-xof	true	digest
+02-hash-xof	SHAKE256	hash-xof	true	digest
+02-hash-xof	TupleHash256	hash-xof	true	none
+02-hash-xof	ParallelHash256	hash-xof	false	none
+02-hash-xof	TurboSHAKE256	hash-xof	false	none
+02-hash-xof	BLAKE2X	hash-xof	false	none
+02-hash-xof	BLAKE3 XOF mode	hash-xof	false	none
+03-kdf	Argon2id	kdf	false	none
+03-kdf	scrypt	kdf	true	none
+03-kdf	bcrypt	kdf	false	none
+03-kdf	yescrypt	kdf	false	none
+03-kdf	PBKDF2	kdf	true	none
+03-kdf	Balloon hashing	kdf	false	none
+03-kdf	HKDF	kdf	true	none
+03-kdf	feedback and double-pipeline modes	kdf	false	none
+03-kdf	One-step and two-step KDF	kdf	false	none
+03-kdf	ANSI X9.63 KDF	kdf	true	none
+03-kdf	HKDF-Expand-Label	kdf	true	none
+04-mac	CMAC (AES-CMAC)	mac	true	none
+04-mac	GMAC	mac	true	none
+04-mac	Poly1305	mac	true	none
+04-mac	BLAKE3 keyed mode	mac	true	none
+04-mac	CBC-MAC	mac	true	none
+04-mac	PMAC	mac	false	none
+04-mac	Chaskey	mac	false	none
+05-block-cipher	AES-256 (Rijndael)	block-cipher	true	none
+05-block-cipher	Camellia	block-cipher	false	none
+05-block-cipher	ARIA	block-cipher	false	none
+05-block-cipher	SEED	block-cipher	false	none
+05-block-cipher	LEA	block-cipher	false	none
+05-block-cipher	SM4	block-cipher	false	none
+05-block-cipher	Kuznyechik	block-cipher	false	none
+05-block-cipher	Magma	block-cipher	false	none
+05-block-cipher	Kalyna	block-cipher	false	none
+05-block-cipher	Serpent	block-cipher	false	none
+05-block-cipher	Twofish	block-cipher	false	none
+05-block-cipher	MARS	block-cipher	false	none
+05-block-cipher	RC6	block-cipher	false	none
+05-block-cipher	DES	block-cipher	false	none
+05-block-cipher	Blowfish	block-cipher	false	none
+05-block-cipher	IDEA	block-cipher	false	none
+05-block-cipher	256	block-cipher	false	none
+05-block-cipher	RC2	block-cipher	false	none
+05-block-cipher	RC5	block-cipher	false	none
+05-block-cipher	Skipjack	block-cipher	false	none
+05-block-cipher	PRESENT	block-cipher	false	none
+06-mode	ECB	mode	true	none
+06-mode	CBC	mode	true	none
+06-mode	CFB	mode	true	none
+06-mode	OFB	mode	true	none
+06-mode	CTR	mode	true	none
+06-mode	XTS-AES	mode	true	none
+06-mode	Adiantum	mode	false	none
+06-mode	HCTR2	mode	false	none
+07-aead	AES-GCM	aead	true	none
+07-aead	AES-CCM	aead	false	none
+07-aead	ChaCha20-Poly1305	aead	true	none
+07-aead	XChaCha20-Poly1305	aead	true	none
+07-aead	AES-GCM-SIV	aead	false	none
+07-aead	AES-SIV	aead	false	none
+07-aead	AES-OCB (OCB3)	aead	false	none
+07-aead	AES-EAX	aead	false	none
+07-aead	Ascon-AEAD128	aead	false	none
+07-aead	Deoxys-II	aead	false	none
+07-aead	COLM	aead	false	none
+07-aead	ACORN	aead	false	none
+07-aead	MORUS	aead	false	none
+07-aead	example AES-CBC with HMAC-SHA-256)	aead	false	none
+08-stream-cipher	ChaCha20	stream-cipher	true	none
+08-stream-cipher	XChaCha20	stream-cipher	true	none
+08-stream-cipher	HC-128	stream-cipher	false	none
+08-stream-cipher	Rabbit	stream-cipher	false	none
+08-stream-cipher	SOSEMANUK	stream-cipher	false	none
+08-stream-cipher	Trivium	stream-cipher	false	none
+08-stream-cipher	128a	stream-cipher	false	none
+08-stream-cipher	MICKEY 2.0	stream-cipher	false	none
+08-stream-cipher	SNOW 3G	stream-cipher	false	none
+08-stream-cipher	Vi	stream-cipher	false	none
+08-stream-cipher	ZUC	stream-cipher	false	none
+08-stream-cipher	RC4 (ARC4)	stream-cipher	false	none
+08-stream-cipher	E0	stream-cipher	false	none
+08-stream-cipher	Spritz	stream-cipher	false	none
+09-pke	RSAES-PKCS1-v1_5	pke	true	none
+09-pke	RSA-KEM	pke	false	none
+09-pke	ECIES	pke	false	none
+09-pke	ElGamal encryption	pke	false	none
+09-pke	Paillier	pke	false	none
+09-pke	Rabin	pke	false	none
+09-pke	Cramer-Shoup	pke	false	none
+09-pke	Goldwasser-Micali	pke	false	none
+10-key-exchange	Finite-field Diffie-Hellman (FFDHE groups ffdhe2048 to ffdhe8192)	key-exchange	false	none
+10-key-exchange	ECDH (ECC CDH)	key-exchange	false	none
+10-key-exchange	X25519	key-exchange	true	none
+10-key-exchange	X448	key-exchange	false	none
+10-key-exchange	X25519MLKEM768 (hybrid)	key-exchange	false	none
+10-key-exchange	SecP384r1MLKEM1024 (hybrid)	key-exchange	false	none
+10-key-exchange	OPAQUE	key-exchange	false	none
+10-key-exchange	CPace	key-exchange	false	none
+10-key-exchange	SRP-6a	key-exchange	false	none
+10-key-exchange	J-PAKE	key-exchange	false	none
+10-key-exchange	Noise Protocol Framework	key-exchange	false	none
+10-key-exchange	Double Ratchet	key-exchange	false	none
+10-key-exchange	MLS (TreeKEM)	key-exchange	false	none
+11-signature	Ed25519	signature	true	signature
+11-signature	Ed448	signature	false	none
+11-signature	Ed448ph	signature	false	none
+11-signature	ECDSA	signature	true	none
+11-signature	Deterministic	signature	false	none
+11-signature	ECDSA	signature	false	none
+11-signature	RSASSA-PSS	signature	true	none
+11-signature	RSASSA-PKCS1-v1_5	signature	true	none
+11-signature	DSA	signature	false	none
+11-signature	Schnorr signatures	signature	false	none
+11-signature	BLS signatures	signature	false	none
+11-signature	SM2 signature	signature	false	none
+11-signature	GOST R 34.10-2012	signature	false	none
+11-signature	FROST threshold	signature	false	none
+11-signature	Schnorr	signature	false	none
+11-signature	MuSig2	signature	false	none
+11-signature	RSA blind signatures (RSABSSA)	signature	false	none
+11-signature	Ring signatures	signature	false	none
+11-signature	Group signatures	signature	false	none
+12-curve	P-256	curve	false	none
+12-curve	P-384	curve	false	none
+12-curve	P-521	curve	false	none
+12-curve	P-224	curve	false	none
+12-curve	P-192	curve	false	none
+12-curve	secp256k1	curve	true	none
+12-curve	Curve25519	curve	false	none
+12-curve	edwards25519	curve	false	none
+12-curve	Curve448	curve	false	none
+12-curve	edwards448	curve	false	none
+12-curve	Ristretto255	curve	false	none
+12-curve	Decaf448	curve	false	none
+12-curve	FRP256v1	curve	false	none
+12-curve	SM2 curve	curve	false	none
+12-curve	GOST R 34.10 curves	curve	false	none
+12-curve	to B-571	curve	false	none
+12-curve	BLS12-381	curve	false	none
+12-curve	BLS12-377	curve	false	none
+12-curve	BN254	curve	false	none
+12-curve	curves	curve	false	none
+12-curve	Jubjub	curve	false	none
+12-curve	Baby Jubjub	curve	false	none
+12-curve	Bandersnatch	curve	false	none
+12-curve	secp256k1 /	curve	false	none
+12-curve	secq256k1	curve	false	none
+12-curve	Fourℚ (FourQ)	curve	false	none
+12-curve	SIKE and SIDH	curve	false	none
+12-curve	curves	curve	false	none
+12-curve	CSIDH curves	curve	false	none
+13-post-quantum	HQC	post-quantum	false	none
+13-post-quantum	Classic McEliece	post-quantum	false	none
+13-post-quantum	BIKE	post-quantum	false	none
+13-post-quantum	FrodoKEM	post-quantum	false	none
+13-post-quantum	mlkem768x25519	post-quantum	false	none
+13-post-quantum	SecP384r1MLKEM1024	post-quantum	false	none
+13-post-quantum	ML-DSA-87	post-quantum	false	signature
+13-post-quantum	FN-DSA	post-quantum	false	none
+13-post-quantum	Additional signature	post-quantum	false	none
+13-post-quantum	HAWK	post-quantum	false	none
+13-post-quantum	SLH-DSA limited-signature parameter sets	post-quantum	false	none
+13-post-quantum	Rainbow	post-quantum	false	none
+13-post-quantum	SIKE	post-quantum	false	none
+13-post-quantum	them after 2035. Claimed quantum breaks o	post-quantum	false	none
+14-commitment	Hash commitment	commitment	true	none
+14-commitment	Pedersen commitment	commitment	false	none
+14-commitment	FRI	commitment	false	none
+14-commitment	Sigma protocols	commitment	false	none
+14-commitment	Fiat-Shamir transform	commitment	false	none
+14-commitment	Groth16	commitment	false	none
+14-commitment	PLONK and variants	commitment	false	none
+14-commitment	STARK	commitment	false	none
+14-commitment	Bulletproofs	commitment	false	none
+14-commitment	HyperNova	commitment	false	none
+14-commitment	Spartan	commitment	false	none
+14-commitment	Shamir secret sharing	commitment	true	none
+14-commitment	oblivious transfer	commitment	false	none
+14-commitment	CKKS	commitment	false	none
+14-commitment	bilinear accumulator	commitment	false	none
+15-content-addressing	Merkle tree	content-addressing	false	none
+15-content-addressing	Certificate Transparency log	content-addressing	false	none
+15-content-addressing	tree	content-addressing	false	none
+15-content-addressing	Merkle Mountain Range	content-addressing	false	none
+15-content-addressing	Sparse Merkle tree	content-addressing	false	none
+15-content-addressing	Merkle-Patricia trie	content-addressing	false	none
+15-content-addressing	Verkle tree	content-addressing	false	none
+15-content-addressing	Hash chain	content-addressing	false	none
+15-content-addressing	IPFS CID v0 and v1	content-addressing	false	none
+15-content-addressing	Multihash	content-addressing	false	none
+15-content-addressing	IPLD	content-addressing	false	none
+15-content-addressing	OCI and Docker content	content-addressing	false	none
+15-content-addressing	digests	content-addressing	false	none
+15-content-addressing	Bao	content-addressing	false	none
+15-content-addressing	Content-defined chunking	content-addressing	false	none
+15-content-addressing	Amazon S3 checksums	content-addressing	false	none
+15-content-addressing	Sigstore Rekor	content-addressing	false	none
+15-content-addressing	provenance	content-addressing	false	none
+15-content-addressing	OpenTimestamps	content-addressing	false	none
+15-content-addressing	RFC 3161 Time-Stamp Protocol	content-addressing	false	none
+15-content-addressing	Roughtime	content-addressing	false	none
+16-rng	CTR_DRBG	rng	false	none
+16-rng	Entropy source requirements	rng	false	none
+16-rng	RBG constructions	rng	false	none
+16-rng	Dual_EC_DRBG	rng	false	none
+16-rng	Fortuna	rng	false	none
+16-rng	Yarrow	rng	false	none
+16-rng	Linux getrandom and	rng	false	none
+16-rng	arc4random	rng	false	none
+16-rng	Windows BCryptGenRandom	rng	false	none
+17-encoding	ASN.1 DER and BER	encoding	false	none
+17-encoding	PEM	encoding	false	none
+17-encoding	X.509 certificates and CRLs	encoding	false	none
+17-encoding	COSE	encoding	false	none
+17-encoding	CBOR	encoding	false	none
+17-encoding	JSON Canonicalization	encoding	false	none
+17-encoding	Scheme (JCS)	encoding	false	none
+17-encoding	OpenPGP	encoding	false	none
+17-encoding	SSH public key and OpenSSH	encoding	false	none
+17-encoding	private key formats	encoding	false	none
+17-encoding	age	encoding	false	none
+17-encoding	PASETO	encoding	false	none
+18-verified-impl	EverCrypt	verified-impl	false	none
+18-verified-impl	Vale	verified-impl	false	none
+18-verified-impl	Fiat-Crypto	verified-impl	false	none
+18-verified-impl	Jasmin and	verified-impl	false	none
+18-verified-impl	libjade	verified-impl	false	none
+18-verified-impl	libcrux	verified-impl	false	none
+18-verified-impl	s2n-bignum	verified-impl	false	none
+18-verified-impl	AWS-LC	verified-impl	false	none
+18-verified-impl	proofs	verified-impl	false	none
+18-verified-impl	VST with	verified-impl	false	none
+18-verified-impl	CompCert	verified-impl	false	none
+18-verified-impl	Cryptol and	verified-impl	false	none
+18-verified-impl	SAW	verified-impl	false	none
+18-verified-impl	EasyCrypt	verified-impl	false	none
+18-verified-impl	Tamarin	verified-impl	false	none
+19-deprecated	MD5	deprecated	false	none
+19-deprecated	generation	deprecated	false	none
+19-deprecated	verification	deprecated	false	none
+19-deprecated	MD5 and SHA-1 in TLS	deprecated	false	none
+19-deprecated	1.2 / DTLS 1.2	deprecated	false	none
+19-deprecated	signatures	deprecated	false	none
+19-deprecated	DES (FIPS 46-3)	deprecated	false	none
+19-deprecated	Two-key TDEA	deprecated	false	none
+19-deprecated	Three-key TDEA	deprecated	false	none
+19-deprecated	Blowfish	deprecated	false	none
+19-deprecated	RC4	deprecated	false	none
+19-deprecated	Dual_EC_DRBG	deprecated	false	none
+19-deprecated	bits	deprecated	false	none
+19-deprecated	224 bits	deprecated	false	none
+19-deprecated	1.0 (protocols)	deprecated	false	none
+19-deprecated	the 224-bit hash	deprecated	false	none
+19-deprecated	security	deprecated	false	none
+20-unclassified	FIPS 140-3	unclassified	false	none
+20-unclassified	FIPS 140-2	unclassified	false	none
+20-unclassified	TPM 2.0	unclassified	false	none
+20-unclassified	Library	unclassified	false	none
+20-unclassified	WebAuthn	unclassified	false	none
+20-unclassified	Level 3	unclassified	false	none
+20-unclassified	CTAP	unclassified	false	none
+20-unclassified	FIPS 201-3	unclassified	false	none
+20-unclassified	TLS 1.3	unclassified	false	none
+20-unclassified	TLS 1.3 PQ/T	unclassified	false	none
+20-unclassified	hybrid groups	unclassified	false	none
+20-unclassified	SSH PQ/T	unclassified	false	none
+20-unclassified	hybrid key	unclassified	false	none
+20-unclassified	exchange	unclassified	false	none
+20-unclassified	HPKE	unclassified	false	none
+20-unclassified	MLS	unclassified	false	none
+20-unclassified	Noise Protocol Revisi	unclassified	false	none
+20-unclassified	WireGuard	unclassified	false	none
+20-unclassified	Signal PQXDH	unclassified	false	none
+21-timestamp	Time-Stamp	timestamp	false	none
+21-timestamp	OpenTimestamps	timestamp	false	none
+21-timestamp	Certificate	timestamp	false	none
+21-timestamp	Transparency 2.0	timestamp	false	none
+21-timestamp	SCITT	timestamp	false	none

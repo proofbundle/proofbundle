@@ -1,0 +1,252 @@
+{
+ "spec": "PB-CONFORMANCE-1.0.0",
+ "definition_sha256": "256de0b9fa36d8e0e56ffc52a836a56caa4bc265dba89dd78642e5b5e83d177f",
+ "definition_declared_verifier_sha256": "b8f0c904664922c59863f2d2846f38f7ecdb7745dd02a2f5f297ac651f628cfa",
+ "definition_declared_engine_sha256": "6065f5d8f2d2d3183a1bb5b5c667af0985b07ac019ed078fe0c95d6c1fc18e2e",
+ "definition_declared_generator_sha256": "8b0fded851d339b5bc27523f332794df254a5bbd0b473e9fc2a67f0bbf69f00e",
+ "client_path": "/home/falsealias/proofbundle-1.0.0-20261102T084002Z.html",
+ "client_sha256": "2047b90c6f5d8af55965040128300fe03e87273bae2ebe232dd96df51ac74800",
+ "cases_in_definition": 17822,
+ "cases_run": 17822,
+ "shard": null,
+ "started_utc": "2026-11-18T17:41:04.739Z",
+ "node": "v24.19.0",
+ "verify_bundle_ready_utc": "2026-11-18T17:41:05.682Z",
+ "verify_bundle_source_sha256": "33b847d756e802aaf596cf3a4189da3a551463aa070d92135c72b177489b43d5",
+ "finished_utc": "2026-11-18T17:45:28.820Z",
+ "cases": 17822,
+ "passed": 17822,
+ "failed": 0,
+ "pass_rate": 100,
+ "verdicts_expected": 45,
+ "per_verdict": {
+  "ANCESTOR_UNAVAILABLE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "BUNDLE_EXPIRED": {
+   "pass": 152,
+   "fail": 0
+  },
+  "BUNDLE_NOT_YET_VALID": {
+   "pass": 151,
+   "fail": 0
+  },
+  "CERTIFICATE_INVALID": {
+   "pass": 150,
+   "fail": 0
+  },
+  "CERTIFICATE_PATH_INVALID": {
+   "pass": 150,
+   "fail": 0
+  },
+  "CERTIFICATE_REVOCATION_INDETERMINATE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "CERTIFICATE_UNTRUSTED": {
+   "pass": 150,
+   "fail": 0
+  },
+  "DEPRECATED_ALGORITHM": {
+   "pass": 317,
+   "fail": 0
+  },
+  "DIGEST_MISMATCH": {
+   "pass": 1050,
+   "fail": 0
+  },
+  "EVIDENCE_INCOMPLETE": {
+   "pass": 454,
+   "fail": 0
+  },
+  "EXPIRED_KEY": {
+   "pass": 151,
+   "fail": 0
+  },
+  "EXTERNAL_SERVICE_UNAVAILABLE": {
+   "pass": 151,
+   "fail": 0
+  },
+  "FORBIDDEN_ALGORITHM": {
+   "pass": 302,
+   "fail": 0
+  },
+  "INDETERMINATE": {
+   "pass": 451,
+   "fail": 0
+  },
+  "INSUFFICIENT_SIGNATURES": {
+   "pass": 152,
+   "fail": 0
+  },
+  "INVALID_SIGNATURE": {
+   "pass": 602,
+   "fail": 0
+  },
+  "KEY_NOT_YET_VALID": {
+   "pass": 150,
+   "fail": 0
+  },
+  "LIMIT_EXCEEDED": {
+   "pass": 157,
+   "fail": 0
+  },
+  "LINEAGE_CYCLE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "LINEAGE_INVALID": {
+   "pass": 302,
+   "fail": 0
+  },
+  "LINEAGE_MISSING": {
+   "pass": 150,
+   "fail": 0
+  },
+  "MALFORMED": {
+   "pass": 2158,
+   "fail": 0
+  },
+  "MISSING_SIGNATURE": {
+   "pass": 153,
+   "fail": 0
+  },
+  "NEGATIVE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "NONCANONICAL": {
+   "pass": 655,
+   "fail": 0
+  },
+  "NOT_DEFINED": {
+   "pass": 304,
+   "fail": 0
+  },
+  "NULL": {
+   "pass": 151,
+   "fail": 0
+  },
+  "PAYLOAD_MISSING": {
+   "pass": 152,
+   "fail": 0
+  },
+  "POLICY_DENIED": {
+   "pass": 632,
+   "fail": 0
+  },
+  "POLICY_INDETERMINATE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "PROVIDER_UNAVAILABLE": {
+   "pass": 150,
+   "fail": 0
+  },
+  "RESOURCE_EXHAUSTED": {
+   "pass": 467,
+   "fail": 0
+  },
+  "REVOKED_KEY": {
+   "pass": 150,
+   "fail": 0
+  },
+  "SIDE_INFORMATION_MISSING": {
+   "pass": 459,
+   "fail": 0
+  },
+  "TIMESTAMP_INDETERMINATE": {
+   "pass": 302,
+   "fail": 0
+  },
+  "TIMESTAMP_INVALID": {
+   "pass": 150,
+   "fail": 0
+  },
+  "TIMESTAMP_UNTRUSTED": {
+   "pass": 150,
+   "fail": 0
+  },
+  "UNEXPECTED_SIGNER": {
+   "pass": 601,
+   "fail": 0
+  },
+  "UNKNOWN_ALGORITHM": {
+   "pass": 301,
+   "fail": 0
+  },
+  "UNKNOWN_SIGNER": {
+   "pass": 300,
+   "fail": 0
+  },
+  "UNKNOWN_VERSION": {
+   "pass": 150,
+   "fail": 0
+  },
+  "UNSUPPORTED_ALGORITHM": {
+   "pass": 450,
+   "fail": 0
+  },
+  "UNSUPPORTED_VERSION": {
+   "pass": 151,
+   "fail": 0
+  },
+  "VERIFIED": {
+   "pass": 2629,
+   "fail": 0
+  },
+  "VERIFIED_WITH_WARNINGS": {
+   "pass": 1315,
+   "fail": 0
+  }
+ },
+ "got_codes": {
+  "ANCESTOR_UNAVAILABLE": 150,
+  "BUNDLE_EXPIRED": 152,
+  "BUNDLE_NOT_YET_VALID": 151,
+  "CERTIFICATE_INVALID": 150,
+  "CERTIFICATE_PATH_INVALID": 150,
+  "CERTIFICATE_REVOCATION_INDETERMINATE": 150,
+  "CERTIFICATE_UNTRUSTED": 150,
+  "DEPRECATED_ALGORITHM": 317,
+  "DIGEST_MISMATCH": 1050,
+  "EVIDENCE_INCOMPLETE": 454,
+  "EXPIRED_KEY": 151,
+  "EXTERNAL_SERVICE_UNAVAILABLE": 151,
+  "FORBIDDEN_ALGORITHM": 302,
+  "INDETERMINATE": 451,
+  "INSUFFICIENT_SIGNATURES": 152,
+  "INVALID_SIGNATURE": 602,
+  "KEY_NOT_YET_VALID": 150,
+  "LIMIT_EXCEEDED": 157,
+  "LINEAGE_CYCLE": 150,
+  "LINEAGE_INVALID": 302,
+  "LINEAGE_MISSING": 150,
+  "MALFORMED": 2158,
+  "MISSING_SIGNATURE": 153,
+  "NEGATIVE": 150,
+  "NONCANONICAL": 655,
+  "NOT_DEFINED": 304,
+  "NULL": 151,
+  "PAYLOAD_MISSING": 152,
+  "POLICY_DENIED": 632,
+  "POLICY_INDETERMINATE": 150,
+  "PROVIDER_UNAVAILABLE": 150,
+  "RESOURCE_EXHAUSTED": 467,
+  "REVOKED_KEY": 150,
+  "SIDE_INFORMATION_MISSING": 459,
+  "TIMESTAMP_INDETERMINATE": 302,
+  "TIMESTAMP_INVALID": 150,
+  "TIMESTAMP_UNTRUSTED": 150,
+  "UNEXPECTED_SIGNER": 601,
+  "UNKNOWN_ALGORITHM": 301,
+  "UNKNOWN_SIGNER": 300,
+  "UNKNOWN_VERSION": 150,
+  "UNSUPPORTED_ALGORITHM": 450,
+  "UNSUPPORTED_VERSION": 151,
+  "VERIFIED": 2629,
+  "VERIFIED_WITH_WARNINGS": 1315
+ },
+ "fails_sample": []
+}

@@ -14,4 +14,4 @@ Consequences for reading it:
 Snapshot bundle received 2026-09-28: the 2026-05-18 combined bundle (zip),
 SHA-256 `921c94f42f1941784c52d5a893a74f38835e6d75752625865d95a782412f9c18` (not committed to this repo).
 Compiled with coqc 8.18.0: kernel, oal_preprint, fold_real, continuum_final and AllConsolidated_broken exit 0;
-core_v0.02, kernel_v2 and both Anachronegon files fail to compile.
+core_v0.02, kernel_v2 and two further Coq files fail to compile.

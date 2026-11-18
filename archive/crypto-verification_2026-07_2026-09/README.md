@@ -19,13 +19,13 @@ and proofs in use are in crypto/, vectors/, lean/ and coq/ at the repository roo
 | ground-truth/ | 6 | ground-truth vector files used by the Lean work |
 | independent-verification_2026-08-17/ | 7 | the independent check of 2026-08-17, its scripts and manifests |
 | build-logs/ | 66 | compile and test logs |
-| packages/ | 703 | dated packages, each kept whole |
+| packages/ | 700 | dated packages, each kept whole |
 
 ## Packages
 
 | package | files | contents |
 |---|---:|---|
-| 2026-07-28_crypto-agility-review | 80 | source tree of 2026-07-28: modules, tests, Coq files and the logs of their checks |
+| 2026-07-28_crypto-agility-review | 77 | source tree of 2026-07-28: modules, tests, Coq files and the logs of their checks |
 | 2026-07-29_crypto-core | 121 | JavaScript modules written without library dependencies (BLAKE2, BLAKE3, ECDSA, Ed25519, Keccak, ML-DSA, ML-KEM, SHA-256, SHA-512) with their tests, statements of each in HOL4, Isabelle/HOL, Lean 4, Rocq and SMT-LIB, and a snapshot of the repository of that date |
 | 2026-08-11_lean-crypto-collection | 110 | Lean sources collected on 2026-08-11 and a first pass that made them compile |
 | 2026-08-13_verification-batch | 29 | SHA-256 and ECDSA P-256 Lean batch with ground-truth files and a static audit |

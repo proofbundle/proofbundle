@@ -23,3 +23,6 @@ lean/.lake/
 # Local development dependencies (directory or worktree symlink).
 node_modules
 reports/browser-qa/
+
+# Archived logs are evidence and stay trackable; ordinary logs stay ignored.
+!archive/**/*.log

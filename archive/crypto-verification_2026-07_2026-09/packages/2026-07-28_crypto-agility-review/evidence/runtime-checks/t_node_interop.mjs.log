@@ -1,0 +1,5 @@
+runtime=v24.14.0
+$ node t_node_interop.mjs
+exit=0 signal=none
+node/pure-js ML-KEM interoperability: 30 pass, 0 fail (Node encapsulation, independent pure-JS decapsulation)
+

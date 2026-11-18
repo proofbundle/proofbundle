@@ -1,0 +1,33 @@
+{"definition": "conformance_1_0_0.json", "sha256": "61e25ba1d77a5c7fa1f68ca052491f948d3d36b899f15f4df36411429a26565b"}
+Dilithium2               key-beside   verified=  15 failed=  0 no_independent_impl=  0
+Dilithium2               native       verified= 300 failed=  0 no_independent_impl=  0
+Dilithium2               pre-release  verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P256               key-beside   verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P256               native       verified= 315 failed=  0 no_independent_impl=  0
+ECDSA-P256               pre-release  verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P384               key-beside   verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P384               native       verified= 315 failed=  0 no_independent_impl=  0
+ECDSA-P384               pre-release  verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P521               key-beside   verified=  15 failed=  0 no_independent_impl=  0
+ECDSA-P521               native       verified= 315 failed=  0 no_independent_impl=  0
+ECDSA-P521               pre-release  verified=  15 failed=  0 no_independent_impl=  0
+Ed25519                  key-beside   verified=  15 failed=  0 no_independent_impl=  0
+Ed25519                  native       verified= 330 failed=  0 no_independent_impl=  0
+Ed25519                  pre-release  verified=  15 failed=  0 no_independent_impl=  0
+ML-DSA-65                key-beside   verified=  15 failed=  0 no_independent_impl=  0
+ML-DSA-65                native       verified= 300 failed=  0 no_independent_impl=  0
+ML-DSA-65                pre-release  verified=  15 failed=  0 no_independent_impl=  0
+ML-DSA-87                key-beside   verified=  15 failed=  0 no_independent_impl=  0
+ML-DSA-87                native       verified= 300 failed=  0 no_independent_impl=  0
+ML-DSA-87                pre-release  verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-2048             key-beside   verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-2048             native       verified= 315 failed=  0 no_independent_impl=  0
+RSA-PSS-2048             pre-release  verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-3072             key-beside   verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-3072             native       verified= 315 failed=  0 no_independent_impl=  0
+RSA-PSS-3072             pre-release  verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-4096             key-beside   verified=  15 failed=  0 no_independent_impl=  0
+RSA-PSS-4096             native       verified= 315 failed=  0 no_independent_impl=  0
+RSA-PSS-4096             pre-release  verified=  15 failed=  0 no_independent_impl=  0
+witness Ed25519          native       verified= 300 failed=  0 no_independent_impl=  0
+independent failures: 0

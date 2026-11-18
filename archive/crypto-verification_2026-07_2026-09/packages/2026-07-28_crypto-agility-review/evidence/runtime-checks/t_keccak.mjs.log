@@ -1,0 +1,5 @@
+runtime=v24.14.0
+$ node t_keccak.mjs
+exit=0 signal=none
+keccak: 88 pass, 0 fail
+

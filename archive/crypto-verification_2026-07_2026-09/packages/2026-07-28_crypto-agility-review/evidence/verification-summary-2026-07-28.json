@@ -1,0 +1,46 @@
+{
+  "date": "2026-07-28",
+  "environment": {
+    "node": "v24.14.0",
+    "nodeLinkedOpenSsl": "3.5.5",
+    "jscoq": "0.17.1"
+  },
+  "commands": [
+    {
+      "command": "npm run check:syntax",
+      "exit": 0,
+      "result": "40 .mjs files passed node --check"
+    },
+    {
+      "command": "npm run test:full",
+      "exit": 0,
+      "result": "64 passed, 0 failed, 0 skipped"
+    },
+    {
+      "command": "npm run reference:test",
+      "exit": 0,
+      "result": "Keccak 88/0; ML-KEM properties 40/0; external vectors 45/0; Node/pure-JS interoperability 30/0"
+    },
+    {
+      "command": "npm run proofs:jscoq",
+      "exit": 0,
+      "result": "4 files type-checked; 26 Print Assumptions notices closed under the global context"
+    },
+    {
+      "command": "node examples/create-and-verify.mjs",
+      "exit": 0,
+      "result": "verified manifest, signature, structure, and payloads"
+    },
+    {
+      "command": "node examples/hybrid-signature.mjs",
+      "exit": 0,
+      "result": "Ed25519 and ML-DSA-65 components both verified"
+    },
+    {
+      "command": "node examples/encrypt-and-open.mjs",
+      "exit": 0,
+      "result": "ML-KEM-768 / HKDF-SHA512 / XChaCha20-Poly1305 round trip"
+    }
+  ],
+  "qualification": "Recorded success is environment-specific evidence, not an independent audit, formal refinement proof, validation certificate, or production approval."
+}

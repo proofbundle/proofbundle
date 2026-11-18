@@ -1,0 +1,80 @@
+{
+  "agent": "ecdsa",
+  "model": "claude-sonnet-5",
+  "key": "ecdsa_agent_identity.json",
+  "entries": [
+    {
+      "seq": 1,
+      "ts": "2026-07-27T10:00:00Z",
+      "action": "read_house_style",
+      "files": ["crypto-core/sha256.mjs", "crypto-core/sha256.test.mjs", "crypto-core/keccak.mjs", "crypto-core/sha512.mjs", "crypto-core/ed25519.mjs"],
+      "detail": "Read required files plus ed25519.mjs (closest existing precedent in this repo for from-scratch EC point arithmetic, BigInt field ops, and a constant-time-shaped ladder). Confirmed sha512.mjs already exists and exports sha384(), so P-384 message hashing can use real SHA-384 rather than falling back to SHA-256.",
+      "result": "house style: header comment citing spec sections, fmod/fadd/fsub/fmul/fpow/finv field helpers, ladder with always-add-and-double per bit selecting output registers via bit value, _internals export bag for test introspection"
+    },
+    {
+      "seq": 2,
+      "ts": "2026-07-27T10:05:00Z",
+      "action": "probe_node_crypto_api",
+      "detail": "Ran a throwaway script against node:crypto to confirm generateKeyPairSync('ec',{namedCurve}) accepts 'P-256'/'P-384' directly, that JWK export exposes base64url d/x/y, and that sign/verify accept {dsaEncoding:'ieee-p1363'} for fixed-width raw r||s alongside the DER default.",
+      "result": "confirmed all three before writing ecdsa.mjs, avoided guessing at the interop surface"
+    },
+    {
+      "seq": 3,
+      "ts": "2026-07-27T10:20:00Z",
+      "action": "write_file",
+      "file": "crypto-core/ecdsa.mjs",
+      "detail": "From-scratch ECDSA over P-256/P-384: generic BigInt prime-field arithmetic (Fermat-inverse, exponent is the public fixed p-2 so the square-and-multiply loop never branches on secret data), Jacobian point arithmetic (dbl-2001-b doubling, add-2007-bl addition with explicit identity/equal-point/negated-point dispatch), a Montgomery-ladder-shaped scalarMul (one add + one double every bit, unconditionally), SEC1 point encode/decode (uncompressed 0x04, compressed 0x02/0x03 with sqrt via p=3(mod4) shortcut), RFC 6979 deterministic nonce generation via a from-scratch HMAC built on sha256.mjs, and DER (SEQUENCE of two INTEGERs) encode/decode for signatures. Message digest is SHA-256 for P-256 and SHA-384 (imported from sha512.mjs, which already existed) for P-384; RFC 6979's HMAC engine is SHA-256 for both curves per project instruction, with h1 set to the real curve-appropriate message digest -- documented as a deliberate, spec-legal deviation from pedantic RFC 6979 in the file header.",
+      "lines": 380
+    },
+    {
+      "seq": 4,
+      "ts": "2026-07-27T10:35:00Z",
+      "action": "bug_found_via_cross_check",
+      "detail": "Wrote a throwaway sanity script cross-checking curve constants against node:crypto before trusting them: G on curve, n*G==identity, and node-generated public-key points satisfying our curve equation. P-256 passed immediately. P-384 failed both 'G on curve' and 'derived pubkey matches node' -- the hand-transcribed p constant was 112 hex chars instead of 96 (a duplicated FFFFFFFF group). Recomputed p directly from its defining formula 2^384-2^128-2^96+2^32-1 with BigInt instead of trusting memory a second time, replaced the constant, reran.",
+      "result": "after the fix: G on curve = true, n*G == identity = true, node-derived public key matches ours exactly, for both curves",
+      "lesson": "hand-transcribed hex constants are the highest-risk part of this file; verified computationally rather than re-eyeballing"
+    },
+    {
+      "seq": 5,
+      "ts": "2026-07-27T10:50:00Z",
+      "action": "write_file",
+      "file": "crypto-core/ecdsa.test.mjs",
+      "detail": "node:crypto cross-verification suite: (1) scalar->pubkey derivation matches node:crypto for 4 fresh node-generated keys per curve -- the strongest available check, validates curve constants and point arithmetic together; (2) sign-with-us/verify-with-node and sign-with-node/verify-with-us across 4 messages per curve (empty, ASCII, >1 hash block, binary) in both DER and raw (ieee-p1363) encodings; (3) RFC 6979 determinism check per message; (4) verify rejects: flipped signature bit (raw mid-byte, raw last-byte, DER), flipped message bit, wrong public key, s==n, s>n, r==n, r=0, s=0, r=0&s=0 together; (5) point-arithmetic identities: P+(-P)==identity, 2P==P+P, ladder(k*G)==repeated addition for k in {1,2,3,5,13,100,12345}, n*G==identity, (n-1)*G!=identity, G on curve; (6) compressed/uncompressed SEC1 encoding round-trips (3 trials/curve) with tag/parity checks; (7) DER encode/decode round-trip. All sections run for both P-256 and P-384.",
+      "lines": 195
+    },
+    {
+      "seq": 6,
+      "ts": "2026-07-27T10:52:00Z",
+      "action": "run_test",
+      "cmd": "node crypto-core/ecdsa.test.mjs",
+      "result": "148 pass, 0 fail",
+      "note": "reran 3 times back-to-back (node key generation is randomized per run) to rule out flakiness -- 148 pass, 0 fail every time"
+    },
+    {
+      "seq": 7,
+      "ts": "2026-07-27T10:55:00Z",
+      "action": "generated_identity_key",
+      "file": "ecdsa_agent_identity.json",
+      "cmd": "node cli/proofbundle-cli.mjs keygen --sig Ed25519 --out ecdsa_agent_identity.json",
+      "result": "Ed25519 key written",
+      "status": "success"
+    },
+    {
+      "seq": 8,
+      "ts": "2026-07-27T10:57:00Z",
+      "action": "write_file",
+      "file": "ecdsa_agent_aibom.json",
+      "detail": "AI Bill of Materials documenting model, task, files, accomplishments, and the explicitly-flagged limitations (Jacobian addition formula's degenerate-case branches, RFC 6979 HMAC-SHA-256-for-both-curves design choice).",
+      "status": "success"
+    },
+    {
+      "seq": 9,
+      "ts": "2026-07-27T11:00:00Z",
+      "action": "self_review_and_cleanup",
+      "file": "crypto-core/ecdsa.mjs",
+      "detail": "Re-read the finished file end to end and found one dead helper (bytesEqual, a constant-time byte comparator that ended up unused once the design settled on comparing BigInts directly for r/s range checks and Jacobian-coordinate equality for points). Removed it.",
+      "result": "reran crypto-core/ecdsa.test.mjs after the edit: 148 pass, 0 fail, unchanged -- confirms the removed function was genuinely dead code, not load-bearing",
+      "status": "success"
+    }
+  ]
+}

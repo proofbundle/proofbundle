@@ -1,0 +1,62 @@
+$ node crypto-core/sha256.test.mjs
+exit=0
+PASS "" got=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ref=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+PASS "abc" got=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad ref=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+PASS "<56 chars>" got=248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1 ref=248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1
+PASS "<43 chars>" got=d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592 ref=d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592
+PASS "<1000000 chars>" got=cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0 ref=cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0
+
+5 pass, 0 fail
+
+
+$ node crypto-core/sha512.test.mjs
+exit=0
+
+36 pass, 0 fail
+
+
+$ node crypto-core/keccak.test.mjs
+exit=0
+
+102 pass, 0 fail
+
+
+$ node crypto-core/blake2.test.mjs
+exit=0
+
+55 pass, 0 fail
+
+
+$ node crypto-core/blake3.test.mjs
+exit=0
+
+87 official KAT checks (87 known-answer fields from the upstream BLAKE3 test vectors), 46 structural checks
+133 pass, 0 fail
+
+
+$ node crypto-core/ecdsa.test.mjs
+exit=0
+
+--- P-256 ---
+
+--- P-384 ---
+
+148 pass, 0 fail
+
+
+$ node crypto-core/mlkem.test.mjs
+exit=0
+ML-KEM-512: ek=800 dk=1632 ct=768 ss=9df17c323fbe4a8d...
+ML-KEM-768: ek=1184 dk=2400 ct=1088 ss=7f43f6b312ac6e07...
+ML-KEM-1024: ek=1568 dk=3168 ct=1568 ss=2211d59a7307ce5b...
+
+35 pass, 0 fail
+
+
+$ node crypto-core/mldsa.test.mjs
+exit=0
+ML-DSA-44: pk=1312 sk=2560 sig=2420 cTilde=92e54c3c80c3cded...
+ML-DSA-65: pk=1952 sk=4032 sig=3309 cTilde=e894bb9abc2b016a...
+ML-DSA-87: pk=2592 sk=4896 sig=4627 cTilde=cba54efffc5ff650...
+
+51 pass, 0 fail

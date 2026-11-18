@@ -1,0 +1,98 @@
+{
+  "agent": "mldsa",
+  "model": "claude-sonnet-5",
+  "task": "Implement ML-DSA (FIPS 204) — the Dilithium-based module-lattice signature scheme — from scratch in crypto-core/mldsa.mjs, with a from-scratch property-based test suite, no reference crypto library, no reference test vectors.",
+  "entries": [
+    {
+      "timestamp": "2026-07-27T02:53:10Z",
+      "action": "read_reference_files",
+      "description": "Read crypto-core/keccak.mjs (SHAKE dependency), crypto-core/mlkem.mjs (house style for lattice crypto: NTT patterns, sampling, encoding), crypto-core/mlkem.test.mjs (verification standard), cli/proofbundle-cli.mjs (seal/verify/keygen CLI semantics), and the mlkem_scaffold_agent_* provenance files as a template.",
+      "result": "Confirmed hash primitives come only from keccak.mjs (shake128/shake256/sha3_256/sha3_512); confirmed sealCore/verifyCore require the worklog to be a JSON object, not an array, and rejects arrays with MALFORMED."
+    },
+    {
+      "timestamp": "2026-07-27T02:54:00Z",
+      "action": "derive_parameters",
+      "description": "Cross-checked FIPS 204 Table 1/2 parameters and byte-size formulas by hand and numerically (node) before writing code: bit-widths for t1 (10), t0 (13=d), s1/s2 (3 for eta=2, 4 for eta=4), z (18 for gamma1=2^17, 20 for gamma1=2^19), and w1 (6 for gamma2=(q-1)/88, 4 for gamma2=(q-1)/32); verified these reproduce the exact FIPS 204 pk/sk/sig sizes for all three parameter sets (44: 1312/2560/2420, 65: 1952/4032/3309, 87: 2592/4896/4627) via arithmetic before implementation.",
+      "result": "All derived bit-widths matched the target sizes exactly, confirming the encoding scheme before any code was written."
+    },
+    {
+      "timestamp": "2026-07-27T02:54:30Z",
+      "action": "verify_ntt_root",
+      "description": "Computed in node (BigInt modpow) that 1753^512 mod 8380417 == 1 and 1753^256 mod 8380417 == q-1 (i.e. -1), confirming 1753 has multiplicative order exactly 512 mod q — the precondition for a full 8-layer/256-point NTT (X^256+1 splits into 256 linear factors since q ≡ 1 mod 512).",
+      "result": "Confirmed zeta=1753 is valid; proceeded to implement a full NTT (unlike ML-KEM's 7-layer incomplete NTT) with plain coordinatewise multiplication in the transformed domain."
+    },
+    {
+      "timestamp": "2026-07-27T02:56:00Z",
+      "action": "created_file",
+      "file": "crypto-core/mldsa.mjs",
+      "description": "Implemented ML-DSA-44/65/87 from scratch: modular arithmetic (mod, mod±, powMod, bitlen); full 8-layer NTT and inverse NTT mod 8380417 derived from bit-reversed powers of zeta=1753 (not a transcribed table); coordinatewise NTT-domain multiplication; schoolbook multiplication exported for independent verification; Power2Round; Decompose/HighBits/LowBits with the q-1 boundary special case; MakeHint/UseHint; SimpleBitPack/BitPack signed packing at multiple bit widths; hint run-length encode/decode; ExpandA (SHAKE128 rejection sampling of 23-bit candidates, mirroring ML-KEM's sampleNTT structure); ExpandS (SHAKE256 rejection sampling for eta=2 and eta=4 bounded coefficients); ExpandMask (direct SHAKE256 bit-unpack, no rejection needed since 2*gamma1 is a power of 2); SampleInBall (Fisher-Yates shuffle over SHAKE256 output); pkEncode/skEncode/sigEncode and inverses with explicit length validation; the KeyGen/Sign/Verify internal algorithms and the rejection-sampling sign loop; and the public API mldsaKeygen/mldsaSign/mldsaVerify, fully deterministic (all randomness — seed32, rnd32 — supplied by the caller, nothing reaches for ambient entropy). Imports only shake128/shake256 from ./keccak.mjs; no cryptographic library of any kind.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2026-07-27T02:58:00Z",
+      "action": "smoke_test_primitives",
+      "description": "Before writing the full test suite, ran ad hoc node scripts to check NTT round-trip (3 seeds), NTT-multiplication vs schoolbook (2 seeds), Power2Round round-trip (20 random values, exact equality), and Decompose round-trip including the q-1 boundary case (mod-q equality) for both gamma2 values.",
+      "result": "All primitives correct on first implementation attempt — no NTT sign/index bugs."
+    },
+    {
+      "timestamp": "2026-07-27T03:00:00Z",
+      "action": "smoke_test_full_scheme",
+      "description": "Ran ad hoc node scripts exercising mldsaKeygen/mldsaSign/mldsaVerify for all three parameter sets: checked pk/sk/sig byte lengths against the FIPS 204 tables and checked sign-then-verify succeeds.",
+      "result": "ML-DSA-44 pk=1312 sk=2560 sig=2420 (all exact matches), verify=true, ~0.29s. ML-DSA-65 pk=1952 sk=4032 sig=3309 (exact), verify=true, ~0.46s. ML-DSA-87 pk=2592 sk=4896 sig=4627 (exact), verify=true, ~0.74s. Correct on first attempt for all three parameter sets."
+    },
+    {
+      "timestamp": "2026-07-27T03:02:00Z",
+      "action": "created_file",
+      "file": "crypto-core/mldsa.test.mjs",
+      "description": "Wrote the from-scratch property-based test suite in the mlkem.test.mjs style: NTT invertibility (4 seeds); NTT-domain multiplication vs an independently computed schoolbook convolution mod (X^256+1) (3 seeds); Power2Round round-trip (exact integer reconstruction, ~208 samples including boundary values); Decompose round-trip (mod-q reconstruction, ~207 samples per gamma2 including the q-1 special case, for both gamma2 values used across the parameter sets); and for each of ML-DSA-44/65/87: pk/sk/sig size conformance, sign/verify agreement, sign determinism (same key+rnd -> byte-identical signature), distinct-rnd -> distinct-but-valid signature, and five independent rejection checks (flipped signature bit inside z, flipped cTilde bit, flipped message bit, signature verified under a different public key, a different key's signature rejected against this key, truncated signature, and overlong/padded signature).",
+      "status": "success"
+    },
+    {
+      "timestamp": "2026-07-27T03:03:00Z",
+      "action": "ran_test_suite",
+      "description": "node crypto-core/mldsa.test.mjs",
+      "result": "51 pass, 0 fail on first run of the complete suite. Repeated 3 additional times to rule out flakiness from the Math.random() round-trip sampling in the Power2Round/Decompose tests: 51 pass, 0 fail every time.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2026-07-27T03:04:00Z",
+      "action": "regression_check",
+      "description": "Ran the other crypto-core suites (keccak.test.mjs, mlkem.test.mjs, sha256.test.mjs) to confirm no shared file was touched and nothing else regressed. Grepped mldsa.mjs for noble/webcrypto/node:crypto imports.",
+      "result": "keccak: 102 pass 0 fail. mlkem: 35 pass 0 fail. sha256: 5 pass 0 fail. No forbidden imports found in mldsa.mjs — only './keccak.mjs' (shake128, shake256) is imported.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2026-07-27T03:05:00Z",
+      "action": "edge_case_check",
+      "description": "Additional ad hoc checks beyond the required test list: empty message sign/verify, plain-string message (auto UTF-8 encoded) vs Uint8Array message mismatch correctly rejected, 100000-byte message sign/verify, and verifying a signature against the wrong parameter-set name (fails closed with false, does not throw).",
+      "result": "All passed as expected."
+    },
+    {
+      "timestamp": "2026-07-27T03:06:00Z",
+      "action": "generated_identity_key",
+      "file": "mldsa_agent_identity.json",
+      "description": "node cli/proofbundle-cli.mjs keygen --sig Ed25519 --out mldsa_agent_identity.json",
+      "status": "success"
+    }
+  ],
+  "hdr": {
+    "profile": "PB-INTEGRITY-1",
+    "bundle_id": "zjUwOb4EOC7D3E5goO9ByX9yVxfEZYjkL8vhx8IcjHA",
+    "spec_id": "PROOFBUNDLE",
+    "spec_ver": "2.1.0"
+  },
+  "meta": {
+    "created_at": "2026-07-27T10:41:40.811Z",
+    "canonical_encoding": "PB-CANON-JSON-1",
+    "digest_alg": "SHA-256",
+    "sig_alg": "Ed25519"
+  },
+  "merkleRoot": "IMHxnj4zL3A7EZdKD5mExxUBddIB1KknPBzXsjhp6PM",
+  "seal": {
+    "digest_alg": "SHA-256",
+    "digest_b64u": "SJH8gxtg18-rxFAgtV7Q06k0YEOHGOgUQJRtmq76QDY",
+    "sig_alg": "Ed25519",
+    "pub_b64u": "41RNxb3f49739Nu86wGOniHXfbYivmUyaf_Efit_Nw8",
+    "signature_b64u": "VJYURCXXIcO1CBC8CLSe9shTrhRyPqra0ncetCjNFDYtDZY--YVlEsk-TXBvbgNkf_6-MheVFA4cTFaBBdaVCg"
+  }
+}

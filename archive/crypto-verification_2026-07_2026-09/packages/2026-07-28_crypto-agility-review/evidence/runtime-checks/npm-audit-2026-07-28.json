@@ -1,0 +1,28 @@
+{
+  "command": "npm audit --omit=dev --json",
+  "date": "2026-07-28",
+  "runtime": "Node v24.14.0",
+  "result": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 3,
+        "dev": 0,
+        "optional": 0,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 2
+      }
+    }
+  },
+  "qualification": "A zero-result registry audit is time-bound and is not a source audit or guarantee of no vulnerabilities."
+}

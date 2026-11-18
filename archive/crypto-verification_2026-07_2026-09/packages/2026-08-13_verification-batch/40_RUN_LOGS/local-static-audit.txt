@@ -1,0 +1,102 @@
+{
+  "original_files": 10,
+  "original_bytes": 4417152,
+  "lean": {
+    "ECDSAP256.lean": {
+      "theorem_declarations": 7,
+      "native_decide": 4,
+      "sorry_tokens": 1,
+      "admit_tokens": 1,
+      "axiom_declarations": 0,
+      "panic_access_get_bang": 12
+    },
+    "ECDSAP256Hostile.lean": {
+      "theorem_declarations": 27,
+      "native_decide": 27,
+      "sorry_tokens": 1,
+      "admit_tokens": 1,
+      "axiom_declarations": 0,
+      "panic_access_get_bang": 0
+    },
+    "ECDSAP256Theorems.lean": {
+      "theorem_declarations": 55,
+      "native_decide": 56,
+      "sorry_tokens": 1,
+      "admit_tokens": 1,
+      "axiom_declarations": 0,
+      "panic_access_get_bang": 0
+    },
+    "SHA256.lean": {
+      "theorem_declarations": 4,
+      "native_decide": 1,
+      "sorry_tokens": 1,
+      "admit_tokens": 0,
+      "axiom_declarations": 0,
+      "panic_access_get_bang": 13
+    },
+    "SHA256Theorems.lean": {
+      "theorem_declarations": 39,
+      "native_decide": 27,
+      "sorry_tokens": 1,
+      "admit_tokens": 1,
+      "axiom_declarations": 0,
+      "panic_access_get_bang": 0
+    }
+  },
+  "ground_truth": {
+    "ecdsa_p256_ground_truth.json": {
+      "keys": [
+        "curve",
+        "vectors",
+        "hostile"
+      ],
+      "vectors": 9,
+      "hostile": 20
+    },
+    "mlkem768_ground_truth.json": {
+      "keys": [
+        "params",
+        "vectors",
+        "hostile"
+      ],
+      "vectors": 6,
+      "hostile": 16,
+      "params": {
+        "q": 3329,
+        "n": 256,
+        "K": 3,
+        "eta1": 2,
+        "eta2": 2,
+        "du": 10,
+        "dv": 4,
+        "ek_bytes": 1184,
+        "dk_bytes": 2400,
+        "ct_bytes": 1088,
+        "ss_bytes": 32
+      }
+    },
+    "sha256_ground_truth.json": {
+      "keys": [
+        "K",
+        "H0",
+        "vectors",
+        "hostile"
+      ],
+      "vectors": 22,
+      "hostile": 24,
+      "K": 64,
+      "H0": 8
+    },
+    "sha512_audit_ground_truth.json": {
+      "keys": [
+        "K512",
+        "H512",
+        "sha512_abc",
+        "sha512_empty",
+        "sha512_896bit"
+      ],
+      "K512": 80,
+      "H512": 8
+    }
+  }
+}

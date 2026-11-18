@@ -1,0 +1,300 @@
+<title>ProofBundle Crypto Core — Build Status</title>
+<style>
+  :root {
+    --ink:        #0d1117;
+    --ink-2:      #161b22;
+    --line:       #232c38;
+    --fg:         #dbe4ee;
+    --fg-dim:     #8b9bb0;
+    --fg-faint:   #5d6b7d;
+    --accent:     #4cc4e8;
+    --accent-dim: #1d5c72;
+    --good:       #46c98b;
+    --warn:       #d9a54c;
+    --dead:       #b8636b;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ink:#f7f9fb; --ink-2:#ffffff; --line:#d6dee8; --fg:#16202c;
+      --fg-dim:#4d5f74; --fg-faint:#7d8 da0; --fg-faint:#7d8da0;
+      --accent:#0f7c9c; --accent-dim:#bfe2ee;
+      --good:#12805a; --warn:#8a6215; --dead:#a3373f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink:#0d1117; --ink-2:#161b22; --line:#232c38; --fg:#dbe4ee;
+    --fg-dim:#8b9bb0; --fg-faint:#5d6b7d;
+    --accent:#4cc4e8; --accent-dim:#1d5c72;
+    --good:#46c98b; --warn:#d9a54c; --dead:#b8636b;
+  }
+  :root[data-theme="light"] {
+    --ink:#f7f9fb; --ink-2:#ffffff; --line:#d6dee8; --fg:#16202c;
+    --fg-dim:#4d5f74; --fg-faint:#7d8da0;
+    --accent:#0f7c9c; --accent-dim:#bfe2ee;
+    --good:#12805a; --warn:#8a6215; --dead:#a3373f;
+  }
+
+  body {
+    background: var(--ink); color: var(--fg);
+    font-family: var(--sans); line-height: 1.6;
+    margin: 0; padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 60rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 .9rem;
+  }
+  h1 {
+    font-family: var(--mono); font-weight: 600;
+    font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+    letter-spacing: -.02em; line-height: 1.15;
+    margin: 0 0 .6rem; text-wrap: balance;
+  }
+  .sub { color: var(--fg-dim); font-size: 1.05rem; max-width: 46rem; margin: 0 0 1rem; }
+  .meta {
+    font-family: var(--mono); font-size: .78rem; color: var(--fg-faint);
+    border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 1.6rem;
+  }
+
+  h2 {
+    font-family: var(--mono); font-size: 1.02rem; font-weight: 600;
+    letter-spacing: .02em; color: var(--fg);
+    margin: 3.2rem 0 1rem; padding-bottom: .5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  h2 .n { color: var(--accent); margin-right: .6rem; }
+  h3 { font-size: .95rem; margin: 1.8rem 0 .5rem; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--accent); }
+
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin: 1.4rem 0; }
+  .card {
+    background: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 6px; padding: 1.1rem 1.2rem;
+  }
+  .card .k { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-faint); }
+  .card .v { font-family: var(--mono); font-size: 1.7rem; font-weight: 600; line-height: 1.2; margin: .35rem 0 .15rem; font-variant-numeric: tabular-nums; }
+  .card .d { font-size: .82rem; color: var(--fg-dim); }
+  .v.ok { color: var(--good); }
+
+  .tablewrap { overflow-x: auto; margin: 1.2rem 0; border: 1px solid var(--line); border-radius: 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: .87rem; }
+  th, td { text-align: left; padding: .6rem .85rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-faint); background: var(--ink-2); }
+  tr:last-child td { border-bottom: none; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  td.mono { font-family: var(--mono); font-size: .8rem; }
+
+  .pill { font-family: var(--mono); font-size: .7rem; padding: .16rem .5rem; border-radius: 3px; letter-spacing: .04em; }
+  .pill.done { color: var(--good); border: 1px solid var(--good); }
+  .pill.todo { color: var(--warn); border: 1px solid var(--warn); }
+  .pill.dead { color: var(--dead); border: 1px solid var(--dead); }
+
+  pre {
+    background: var(--ink-2); border: 1px solid var(--line); border-left: 2px solid var(--accent-dim);
+    border-radius: 5px; padding: 1rem 1.1rem; overflow-x: auto;
+    font-family: var(--mono); font-size: .78rem; line-height: 1.55; margin: 1rem 0;
+  }
+  code { font-family: var(--mono); font-size: .87em; }
+  p code, li code, td code { background: var(--ink-2); border: 1px solid var(--line); padding: .08rem .3rem; border-radius: 3px; }
+
+  .note {
+    border-left: 2px solid var(--warn); background: var(--ink-2);
+    padding: .85rem 1.1rem; margin: 1.3rem 0; font-size: .9rem; border-radius: 0 5px 5px 0;
+  }
+  .note strong { color: var(--warn); }
+  .proof {
+    border-left: 2px solid var(--good); background: var(--ink-2);
+    padding: .85rem 1.1rem; margin: 1.3rem 0; font-size: .9rem; border-radius: 0 5px 5px 0;
+  }
+  ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+  li { margin-bottom: .45rem; }
+  .caption { font-size: .78rem; color: var(--fg-faint); font-family: var(--mono); margin: -.4rem 0 1.4rem; }
+</style>
+
+<div class="wrap">
+
+  <p class="eyebrow">ProofBundle · crypto-core</p>
+  <h1>From-scratch cryptographic core</h1>
+  <p class="sub">
+    No <code>noble-*</code>. No WebCrypto. No <code>node:crypto</code> in any implementation file.
+    Pure JavaScript arithmetic, built up from the primitives, with correctness established by
+    independent computation rather than by trusting a library.
+  </p>
+  <p class="meta">844 lines · 142 assertions · 0 failures · verified 2026-07-27</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="k">SHA-256</div>
+      <div class="v ok">5/5</div>
+      <div class="d">FIPS 180-4 · 75 lines</div>
+    </div>
+    <div class="card">
+      <div class="k">Keccak / SHA-3 / SHAKE</div>
+      <div class="v ok">102/102</div>
+      <div class="d">FIPS 202 · 133 lines</div>
+    </div>
+    <div class="card">
+      <div class="k">ML-KEM</div>
+      <div class="v ok">35/35</div>
+      <div class="d">FIPS 203 · 431 lines</div>
+    </div>
+  </div>
+
+  <h2><span class="n">01</span>What exists now</h2>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Primitive</th><th>Standard</th><th>File</th><th>Tests</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>SHA-256</td><td>FIPS 180-4</td><td class="mono">sha256.mjs</td><td class="num">5</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>SHA3-256 / 384 / 512</td><td>FIPS 202</td><td class="mono">keccak.mjs</td><td class="num">33</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>SHAKE128 / SHAKE256</td><td>FIPS 202</td><td class="mono">keccak.mjs</td><td class="num">66</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>Keccak KAT (hardcoded)</td><td>FIPS 202</td><td class="mono">keccak.test.mjs</td><td class="num">3</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>ML-KEM-512</td><td>FIPS 203</td><td class="mono">mlkem.mjs</td><td class="num">9</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>ML-KEM-768</td><td>FIPS 203</td><td class="mono">mlkem.mjs</td><td class="num">9</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>ML-KEM-1024</td><td>FIPS 203</td><td class="mono">mlkem.mjs</td><td class="num">9</td><td><span class="pill done">PASS</span></td></tr>
+      <tr><td>NTT algebraic identities</td><td>FIPS 203 §4.3</td><td class="mono">mlkem.test.mjs</td><td class="num">5</td><td><span class="pill done">PASS</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><span class="n">02</span>ML-KEM output, all three parameter sets</h2>
+
+  <pre>ML-KEM-512:  ek=800   dk=1632  ct=768   ss=9df17c323fbe4a8d...
+ML-KEM-768:  ek=1184  dk=2400  ct=1088  ss=7f43f6b312ac6e07...
+ML-KEM-1024: ek=1568  dk=3168  ct=1568  ss=2211d59a7307ce5b...
+
+35 pass, 0 fail</pre>
+  <p class="caption">Every size matches the FIPS 203 Table 2 values exactly.</p>
+
+  <h2><span class="n">03</span>Why the tests can't be satisfied by broken code</h2>
+
+  <p>
+    A library-backed implementation is verified by comparing against the library. With no library,
+    correctness has to come from somewhere else — properties that only a correct implementation can satisfy.
+  </p>
+
+  <div class="proof">
+    <strong>The NTT is checked against an independent computation of the same product.</strong>
+    Polynomial multiplication in <code>Z_q[X]/(X²⁵⁶+1)</code> is computed twice: once through the
+    forward NTT → pointwise multiply → inverse NTT path, and once by direct schoolbook convolution
+    with the <code>X²⁵⁶ = −1</code> reduction applied by hand. These share no code. A wrong zeta table,
+    a wrong rotation offset, or a wrong <code>(2x+3y) mod 5</code> permutation breaks the agreement immediately.
+  </div>
+
+  <ul>
+    <li><strong>NTT invertibility</strong> — forward then inverse returns the input exactly, across three seeds.</li>
+    <li><strong>Encaps/decaps agreement</strong> — the shared secret derived by the sender matches the one recovered by the receiver, for all three parameter sets.</li>
+    <li><strong>Implicit rejection</strong> — flipping a single ciphertext bit routes decapsulation to the <code>J(z ‖ c)</code> branch and yields a different secret, never the real one.</li>
+    <li><strong>Determinism</strong> — identical seeds produce byte-identical keys and ciphertexts.</li>
+    <li><strong>Size conformance</strong> — encapsulation key, decapsulation key and ciphertext lengths match the published tables.</li>
+  </ul>
+
+  <p>
+    For Keccak, <code>node:crypto</code> is used as an independent yardstick — but only inside the test file,
+    never imported by the implementation. Three FIPS 202 known-answer values are additionally hardcoded, so
+    the suite does not rest solely on Node agreeing with itself.
+  </p>
+
+  <h2><span class="n">04</span>The Keccak permutation</h2>
+  <p>Twenty-four rounds of theta, rho, pi, chi, iota over a 25-lane state of 64-bit words.</p>
+
+  <pre>export function keccakF1600(A) {
+  for (let round = 0; round &lt; 24; round++) {
+    // theta
+    for (let x = 0; x &lt; 5; x++)
+      C[x] = A[x] ^ A[x+5] ^ A[x+10] ^ A[x+15] ^ A[x+20];
+    for (let x = 0; x &lt; 5; x++)
+      D[x] = C[(x+4) % 5] ^ rotl64(C[(x+1) % 5], 1);
+    for (let y = 0; y &lt; 5; y++)
+      for (let x = 0; x &lt; 5; x++) A[x + 5*y] ^= D[x];
+
+    // rho (rotate lanes) + pi (permute positions), combined
+    for (let y = 0; y &lt; 5; y++)
+      for (let x = 0; x &lt; 5; x++)
+        B[y + 5*((2*x + 3*y) % 5)] = rotl64(A[x + 5*y], ROT[x + 5*y]);
+
+    // chi
+    for (let y = 0; y &lt; 5; y++)
+      for (let x = 0; x &lt; 5; x++)
+        A[x + 5*y] = B[x + 5*y] ^
+          ((~B[((x+1) % 5) + 5*y] &amp; MASK64) &amp; B[((x+2) % 5) + 5*y]);
+
+    // iota
+    A[0] ^= RC[round];
+  }
+  return A;
+}</pre>
+
+  <h2><span class="n">05</span>Roots of unity, derived not transcribed</h2>
+  <p>
+    Reference implementations ship a hardcoded table of 128 zeta values. A single transcription
+    error there corrupts the transform silently. These are computed at module load from
+    ζ = 17 mod 3329:
+  </p>
+
+  <pre>const ZETAS  = new Int32Array(128);
+const GAMMAS = new Int32Array(128);
+for (let i = 0; i &lt; 128; i++) {
+  ZETAS[i]  = powMod(ZETA, bitRev7(i), Q);
+  GAMMAS[i] = powMod(ZETA, 2 * bitRev7(i) + 1, Q);
+}</pre>
+
+  <h2><span class="n">06</span>Decapsulation, including the rejection branch</h2>
+
+  <pre>const KBar   = shake256(concat(z, c), 32);   // computed unconditionally
+const cPrime = kpkeEncrypt(ek, mPrime, rPrime, p);
+
+// difference accumulated without early exit
+let diff = 0;
+if (cPrime.length !== c.length) diff = 1;
+else for (let i = 0; i &lt; c.length; i++) diff |= cPrime[i] ^ c[i];
+
+return diff === 0 ? KPrime : KBar;</pre>
+  <p class="caption">
+    K̄ is derived whether or not it is needed, and the comparison never short-circuits —
+    both required so timing does not leak whether the ciphertext was valid.
+  </p>
+
+  <h2><span class="n">07</span>Remaining work</h2>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Workstream</th><th>Reference available</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>SHA-384 / SHA-512 · BLAKE2b / BLAKE2s</td><td>node:crypto</td><td><span class="pill todo">IN FLIGHT</span></td></tr>
+      <tr><td>BLAKE3</td><td>official vectors</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>Ed25519</td><td>node:crypto</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>ECDSA P-256 / P-384</td><td>node:crypto</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>RSA-PSS</td><td>node:crypto</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>ML-DSA-44</td><td>internal properties + KAT</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>SLH-DSA</td><td>internal properties + KAT</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>Falcon-512</td><td>hardest — FP FFT, NTRU</td><td><span class="pill todo">QUEUED</span></td></tr>
+      <tr><td>Formal verification (Lean 4 / Rocq / SMT)</td><td>—</td><td><span class="pill todo">NOT STARTED</span></td></tr>
+      <tr><td>ML-KEM reference vectors via Codespace</td><td>—</td><td><span class="pill dead">ABANDONED</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <strong>On the abandoned row.</strong> The original plan generated ML-KEM test vectors from a
+    reference library inside a GitHub Codespace. That was a dependency — even used only for
+    verification — and was cut. Correctness is now established from algebraic identities instead,
+    which requires no external code at all. The <code>gh codespace</code> scope blocker became irrelevant.
+  </div>
+
+  <div class="note">
+    <strong>What these tests do not establish.</strong> The algebraic properties above catch
+    implementation errors, not spec divergence. An implementation could be internally consistent and
+    self-inverting while disagreeing with NIST's byte-level output. Closing that gap requires the
+    published FIPS 203 known-answer vectors — static numbers from the standard document, not a
+    library — or formal proof against the specification. Neither is done yet, and nothing here
+    should be described as NIST-conformant until one of them is.
+  </div>
+
+</div>

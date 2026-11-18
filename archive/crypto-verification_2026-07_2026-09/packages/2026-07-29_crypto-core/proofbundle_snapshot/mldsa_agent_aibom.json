@@ -1,0 +1,77 @@
+{
+  "model": "claude-sonnet-5",
+  "agent_role": "ML-DSA (FIPS 204) implementer",
+  "task_description": "Build crypto-core/mldsa.mjs — a from-scratch, pure-JS implementation of ML-DSA (Module-Lattice-Based Digital Signature Algorithm, the Dilithium-based scheme defined by FIPS 204), covering ML-DSA-44, ML-DSA-65 and ML-DSA-87. No cryptographic library dependency of any kind; hashing exclusively via the project's own crypto-core/keccak.mjs (SHAKE128/SHAKE256). Build a companion from-scratch property-based test suite (no reference vectors, no reference library) and run it to a clean pass. Maintain provenance: worklog, Ed25519 identity, AIBOM, sealed + verified worklog.",
+  "timestamp": "2026-07-27T03:07:00Z",
+  "files_created": [
+    "crypto-core/mldsa.mjs",
+    "crypto-core/mldsa.test.mjs",
+    "mldsa_agent_worklog.json",
+    "mldsa_agent_identity.json",
+    "mldsa_agent_aibom.json",
+    "mldsa_agent_worklog.sealed.json"
+  ],
+  "files_touched": [
+    "crypto-core/mldsa.mjs",
+    "crypto-core/mldsa.test.mjs",
+    "mldsa_agent_worklog.json",
+    "mldsa_agent_identity.json",
+    "mldsa_agent_aibom.json",
+    "mldsa_agent_worklog.sealed.json"
+  ],
+  "files_read_not_modified": [
+    "crypto-core/keccak.mjs",
+    "crypto-core/mlkem.mjs",
+    "crypto-core/mlkem.test.mjs",
+    "cli/proofbundle-cli.mjs",
+    "package.json",
+    "mlkem_scaffold_agent_worklog.json",
+    "mlkem_scaffold_agent_aibom.json",
+    "mlkem_scaffold_agent_identity.json",
+    "mlkem_scaffold_agent_worklog.sealed.json"
+  ],
+  "implementation_notes": {
+    "modulus": "q = 8380417 = 2^23 - 2^13 + 1 (distinct from ML-KEM's q=3329)",
+    "ntt": "Full 8-layer, 256-point NTT (not the 7-layer incomplete NTT used for ML-KEM), enabled because q ≡ 1 (mod 512); zeta=1753 verified in-session to have multiplicative order exactly 512 mod q. Because X^256+1 splits completely into 256 linear factors mod q, NTT-domain multiplication (multiplyNTTs) is plain coordinatewise product, not the 2x2 base-case multiply ML-KEM needs for its incomplete NTT.",
+    "components_implemented": [
+      "NTT / inverse NTT (derived from bit-reversed powers of zeta, not a transcribed table)",
+      "multiplyNTTs (coordinatewise) + polyMulSchoolbook (independent reference for testing)",
+      "Power2Round",
+      "Decompose / HighBits / LowBits (with the q-1 boundary special case)",
+      "MakeHint / UseHint",
+      "SimpleBitPack/Unpack and signed BitPack/Unpack at bit widths 3, 4, 6, 10, 13, 18, 20 depending on parameter set",
+      "Hint run-length encode/decode (omega + k bytes, with strict-increasing validation on decode)",
+      "ExpandA: SHAKE128 rejection sampling of uniform 23-bit values < q, directly in the NTT domain",
+      "ExpandS: SHAKE256 rejection sampling of centered-binomial-like uniform values in [-eta,eta] for eta in {2,4}",
+      "ExpandMask: direct SHAKE256 bit-unpack for y in (-gamma1, gamma1] (no rejection needed, 2*gamma1 is a power of 2)",
+      "SampleInBall: Fisher-Yates shuffle over a SHAKE256 stream seeded by cTilde, producing the weight-tau challenge polynomial",
+      "pkEncode/skEncode/sigEncode and their decoders, with explicit length checks so malformed/truncated inputs fail closed",
+      "KeyGen_internal / Sign_internal (rejection-sampling loop with all four ML-DSA rejection conditions) / Verify_internal",
+      "Public API: mldsaKeygen(seed32, paramName), mldsaSign(privateKey, message, rnd32, paramName), mldsaVerify(publicKey, message, signature, paramName) — fully deterministic, no ambient entropy"
+    ],
+    "verification_strategy": "No FIPS 204 KAT vectors were available or used (none were imported, consistent with the no-reference-library constraint). Correctness was established purely via internal mathematical properties: NTT invertibility, NTT-vs-schoolbook multiplication agreement, Power2Round/Decompose round-trip identities, sign/verify agreement, determinism, size conformance to the FIPS 204 tables, and five independent rejection scenarios (tampered signature, tampered cTilde, tampered message, wrong key in both directions, truncated signature, overlong signature). Because the exact internal NTT zeta ordering/convention and internal seed domain-separation bytes are not externally observable (they only need to be self-consistent between sign/verify and between forward/inverse NTT), this implementation is not claimed to be byte-for-byte interoperable with other FIPS 204 implementations without cross-checking against the official ACVP/KAT vectors — that was explicitly out of scope per the no-reference-library constraint.",
+    "parameter_sets": "All three required tiers implemented and tested: ML-DSA-44 (pk=1312, sk=2560, sig=2420), ML-DSA-65 (pk=1952, sk=4032, sig=3309), ML-DSA-87 (pk=2592, sk=4896, sig=4627) — all sizes verified byte-exact against the FIPS 204 tables in the test suite."
+  },
+  "test_results": {
+    "suite": "crypto-core/mldsa.test.mjs",
+    "result": "51 pass, 0 fail",
+    "properties_all_passing": true,
+    "properties_not_passing": "none — every requested property passed"
+  },
+  "regression_results": {
+    "crypto-core/keccak.test.mjs": "102 pass, 0 fail (unchanged)",
+    "crypto-core/mlkem.test.mjs": "35 pass, 0 fail (unchanged)",
+    "crypto-core/sha256.test.mjs": "5 pass, 0 fail (unchanged)"
+  },
+  "constraints_honored": [
+    "mldsa.mjs imports no cryptographic library — only shake128/shake256 from ./keccak.mjs",
+    "node:crypto appears only in the CLI (cli/proofbundle-cli.mjs, pre-existing, not authored by this agent) and nowhere in mldsa.mjs or mldsa.test.mjs",
+    "keccak.mjs, mlkem.mjs, sha256.mjs, sha512.mjs, blake2.mjs and other agents' *_agent_* files were not modified",
+    "all randomness (seed32 for keygen, rnd32 for sign) is caller-supplied; nothing reaches for ambient entropy"
+  ],
+  "crypto_identity": "Ed25519",
+  "crypto_digest": "SHA-256",
+  "worklog_path": "mldsa_agent_worklog.json",
+  "identity_key_path": "mldsa_agent_identity.json",
+  "sealed_worklog_path": "mldsa_agent_worklog.sealed.json"
+}

@@ -1,0 +1,79 @@
+{
+  "model": "claude-sonnet-5",
+  "agent_role": "SHA-512/SHA-384/BLAKE2 from-scratch implementer for ProofBundle crypto-core",
+  "task_description": "Implement SHA-512 and SHA-384 (FIPS 180-4) and BLAKE2b/BLAKE2s (RFC 7693) from scratch in pure JavaScript for crypto-core/, matching the house style established by crypto-core/sha256.mjs and crypto-core/keccak.mjs. Hard constraint: the implementation files (sha512.mjs, blake2.mjs) import no cryptographic library whatsoever (no noble-*, no WebCrypto, no node:crypto) -- only node:crypto in the *.test.mjs files, used strictly as an independent verification yardstick alongside hardcoded published known-answer values. Write and run the corresponding test files until they pass with zero failures, then produce signed provenance for the work.",
+  "timestamp": "2026-07-27T10:05:00Z",
+  "files_created": [
+    "crypto-core/sha512.mjs",
+    "crypto-core/sha512.test.mjs",
+    "crypto-core/blake2.mjs",
+    "crypto-core/blake2.test.mjs",
+    "sha512_blake2_agent_worklog.json",
+    "sha512_blake2_agent_identity.json",
+    "sha512_blake2_agent_aibom.json"
+  ],
+  "files_touched": [
+    "crypto-core/sha512.mjs",
+    "crypto-core/sha512.test.mjs",
+    "crypto-core/blake2.mjs",
+    "crypto-core/blake2.test.mjs",
+    "sha512_blake2_agent_worklog.json",
+    "sha512_blake2_agent_identity.json",
+    "sha512_blake2_agent_aibom.json"
+  ],
+  "files_read_only_reference": [
+    "crypto-core/sha256.mjs",
+    "crypto-core/sha256.test.mjs",
+    "crypto-core/keccak.mjs",
+    "crypto-core/keccak.test.mjs",
+    "cli/proofbundle-cli.mjs",
+    "package.json",
+    "mlkem_scaffold_agent_worklog.json",
+    "mlkem_scaffold_agent_aibom.json"
+  ],
+  "external_references_used": [
+    {
+      "title": "FIPS 180-4: Secure Hash Standard (SHS)",
+      "use": "SHA-512 / SHA-384 algorithm specification (sections 4.2.3, 5.1.2, 5.3.4, 5.3.5, 6.4, 6.5). K/H0 constants were not transcribed from this document; they were derived from first principles (fractional parts of cube/square roots of primes, via exact BigInt integer sqrt/cbrt) and cross-validated by reproducing SHA-256's own K/H0 with the same method and diffing against crypto-core/sha256.mjs."
+    },
+    {
+      "title": "NIST/FIPS 180-4 SHA-384/SHA-512 test vectors",
+      "url": "https://www.di-mgt.com.au/sha_testvectors.html",
+      "use": "Hardcoded known-answer values in sha512.test.mjs (empty string, 'abc', the 112-character multi-block message, one million 'a' characters, for both SHA-384 and SHA-512). Each value was independently cross-verified against a live node:crypto computation before being hardcoded."
+    },
+    {
+      "title": "RFC 7693: The BLAKE2 Cryptographic Hash and Message Authentication Code (MAC)",
+      "url": "https://www.rfc-editor.org/rfc/rfc7693.txt",
+      "use": "BLAKE2b/BLAKE2s algorithm specification -- fetched and read directly (not from memory) for the SIGMA permutation table (section 2.7), mixing function G (3.1), compression function F (3.2), parameter block layout (2.5), and block/padding/counter rules (3.3). Appendix A and B worked examples ('abc') hardcoded as known-answer values."
+    },
+    {
+      "title": "Official BLAKE2 reference implementation test vectors",
+      "url": "https://raw.githubusercontent.com/BLAKE2/BLAKE2/master/testvectors/blake2-kat.json",
+      "use": "Downloaded directly (3072 entries). Verified its unkeyed entries reproduce node:crypto's output exactly (confirming authenticity), then used its keyed entries -- which node:crypto cannot verify in this environment -- as an independent oracle, including several hardcoded in blake2.test.mjs at block-boundary lengths."
+    },
+    {
+      "title": "golang.org/x/crypto blake2s and blake2b test vectors",
+      "url": "https://raw.githubusercontent.com/golang/crypto/master/blake2s/blake2s_test.go",
+      "use": "Downloaded directly. Used the hashes128 table (BLAKE2s New128: keyed, 16-byte output) as an independently published known-answer set for a non-default BLAKE2s output length, hardcoded in blake2.test.mjs."
+    },
+    {
+      "title": "Python 3.14 hashlib.blake2b (CPython _blake2 C extension)",
+      "use": "Used as a live, independent (non-Node) oracle to generate several BLAKE2b known-answer values at non-default output lengths (1, 16, 20, 48 bytes) and a keyed+short-output combination, hardcoded in blake2.test.mjs. hashlib.blake2s was found to crash with an unrelated native 'Illegal instruction' fault in this specific environment and was not used."
+    },
+    {
+      "title": "node:crypto (Node v24.18.0 / OpenSSL 3.5.7)",
+      "use": "Primary live verification yardstick in both *.test.mjs files, per the task's required design: createHash('sha512'/'sha384'/'blake2b512'/'blake2s256'). Used only in test files, never in the implementation files."
+    }
+  ],
+  "environment_notes": [
+    "node:crypto's createHash('blake2b512', { outputLength: N }) throws 'not XOF or invalid length' in this environment, and the { key } option is silently ignored (verified with a deliberately oversized, spec-invalid key that produced byte-identical output to no key at all). This is why blake2.test.mjs leans on hardcoded published/independent vectors for keyed and non-default-length coverage rather than a live Node check for those cases."
+  ],
+  "test_results": {
+    "sha512.test.mjs": "36 pass, 0 fail",
+    "blake2.test.mjs": "55 pass, 0 fail"
+  },
+  "crypto_identity": "Ed25519",
+  "crypto_digest": "SHA-256",
+  "worklog_path": "sha512_blake2_agent_worklog.json",
+  "identity_key_path": "sha512_blake2_agent_identity.json"
+}

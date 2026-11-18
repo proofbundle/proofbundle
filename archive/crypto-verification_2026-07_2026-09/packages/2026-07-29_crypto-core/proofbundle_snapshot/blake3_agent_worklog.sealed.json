@@ -1,0 +1,73 @@
+{
+  "agent": "blake3",
+  "model": "claude-sonnet-5",
+  "task": "Build crypto-core/blake3.mjs (from-scratch BLAKE3 per the official spec) and crypto-core/blake3.test.mjs (KAT + structural tests), then seal provenance.",
+  "entries": [
+    {
+      "timestamp": "2026-07-27T00:00:00Z",
+      "action": "read_house_style",
+      "description": "Read crypto-core/sha256.mjs, crypto-core/sha256.test.mjs, and crypto-core/keccak.mjs to match existing conventions (pure JS 32-bit lane arithmetic via >>> 0, 64-bit via BigInt where a spec needs it, DataView-based byte<->word conversion, check()/pass/fail test harness shape).",
+      "result": "Confirmed house style; no crypto library imports in any implementation file."
+    },
+    {
+      "timestamp": "2026-07-27T00:05:00Z",
+      "action": "implement_blake3",
+      "file": "crypto-core/blake3.mjs",
+      "description": "Implemented BLAKE3 from the official specification: the G mixing function and 7-round compression over a 16-word 32-bit state, the 16-word message permutation schedule applied between rounds, 1024-byte chunking with chained 64-byte blocks (CHUNK_START/CHUNK_END), the left-complete binary Merkle tree over chunk chaining values built incrementally with a stack (merge-on-trailing-zero-bits of the running chunk count), PARENT/ROOT domain separation, keyed hashing, two-stage key derivation (DERIVE_KEY_CONTEXT then DERIVE_KEY_MATERIAL), and extendable output (XOF) via re-invoking compress on the fixed root inputs with an increasing output-block counter. Exports blake3, blake3Keyed, blake3DeriveKey, blake3Hex.",
+      "result": "File created. No cryptographic library imported; pure JS arithmetic only (Uint32Array + >>> 0 for 32-bit lanes, matching sha256.mjs's style)."
+    },
+    {
+      "timestamp": "2026-07-27T00:15:00Z",
+      "action": "fetch_official_test_vectors",
+      "description": "Node has no native BLAKE3, so node:crypto cannot serve as a yardstick for blake3.test.mjs the way it does for the other *.test.mjs files. Fetched test_vectors/test_vectors.json from github.com/BLAKE3-team/BLAKE3 (raw.githubusercontent.com) to obtain official known-answer vectors for input lengths 0,1,2,3,4,5,6,7,8,63,64,65,127,128,129,1023,1024,1025,2048,2049,3072,3073,4096,4097,5120,6144,7168,8192,16384,31744 (hash/keyed_hash/derive_key, each a 131-byte extended output).",
+      "result": "Retrieved candidate vectors for all 30 requested lengths via several WebFetch calls."
+    },
+    {
+      "timestamp": "2026-07-27T00:20:00Z",
+      "action": "detect_fetch_corruption",
+      "description": "WebFetch's content is produced by an intermediate summarization model rather than a raw byte-exact transfer, so every fetched field was validated programmatically before being trusted: (a) hex length must equal 262 chars, (b) no two distinct input_len cases may share an identical field value (a real BLAKE3 collision at this scale has probability ~0).",
+      "result": "Found 3 corrupted fields: input_len=7 derive_key was 352 hex chars (should be 262, and its tail was a verbatim duplicate of input_len=1's derive_key tail); input_len=127 keyed_hash and derive_key were byte-for-byte identical to input_len=1023's keyed_hash/derive_key. A second, isolated re-fetch of input_len=7 reproduced the identical corruption (likely a tool-side cache hit on a bad extraction), so re-fetching alone could not resolve it.",
+      "key_finding": "Fetched 'official' data cannot be trusted at face value even from the correct upstream URL; the extraction step itself can silently corrupt individual fields while leaving the JSON structurally well-formed."
+    },
+    {
+      "timestamp": "2026-07-27T00:30:00Z",
+      "action": "cross_validate_against_implementation",
+      "description": "Wrote crypto-core/blake3.mjs first, purely from the spec (independent of the fetched vectors), then ran it against all 90 fetched (input_len, field) values as a second, independent oracle. Kept only fields the implementation reproduced exactly; anything else was dropped rather than guessed, per instructions.",
+      "result": "87 of 90 fetched fields matched exactly (full 131-byte extended output, across every tested tree-boundary case: empty input, sub-block, 64/128-byte block boundaries, 1024-byte chunk boundary, 2048/4096/16384-byte multi-level parent-merge boundaries, and the unbalanced 31-chunk tree at input_len=31744). The 3 non-matching fields were exactly the 3 already flagged as structurally corrupted -- confirming the structural detector had no false negatives on this dataset. Notably, this also determined *which side* of the input_len=127/1023 duplicate was wrong: 1023's values independently verified (kept), 127's did not (dropped).",
+      "status": "success"
+    },
+    {
+      "timestamp": "2026-07-27T00:40:00Z",
+      "action": "write_test_file",
+      "file": "crypto-core/blake3.test.mjs",
+      "description": "Generated the test file programmatically from the cleaned, implementation-verified KAT dataset (JSON.stringify straight from the validated data file into the .mjs source) to avoid any manual re-transcription of 87 long hex strings. Added a hand-written harness: check()/pass/fail counters matching sha256.test.mjs's style, plus structural checks for determinism, XOF output-prefix consistency, continuity across the 1024/2048/4096-byte chunk and tree-level boundaries, key-sensitivity (different keys diverge), and single-bit-input avalanche.",
+      "result": "133 checks total: 87 official KAT checks (30/30 input lengths have a verified hash vector, 29/30 have keyed_hash, 28/30 have derive_key) + 46 structural checks."
+    },
+    {
+      "timestamp": "2026-07-27T00:45:00Z",
+      "action": "run_tests",
+      "description": "Ran node crypto-core/blake3.test.mjs.",
+      "result": "133 pass, 0 fail. Exit code 0."
+    }
+  ],
+  "hdr": {
+    "profile": "PB-INTEGRITY-1",
+    "bundle_id": "sa-7uWdndUDoIvvGSR50HnyBonKWqX8q1enj0UqjdIc",
+    "spec_id": "PROOFBUNDLE",
+    "spec_ver": "2.1.0"
+  },
+  "meta": {
+    "created_at": "2026-07-27T10:18:26.975Z",
+    "canonical_encoding": "PB-CANON-JSON-1",
+    "digest_alg": "SHA-256",
+    "sig_alg": "Ed25519"
+  },
+  "merkleRoot": "XG5bBXC4JaWWeIZ2kT2INwGvF7S8xwsfs1Py3O6IQxI",
+  "seal": {
+    "digest_alg": "SHA-256",
+    "digest_b64u": "XfqObGj3uS4mpbAe_tidnkc9CZ5lP7zhRLJS9uu1Cg4",
+    "sig_alg": "Ed25519",
+    "pub_b64u": "36P8OMv_KHhyjvXKKOgSzTS3vOQh1N1t3Tle3efrEJc",
+    "signature_b64u": "CAi9PO5MUZz7JyKSxuaudqgtht5zlFBo7szHdsgn_oPDWSXvkNiTr6_6nKliLn1dzSSGrha5-7nlfiXcQQs9AQ"
+  }
+}

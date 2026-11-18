@@ -1,0 +1,296 @@
+[
+ {
+  "id": "0002",
+  "line": 5437,
+  "from": "!==",
+  "to": "===",
+  "context": "e.now()); const ms = () => Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0) + 'm"
+ },
+ {
+  "id": "0001",
+  "line": 5436,
+  "from": "!==",
+  "to": "===",
+  "context": "arnings = [], causes = []; const t0 = (typeof performance !== 'undefined' ? performance.now() : Date.now()); const m"
+ },
+ {
+  "id": "0003",
+  "line": 5440,
+  "from": "||",
+  "to": "&&",
+  "context": "isable_by: pb_revisable_by(code, predicate, extra) }, extra || {})); }; const is_obj = (x) => !!x && typeof x === 'obj"
+ },
+ {
+  "id": "0012",
+  "line": 5445,
+  "from": "&&",
+  "to": "||",
+  "context": "); const need_time = (stage, what) => { if (!supplied_now && o.require_supplied_time) stop('INDETERMINATE', stage, 'ti"
+ },
+ {
+  "id": "0013",
+  "line": 5448,
+  "from": "!==",
+  "to": "===",
+  "context": "inish = (code, stage, cause) => { if (cause) { if (code !== 'VERIFIED' && !('revisable_by' in cause)) cause.revisabl"
+ },
+ {
+  "id": "0014",
+  "line": 5448,
+  "from": "&&",
+  "to": "||",
+  "context": "stage, cause) => { if (cause) { if (code !== 'VERIFIED' && !('revisable_by' in cause)) cause.revisable_by = pb_revis"
+ },
+ {
+  "id": "0015",
+  "line": 5448,
+  "from": "!",
+  "to": "",
+  "context": "ge, cause) => { if (cause) { if (code !== 'VERIFIED' && !('revisable_by' in cause)) cause.revisable_by = pb_revisabl"
+ },
+ {
+  "id": "0022",
+  "line": 5463,
+  "from": "&&",
+  "to": "||",
+  "context": "); } catch (e) { if (/nesting depth/i.test(String(e && e.message))) stop('LIMIT_EXCEEDED', 'parse', 'limits.max_"
+ },
+ {
+  "id": "0023",
+  "line": 5464,
+  "from": "&&",
+  "to": "||",
+  "context": "stop('MALFORMED', 'parse', 'json', 'not strict JSON: ' + (e && e.message || e)); } } if (!is_obj(bundle)) stop('"
+ },
+ {
+  "id": "0024",
+  "line": 5464,
+  "from": "||",
+  "to": "&&",
+  "context": "ED', 'parse', 'json', 'not strict JSON: ' + (e && e.message || e)); } } if (!is_obj(bundle)) stop('MALFORMED', '"
+ },
+ {
+  "id": "0027",
+  "line": 5474,
+  "from": ">",
+  "to": ">=",
+  "context": " while (todo.length) { const [x, k] = todo.pop(); if (k > d) d = k; if (d > max_n) break; for (const v of "
+ },
+ {
+  "id": "0033",
+  "line": 5478,
+  "from": "&&",
+  "to": "||",
+  "context": "ng', `nesting depth over ${max_n}`); } if (!raw && Number.isFinite(lim.max_bundle_bytes)) { const n "
+ },
+ {
+  "id": "0046",
+  "line": 5485,
+  "from": "&&",
+  "to": "||",
+  "context": "ROOFBUNDLE') || (!('spec_id' in bundle.hdr) && !(bundle.sig && !bundle.seal))) stop('MALFORMED', 'parse', 'shape.hdr.spe"
+ },
+ {
+  "id": "0048",
+  "line": 5486,
+  "from": "&&",
+  "to": "||",
+  "context": "ringify(bundle.hdr.spec_id)})`); envelope = (bundle.sig && !bundle.seal) ? 'legacy' : ('disclosure' in bundle) ? 'di"
+ },
+ {
+  "id": "0047",
+  "line": 5485,
+  "from": "!",
+  "to": "",
+  "context": "FBUNDLE') || (!('spec_id' in bundle.hdr) && !(bundle.sig && !bundle.seal))) stop('MALFORMED', 'parse', 'shape.hdr.spec_i"
+ },
+ {
+  "id": "0052",
+  "line": 5486,
+  "from": "&&",
+  "to": "||",
+  "context": "ure' : (is_obj(bundle.seal) && !('pub_b64u' in bundle.seal) && !('merkleRoot' in bundle)) ? 'key_beside' : 'native'; "
+ },
+ {
+  "id": "0081",
+  "line": 5499,
+  "from": "&&",
+  "to": "||",
+  "context": "s: ${extra.join(', ')}`); if (s.witness !== undefined && is_obj(s.witness)) { const wx = Object.keys(s.witness).fi"
+ },
+ {
+  "id": "0102",
+  "line": 5513,
+  "from": "===",
+  "to": "!==",
+  "context": ") stop('MALFORMED', 'parse', 'disclosure.profile', envelope === 'disclosure' ? `a disclosure envelope must declare profi"
+ },
+ {
+  "id": "0135",
+  "line": 5543,
+  "from": "<",
+  "to": "<=",
+  "context": "= 1; i < dz.leaves.length; i++) if (!(dz.leaves[i - 1].path < dz.leaves[i].path)) stop('NONCANONICAL', 'parse', 'disclos"
+ },
+ {
+  "id": "0144",
+  "line": 5555,
+  "from": "&&",
+  "to": "||",
+  "context": "ing') { if (x.normalize('NFC') !== x) bad = p; } else if (x && typeof x === 'object') for (const [k, v] of Object.entrie"
+ },
+ {
+  "id": "0151",
+  "line": 5565,
+  "from": "!==",
+  "to": "===",
+  "context": "elling`); } step('canonical', 'Canonical form', raw !== null ? 'bytes equal canonical serialization · NFC ✓' : '"
+ },
+ {
+  "id": "0173",
+  "line": 5598,
+  "from": "===",
+  "to": "!==",
+  "context": " < t) warn('gating', 'algorithm.legacy_use', `${alg} is ${k === 'broken_from' ? 'broken' : 'disallowed'} since ${states["
+ },
+ {
+  "id": "0174",
+  "line": 5599,
+  "from": "===",
+  "to": "!==",
+  "context": "ing', 'algorithm.' + k.replace('_from', ''), `${alg} is ${k === 'broken_from' ? 'broken' : 'disallowed'} since ${states["
+ },
+ {
+  "id": "0192",
+  "line": 5622,
+  "from": "||",
+  "to": "&&",
+  "context": "'REVOKED_KEY', 'crypto', 'key.revoked', `key ${entry.key_id || ''} is revoked`, { key_id: entry.key_id || null }); "
+ },
+ {
+  "id": "0193",
+  "line": 5622,
+  "from": "||",
+  "to": "&&",
+  "context": "y ${entry.key_id || ''} is revoked`, { key_id: entry.key_id || null }); if (is_str(entry.not_after)) { need_ti"
+ },
+ {
+  "id": "0195",
+  "line": 5623,
+  "from": "||",
+  "to": "&&",
+  "context": " validity ended ${entry.not_after}`, { key_id: entry.key_id || null }); } if (is_str(entry.not_before)) { need"
+ },
+ {
+  "id": "0197",
+  "line": 5624,
+  "from": "||",
+  "to": "&&",
+  "context": "alidity starts ${entry.not_before}`, { key_id: entry.key_id || null }); } basis = basis || 'trust_set'; "
+ },
+ {
+  "id": "0218",
+  "line": 5665,
+  "from": "false",
+  "to": "true",
+  "context": "o.pub_override ? 'supplied' : 'bundle'); let sig_ok = false; try { sig_ok = await pb_signature_ok(si"
+ },
+ {
+  "id": "0219",
+  "line": 5669,
+  "from": "&&",
+  "to": "||",
+  "context": "f (/unimplemented|not available|unavailable/i.test(String(e && e.message))) stop('PROVIDER_UNAVAILABLE', 'crypto', 'prov"
+ },
+ {
+  "id": "0220",
+  "line": 5670,
+  "from": "false",
+  "to": "true",
+  "context": "ng(e.message), { algorithm_id: sig_alg }); sig_ok = false; } /* witness: bound in the signed content"
+ },
+ {
+  "id": "0239",
+  "line": 5684,
+  "from": "false",
+  "to": "true",
+  "context": "ed25519_raw_key(w.pub_b64u) : w.pub_b64u); } catch { w_ok = false; } } /* exactly one layer valid: the speci"
+ },
+ {
+  "id": "0243",
+  "line": 5691,
+  "from": "===",
+  "to": "!==",
+  "context": " let note = ''; try { if (sig_alg === 'Ed25519') { const { seal: _s2, sig: _l2, .."
+ },
+ {
+  "id": "0246",
+  "line": 5705,
+  "from": "===",
+  "to": "!==",
+  "context": " `${digest_alg} digest ✓ · ${sig_alg} signature ✓${envelope === 'native' ? ' · Merkle root ✓' : envelope === 'disclosure"
+ },
+ {
+  "id": "0251",
+  "line": 5707,
+  "from": "||",
+  "to": "&&",
+  "context": "s an unsigned note'} from the sealer (${bundle.seal._engine || ''}); no signature covers them`); } /* certificat"
+ },
+ {
+  "id": "0254",
+  "line": 5714,
+  "from": "||",
+  "to": "&&",
+  "context": "p[c.status], 'crypto', 'certificate.' + c.status, c.message || `issuer certificate: ${c.status}`); if (c.status !="
+ },
+ {
+  "id": "0268",
+  "line": 5725,
+  "from": "||",
+  "to": "&&",
+  "context": "IMESTAMP_INVALID', 'crypto', 'timestamp.invalid', t.message || 'the time anchor does not commit to this bundle'); "
+ },
+ {
+  "id": "0270",
+  "line": 5726,
+  "from": "||",
+  "to": "&&",
+  "context": "TAMP_UNTRUSTED', 'crypto', 'timestamp.untrusted', t.message || 'the time anchor is not from a trusted source'); el"
+ },
+ {
+  "id": "0301",
+  "line": 5757,
+  "from": "&&",
+  "to": "||",
+  "context": "ORMATION_MISSING', 'auxiliary', 'aux.item', `aux[${i}] \"${x && x.id}\" was not supplied`); const d = b64u_encode("
+ },
+ {
+  "id": "0302",
+  "line": 5758,
+  "from": "===",
+  "to": "!==",
+  "context": "encode(await digest_bytes(norm_d(x.digest_alg), typeof item === 'string' ? utf8(item) : item)); if (d !== x.dige"
+ },
+ {
+  "id": "0322",
+  "line": 5804,
+  "from": "&&",
+  "to": "||",
+  "context": "y_beside_parent = is_obj(p.seal) && !('pub_b64u' in p.seal) && !('merkleRoot' in p); if (key_beside_parent && "
+ },
+ {
+  "id": "0359",
+  "line": 5850,
+  "from": "&&",
+  "to": "||",
+  "context": "tage: 'internal', predicate: 'exception', message: String(e && e.stack || e).slice(0, 400) }); } } async function pb_d"
+ },
+ {
+  "id": "0360",
+  "line": 5850,
+  "from": "||",
+  "to": "&&",
+  "context": "rnal', predicate: 'exception', message: String(e && e.stack || e).slice(0, 400) }); } } async function pb_disclosure_s"
+ }
+]

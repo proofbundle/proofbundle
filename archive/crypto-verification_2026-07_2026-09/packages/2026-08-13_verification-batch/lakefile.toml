@@ -1,0 +1,8 @@
+name = "proofbundle_crypto_batch"
+version = "0.1.0"
+defaultTargets = ["crypto_batch"]
+
+[[lean_lib]]
+name = "CryptoBatch"
+roots = ["ECDSAP256", "ECDSAP256Theorems", "ECDSAP256Hostile", "SHA256", "SHA256Theorems"]
+srcDir = "10_WORKING/lean"

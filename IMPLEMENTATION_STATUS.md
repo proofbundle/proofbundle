@@ -70,11 +70,8 @@ syntactically-intended Lean 4 source for the most foundational types
 the spec's theorem-acceptance rules demand, explicitly labeled as unverified
 pending a toolchain this session does not have.
 
-This mirrors, deliberately, the exact caution `docs/CORPUS-STATE.md`
-already applies to the pre-existing mc108 Coq corpus in this repository:
-Coq is equally absent here, and every claim about that corpus is already
-labeled `[relayed]` rather than `[verified here]` for that reason. The same
-standard applies to this new Lean tree.
+The same standard applies as for the Coq corpus in `corpus/coq/`: a
+theorem counts only once a toolchain has compiled it.
 
 ## Closure rule: not passed, and this file says so on purpose
 

@@ -1,0 +1,20 @@
+{
+  "date": "2026-07-28",
+  "node": "v24.14.0",
+  "nodeLinkedOpenSsl": "3.5.5",
+  "shellOpenSsl": "3.0.13",
+  "platform": "linux",
+  "architecture": "x64",
+  "observed": {
+    "mlKem": ["512", "768", "1024"],
+    "mlDsa": ["44", "65", "87"],
+    "slhDsa": [
+      "sha2-128s", "shake-128s", "sha2-128f", "shake-128f",
+      "sha2-192s", "shake-192s", "sha2-192f", "shake-192f",
+      "sha2-256s", "shake-256s", "sha2-256f", "shake-256f"
+    ],
+    "nodeKemApi": ["encapsulate", "decapsulate"],
+    "passwordKdf": ["argon2id", "pbkdf2-hmac-sha256"]
+  },
+  "qualification": "Capability observation does not assert FIPS validation, constant-time behavior, or deployment policy approval."
+}

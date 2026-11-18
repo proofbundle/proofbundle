@@ -1,0 +1,212 @@
+[
+ {
+  "id": "pb-det-001",
+  "detects": [
+   "0025"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "hdr.bundle_id is the number 42, not a string (shape check precedes crypto)",
+  "mutants": {
+   "0025": "DETECTED (DIGEST_MISMATCH)"
+  }
+ },
+ {
+  "id": "pb-det-002",
+  "detects": [
+   "0042"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "seal.digest_b64u is the number 7, not a string",
+  "mutants": {
+   "0042": "DETECTED (DIGEST_MISMATCH)"
+  }
+ },
+ {
+  "id": "pb-det-003",
+  "detects": [],
+  "expected": "PAYLOAD_MISSING",
+  "baseline": "PAYLOAD_MISSING",
+  "construction": "key-beside envelope with its payload field removed",
+  "mutants": {}
+ },
+ {
+  "id": "pb-det-004",
+  "detects": [
+   "0061"
+  ],
+  "expected": "PAYLOAD_MISSING",
+  "baseline": "PAYLOAD_MISSING",
+  "construction": "key-beside envelope whose payload is the empty string",
+  "mutants": {
+   "0061": "DETECTED (DIGEST_MISMATCH)"
+  }
+ },
+ {
+  "id": "pb-det-005",
+  "detects": [
+   "0070"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "disclosure object carries an extra key besides digest_alg and leaves",
+  "mutants": {
+   "0070": "DETECTED (VERIFIED)"
+  }
+ },
+ {
+  "id": "pb-det-006",
+  "detects": [
+   "0073",
+   "0074"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "disclosure.leaves is the string \"x\", not an array",
+  "mutants": {
+   "0073": "DETECTED (INTERNAL_ERROR)",
+   "0074": "DETECTED (INTERNAL_ERROR)"
+  }
+ },
+ {
+  "id": "pb-det-007",
+  "detects": [
+   "0081"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "withheld leaf path meta.subject.x has a second dot (outside hdr | meta.<field> | payload.<field>), order kept",
+  "mutants": {
+   "0081": "DETECTED (VERIFIED_WITH_WARNINGS)"
+  }
+ },
+ {
+  "id": "pb-det-008",
+  "detects": [
+   "0086"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "withheld leaf_b64u is \"!!!\", not base64url",
+  "mutants": {
+   "0086": "DETECTED (NONCANONICAL)"
+  }
+ },
+ {
+  "id": "pb-det-009",
+  "detects": [
+   "0143"
+  ],
+  "expected": "SIDE_INFORMATION_MISSING",
+  "baseline": "SIDE_INFORMATION_MISSING",
+  "construction": "key-beside envelope with the supplied key given as the number 123",
+  "mutants": {
+   "0143": "DETECTED (INTERNAL_ERROR)"
+  }
+ },
+ {
+  "id": "pb-det-010",
+  "detects": [
+   "0204"
+  ],
+  "expected": "VERIFIED",
+  "baseline": "VERIFIED",
+  "construction": "valid digest-bound lineage; parent_bundles also holds an empty object, which is not a bundle and is ignored",
+  "mutants": {
+   "0204": "DETECTED (INTERNAL_ERROR)"
+  }
+ },
+ {
+  "id": "pb-det-011",
+  "detects": [
+   "0156"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "unbound witness whose sig_alg is the number 7",
+  "mutants": {
+   "0156": "DETECTED (UNKNOWN_ALGORITHM)"
+  }
+ },
+ {
+  "id": "pb-det-012",
+  "detects": [
+   "0156"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "unbound witness whose pub_b64u is the number 7",
+  "mutants": {
+   "0156": "DETECTED (INDETERMINATE)"
+  }
+ },
+ {
+  "id": "pb-det-013",
+  "detects": [
+   "0156"
+  ],
+  "expected": "MALFORMED",
+  "baseline": "MALFORMED",
+  "construction": "unbound witness whose signature_b64u is the number 7",
+  "mutants": {
+   "0156": "NOT DETECTED (MALFORMED)"
+  }
+ },
+ {
+  "id": "pb-det-014",
+  "detects": [
+   "0120"
+  ],
+  "expected": "VERIFIED_WITH_WARNINGS",
+  "baseline": "VERIFIED_WITH_WARNINGS",
+  "construction": "verified at exactly Ed25519 disallowed_from (2036-01-01T00:00:00Z); a trusted time anchor (2030-01-01) precedes it (legacy use, warned); deprecated algorithms refused: once disallowed, the deprecation refusal no longer applies",
+  "mutants": {
+   "0120": "DETECTED (DEPRECATED_ALGORITHM)"
+  }
+ },
+ {
+  "id": "pb-det-015",
+  "detects": [],
+  "expected": "DEPRECATED_ALGORITHM",
+  "baseline": "DEPRECATED_ALGORITHM",
+  "construction": "verified at exactly Ed25519 deprecated_from (2031-01-01T00:00:00Z) with deprecated algorithms refused: deprecated \"since\" includes the instant",
+  "mutants": {}
+ },
+ {
+  "id": "pb-det-016",
+  "detects": [
+   "0222"
+  ],
+  "expected": "POLICY_INDETERMINATE",
+  "baseline": "POLICY_INDETERMINATE",
+  "construction": "policy requires op.length, context.op is the string \"xy\": a context path walks objects only, so a string property is not a context value",
+  "mutants": {
+   "0222": "DETECTED (VERIFIED)"
+  }
+ },
+ {
+  "id": "pb-det-017",
+  "detects": [
+   "0235"
+  ],
+  "expected": "EVIDENCE_INCOMPLETE",
+  "baseline": "EVIDENCE_INCOMPLETE",
+  "construction": "prediction whose falsification_condition is the number 7",
+  "mutants": {
+   "0235": "DETECTED (NULL)"
+  }
+ },
+ {
+  "id": "pb-det-018",
+  "detects": [
+   "0218"
+  ],
+  "expected": "LINEAGE_INVALID",
+  "baseline": "LINEAGE_INVALID",
+  "construction": "key-beside parent, no key supplied, child ref is an object naming the parent with no parent_digest: nothing binds it",
+  "mutants": {
+   "0218": "DETECTED (VERIFIED_WITH_WARNINGS)"
+  }
+ }
+]

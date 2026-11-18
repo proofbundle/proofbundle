@@ -1,0 +1,14 @@
+{
+  "name": "proofbundle",
+  "version": "0.9.0",
+  "private": false,
+  "description": "Signed, Merkle-committed provenance envelope for any digital artifact — offline, single-file, no trust required.",
+  "license": "Apache-2.0 OR MIT",
+  "type": "module",
+  "bin": { "proofbundle": "cli/proofbundle-cli.mjs" },
+  "scripts": {
+    "selftest": "node cli/proofbundle-cli.mjs selftest"
+  },
+  "dependencies": { "jsdom": "^24.0.0" },
+  "engines": { "node": ">=18" }
+}

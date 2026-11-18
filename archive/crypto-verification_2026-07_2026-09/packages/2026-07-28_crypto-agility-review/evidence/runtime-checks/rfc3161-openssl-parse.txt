@@ -1,0 +1,10 @@
+date=2026-07-28
+generator=src/timestamp.mjs createRfc3161RequestForMessage
+parser=OpenSSL 3.0.13 `openssl ts -query -in request.tsq -text`
+exit=0
+Version: 1
+Hash Algorithm: sha256
+Message imprint bytes: 32
+Nonce: 0x075BCD15
+Certificate required: yes
+qualification=This checks DER interoperability only; it is not a TSA response or trust-chain verification.

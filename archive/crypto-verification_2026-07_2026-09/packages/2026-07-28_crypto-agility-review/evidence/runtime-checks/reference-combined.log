@@ -1,0 +1,26 @@
+runtime=v24.14.0
+$ node t_keccak.mjs
+exit=0 signal=none
+keccak: 88 pass, 0 fail
+
+
+
+runtime=v24.14.0
+$ node t_mlkem.mjs
+exit=0 signal=none
+mlkem: 40 pass, 0 fail
+
+
+
+runtime=v24.14.0
+$ node t_ref.mjs
+exit=0 signal=none
+cross-implementation: 45 pass, 0 fail  (9 vectors x 5 checks)
+
+
+
+runtime=v24.14.0
+$ node t_node_interop.mjs
+exit=0 signal=none
+node/pure-js ML-KEM interoperability: 30 pass, 0 fail (Node encapsulation, independent pure-JS decapsulation)
+

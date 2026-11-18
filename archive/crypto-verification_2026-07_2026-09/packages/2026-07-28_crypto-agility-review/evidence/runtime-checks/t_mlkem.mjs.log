@@ -1,0 +1,5 @@
+runtime=v24.14.0
+$ node t_mlkem.mjs
+exit=0 signal=none
+mlkem: 40 pass, 0 fail
+

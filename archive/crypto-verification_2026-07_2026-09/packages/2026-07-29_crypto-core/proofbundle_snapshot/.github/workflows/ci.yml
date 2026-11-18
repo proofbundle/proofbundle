@@ -1,0 +1,41 @@
+name: CI
+
+# NOTE: auto-run on push is intentionally disabled while the account's Actions
+# are billing-locked (a locked account fails every job in ~1s, which is noise,
+# not a real result). Re-enable the `push:` / `pull_request:` triggers below once
+# Actions are unlocked — the job itself is correct and passes locally (65/65).
+# Until then, run it on demand from the Actions tab (Run workflow).
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+
+jobs:
+  self-test:
+    name: 65/65 self-test (headless)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run built-in self-test against the shipped engine
+        env:
+          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+        run: node cli/proofbundle-cli.mjs selftest
+
+      - name: Fail if self-test did not report a full pass
+        env:
+          PROOFBUNDLE_ENGINE: ${{ github.workspace }}/proofbundle.html
+        run: |
+          out="$(node cli/proofbundle-cli.mjs selftest)"
+          echo "$out"
+          echo "$out" | grep -Eq 'self-test: ([0-9]+)/\1 pass' || {
+            echo "::error::self-test did not report an all-pass result"; exit 1; }

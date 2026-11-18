@@ -1,0 +1,60 @@
+{
+  "model": "claude-sonnet-5",
+  "agent_role": "blake3",
+  "task_description": "Build crypto-core/blake3.mjs (from-scratch BLAKE3 per the official specification, pure JS arithmetic, no cryptographic library) and crypto-core/blake3.test.mjs (known-answer vectors plus structural checks), then seal a provenance worklog.",
+  "timestamp": "2026-07-27T00:45:00Z",
+  "files_created": [
+    "crypto-core/blake3.mjs",
+    "crypto-core/blake3.test.mjs",
+    "blake3_agent_worklog.json",
+    "blake3_agent_identity.json",
+    "blake3_agent_aibom.json"
+  ],
+  "files_touched": [
+    "crypto-core/blake3.mjs",
+    "crypto-core/blake3.test.mjs",
+    "blake3_agent_worklog.json",
+    "blake3_agent_identity.json",
+    "blake3_agent_aibom.json"
+  ],
+  "components": {
+    "compression_function": "G mixing function (add-rotr32 by 16/12/8/7) over a 16-word 32-bit state, 7 rounds",
+    "message_schedule": "MSG_PERMUTATION = [2,6,3,10,7,0,4,13,1,11,12,5,9,14,15,8], applied between rounds",
+    "chunking": "1024-byte chunks, each chained across up to 16 64-byte blocks",
+    "tree": "left-complete binary Merkle tree over chunk chaining values, built incrementally with a stack merged on trailing-zero-bits of the running chunk count",
+    "domain_flags": "CHUNK_START=1, CHUNK_END=2, PARENT=4, ROOT=8, KEYED_HASH=16, DERIVE_KEY_CONTEXT=32, DERIVE_KEY_MATERIAL=64",
+    "iv": "same 8 constants as SHA-256's initial hash values",
+    "xof": "arbitrary-length output via re-invoking compress on the fixed root inputs with an increasing output-block counter",
+    "exports": ["blake3(input, outLen=32)", "blake3Keyed(input, key32, outLen=32)", "blake3DeriveKey(context, keyMaterial, outLen=32)", "blake3Hex(input, outLen=32)"]
+  },
+  "no_crypto_library_imported": true,
+  "test_vector_provenance": {
+    "source": "https://raw.githubusercontent.com/BLAKE3-team/BLAKE3/master/test_vectors/test_vectors.json (official BLAKE3-team/BLAKE3 repository)",
+    "retrieval_method": "WebFetch tool (goes through an intermediate LLM summarization step, not a byte-exact transfer)",
+    "input_lengths_requested": [0,1,2,3,4,5,6,7,8,63,64,65,127,128,129,1023,1024,1025,2048,2049,3072,3073,4096,4097,5120,6144,7168,8192,16384,31744],
+    "fields_fetched": 90,
+    "fields_found_corrupted_in_transit": 3,
+    "corrupted_fields": [
+      { "input_len": 7, "field": "derive_key", "defect": "352 hex chars instead of required 262; tail was a verbatim duplicate of input_len=1's derive_key tail" },
+      { "input_len": 127, "field": "keyed_hash", "defect": "byte-for-byte identical to input_len=1023's keyed_hash (impossible for genuine distinct-input BLAKE3 outputs); did not match the from-spec implementation" },
+      { "input_len": 127, "field": "derive_key", "defect": "byte-for-byte identical to input_len=1023's derive_key; did not match the from-spec implementation" }
+    ],
+    "validation_method": "Each fetched field was checked for correct hex length and for accidental duplication across distinct input_len cases, then cross-checked against crypto-core/blake3.mjs (written independently from the spec, before this validation pass). Only fields the implementation reproduced exactly were kept; all others were dropped rather than guessed at.",
+    "fields_kept": 87,
+    "kat_breakdown": { "hash": "30/30", "keyed_hash": "29/30 (input_len=127 excluded)", "derive_key": "28/30 (input_len=7 and input_len=127 excluded)" }
+  },
+  "accomplishments": [
+    "Implemented BLAKE3 from the official specification in pure JS (crypto-core/blake3.mjs): compression function, 7-round message schedule, chunk chaining, Merkle tree, domain flags, IV, keyed hash, derive_key, and XOF",
+    "Fetched official test vectors and discovered + isolated 3 corrupted fields introduced by the fetch pipeline's summarization step, rather than trusting them at face value",
+    "Cross-validated all fetched vectors against the independently-written implementation, keeping only confirmed-correct fields (87 of 90)",
+    "Generated crypto-core/blake3.test.mjs programmatically (JSON.stringify from validated data straight into source) to avoid manual re-transcription errors on ~87 long hex strings",
+    "Added 46 structural checks: determinism, XOF prefix consistency, chunk/tree-boundary continuity, key-sensitivity, avalanche",
+    "Ran the test suite: 133 pass, 0 fail",
+    "Generated Ed25519 identity key and sealed the worklog"
+  ],
+  "test_result": "133 pass, 0 fail (87 official KAT checks + 46 structural checks)",
+  "crypto_identity": "Ed25519",
+  "crypto_digest": "SHA-256",
+  "worklog_path": "blake3_agent_worklog.json",
+  "identity_key_path": "blake3_agent_identity.json"
+}

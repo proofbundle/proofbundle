@@ -1,0 +1,10 @@
+{
+  "all_lean_compiled": true,
+  "axiom_audit_modules": {},
+  "boundary_note": "Originals are unchanged. Working base copies define removed Array.get! via total Array.getD only for Lean-4.29 compatibility. This does not establish Fin-indexed bounds safety.",
+  "lean_exit_codes": {
+    "ECDSAP256.lean": 0,
+    "SHA256.lean": 0
+  },
+  "pass": "compatibility-pass-2"
+}

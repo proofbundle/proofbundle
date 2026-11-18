@@ -1,0 +1,91 @@
+[
+  {
+    "file": "chacha20.lean",
+    "original_sha256": "e027e745d1c878e9944a2d817f2cae61ddc7893150c601d0a489627bd5d98ec8",
+    "repaired_sha256": "66600a4501369e094f409089cbbe17eec33d46f5042df4a1aed720b9731a4c5e",
+    "mechanical_surplus_paren_fixes": 15,
+    "manual_repairs": [],
+    "changed": true
+  },
+  {
+    "file": "ed25519.lean",
+    "original_sha256": "12f6a47d34b4b66488e696a85194f0632e4793c5bf3ebce5a715392178329d50",
+    "repaired_sha256": "d128f894c77081bea8c8162664ab109082ca544c718e066d3e59411e254abb61",
+    "mechanical_surplus_paren_fixes": 0,
+    "manual_repairs": [
+      "Renamed the extended-point addition declaration from ed25519_add to ed25519_point_add to eliminate a global-name collision with field addition.",
+      "Updated the scalar-multiplication call site to use ed25519_point_add; field-level ed25519_add calls remain unchanged."
+    ],
+    "changed": true
+  },
+  {
+    "file": "ed25519_sign_verify.lean",
+    "original_sha256": "758274a080632a97f8bae6d08ea466a043652d01b1a3aa9d68c4168efaf4e653",
+    "repaired_sha256": "758274a080632a97f8bae6d08ea466a043652d01b1a3aa9d68c4168efaf4e653",
+    "mechanical_surplus_paren_fixes": 0,
+    "manual_repairs": [],
+    "changed": false
+  },
+  {
+    "file": "hmac_hkdf_proofbundle.lean",
+    "original_sha256": "1d9b3f37eba18c640d81651d83de756f0dc222d3ffe873180c19d27d27135f2f",
+    "repaired_sha256": "1d9b3f37eba18c640d81651d83de756f0dc222d3ffe873180c19d27d27135f2f",
+    "mechanical_surplus_paren_fixes": 0,
+    "manual_repairs": [],
+    "changed": false
+  },
+  {
+    "file": "mlkem768.lean",
+    "original_sha256": "e8aa8ef405ea9ec7cac459a50544578cc1b0ea375bf41ef23e54700ec10ac6e7",
+    "repaired_sha256": "308af37edf0257b5d4da57ba6298bc9f88b4b4e89d16da174b29ffb7f65e3486",
+    "mechanical_surplus_paren_fixes": 255,
+    "manual_repairs": [
+      "Added explicit zero constructors for Word512, Poly256, and Vec3Poly so high-level stubs are type-correct in shape.",
+      "Replaced malformed keygen/encaps/decaps constructor expressions with explicitly labeled structural placeholders. No cryptographic-completeness claim is made."
+    ],
+    "changed": true
+  },
+  {
+    "file": "multi_agent_orchestration.lean",
+    "original_sha256": "8d5c8b10d561bdded218df55e1789627bba401514410b1c7068a5d88f1b0502b",
+    "repaired_sha256": "8d5c8b10d561bdded218df55e1789627bba401514410b1c7068a5d88f1b0502b",
+    "mechanical_surplus_paren_fixes": 0,
+    "manual_repairs": [],
+    "changed": false
+  },
+  {
+    "file": "p256_field.lean",
+    "original_sha256": "30c07f266f2c6fac4d76e2f11fc8cab768ba7dd2f2352e75baab964b265075cb",
+    "repaired_sha256": "9b6b69800fcb94117cf3200d5e022ce8c7fb791481f010a761219a04e961e6fc",
+    "mechanical_surplus_paren_fixes": 22,
+    "manual_repairs": [
+      "Removed an incomplete duplicate w32eq generator expansion; retained the complete following definition.",
+      "Removed an incomplete duplicate w256addc generator expansion; retained the corrected carry-chain definition."
+    ],
+    "changed": true
+  },
+  {
+    "file": "p256_field_hardened.lean",
+    "original_sha256": "8e4355baeb37d34dd046c8303209e9161003332c8bf4960bf37760a0106984fa",
+    "repaired_sha256": "ada247a5f363c0b2c4604450966fd8f5eb0d7052685dd68d4de6be89ce2b1807",
+    "mechanical_surplus_paren_fixes": 53,
+    "manual_repairs": [],
+    "changed": true
+  },
+  {
+    "file": "p256_point_ops.lean",
+    "original_sha256": "02875c0e99407fc7aaf91fbd7928459c12b7e18ee30fee023ba3fe4d6fc9751f",
+    "repaired_sha256": "02875c0e99407fc7aaf91fbd7928459c12b7e18ee30fee023ba3fe4d6fc9751f",
+    "mechanical_surplus_paren_fixes": 0,
+    "manual_repairs": [],
+    "changed": false
+  },
+  {
+    "file": "poly1305.lean",
+    "original_sha256": "a33ea6da004db030bb05e4ce084068f20acbddc099650b06944d36cb78eb032b",
+    "repaired_sha256": "92b3679dc55f22db38cf40567464dea1d3da04582879c5877c43a1ec2941291e",
+    "mechanical_surplus_paren_fixes": 4,
+    "manual_repairs": [],
+    "changed": true
+  }
+]

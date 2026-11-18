@@ -1,0 +1,28 @@
+{
+  "name": "@proofbundle/crypto-agility-review-packet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.mjs",
+  "exports": "./src/index.mjs",
+  "description": "Reviewer-ready ProofBundle cryptographic agility, deterministic encoding, integrity structures, and protocol-invariant proofs.",
+  "engines": {
+    "node": ">=24.8.0"
+  },
+  "scripts": {
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "test:full": "PROOFBUNDLE_FULL_TESTS=1 node --test --test-concurrency=1 test/*.test.mjs",
+    "check": "npm run check:syntax && npm test",
+    "reference:test": "node scripts/check-reference.mjs",
+    "verify": "npm run check && npm run reference:test && npm run proofs:jscoq",
+    "verify:full": "npm run check:syntax && npm run test:full && npm run reference:test && npm run proofs:jscoq",
+    "example": "node examples/create-and-verify.mjs",
+    "manifest": "node scripts/build-manifest.mjs",
+    "proofs:jscoq": "node scripts/check-proofs-jscoq.mjs"
+  },
+  "dependencies": {
+    "@noble/ciphers": "2.2.0",
+    "@noble/hashes": "2.2.0"
+  }
+}

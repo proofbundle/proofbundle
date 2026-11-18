@@ -1,0 +1,118 @@
+{
+  "payload": [
+    {
+      "timestamp": "2026-07-27T08:05:00Z",
+      "action": "read_house_style_references",
+      "description": "Read crypto-core/sha256.mjs, crypto-core/sha256.test.mjs, and crypto-core/keccak.mjs in full to establish house style (pure-JS lane arithmetic, header comment conventions, export shapes) and the verification standard (compare against node:crypto, hardcode published known-answer values, print 'N pass, M fail', process.exit(fail?1:0)).",
+      "result": "Confirmed sha256.mjs uses Uint32Array/>>>0 arithmetic for 32-bit words; keccak.mjs uses BigInt with a 64-bit mask for 64-bit lanes. Adopted the same split for sha512.mjs and blake2.mjs."
+    },
+    {
+      "timestamp": "2026-07-27T08:08:00Z",
+      "action": "surveyed_repo",
+      "description": "Listed the proofbundle repo tree, read cli/proofbundle-cli.mjs and package.json to understand the keygen/seal/verify commands, and read (read-only, not modified) mlkem_scaffold_agent_worklog.json / mlkem_scaffold_agent_aibom.json as a format precedent for another agent's provenance files.",
+      "result": "Confirmed CLI usage: 'node cli/proofbundle-cli.mjs keygen|seal|verify'. Confirmed no forbidden files (mlkem*, keccak*, sha256*, other agents' *_agent_* files) would be touched."
+    },
+    {
+      "timestamp": "2026-07-27T08:15:00Z",
+      "action": "probed_node_crypto_limits",
+      "description": "Checked which hash algorithm names and options node:crypto exposes in this environment (Node v24.18.0 / OpenSSL 3.5.7).",
+      "result": "'sha512','sha384','blake2b512','blake2s256' all work for default parameters. createHash('blake2b512',{outputLength:N}) throws 'not XOF or invalid length'. The {key} option is silently ignored (a 100-byte, spec-invalid key produced byte-identical output to no key). Concluded keyed/variable-length BLAKE2 needed independent KAT sources rather than a live Node oracle."
+    },
+    {
+      "timestamp": "2026-07-27T08:25:00Z",
+      "action": "derived_sha512_constants",
+      "description": "Wrote a throwaway BigInt script (scratchpad/gen_sha512_constants.mjs, not part of the deliverable) that derives SHA-512's K[80]/H0 and SHA-384's H0 from first principles per FIPS 180-4 4.2.3/5.3.4/5.3.5 (fractional parts of cube/square roots of primes via exact integer isqrt/icbrt), rather than transcribing the constants from memory.",
+      "result": "Cross-validated the derivation method by reproducing SHA-256's K and H0 with the same code and diffing against the already-trusted literals in crypto-core/sha256.mjs: exact match. Also verified structurally that the high 32 bits of each of the first 64 SHA-512 K words equal the corresponding SHA-256 K word. Used the derived hex literals directly in sha512.mjs."
+    },
+    {
+      "timestamp": "2026-07-27T08:35:00Z",
+      "action": "fetched_reference_specs",
+      "description": "Fetched RFC 7693 raw text (rfc-editor.org) for the exact SIGMA permutation table, G mixing function, F compression function pseudocode, and parameter-block layout; fetched a NIST-vector mirror (di-mgt.com.au) for SHA-384/512 known-answer values (empty string, 'abc', the 112-character multi-block message, one million 'a' characters).",
+      "result": "Confirmed SIGMA/G/F pseudocode matches what was implemented. Cross-verified every fetched NIST vector against a live node:crypto computation before hardcoding it (all matched exactly), including the million-'a' stress vectors for both SHA-512 and SHA-384."
+    },
+    {
+      "timestamp": "2026-07-27T08:45:00Z",
+      "action": "fetched_official_blake2_kat",
+      "description": "Downloaded github.com/BLAKE2/BLAKE2's testvectors/blake2-kat.json directly (3072 entries covering blake2b/blake2s/blake2bp/blake2sp/blake2xb/blake2xs, unkeyed and keyed, at every input length 0..255).",
+      "result": "Verified its unkeyed entries reproduce node:crypto's blake2b512/blake2s256 output exactly, confirming the file's authenticity. Used its keyed entries (which Node cannot verify here) as an independent oracle, including block-boundary lengths 63/64/65 (BLAKE2s) and 127/128/129 (BLAKE2b), both keyed and unkeyed."
+    },
+    {
+      "timestamp": "2026-07-27T08:52:00Z",
+      "action": "fetched_go_stdlib_vectors",
+      "description": "Downloaded golang.org/x/crypto's blake2s_test.go and blake2b_test.go raw source directly and located the hashes128 table (BLAKE2s New128: keyed, 16-byte/128-bit output).",
+      "result": "Obtained an independently published known-answer set for a non-default BLAKE2s output length combined with keying, which neither Node nor the default-length KAT file could cover."
+    },
+    {
+      "timestamp": "2026-07-27T08:58:00Z",
+      "action": "python_oracle_for_blake2b_outlen",
+      "description": "Used Python 3.14's hashlib.blake2b (an independent CPython C-extension implementation) to generate cross-check values for several non-default BLAKE2b output lengths (1, 16, 20, 48 bytes) and a keyed+short-output combination.",
+      "result": "All matched my implementation on first try. Noted hashlib.blake2s crashes with an 'Illegal instruction' in this specific environment (reproducible across hashlib.blake2s(), hashlib.new('blake2s'), and the raw _blake2.blake2s C extension) -- an unrelated native-code bug in this Python build, not something to route BLAKE2s output-length verification through; used the Go KAT for that instead."
+    },
+    {
+      "timestamp": "2026-07-27T09:05:00Z",
+      "action": "created_sha512_mjs",
+      "file": "crypto-core/sha512.mjs",
+      "description": "Implemented SHA-512 and SHA-384 from scratch per FIPS 180-4 (sections 4.2.3, 5.3.4, 5.3.5, 6.4, 6.5): 64-bit words as BigInt with a 64-bit mask, DataView for big-endian word I/O and 128-bit length padding. Exports sha512, sha384, sha512Hex, sha384Hex. No cryptographic library imports.",
+      "result": "File created; later verified against node:crypto and hardcoded FIPS/NIST vectors with 0 failures."
+    },
+    {
+      "timestamp": "2026-07-27T09:20:00Z",
+      "action": "created_blake2_mjs",
+      "file": "crypto-core/blake2.mjs",
+      "description": "Implemented BLAKE2b (64-bit, BigInt) and BLAKE2s (32-bit, Uint32Array) from scratch per RFC 7693: shared SIGMA schedule, per-width G mixing function and F compression function, RFC 3.3 block/padding/counter logic including the keyed and empty-message special cases. Exports blake2b, blake2s, blake2bKeyed, blake2sKeyed. No cryptographic library imports.",
+      "result": "File created; later verified against node:crypto plus RFC7693/blake2-kat.json/Go/Python-derived KAT with 0 failures."
+    },
+    {
+      "timestamp": "2026-07-27T09:30:00Z",
+      "action": "created_sha512_test_mjs",
+      "file": "crypto-core/sha512.test.mjs",
+      "description": "Wrote the test harness: node:crypto cross-check over 11 messages (empty, 'abc', NIST 112-char message, padding-threshold and block-size boundaries at +/-1 byte, million-'a' stress vector) x {sha512,sha384}, plus an 8-entry hardcoded FIPS 180-4/NIST known-answer section. Prints 'N pass, M fail' and exits 1 on failure, matching sha256.test.mjs.",
+      "result": "File created."
+    },
+    {
+      "timestamp": "2026-07-27T09:45:00Z",
+      "action": "created_blake2_test_mjs",
+      "file": "crypto-core/blake2.test.mjs",
+      "description": "Wrote the test harness: node:crypto cross-check over 12 messages (incl. both algorithms' block boundaries at +/-1 byte and a stress vector) x {blake2b,blake2s}, keyed-vs-unkeyed and outLen-changes-the-whole-digest sanity assertions, plus a 27-entry hardcoded known-answer section spanning RFC 7693 Appendix A/B, the official blake2-kat.json (unkeyed and keyed, several lengths), Go's New128 vectors, and Python-hashlib-derived BLAKE2b vectors at output lengths 1/16/20/32/48 bytes. Prints 'N pass, M fail' and exits 1 on failure.",
+      "result": "File created."
+    },
+    {
+      "timestamp": "2026-07-27T09:50:00Z",
+      "action": "ran_sha512_tests",
+      "description": "Executed: node crypto-core/sha512.test.mjs",
+      "result": "36 pass, 0 fail. ~10.7s wall time (dominated by the two million-character stress-vector runs under BigInt arithmetic)."
+    },
+    {
+      "timestamp": "2026-07-27T09:51:00Z",
+      "action": "ran_blake2_tests",
+      "description": "Executed: node crypto-core/blake2.test.mjs",
+      "result": "55 pass, 0 fail. ~3.7s wall time."
+    },
+    {
+      "timestamp": "2026-07-27T09:55:00Z",
+      "action": "confirmed_no_forbidden_files_touched",
+      "description": "Reviewed the full set of files created or modified this session against the constraint list (no mlkem*, keccak*, sha256*, or other agents' *_agent_* files).",
+      "result": "Only crypto-core/sha512.mjs, crypto-core/sha512.test.mjs, crypto-core/blake2.mjs, crypto-core/blake2.test.mjs, and this agent's own sha512_blake2_agent_* provenance files were created. Nothing forbidden was touched."
+    }
+  ],
+  "hdr": {
+    "profile": "PB-INTEGRITY-1",
+    "bundle_id": "Kgc7VFh4hmRtO6cC6YMEDAv-f_lyyQEV313M7VjyeL8",
+    "spec_id": "PROOFBUNDLE",
+    "spec_ver": "2.1.0"
+  },
+  "meta": {
+    "created_at": "2026-07-27T10:04:14.254Z",
+    "canonical_encoding": "PB-CANON-JSON-1",
+    "digest_alg": "SHA-256",
+    "sig_alg": "Ed25519"
+  },
+  "merkleRoot": "zgFDVZ_BIiIrOB2rjf8qLuGoJY2dFRkoXFKRXPxS59I",
+  "seal": {
+    "digest_alg": "SHA-256",
+    "digest_b64u": "YbyyajO2QHT2dS5LL49MS6Nry8QnNxZxqJroqjzRN3c",
+    "sig_alg": "Ed25519",
+    "pub_b64u": "QyHrlellCMhalqpeWyPgkFNRLIsJGv-tgZsIRjJWIek",
+    "signature_b64u": "I9JgRTDoKZx4IqhRkq1SDeXTv5LYy1NLv0gSRv8GHOEFbrNAOPI-miCohWOTofUFTrSCHJihdM0IbSIJUoO2Aw"
+  }
+}

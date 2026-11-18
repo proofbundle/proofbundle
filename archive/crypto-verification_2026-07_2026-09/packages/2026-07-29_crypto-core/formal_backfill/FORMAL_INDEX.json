@@ -1,0 +1,477 @@
+[
+  {
+    "algorithm": "sha256",
+    "variants": [
+      "SHA-256"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/sha256.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha256",
+    "variants": [
+      "SHA-256"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/sha256.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha256",
+    "variants": [
+      "SHA-256"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/sha256.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha256",
+    "variants": [
+      "SHA-256"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/sha256.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha256",
+    "variants": [
+      "SHA-256"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/sha256.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha512",
+    "variants": [
+      "SHA-384",
+      "SHA-512"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/sha512.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha512",
+    "variants": [
+      "SHA-384",
+      "SHA-512"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/sha512.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha512",
+    "variants": [
+      "SHA-384",
+      "SHA-512"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/sha512.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha512",
+    "variants": [
+      "SHA-384",
+      "SHA-512"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/sha512.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "sha512",
+    "variants": [
+      "SHA-384",
+      "SHA-512"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/sha512.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "keccak",
+    "variants": [
+      "SHA3-256",
+      "SHA3-384",
+      "SHA3-512",
+      "SHAKE128",
+      "SHAKE256"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/keccak.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "keccak",
+    "variants": [
+      "SHA3-256",
+      "SHA3-384",
+      "SHA3-512",
+      "SHAKE128",
+      "SHAKE256"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/keccak.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "keccak",
+    "variants": [
+      "SHA3-256",
+      "SHA3-384",
+      "SHA3-512",
+      "SHAKE128",
+      "SHAKE256"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/keccak.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "keccak",
+    "variants": [
+      "SHA3-256",
+      "SHA3-384",
+      "SHA3-512",
+      "SHAKE128",
+      "SHAKE256"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/keccak.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "keccak",
+    "variants": [
+      "SHA3-256",
+      "SHA3-384",
+      "SHA3-512",
+      "SHAKE128",
+      "SHAKE256"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/keccak.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake2",
+    "variants": [
+      "BLAKE2b",
+      "BLAKE2s"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/blake2.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake2",
+    "variants": [
+      "BLAKE2b",
+      "BLAKE2s"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/blake2.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake2",
+    "variants": [
+      "BLAKE2b",
+      "BLAKE2s"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/blake2.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake2",
+    "variants": [
+      "BLAKE2b",
+      "BLAKE2s"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/blake2.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake2",
+    "variants": [
+      "BLAKE2b",
+      "BLAKE2s"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/blake2.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake3",
+    "variants": [
+      "BLAKE3",
+      "BLAKE3-keyed",
+      "BLAKE3-derive-key",
+      "BLAKE3-XOF"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/blake3.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake3",
+    "variants": [
+      "BLAKE3",
+      "BLAKE3-keyed",
+      "BLAKE3-derive-key",
+      "BLAKE3-XOF"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/blake3.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake3",
+    "variants": [
+      "BLAKE3",
+      "BLAKE3-keyed",
+      "BLAKE3-derive-key",
+      "BLAKE3-XOF"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/blake3.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake3",
+    "variants": [
+      "BLAKE3",
+      "BLAKE3-keyed",
+      "BLAKE3-derive-key",
+      "BLAKE3-XOF"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/blake3.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "blake3",
+    "variants": [
+      "BLAKE3",
+      "BLAKE3-keyed",
+      "BLAKE3-derive-key",
+      "BLAKE3-XOF"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/blake3.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ed25519",
+    "variants": [
+      "Ed25519"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/ed25519.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ed25519",
+    "variants": [
+      "Ed25519"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/ed25519.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ed25519",
+    "variants": [
+      "Ed25519"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/ed25519.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ed25519",
+    "variants": [
+      "Ed25519"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/ed25519.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ed25519",
+    "variants": [
+      "Ed25519"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/ed25519.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ecdsa",
+    "variants": [
+      "ECDSA-P256",
+      "ECDSA-P384"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/ecdsa.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ecdsa",
+    "variants": [
+      "ECDSA-P256",
+      "ECDSA-P384"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/ecdsa.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ecdsa",
+    "variants": [
+      "ECDSA-P256",
+      "ECDSA-P384"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/ecdsa.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ecdsa",
+    "variants": [
+      "ECDSA-P256",
+      "ECDSA-P384"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/ecdsa.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "ecdsa",
+    "variants": [
+      "ECDSA-P256",
+      "ECDSA-P384"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/ecdsa.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mlkem",
+    "variants": [
+      "ML-KEM-512",
+      "ML-KEM-768",
+      "ML-KEM-1024"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/mlkem.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mlkem",
+    "variants": [
+      "ML-KEM-512",
+      "ML-KEM-768",
+      "ML-KEM-1024"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/mlkem.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mlkem",
+    "variants": [
+      "ML-KEM-512",
+      "ML-KEM-768",
+      "ML-KEM-1024"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/mlkem.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mlkem",
+    "variants": [
+      "ML-KEM-512",
+      "ML-KEM-768",
+      "ML-KEM-1024"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/mlkem.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mlkem",
+    "variants": [
+      "ML-KEM-512",
+      "ML-KEM-768",
+      "ML-KEM-1024"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/mlkem.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mldsa",
+    "variants": [
+      "ML-DSA-44",
+      "ML-DSA-65",
+      "ML-DSA-87"
+    ],
+    "format": "lean4",
+    "path": "formal_backfill/lean4/mldsa.lean",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mldsa",
+    "variants": [
+      "ML-DSA-44",
+      "ML-DSA-65",
+      "ML-DSA-87"
+    ],
+    "format": "rocq_8_18",
+    "path": "formal_backfill/rocq_8_18/mldsa.v",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mldsa",
+    "variants": [
+      "ML-DSA-44",
+      "ML-DSA-65",
+      "ML-DSA-87"
+    ],
+    "format": "isabelle_hol",
+    "path": "formal_backfill/isabelle_hol/mldsa.thy",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mldsa",
+    "variants": [
+      "ML-DSA-44",
+      "ML-DSA-65",
+      "ML-DSA-87"
+    ],
+    "format": "smt_z3",
+    "path": "formal_backfill/smt_z3/mldsa.smt2",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  },
+  {
+    "algorithm": "mldsa",
+    "variants": [
+      "ML-DSA-44",
+      "ML-DSA-65",
+      "ML-DSA-87"
+    ],
+    "format": "hol",
+    "path": "formal_backfill/hol/mldsa.sml",
+    "status": "generated_specification_scaffold_not_closed_certificate"
+  }
+]

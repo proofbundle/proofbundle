@@ -1,0 +1,59 @@
+{
+  "agent": "ecdsa",
+  "model": "claude-sonnet-5",
+  "agent_role": "ECDSA (P-256/P-384) from-scratch implementer for ProofBundle's crypto-core",
+  "task_description": "Implement ECDSA over NIST P-256 (secp256r1) and P-384 (secp384r1) from scratch in crypto-core/ecdsa.mjs -- prime-field BigInt arithmetic, Jacobian point arithmetic with a constant-time-shaped scalar-multiplication ladder, SEC1 point encoding/decoding (uncompressed and compressed), RFC 6979 deterministic nonce generation via a from-scratch HMAC over crypto-core/sha256.mjs, and sign/verify producing both raw r||s and DER signature forms. No cryptographic library dependency in the implementation file. Verify against node:crypto in crypto-core/ecdsa.test.mjs, then seal this worklog as a ProofBundle.",
+  "timestamp": "2026-07-27T10:58:00Z",
+  "files_created": [
+    "crypto-core/ecdsa.mjs",
+    "crypto-core/ecdsa.test.mjs",
+    "ecdsa_agent_identity.json",
+    "ecdsa_agent_worklog.json",
+    "ecdsa_agent_aibom.json"
+  ],
+  "files_touched": [
+    "crypto-core/ecdsa.mjs",
+    "crypto-core/ecdsa.test.mjs",
+    "ecdsa_agent_identity.json",
+    "ecdsa_agent_worklog.json",
+    "ecdsa_agent_aibom.json"
+  ],
+  "files_read_not_modified": [
+    "crypto-core/sha256.mjs",
+    "crypto-core/sha256.test.mjs",
+    "crypto-core/keccak.mjs",
+    "crypto-core/sha512.mjs",
+    "crypto-core/ed25519.mjs",
+    "cli/proofbundle-cli.mjs",
+    "coordinator_worklog.json",
+    "mlkem_scaffold_agent_worklog.json"
+  ],
+  "implementation_details": {
+    "field_arithmetic": "Generic BigInt prime field mod p (add/sub/mul/mod), inverse via Fermat's little theorem a^(p-2) mod p (both p and the curve order n are prime for P-256/P-384). The exponent in Fermat exponentiation is the fixed public value p-2 (or n-2), so the square-and-multiply loop's branching depends only on public bits, never on the secret base.",
+    "curve_parameters": "P-256 and P-384 domain parameters per FIPS 186-4 Appendix D.1.2 (p, a=-3, b, Gx, Gy, n). Hand-transcribed hex constants were cross-checked computationally against node:crypto rather than trusted on sight -- this caught and fixed a transcription error in the P-384 prime (see worklog seq 4).",
+    "point_arithmetic": "Jacobian coordinates (X,Y,Z representing affine X/Z^2, Y/Z^3). Doubling uses the a=-3-specialized dbl-2001-b formula; addition uses the general add-2007-bl formula with explicit dispatch for identity/equal-point/negated-point inputs (required for correctness of the point-arithmetic-identity tests, which call addition directly on such inputs).",
+    "scalar_multiplication": "Montgomery-ladder-shaped: every bit of the scalar performs exactly one point addition and one point doubling, unconditionally; only the assignment of which ladder register receives which precomputed result depends on the bit. Same shape as the existing ed25519.mjs ladder in this codebase.",
+    "point_encoding": "SEC1 section 2.3: uncompressed 0x04||X||Y, compressed 0x02/0x03||X with square-root recovery of Y via Y = X_rhs^((p+1)/4) mod p (valid because p is congruent to 3 mod 4 for both curves, verified computationally), checked against the curve equation on decode.",
+    "nonce_generation": "RFC 6979 HMAC-DRBG, implemented generically over the group order n. Driven by a from-scratch HMAC-SHA-256 (built on sha256.mjs, not imported from any HMAC library) for both curves per explicit project instruction. For P-384, whose order is 384 bits versus SHA-256's 256-bit output, the generator's documented bit-extension loop (RFC 6979 section 3.2 step h.2) is exercised to gather enough bits -- this is spec-provided-for, not an improvised extension.",
+    "message_hash": "SHA-256 for P-256, SHA-384 for P-384 (imported from crypto-core/sha512.mjs, which already existed in this tree at implementation time -- the fallback-to-SHA-256-for-both instruction did not need to be invoked).",
+    "signature_formats": "Both raw fixed-width r||s (SEC1/IEEE P1363 style) and DER (ASN.1 SEQUENCE of two INTEGERs, RFC 6979 section 2.4) are produced by ecdsaSign and accepted (auto-detected) by ecdsaVerify."
+  },
+  "explicitly_flagged_limitations": [
+    "Constant-time-SHAPED, not a hardware timing-side-channel guarantee: pure JS on a JIT with BigInt/GC gives no control over actual instruction timing regardless of code shape. The claim made is narrower and verifiable by reading the code: the ladder executes exactly one add and one double per scalar bit regardless of the bit's value.",
+    "The Jacobian point-addition formula used (add-2007-bl) is the classical formula, not a fully 'complete' addition law (e.g. Renes-Costello-Batina) -- it contains explicit branches for identity/equal-point/negated-point inputs. Within the scalar-multiplication ladder specifically, the 'equal points' branch is provably unreachable (the ladder invariant R1-R0 = fixed input point holds throughout, so the two operands handed to the per-bit addition are never equal), and the 'point equals its own negation' branch would require an astronomically specific relationship between the secret scalar's processed prefix and the group order to reach during normal operation. This residual is the same known limitation shared by most non-complete-formula EC implementations; it is not hidden or assumed away.",
+    "RFC 6979's nonce-generating HMAC engine is SHA-256 for both P-256 and P-384 (per explicit project instruction: 'HMAC-SHA-256 is strongly preferred'), rather than SHA-384 for P-384 as pedantic RFC 6979 (which ties the internal hash to the message-digest hash) would use. The nonce is still fully deterministic and still bound to the real curve-appropriate message digest (h1 is the actual SHA-384 digest for P-384 signatures, not a SHA-256 digest of the message) -- only the DRBG's internal bit-expansion engine differs from strict RFC 6979. Documented in the ecdsa.mjs file header.",
+    "No hardcoded RFC 6979 known-answer test vectors from the RFC text -- correctness of the nonce generation is established via node:crypto interop (signatures we produce verify under OpenSSL, and vice versa, across multiple messages and curves) and a determinism check, rather than via transcribing RFC 6979's own appendix constants, to avoid the same class of hand-transcription risk that caused the P-384 prime bug caught during development (see worklog seq 4)."
+  ],
+  "accomplishments": [
+    "Implemented from-scratch ECDSA over P-256 and P-384: field arithmetic, Jacobian point arithmetic, constant-time-shaped scalar multiplication, SEC1 point encoding/decoding, RFC 6979 deterministic nonces with a from-scratch HMAC, DER signature encoding/decoding",
+    "Cross-validated curve constants and point arithmetic against node:crypto (OpenSSL) by deriving public keys from node-generated private scalars -- caught and fixed a P-384 prime transcription bug this way before it reached the test suite",
+    "Verified two-way signature interoperability with node:crypto (sign-ours/verify-node's and sign-node's/verify-ours) in both raw and DER encodings, across both curves and multiple message shapes",
+    "Wrote and ran crypto-core/ecdsa.test.mjs: 148 pass, 0 fail, rerun 3 times to rule out flakiness from node's randomized key generation",
+    "Generated an Ed25519 identity key, wrote and sealed a structured worklog and AIBOM"
+  ],
+  "crypto_identity": "Ed25519",
+  "crypto_digest": "SHA-256",
+  "worklog_path": "ecdsa_agent_worklog.json",
+  "identity_key_path": "ecdsa_agent_identity.json",
+  "test_result": "148 pass, 0 fail"
+}

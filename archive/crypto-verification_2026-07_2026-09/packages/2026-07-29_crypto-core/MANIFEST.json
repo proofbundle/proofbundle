@@ -1,0 +1,914 @@
+{
+  "generatedAt": "2026-07-29T11:23:55.790Z",
+  "package": "ProofBundle_Crypto_Core_Evidence_20260729",
+  "merkle": {
+    "algorithm": "sha256",
+    "root": "b6771350753da06014e206d48ec51257f5786fc5a6680eed11a52714fe1507ba",
+    "leafCount": 129
+  },
+  "files": [
+    {
+      "path": "additions_mjs/registry_additions.mjs",
+      "bytes": 912,
+      "sha256": "f99bf19c66f3f1bb00520a537f18292a13d982e4811433e3efff241abfa2d9d8",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "520db9810b8c85ba752e24b3d44495ba8b34af776dd71a6835d2a84aa5b56e8f"
+    },
+    {
+      "path": "additions_mjs/rsa_pss_node_adapter.mjs",
+      "bytes": 492,
+      "sha256": "3ba4c23c6beeb7b393cc11f5ec79015caf6474b58e37d07c60ec6dc3b4a7a138",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "5db38a141019cf27ab71101dcc1912ab9feb86c42a2b828767c5d475a2486320"
+    },
+    {
+      "path": "additions_mjs/sha512_256_node_adapter.mjs",
+      "bytes": 252,
+      "sha256": "092b4d4df3226b1f013703d71dd1038cb87b32e009917b85ff78c0cea52291ea",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "252566ef039edb130b83d78fe8702e92dd715ea83978d2edef275ec752b584e5"
+    },
+    {
+      "path": "AIBOM.proofbundle.json",
+      "bytes": 1386,
+      "sha256": "b0e5775a49d23bfd693ba40fdd68fc9437f557b59fcf3cb60d591a01eac67736",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "eb6a2ec4012939c6457da1d1f83b5e38ffb4620cdf42201c2c37b46f9d08fab3"
+    },
+    {
+      "path": "AIBOM.proofbundle.json.sig.base64",
+      "bytes": 89,
+      "sha256": "625d1e0618aa89973c0c5912072a984ca091ab208960e0937f160bb2df8df431",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "ae5a1893ae05297b529a31ee4bc8100641d548e6279425d60ca7644c50268173"
+    },
+    {
+      "path": "crypto-core/blake2.mjs",
+      "bytes": 8808,
+      "sha256": "c34f589f35490947edc13c829406edc409cb3a9b09cf027142318972a51a2e54",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "05862e89052e31e3801cffac98f4fced958bccb36260c2291fce8bdea9ea09ce"
+    },
+    {
+      "path": "crypto-core/blake2.test.mjs",
+      "bytes": 9645,
+      "sha256": "32cefac35874f9540ab28cbc2ba027ff8bd79d37228853f73305c0300ebe1a0e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f6f3dfd2a09c32e2a5e725fdd9536683e4d59f1836e80ad230cbadaf16727c46"
+    },
+    {
+      "path": "crypto-core/blake3.mjs",
+      "bytes": 10749,
+      "sha256": "5f8c66abc02a0034ad39cd5c9bdfd1bdfb4c58fb777b0409464f0a118811b71d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a2654eda80b9a400677d1e2f9bdeac01848e5ff87fdeb274a7f7e22ac39479bd"
+    },
+    {
+      "path": "crypto-core/blake3.test.mjs",
+      "bytes": 33641,
+      "sha256": "df61574b6b9d64f6a59c669d11aae14ae787006c630ddfc8bfdabed17b19ab62",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "93ca9d2836d7cbbe481fbc6285d52ced3d925fadfe7eabb3d128fb343a440a0f"
+    },
+    {
+      "path": "crypto-core/ecdsa.mjs",
+      "bytes": 24022,
+      "sha256": "662ce9ca2deafaff5aa8670134b4d7c7cb012d0ea568b12f89cd2b8b68dc9e8b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "957a6cd973a0f22ac068aec0b4b079d2a4a650f32d94339aece7b3d5319a8f8d"
+    },
+    {
+      "path": "crypto-core/ecdsa.test.mjs",
+      "bytes": 11547,
+      "sha256": "12c3c45f3e9b629a401dab8dff73909357195ecfa8d25df6746b7881236d549e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "ed315ddb43e47467dd0f464803ead203a48bb3a5bee720c59ad7719110740f26"
+    },
+    {
+      "path": "crypto-core/ed25519.mjs",
+      "bytes": 11194,
+      "sha256": "49e7a94a2c421379b52631e92c010c82ba860cc6dd848847136d315eba5fc220",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "46d47f8b00085a6623e57d77c663679a2ccf886c781fa026f4a83f33dc290207"
+    },
+    {
+      "path": "crypto-core/keccak.mjs",
+      "bytes": 4687,
+      "sha256": "8644834fdaebd7b43a3e60ae9bb9f3d2d4d5eb446baa8c5560b157bd02b3f432",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f77952d56dbbcd07ef8e9b76ead55db1433947c0085bee141511f36ad52ef10d"
+    },
+    {
+      "path": "crypto-core/keccak.test.mjs",
+      "bytes": 2970,
+      "sha256": "458738facb658849bea6db1f6d3ca5f192047fc42729ca89435d9e43dfffdae6",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "e6513efa3aaae5906044fa2ae32cee313c8607decb1c2169c34e4c490416d174"
+    },
+    {
+      "path": "crypto-core/keccak(1).mjs",
+      "bytes": 5000,
+      "sha256": "0ad043bf020563268609aca3e4f686890cfcee6ec0c1a441994f10bcf8faa307",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "1314afb2f9490f8cf9a72c044b17582be8ea2e5adda661683229576ee94d800b"
+    },
+    {
+      "path": "crypto-core/mldsa.mjs",
+      "bytes": 24496,
+      "sha256": "bf0b49180c7e3f2e01e71fbe939238ae22a72dc1b7cf76bfb17072e390326e56",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9f7532e29532bf9159efaa4b9521dfa77223c9bad5226ce977b18f51580daee9"
+    },
+    {
+      "path": "crypto-core/mldsa.test.mjs",
+      "bytes": 7696,
+      "sha256": "bb1812a91204e789172bbb0eb716a8c78f15a68ec650f166249725bd107e4e38",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "842a621e9094a5537ab61807c18cfa2801c2adfcaf15ffe9ea90f65ccbd928a7"
+    },
+    {
+      "path": "crypto-core/mlkem.mjs",
+      "bytes": 13710,
+      "sha256": "f3732b76c4f36b1d2d423dba00f74d550143467f949876d846c2ec2f57bcb2ea",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "11d023f1d20bb644784e506b0ebbbbfe2f1c408f45c903d037d1465349d32faa"
+    },
+    {
+      "path": "crypto-core/mlkem.test.mjs",
+      "bytes": 4626,
+      "sha256": "167bccc4b441a36c8b24a988c4aee10efe2734cd883d469ee7bcaf38524a4588",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a22a492c951b1b21363264010ffbe7e2ef739534483d49797e11fb4e2b88a1e0"
+    },
+    {
+      "path": "crypto-core/mlkem(1).mjs",
+      "bytes": 14026,
+      "sha256": "61b6fc67ad806023d0bb61e7f9db5e88460c711cdce9b0857456b1c545bc5e90",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "325e65291cf97e248284a8699911575355c1feef8789b2b19713a872896f0a04"
+    },
+    {
+      "path": "crypto-core/sha256.mjs",
+      "bytes": 3133,
+      "sha256": "3a00d6d88d83fa1597f2847ddca804eb2d3a153c091d6104e28dac895b98c408",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "83cd84de063b530e02e095c30c4a0f1b8c74bc44728ff6cf22c49f73bbd41773"
+    },
+    {
+      "path": "crypto-core/sha256.test.mjs",
+      "bytes": 865,
+      "sha256": "a33ca7a4367015982fb132b3d41333a91da84dc609bc049bfba62885d42ae82d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "e48035ca694006aecff51fc02a48962a01506a39cf7f2721c21f642329098cab"
+    },
+    {
+      "path": "crypto-core/sha512.mjs",
+      "bytes": 6325,
+      "sha256": "58640e7bda3f3e92259c6bf709343e8b275a85799fb142ca0764529b741060fb",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "bb78800ea5ccb0d760995ea084557f7e94ffb381165640dd3e5279dfb39174f4"
+    },
+    {
+      "path": "crypto-core/sha512.test.mjs",
+      "bytes": 4030,
+      "sha256": "6a4d2f5b4ca3aaae9c2b497b4a55d5565b6e2f63d88f27f35e2b7008ab16c589",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f81858109350ce20af2834f521faad440c159fca26e248836310cb3f9bcc12ce"
+    },
+    {
+      "path": "formal_backfill/FORMAL_INDEX.json",
+      "bytes": 11472,
+      "sha256": "03851a4501d2c7bdf91164ea1e65a181f8051d370cd49c5d593b4f34a9b22855",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "b9f50b6ced55275be27e7da6b4f8408821a84aec17dc59059ccbcda69a5caf44"
+    },
+    {
+      "path": "formal_backfill/hol/blake2.sml",
+      "bytes": 543,
+      "sha256": "5b8039bb8035e218419ba38e52dbadf1272342687ec28ed3bda98c36b3aa67ab",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a7ac0313de4111cd87472ec628283e98fd5f3ee833bf0d8ac6da645f8264c7ae"
+    },
+    {
+      "path": "formal_backfill/hol/blake3.sml",
+      "bytes": 543,
+      "sha256": "ae2074fe2cda475038d775c0d268782fd9eae7933905204eff47e0b8d2c62c69",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "ada00eefd9b1b2d8f1108285e58fb2e6fba49497357f65c7b8e8ab6d571a919c"
+    },
+    {
+      "path": "formal_backfill/hol/ecdsa.sml",
+      "bytes": 542,
+      "sha256": "35e5a426cab0b5621285416a3f72de82024dd71513b259381b3936aa037a68b2",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a452853f7a8a1b44f21c9953341eff45a78e97e0c1fb0fddf1e5b8b4cbf3466e"
+    },
+    {
+      "path": "formal_backfill/hol/ed25519.sml",
+      "bytes": 544,
+      "sha256": "82273ddc6f02c6d47d221cd8d596f99aa6f612f951393b75fdc8baa1e567c04b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "ccef3b3b35e2c21a2e50de9ee3e3c8b72126c65ebdbd41101895e23a71635eab"
+    },
+    {
+      "path": "formal_backfill/hol/keccak.sml",
+      "bytes": 543,
+      "sha256": "8383d0715f039c70082c5b115b3dcb183725959c1dc5984e9ba0ba73ba78766a",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "039cc666db4765b7189092df7a4ececf4439e66542e56d4193112b87a52322ce"
+    },
+    {
+      "path": "formal_backfill/hol/mldsa.sml",
+      "bytes": 542,
+      "sha256": "e59ca429931da39d71b1dbba768a55248eb2ff129fcf324a8f9f71ad940a53eb",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "71af3dd78f31fcd5ba6c71c4bfe9e689e84e06db7cb64f9f6684e8a384dcdc10"
+    },
+    {
+      "path": "formal_backfill/hol/mlkem.sml",
+      "bytes": 542,
+      "sha256": "00cac108a3c71a15bfe56383d5c426576c664a01d8aff342ea7a90582c0e3206",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "32570dcfd52e2fbbc3d2cd8cc6ee359b5f3da2e4cf138b69bc26ffd27677aa60"
+    },
+    {
+      "path": "formal_backfill/hol/sha256.sml",
+      "bytes": 543,
+      "sha256": "4aa6f14859c43431d8a8b97a1a2f0545b7e1018c53c102d0eaec175eec169f46",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7623340c8af5f2460ec816a3b2ad2b69e379bcd8f088ab34829d7c8279c006ab"
+    },
+    {
+      "path": "formal_backfill/hol/sha512.sml",
+      "bytes": 543,
+      "sha256": "ac19ee76249b113966025cf0e65e8f58287caa0996f588b4b3c9b09eca20d45f",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "26de8dcce28bc4c55c11d20afce7d049cf6d4ed4b3d80d90e3dcf881147243e3"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/blake2.thy",
+      "bytes": 634,
+      "sha256": "98e2845f73328d1ecb0dca43bbbb54d4fd25ce141da19129ab5b35ab1f1003b4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "2b1f1b7558d6c9fed6d380264eb09d0482e6f4d2a32a852692e21b22cf466095"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/blake3.thy",
+      "bytes": 671,
+      "sha256": "37d14291fbd90e7e23d229b5ba43e1d5e027a37ad6041bffa4e39d35fc3bbb68",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "999ca5c76a31fb214dadcc307b70343d89eaebd0ea90d5d86eb7c8160ac04814"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/ecdsa.thy",
+      "bytes": 638,
+      "sha256": "44d130f0a1fa733283bdbeb1a5255e81c187b9207431d5261cbaa34faf38348a",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "06eb309b635947169d72a96aacb0eedab3ad3fe41ce8dd02d54c9bc4b2aa3d1e"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/ed25519.thy",
+      "bytes": 626,
+      "sha256": "0309f524bfd65a9e03c72eba1651d965bcc30a8cb882c1939691158ffcffca9e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a5ec45cc60d89ea8a97157103eac280ae80550b75b35f09c02133f50998d0876"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/keccak.thy",
+      "bytes": 669,
+      "sha256": "f3ff742db9f7f39942d97e624c4efdb63114e3212d48dd542c5308921803719b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "8fb7143a2b8ad50e3cedae1ef77087c4f4b5d78941bdd88b1434bee94f041489"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/mldsa.thy",
+      "bytes": 648,
+      "sha256": "c9f2ee8114568bff3408534ce77f100c2572f1099c415fa3e1a427cbb41f1d88",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "54547518eb6656622ab034716db7009597de19732fde2f66ff4bcbc29648770f"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/mlkem.thy",
+      "bytes": 652,
+      "sha256": "42071b74ee10837cc3b9c04269073ce1854b3abb6f51a006586e92b4eb5646c9",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "15fbf28a30bd8e33cb0100bd66f92ddc5881582c70099c1d1cc94dafa16a31ee"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/sha256.thy",
+      "bytes": 624,
+      "sha256": "763520887ff6d01cd58cf46eed96ee95e729e351721acfc67000459243dc7078",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d2f0f8424f1562d8333033ad1ff1b056431fc1271359faf5a63196366c385d14"
+    },
+    {
+      "path": "formal_backfill/isabelle_hol/sha512.thy",
+      "bytes": 634,
+      "sha256": "76e22811de29001ada6eb7d18900419e763706b41386e6c5bf713d1ec49f60db",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "8485c4461e5073595911c31c874c0bca6136383568310dd7c4993c16da9c8e1a"
+    },
+    {
+      "path": "formal_backfill/lean4/blake2.lean",
+      "bytes": 999,
+      "sha256": "46bb2e0a3c453ed2648c779822118670e421e06145be2c8a7057ed87685d8696",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f5dad9c32c3230efda19a9d9e5d52845274a790c5553d759cfa88de1b960c7f5"
+    },
+    {
+      "path": "formal_backfill/lean4/blake3.lean",
+      "bytes": 1040,
+      "sha256": "1d8ebf8c6c59701a9befae5e3c7010f963c4dcd2b081c799bfe505b4180bf8f9",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9af07d1b348dd3341c2fa648c5956e840ad0361346340905b30eda0d737d4513"
+    },
+    {
+      "path": "formal_backfill/lean4/ecdsa.lean",
+      "bytes": 1002,
+      "sha256": "c317891d9c255cd8ea083bb8c267e1676b3a6e64d106589ea126806e6f530a3d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9116adc9ce0646f1d3f3a4dfde00d0cc8446f634c550f7e409b6d9e6d5265e83"
+    },
+    {
+      "path": "formal_backfill/lean4/ed25519.lean",
+      "bytes": 990,
+      "sha256": "cfb7411cfa433b999a003b3dbfec71798e5217fdaf953d5985f66b3f5b188489",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7f44313b1c9b53b8ddffabbc0552ee81823a471b0f3eba4f04c4b47fec40c73f"
+    },
+    {
+      "path": "formal_backfill/lean4/keccak.lean",
+      "bytes": 1040,
+      "sha256": "7db7659d18abeeac8bcc51d37dbdd0a7e4aac80a2f45ffd5b53a8cb2398499b4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "4842bd38d146cf1f8533a66a2d08b84bde234edddc6434075b412c9d89b09232"
+    },
+    {
+      "path": "formal_backfill/lean4/mldsa.lean",
+      "bytes": 1014,
+      "sha256": "63b09d085793bb78eadf2ed73e05e6c54e671ad0106c1dcd50bf9ee10c9bfbd4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "22854863bfc8afa1cc19b12cd2c3b67b55e264b2856a27db0bd8e2c8dfc717d2"
+    },
+    {
+      "path": "formal_backfill/lean4/mlkem.lean",
+      "bytes": 1018,
+      "sha256": "6e2bd3cfeb719108e737bd4e4ac5fe57dd20f08b7eccd5618f51f5cccd4b1e07",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d10df6580428077e96c92e6695bb686457c94ea14d1c5f7ead09fb0e11379192"
+    },
+    {
+      "path": "formal_backfill/lean4/sha256.lean",
+      "bytes": 987,
+      "sha256": "b7f1793340a0452964021b71f2e595c49c9a344362ba589a9a056085e74d8a8c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "5b66b1f5a2d96f1f4c16aba151f35db4b6414e047cbe6c07b2e35d09dbf172d8"
+    },
+    {
+      "path": "formal_backfill/lean4/sha512.lean",
+      "bytes": 999,
+      "sha256": "53475d670e08abcfac64b8e889dc1e8eeceaaa73a318330aa22397ff6cb19fb4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "0b41fec0477475c528dff4b49318ae51320ed7e85f8b068b93df86e65d5d161f"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/blake2.v",
+      "bytes": 801,
+      "sha256": "397476b2b611d866a184b147216e55e50079cc61b5aad12b1d0fa23c2ab1705f",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "885af72b60b9d9a9d3c4336373526c0c3d214c2b600fac15d831e58a8a166e50"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/blake3.v",
+      "bytes": 838,
+      "sha256": "ef7a2ffc2373ba75f0c234c3b672ee1e0d703ccabc54660b3f6cb4fbd3b8f74e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7ad38dc78c93f9b55e3206c05c5788b0d5aa56d23951c74db0371a88bdb19623"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/ecdsa.v",
+      "bytes": 804,
+      "sha256": "2ac7e494a4a6a6314f44a06a0e49f63eec83c99da10cc8bdce6f996d4f3ce73e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "563d5787563d4686a4975b61f3988441cb83346f4efe9153b853844f2f56ab49"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/ed25519.v",
+      "bytes": 794,
+      "sha256": "1ae31d2481c3e5add4d18718b1df6e41516d2d358f31bec5446d8b220122892d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "4795a5edc828d386b57e9027a975c6ff7bc6b70a37cf09c198318621d2f11a10"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/keccak.v",
+      "bytes": 836,
+      "sha256": "dace10ab6ca928cafea015ddeefad9cb0f0c76ab179cb1361fd2030cc1a48008",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "528d653728a3df50ceea44d964a40730a7467afa45daca4be6e64620a2d53162"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/mldsa.v",
+      "bytes": 814,
+      "sha256": "2d432c30e04f69afef3ee1524ecf242dee39b5a1ccdff2d89849cbe5083590bb",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7cdf167d9d9b4ff8fbeca52e80ce94d838d6f9f783c89618305d18d5f383cdbb"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/mlkem.v",
+      "bytes": 818,
+      "sha256": "537d4c1bec0718439cd8ad128f79c31c8e022e1a981ec2fb507bed4a22eddc5d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "0afc3a1d669f2db23ae2ec9d0a162671cc5b70da906922b329e34668bab5a008"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/sha256.v",
+      "bytes": 791,
+      "sha256": "e14f296bb2d20757b76439cfbc24c7b378ce4fae862ad92a37276f0ffa35dbbb",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "34239a1eb3af19787abaeeb96c49ead85e4389dff8c9a9003f18520757a522ad"
+    },
+    {
+      "path": "formal_backfill/rocq_8_18/sha512.v",
+      "bytes": 801,
+      "sha256": "99feef4477afd81d5a7cc621482376eac6df6b3deae1f64627f27a25aeddb8b1",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "3c52c5b35eedd0412cb382ef0cd068f6fb95fbd29f10e66a2e4f1739f3cc30fd"
+    },
+    {
+      "path": "formal_backfill/smt_z3/blake2.smt2",
+      "bytes": 437,
+      "sha256": "379ddaf0187618c80daa39656c69a8a22ac1bb4930675e2f6a55d5a18db9f1a1",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "1cc12813832d8618138e14d83c8e4410f5315d110a4bad9320456d83bd78ebc4"
+    },
+    {
+      "path": "formal_backfill/smt_z3/blake3.smt2",
+      "bytes": 437,
+      "sha256": "ac882c2b9c58f313ec4ee2b65d89dcbadc12ea34e3a3f932607f181c2b952298",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "4d2a856c9192c6f360524fa18bd461c9a342955b6289008099e8ea117d44584e"
+    },
+    {
+      "path": "formal_backfill/smt_z3/ecdsa.smt2",
+      "bytes": 436,
+      "sha256": "53dfa2274117ac75e345b2099e080745a36778a54b6b7c1c81689e4c905d6312",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "0447dfb2fa6d54b466a59184f3238dbb6f8b48ea01e591a90423140e9de42570"
+    },
+    {
+      "path": "formal_backfill/smt_z3/ed25519.smt2",
+      "bytes": 438,
+      "sha256": "08a80a5a27ac3cd19eff08a97c06e6dbe9f0505284c7f05ef35d6ed7c9b9bc7c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "b88f88ababdf4966a9b848e3d79ff5145903439f5d92af5e6cb1699c28da25bd"
+    },
+    {
+      "path": "formal_backfill/smt_z3/keccak.smt2",
+      "bytes": 437,
+      "sha256": "04cd97a251c825d526b35fb144e6932fc7e170d15c72ff335df68340dbc37343",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "fad803b6dbdd8b533e0eafc0ac3556b8e92070ee71b39c89837bb8056a3c41a2"
+    },
+    {
+      "path": "formal_backfill/smt_z3/mldsa.smt2",
+      "bytes": 436,
+      "sha256": "a6642069afbd7841fbbfbad957d34ff58d393e80cbd01a5e099e28762d36fa9d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f2828b31ada734cb78c11c7e5dd466f4a3f4e6c12ac6443b58a351390d0f8140"
+    },
+    {
+      "path": "formal_backfill/smt_z3/mlkem.smt2",
+      "bytes": 436,
+      "sha256": "a03c7f300949c80f48e7ba7ea28469ad1dcb0e9cee72fb38aab4eee10d17c42b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f8f5e101f8257255dd70adedd5fcb4879e61aeb61636d5d7b0adbf06f1e26395"
+    },
+    {
+      "path": "formal_backfill/smt_z3/sha256.smt2",
+      "bytes": 437,
+      "sha256": "762e93cbbfa4cf971cd0528cf810526eac25b8c819dd1998057fd3f33d86bed5",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a96992ab774b8474bb0070949c1991e643f7510efc81bb0ab2841711bfd6bdaa"
+    },
+    {
+      "path": "formal_backfill/smt_z3/sha512.smt2",
+      "bytes": 437,
+      "sha256": "a5de57109d15487ce3a4982668af1378ecb2a8f9d7a0a5e94885112acb75a349",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "b04afd69520de85cd971ad4b71e65e6b832918804cf196eb8aae005cf87d1b48"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 44855,
+      "sha256": "069c1e80122418e8c85cdec09f680017c483c27d29adc514f83f4ab87ec015f4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "1aee63e00908415e464f00b2d5141d73489dfc29d1ab31fe4292a1f3b1920bf4"
+    },
+    {
+      "path": "MANIFEST.sha256.txt",
+      "bytes": 12757,
+      "sha256": "c3b36808db924ee884f2ef6159fec79e13a114ef5a88d90286ccb465975bb085",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "cc8713af98f805c8c57c1301237f9bd5520d9ae311e1b9f4526e739525ab50a2"
+    },
+    {
+      "path": "original/crypto_core_from_scratch_20260727-20260729T030743Z-1-001(1).zip",
+      "bytes": 5585940,
+      "sha256": "5b6a4b2ee303fd8e08fe992257a4b22098d3c85cc37aba263ff96cd5d0587b44",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "c58cb76ad7ee2b974e4d69180e5dd54b13447fe69d954769f9d7bedb551827b1"
+    },
+    {
+      "path": "proofbundle_snapshot/.github/CODEOWNERS",
+      "bytes": 69,
+      "sha256": "3e83aea59741883ea3294036a3d221114bdc144d87e3ed2e89a726cb5710d1b0",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "432823e173a7b12682a21e92b932a0f9d38e5b67d73fa44fdbfa4e1f3f805b8d"
+    },
+    {
+      "path": "proofbundle_snapshot/.github/workflows/ci.yml",
+      "bytes": 1408,
+      "sha256": "073cb6c3bc96beed9954792bd5faeb901cc016c56ea1706e031de0b1bfa7fb04",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "61d058bace88e3ae2e821e22fad416dafefec628a50b637a85ca52b3c335dff5"
+    },
+    {
+      "path": "proofbundle_snapshot/.github/workflows/release.yml",
+      "bytes": 1762,
+      "sha256": "ad5b2bd12c74b01bb9a3f32d9dc496866061e805cd1e5adf73bb0dc7e764a8d4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "253e1ef6ce28c7883f5650150060e8318d720b9d6bb2f3dc90cbbb9e45ccbf1e"
+    },
+    {
+      "path": "proofbundle_snapshot/.gitignore",
+      "bytes": 52,
+      "sha256": "a66ab5286c8ba90a611fcd194bc116e88bdffb64793a8fd6c9fbc0d30044b4ff",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d07e1a8d9c63ed06e0a317869e666ef4c732d99b0be867c07973ce6617784071"
+    },
+    {
+      "path": "proofbundle_snapshot/blake3_agent_aibom.json",
+      "bytes": 4702,
+      "sha256": "461832dfe028a49925117dc33d1c640ab9cf48bc2829e0ada36426af076f2dfa",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "db7a4e2118e2be1f1a3b75df321993cbf29e517119251635908f97e4a11068e1"
+    },
+    {
+      "path": "proofbundle_snapshot/blake3_agent_worklog.json",
+      "bytes": 5882,
+      "sha256": "36ec176bb64ed061797cf2162705a81891a246ec26af18ea128c993367fdb34e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "36efee7bd19a6f424928f8058b8dfa074aad48c6b8682eae010a07bb0ffdda2e"
+    },
+    {
+      "path": "proofbundle_snapshot/blake3_agent_worklog.sealed.json",
+      "bytes": 6604,
+      "sha256": "e7355b83e6d59b00ada97dc7422416646ed6623e0cff8cd6089847d1dc60bc04",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f00ceb4c27ece4f762281ea4ea4467be25ee55e47a623ac60a0469227a268002"
+    },
+    {
+      "path": "proofbundle_snapshot/cli/proofbundle-cli.mjs",
+      "bytes": 6803,
+      "sha256": "1c93e71777d8d9e9dd620715ab284ffe90e509580ab27fbc303e9d3e08936bbf",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "bece2a519f8a474b2ac1104ed40fbaddef8114587aa5ee55d3a00dcec2c4bd02"
+    },
+    {
+      "path": "proofbundle_snapshot/CONTRIBUTING.md",
+      "bytes": 612,
+      "sha256": "1d8bc9952d28ac43076d9833580ea26086cdd0412156f5963dde47f9a7d71395",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "2cb67ddad226bc87a691f16e02210c2687613bd70f3e1e45fdeb64aa5490d32e"
+    },
+    {
+      "path": "proofbundle_snapshot/coordinator_worklog.json",
+      "bytes": 4314,
+      "sha256": "b9407e935128431fececd31240a6aba3a07843d35c338cc72f87a14b48ea2a1b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "6444899df7329deb3cd70ed133b8dc199e8ac3aca8ae418aaeec43cd89477154"
+    },
+    {
+      "path": "proofbundle_snapshot/coordinator_worklog.sealed.json",
+      "bytes": 4224,
+      "sha256": "bbb098e1f0f076a12ac39c82ccf9cf4c79343a796f853ecfbd208fa9c995dada",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "24b2ce141a047528c0b6cb60827561833e98956cca73727c91c6ccb9c5ab639e"
+    },
+    {
+      "path": "proofbundle_snapshot/cosign.pub",
+      "bytes": 276,
+      "sha256": "30d2abe7d26a60bd0c93fedd671cb65a9c2de1c67d1b9a95fa3a90fed4e989c5",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7b3f2c22b99edd5e999bbff546eb59ce52dcc260e507783646902269d406ab9c"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core-bundle.gen.js",
+      "bytes": 126258,
+      "sha256": "027310cac2f3561cf82e8f4ea5f6bd05b388a3a1be789d357b5005f3e71172c3",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "859b629d6ebf294fb9d4bd1a0c0e72b69043530a73c00d774a6c1af52a32171e"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/blake2.mjs",
+      "bytes": 9047,
+      "sha256": "25ceb76cf0af8bc257c18766261735a9bf66ac1462b3ac196dd7ceabf2d20e5c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9b9952e101ee1baa7f309cecf81067a01229eb1b4b502f8f7591d94b41b995e9"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/blake2.test.mjs",
+      "bytes": 9812,
+      "sha256": "d504447ef7c3aac2012a0c9fd42a7f136f8a0c525f92f906dec0ad030665d29e",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "79ad767df1c3675a01bcb6c4257283e51f75e87a67f84edbb5ae22d8acef048e"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/blake3.mjs",
+      "bytes": 11007,
+      "sha256": "3b9c421b86ec5366544f8244895fe02bd3c9c68b2ed057fca8966afe6d4ae3b0",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "afb3160de2af2e61ff4aa34d82293fba28e924b4a7676f74ffc41829ef4eb9d2"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/blake3.test.mjs",
+      "bytes": 33994,
+      "sha256": "203d57def96097de92232e3068836d008ed38723fc3bc3908074b848e175b320",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "43f84cd244faa66e7f9c3fa2e0dd9e3b1169ec4d99e56e668b7aea314242998f"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/ecdsa.mjs",
+      "bytes": 24601,
+      "sha256": "7681f304cbef0d6729997d2bb1f87dca2381dd2e6db726156bda2cce970a5f07",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "775cee761cccb6390139cb9bab53b20cec5a2f440f0cd35029b0d4577c80b9d7"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/ecdsa.test.mjs",
+      "bytes": 11779,
+      "sha256": "f8a41c86f047034140e3150721356078282b4e0dfd5523f87f0d482ceb4e265c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "29f9f070885dc0e0e672304f89b05a85a43c06cf54ae5c7e7c719425b915b8ca"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/ed25519.mjs",
+      "bytes": 11502,
+      "sha256": "4e8da2e2c7c18a10e0eef34bf0e6377d4bab611af37cdd64a1a016bdaa27798d",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "65ed6f855a339fb00ba9ba6dbade339d0986fe84f6b4463c86b771a16f367140"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/keccak.mjs",
+      "bytes": 4820,
+      "sha256": "4ff32cabed592de1515b47d52a127dd1383644c3c5b16e76f41452f135ac4e45",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "2cd37c515fbbe35882f8e90dac0e0b0599b4f58bb761bdc0e45e9fbaa3cda7a9"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/keccak.test.mjs",
+      "bytes": 3050,
+      "sha256": "70efdefa60185cb7adc4df46fb5c9be029b77a6603173d68da5874e10380eb67",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "4c256b1cc180a6ad3acf9cbfed8f521a209781d9420bbd277422ed45b1eb2c3b"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/mldsa.mjs",
+      "bytes": 25193,
+      "sha256": "75718ab5378d3ca7727fdc87fc33e5f29fb76cfa48425fa04ffe9cd87d67af82",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "dd7f16f2f1b4cff0b12174df4810968cfb548a4ca430f347b5c5712a9b5c7409"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/mldsa.test.mjs",
+      "bytes": 7867,
+      "sha256": "325ecb2ec76eeed12755a5e3425e6eba06c4fd323a750a2f2b70ed5292a036df",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9cab39b2745d26aad5415a0bb042465223b122401a676d3233d7f30046b25dea"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/mlkem.mjs",
+      "bytes": 14141,
+      "sha256": "241170f008472deed47ee7d0c3fd3cb3d3955c920d37612283d96c3832f00994",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "45fd4f9f4fe4b1bf52c58ef0e0d756487f2b5577e83af035b19a82a79b66250d"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/mlkem.test.mjs",
+      "bytes": 4728,
+      "sha256": "30c5d3868d6ceaa3c06243a70620739153bcf00b1f5dcc0f0d0f9563aa74655c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "7c99df47ceb11b00e26e61c96336af5863735fdced5cf9db97be96f3c632b4b9"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/sha256.mjs",
+      "bytes": 3208,
+      "sha256": "ccd890052ba5b916744e26fbadd771f305a0ff4acefbacfa2b37f89ee9e43af5",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "fe7a3e27803d126fab15c6d93bb8ce9eee47e5c7ee2560e0254ae2b857fea533"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/sha256.test.mjs",
+      "bytes": 888,
+      "sha256": "eb817b894481c3dc743ea6dd78845021a99dda13835d72ed52dc3c0846f41a7a",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "985a7ffc7b534d14975800d64bbb686e546c53ec4eeb537bbc16d3bd4e2d28da"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/sha512.mjs",
+      "bytes": 6455,
+      "sha256": "99d613cbcb211c9418ab300f0e683823eb75c1b9be7e8abdbe38e42eaf40c844",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "fa7a473b9223587ada544110c810ab2d88503ec8628573ae228de22b6ff13514"
+    },
+    {
+      "path": "proofbundle_snapshot/crypto-core/sha512.test.mjs",
+      "bytes": 4109,
+      "sha256": "3c004ce106d98a7982b391ff30306633f6b36fc170c4b0a1c2fcd7e654785862",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "004e92cd057af4dd9f691d53eae13e938f0dfd330435c622389b7263eca53ef3"
+    },
+    {
+      "path": "proofbundle_snapshot/ecdsa_agent_aibom.json",
+      "bytes": 7566,
+      "sha256": "9ab03b0b14a86d70214f570437c062ff7b65957185fa488fb648a34ca8debe37",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d4ad19b7f20d4d0ab632d8a86326da39a109586a8896669435a90dd73479a3dc"
+    },
+    {
+      "path": "proofbundle_snapshot/ecdsa_agent_worklog.json",
+      "bytes": 6415,
+      "sha256": "dcf676cffea861c97c0d1b4a81b2a3a995ba89349172e9af397c9a8c1f0bcc1c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d3d2259b29536ec4f908ed452f52d990b5508c94493d3ea756ded37af23d0c85"
+    },
+    {
+      "path": "proofbundle_snapshot/ecdsa_agent_worklog.sealed.json",
+      "bytes": 7191,
+      "sha256": "9d960780f9144720c4a277e62d9dd8a0196072558734d5d7d0a04cac67fecb46",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "144b8bbfcdefcbca9bb408262fb1c1c4a44c7d6c906e6e62d8f8c0f46529aba7"
+    },
+    {
+      "path": "proofbundle_snapshot/index.html",
+      "bytes": 8501,
+      "sha256": "984d51fba081d27c23b0b83fef95e1dfeb117ac1b3fb72b02bcf8616c29498c8",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "a42288ee581215feba2dfc83c1a7bcec5f23fb196a56d1106ccf4514e89b42ce"
+    },
+    {
+      "path": "proofbundle_snapshot/LICENSE-APACHE",
+      "bytes": 11560,
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "27f4e844b2c749932acd3738fd11cd1f019e371f7691871625fda4759e4d4b30"
+    },
+    {
+      "path": "proofbundle_snapshot/LICENSE-MIT",
+      "bytes": 1108,
+      "sha256": "cbce8d2bbb1cfd67ea123603e0709cc90f62368bdd97ce3b78eb7c217520be68",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "50c7c5c194a306ecb94cdeb011ba2e104aaa6be6feebc278cb0f58317ba547d3"
+    },
+    {
+      "path": "proofbundle_snapshot/mldsa_agent_aibom.json",
+      "bytes": 6107,
+      "sha256": "2ffe0aad58a3663b883d326601378e6b001b5bf70784f9459e258270a516d2cd",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "d8bdcc7df81f20265ea6a5cbb1720c354ba43a9a59759d80f5c612095d51cf93"
+    },
+    {
+      "path": "proofbundle_snapshot/mldsa_agent_worklog.json",
+      "bytes": 7703,
+      "sha256": "0373f37020fb9ab1f992c9d41e29afcd48ed04ba66a35263255f055e7cce614f",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "baa36b29cc58e34588ca3ba99f2c57089aec3f85b571b6669e17745df7424e99"
+    },
+    {
+      "path": "proofbundle_snapshot/mldsa_agent_worklog.sealed.json",
+      "bytes": 8425,
+      "sha256": "1e6e9230b307f853080b32d1b9cea105ddd1613d2bdc758333a7b3cde147a3d0",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "513f1c520ffa2a32c41b8f28a9e27cdc132b71603e327e2513712568d3bce5cb"
+    },
+    {
+      "path": "proofbundle_snapshot/mlkem_scaffold_agent_aibom.json",
+      "bytes": 1528,
+      "sha256": "5a82aabb98cfa059ffc8e1b7bce150dbeb1cc15ee24cda1960fb8049f6380ef4",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "9cd5e687646f0f2a50e9f2407c6b1ca9731507d69aad15f34b1566a65ee45d94"
+    },
+    {
+      "path": "proofbundle_snapshot/mlkem_scaffold_agent_worklog.json",
+      "bytes": 2213,
+      "sha256": "529ec5554b2621a82ef1ad7bd782a16ffb7fd9fa23d3ad85ee0162585886098c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "18d9765b288522fa52a2eca03308663e3661202c1c415817789970f94499873f"
+    },
+    {
+      "path": "proofbundle_snapshot/mlkem_scaffold_agent_worklog.sealed.json",
+      "bytes": 2935,
+      "sha256": "6520ef3cd342fd629c5064655448b047150a785ad1e89b1867dea5264da6eea2",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "265dc8fa2899c293e3863830f83c6071acc7e40657c99b834ed1c711a04c108f"
+    },
+    {
+      "path": "proofbundle_snapshot/package.json",
+      "bytes": 479,
+      "sha256": "5d42589621a96374d2dec445b28a5695c3c93affdf333869978d79e270ef7778",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "bf655e49497df1ac658cdfa85604daa1a018f60f11a2d8975e90dc2d1eb66c5e"
+    },
+    {
+      "path": "proofbundle_snapshot/proofbundle.html",
+      "bytes": 540200,
+      "sha256": "447928febd1e36ac461136da55cb7025840181f8f5af4c16a61df09c2322b89b",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "1b794f2fed928423491cbd636e8d619ce877746c1f2b9ce9595f065c62fb1df3"
+    },
+    {
+      "path": "proofbundle_snapshot/README.md",
+      "bytes": 3985,
+      "sha256": "cb230a0cdee14531c499415025c945f4c6683f57b0a88e529bd4611901fe7af0",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "3a1d423155cb5880bf22bcdd357ec05cfebe0875e27db7cab9405e5e38bf8592"
+    },
+    {
+      "path": "proofbundle_snapshot/SECURITY.md",
+      "bytes": 2020,
+      "sha256": "ba23c2d5b0a8b0607b42edb86741fdcdf924a37be916d2d6ca30e6e2c084e8e8",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "c0e2905aa2bcf7e02a74b3d0e74a1ff0375f21de541104303ae33eecdb37cb08"
+    },
+    {
+      "path": "proofbundle_snapshot/sha512_blake2_agent_aibom.json",
+      "bytes": 5645,
+      "sha256": "3458acbbf8c2ef47866c2202d20ee5213e65f0b3c09b3f858352aced1b701a37",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "93a21ff53702fbaa25255155d39875d5f8e67b14162f3a7cfb96f660120cd515"
+    },
+    {
+      "path": "proofbundle_snapshot/sha512_blake2_agent_worklog.json",
+      "bytes": 8829,
+      "sha256": "de2fce61a6847597273620cbd69c051c04e466c4158ba29d3473beaca8132164",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "da3f9f33b1ab52555a5d8f0642e22cb1a41e84859d71f3a912b00eee1d5aee55"
+    },
+    {
+      "path": "proofbundle_snapshot/sha512_blake2_agent_worklog.sealed.json",
+      "bytes": 9743,
+      "sha256": "dc6e6cc10699999242ca9de7543ae73981bfccf90bf69143b04a8c735140417c",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "b2e7e8d54da0b245a65ca9d76eabc15d3f32670c4eb2abd21826083ac2900259"
+    },
+    {
+      "path": "proofbundle_snapshot/VERIFYING.md",
+      "bytes": 1510,
+      "sha256": "0dddb2dafae672468fe90be38a8070456798248680cc8932b1eaab76a7c04116",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "84b4b3212ba6ede86180c439a88f1b9c3266ded99b61b1367a27ff335d571286"
+    },
+    {
+      "path": "proofbundle-crypto-core.html",
+      "bytes": 14477,
+      "sha256": "505501110563584d413f0ce86592e757c5e7f1fc22b0236d6b2c0f7ef28c4108",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "2672be38265cd665560369790d60b616fdb1fdd92b63de7388c2aaa805295165"
+    },
+    {
+      "path": "README.md",
+      "bytes": 634,
+      "sha256": "0427f63e14a06b54b7d12b7b17e9905f1020ccbffb46703f18c33f6d39dda852",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "f6286f618eb7c29a409006ea8899260d7c7412f65ddd619104164573cfdd0194"
+    },
+    {
+      "path": "signing/package_ed25519_private.pem",
+      "bytes": 119,
+      "sha256": "2eed133616cd84be325d1cfa4c7ac3c860663f0898452b9fddba9d6029fe4927",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "ee2812605e34d7989101dffddefae9d9551a4f505690c878023266ebfd1fbfa7"
+    },
+    {
+      "path": "signing/package_ed25519_public.pem",
+      "bytes": 113,
+      "sha256": "62d83ac13c000f5eeb363b80f4bb4968afa1b42456c99cfad230a979f7b13e42",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "1b481bf96c8a3c18921229bfe94256de8aa62c1bc74926802525b443b62e3a5c"
+    },
+    {
+      "path": "verification_logs/node_test_results.json",
+      "bytes": 2530,
+      "sha256": "21877fd806e3a647bbdef131ca30228fa39974fc246d1658ce1af6a4e73998d7",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "0a600f4301fef9510303a9d674cf227eac1201440a1a352efaa261f24cdc38a2"
+    },
+    {
+      "path": "verification_logs/node_test_results.txt",
+      "bytes": 1756,
+      "sha256": "6568f1997bf97e9c4029e06074c77a0f2b9cb6f6e4629ae79627513ccd488c0f",
+      "blake3_status": "placeholder_sha256_namespaced_until_bundled_blake3_cli_is_integrated",
+      "blake3_placeholder": "902e2385c428de04c61532d89a6ad6345c6741fd781d8b15d8d9f1e1350425b0"
+    }
+  ]
+}

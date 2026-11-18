@@ -1,0 +1,110 @@
+path	sha256	bytes	lines	language	primitive	all_primitives_detected	copies_found	earliest_file_date_utc	uses_platform_crypto	imports_crypto_library	known_answer_run
+aes/javascript/aescmac__a44b98e3.mjs	a44b98e36ef1a19e006886de9900a2ed16371530cc446073fbb6e0b54680eb40	11856	363	javascript	aes	aes	1	2026-11-17	no	no	not run
+aes/javascript/aescmac__fc7ef751.mjs	fc7ef7514cdbcfc50cecda0565cf3b19648077374a113bc2e4a339250e30b46e	13972	431	javascript	aes	aes	1	2026-11-17	no	no	not run
+aes/javascript/aesgcmsiv__1ba1d0e4.mjs	1ba1d0e496914b3a8e8297dc996e94571c49af2745cc57bbdf9df64750050170	12935	431	javascript	aes	aes	1	2026-11-17	no	no	not run
+aes/javascript/aesgcmsiv__20fbc2d1.mjs	20fbc2d10df6db15f1146b4a93851d183937a3bbff14b46761aecbc46739216c	14234	485	javascript	aes	aes	1	2026-11-17	no	no	not run
+aes/javascript/aesgcmsiv__b0ad5801.mjs	b0ad5801e7d5c262e5b9b0d9ebc2e1ad3684dd540a1d2f2bab964da991731f64	13743	471	javascript	aes	aes	1	2026-11-17	no	no	not run
+blake2/javascript/proofbundle__0657dd02.js	0657dd02b15900318133dc8b22e412674edaf597d950d6446cb89c0706758d15	34964	878	javascript	blake2	blake2	2	2026-05-31	yes	no	no export matched the name of the primitive; 26 vectors
+blake3/javascript/blake3__6fd9965c.mjs	6fd9965cfcff9ea32ed69b70cd67ad81983d876c8cf7c7d61f589ff4dee61750	7615	230	javascript	blake3	blake3	1	2026-08-04	no	no	pass; 2 vectors; blake3Hash
+chacha20/javascript/chacha-core__8b7a1bc2.mjs	8b7a1bc2b9f728bb960498623cd335eea5f4aa2ea101fc6533082cd0e96921d8	5971	166	javascript	chacha20	chacha20 poly1305	1	2026-08-04	no	no	not run
+chacha20/javascript/chacha20poly1305__000ca57a.mjs	000ca57a9896a603ec630d3fefc23a6c284921a49098b793fd5e12a6f8f0c6fd	4045	137	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/chacha20poly1305__099b04a0.mjs	099b04a0420d7c8e1b4b02dee7fb893a4d4e4c38b0e91876e7ce028457770bda	7092	253	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/chacha20poly1305__4f334cd8.mjs	4f334cd807dc148180b2c793a5b0507dfd1fea6a83ae1de237104114e1708b69	7092	253	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/chacha20poly1305__85681a44.mjs	85681a44ed77048ae4eaaa45031c77da96a5099cf01fd2911b908aa4b9f90a1d	12054	419	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/chacha20poly1305__cdc0e4d6.mjs	cdc0e4d6156ff2fe8fa1234a3c71731f427bb7b1ea7b2489340a056edf36ef77	4045	137	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/xchacha20poly1305__1402f76d.mjs	1402f76d13e5fa4e35bf01e5acb339edef31a6dfedf02ec9d9902ad70d597fd6	14625	396	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/xchacha20poly1305__46144759.mjs	46144759f0a8f801b51bc0a1ca814b406a6044f1fd57c9c2e6f6a3d515f0749a	7709	236	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/javascript/xchacha20poly1305__7adf8297.mjs	7adf8297f5d533229b8e65ae813efb32c38d5d12a0b6f9a92f2af631e3969999	14480	403	javascript	chacha20	chacha20 poly1305	1	2026-11-17	no	no	not run
+chacha20/lean/ChaCha20Core__9c0adf37.lean	9c0adf37f4223dfb2266956afc60d83d9fb9ca91cd3cbf41cefe6190a8363fcd	80279	1659	lean	chacha20	chacha20	1	2026-08-15	no	no	not run
+chacha20/lean/ChaCha20__cb388dfc.lean	cb388dfcccb7375f34f6b562082849fd2511f2e24631266d27761d9cfe18636c	11511	338	lean	chacha20	chacha20	1	2026-11-16	no	no	not run
+chacha20/lean/Crypto__ChaCha20__70ece7e7.lean	70ece7e75587a5cc3b781adf02f20e22775668c54c6fc2c8882f123e3513fb66	11568	341	lean	chacha20	chacha20	1	2026-11-17	no	no	not run
+chacha20/lean/Poly1305Core__ef5a6918.lean	ef5a69189fe77da5954919414d882e2fdb0bd372015a86fbf471df613d84e2ab	88576	1847	lean	chacha20	chacha20 poly1305	1	2026-08-15	no	no	not run
+ecdsa-p256/javascript/ecdsa__fb73640b.mjs	fb73640b67902a178b7ba58ac558a815a99a379fa913e19f2126f0d036ae4c3e	27019	618	javascript	ecdsa-p256	ecdsa-p256 ecdsa-p384	1	2026-11-15	yes	no	not run
+ecdsa-p256/javascript/p256__7bd79447.mjs	7bd794476ad971e3b610233dcfee40863861fa6085280851c44a7970b23b6c50	9087	243	javascript	ecdsa-p256	ecdsa-p256 sha-256	1	2026-11-17	yes	no	not run
+ecdsa-p256/javascript/p256__8a37620d.mjs	8a37620d17749c3e7b1905a66fa2e0b48c90a1af80dab66d0aaeb21a570e3d1b	8747	234	javascript	ecdsa-p256	ecdsa-p256 sha-256	1	2026-11-17	yes	no	not run
+ecdsa-p256/lean/Crypto__ECDSA__19394def.lean	19394def33577bfce565a441bd002bf90f07a5af9386d7474715b7361ac86cbf	2229	74	lean	ecdsa-p256	ecdsa-p256	1	2026-11-17	no	no	not run
+ecdsa-p256/lean/ECDSACore__3cbf7fc5.lean	3cbf7fc5633df1587ca2c3adbcc2fafbd3d5cfc9f498054d2f65c6ac08a0129c	3952	119	lean	ecdsa-p256	ecdsa-p256	2	2026-08-23	no	no	not run
+ecdsa-p256/lean/ECDSAP256__98d9ecf6.lean	98d9ecf64aa452c518be01624f7c0f9c2f1f03ab941bb01e3f3359ff08c38bef	73220	1599	lean	ecdsa-p256	ecdsa-p256 sha-256	2	2026-08-15	no	no	not run
+ecdsa-p256/lean/ECDSA__304653d7.lean	304653d7ef4d88b29343cea7cd2c7b02d4d8cf8017056bf040c58321857ebaac	2180	71	lean	ecdsa-p256	ecdsa-p256	1	2026-11-16	no	no	not run
+ecdsa-p256/lean/Modp__f5827ded.lean	f5827ded637c3cce46ffd858979d35146db71835f1c97ffd230604f9611050e8	4064	112	lean	ecdsa-p256	ecdsa-p256	1	2026-10-29	no	no	not run
+ecdsa-p256/lean/hostile_r_equals_n__773a8ec5.lean	773a8ec57c935ed08b89975d87cf04e85eabbcdcea8c1cf41ed243d7019d0cc6	1513	37	lean	ecdsa-p256	ecdsa-p256	1	2026-08-15	no	no	not run
+ecdsa-p256/lean/hostile_r_equals_n__d9177f92.lean	d9177f92a012e6f7343fe33619bd4da9098b67092b3167ace9db02b2ef702bfa	1519	37	lean	ecdsa-p256	ecdsa-p256	1	2026-08-17	no	no	not run
+ecdsa-p256/lean/hostile_s_equals_n__b249a9ca.lean	b249a9cae0458712b7f5f9498cefd14fb5a0b91e1256b3d3be3e788243f84529	1513	37	lean	ecdsa-p256	ecdsa-p256	1	2026-08-15	no	no	not run
+ecdsa-p256/lean/hostile_s_equals_n__d3ae10b4.lean	d3ae10b4564704e74e5512a074bf3f04094f6743a7e6651b7719162276a07459	1519	37	lean	ecdsa-p256	ecdsa-p256	1	2026-08-17	no	no	not run
+ecdsa-p384/javascript/p384__e6ad78b0.mjs	e6ad78b08bda6532014fd1b9cc76c876ab3cc9022fb195b5c60a7dd8867c0f2a	10273	260	javascript	ecdsa-p384	ecdsa-p384 sha-512	1	2026-11-17	yes	no	not run
+ecdsa-p521/javascript/p521__5dc91901.mjs	5dc91901e03c61b79cee1f80d7625392dd11bca66d8c983a31c304a346d42093	10379	260	javascript	ecdsa-p521	ecdsa-p521 sha-512	1	2026-11-17	yes	no	not run
+ecdsa-p521/javascript/p521__d773cf73.mjs	d773cf73c090d38b22c9fc88813bb590775a653352ae58f11106f6161760e1c6	10494	260	javascript	ecdsa-p521	ecdsa-p521 sha-512	1	2026-11-17	yes	no	not run
+ed25519/javascript/ed25519__962fff11.mjs	962fff119658ba1eaf24da1773ec1fdad4613c85821deb696d12c8691a5dd304	6833	212	javascript	ed25519	ed25519	15	2026-08-15	yes	no	not run
+ed25519/javascript/ed25519__9b1a8c6f.mjs	9b1a8c6f4a9ae813c763fbf3993223778efee75d06cc4bcf4eaf32e85b3a2d86	10412	253	javascript	ed25519	ed25519 x25519	1	2026-11-15	no	no	not run
+ed25519/javascript/x25519__e91a9eea.mjs	e91a9eeaace225c4ce638ef36f484726a15f951dd75899d26da42eb8a591f2ed	7007	239	javascript	ed25519	ed25519 x25519	9	2026-09-24	yes	no	not run
+ed25519/lean/Bulletproofs__f2e34f8e.lean	f2e34f8ed1f534d2e89e1a4c74d46695a57b8450e82598f55c92323771825b26	2070	65	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed25519/lean/Commitment__79c584e2.lean	79c584e2da7cb8cb51c7b12b6a9f7d209994ee2bf77f55ea2d0e8ea3e69d8946	2100	62	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed25519/lean/Crypto__Ed25519__7aa33a0f.lean	7aa33a0f39df0e39ca0949a6c21eb81dbc755f92d1256ea5360770074802846e	7201	184	lean	ed25519	ed25519 x25519	1	2026-11-17	no	no	not run
+ed25519/lean/Ed25519Core__1f169b6f.lean	1f169b6fc523208c05d1f6389c50303bfea52c7177c2536555360187b887fc97	82918	1769	lean	ed25519	ed25519 x25519	1	2026-08-15	no	no	not run
+ed25519/lean/Ed25519SignVerifySkeleton__7902d894.lean	7902d8946637d89765f73d247ed2d9ec726c80fef8056560c4d4b0ef78e65ada	89893	1901	lean	ed25519	ed25519 x25519	1	2026-08-15	no	no	not run
+ed25519/lean/Ed25519__ae129e83.lean	ae129e83adbf4202e6d0ebce61e7b6afae3e94594fae248f5482c67746f01e69	7120	180	lean	ed25519	ed25519 x25519	1	2026-11-16	no	no	not run
+ed25519/lean/PAKE__687655b4.lean	687655b49fc2994252c37374e0367976cf67c5ff5f14e71ecc0d97c0e8279635	1736	59	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed25519/lean/SecretSharing__e81dfe26.lean	e81dfe266870cd604b7215f1260cf567ab5aeb3336761216c760987017c0ccbc	2024	58	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed25519/lean/ThresholdSig__fe852146.lean	fe8521469237cfde45c291fd111641cbe6ce6606cf4806000a8e0475875a8983	2009	58	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed25519/lean/VRF__e8dfd4a1.lean	e8dfd4a112990b10d2ee2fa4669068449b8021e5655492b25eaa90d62dbe76d3	2142	67	lean	ed25519	ed25519	1	2026-11-16	no	no	not run
+ed448/javascript/ed448__0059c38f.mjs	0059c38fedca96c02a8f924eac30cc0bea9858cb852e0c4dc7f6436fa12a67a7	12526	458	javascript	ed448	ed448 keccak-sha3	1	2026-11-17	no	no	not run
+ed448/javascript/ed448__1181f7dc.mjs	1181f7dc5f87821644d70a1533c88c6b1f7ffe3efdc43d96cd5be8478ef6971c	12331	446	javascript	ed448	ed448 keccak-sha3	1	2026-11-17	no	no	not run
+ed448/javascript/ed448__14db10d3.mjs	14db10d331d49e6f1630e5626a88dad00c7ee9cbf5711a9ffd1811e85a940ea2	17910	650	javascript	ed448	ed448 keccak-sha3	1	2026-11-17	no	no	not run
+falcon/javascript/falcon__357c55df.mjs	357c55dfe5c7906c30a7d080c9d130f745c87fa298015d8a9a1ef6829a1dbb80	60155	1543	javascript	falcon	falcon	1	2026-10-19	yes	no	not run
+falcon/javascript/t_falcon__c3261e97.mjs	c3261e97c4920be06e66b6d4a78c81b2bb2d5e67a20df478edcf9a147c8d1dee	4162	104	javascript	falcon	falcon	1	2026-10-19	no	no	not run
+falcon/lean/Crypto__Falcon__ad231a4d.lean	ad231a4d7384f071318abcec0d00ef78907ceb2a867c85430d3577e10ff3a1b8	2549	86	lean	falcon	falcon	1	2026-11-17	no	no	not run
+falcon/lean/Falcon__a275485c.lean	a275485c6db8c43c88a9656391cd7346cf23625791882c844fc7ec35b4ba9f19	2499	83	lean	falcon	falcon	1	2026-11-16	no	no	not run
+keccak-sha3/javascript/keccak-core__3225c910.mjs	3225c910dc5c9f8561c010e1e5549277bde5e0219e5dbb47db2c485e9488aa8f	4007	122	javascript	keccak-sha3	keccak-sha3	1	2026-08-04	no	no	no export matched the name of the primitive; 26 vectors
+keccak-sha3/javascript/keccak__37b8b99c.mjs	37b8b99ccf22b2b6bcd23193d91826e1cb2388c06805cad43e60b3939a993194	5139	140	javascript	keccak-sha3	keccak-sha3	6	2026-07-30	yes	no	pass; 26 vectors; sha3_256
+keccak-sha3/javascript/keccak__3bfdf6e4.mjs	3bfdf6e4e4de12a70ff2105e8c5b9059409c58abb5d732c86317022dcbf04315	5981	159	javascript	keccak-sha3	keccak-sha3	5	2026-08-05	yes	no	pass; 26 vectors; sha3_256
+keccak-sha3/lean/Crypto__MLKEM__d3b50a12.lean	d3b50a120cfa16e0034c3e533e5e692170d8b983d08d8758dff205f06ec0606e	12476	285	lean	keccak-sha3	keccak-sha3	1	2026-11-17	no	no	not run
+keccak-sha3/lean/KeccakCore__875816b2.lean	875816b2d4e38fbfc8048e46ba3aa601ab1cc61688481a8eb844085a0e58267f	34686	1346	lean	keccak-sha3	keccak-sha3	2	2026-08-23	no	no	not run
+keccak-sha3/lean/MLKEM__89fd62b8.lean	89fd62b80dac809b3201d71ef2945d736e2a3c9b42f5404566eb3652d37bf957	12427	282	lean	keccak-sha3	keccak-sha3	1	2026-10-29	no	no	not run
+ml-dsa/lean/Crypto__MLDSA__746a013a.lean	746a013a1aab7638a41ad857b8dfccd85cb94c8be5ad516b704a1dd3f4dacde1	5227	167	lean	ml-dsa	ml-dsa	1	2026-11-17	no	no	not run
+ml-dsa/lean/MLDSA__c8594e2f.lean	c8594e2f34c8d6865b7534a80c82c29c7cb2a9a18f8773d4c7a1cc9c3dd4e9ab	5142	163	lean	ml-dsa	ml-dsa	1	2026-11-16	no	no	not run
+ml-kem/javascript/mldsa__59e73a11.mjs	59e73a11ad2f24dec2a1650307749eb9891ecf24818881165932aa0650dc0333	27161	732	javascript	ml-kem	ml-kem ml-dsa	2	2026-10-30	no	no	not run
+ml-kem/javascript/mlkem768__7de28aae.mjs	7de28aae733db0c2a216b7997028e58059c9a392152416d5a6efca78a11a68d1	23573	552	javascript	ml-kem	ml-kem keccak-sha3	1	2026-11-17	no	no	not run
+ml-kem/javascript/mlkem__6308dd89.mjs	6308dd895f741d41a9551a4661ad146048f032025045fa63620196371ca714cb	15459	443	javascript	ml-kem	ml-kem	1	2026-11-15	no	no	not run
+ml-kem/javascript/mlkem__c3c1a918.mjs	c3c1a9184005570f6dc39c6713d1d20109ff715d54de1dc00b7b7c7e0b8dd503	14450	425	javascript	ml-kem	ml-kem	6	2026-07-30	no	no	not run
+ml-kem/lean/MLKEM768Skeleton__2618205e.lean	2618205e245b4c607a4d4eedc21991f480b69e4de7677c500656e1eb614e82e1	132188	2267	lean	ml-kem	ml-kem	1	2026-08-15	no	no	not run
+poly1305/javascript/poly1305ct__ed9ebd7e.mjs	ed9ebd7edfe761620f65301ffc67a7323eac2a4fa6e57658c9d75281fcecfb9a	3938	154	javascript	poly1305	poly1305	1	2026-11-17	no	no	not run
+poly1305/lean/Crypto__Poly1305__970143ad.lean	970143adbd35d706c240e2ef4bd66ec4372b35eb48b7524481a0bbd4a6dc608a	5794	147	lean	poly1305	poly1305	1	2026-11-17	no	no	not run
+poly1305/lean/Poly1305__561c3814.lean	561c381487694722c44c72983965d5a9898dafe5298649c099122d3dfb381522	5609	141	lean	poly1305	poly1305	1	2026-11-16	no	no	not run
+rsa/javascript/rsa-pss__71474430.mjs	71474430a0e2864a51e6abec4ec2b7cbd543cd5020dba5a4f09b83cdeb2f4141	8192	70	javascript	rsa	rsa	2	2026-10-30	no	no	not run
+rsa/javascript/rsasig__8e0e741f.mjs	8e0e741fb8c0a47421988ffecfad8d47947578ab93c9fbe31b7385bc29b31816	18468	426	javascript	rsa	rsa sha-512	1	2026-11-17	no	no	not run
+rsa/javascript/rsasig__d63c082d.mjs	d63c082d1c199482fcb835706c075f9526512c7d84babd294c98d0dd7864c917	18613	423	javascript	rsa	rsa sha-512	1	2026-11-17	no	no	not run
+rsa/lean/Crypto__RSAPSS__7064d6b8.lean	7064d6b8ebea8b6958f682edd04e0a89c957a32199c0c1b849ea72eb9db9b0fe	2548	90	lean	rsa	rsa	1	2026-11-17	no	no	not run
+rsa/lean/RSAPSS__5a9a3eed.lean	5a9a3eed977b53b21989cf0b30acd506a5c050c1c61750cc63f1f2ed37eb5f41	2498	87	lean	rsa	rsa	1	2026-11-16	no	no	not run
+secp256k1/javascript/secp256k1__bc4c0414.mjs	bc4c04144ba53790f95388ffda4748a72c09753d6901b911445c9241743938f4	7660	224	javascript	secp256k1	secp256k1 sha-256	1	2026-11-17	no	no	not run
+sha-256/coq/K_new__875e799a.v	875e799a3b0cf6d5762421697a59391e1e1000f3c20386255990f26a0b06ecec	831	17	coq	sha-256	sha-256	1	2026-08-23	no	no	not run
+sha-256/javascript/gen_sha512_constants__9471cfae.mjs	9471cfae7c27297a7a97fe7ec95dbf8c90f15531d9cafc26eacbfa2099c8b30d	4855	120	javascript	sha-256	sha-256	2	2026-07-27	no	no	no export matched the name of the primitive; 26 vectors
+sha-256/javascript/otsverify__26ca9c34.mjs	26ca9c34f5fbbbafd77154f64bdc99f39dad6ec3b69679396076ade8ca2f462d	31595	708	javascript	sha-256	sha-256 sha-1	1	2026-11-17	yes	no	pass; 26 vectors; default.hashes.sha256
+sha-256/javascript/otsverify__599db4e6.mjs	599db4e68de97759730865b4b31ceb9b9a7a5a29be81d9dbd7e4213f37d85b4f	27851	635	javascript	sha-256	sha-256 sha-1	1	2026-11-17	yes	no	pass; 26 vectors; default.hashes.sha256
+sha-256/javascript/otsverify__79ac8c5d.mjs	79ac8c5ded97a2746860389913be062f74e6f3c36a531846f2fd7ddac53b22c7	29464	665	javascript	sha-256	sha-256 sha-1	1	2026-11-17	yes	no	pass; 26 vectors; default.hashes.sha256
+sha-256/javascript/otsverify__bba26528.mjs	bba26528c6f2a94c155c5fa435fe534af7a0d69542024d95fb86de50145a4c0c	30629	687	javascript	sha-256	sha-256 sha-1	1	2026-11-17	yes	no	pass; 26 vectors; default.hashes.sha256
+sha-256/javascript/pbkdf2__a5972a78.mjs	a5972a784632c8f359b5a9a729e9ac4d3aab43b37409698e51ba29ff964ebfb0	16963	382	javascript	sha-256	sha-256	1	2026-11-17	yes	no	no export matched the name of the primitive; 26 vectors
+sha-256/javascript/pbledger__38d74d23.mjs	38d74d23927fc0f355734d2b517cef1a1f5be3b4bdf3e957872d6cab815fcc6f	15983	491	javascript	sha-256	sha-256	1	2026-11-17	no	no	pass; 26 vectors; sha256
+sha-256/javascript/rfc6962__4228babd.mjs	4228babdedbff5d4ba60aebbfcffd31a017bd2c7f5bb547963ac0fdcbc81ea8c	9267	300	javascript	sha-256	sha-256	1	2026-11-17	no	no	pass; 26 vectors; sha256
+sha-256/javascript/rfc6962__c9488848.mjs	c9488848966b45cd83a6075c2632fde1dcffd86fc03aff851001d164515f3afb	9449	304	javascript	sha-256	sha-256	1	2026-11-17	no	no	pass; 26 vectors; sha256
+sha-256/javascript/sha256__5e8ca549.mjs	5e8ca549f7045b7ff179c30a47b0c51f6f918a01928071aa248c6dd86130e41f	3037	74	javascript	sha-256	sha-256	14	2026-08-13	yes	no	pass; 26 vectors; sha256
+sha-256/lean/Block64_Refactor__066afb4d.lean	066afb4dd8b9dd00471b4f1bdb88bd57e93bc86c98b55254ceafaf9e5938381a	7975	220	lean	sha-256	sha-256	1	2026-08-16	no	no	not run
+sha-256/lean/Core__7e1f903a.lean	7e1f903a03c957faeb71f3e901439a122dcd56d5c6c634da2f6a2a1987f4cef7	2816	73	lean	sha-256	sha-256	1	2026-09-05	no	no	not run
+sha-256/lean/Core__a0c83cdc.lean	a0c83cdcc0bc929fa6b5075a6e3dad51c78a38ae5620d06b034caf11dfdd0f83	8604	231	lean	sha-256	sha-256	2	2026-08-11	no	no	not run
+sha-256/lean/SHA256Core__26a865e9.lean	26a865e9b57434aefea9fe7cfc6fda1ffaf1faf795564921b23a7b3a4055ac43	22562	792	lean	sha-256	sha-256	2	2026-08-23	no	no	not run
+sha-256/lean/SHA256Core__51e27902.lean	51e27902d594796f3450c9c896d16be8bff08b9f8dada47d66cf7572b7db069a	8310	227	lean	sha-256	sha-256	4	2026-08-10	no	no	not run
+sha-256/lean/SHA256Core_defective__5cd498bf.lean	5cd498bf5d8b0fc4c8144d4b0cabda6079f75c4d29309c4031f2602f1e4e7dcc	4623	129	lean	sha-256	sha-256	3	2026-08-11	no	no	not run
+sha-256/lean/SHA256__789c1398.lean	789c13984477241679a9cfd6dedec0ac8df0fc838c043c1f2f8fcf7925f0bf43	55965	1210	lean	sha-256	sha-256	2	2026-08-15	no	no	not run
+sha-512/javascript/pb2__572f29b3.mjs	572f29b305e16d6116d554696a78d23e5da51e83e3e74ad69152b326ade6ca22	5987	134	javascript	sha-512	sha-512	1	2026-09-04	no	no	pass; 26 vectors; sha512
+sha-512/javascript/sha512__e3ba696b.mjs	e3ba696b730718b973616822dc72e47fcb3d327d18f5d17229db327bb97bbc78	5102	112	javascript	sha-512	sha-512	14	2026-08-27	yes	no	pass; 26 vectors; sha512
+sha-512/lean/Core__777c9afb.lean	777c9afbdd0fc74f8181096adbc34ec4f826cebd90103d91d360c0e0d7adb02f	7332	170	lean	sha-512	sha-512	2	2026-08-11	no	no	not run
+sha-512/lean/Core__82083f4a.lean	82083f4a09958f9cd9b45ce1212262b3a8e65e721c51d6266033d4a327b8eb19	3447	70	lean	sha-512	sha-512	1	2026-10-29	no	no	not run
+slh-dsa/javascript/slh-dsa__b00d7d0f.mjs	b00d7d0f16e06046e2a9ad416a0108ad3980c6231b438356d9e02628bd8ae7f1	54251	1157	javascript	slh-dsa	slh-dsa sha-256	2	2026-10-19	yes	yes	not run
+slh-dsa/lean/Crypto__SPHINCSPlus__8aa1cde6.lean	8aa1cde6a8c93f73c50ffe17d4a81109f2972b6b38296116c4e482b7d0f0e2d1	2505	93	lean	slh-dsa	slh-dsa	1	2026-11-17	no	no	not run
+slh-dsa/lean/SLHDSA__98a94d0d.lean	98a94d0d9d7b0c41d312944964831a8e8ce8acb0d1335b227e5a3ef6cbbb4ee4	5087	161	lean	slh-dsa	slh-dsa	1	2026-11-16	no	no	not run
+slh-dsa/lean/SPHINCSPlus__c0d66eac.lean	c0d66eac69b51a0aa35d1e08b357a5897d628411504de5baf8df89f24e869dbf	2450	90	lean	slh-dsa	slh-dsa	1	2026-11-16	no	no	not run
+x25519/javascript/x25519__655a96db.mjs	655a96dbbfd2bc4768ecb0f8f000e006575d2c43a8948cc8e9eb019dd744fa14	8906	328	javascript	x25519	x25519	1	2026-11-17	no	yes	not run
+x25519/lean/Crypto__X25519__bd0bca15.lean	bd0bca15526d35270a0f3159468634011d4f746528b183c847036078c20a9aa6	6284	170	lean	x25519	x25519	1	2026-11-17	no	no	not run
+x25519/lean/X25519__4d6dde33.lean	4d6dde33fd4ea1a6e948f026c057ed9ab91170bd469b9338e2060862c08a95e2	6121	164	lean	x25519	x25519	1	2026-11-16	no	no	not run
+x448/javascript/x448__05fdae23.mjs	05fdae23c32efc2230180a335f0c3620a95e8d5064c0ff6be968db00eea8f059	8458	329	javascript	x448	x448	1	2026-11-17	no	no	not run
+x448/javascript/x448__323fae07.mjs	323fae07f1de6138b720f9c90300f1c7a8fa8da3f3ac9ccf7ee40a53f5d1fd18	3323	139	javascript	x448	x448	1	2026-11-17	no	no	not run
+x448/javascript/x448__40ef0558.mjs	40ef0558078881bcc3531896859816e1c6f632e250a8de542a420ad0059ebbc9	2777	125	javascript	x448	x448	1	2026-11-17	no	no	not run

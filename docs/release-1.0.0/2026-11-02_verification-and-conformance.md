@@ -225,7 +225,7 @@ Verification does not wait on local custody. The custody workbench records each 
 
 ## Verification of this build
 
-The build is reproducible from the gpx-free writ-closure build (sha256 898a3da0…) by `integrate.py`. Every splice is anchored on exact text and asserted to match once, and the script fails if any of the following remains in the output: an old verify path, an old outcome name, the frozen manifest, or a gpx identifier outside the Rust crate record.
+The build is reproducible from the preceding build (sha256 898a3da0…) by `integrate.py`. Every splice is anchored on exact text and asserted to match once, and the script fails if any of the following remains in the output: an old verify path, an old outcome name, the frozen manifest, or a legacy identifier outside the Rust crate record.
 
 **Boot self-test: 89 of 89.**
 - Run under jsdom, and under Chromium 153.0.8010.12.
@@ -259,10 +259,10 @@ The mutants were built from the generation build (sha256 a3793cee…). Its verif
 ## What this build does not do
 
 - **The Rust workspace.** The definition is a plain JSON file whose cases carry their bundles, options and parents, so any implementation can run it.
-  - **Where it is.** The 32-crate workspace (manifest sha256 89423f4b…, crates named `gpx-*`) is the genophylaxis workspace. The Google Drive listing of 2026-08-22 has it under `VM_FULL_20260626/genophylaxis-src/` and `VM_BUILT_ARTIFACTS_20260627/genophylaxis_source_crates/`.
+  - **Where it is.** The 32-crate workspace (manifest sha256 89423f4b…) is kept outside this repository.
   - **Not run.** It was not fetched or built here, and the definition has not been run there.
   - **Not checked.** Whether any of its crates reads ProofBundle 1.0.0 envelopes was not checked.
   - **The staged Rust.** `src/proofbundle/rust` is the custody CLI, and it does not read them.
-  - **Naming.** The crate names are recorded verbatim in the client's algorithm-synthesis data. The client has no other gpx naming.
-- **Aletheia naming.** The workbench still uses `aletheia` element ids and the desktop bridge name `window.aletheiaDesktop` (with its preload methods `clipboardWrite` and `sourcePath`), and the desktop's custody signatures use `ALETHEIA-*` domain-separation strings. The bridge names are defined by the desktop preload, so they keep their spelling until the preload changes with them. Renaming the domain strings changes what existing custody signatures cover, so it needs dual acceptance during the change. Neither was done here.
+  - **Naming.** The crate names are recorded verbatim in the client's algorithm-synthesis data.
+- **Legacy identifiers.** The workbench still uses element ids, a desktop bridge name and domain-separation strings for the desktop's custody signatures that carry an earlier project label. The bridge names are defined by the desktop preload, so they keep their spelling until the preload changes with them. Renaming the domain strings changes what existing custody signatures cover, so it needs dual acceptance during the change. Neither was done here.
 - **Adapter API names.** `window.ProofBundle` keeps its name; the methods on it are now snake_case like the rest of the client. An adapter written against the camelCase methods needs their new names.

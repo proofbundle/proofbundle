@@ -114,7 +114,7 @@ witness digest, so "when" rests on the formalization and the OTS receipt rather 
 | W6 | publish the signed registry as a static file; in-page chain verification (Gap R1) | W1 |
 | W7 | bind the SI-second witness digest into custody records (Gap S1) | W2 |
 | W8 | rename the Rust-build name to ProofBundle across the client, migrating the signing domain and the stored database rather than replacing the strings | — |
-| W9 | the 32-crate workspace (`genophylaxis/crates`, 8 copies on LINUX_BOOT) as the provenance spine for AI/ML artifacts | W2 |
+| W9 | the 32-crate Rust workspace (8 copies on LINUX_BOOT) as the provenance spine for AI/ML artifacts | W2 |
 
 Rules every lane follows: `RULES.md` in the lane-dispatch work folder of 2026-11-17.
 Self-written tests are not ground truth. Nothing is deleted. Every output is hashed, chained and stamped.

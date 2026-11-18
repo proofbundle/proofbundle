@@ -10,4 +10,4 @@ describes.
 
 Both definitions are in conformance/pb-1.0.0/. Neither of the two client builds is in this repository. The client at
 the repository root (proofbundle.html and index.html, SHA-256 c1d85fd6225f09dd…) is the build published on 2026-11-16 and
-is later than both documents. The 2026-11-02 document was written as a draft and is reproduced as written.
+is later than both documents. The 2026-11-02 document was written as a draft and is reproduced as written. In both copies the passages that named an earlier project label are reworded; nothing else is changed.

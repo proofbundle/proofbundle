@@ -28,8 +28,8 @@ and engine a3793cee9950…; those three files are not in this directory either.
 
 test-suite_2026-11-02.js is the source of the client's test-suite page of the same date.
 
-Text of these sources found verbatim in the client at the repository root (proofbundle.html, SHA-256
-c1d85fd6225f09dd…, published 2026-11-16): verifier=True generator=False testsuite=False.
+Of these three sources, the verifier text occurs verbatim in the client at the repository root (proofbundle.html,
+SHA-256 c1d85fd6225f09dd…, published 2026-11-16). The generator text and the test-suite text do not occur verbatim in it.
 
 ## Run records
 

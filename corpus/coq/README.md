@@ -25,3 +25,12 @@ A short content hash is appended only where two files in the same folder share a
 Placement was checked on 2026-10-04 by compiling every file with coqc 8.18.0:
 every file under `01_proved` and `02_axiom_dependent` compiles, and every file under
 `04_uncompiled` fails.
+
+## Theorem index: Merkle, DAG, lineage and provenance
+
+THEOREMS_merkle-dag-provenance.csv lists 66 theorems by family, each with the file in this directory that declares
+it, the line of the declaration, and the keyword that ends its proof in the text (Qed or Admitted). The line and the
+keyword were read from the files by script on 2026-11-17. The directory a file sits in (01_proved, 02_axiom_dependent,
+04_uncompiled) is the status recorded in INDEX.tsv; the index adds no compile result of its own. Two source blocks
+were not yet in this directory and were added under 04_uncompiled without being compiled:
+crypto_provenance/dispatch_sound_b5b425be.v and lineage_dag/chain_lineage_monotone_51fbd51b.v.

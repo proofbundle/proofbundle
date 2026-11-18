@@ -11040,52 +11040,11 @@ function init_sync_ui() {
 }
 
 /* ── hash-chained action log ────────────────────────────────────── */
-/* The custody chain is what the verifier keeps, so an entry carries more than one digest and says who
-   wrote it. `hash` stays the SHA-256 over the entry body and stays the prev-link, so chains written
-   before this change verify unaltered; `digests` and `sig` are additions. The signature covers the
-   hash and the digests together, and records whether the recorder key is durable for this origin or
-   a throwaway minted for this tab — a throwaway shows the entry was not altered after it was written
-   and nothing more, which is why the basis travels with the signature instead of being assumed. */
-async function chain_recorder_key() {
-  if (_current_key) return { key: _current_key, basis: 'session' };
-  /* The durable identity lives behind storage that can block or never settle in some origins. Appending
-     to the custody chain must not be able to hang on it, so the lookup is bounded; on timeout the entry
-     is written unsigned and says so, which is worse evidence than a signature and better than no entry. */
-  try {
-    await Promise.race([pb_local_identity.use_signing_key(),
-      new Promise((_, rej) => setTimeout(() => rej(new Error('identity lookup timed out')), 4000))]);
-  } catch (e) { return { key: null, basis: 'none', why: String(e && e.message || e).slice(0, 80) }; }
-  return _current_key ? { key: _current_key, basis: 'durable' } : { key: null, basis: 'none' };
-}
 async function chain_append(action, ref, note) {
   const prev = pb_state.chain.length ? pb_state.chain[pb_state.chain.length - 1].hash : 'genesis';
   const entry = { seq: pb_state.chain.length, ts: new Date().toISOString(),
                   action, ref: ref || null, note: note || null, prev };
-  const body = utf8(canonical_json(entry));
-  entry.hash = b64u_encode(await digest_bytes('SHA-256', body));
-  /* Which digests an entry carries is a deployment's choice, not a constant written here. pb_digests is
-     the set of digests this build can compute (not a registration: pb_registry.algorithm_states carries
-     migration states for seven signature algorithms, and names eight more as recognized and
-     unimplemented). The default here is every computable digest less anything pb_registry.forbidden
-     names, since a custody entry must never commit to a digest the registry forbids; a deployment that
-     wants a narrower set assigns pb_state.chain_digest_algs. The entry records the list it actually
-     used, so a reader never infers it, and verify_chain checks what is present rather than a set it
-     assumes. The signature algorithm is the recorder key's own, from pb_sigs, not fixed to one. */
-  const forbidden = new Set((pb_registry.forbidden || []).map((x) => String(x).toUpperCase()));
-  const algs = ((Array.isArray(pb_state.chain_digest_algs) && pb_state.chain_digest_algs.length)
-    ? pb_state.chain_digest_algs : pb_digests.map((d) => d.id))
-    .filter((a) => !forbidden.has(String(a).toUpperCase()));
-  entry.digests = {};
-  for (const alg of algs) {
-    try { entry.digests[alg] = b64u_encode(await digest_bytes(alg, body)); }
-    catch (e) { entry.digests[alg] = null; }   /* an algorithm the build cannot compute is recorded as absent, never skipped silently */
-  }
-  const rec = await chain_recorder_key();
-  if (rec.key) {
-    const signed = utf8(canonical_json({ hash: entry.hash, digests: entry.digests }));
-    entry.sig = { alg: rec.key.alg, pub: rec.key.pub, key_basis: rec.basis,
-                  value: b64u_encode(await sig_sign(rec.key.alg, signed, rec.key.priv)) };
-  }
+  entry.hash = b64u_encode(await digest_bytes('SHA-256', utf8(canonical_json(entry))));
   pb_state.chain.push(entry);
   persist_state();
   sync_push(action, ref, note); /* best-effort, non-blocking, entirely optional */
@@ -11093,34 +11052,14 @@ async function chain_append(action, ref, note) {
 }
 async function verify_chain(chain) {
   const c = chain || pb_state.chain;
-  const forms = { legacy: 0, digests: 0, signed: 0 }, not_checked = {};
   for (let i = 0; i < c.length; i++) {
-    const { hash, digests, sig, ...rest } = c[i];
-    const body = utf8(canonical_json(rest));
-    const want = b64u_encode(await digest_bytes('SHA-256', body));
+    const { hash, ...rest } = c[i];
+    const want = b64u_encode(await digest_bytes('SHA-256', utf8(canonical_json(rest))));
     if (want !== hash) return { ok: false, broken_at: i, why: 'entry hash mismatch' };
-    const unchecked = [];
-    if (digests) for (const alg of Object.keys(digests)) {
-      if (digests[alg] === null) { unchecked.push(alg); continue; }   /* recorded as uncomputable at write time */
-      let got = null;
-      try { got = b64u_encode(await digest_bytes(alg, body)); }
-      catch (e) { unchecked.push(alg); continue; }                     /* this build cannot compute it now */
-      if (got !== digests[alg]) return { ok: false, broken_at: i, why: alg + ' digest mismatch' };
-    }
-    if (unchecked.length) not_checked[i] = unchecked;
-    if (sig) {
-      const signed = utf8(canonical_json({ hash, digests }));
-      if (!await sig_verify(sig.alg, signed, b64u_decode(sig.value), sig.pub))
-        return { ok: false, broken_at: i, why: 'recorder signature invalid' };
-    }
     const exp_prev = i === 0 ? 'genesis' : c[i-1].hash;
     if (rest.prev !== exp_prev) return { ok: false, broken_at: i, why: 'prev-link mismatch' };
-    forms[sig ? 'signed' : digests ? 'digests' : 'legacy']++;
   }
-  /* `forms` is the honest part of the result: a chain of legacy entries verifies as intact and says so,
-     rather than being reported as signed custody it never was. */
-  return { ok: true, length: c.length, head: c.length ? c[c.length-1].hash : 'genesis', forms,
-           digests_not_checked: Object.keys(not_checked).length ? not_checked : null };
+  return { ok: true, length: c.length, head: c.length ? c[c.length-1].hash : 'genesis' };
 }
 
 /* ── bundle store ───────────────────────────────────────────────── */

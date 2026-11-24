@@ -220,3 +220,34 @@ export function verify(signature, message, publicKey) {
 }
 
 export const _internal = { p, L, BASE, encodePoint, decodePoint, scalarMul, pointAdd };
+
+// ---- added 2026-11-24 by claude-opus-5-5: rfc 8032 §5.1 ed25519ctx and ed25519ph ----
+// dom2(phflag, ctx) = "SigEd25519 no Ed25519 collisions" || octet(phflag) || octet(len(ctx)) || ctx.
+// ed25519ph signs SHA-512(M) under dom2(1, ctx); ed25519ctx signs M under dom2(0, ctx) and requires a non-empty ctx.
+// the pure ed25519 functions above are unchanged.
+function dom2(phflag, ctx) {
+  if (!(ctx instanceof Uint8Array) || ctx.length > 255) throw new RangeError('ed25519: context must be a Uint8Array of at most 255 bytes');
+  return concatBytes(new TextEncoder().encode('SigEd25519 no Ed25519 collisions'), Uint8Array.of(phflag, ctx.length), ctx);
+}
+function signDom(message, seed, dom) {
+  const h = sha512(seed), scalar = clampScalar(h.slice(0, 32)), prefix = h.slice(32, 64);
+  const A = encodePoint(scalarMul(scalar, BASE));
+  const r = mod(bytesToLE(sha512(concatBytes(dom, prefix, message))), L);
+  const Renc = encodePoint(scalarMul(r, BASE));
+  const k = mod(bytesToLE(sha512(concatBytes(dom, Renc, A, message))), L);
+  return concatBytes(Renc, leToBytes(mod(r + k * scalar, L), 32));
+}
+function verifyDom(signature, message, publicKey, dom) {
+  if (!(signature instanceof Uint8Array) || signature.length !== 64 || !(publicKey instanceof Uint8Array)) return false;
+  const Renc = signature.slice(0, 32), S = bytesToLE(signature.slice(32, 64));
+  if (S >= L) return false;
+  let A, R; try { A = decodePoint(publicKey); R = decodePoint(Renc); } catch { return false; }
+  for (const point of [A, R]) { const q = pointToAffine(scalarMul(8n, point)); if (q.x === 0n && q.y === 1n) return false; }
+  const k = mod(bytesToLE(sha512(concatBytes(dom, Renc, publicKey, message))), L);
+  const la = pointToAffine(scalarMul(mod(8n * S, L), BASE)), ra = pointToAffine(pointAdd(scalarMul(8n, R), scalarMul(mod(8n * k, L), A)));
+  return la.x === ra.x && la.y === ra.y;
+}
+export function signPh(message, seed, context = new Uint8Array(0)) { return signDom(sha512(message), seed, dom2(1, context)); }
+export function verifyPh(signature, message, publicKey, context = new Uint8Array(0)) { try { return verifyDom(signature, sha512(message), publicKey, dom2(1, context)); } catch { return false; } }
+export function signCtx(message, seed, context) { if (!context || !context.length) throw new RangeError('ed25519ctx: context must be non-empty'); return signDom(message, seed, dom2(0, context)); }
+export function verifyCtx(signature, message, publicKey, context) { try { if (!context || !context.length) return false; return verifyDom(signature, message, publicKey, dom2(0, context)); } catch { return false; } }

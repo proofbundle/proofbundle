@@ -575,3 +575,20 @@ export const _internals = {
   encodeDER, decodeDER, modInverse,
   bytesToBig, bigToBytes,
 };
+
+// ---- added 2026-11-24 by claude-opus-5-5: verification over a caller-supplied digest ----
+// fips 186-5 lets any approved hash pair with any curve; ecdsaVerify above binds one hash per curve.
+// ecdsaVerifyDigest takes the digest bytes and applies the same z = leftmost min(bitlen(hash), bitlen(n)) bits rule.
+export function ecdsaVerifyDigest(publicKey, digest, signature, curveName) {
+  try {
+    const curve = getCurve(curveName); const { n, G, F, byteLen } = curve; let r, s;
+    if (signature && typeof signature === 'object' && !(signature instanceof Uint8Array) && signature.r !== undefined) { r = BigInt(signature.r); s = BigInt(signature.s); }
+    else { const b = toU8(signature); if (b.length === 2 * byteLen) { r = bytesToBig(b.slice(0, byteLen)); s = bytesToBig(b.slice(byteLen)); } else if (b[0] === 0x30) ({ r, s } = decodeDER(b)); else return false; }
+    if (r < 1n || r >= n || s < 1n || s >= n) return false;
+    const Q = decodePoint(toU8(publicKey), curve); if (isInfinity(Q)) return false;
+    const z = hashToZ(toU8(digest), curve), w = modInverse(s, n);
+    const X = pointAdd(scalarMul(((z * w) % n + n) % n, G, curve), scalarMul(((r * w) % n + n) % n, Q, curve), F);
+    if (isInfinity(X)) return false;
+    const [Xx] = toAffine(X, F); return ((Xx % n) + n) % n === r;
+  } catch { return false; }
+}

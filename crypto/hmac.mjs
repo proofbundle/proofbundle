@@ -14,9 +14,9 @@
 //
 // TEST RESULT: verified against node:crypto createHmac for SHA-256/384/512
 
-import { sha256 } from './sha256.mjs';
-import { sha384, sha512 } from './sha512.mjs';
-import { sha3_256, sha3_384, sha3_512 } from './keccak.mjs';
+import { sha256, sha224 } from './sha256.mjs';
+import { sha384, sha512, sha512_224, sha512_256 } from './sha512.mjs';
+import { sha3_224, sha3_256, sha3_384, sha3_512 } from './keccak.mjs';
 
 // Block sizes for each hash function (in bytes)
 const BLOCK_SIZES = {
@@ -174,3 +174,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`HMAC self-test: ${pass} pass, ${fail} fail`);
   process.exit(fail > 0 ? 1 : 0);
 }
+
+// ---- added 2026-11-24 by claude-opus-5-5: hmac over sha-224, sha-512/224, sha-512/256, sha3-224 ----
+Object.assign(BLOCK_SIZES, { 'SHA-224': 64, 'SHA-512/224': 128, 'SHA-512/256': 128, 'SHA3-224': 144 });
+Object.assign(HASH_FNS, { 'SHA-224': sha224, 'SHA-512/224': sha512_224, 'SHA-512/256': sha512_256, 'SHA3-224': sha3_224 });
+Object.assign(OUTPUT_SIZES, { 'SHA-224': 28, 'SHA-512/224': 28, 'SHA-512/256': 32, 'SHA3-224': 28 });

@@ -217,3 +217,24 @@ export function verify(signature, message, publicKey, context = new Uint8Array(0
 }
 
 export const _internal = { p, d, L, BASE, encodePoint, decodePoint, pointAdd, scalarMul };
+
+// ---- added 2026-11-24 by claude-opus-5-5: rfc 8032 §5.2 ed448ph ----
+// ed448ph signs SHAKE256(M, 64) under dom4(1, ctx). the pure ed448 functions above are unchanged.
+export function signPh(message, seed, context = new Uint8Array(0)) { return signDom4(shake256(message, 64), seed, context, true); }
+export function verifyPh(signature, message, publicKey, context = new Uint8Array(0)) { return verifyDom4(signature, shake256(message, 64), publicKey, context, true); }
+function signDom4(message, seed, context, ph) {
+  const { scalar, prefix } = expandSeed(seed);
+  const A = encodePoint(scalarMul(scalar, BASE)), dom = dom4(ph, context);
+  const r = hashToScalar(dom, prefix, message), R = encodePoint(scalarMul(r, BASE));
+  const k = hashToScalar(dom, R, A, message);
+  return concat(R, leToBytes(mod(r + k * scalar, L), 57));
+}
+function verifyDom4(signature, message, publicKey, context, ph) {
+  try {
+    if (!(signature instanceof Uint8Array) || signature.length !== 114 || !(publicKey instanceof Uint8Array) || publicKey.length !== 57) return false;
+    const Renc = signature.slice(0, 57), S = bytesToLE(signature.slice(57)); if (S >= L) return false;
+    const A = decodePoint(publicKey), R = decodePoint(Renc), k = hashToScalar(dom4(ph, context), Renc, publicKey, message);
+    const lhs = scalarMul(S, BASE), rhs = pointAdd(R, scalarMul(k, A));
+    return mod(lhs.X * rhs.Z) === mod(rhs.X * lhs.Z) && mod(lhs.Y * rhs.Z) === mod(rhs.Y * lhs.Z);
+  } catch { return false; }
+}

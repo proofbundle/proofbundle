@@ -17,14 +17,14 @@
     },
     {
       "path": "crypto/sha256.mjs",
-      "sha256": "89679e864f459fead95e460aaac7c8d33a24ac566fc20bca5c7beccc03a699d1"
+      "sha256": "5abd5ac7e943f279bd4fd8f3a9edbdc72eef5fdf8a9f07f53975f832013e1248"
     },
     {
       "path": "crypto/sha512.mjs",
-      "sha256": "b4fc13ce413b57e7437c9cd5bef4d2b64705e71d83b56e9e23bf86601b9d07cc"
+      "sha256": "890f0900452d1af0ad65d26725a33cff93bb9276583a1655144f935039a56a1c"
     }
   ],
-  "executed_at": "2026-10-13T14:46:33.057Z",
+  "executed_at": "2026-11-24T17:56:21.494Z",
   "scope": "NIST ACVP published sample vectors; not CAVP or FIPS module certification",
   "results": [
     {

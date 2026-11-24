@@ -75,3 +75,19 @@ export function sha224(msgBytes) {
 export function sha256hex(msgBytes) {
   return Array.from(sha256(msgBytes)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
+
+// ---- added 2026-11-24 by claude-opus-5-5: bit-length messages (fips 180-4 §5.1.1) and a sha-224 stream ----
+// msg holds bitLen bits, most significant bit first; bits past bitLen in the last byte are ignored.
+const H0_224 = new Uint32Array([0xc1059ed8,0x367cd507,0x3070dd17,0xf70e5939,0xffc00b31,0x68581511,0x64f98fa7,0xbefa4fa4]);
+function sha2Bits(initial, outLen, msg, bitLen) {
+  const full = Math.floor(bitLen / 8), rem = bitLen % 8, used = full + 1;
+  const total = Math.ceil((used + 8) / 64) * 64, buf = new Uint8Array(total);
+  buf.set(msg.subarray(0, full));
+  buf[full] = rem ? ((msg[full] & (0xff << (8 - rem)) & 0xff) | (0x80 >> rem)) : 0x80;
+  new DataView(buf.buffer).setBigUint64(total - 8, BigInt(bitLen), false);
+  const H = initial.slice(); for (let at = 0; at < total; at += 64) compressBlock(H, buf.subarray(at, at + 64));
+  const r = new Uint8Array(32), v = new DataView(r.buffer); for (let i = 0; i < 8; i++) v.setUint32(i * 4, H[i], false); return r.slice(0, outLen);
+}
+export function sha256Bits(msg, bitLen) { return sha2Bits(H0, 32, msg, bitLen); }
+export function sha224Bits(msg, bitLen) { return sha2Bits(H0_224, 28, msg, bitLen); }
+export function createSHA224() { return streamingHash(H0_224, 28); }

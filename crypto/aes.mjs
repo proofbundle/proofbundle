@@ -154,3 +154,16 @@ export function ctrCrypt(expanded, counterBlock, input, start = 0) {
 }
 
 export const _internals = { SBOX, INV_SBOX, gfMul, gfPow, xtime, RCON };
+
+// ---- added 2026-11-24 by claude-opus-5-5: nist sp 800-38a ctr mode ----
+// ctrCrypt above is the aes-gcm-siv layout (32-bit little-endian counter in bytes 0..3) and is unchanged.
+// ctrCrypt38a treats the whole 128-bit counter block as a big-endian integer and increments it by one per block (mod 2^128).
+export function ctrCrypt38a(expanded, initialCounterBlock, input) {
+  const out = new Uint8Array(input.length), ctr = Uint8Array.from(initialCounterBlock);
+  for (let off = 0; off < input.length; off += 16) {
+    const ks = encryptBlock(expanded, ctr), n = Math.min(16, input.length - off);
+    for (let i = 0; i < n; i++) out[off + i] = input[off + i] ^ ks[i];
+    for (let i = 15; i >= 0; i--) { ctr[i] = (ctr[i] + 1) & 255; if (ctr[i] !== 0) break; }
+  }
+  return out;
+}

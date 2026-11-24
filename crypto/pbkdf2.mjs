@@ -25,7 +25,7 @@ import { hmac } from './hmac.mjs';
  * @returns {Uint8Array} Derived key
  */
 export function pbkdf2(hashName, password, salt, iterations, dkLen) {
-  const hashLengths = { 'SHA-256': 32, 'SHA-384': 48, 'SHA-512': 64,
+  const hashLengths = { 'SHA-224': 28, 'SHA-512/224': 28, 'SHA-512/256': 32, 'SHA3-224': 28, /* added 2026-11-24 claude-opus-5-5 */ 'SHA-256': 32, 'SHA-384': 48, 'SHA-512': 64,
                         'SHA3-256': 32, 'SHA3-384': 48, 'SHA3-512': 64 };
   const hLen = hashLengths[hashName];
   if (!hLen) throw new Error(`Unsupported hash: ${hashName}`);

@@ -119,3 +119,20 @@ export function sha512hex(msgBytes) {
 export function sha384hex(msgBytes) {
   return Array.from(sha384(msgBytes)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
+
+// ---- added 2026-11-24 by claude-opus-5-5: bit-length messages (fips 180-4 §5.1.2) and sha-512/t streams ----
+function sha512Bits_(initial, outLen, msg, bitLen) {
+  const full = Math.floor(bitLen / 8), rem = bitLen % 8, used = full + 1;
+  const total = Math.ceil((used + 16) / 128) * 128, buf = new Uint8Array(total);
+  buf.set(msg.subarray(0, full));
+  buf[full] = rem ? ((msg[full] & (0xff << (8 - rem)) & 0xff) | (0x80 >> rem)) : 0x80;
+  const v = new DataView(buf.buffer); v.setBigUint64(total - 16, 0n, false); v.setBigUint64(total - 8, BigInt(bitLen), false);
+  const H = initial.slice(); for (let at = 0; at < total; at += 128) compressBlock(H, buf.subarray(at, at + 128));
+  const r = new Uint8Array(64), o = new DataView(r.buffer); for (let i = 0; i < 8; i++) o.setBigUint64(i * 8, H[i], false); return r.slice(0, outLen);
+}
+export function sha512Bits(msg, bitLen) { return sha512Bits_(H0, 64, msg, bitLen); }
+export function sha384Bits(msg, bitLen) { return sha512Bits_(H0_384, 48, msg, bitLen); }
+export function sha512_224Bits(msg, bitLen) { return sha512Bits_(H0_224, 28, msg, bitLen); }
+export function sha512_256Bits(msg, bitLen) { return sha512Bits_(H0_256, 32, msg, bitLen); }
+export function createSHA512_224() { return streamingHash(H0_224, 28); }
+export function createSHA512_256() { return streamingHash(H0_256, 32); }

@@ -186,3 +186,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`KMAC self-test: ${pass} pass, ${fail} fail`);
   process.exit(fail > 0 ? 1 : 0);
 }
+
+// ---- added 2026-11-24 by claude-opus-5-5: kmacxof128 / kmacxof256 (nist sp 800-185 §4.3.1) ----
+// identical to kmac except that right_encode(0) replaces right_encode(L). customization S may be text or bytes.
+function kmacXof(rate, cs, key, msg, outLen, S) {
+  const k = typeof key === 'string' ? new TextEncoder().encode(key) : key, m = typeof msg === 'string' ? new TextEncoder().encode(msg) : msg;
+  const pk = bytepad(encodeString(k), rate), z = rightEncode(0), input = new Uint8Array(pk.length + m.length + z.length);
+  input.set(pk, 0); input.set(m, pk.length); input.set(z, pk.length + m.length);
+  return cs(input, outLen, 'KMAC', S);
+}
+export function kmacXof128(key, msg, outLen = 32, S = '') { return kmacXof(168, cshake128, key, msg, outLen, S); }
+export function kmacXof256(key, msg, outLen = 64, S = '') { return kmacXof(136, cshake256, key, msg, outLen, S); }
